@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
-namespace Grozeille.Chiffrage.Core.Repositories
+namespace Chiffrage.Core.Repositories
 {
     public interface IDealRepository
     {

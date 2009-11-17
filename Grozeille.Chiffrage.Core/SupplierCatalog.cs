@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
-namespace Grozeille.Chiffrage.Core
+namespace Chiffrage.Core
 {
     public class SupplierCatalog
     {
-        public string SupplierName { get; set; }
+        public virtual int Id { get; set; }
 
-        public IList<Supply> Supplies { get; set; }
+        public virtual string SupplierName { get; set; }
+
+        public virtual IList<Supply> Supplies { get; set; }
 
         public SupplierCatalog()
         {

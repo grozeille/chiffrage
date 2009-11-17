@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
-namespace Grozeille.Chiffrage.Core
+namespace Chiffrage.Core
 {
     public class ProjectSupply
     {
-        private Supply supply;
-        public Supply Supply
+        public virtual int Id { get; set; }
+
+        private  Supply supply;
+        public virtual Supply Supply
         {
             get { return supply; }
             set
@@ -21,16 +22,16 @@ namespace Grozeille.Chiffrage.Core
             }
         }
 
-        public int Quantity { get; set; }
+        public virtual int Quantity { get; set; }
 
         public ProjectSupply()
         {
             this.Supply = new Supply();            
         }
 
-        public double Price { get; set; }
+        public virtual double Price { get; set; }
 
-        public double TotalPrice
+        public virtual double TotalPrice
         {
             get
             {
@@ -38,29 +39,29 @@ namespace Grozeille.Chiffrage.Core
             }
         }
 
-        public double TotalStudyDays
+        public virtual double TotalStudyDays
         {
             get
             {
-                return this.Supply.StudyDays*this.Quantity;
+                return this.Supply == null ? 0 : this.Supply.StudyDays * this.Quantity;
             }
         }
 
-        public double TotalReferenceDays
+        public virtual double TotalReferenceDays
         {
             get
             {
-                return this.Supply.ReferenceDays * this.Quantity;
+                return this.Supply == null ? 0 : this.Supply.ReferenceDays * this.Quantity;
             }
         }
 
-        public double WorkDays { get; set; }
+        public virtual double WorkDays { get; set; }
 
-        public double WorkShortNights { get; set; }
+        public virtual double WorkShortNights { get; set; }
 
-        public double WorkLongNights { get; set; }
+        public virtual double WorkLongNights { get; set; }
 
-        public double TotalWorkDays
+        public virtual double TotalWorkDays
         {
             get
             {
@@ -68,7 +69,7 @@ namespace Grozeille.Chiffrage.Core
             }
         }
 
-        public double TotalWorkShortNights
+        public virtual double TotalWorkShortNights
         {
             get
             {
@@ -76,7 +77,7 @@ namespace Grozeille.Chiffrage.Core
             }
         }
 
-        public double TotalWorkLongNights
+        public virtual double TotalWorkLongNights
         {
             get
             {
@@ -84,11 +85,11 @@ namespace Grozeille.Chiffrage.Core
             }
         }
 
-        public double TestsDays { get; set; }
+        public virtual double TestsDays { get; set; }
 
-        public double TestsNights { get; set; }
+        public virtual double TestsNights { get; set; }
 
-        public double TotalTestsDays
+        public virtual double TotalTestsDays
         {
             get
             {
@@ -96,7 +97,7 @@ namespace Grozeille.Chiffrage.Core
             }
         }
 
-        public double TotalTestsNights
+        public virtual double TotalTestsNights
         {
             get
             {

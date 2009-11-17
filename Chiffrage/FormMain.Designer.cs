@@ -29,20 +29,21 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Fournisseur A");
-            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Fournisseur B");
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Fournisseur A");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Fournisseur B");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Projet B", 2, 2);
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Affaire A", 0, 0, new System.Windows.Forms.TreeNode[] {
-            treeNode1});
-            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Tramway", 2, 2);
-            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("Templates", 0, 0, new System.Windows.Forms.TreeNode[] {
-            treeNode9});
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Projet B", 2, 2);
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Affaire A", 0, 0, new System.Windows.Forms.TreeNode[] {
+            treeNode3});
+            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Tramway", 2, 2);
+            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Templates", 0, 0, new System.Windows.Forms.TreeNode[] {
+            treeNode5});
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.newToolStripSplitButton = new System.Windows.Forms.ToolStripSplitButton();
             this.affaireToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.projetToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.catalogueToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
             this.helpToolStripButton = new System.Windows.Forms.ToolStripButton();
@@ -51,9 +52,15 @@
             this.nouveauToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.affaireToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.projetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.catalogueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ouvrirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.sauvegarderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparatorSave = new System.Windows.Forms.ToolStripSeparator();
+            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.historyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparatorHistory = new System.Windows.Forms.ToolStripSeparator();
             this.quitterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.aideToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -66,11 +73,13 @@
             this.treeViewProviders = new System.Windows.Forms.TreeView();
             this.imageListCatalog = new System.Windows.Forms.ImageList(this.components);
             this.navigationPaneDeal = new TD.Eyefinder.NavigationPane();
-            this.treeView = new System.Windows.Forms.TreeView();
+            this.treeViewDeals = new System.Windows.Forms.TreeView();
             this.imageListDeal = new System.Windows.Forms.ImageList(this.components);
             this.projectUserControl = new Chiffrage.ProjectUserControl();
             this.dealUserControl = new Chiffrage.DealUserControl();
             this.catalogUserControl = new Chiffrage.CatalogUserControl();
+            this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.toolStrip.SuspendLayout();
             this.menuStrip.SuspendLayout();
             this.panelMain.SuspendLayout();
@@ -107,7 +116,8 @@
             // 
             this.newToolStripSplitButton.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.affaireToolStripMenuItem2,
-            this.projetToolStripMenuItem2});
+            this.projetToolStripMenuItem2,
+            this.catalogueToolStripMenuItem1});
             this.newToolStripSplitButton.Image = global::Chiffrage.Properties.Resources.page_white_add;
             this.newToolStripSplitButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.newToolStripSplitButton.Name = "newToolStripSplitButton";
@@ -118,7 +128,7 @@
             // 
             this.affaireToolStripMenuItem2.Image = global::Chiffrage.Properties.Resources.user_suit;
             this.affaireToolStripMenuItem2.Name = "affaireToolStripMenuItem2";
-            this.affaireToolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
+            this.affaireToolStripMenuItem2.Size = new System.Drawing.Size(128, 22);
             this.affaireToolStripMenuItem2.Text = "Affaire";
             this.affaireToolStripMenuItem2.Click += new System.EventHandler(this.affaireToolStripMenuItem2_Click);
             // 
@@ -126,17 +136,27 @@
             // 
             this.projetToolStripMenuItem2.Image = global::Chiffrage.Properties.Resources.report;
             this.projetToolStripMenuItem2.Name = "projetToolStripMenuItem2";
-            this.projetToolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
+            this.projetToolStripMenuItem2.Size = new System.Drawing.Size(128, 22);
             this.projetToolStripMenuItem2.Text = "Projet";
             this.projetToolStripMenuItem2.Click += new System.EventHandler(this.projetToolStripMenuItem2_Click);
             // 
+            // catalogueToolStripMenuItem1
+            // 
+            this.catalogueToolStripMenuItem1.Image = global::Chiffrage.Properties.Resources.lorry;
+            this.catalogueToolStripMenuItem1.Name = "catalogueToolStripMenuItem1";
+            this.catalogueToolStripMenuItem1.Size = new System.Drawing.Size(128, 22);
+            this.catalogueToolStripMenuItem1.Text = "Catalogue";
+            this.catalogueToolStripMenuItem1.Click += new System.EventHandler(this.catalogueToolStripMenuItem1_Click);
+            // 
             // saveToolStripButton
             // 
+            this.saveToolStripButton.Enabled = false;
             this.saveToolStripButton.Image = global::Chiffrage.Properties.Resources.disk;
             this.saveToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.saveToolStripButton.Name = "saveToolStripButton";
             this.saveToolStripButton.Size = new System.Drawing.Size(92, 22);
             this.saveToolStripButton.Text = "Sauvegarder";
+            this.saveToolStripButton.Click += new System.EventHandler(this.sauvegarderToolStripMenuItem_Click);
             // 
             // toolStripSeparator
             // 
@@ -167,8 +187,13 @@
             this.toolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.nouveauToolStripMenuItem,
             this.ouvrirToolStripMenuItem,
-            this.sauvegarderToolStripMenuItem,
+            this.toolStripMenuItem3,
+            this.toolStripSeparatorSave,
+            this.saveToolStripMenuItem,
+            this.saveAsToolStripMenuItem,
             this.toolStripSeparator1,
+            this.historyToolStripMenuItem,
+            this.toolStripSeparatorHistory,
             this.quitterToolStripMenuItem});
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
             this.toolStripMenuItem1.Size = new System.Drawing.Size(54, 20);
@@ -178,17 +203,18 @@
             // 
             this.nouveauToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.affaireToolStripMenuItem,
-            this.projetToolStripMenuItem});
+            this.projetToolStripMenuItem,
+            this.catalogueToolStripMenuItem});
             this.nouveauToolStripMenuItem.Image = global::Chiffrage.Properties.Resources.page_white_add;
             this.nouveauToolStripMenuItem.Name = "nouveauToolStripMenuItem";
-            this.nouveauToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+            this.nouveauToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
             this.nouveauToolStripMenuItem.Text = "Nouveau";
             // 
             // affaireToolStripMenuItem
             // 
             this.affaireToolStripMenuItem.Image = global::Chiffrage.Properties.Resources.user_suit;
             this.affaireToolStripMenuItem.Name = "affaireToolStripMenuItem";
-            this.affaireToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
+            this.affaireToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
             this.affaireToolStripMenuItem.Text = "Affaire...";
             this.affaireToolStripMenuItem.Click += new System.EventHandler(this.affaireToolStripMenuItem2_Click);
             // 
@@ -196,34 +222,76 @@
             // 
             this.projetToolStripMenuItem.Image = global::Chiffrage.Properties.Resources.report;
             this.projetToolStripMenuItem.Name = "projetToolStripMenuItem";
-            this.projetToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
+            this.projetToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
             this.projetToolStripMenuItem.Text = "Projet...";
             this.projetToolStripMenuItem.Click += new System.EventHandler(this.projetToolStripMenuItem2_Click);
+            // 
+            // catalogueToolStripMenuItem
+            // 
+            this.catalogueToolStripMenuItem.Image = global::Chiffrage.Properties.Resources.lorry;
+            this.catalogueToolStripMenuItem.Name = "catalogueToolStripMenuItem";
+            this.catalogueToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
+            this.catalogueToolStripMenuItem.Text = "Catalogue...";
+            this.catalogueToolStripMenuItem.Click += new System.EventHandler(this.catalogueToolStripMenuItem_Click);
             // 
             // ouvrirToolStripMenuItem
             // 
             this.ouvrirToolStripMenuItem.Name = "ouvrirToolStripMenuItem";
-            this.ouvrirToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+            this.ouvrirToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
             this.ouvrirToolStripMenuItem.Text = "Ouvrir";
+            this.ouvrirToolStripMenuItem.Click += new System.EventHandler(this.ouvrirToolStripMenuItem_Click);
             // 
-            // sauvegarderToolStripMenuItem
+            // toolStripMenuItem3
             // 
-            this.sauvegarderToolStripMenuItem.Image = global::Chiffrage.Properties.Resources.disk;
-            this.sauvegarderToolStripMenuItem.Name = "sauvegarderToolStripMenuItem";
-            this.sauvegarderToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
-            this.sauvegarderToolStripMenuItem.Text = "Sauvegarder";
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(179, 22);
+            this.toolStripMenuItem3.Text = "Fermer";
+            this.toolStripMenuItem3.Click += new System.EventHandler(this.toolStripMenuItem3_Click);
+            // 
+            // toolStripSeparatorSave
+            // 
+            this.toolStripSeparatorSave.Name = "toolStripSeparatorSave";
+            this.toolStripSeparatorSave.Size = new System.Drawing.Size(176, 6);
+            // 
+            // saveToolStripMenuItem
+            // 
+            this.saveToolStripMenuItem.Enabled = false;
+            this.saveToolStripMenuItem.Image = global::Chiffrage.Properties.Resources.disk;
+            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
+            this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.saveToolStripMenuItem.Text = "Sauvegarder";
+            this.saveToolStripMenuItem.Click += new System.EventHandler(this.sauvegarderToolStripMenuItem_Click);
+            // 
+            // saveAsToolStripMenuItem
+            // 
+            this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.saveAsToolStripMenuItem.Text = "Sauvegarder sous...";
+            this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(150, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(176, 6);
+            // 
+            // historyToolStripMenuItem
+            // 
+            this.historyToolStripMenuItem.Name = "historyToolStripMenuItem";
+            this.historyToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.historyToolStripMenuItem.Text = "Fichiers récents";
+            // 
+            // toolStripSeparatorHistory
+            // 
+            this.toolStripSeparatorHistory.Name = "toolStripSeparatorHistory";
+            this.toolStripSeparatorHistory.Size = new System.Drawing.Size(176, 6);
             // 
             // quitterToolStripMenuItem
             // 
             this.quitterToolStripMenuItem.Image = global::Chiffrage.Properties.Resources.door_out;
             this.quitterToolStripMenuItem.Name = "quitterToolStripMenuItem";
             this.quitterToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
-            this.quitterToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+            this.quitterToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
             this.quitterToolStripMenuItem.Text = "Quitter";
             this.quitterToolStripMenuItem.Click += new System.EventHandler(this.quitterToolStripMenuItem_Click);
             // 
@@ -320,21 +388,24 @@
             this.treeViewProviders.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.treeViewProviders.Dock = System.Windows.Forms.DockStyle.Fill;
             this.treeViewProviders.FullRowSelect = true;
+            this.treeViewProviders.HideSelection = false;
             this.treeViewProviders.ImageIndex = 0;
             this.treeViewProviders.ImageList = this.imageListCatalog;
             this.treeViewProviders.Location = new System.Drawing.Point(0, 0);
             this.treeViewProviders.Name = "treeViewProviders";
-            treeNode7.Name = "Node0";
-            treeNode7.Text = "Fournisseur A";
-            treeNode8.Name = "Node1";
-            treeNode8.Text = "Fournisseur B";
+            treeNode1.Name = "Node0";
+            treeNode1.Text = "Fournisseur A";
+            treeNode2.Name = "Node1";
+            treeNode2.Text = "Fournisseur B";
             this.treeViewProviders.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode7,
-            treeNode8});
+            treeNode1,
+            treeNode2});
             this.treeViewProviders.SelectedImageIndex = 0;
             this.treeViewProviders.ShowRootLines = false;
             this.treeViewProviders.Size = new System.Drawing.Size(167, 274);
             this.treeViewProviders.TabIndex = 1;
+            this.treeViewProviders.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeViewProviders_AfterSelect);
+            this.treeViewProviders.BeforeSelect += new System.Windows.Forms.TreeViewCancelEventHandler(this.treeViewProviders_BeforeSelect);
             // 
             // imageListCatalog
             // 
@@ -344,7 +415,7 @@
             // 
             // navigationPaneDeal
             // 
-            this.navigationPaneDeal.Controls.Add(this.treeView);
+            this.navigationPaneDeal.Controls.Add(this.treeViewDeals);
             this.navigationPaneDeal.LargeImage = global::Chiffrage.Properties.Resources.report;
             this.navigationPaneDeal.Location = new System.Drawing.Point(1, 26);
             this.navigationPaneDeal.Name = "navigationPaneDeal";
@@ -353,38 +424,38 @@
             this.navigationPaneDeal.TabIndex = 1;
             this.navigationPaneDeal.Text = "Affaires";
             // 
-            // treeView
+            // treeViewDeals
             // 
-            this.treeView.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.treeView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.treeView.HideSelection = false;
-            this.treeView.ImageIndex = 0;
-            this.treeView.ImageList = this.imageListDeal;
-            this.treeView.Location = new System.Drawing.Point(0, 0);
-            this.treeView.Name = "treeView";
-            treeNode1.ImageIndex = 2;
-            treeNode1.Name = "Node1";
-            treeNode1.SelectedImageIndex = 2;
-            treeNode1.Text = "Projet B";
-            treeNode2.ImageIndex = 0;
-            treeNode2.Name = "Node0";
-            treeNode2.SelectedImageIndex = 0;
-            treeNode2.Text = "Affaire A";
-            treeNode9.ImageIndex = 2;
-            treeNode9.Name = "Node3";
-            treeNode9.SelectedImageIndex = 2;
-            treeNode9.Text = "Tramway";
-            treeNode10.ImageIndex = 0;
-            treeNode10.Name = "Node2";
-            treeNode10.SelectedImageIndex = 0;
-            treeNode10.Text = "Templates";
-            this.treeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode2,
-            treeNode10});
-            this.treeView.SelectedImageIndex = 0;
-            this.treeView.Size = new System.Drawing.Size(167, 274);
-            this.treeView.TabIndex = 3;
-            this.treeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView_AfterSelect);
+            this.treeViewDeals.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.treeViewDeals.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treeViewDeals.HideSelection = false;
+            this.treeViewDeals.ImageIndex = 0;
+            this.treeViewDeals.ImageList = this.imageListDeal;
+            this.treeViewDeals.Location = new System.Drawing.Point(0, 0);
+            this.treeViewDeals.Name = "treeViewDeals";
+            treeNode3.ImageIndex = 2;
+            treeNode3.Name = "Node1";
+            treeNode3.SelectedImageIndex = 2;
+            treeNode3.Text = "Projet B";
+            treeNode4.ImageIndex = 0;
+            treeNode4.Name = "Node0";
+            treeNode4.SelectedImageIndex = 0;
+            treeNode4.Text = "Affaire A";
+            treeNode5.ImageIndex = 2;
+            treeNode5.Name = "Node3";
+            treeNode5.SelectedImageIndex = 2;
+            treeNode5.Text = "Tramway";
+            treeNode6.ImageIndex = 0;
+            treeNode6.Name = "Node2";
+            treeNode6.SelectedImageIndex = 0;
+            treeNode6.Text = "Templates";
+            this.treeViewDeals.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            treeNode4,
+            treeNode6});
+            this.treeViewDeals.SelectedImageIndex = 0;
+            this.treeViewDeals.Size = new System.Drawing.Size(167, 274);
+            this.treeViewDeals.TabIndex = 3;
+            this.treeViewDeals.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView_AfterSelect);
             // 
             // imageListDeal
             // 
@@ -396,28 +467,42 @@
             // 
             // projectUserControl
             // 
+            this.projectUserControl.Catalog = null;
             this.projectUserControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.projectUserControl.Location = new System.Drawing.Point(0, 3);
             this.projectUserControl.Name = "projectUserControl";
             this.projectUserControl.Project = null;
             this.projectUserControl.Size = new System.Drawing.Size(463, 379);
             this.projectUserControl.TabIndex = 2;
+            this.projectUserControl.ProjectChanged += new System.EventHandler(this.projectUserControl_ProjectChanged);
             // 
             // dealUserControl
             // 
+            this.dealUserControl.Deal = null;
             this.dealUserControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dealUserControl.Location = new System.Drawing.Point(0, 3);
             this.dealUserControl.Name = "dealUserControl";
             this.dealUserControl.Size = new System.Drawing.Size(463, 379);
             this.dealUserControl.TabIndex = 1;
+            this.dealUserControl.OnDealChanged += new System.EventHandler(this.dealUserControl_OnDealChanged);
             // 
             // catalogUserControl
             // 
+            this.catalogUserControl.Catalog = null;
             this.catalogUserControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.catalogUserControl.Location = new System.Drawing.Point(0, 3);
             this.catalogUserControl.Name = "catalogUserControl";
             this.catalogUserControl.Size = new System.Drawing.Size(463, 379);
             this.catalogUserControl.TabIndex = 0;
+            this.catalogUserControl.CatalogChanged += new System.EventHandler(this.catalogUserControl_CatalogChanged);
+            // 
+            // saveFileDialog
+            // 
+            this.saveFileDialog.Filter = "Fichier d\'affaire (*.aff)|*.aff";
+            // 
+            // openFileDialog
+            // 
+            this.openFileDialog.Filter = "Fichier d\'affaire (*.aff)|*.aff";
             // 
             // FormMain
             // 
@@ -432,6 +517,7 @@
             this.MainMenuStrip = this.menuStrip;
             this.Name = "FormMain";
             this.Text = "Chiffrage";
+            this.Load += new System.EventHandler(this.FormMain_Load);
             this.toolStrip.ResumeLayout(false);
             this.toolStrip.PerformLayout();
             this.menuStrip.ResumeLayout(false);
@@ -458,7 +544,7 @@
         private System.Windows.Forms.ToolStripMenuItem affaireToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem projetToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ouvrirToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem sauvegarderToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem quitterToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
@@ -477,12 +563,21 @@
         private TD.Eyefinder.NavigationPane navigationPaneCatalog;
         private TD.Eyefinder.NavigationPane navigationPaneDeal;
         private System.Windows.Forms.ImageList imageListDeal;
-        private System.Windows.Forms.TreeView treeView;
+        private System.Windows.Forms.TreeView treeViewDeals;
         private System.Windows.Forms.TreeView treeViewProviders;
         private System.Windows.Forms.ImageList imageListCatalog;
         private ProjectUserControl projectUserControl;
         private DealUserControl dealUserControl;
         private CatalogUserControl catalogUserControl;
+        private System.Windows.Forms.ToolStripMenuItem saveAsToolStripMenuItem;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog;
+        private System.Windows.Forms.OpenFileDialog openFileDialog;
+        private System.Windows.Forms.ToolStripMenuItem catalogueToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem catalogueToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparatorSave;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparatorHistory;
+        private System.Windows.Forms.ToolStripMenuItem historyToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
     }
 }
 

@@ -9,7 +9,7 @@ using System.Windows.Forms;
 using Chiffrage.Dto;
 using Chiffrage.Properties;
 using Chiffrage.WizardPages;
-using Grozeille.Chiffrage.Core;
+using Chiffrage.Core;
 
 namespace Chiffrage
 {
@@ -17,6 +17,8 @@ namespace Chiffrage
     {
         private Font defaultFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular,
             System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+
+        public event EventHandler ProjectChanged;
 
         private Project project;
         public Project Project
@@ -47,7 +49,10 @@ namespace Chiffrage
             }
             projectSupplyDtoBindingSource.ResumeBinding();
 
-            BuildSummary();   
+            BuildSummary();
+
+            this.projectBindingSource.DataSource = project;
+            this.projectBindingSource.ResetBindings(false);
         }
 
 
@@ -142,7 +147,7 @@ namespace Chiffrage
         }
         #endregion
 
-        private void toolStripButton1_Click(object sender, EventArgs e)
+        private void toolStripButtonAdd_Click(object sender, EventArgs e)
         {
             var page = new AddSupplyPage();
             page.Catalog = this.Catalog;
@@ -154,7 +159,7 @@ namespace Chiffrage
                     this.project.Supplies.Add(new ProjectSupply
                                                   {
                                                       Quantity = 1,
-                                                      Supply = item,
+                                                      Supply = item.Clone() as Supply,
                                                       TestsDays = item.TestsDays,
                                                       TestsNights = 0,
                                                       WorkDays = item.WorkDays,
@@ -163,6 +168,8 @@ namespace Chiffrage
                                                   });
                 }
                 LoadProject();
+                if(ProjectChanged!=null)
+                    ProjectChanged(this, new EventArgs());
             }
         }
 
@@ -170,6 +177,28 @@ namespace Chiffrage
         {
             if (e.TabPage == tabPageSummary)
                 BuildSummary();
+        }
+
+        private void toolStripButtonRemove_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Êtes-vous sûr de vouloir supprimer cet item?", "Supprimer", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+            {
+                this.projectSupplyDtoBindingSource.RemoveCurrent();
+                if (ProjectChanged != null)
+                    ProjectChanged(this, new EventArgs());
+            }
+        }
+
+        private void projectSupplyDtoBindingSource_CurrentItemChanged(object sender, EventArgs e)
+        {
+            if (ProjectChanged != null)
+                ProjectChanged(this, new EventArgs());
+        }
+
+        private void projectBindingSource_CurrentItemChanged(object sender, EventArgs e)
+        {
+            if (ProjectChanged != null)
+                ProjectChanged(this, new EventArgs());
         }
     }
 }

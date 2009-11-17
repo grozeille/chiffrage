@@ -6,7 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using Grozeille.Chiffrage.Core;
+using Chiffrage.Core;
 using Chiffrage.Dto;
 using System.Text.RegularExpressions;
 

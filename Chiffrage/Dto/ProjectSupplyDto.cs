@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.ComponentModel;
-using Grozeille.Chiffrage.Core;
+using Chiffrage.Core;
 
 namespace Chiffrage.Dto
 {
@@ -11,25 +11,33 @@ namespace Chiffrage.Dto
     {
         public ProjectSupply ProjectSupply { get; set; }
 
-        public string Name 
+        public string Name
         {
-            get { return ProjectSupply == null ? null : ProjectSupply.Supply.Name; }
+            get { return ProjectSupply == null ? null : (ProjectSupply.Supply == null? null : ProjectSupply.Supply.Name); }
         }
 
         public int Quantity
         {
             get { return ProjectSupply == null ? 0 : ProjectSupply.Quantity; }
-            set 
-            { 
-                if(ProjectSupply == null) return;
+            set
+            {
+                if (ProjectSupply == null) return;
                 ProjectSupply.Quantity = value;
                 FirePropertyChanged("Quantity");
+                FirePropertyChanged("TotalPrice");
+                FirePropertyChanged("TotalStudyDays");
+                FirePropertyChanged("TotalReferenceDays");
+                FirePropertyChanged("TotalWorkDays");
+                FirePropertyChanged("TotalWorkShortNights");
+                FirePropertyChanged("TotalWorkLongNights");
+                FirePropertyChanged("TotalTestsDays");
+                FirePropertyChanged("TotalTestsNights");
             }
         }
 
         public int ModuleSize
         {
-            get { return ProjectSupply == null ? 0 : ProjectSupply.Supply.ModuleSize; }
+            get { return ProjectSupply == null ? 0 : (ProjectSupply.Supply == null ? 0 : ProjectSupply.Supply.ModuleSize); }
         }
 
         public double Price
@@ -40,6 +48,7 @@ namespace Chiffrage.Dto
                 if (ProjectSupply == null) return;
                 ProjectSupply.Price = value;
                 FirePropertyChanged("Price");
+                FirePropertyChanged("TotalPrice");
             }
         }
 
@@ -50,7 +59,7 @@ namespace Chiffrage.Dto
 
         public double StudyDays
         {
-            get { return ProjectSupply == null ? 0 : ProjectSupply.Supply.StudyDays; }
+            get { return ProjectSupply == null ? 0 : (ProjectSupply.Supply == null ? 0 :ProjectSupply.Supply.StudyDays); }
         }
 
         public double TotalStudyDays
@@ -60,7 +69,7 @@ namespace Chiffrage.Dto
 
         public double ReferenceDays
         {
-            get { return ProjectSupply == null ? 0 : ProjectSupply.Supply.ReferenceDays; }
+            get { return ProjectSupply == null ? 0 : (ProjectSupply.Supply == null ? 0 :ProjectSupply.Supply.ReferenceDays); }
         }
 
         public double TotalReferenceDays
@@ -70,7 +79,7 @@ namespace Chiffrage.Dto
 
         public double CatalogWorkDays
         {
-            get { return ProjectSupply == null ? 0 : ProjectSupply.Supply.WorkDays; }
+            get { return ProjectSupply == null ? 0 : (ProjectSupply.Supply == null ? 0 :ProjectSupply.Supply.WorkDays); }
         }
 
         public double WorkDays
@@ -81,12 +90,13 @@ namespace Chiffrage.Dto
                 if (ProjectSupply == null) return;
                 ProjectSupply.WorkDays = value;
                 FirePropertyChanged("WorkDays");
+                FirePropertyChanged("TotalWorkDays");
             }
         }
 
         public double TotalWorkDays
         {
-            get { return ProjectSupply == null ? 0 : ProjectSupply.TotalWorkDays; }            
+            get { return ProjectSupply == null ? 0 : ProjectSupply.TotalWorkDays; }
         }
 
         public double WorkShortNights
@@ -97,6 +107,7 @@ namespace Chiffrage.Dto
                 if (ProjectSupply == null) return;
                 ProjectSupply.WorkShortNights = value;
                 FirePropertyChanged("WorkShortNights");
+                FirePropertyChanged("TotalWorkShortNights");
             }
         }
 
@@ -113,6 +124,7 @@ namespace Chiffrage.Dto
                 if (ProjectSupply == null) return;
                 ProjectSupply.WorkLongNights = value;
                 FirePropertyChanged("WorkLongNights");
+                FirePropertyChanged("TotalWorkLongNights");
             }
         }
 
@@ -123,7 +135,7 @@ namespace Chiffrage.Dto
 
         public double CatalogTestsDays
         {
-            get { return ProjectSupply == null ? 0 : ProjectSupply.Supply.TestsDays; }
+            get { return ProjectSupply == null ? 0 : (ProjectSupply.Supply == null ? 0 :ProjectSupply.Supply.TestsDays); }
         }
 
         public double TestsDays
@@ -134,6 +146,7 @@ namespace Chiffrage.Dto
                 if (ProjectSupply == null) return;
                 ProjectSupply.TestsDays = value;
                 FirePropertyChanged("TestsDays");
+                FirePropertyChanged("TotalTestsDays");
             }
         }
 
@@ -145,6 +158,7 @@ namespace Chiffrage.Dto
                 if (ProjectSupply == null) return;
                 ProjectSupply.TestsNights = value;
                 FirePropertyChanged("TestsNights");
+                FirePropertyChanged("TotalTestsNights");
             }
         }
 
@@ -161,7 +175,7 @@ namespace Chiffrage.Dto
 
         private void FirePropertyChanged(string propertyName)
         {
-            if(PropertyChanged != null)
+            if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
 

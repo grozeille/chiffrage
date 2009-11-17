@@ -46,8 +46,8 @@
             this.tabPageProject = new System.Windows.Forms.TabPage();
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.toolStripProject = new System.Windows.Forms.ToolStrip();
-            this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButton2 = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonAdd = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonRemove = new System.Windows.Forms.ToolStripButton();
             this.tabPageStudy = new System.Windows.Forms.TabPage();
             this.dataGridViewStudy = new System.Windows.Forms.DataGridView();
             this.tabPageWork = new System.Windows.Forms.TabPage();
@@ -71,12 +71,42 @@
             this.ColumnSumaryRate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnSumaryCost = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.imageListProject = new System.Windows.Forms.ImageList(this.components);
+            this.tabPageMain = new System.Windows.Forms.TabPage();
+            this.labelComment = new System.Windows.Forms.Label();
+            this.dateTimePickerProjectEnd = new System.Windows.Forms.DateTimePicker();
+            this.label1 = new System.Windows.Forms.Label();
+            this.dateTimePickerProjectBegin = new System.Windows.Forms.DateTimePicker();
+            this.labelDealDate = new System.Windows.Forms.Label();
+            this.textBoxReference = new System.Windows.Forms.TextBox();
+            this.labelRef = new System.Windows.Forms.Label();
+            this.textBoxProjectName = new System.Windows.Forms.TextBox();
+            this.labelProject = new System.Windows.Forms.Label();
+            this.labelWorkDayRate = new System.Windows.Forms.Label();
+            this.textBoxWorkDayRate = new System.Windows.Forms.TextBox();
+            this.labelWorkShortNightsRate = new System.Windows.Forms.Label();
+            this.textBoxWorkShortNightsRate = new System.Windows.Forms.TextBox();
+            this.textBoxWorkLongNightsRate = new System.Windows.Forms.TextBox();
+            this.textBoxStudyRate = new System.Windows.Forms.TextBox();
+            this.textBoxReferenceRate = new System.Windows.Forms.TextBox();
+            this.textBoxTestDayRate = new System.Windows.Forms.TextBox();
+            this.textBoxTestNightRate = new System.Windows.Forms.TextBox();
+            this.labelWorkLongNightsRate = new System.Windows.Forms.Label();
+            this.labelStudyRate = new System.Windows.Forms.Label();
+            this.labelReferenceRate = new System.Windows.Forms.Label();
+            this.labelTestDayRate = new System.Windows.Forms.Label();
+            this.labelTestNightRate = new System.Windows.Forms.Label();
+            this.labelTotalDays = new System.Windows.Forms.Label();
+            this.textBoxTotalDays = new System.Windows.Forms.TextBox();
+            this.labelTotalPrice = new System.Windows.Forms.Label();
+            this.textBoxTotalPrice = new System.Windows.Forms.TextBox();
+            this.projectBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.commentUserControl = new Chiffrage.CommentUserControl();
+            this.projectSupplyDtoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.quantityDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.moduleSizeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.priceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.totalPriceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.projectSupplyDtoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.nameDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.studyDaysDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.referenceDaysDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -116,6 +146,8 @@
             this.bindingNavigatorOthers.SuspendLayout();
             this.tabPageSummary.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSummary)).BeginInit();
+            this.tabPageMain.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.projectBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.projectSupplyDtoBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -128,12 +160,13 @@
             this.headerControlProject.Location = new System.Drawing.Point(0, 0);
             this.headerControlProject.Name = "headerControlProject";
             this.headerControlProject.Padding = new System.Windows.Forms.Padding(2);
-            this.headerControlProject.Size = new System.Drawing.Size(537, 392);
+            this.headerControlProject.Size = new System.Drawing.Size(814, 472);
             this.headerControlProject.TabIndex = 1;
             this.headerControlProject.Text = "Projet";
             // 
             // tabControl
             // 
+            this.tabControl.Controls.Add(this.tabPageMain);
             this.tabControl.Controls.Add(this.tabPageProject);
             this.tabControl.Controls.Add(this.tabPageStudy);
             this.tabControl.Controls.Add(this.tabPageWork);
@@ -144,7 +177,7 @@
             this.tabControl.Location = new System.Drawing.Point(3, 28);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(531, 361);
+            this.tabControl.Size = new System.Drawing.Size(808, 441);
             this.tabControl.TabIndex = 3;
             this.tabControl.Selected += new System.Windows.Forms.TabControlEventHandler(this.tabControl_Selected);
             // 
@@ -155,7 +188,7 @@
             this.tabPageProject.Location = new System.Drawing.Point(4, 22);
             this.tabPageProject.Name = "tabPageProject";
             this.tabPageProject.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageProject.Size = new System.Drawing.Size(523, 335);
+            this.tabPageProject.Size = new System.Drawing.Size(800, 415);
             this.tabPageProject.TabIndex = 0;
             this.tabPageProject.Text = "Fourniture";
             this.tabPageProject.UseVisualStyleBackColor = true;
@@ -182,36 +215,37 @@
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             this.dataGridView.RowHeadersVisible = false;
-            this.dataGridView.Size = new System.Drawing.Size(517, 304);
+            this.dataGridView.Size = new System.Drawing.Size(794, 384);
             this.dataGridView.TabIndex = 0;
             // 
             // toolStripProject
             // 
             this.toolStripProject.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripButton1,
-            this.toolStripButton2});
+            this.toolStripButtonAdd,
+            this.toolStripButtonRemove});
             this.toolStripProject.Location = new System.Drawing.Point(3, 3);
             this.toolStripProject.Name = "toolStripProject";
-            this.toolStripProject.Size = new System.Drawing.Size(517, 25);
+            this.toolStripProject.Size = new System.Drawing.Size(794, 25);
             this.toolStripProject.TabIndex = 1;
             this.toolStripProject.Text = "Projet";
             // 
-            // toolStripButton1
+            // toolStripButtonAdd
             // 
-            this.toolStripButton1.Image = global::Chiffrage.Properties.Resources.add;
-            this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton1.Name = "toolStripButton1";
-            this.toolStripButton1.Size = new System.Drawing.Size(66, 22);
-            this.toolStripButton1.Text = "Ajouter";
-            this.toolStripButton1.Click += new System.EventHandler(this.toolStripButton1_Click);
+            this.toolStripButtonAdd.Image = global::Chiffrage.Properties.Resources.add;
+            this.toolStripButtonAdd.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonAdd.Name = "toolStripButtonAdd";
+            this.toolStripButtonAdd.Size = new System.Drawing.Size(66, 22);
+            this.toolStripButtonAdd.Text = "Ajouter";
+            this.toolStripButtonAdd.Click += new System.EventHandler(this.toolStripButtonAdd_Click);
             // 
-            // toolStripButton2
+            // toolStripButtonRemove
             // 
-            this.toolStripButton2.Image = global::Chiffrage.Properties.Resources.cross;
-            this.toolStripButton2.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButton2.Name = "toolStripButton2";
-            this.toolStripButton2.Size = new System.Drawing.Size(82, 22);
-            this.toolStripButton2.Text = "Supprimer";
+            this.toolStripButtonRemove.Image = global::Chiffrage.Properties.Resources.cross;
+            this.toolStripButtonRemove.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonRemove.Name = "toolStripButtonRemove";
+            this.toolStripButtonRemove.Size = new System.Drawing.Size(82, 22);
+            this.toolStripButtonRemove.Text = "Supprimer";
+            this.toolStripButtonRemove.Click += new System.EventHandler(this.toolStripButtonRemove_Click);
             // 
             // tabPageStudy
             // 
@@ -219,7 +253,7 @@
             this.tabPageStudy.Location = new System.Drawing.Point(4, 22);
             this.tabPageStudy.Name = "tabPageStudy";
             this.tabPageStudy.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageStudy.Size = new System.Drawing.Size(523, 335);
+            this.tabPageStudy.Size = new System.Drawing.Size(800, 415);
             this.tabPageStudy.TabIndex = 2;
             this.tabPageStudy.Text = "Etude";
             this.tabPageStudy.UseVisualStyleBackColor = true;
@@ -246,7 +280,7 @@
             this.dataGridViewStudy.Location = new System.Drawing.Point(3, 3);
             this.dataGridViewStudy.Name = "dataGridViewStudy";
             this.dataGridViewStudy.RowHeadersVisible = false;
-            this.dataGridViewStudy.Size = new System.Drawing.Size(517, 329);
+            this.dataGridViewStudy.Size = new System.Drawing.Size(794, 409);
             this.dataGridViewStudy.TabIndex = 1;
             // 
             // tabPageWork
@@ -255,7 +289,7 @@
             this.tabPageWork.Location = new System.Drawing.Point(4, 22);
             this.tabPageWork.Name = "tabPageWork";
             this.tabPageWork.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageWork.Size = new System.Drawing.Size(523, 335);
+            this.tabPageWork.Size = new System.Drawing.Size(800, 415);
             this.tabPageWork.TabIndex = 3;
             this.tabPageWork.Text = "Travaux";
             this.tabPageWork.UseVisualStyleBackColor = true;
@@ -285,7 +319,7 @@
             this.dataGridViewWork.Location = new System.Drawing.Point(3, 3);
             this.dataGridViewWork.Name = "dataGridViewWork";
             this.dataGridViewWork.RowHeadersVisible = false;
-            this.dataGridViewWork.Size = new System.Drawing.Size(517, 329);
+            this.dataGridViewWork.Size = new System.Drawing.Size(794, 409);
             this.dataGridViewWork.TabIndex = 4;
             // 
             // tabPageTests
@@ -294,7 +328,7 @@
             this.tabPageTests.Location = new System.Drawing.Point(4, 22);
             this.tabPageTests.Name = "tabPageTests";
             this.tabPageTests.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageTests.Size = new System.Drawing.Size(523, 335);
+            this.tabPageTests.Size = new System.Drawing.Size(800, 415);
             this.tabPageTests.TabIndex = 4;
             this.tabPageTests.Text = "Essais";
             this.tabPageTests.UseVisualStyleBackColor = true;
@@ -322,7 +356,7 @@
             this.dataGridViewTests.Location = new System.Drawing.Point(3, 3);
             this.dataGridViewTests.Name = "dataGridViewTests";
             this.dataGridViewTests.RowHeadersVisible = false;
-            this.dataGridViewTests.Size = new System.Drawing.Size(517, 329);
+            this.dataGridViewTests.Size = new System.Drawing.Size(794, 409);
             this.dataGridViewTests.TabIndex = 3;
             // 
             // tabPageOther
@@ -332,7 +366,7 @@
             this.tabPageOther.Location = new System.Drawing.Point(4, 22);
             this.tabPageOther.Name = "tabPageOther";
             this.tabPageOther.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageOther.Size = new System.Drawing.Size(523, 335);
+            this.tabPageOther.Size = new System.Drawing.Size(800, 415);
             this.tabPageOther.TabIndex = 5;
             this.tabPageOther.Text = "Divers";
             this.tabPageOther.UseVisualStyleBackColor = true;
@@ -355,7 +389,7 @@
             this.dataGridViewOther.Location = new System.Drawing.Point(3, 28);
             this.dataGridViewOther.Name = "dataGridViewOther";
             this.dataGridViewOther.RowHeadersVisible = false;
-            this.dataGridViewOther.Size = new System.Drawing.Size(517, 304);
+            this.dataGridViewOther.Size = new System.Drawing.Size(794, 384);
             this.dataGridViewOther.TabIndex = 7;
             // 
             // ColumnOtherName
@@ -393,7 +427,7 @@
             this.bindingNavigatorOthers.MovePreviousItem = null;
             this.bindingNavigatorOthers.Name = "bindingNavigatorOthers";
             this.bindingNavigatorOthers.PositionItem = null;
-            this.bindingNavigatorOthers.Size = new System.Drawing.Size(517, 25);
+            this.bindingNavigatorOthers.Size = new System.Drawing.Size(794, 25);
             this.bindingNavigatorOthers.TabIndex = 8;
             this.bindingNavigatorOthers.Text = "bindingNavigator";
             // 
@@ -419,7 +453,7 @@
             this.tabPageSummary.Location = new System.Drawing.Point(4, 22);
             this.tabPageSummary.Name = "tabPageSummary";
             this.tabPageSummary.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageSummary.Size = new System.Drawing.Size(523, 335);
+            this.tabPageSummary.Size = new System.Drawing.Size(800, 415);
             this.tabPageSummary.TabIndex = 1;
             this.tabPageSummary.Text = "Recapitulatif";
             this.tabPageSummary.UseVisualStyleBackColor = true;
@@ -445,7 +479,7 @@
             this.dataGridViewSummary.Location = new System.Drawing.Point(3, 3);
             this.dataGridViewSummary.Name = "dataGridViewSummary";
             this.dataGridViewSummary.RowHeadersVisible = false;
-            this.dataGridViewSummary.Size = new System.Drawing.Size(517, 329);
+            this.dataGridViewSummary.Size = new System.Drawing.Size(794, 409);
             this.dataGridViewSummary.TabIndex = 6;
             // 
             // ColumnSumaryIcon
@@ -497,6 +531,298 @@
             this.imageListProject.Images.SetKeyName(4, "wrench.png");
             this.imageListProject.Images.SetKeyName(5, "rosette.png");
             // 
+            // tabPageMain
+            // 
+            this.tabPageMain.Controls.Add(this.commentUserControl);
+            this.tabPageMain.Controls.Add(this.labelComment);
+            this.tabPageMain.Controls.Add(this.dateTimePickerProjectEnd);
+            this.tabPageMain.Controls.Add(this.label1);
+            this.tabPageMain.Controls.Add(this.dateTimePickerProjectBegin);
+            this.tabPageMain.Controls.Add(this.labelDealDate);
+            this.tabPageMain.Controls.Add(this.textBoxReference);
+            this.tabPageMain.Controls.Add(this.labelRef);
+            this.tabPageMain.Controls.Add(this.textBoxTestNightRate);
+            this.tabPageMain.Controls.Add(this.textBoxTestDayRate);
+            this.tabPageMain.Controls.Add(this.textBoxReferenceRate);
+            this.tabPageMain.Controls.Add(this.textBoxStudyRate);
+            this.tabPageMain.Controls.Add(this.textBoxWorkLongNightsRate);
+            this.tabPageMain.Controls.Add(this.textBoxWorkShortNightsRate);
+            this.tabPageMain.Controls.Add(this.labelTestNightRate);
+            this.tabPageMain.Controls.Add(this.labelTestDayRate);
+            this.tabPageMain.Controls.Add(this.labelReferenceRate);
+            this.tabPageMain.Controls.Add(this.labelStudyRate);
+            this.tabPageMain.Controls.Add(this.labelWorkLongNightsRate);
+            this.tabPageMain.Controls.Add(this.labelWorkShortNightsRate);
+            this.tabPageMain.Controls.Add(this.textBoxWorkDayRate);
+            this.tabPageMain.Controls.Add(this.labelWorkDayRate);
+            this.tabPageMain.Controls.Add(this.textBoxTotalPrice);
+            this.tabPageMain.Controls.Add(this.textBoxTotalDays);
+            this.tabPageMain.Controls.Add(this.labelTotalPrice);
+            this.tabPageMain.Controls.Add(this.labelTotalDays);
+            this.tabPageMain.Controls.Add(this.textBoxProjectName);
+            this.tabPageMain.Controls.Add(this.labelProject);
+            this.tabPageMain.Location = new System.Drawing.Point(4, 22);
+            this.tabPageMain.Name = "tabPageMain";
+            this.tabPageMain.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageMain.Size = new System.Drawing.Size(800, 415);
+            this.tabPageMain.TabIndex = 6;
+            this.tabPageMain.Text = "Projet";
+            this.tabPageMain.UseVisualStyleBackColor = true;
+            // 
+            // labelComment
+            // 
+            this.labelComment.AutoSize = true;
+            this.labelComment.Location = new System.Drawing.Point(11, 183);
+            this.labelComment.Name = "labelComment";
+            this.labelComment.Size = new System.Drawing.Size(71, 13);
+            this.labelComment.TabIndex = 17;
+            this.labelComment.Text = "Commentaire:";
+            // 
+            // dateTimePickerProjectEnd
+            // 
+            this.dateTimePickerProjectEnd.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.projectBindingSource, "EndDate", true));
+            this.dateTimePickerProjectEnd.Location = new System.Drawing.Point(82, 84);
+            this.dateTimePickerProjectEnd.Name = "dateTimePickerProjectEnd";
+            this.dateTimePickerProjectEnd.Size = new System.Drawing.Size(200, 20);
+            this.dateTimePickerProjectEnd.TabIndex = 15;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(11, 87);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(24, 13);
+            this.label1.TabIndex = 14;
+            this.label1.Text = "Fin:";
+            // 
+            // dateTimePickerProjectBegin
+            // 
+            this.dateTimePickerProjectBegin.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.projectBindingSource, "StartDate", true));
+            this.dateTimePickerProjectBegin.Location = new System.Drawing.Point(82, 58);
+            this.dateTimePickerProjectBegin.Name = "dateTimePickerProjectBegin";
+            this.dateTimePickerProjectBegin.Size = new System.Drawing.Size(200, 20);
+            this.dateTimePickerProjectBegin.TabIndex = 16;
+            // 
+            // labelDealDate
+            // 
+            this.labelDealDate.AutoSize = true;
+            this.labelDealDate.Location = new System.Drawing.Point(11, 61);
+            this.labelDealDate.Name = "labelDealDate";
+            this.labelDealDate.Size = new System.Drawing.Size(39, 13);
+            this.labelDealDate.TabIndex = 13;
+            this.labelDealDate.Text = "Début:";
+            // 
+            // textBoxReference
+            // 
+            this.textBoxReference.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.projectBindingSource, "Reference", true));
+            this.textBoxReference.Location = new System.Drawing.Point(82, 33);
+            this.textBoxReference.Name = "textBoxReference";
+            this.textBoxReference.Size = new System.Drawing.Size(200, 20);
+            this.textBoxReference.TabIndex = 11;
+            // 
+            // labelRef
+            // 
+            this.labelRef.AutoSize = true;
+            this.labelRef.Location = new System.Drawing.Point(10, 35);
+            this.labelRef.Name = "labelRef";
+            this.labelRef.Size = new System.Drawing.Size(60, 13);
+            this.labelRef.TabIndex = 9;
+            this.labelRef.Text = "Référence:";
+            // 
+            // textBoxProjectName
+            // 
+            this.textBoxProjectName.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.projectBindingSource, "Name", true));
+            this.textBoxProjectName.Location = new System.Drawing.Point(82, 7);
+            this.textBoxProjectName.Name = "textBoxProjectName";
+            this.textBoxProjectName.Size = new System.Drawing.Size(200, 20);
+            this.textBoxProjectName.TabIndex = 12;
+            // 
+            // labelProject
+            // 
+            this.labelProject.AutoSize = true;
+            this.labelProject.Location = new System.Drawing.Point(10, 9);
+            this.labelProject.Name = "labelProject";
+            this.labelProject.Size = new System.Drawing.Size(37, 13);
+            this.labelProject.TabIndex = 10;
+            this.labelProject.Text = "Projet:";
+            // 
+            // labelWorkDayRate
+            // 
+            this.labelWorkDayRate.AutoSize = true;
+            this.labelWorkDayRate.Location = new System.Drawing.Point(302, 61);
+            this.labelWorkDayRate.Name = "labelWorkDayRate";
+            this.labelWorkDayRate.Size = new System.Drawing.Size(77, 13);
+            this.labelWorkDayRate.TabIndex = 10;
+            this.labelWorkDayRate.Text = "Travail de jour:";
+            // 
+            // textBoxWorkDayRate
+            // 
+            this.textBoxWorkDayRate.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.projectBindingSource, "WorkDayRate", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "#.## €/j;#.## €/j;\\0 €/j"));
+            this.textBoxWorkDayRate.Location = new System.Drawing.Point(420, 58);
+            this.textBoxWorkDayRate.Name = "textBoxWorkDayRate";
+            this.textBoxWorkDayRate.Size = new System.Drawing.Size(88, 20);
+            this.textBoxWorkDayRate.TabIndex = 12;
+            // 
+            // labelWorkShortNightsRate
+            // 
+            this.labelWorkShortNightsRate.AutoSize = true;
+            this.labelWorkShortNightsRate.Location = new System.Drawing.Point(302, 87);
+            this.labelWorkShortNightsRate.Name = "labelWorkShortNightsRate";
+            this.labelWorkShortNightsRate.Size = new System.Drawing.Size(110, 13);
+            this.labelWorkShortNightsRate.TabIndex = 10;
+            this.labelWorkShortNightsRate.Text = "Travail de nuit courte:";
+            // 
+            // textBoxWorkShortNightsRate
+            // 
+            this.textBoxWorkShortNightsRate.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.projectBindingSource, "WorkShortNightsRate", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "#.## €/j;#.## €/j;\\0 €/j"));
+            this.textBoxWorkShortNightsRate.Location = new System.Drawing.Point(420, 84);
+            this.textBoxWorkShortNightsRate.Name = "textBoxWorkShortNightsRate";
+            this.textBoxWorkShortNightsRate.Size = new System.Drawing.Size(88, 20);
+            this.textBoxWorkShortNightsRate.TabIndex = 12;
+            // 
+            // textBoxWorkLongNightsRate
+            // 
+            this.textBoxWorkLongNightsRate.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.projectBindingSource, "TotalWorkLongNights", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "#.## €/j;#.## €/j;\\0 €/j"));
+            this.textBoxWorkLongNightsRate.Location = new System.Drawing.Point(640, 6);
+            this.textBoxWorkLongNightsRate.Name = "textBoxWorkLongNightsRate";
+            this.textBoxWorkLongNightsRate.Size = new System.Drawing.Size(88, 20);
+            this.textBoxWorkLongNightsRate.TabIndex = 12;
+            // 
+            // textBoxStudyRate
+            // 
+            this.textBoxStudyRate.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.projectBindingSource, "StudyRate", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "#.## €/j;#.## €/j;\\0 €/j"));
+            this.textBoxStudyRate.Location = new System.Drawing.Point(420, 6);
+            this.textBoxStudyRate.Name = "textBoxStudyRate";
+            this.textBoxStudyRate.Size = new System.Drawing.Size(88, 20);
+            this.textBoxStudyRate.TabIndex = 12;
+            // 
+            // textBoxReferenceRate
+            // 
+            this.textBoxReferenceRate.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.projectBindingSource, "ReferenceRate", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "#.## €/j;#.## €/j;\\0 €/j"));
+            this.textBoxReferenceRate.Location = new System.Drawing.Point(420, 32);
+            this.textBoxReferenceRate.Name = "textBoxReferenceRate";
+            this.textBoxReferenceRate.Size = new System.Drawing.Size(88, 20);
+            this.textBoxReferenceRate.TabIndex = 12;
+            // 
+            // textBoxTestDayRate
+            // 
+            this.textBoxTestDayRate.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.projectBindingSource, "TestDayRate", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "#.## €/j;#.## €/j;\\0 €/j"));
+            this.textBoxTestDayRate.Location = new System.Drawing.Point(640, 32);
+            this.textBoxTestDayRate.Name = "textBoxTestDayRate";
+            this.textBoxTestDayRate.Size = new System.Drawing.Size(88, 20);
+            this.textBoxTestDayRate.TabIndex = 12;
+            // 
+            // textBoxTestNightRate
+            // 
+            this.textBoxTestNightRate.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.projectBindingSource, "TestNightRate", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "#.## €/j;#.## €/j;\\0 €/j"));
+            this.textBoxTestNightRate.Location = new System.Drawing.Point(640, 58);
+            this.textBoxTestNightRate.Name = "textBoxTestNightRate";
+            this.textBoxTestNightRate.Size = new System.Drawing.Size(88, 20);
+            this.textBoxTestNightRate.TabIndex = 12;
+            // 
+            // labelWorkLongNightsRate
+            // 
+            this.labelWorkLongNightsRate.AutoSize = true;
+            this.labelWorkLongNightsRate.Location = new System.Drawing.Point(522, 9);
+            this.labelWorkLongNightsRate.Name = "labelWorkLongNightsRate";
+            this.labelWorkLongNightsRate.Size = new System.Drawing.Size(112, 13);
+            this.labelWorkLongNightsRate.TabIndex = 10;
+            this.labelWorkLongNightsRate.Text = "Travail de nuit longue:";
+            // 
+            // labelStudyRate
+            // 
+            this.labelStudyRate.AutoSize = true;
+            this.labelStudyRate.Location = new System.Drawing.Point(302, 9);
+            this.labelStudyRate.Name = "labelStudyRate";
+            this.labelStudyRate.Size = new System.Drawing.Size(38, 13);
+            this.labelStudyRate.TabIndex = 10;
+            this.labelStudyRate.Text = "Etude:";
+            // 
+            // labelReferenceRate
+            // 
+            this.labelReferenceRate.AutoSize = true;
+            this.labelReferenceRate.Location = new System.Drawing.Point(302, 35);
+            this.labelReferenceRate.Name = "labelReferenceRate";
+            this.labelReferenceRate.Size = new System.Drawing.Size(38, 13);
+            this.labelReferenceRate.TabIndex = 10;
+            this.labelReferenceRate.Text = "Saisie:";
+            // 
+            // labelTestDayRate
+            // 
+            this.labelTestDayRate.AutoSize = true;
+            this.labelTestDayRate.Location = new System.Drawing.Point(522, 35);
+            this.labelTestDayRate.Name = "labelTestDayRate";
+            this.labelTestDayRate.Size = new System.Drawing.Size(76, 13);
+            this.labelTestDayRate.TabIndex = 10;
+            this.labelTestDayRate.Text = "Essaie de jour:";
+            // 
+            // labelTestNightRate
+            // 
+            this.labelTestNightRate.AutoSize = true;
+            this.labelTestNightRate.Location = new System.Drawing.Point(522, 61);
+            this.labelTestNightRate.Name = "labelTestNightRate";
+            this.labelTestNightRate.Size = new System.Drawing.Size(76, 13);
+            this.labelTestNightRate.TabIndex = 10;
+            this.labelTestNightRate.Text = "Essaie de nuit:";
+            // 
+            // labelTotalDays
+            // 
+            this.labelTotalDays.AutoSize = true;
+            this.labelTotalDays.Location = new System.Drawing.Point(11, 122);
+            this.labelTotalDays.Name = "labelTotalDays";
+            this.labelTotalDays.Size = new System.Drawing.Size(69, 13);
+            this.labelTotalDays.TabIndex = 10;
+            this.labelTotalDays.Text = "Temps Total:";
+            // 
+            // textBoxTotalDays
+            // 
+            this.textBoxTotalDays.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.projectBindingSource, "TotalDays", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "#.## j;#.## j;\\0 j"));
+            this.textBoxTotalDays.Location = new System.Drawing.Point(82, 119);
+            this.textBoxTotalDays.Name = "textBoxTotalDays";
+            this.textBoxTotalDays.ReadOnly = true;
+            this.textBoxTotalDays.Size = new System.Drawing.Size(88, 20);
+            this.textBoxTotalDays.TabIndex = 12;
+            // 
+            // labelTotalPrice
+            // 
+            this.labelTotalPrice.AutoSize = true;
+            this.labelTotalPrice.Location = new System.Drawing.Point(11, 148);
+            this.labelTotalPrice.Name = "labelTotalPrice";
+            this.labelTotalPrice.Size = new System.Drawing.Size(59, 13);
+            this.labelTotalPrice.TabIndex = 10;
+            this.labelTotalPrice.Text = "Coût Total:";
+            // 
+            // textBoxTotalPrice
+            // 
+            this.textBoxTotalPrice.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.projectSupplyDtoBindingSource, "TotalPrice", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "C2"));
+            this.textBoxTotalPrice.Location = new System.Drawing.Point(82, 145);
+            this.textBoxTotalPrice.Name = "textBoxTotalPrice";
+            this.textBoxTotalPrice.ReadOnly = true;
+            this.textBoxTotalPrice.Size = new System.Drawing.Size(88, 20);
+            this.textBoxTotalPrice.TabIndex = 12;
+            // 
+            // projectBindingSource
+            // 
+            this.projectBindingSource.DataSource = typeof(Chiffrage.Core.Project);
+            this.projectBindingSource.CurrentItemChanged += new System.EventHandler(this.projectBindingSource_CurrentItemChanged);
+            // 
+            // commentUserControl
+            // 
+            this.commentUserControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.commentUserControl.Location = new System.Drawing.Point(13, 209);
+            this.commentUserControl.Name = "commentUserControl";
+            this.commentUserControl.Rtf = "{\\rtf1\\ansi\\ansicpg1252\\deff0\\deflang1036{\\fonttbl{\\f0\\fnil\\fcharset0 Microsoft S" +
+                "ans Serif;}}\r\n\\viewkind4\\uc1\\pard\\f0\\fs17 trertre\\par\r\ntreterert\\par\r\n}\r\n";
+            this.commentUserControl.Size = new System.Drawing.Size(772, 193);
+            this.commentUserControl.TabIndex = 18;
+            // 
+            // projectSupplyDtoBindingSource
+            // 
+            this.projectSupplyDtoBindingSource.DataSource = typeof(Chiffrage.Dto.ProjectSupplyDto);
+            this.projectSupplyDtoBindingSource.CurrentItemChanged += new System.EventHandler(this.projectSupplyDtoBindingSource_CurrentItemChanged);
+            // 
             // nameDataGridViewTextBoxColumn
             // 
             this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
@@ -535,10 +861,6 @@
             this.totalPriceDataGridViewTextBoxColumn.HeaderText = "Coût Total";
             this.totalPriceDataGridViewTextBoxColumn.Name = "totalPriceDataGridViewTextBoxColumn";
             this.totalPriceDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // projectSupplyDtoBindingSource
-            // 
-            this.projectSupplyDtoBindingSource.DataSource = typeof(Chiffrage.Dto.ProjectSupplyDto);
             // 
             // nameDataGridViewTextBoxColumn1
             // 
@@ -719,7 +1041,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.headerControlProject);
             this.Name = "ProjectUserControl";
-            this.Size = new System.Drawing.Size(537, 392);
+            this.Size = new System.Drawing.Size(814, 472);
             this.headerControlProject.ResumeLayout(false);
             this.tabControl.ResumeLayout(false);
             this.tabPageProject.ResumeLayout(false);
@@ -741,6 +1063,9 @@
             this.bindingNavigatorOthers.PerformLayout();
             this.tabPageSummary.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSummary)).EndInit();
+            this.tabPageMain.ResumeLayout(false);
+            this.tabPageMain.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.projectBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.projectSupplyDtoBindingSource)).EndInit();
             this.ResumeLayout(false);
 
@@ -753,8 +1078,8 @@
         private System.Windows.Forms.TabPage tabPageProject;
         private System.Windows.Forms.DataGridView dataGridView;
         private System.Windows.Forms.ToolStrip toolStripProject;
-        private System.Windows.Forms.ToolStripButton toolStripButton1;
-        private System.Windows.Forms.ToolStripButton toolStripButton2;
+        private System.Windows.Forms.ToolStripButton toolStripButtonAdd;
+        private System.Windows.Forms.ToolStripButton toolStripButtonRemove;
         private System.Windows.Forms.TabPage tabPageStudy;
         private System.Windows.Forms.DataGridView dataGridViewStudy;
         private System.Windows.Forms.TabPage tabPageWork;
@@ -806,5 +1131,35 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn quantityDataGridViewTextBoxColumn3;
         private System.Windows.Forms.DataGridViewTextBoxColumn totalTestsDaysDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn totalTestsNightsDataGridViewTextBoxColumn;
+        private System.Windows.Forms.TabPage tabPageMain;
+        private System.Windows.Forms.BindingSource projectBindingSource;
+        private CommentUserControl commentUserControl;
+        private System.Windows.Forms.Label labelComment;
+        private System.Windows.Forms.DateTimePicker dateTimePickerProjectEnd;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.DateTimePicker dateTimePickerProjectBegin;
+        private System.Windows.Forms.Label labelDealDate;
+        private System.Windows.Forms.TextBox textBoxReference;
+        private System.Windows.Forms.Label labelRef;
+        private System.Windows.Forms.TextBox textBoxProjectName;
+        private System.Windows.Forms.Label labelProject;
+        private System.Windows.Forms.TextBox textBoxWorkDayRate;
+        private System.Windows.Forms.Label labelWorkDayRate;
+        private System.Windows.Forms.TextBox textBoxTestDayRate;
+        private System.Windows.Forms.TextBox textBoxReferenceRate;
+        private System.Windows.Forms.TextBox textBoxStudyRate;
+        private System.Windows.Forms.TextBox textBoxWorkLongNightsRate;
+        private System.Windows.Forms.TextBox textBoxWorkShortNightsRate;
+        private System.Windows.Forms.Label labelWorkShortNightsRate;
+        private System.Windows.Forms.TextBox textBoxTestNightRate;
+        private System.Windows.Forms.Label labelTestNightRate;
+        private System.Windows.Forms.Label labelTestDayRate;
+        private System.Windows.Forms.Label labelReferenceRate;
+        private System.Windows.Forms.Label labelStudyRate;
+        private System.Windows.Forms.Label labelWorkLongNightsRate;
+        private System.Windows.Forms.TextBox textBoxTotalDays;
+        private System.Windows.Forms.Label labelTotalDays;
+        private System.Windows.Forms.TextBox textBoxTotalPrice;
+        private System.Windows.Forms.Label labelTotalPrice;
     }
 }

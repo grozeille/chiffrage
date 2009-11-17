@@ -1,0 +1,14 @@
+﻿<?xml version="1.0"?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="Chiffrage.Core" namespace="Chiffrage.Core">
+
+  <class name="SupplierCatalog" table="SupplierCatalog">
+    <id name="Id" column="Id">
+      <generator class="hilo"/>
+    </id>
+    <property name="SupplierName"/>
+    <bag name="Supplies" cascade="all">
+      <key column="SupplierCatalogId"/>
+      <one-to-many class="Supply"/>
+    </bag>    
+  </class>
+</hibernate-mapping>

@@ -123,6 +123,13 @@ namespace Chiffrage.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap lorry {
+            get {
+                object obj = ResourceManager.GetObject("lorry", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap map_edit {
             get {
                 object obj = ResourceManager.GetObject("map_edit", resourceCulture);
@@ -151,9 +158,135 @@ namespace Chiffrage.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap resultset_first {
+            get {
+                object obj = ResourceManager.GetObject("resultset_first", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap resultset_last {
+            get {
+                object obj = ResourceManager.GetObject("resultset_last", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap resultset_next {
+            get {
+                object obj = ResourceManager.GetObject("resultset_next", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap resultset_previous {
+            get {
+                object obj = ResourceManager.GetObject("resultset_previous", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap rosette {
             get {
                 object obj = ResourceManager.GetObject("rosette", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap text_align_center {
+            get {
+                object obj = ResourceManager.GetObject("text_align_center", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap text_align_justify {
+            get {
+                object obj = ResourceManager.GetObject("text_align_justify", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap text_align_left {
+            get {
+                object obj = ResourceManager.GetObject("text_align_left", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap text_align_right {
+            get {
+                object obj = ResourceManager.GetObject("text_align_right", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap text_bold {
+            get {
+                object obj = ResourceManager.GetObject("text_bold", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap text_indent {
+            get {
+                object obj = ResourceManager.GetObject("text_indent", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap text_indent_remove {
+            get {
+                object obj = ResourceManager.GetObject("text_indent_remove", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap text_italic {
+            get {
+                object obj = ResourceManager.GetObject("text_italic", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap text_list_bullets {
+            get {
+                object obj = ResourceManager.GetObject("text_list_bullets", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap text_list_numbers {
+            get {
+                object obj = ResourceManager.GetObject("text_list_numbers", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap text_lowercase {
+            get {
+                object obj = ResourceManager.GetObject("text_lowercase", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap text_strikethrough {
+            get {
+                object obj = ResourceManager.GetObject("text_strikethrough", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap text_underline {
+            get {
+                object obj = ResourceManager.GetObject("text_underline", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap text_uppercase {
+            get {
+                object obj = ResourceManager.GetObject("text_uppercase", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

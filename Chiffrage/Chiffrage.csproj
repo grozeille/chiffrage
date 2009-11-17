@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -31,13 +32,42 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Common.Logging, Version=1.2.0.0, Culture=neutral, PublicKeyToken=af08829b84f0328e">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\lib\NHibernate-2.1.1.GA\Common.Logging.dll</HintPath>
+    </Reference>
     <Reference Include="Eyefinder, Version=1.0.4.2, Culture=neutral, PublicKeyToken=75b7ec17dd7c14c3">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Technologies2020_GIT\Grozeille.Rpc\bin\Debug\Eyefinder.dll</HintPath>
     </Reference>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\lib\NHibernate-2.1.1.GA\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate, Version=2.1.1.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\lib\NHibernate-2.1.1.GA\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate.ByteCode.Spring, Version=2.1.1.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\lib\NHibernate-2.1.1.GA\NHibernate.ByteCode.Spring.dll</HintPath>
+    </Reference>
+    <Reference Include="Spring.Aop, Version=0.0.0.20110, Culture=neutral, PublicKeyToken=65e474d141e25e07, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\lib\NHibernate-2.1.1.GA\Spring.Aop.dll</HintPath>
+    </Reference>
+    <Reference Include="Spring.Core, Version=0.0.0.20110, Culture=neutral, PublicKeyToken=65e474d141e25e07, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\lib\NHibernate-2.1.1.GA\Spring.Core.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.SQLite, Version=1.0.65.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\lib\SQLite-1.0.65.0-binaries\bin\System.Data.SQLite.DLL</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System.Design" />
     <Reference Include="System.Xml.Linq">
@@ -58,6 +88,12 @@
     </Compile>
     <Compile Include="CatalogUserControl.Designer.cs">
       <DependentUpon>CatalogUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CommentUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CommentUserControl.Designer.cs">
+      <DependentUpon>CommentUserControl.cs</DependentUpon>
     </Compile>
     <Compile Include="DealUserControl.cs">
       <SubType>UserControl</SubType>
@@ -80,6 +116,12 @@
     <Compile Include="LoadingForm.Designer.cs">
       <DependentUpon>LoadingForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="NewCatalogPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="NewCatalogPage.Designer.cs">
+      <DependentUpon>NewCatalogPage.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="ProjectUserControl.cs">
       <SubType>UserControl</SubType>
@@ -99,6 +141,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="LoadingForm.resx">
       <DependentUpon>LoadingForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewCatalogPage.resx">
+      <DependentUpon>NewCatalogPage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ProjectUserControl.resx">
       <DependentUpon>ProjectUserControl.cs</DependentUpon>
@@ -134,6 +179,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Repositories\CatalogRepository.cs" />
+    <Compile Include="Repositories\DealRepository.cs" />
     <Compile Include="WizardForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -188,13 +235,9 @@
     <None Include="Resources\cross.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Grozeille.Chiffrage.Core\Grozeille.Chiffrage.Core.csproj">
+    <ProjectReference Include="..\Grozeille.Chiffrage.Core\Chiffrage.Core.csproj">
       <Project>{664F8363-73CF-45DB-B468-EF4BB119F4E6}</Project>
-      <Name>Grozeille.Chiffrage.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Grozeille.Chiffrage.Dal\Grozeille.Chiffrage.Dal.csproj">
-      <Project>{69C16AEA-1498-4D84-8986-40F10023350B}</Project>
-      <Name>Grozeille.Chiffrage.Dal</Name>
+      <Name>Chiffrage.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -219,6 +262,88 @@
     <None Include="Properties\DataSources\Chiffrage.Dto.CatalogSupplySelectionDto.datasource" />
     <None Include="Properties\DataSources\Chiffrage.Dto.ProjectSupplyDto.datasource" />
     <None Include="Resources\blank.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\lorry.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\resultset_first.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\resultset_previous.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\resultset_next.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Resources\resultset_last.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mappings\SupplierCatalog.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mappings\Supply.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mappings\Deal.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mappings\Project.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mappings\ProjectSupply.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CommentUserControl.resx">
+      <DependentUpon>CommentUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Mappings\OtherBenefit.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\text_align_center.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\text_align_justify.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\text_align_left.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\text_align_right.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\text_bold.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\text_indent.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\text_indent_remove.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\text_italic.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\text_list_bullets.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\text_list_numbers.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\text_lowercase.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\text_strikethrough.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\text_underline.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\DataSources\Chiffrage.Core.Deal.datasource" />
+    <None Include="Properties\DataSources\Chiffrage.Core.Project.datasource" />
+    <None Include="Properties\DataSources\Chiffrage.Core.Supply.datasource" />
+    <None Include="Resources\text_uppercase.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

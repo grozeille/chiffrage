@@ -1,19 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
-namespace Grozeille.Chiffrage.Core
+namespace Chiffrage.Core
 {
     public class OtherBenefit
     {
-        public string Name { get; set; }
+        public virtual int Id { get; set; }
 
-        public double Days { get; set; }
+        public virtual string Name { get; set; }
 
-        public double CostRate { get; set; }
+        public virtual double Days { get; set; }
 
-        public double TotalCost
+        public virtual double CostRate { get; set; }
+
+        public virtual double TotalCost
         {
             get
             {

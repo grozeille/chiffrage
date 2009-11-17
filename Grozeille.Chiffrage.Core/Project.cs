@@ -1,16 +1,59 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 
-namespace Grozeille.Chiffrage.Core
+namespace Chiffrage.Core
 {
-    public class Project
+    public class Project// : INotifyPropertyChanged
     {
-        public string Name { get; set; }
+        private int id;
+        private string name;
+        private string reference;
+        private string comment;
+        private DateTime startDate;
+        private DateTime endDate;
 
-        public IList<ProjectSupply> Supplies { get; set; }
+        public virtual int Id
+        {
+            get { return id; }
+            set { id = value; FirePropertyChanged("Id");}
+        }
+        
+        public virtual string Name
+        {
+            get { return name; }
+            set { name = value; FirePropertyChanged("Name"); }
+        }
 
-        public IList<OtherBenefit> OtherBenefits { get; set; }
+        public virtual string Reference
+        {
+            get { return reference; }
+            set { reference = value; FirePropertyChanged("Reference"); }
+        }
+        
+        public virtual string Comment
+        {
+            get { return comment; }
+            set { comment = value; FirePropertyChanged("Comment"); }
+        }
+
+
+        public virtual DateTime StartDate
+        {
+            get { return startDate; }
+            set { startDate = value; FirePropertyChanged("StartDate"); }
+        }
+        
+        public virtual DateTime EndDate
+        {
+            get { return endDate; }
+            set { endDate = value; FirePropertyChanged("EndDate"); }
+        }
+
+        public virtual IList<ProjectSupply> Supplies { get; set; }
+
+        public virtual IList<OtherBenefit> OtherBenefits { get; set; }
 
         public Project()
         {
@@ -18,7 +61,7 @@ namespace Grozeille.Chiffrage.Core
             this.OtherBenefits = new List<OtherBenefit>();
         }
 
-        public double TotalSuppliesCost 
+        public virtual double TotalSuppliesCost 
         { 
             get
             {
@@ -26,7 +69,7 @@ namespace Grozeille.Chiffrage.Core
             }
         }
 
-        public double TotalStudyDays
+        public virtual double TotalStudyDays
         {
             get
             {
@@ -34,7 +77,7 @@ namespace Grozeille.Chiffrage.Core
             }
         }
 
-        public double TotalReferenceDays
+        public virtual double TotalReferenceDays
         {
             get
             {
@@ -42,7 +85,7 @@ namespace Grozeille.Chiffrage.Core
             }
         }
 
-        public double TotalWorkDays
+        public virtual double TotalWorkDays
         {
             get
             {
@@ -51,7 +94,7 @@ namespace Grozeille.Chiffrage.Core
         }
 
 
-        public double TotalWorkShortNights
+        public virtual double TotalWorkShortNights
         {
             get
             {
@@ -59,7 +102,7 @@ namespace Grozeille.Chiffrage.Core
             }
         }
 
-        public double TotalWorkLongNights
+        public virtual double TotalWorkLongNights
         {
             get
             {
@@ -68,7 +111,7 @@ namespace Grozeille.Chiffrage.Core
         }
 
 
-        public double TotalTestDays
+        public virtual double TotalTestDays
         {
             get
             {
@@ -76,7 +119,7 @@ namespace Grozeille.Chiffrage.Core
             }
         }
 
-        public double TotalTestNights
+        public virtual double TotalTestNights
         {
             get
             {
@@ -84,21 +127,21 @@ namespace Grozeille.Chiffrage.Core
             }
         }
 
-        public double StudyRate { get; set; }
+        public virtual double StudyRate { get; set; }
 
-        public double ReferenceRate { get; set; }
+        public virtual double ReferenceRate { get; set; }
 
-        public double WorkDayRate { get; set; }
+        public virtual double WorkDayRate { get; set; }
 
-        public double WorkShortNightsRate { get; set; }
+        public virtual double WorkShortNightsRate { get; set; }
 
-        public double WorkLongNightsRate { get; set; }
+        public virtual double WorkLongNightsRate { get; set; }
 
-        public double TestDayRate { get; set; }
+        public virtual double TestDayRate { get; set; }
 
-        public double TestNightRate { get; set; }
+        public virtual double TestNightRate { get; set; }
 
-        public double TotalStudyDaysPrice
+        public virtual double TotalStudyDaysPrice
         {
             get
             {
@@ -106,7 +149,7 @@ namespace Grozeille.Chiffrage.Core
             }
         }
 
-        public double TotalReferenceDaysPrice
+        public virtual double TotalReferenceDaysPrice
         {
             get
             {
@@ -114,22 +157,22 @@ namespace Grozeille.Chiffrage.Core
             }
         }
 
-        public double TotalWorkDaysPrice
+        public virtual double TotalWorkDaysPrice
         {
             get { return this.TotalWorkDays + this.WorkDayRate; }
         }
 
-        public double TotalWorkShortNightsPrice
+        public virtual double TotalWorkShortNightsPrice
         {
             get { return this.TotalWorkShortNights + this.WorkShortNightsRate; }
         }
 
-        public double TotalWorkLongNightsPrice
+        public virtual double TotalWorkLongNightsPrice
         {
             get { return this.TotalWorkLongNights + this.WorkLongNightsRate; }
         }
 
-        public double TotalOtherDays
+        public virtual double TotalOtherDays
         {
             get
             {
@@ -137,7 +180,7 @@ namespace Grozeille.Chiffrage.Core
             }
         }
 
-        public double TotalDays
+        public virtual double TotalDays
         {
             get
             {
@@ -146,7 +189,7 @@ namespace Grozeille.Chiffrage.Core
             }
         }
 
-        public double TotalPrice
+        public virtual double TotalPrice
         {
             get
             {
@@ -155,19 +198,31 @@ namespace Grozeille.Chiffrage.Core
             }
         }
 
-        public double TotalOtherDaysPrice
+        public virtual double TotalOtherDaysPrice
         {
             get { return this.OtherBenefits.Sum((o) => o.TotalCost); }
         }
 
-        public double TotalTestDayPrice
+        public virtual double TotalTestDayPrice
         {
             get { return this.TotalTestDays*this.TestDayRate; }
         }
 
-        public double TotalTestNightPrice
+        public virtual double TotalTestNightPrice
         {
             get { return this.TotalTestNights * this.TestNightRate; }
+        }
+
+        #region INotifyPropertyChanged Members
+
+        public virtual event PropertyChangedEventHandler PropertyChanged;
+
+        #endregion
+
+        private void FirePropertyChanged(string propertyName)
+        {
+            if(PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

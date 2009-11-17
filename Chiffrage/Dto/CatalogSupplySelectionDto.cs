@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Grozeille.Chiffrage.Core;
+using Chiffrage.Core;
 using System.ComponentModel;
 
 namespace Chiffrage.Dto
@@ -18,8 +18,7 @@ namespace Chiffrage.Dto
             set
             {
                 selected = value;
-                if(PropertyChanged != null)
-                    PropertyChanged(this, new PropertyChangedEventArgs("Selected"));
+                FirePropertyChanged("Selected");
             }
         }
 
@@ -33,10 +32,12 @@ namespace Chiffrage.Dto
 
         public int ModuleSize { get { return this.Supply == null ? 0 : this.Supply.ModuleSize; } }
 
-        #region INotifyPropertyChanged Members
-
         public event PropertyChangedEventHandler PropertyChanged;
 
-        #endregion
+        protected void FirePropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }

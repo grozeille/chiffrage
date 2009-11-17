@@ -1,0 +1,18 @@
+﻿<?xml version="1.0"?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" assembly="Chiffrage.Core" namespace="Chiffrage.Core">
+
+  <class name="Deal" table="Deal">
+    <id name="Id" column="Id">
+      <generator class="hilo"/>
+    </id>
+    <property name="Name"/>
+    <property name="Reference"/>
+    <property name="Comment"/>
+    <property name="StartDate"/>
+    <property name="EndDate"/>
+    <bag name="Projects" cascade="all">
+      <key column="DealId"/>
+      <one-to-many class="Project"/>
+    </bag>
+  </class>
+</hibernate-mapping>

@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 
-namespace Grozeille.Chiffrage.Core.Repositories
+namespace Chiffrage.Core.Repositories
 {
     public interface ICatalogRepository
     {
+        void Save(Catalog catalog);
+
+        SupplierCatalog Save(SupplierCatalog catalog);
     }
 }
