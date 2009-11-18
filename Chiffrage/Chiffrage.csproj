@@ -235,12 +235,6 @@
     <None Include="Resources\cross.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Grozeille.Chiffrage.Core\Chiffrage.Core.csproj">
-      <Project>{664F8363-73CF-45DB-B468-EF4BB119F4E6}</Project>
-      <Name>Chiffrage.Core</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\Chiffrage.png" />
   </ItemGroup>
   <ItemGroup>
@@ -344,6 +338,12 @@
     <None Include="Properties\DataSources\Chiffrage.Core.Project.datasource" />
     <None Include="Properties\DataSources\Chiffrage.Core.Supply.datasource" />
     <None Include="Resources\text_uppercase.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Chiffrage.Core\Chiffrage.Core.csproj">
+      <Project>{664F8363-73CF-45DB-B468-EF4BB119F4E6}</Project>
+      <Name>Chiffrage.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

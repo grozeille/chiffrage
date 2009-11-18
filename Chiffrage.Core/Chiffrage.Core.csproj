@@ -5,13 +5,15 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{69C16AEA-1498-4D84-8986-40F10023350B}</ProjectGuid>
+    <ProjectGuid>{664F8363-73CF-45DB-B468-EF4BB119F4E6}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Grozeille.Chiffrage.Dal</RootNamespace>
-    <AssemblyName>Grozeille.Chiffrage.Dal</AssemblyName>
+    <RootNamespace>Chiffrage.Core</RootNamespace>
+    <AssemblyName>Chiffrage.Core</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkSubset>
+    </TargetFrameworkSubset>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -35,17 +37,21 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
-    <Reference Include="System.Xml.Linq">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Data.DataSetExtensions">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Catalog.cs" />
+    <Compile Include="Deal.cs" />
+    <Compile Include="OtherBenefit.cs" />
+    <Compile Include="Project.cs" />
+    <Compile Include="ProjectSupply.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\ICatalogRepository.cs" />
+    <Compile Include="Repositories\IDealRepository.cs" />
+    <Compile Include="SupplierCatalog.cs" />
+    <Compile Include="Supply.cs" />
+    <Compile Include="SupplyCategory.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -14,6 +14,10 @@ namespace Chiffrage.Core
         private DateTime startDate;
         private DateTime endDate;
 
+        private IList<OtherBenefit> otherBenefits = new List<OtherBenefit>();
+
+        private IList<ProjectSupply> supplies = new List<ProjectSupply>();
+
         public virtual int Id
         {
             get { return id; }
@@ -51,14 +55,16 @@ namespace Chiffrage.Core
             set { endDate = value; FirePropertyChanged("EndDate"); }
         }
 
-        public virtual IList<ProjectSupply> Supplies { get; set; }
-
-        public virtual IList<OtherBenefit> OtherBenefits { get; set; }
-
-        public Project()
+        public virtual IList<ProjectSupply> Supplies
         {
-            this.Supplies = new List<ProjectSupply>();
-            this.OtherBenefits = new List<OtherBenefit>();
+            get { return supplies; }
+            set { supplies = value; }
+        }
+
+        public virtual IList<OtherBenefit> OtherBenefits
+        {
+            get { return otherBenefits; }
+            set { otherBenefits = value; }
         }
 
         public virtual double TotalSuppliesCost 
