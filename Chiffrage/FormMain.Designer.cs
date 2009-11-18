@@ -29,15 +29,15 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Fournisseur A");
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Fournisseur B");
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Fournisseur A");
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Fournisseur B");
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Projet B", 2, 2);
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Affaire A", 0, 0, new System.Windows.Forms.TreeNode[] {
-            treeNode3});
-            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Tramway", 2, 2);
-            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Templates", 0, 0, new System.Windows.Forms.TreeNode[] {
+            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Projet B", 2, 2);
+            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Affaire A", 0, 0, new System.Windows.Forms.TreeNode[] {
             treeNode5});
+            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Tramway", 2, 2);
+            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Templates", 0, 0, new System.Windows.Forms.TreeNode[] {
+            treeNode7});
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.newToolStripSplitButton = new System.Windows.Forms.ToolStripSplitButton();
@@ -393,13 +393,13 @@
             this.treeViewProviders.ImageList = this.imageListCatalog;
             this.treeViewProviders.Location = new System.Drawing.Point(0, 0);
             this.treeViewProviders.Name = "treeViewProviders";
-            treeNode1.Name = "Node0";
-            treeNode1.Text = "Fournisseur A";
-            treeNode2.Name = "Node1";
-            treeNode2.Text = "Fournisseur B";
+            treeNode3.Name = "Node0";
+            treeNode3.Text = "Fournisseur A";
+            treeNode4.Name = "Node1";
+            treeNode4.Text = "Fournisseur B";
             this.treeViewProviders.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode1,
-            treeNode2});
+            treeNode3,
+            treeNode4});
             this.treeViewProviders.SelectedImageIndex = 0;
             this.treeViewProviders.ShowRootLines = false;
             this.treeViewProviders.Size = new System.Drawing.Size(167, 274);
@@ -433,25 +433,25 @@
             this.treeViewDeals.ImageList = this.imageListDeal;
             this.treeViewDeals.Location = new System.Drawing.Point(0, 0);
             this.treeViewDeals.Name = "treeViewDeals";
-            treeNode3.ImageIndex = 2;
-            treeNode3.Name = "Node1";
-            treeNode3.SelectedImageIndex = 2;
-            treeNode3.Text = "Projet B";
-            treeNode4.ImageIndex = 0;
-            treeNode4.Name = "Node0";
-            treeNode4.SelectedImageIndex = 0;
-            treeNode4.Text = "Affaire A";
             treeNode5.ImageIndex = 2;
-            treeNode5.Name = "Node3";
+            treeNode5.Name = "Node1";
             treeNode5.SelectedImageIndex = 2;
-            treeNode5.Text = "Tramway";
+            treeNode5.Text = "Projet B";
             treeNode6.ImageIndex = 0;
-            treeNode6.Name = "Node2";
+            treeNode6.Name = "Node0";
             treeNode6.SelectedImageIndex = 0;
-            treeNode6.Text = "Templates";
+            treeNode6.Text = "Affaire A";
+            treeNode7.ImageIndex = 2;
+            treeNode7.Name = "Node3";
+            treeNode7.SelectedImageIndex = 2;
+            treeNode7.Text = "Tramway";
+            treeNode8.ImageIndex = 0;
+            treeNode8.Name = "Node2";
+            treeNode8.SelectedImageIndex = 0;
+            treeNode8.Text = "Templates";
             this.treeViewDeals.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode4,
-            treeNode6});
+            treeNode6,
+            treeNode8});
             this.treeViewDeals.SelectedImageIndex = 0;
             this.treeViewDeals.Size = new System.Drawing.Size(167, 274);
             this.treeViewDeals.TabIndex = 3;
@@ -475,6 +475,7 @@
             this.projectUserControl.Size = new System.Drawing.Size(463, 379);
             this.projectUserControl.TabIndex = 2;
             this.projectUserControl.ProjectChanged += new System.EventHandler(this.projectUserControl_ProjectChanged);
+            this.projectUserControl.Enter += new System.EventHandler(this.projectUserControl_Enter);
             // 
             // dealUserControl
             // 
@@ -484,6 +485,7 @@
             this.dealUserControl.Name = "dealUserControl";
             this.dealUserControl.Size = new System.Drawing.Size(463, 379);
             this.dealUserControl.TabIndex = 1;
+            this.dealUserControl.Enter += new System.EventHandler(this.dealUserControl_Enter);
             this.dealUserControl.OnDealChanged += new System.EventHandler(this.dealUserControl_OnDealChanged);
             // 
             // catalogUserControl
@@ -494,6 +496,7 @@
             this.catalogUserControl.Name = "catalogUserControl";
             this.catalogUserControl.Size = new System.Drawing.Size(463, 379);
             this.catalogUserControl.TabIndex = 0;
+            this.catalogUserControl.Enter += new System.EventHandler(this.catalogUserControl_Enter);
             this.catalogUserControl.CatalogChanged += new System.EventHandler(this.catalogUserControl_CatalogChanged);
             // 
             // saveFileDialog

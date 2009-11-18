@@ -35,21 +35,31 @@ namespace Chiffrage
 
         private void LoadProject()
         {
+            if (this.project == null)
+                return;
+
             projectSupplyDtoBindingSource.SuspendBinding();
             var source = new BindingList<ProjectSupplyDto>();
-            if (project != null)
+            foreach (var item in project.Supplies)
             {
-                foreach (var item in project.Supplies)
-                {
-                    var dto = new ProjectSupplyDto();
-                    dto.ProjectSupply = item;
-                    source.Add(dto);
-                }
-                projectSupplyDtoBindingSource.DataSource = source;
+                var dto = new ProjectSupplyDto();
+                dto.ProjectSupply = item;
+                source.Add(dto);
             }
+            projectSupplyDtoBindingSource.DataSource = source;
+            projectSupplyDtoBindingSource.CurrentItemChanged +=new EventHandler(projectSupplyDtoBindingSource_CurrentItemChanged);
             projectSupplyDtoBindingSource.ResumeBinding();
 
             BuildSummary();
+
+            if (this.project.Comment == null)
+                this.project.Comment = string.Empty;
+            if (!(this.project.Comment.StartsWith("{\\rtf") && this.project.Comment.EndsWith("}")))
+                this.project.Comment = "{\\rtf" + this.project.Comment + "}";
+            if (this.project.StartDate == DateTime.MinValue)
+                this.project.StartDate = DateTime.Now;
+            if (this.project.EndDate == DateTime.MinValue)
+                this.project.EndDate = DateTime.Now;
 
             this.projectBindingSource.DataSource = project;
             this.projectBindingSource.ResetBindings(false);
@@ -154,7 +164,7 @@ namespace Chiffrage
             var setting = new WizardSetting(page, "Ajouter un matériel", "Ajout d'un matériel au projet", true);
             if (new WizardForm().ShowDialog(setting) == System.Windows.Forms.DialogResult.OK)
             {
-                foreach(var item in page.SelectedSupplies)
+                foreach (var item in page.SelectedSupplies)
                 {
                     this.project.Supplies.Add(new ProjectSupply
                                                   {
@@ -168,7 +178,7 @@ namespace Chiffrage
                                                   });
                 }
                 LoadProject();
-                if(ProjectChanged!=null)
+                if (ProjectChanged != null)
                     ProjectChanged(this, new EventArgs());
             }
         }

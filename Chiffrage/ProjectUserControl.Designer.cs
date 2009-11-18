@@ -29,24 +29,23 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle24 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle25 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle26 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProjectUserControl));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle27 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle28 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle29 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle30 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle31 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle32 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle33 = new System.Windows.Forms.DataGridViewCellStyle();
             this.headerControlProject = new TD.Eyefinder.HeaderControl();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPageMain = new System.Windows.Forms.TabPage();
             this.labelComment = new System.Windows.Forms.Label();
             this.dateTimePickerProjectEnd = new System.Windows.Forms.DateTimePicker();
-            this.projectBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.label1 = new System.Windows.Forms.Label();
             this.dateTimePickerProjectBegin = new System.Windows.Forms.DateTimePicker();
             this.labelDealDate = new System.Windows.Forms.Label();
@@ -71,6 +70,7 @@
             this.labelTotalPrice = new System.Windows.Forms.Label();
             this.labelTotalDays = new System.Windows.Forms.Label();
             this.textBoxProjectName = new System.Windows.Forms.TextBox();
+            this.projectBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.labelProject = new System.Windows.Forms.Label();
             this.tabPageProject = new System.Windows.Forms.TabPage();
             this.dataGridView = new System.Windows.Forms.DataGridView();
@@ -230,15 +230,11 @@
             // 
             // dateTimePickerProjectEnd
             // 
+            this.dateTimePickerProjectEnd.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.projectBindingSource, "EndDate", true));
             this.dateTimePickerProjectEnd.Location = new System.Drawing.Point(82, 84);
             this.dateTimePickerProjectEnd.Name = "dateTimePickerProjectEnd";
             this.dateTimePickerProjectEnd.Size = new System.Drawing.Size(200, 20);
             this.dateTimePickerProjectEnd.TabIndex = 15;
-            // 
-            // projectBindingSource
-            // 
-            this.projectBindingSource.DataSource = typeof(Chiffrage.Core.Project);
-            this.projectBindingSource.CurrentItemChanged += new System.EventHandler(this.projectBindingSource_CurrentItemChanged);
             // 
             // label1
             // 
@@ -251,6 +247,7 @@
             // 
             // dateTimePickerProjectBegin
             // 
+            this.dateTimePickerProjectBegin.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.projectBindingSource, "StartDate", true));
             this.dateTimePickerProjectBegin.Location = new System.Drawing.Point(82, 58);
             this.dateTimePickerProjectBegin.Name = "dateTimePickerProjectBegin";
             this.dateTimePickerProjectBegin.Size = new System.Drawing.Size(200, 20);
@@ -267,6 +264,7 @@
             // 
             // textBoxReference
             // 
+            this.textBoxReference.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.projectBindingSource, "Reference", true));
             this.textBoxReference.Location = new System.Drawing.Point(82, 33);
             this.textBoxReference.Name = "textBoxReference";
             this.textBoxReference.Size = new System.Drawing.Size(200, 20);
@@ -283,6 +281,7 @@
             // 
             // textBoxTestNightRate
             // 
+            this.textBoxTestNightRate.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.projectBindingSource, "TestNightRate", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "#.## €/j;#.## €/j;\\0 €/j"));
             this.textBoxTestNightRate.Location = new System.Drawing.Point(640, 58);
             this.textBoxTestNightRate.Name = "textBoxTestNightRate";
             this.textBoxTestNightRate.Size = new System.Drawing.Size(88, 20);
@@ -290,6 +289,7 @@
             // 
             // textBoxTestDayRate
             // 
+            this.textBoxTestDayRate.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.projectBindingSource, "TestDayRate", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "#.## €/j;#.## €/j;\\0 €/j"));
             this.textBoxTestDayRate.Location = new System.Drawing.Point(640, 32);
             this.textBoxTestDayRate.Name = "textBoxTestDayRate";
             this.textBoxTestDayRate.Size = new System.Drawing.Size(88, 20);
@@ -297,6 +297,7 @@
             // 
             // textBoxReferenceRate
             // 
+            this.textBoxReferenceRate.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.projectBindingSource, "ReferenceRate", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "#.## €/j;#.## €/j;\\0 €/j"));
             this.textBoxReferenceRate.Location = new System.Drawing.Point(420, 32);
             this.textBoxReferenceRate.Name = "textBoxReferenceRate";
             this.textBoxReferenceRate.Size = new System.Drawing.Size(88, 20);
@@ -304,6 +305,7 @@
             // 
             // textBoxStudyRate
             // 
+            this.textBoxStudyRate.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.projectBindingSource, "StudyRate", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "#.## €/j;#.## €/j;\\0 €/j"));
             this.textBoxStudyRate.Location = new System.Drawing.Point(420, 6);
             this.textBoxStudyRate.Name = "textBoxStudyRate";
             this.textBoxStudyRate.Size = new System.Drawing.Size(88, 20);
@@ -311,6 +313,7 @@
             // 
             // textBoxWorkLongNightsRate
             // 
+            this.textBoxWorkLongNightsRate.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.projectBindingSource, "WorkLongNightsRate", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "#.## €/j;#.## €/j;\\0 €/j"));
             this.textBoxWorkLongNightsRate.Location = new System.Drawing.Point(640, 6);
             this.textBoxWorkLongNightsRate.Name = "textBoxWorkLongNightsRate";
             this.textBoxWorkLongNightsRate.Size = new System.Drawing.Size(88, 20);
@@ -318,6 +321,7 @@
             // 
             // textBoxWorkShortNightsRate
             // 
+            this.textBoxWorkShortNightsRate.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.projectBindingSource, "WorkShortNightsRate", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "#.## €/j;#.## €/j;\\0 €/j"));
             this.textBoxWorkShortNightsRate.Location = new System.Drawing.Point(420, 84);
             this.textBoxWorkShortNightsRate.Name = "textBoxWorkShortNightsRate";
             this.textBoxWorkShortNightsRate.Size = new System.Drawing.Size(88, 20);
@@ -379,6 +383,7 @@
             // 
             // textBoxWorkDayRate
             // 
+            this.textBoxWorkDayRate.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.projectBindingSource, "WorkDayRate", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "#.## €/j;#.## €/j;\\0 €/j"));
             this.textBoxWorkDayRate.Location = new System.Drawing.Point(420, 58);
             this.textBoxWorkDayRate.Name = "textBoxWorkDayRate";
             this.textBoxWorkDayRate.Size = new System.Drawing.Size(88, 20);
@@ -395,6 +400,7 @@
             // 
             // textBoxTotalPrice
             // 
+            this.textBoxTotalPrice.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.projectBindingSource, "TotalDays", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "C2"));
             this.textBoxTotalPrice.Location = new System.Drawing.Point(82, 145);
             this.textBoxTotalPrice.Name = "textBoxTotalPrice";
             this.textBoxTotalPrice.ReadOnly = true;
@@ -403,6 +409,7 @@
             // 
             // textBoxTotalDays
             // 
+            this.textBoxTotalDays.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.projectBindingSource, "TotalDays", true, System.Windows.Forms.DataSourceUpdateMode.OnValidation, null, "#.## j;#.## j;\\0 j"));
             this.textBoxTotalDays.Location = new System.Drawing.Point(82, 119);
             this.textBoxTotalDays.Name = "textBoxTotalDays";
             this.textBoxTotalDays.ReadOnly = true;
@@ -429,10 +436,16 @@
             // 
             // textBoxProjectName
             // 
+            this.textBoxProjectName.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.projectBindingSource, "Name", true));
             this.textBoxProjectName.Location = new System.Drawing.Point(82, 7);
             this.textBoxProjectName.Name = "textBoxProjectName";
             this.textBoxProjectName.Size = new System.Drawing.Size(200, 20);
             this.textBoxProjectName.TabIndex = 12;
+            // 
+            // projectBindingSource
+            // 
+            this.projectBindingSource.DataSource = typeof(Chiffrage.Core.Project);
+            this.projectBindingSource.CurrentItemChanged += new System.EventHandler(this.projectBindingSource_CurrentItemChanged);
             // 
             // labelProject
             // 
@@ -746,9 +759,9 @@
             // 
             // ColumnSumaryIcon
             // 
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle8.NullValue = "System.Drawing.Bitmap";
-            this.ColumnSumaryIcon.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle23.NullValue = "System.Drawing.Bitmap";
+            this.ColumnSumaryIcon.DefaultCellStyle = dataGridViewCellStyle23;
             this.ColumnSumaryIcon.HeaderText = "";
             this.ColumnSumaryIcon.Name = "ColumnSumaryIcon";
             this.ColumnSumaryIcon.Width = 20;
@@ -760,25 +773,25 @@
             // 
             // ColumnSumaryDays
             // 
-            dataGridViewCellStyle9.Format = "#.## j;#.## j;\\0 j";
-            dataGridViewCellStyle9.NullValue = null;
-            this.ColumnSumaryDays.DefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle24.Format = "#.## j;#.## j;\\0 j";
+            dataGridViewCellStyle24.NullValue = null;
+            this.ColumnSumaryDays.DefaultCellStyle = dataGridViewCellStyle24;
             this.ColumnSumaryDays.HeaderText = "Temps";
             this.ColumnSumaryDays.Name = "ColumnSumaryDays";
             // 
             // ColumnSumaryRate
             // 
-            dataGridViewCellStyle10.Format = "#.## €/j;#.## €/j;\\0 €/j";
-            dataGridViewCellStyle10.NullValue = null;
-            this.ColumnSumaryRate.DefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle25.Format = "#.## €/j;#.## €/j;\\0 €/j";
+            dataGridViewCellStyle25.NullValue = null;
+            this.ColumnSumaryRate.DefaultCellStyle = dataGridViewCellStyle25;
             this.ColumnSumaryRate.HeaderText = "Taux";
             this.ColumnSumaryRate.Name = "ColumnSumaryRate";
             // 
             // ColumnSumaryCost
             // 
-            dataGridViewCellStyle11.Format = "C2";
-            dataGridViewCellStyle11.NullValue = null;
-            this.ColumnSumaryCost.DefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle26.Format = "C2";
+            dataGridViewCellStyle26.NullValue = null;
+            this.ColumnSumaryCost.DefaultCellStyle = dataGridViewCellStyle26;
             this.ColumnSumaryCost.HeaderText = "Coût";
             this.ColumnSumaryCost.Name = "ColumnSumaryCost";
             // 
@@ -798,6 +811,7 @@
             this.commentUserControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this.commentUserControl.DataBindings.Add(new System.Windows.Forms.Binding("Rtf", this.projectBindingSource, "Comment", true));
             this.commentUserControl.Location = new System.Drawing.Point(13, 209);
             this.commentUserControl.Name = "commentUserControl";
             this.commentUserControl.Rtf = "{\\rtf1\\ansi\\ansicpg1252\\deff0\\deflang1036{\\fonttbl{\\f0\\fnil\\fcharset0 Microsoft S" +
@@ -815,9 +829,9 @@
             // quantityDataGridViewTextBoxColumn
             // 
             this.quantityDataGridViewTextBoxColumn.DataPropertyName = "Quantity";
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Navy;
-            this.quantityDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle27.BackColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle27.ForeColor = System.Drawing.Color.Navy;
+            this.quantityDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle27;
             this.quantityDataGridViewTextBoxColumn.HeaderText = "Quantité";
             this.quantityDataGridViewTextBoxColumn.Name = "quantityDataGridViewTextBoxColumn";
             // 
@@ -831,9 +845,9 @@
             // priceDataGridViewTextBoxColumn
             // 
             this.priceDataGridViewTextBoxColumn.DataPropertyName = "Price";
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Navy;
-            this.priceDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle28.BackColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle28.ForeColor = System.Drawing.Color.Navy;
+            this.priceDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle28;
             this.priceDataGridViewTextBoxColumn.HeaderText = "Coût Unitaire";
             this.priceDataGridViewTextBoxColumn.Name = "priceDataGridViewTextBoxColumn";
             // 
@@ -909,18 +923,18 @@
             // workDaysDataGridViewTextBoxColumn
             // 
             this.workDaysDataGridViewTextBoxColumn.DataPropertyName = "WorkDays";
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Navy;
-            this.workDaysDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle29.BackColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle29.ForeColor = System.Drawing.Color.Navy;
+            this.workDaysDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle29;
             this.workDaysDataGridViewTextBoxColumn.HeaderText = "Travaux jour";
             this.workDaysDataGridViewTextBoxColumn.Name = "workDaysDataGridViewTextBoxColumn";
             // 
             // workShortNightsDataGridViewTextBoxColumn
             // 
             this.workShortNightsDataGridViewTextBoxColumn.DataPropertyName = "WorkShortNights";
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.Navy;
-            this.workShortNightsDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle30.BackColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle30.ForeColor = System.Drawing.Color.Navy;
+            this.workShortNightsDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle30;
             this.workShortNightsDataGridViewTextBoxColumn.HeaderText = "Travaux nuit courte";
             this.workShortNightsDataGridViewTextBoxColumn.Name = "workShortNightsDataGridViewTextBoxColumn";
             this.workShortNightsDataGridViewTextBoxColumn.Width = 150;
@@ -928,9 +942,9 @@
             // workLongNightsDataGridViewTextBoxColumn
             // 
             this.workLongNightsDataGridViewTextBoxColumn.DataPropertyName = "WorkLongNights";
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.Navy;
-            this.workLongNightsDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle31.BackColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle31.ForeColor = System.Drawing.Color.Navy;
+            this.workLongNightsDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle31;
             this.workLongNightsDataGridViewTextBoxColumn.HeaderText = "Travaux nuit longue";
             this.workLongNightsDataGridViewTextBoxColumn.Name = "workLongNightsDataGridViewTextBoxColumn";
             this.workLongNightsDataGridViewTextBoxColumn.Width = 150;
@@ -984,18 +998,18 @@
             // testsDaysDataGridViewTextBoxColumn
             // 
             this.testsDaysDataGridViewTextBoxColumn.DataPropertyName = "TestsDays";
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.Navy;
-            this.testsDaysDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle32.BackColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle32.ForeColor = System.Drawing.Color.Navy;
+            this.testsDaysDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle32;
             this.testsDaysDataGridViewTextBoxColumn.HeaderText = "Essais jour";
             this.testsDaysDataGridViewTextBoxColumn.Name = "testsDaysDataGridViewTextBoxColumn";
             // 
             // testsNightsDataGridViewTextBoxColumn
             // 
             this.testsNightsDataGridViewTextBoxColumn.DataPropertyName = "TestsNights";
-            dataGridViewCellStyle7.BackColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.Navy;
-            this.testsNightsDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle33.BackColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle33.ForeColor = System.Drawing.Color.Navy;
+            this.testsNightsDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle33;
             this.testsNightsDataGridViewTextBoxColumn.HeaderText = "Essais nuit";
             this.testsNightsDataGridViewTextBoxColumn.Name = "testsNightsDataGridViewTextBoxColumn";
             // 

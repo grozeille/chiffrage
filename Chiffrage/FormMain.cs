@@ -212,33 +212,58 @@ namespace Chiffrage
 
         private void projetToolStripMenuItem2_Click(object sender, EventArgs e)
         {
-            var deal = treeViewDeals.SelectedNode.Tag as Deal;
-            var project = treeViewDeals.SelectedNode.Tag as Project;
-
-            // find the parent deal of the selected project
-            if (project != null)
-            {
-                foreach (TreeNode dealNode in this.treeViewDeals.Nodes)
-                {
-                    foreach (TreeNode projectNode in dealNode.Nodes)
-                    {
-                        if (projectNode.Tag == project)
-                            deal = dealNode.Tag as Deal;
-                    }
-                }
-            }
+            Deal deal = this.SelectedDeal;
 
             var page = new NewProjectPage();
             var setting = new WizardSetting(page, "Nouveau projet", "Création d'un nouveau projet", true);
             if (new WizardForm().ShowDialog(setting) == System.Windows.Forms.DialogResult.OK)
             {
-                project = new Project();
+                Project project = new Project();
                 project.Name = page.ProjectName;
                 deal.Projects.Add(project);
                 RefreshDeals();
                 treeViewDeals.SelectedNode = FindNodeByTag(treeViewDeals, project);
                 this.navigationBar.SelectedPane = navigationPaneDeal;
                 DealsDirty = true;
+            }
+        }
+
+        private Project SelectedProject
+        {
+            get
+            {
+                return treeViewDeals.SelectedNode == null ? null : treeViewDeals.SelectedNode.Tag as Project;
+            }
+        }
+
+        private SupplierCatalog SelectedSupplierCatalog
+        {
+            get
+            {
+                return treeViewProviders.SelectedNode == null ? null : treeViewProviders.SelectedNode.Tag as SupplierCatalog;
+            }
+        }
+
+        private Deal SelectedDeal
+        {
+            get
+            {
+                var deal = treeViewDeals.SelectedNode == null ? null : treeViewDeals.SelectedNode.Tag as Deal;
+                var project = treeViewDeals.SelectedNode == null ? null : treeViewDeals.SelectedNode.Tag as Project;
+
+                // find the parent deal of the selected project
+                if (project != null)
+                {
+                    foreach (TreeNode dealNode in this.treeViewDeals.Nodes)
+                    {
+                        foreach (TreeNode projectNode in dealNode.Nodes)
+                        {
+                            if (projectNode.Tag == project)
+                                deal = dealNode.Tag as Deal;
+                        }
+                    }
+                }
+                return deal;
             }
         }
 
@@ -281,11 +306,18 @@ namespace Chiffrage
 
         private void sauvegarderToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(filePath))
-                SaveDealsAs();
-            else
+            if(this.navigationBar.SelectedPane == this.navigationPaneCatalog)
             {
-                SaveCurrentDeals();
+                SaveCatalog();
+            }
+            else if (this.navigationBar.SelectedPane == this.navigationPaneDeal)
+            {
+                if (string.IsNullOrEmpty(filePath))
+                    SaveDealsAs();
+                else
+                {
+                    SaveCurrentDeals();
+                }
             }
         }
 
@@ -327,9 +359,33 @@ namespace Chiffrage
         {
             foreach (var item in deals)
                 this.DealRepository.Save(item);
+            // get the selected id
+            int? selectedProjectId = this.SelectedProject != null ? (int?)this.SelectedProject.Id : null;
+            int? selectedDealId = this.SelectedDeal != null ? (int?)this.SelectedDeal.Id : null;
             this.Deals = this.DealRepository.FindAll();
 
             RefreshDeals();
+
+            if (selectedProjectId.HasValue)
+            {
+                foreach (TreeNode item in this.treeViewDeals.Nodes)
+                {
+                    foreach (TreeNode item2 in item.Nodes)
+                    {
+                        if (item2.Tag is Project && ((Project)item2.Tag).Id == selectedProjectId)
+                            treeViewDeals.SelectedNode = item2;
+                    }
+                }
+            }
+            else if (selectedDealId.HasValue)
+            {
+                foreach(TreeNode item in this.treeViewDeals.Nodes)
+                {
+                    if(item.Tag is Deal && ((Deal)item.Tag).Id == selectedDealId)
+                        treeViewDeals.SelectedNode = item;
+                }
+            }
+
             DealsDirty = false;
             return true;
         }
@@ -476,21 +532,29 @@ namespace Chiffrage
 
         private void treeViewProviders_BeforeSelect(object sender, TreeViewCancelEventArgs e)
         {
-            if (this.DealsDirty)
+            if (this.CatalogDirty)
             {
                 if (MessageBox.Show("Voulez-vous sauvegarder le catalogue avant de changer?", "Sauvegarder", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.OK)
                 {
                     SaveCatalog();
-                    this.DealsDirty = false;
+                    this.CatalogDirty = false;
                 }
             }
         }
 
         private void SaveCatalog()
-        {
-            var found = this.catalogUserControl.Catalog;
-            this.Catalog.SupplierCatalogs.Remove(found);
-            this.Catalog.SupplierCatalogs.Add(this.CatalogRepository.Save(this.catalogUserControl.Catalog));
+        {            
+            var found = this.catalogUserControl.Catalog;            
+            this.Catalog.SupplierCatalogs.Remove(found);            
+            found = this.CatalogRepository.Save(this.catalogUserControl.Catalog);
+            int selectedCatalogId = found.Id;
+            this.Catalog.SupplierCatalogs.Add(found);
+            RefreshCatalogs();
+            foreach (TreeNode item in this.treeViewProviders.Nodes)
+            {
+                if (item.Tag is SupplierCatalog && ((SupplierCatalog)item.Tag).Id == selectedCatalogId)
+                    treeViewProviders.SelectedNode = item;
+            }
         }
 
         private void catalogUserControl_CatalogChanged(object sender, EventArgs e)
@@ -534,6 +598,21 @@ namespace Chiffrage
         private void dealUserControl_OnDealChanged(object sender, EventArgs e)
         {
             this.DealsDirty = true;
+        }
+
+        private void projectUserControl_Enter(object sender, EventArgs e)
+        {
+            treeViewDeals.SelectedNode = this.FindNodeByTag(treeViewDeals, this.projectUserControl.Project);
+        }
+
+        private void dealUserControl_Enter(object sender, EventArgs e)
+        {
+            treeViewDeals.SelectedNode = this.FindNodeByTag(treeViewDeals, this.dealUserControl.Deal);
+        }
+
+        private void catalogUserControl_Enter(object sender, EventArgs e)
+        {
+            treeViewProviders.SelectedNode = this.FindNodeByTag(treeViewDeals, this.catalogUserControl.Catalog);
         }
     }
 }
