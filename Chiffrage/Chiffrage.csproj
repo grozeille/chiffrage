@@ -345,6 +345,12 @@
       <Name>Chiffrage.Core</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\DataSources\Chiffrage.Core.Catalog.datasource" />
+    <None Include="Properties\DataSources\Chiffrage.Core.OtherBenefit.datasource" />
+    <None Include="Properties\DataSources\Chiffrage.Core.SupplierCatalog.datasource" />
+    <None Include="Resources\arrow_refresh.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

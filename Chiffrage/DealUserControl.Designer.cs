@@ -95,7 +95,7 @@
             // 
             // dateTimePickerDealEnd
             // 
-            this.dateTimePickerDealEnd.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.dealBindingSource, "EndDate", true));
+            this.dateTimePickerDealEnd.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.dealBindingSource, "EndDate", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.dateTimePickerDealEnd.Location = new System.Drawing.Point(79, 108);
             this.dateTimePickerDealEnd.Name = "dateTimePickerDealEnd";
             this.dateTimePickerDealEnd.Size = new System.Drawing.Size(200, 20);
@@ -112,7 +112,7 @@
             // 
             // dateTimePickerDealBegin
             // 
-            this.dateTimePickerDealBegin.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.dealBindingSource, "StartDate", true));
+            this.dateTimePickerDealBegin.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.dealBindingSource, "StartDate", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.dateTimePickerDealBegin.Location = new System.Drawing.Point(79, 82);
             this.dateTimePickerDealBegin.Name = "dateTimePickerDealBegin";
             this.dateTimePickerDealBegin.Size = new System.Drawing.Size(200, 20);
@@ -129,7 +129,7 @@
             // 
             // textBoxReference
             // 
-            this.textBoxReference.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.dealBindingSource, "Reference", true));
+            this.textBoxReference.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.dealBindingSource, "Reference", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.textBoxReference.Location = new System.Drawing.Point(79, 57);
             this.textBoxReference.Name = "textBoxReference";
             this.textBoxReference.Size = new System.Drawing.Size(200, 20);
@@ -146,7 +146,7 @@
             // 
             // textBoxDealName
             // 
-            this.textBoxDealName.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.dealBindingSource, "Name", true));
+            this.textBoxDealName.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.dealBindingSource, "Name", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.textBoxDealName.Location = new System.Drawing.Point(79, 31);
             this.textBoxDealName.Name = "textBoxDealName";
             this.textBoxDealName.Size = new System.Drawing.Size(200, 20);

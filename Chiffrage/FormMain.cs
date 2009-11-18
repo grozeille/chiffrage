@@ -116,32 +116,29 @@ namespace Chiffrage
         private void DisplayDeal()
         {
             var oldState = DealsDirty;
+
+            // force selection of the first item is no selected
             if (treeViewDeals.SelectedNode == null && treeViewDeals.Nodes.Count > 0)
                 treeViewDeals.SelectedNode = treeViewDeals.Nodes[0];
             var selectedItem = treeViewDeals.SelectedNode != null ? treeViewDeals.SelectedNode.Tag : null;
-            if (selectedItem == null)
+
+            if (this.SelectedProject != null)
+            {
+                this.DisplayProjectDetails(this.SelectedProject);
+                projetToolStripMenuItem2.Enabled = true;
+                projetToolStripMenuItem.Enabled = true;
+            }
+            else if (this.SelectedDeal != null)
+            {
+                this.DisplayDealDetails(this.SelectedDeal);
+                projetToolStripMenuItem2.Enabled = true;
+                projetToolStripMenuItem.Enabled = true;
+            }
+            else
             {
                 this.DisplayNone();
                 projetToolStripMenuItem2.Enabled = false;
                 projetToolStripMenuItem.Enabled = false;
-            }
-            else
-            {
-                var deal = selectedItem as Deal;
-                if (deal != null)
-                {
-                    this.DisplayDealDetails(deal);
-                    projetToolStripMenuItem2.Enabled = true;
-                    projetToolStripMenuItem.Enabled = true;
-                }
-
-                var project = selectedItem as Project;
-                if (project != null)
-                {
-                    this.DisplayProjectDetails(project);
-                    projetToolStripMenuItem2.Enabled = true;
-                    projetToolStripMenuItem.Enabled = true;
-                }
             }
             DealsDirty = oldState;
         }
@@ -613,6 +610,20 @@ namespace Chiffrage
         private void catalogUserControl_Enter(object sender, EventArgs e)
         {
             treeViewProviders.SelectedNode = this.FindNodeByTag(treeViewDeals, this.catalogUserControl.Catalog);
+        }
+
+        private void toolStripButtonRefresh_Click(object sender, EventArgs e)
+        {
+            if (this.navigationBar.SelectedPane == navigationPaneCatalog)
+            {
+                RefreshCatalogs();
+                DisplayCatalog();
+            }
+            else if (this.navigationBar.SelectedPane == navigationPaneDeal)
+            {
+                RefreshDeals();
+                DisplayDeal();
+            }
         }
     }
 }

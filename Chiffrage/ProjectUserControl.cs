@@ -1,26 +1,114 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
+using Chiffrage.Core;
 using Chiffrage.Dto;
 using Chiffrage.Properties;
 using Chiffrage.WizardPages;
-using Chiffrage.Core;
 
 namespace Chiffrage
 {
     public partial class ProjectUserControl : UserControl
     {
-        private Font defaultFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular,
-            System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-
-        public event EventHandler ProjectChanged;
+        private Font defaultFont = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Regular,
+                                            GraphicsUnit.Point, ((byte) (0)));
 
         private Project project;
+
+        public ProjectUserControl()
+        {
+            InitializeComponent();
+        }
+
+        #region Summary
+
+        private void BuildSummary()
+        {
+            dataGridViewSummary.SuspendLayout();
+            dataGridViewSummary.Rows.Clear();
+            if (project != null)
+            {
+                BuildTotalRow(Resources.package, "Total matériel", null, project.TotalSuppliesCost);
+                BuildRow("Etude", project.TotalStudyDays, project.StudyRate, project.TotalStudyDaysPrice);
+                BuildRow("Saisie", project.TotalReferenceDays, project.ReferenceRate,
+                         project.TotalReferenceDaysPrice);
+                BuildTotalRow(Resources.map_edit, "Total Etude",
+                              project.TotalStudyDays + project.TotalReferenceDays,
+                              project.TotalStudyDaysPrice + project.TotalReferenceDaysPrice);
+                BuildRow("Traveaux jour", project.TotalWorkDays, project.WorkDayRate, project.TotalWorkDaysPrice);
+                BuildRow("Traveaux nuit courte", project.TotalWorkShortNights, project.WorkShortNightsRate,
+                         project.TotalWorkShortNightsPrice);
+                BuildRow("Traveaux nuit longue", project.TotalWorkLongNights, project.WorkLongNightsRate,
+                         project.TotalWorkLongNightsPrice);
+                BuildTotalRow(Resources.wrench, "Total Travaux",
+                              project.TotalWorkDays + project.TotalWorkShortNights + project.TotalWorkLongNights,
+                              project.TotalWorkDaysPrice + project.TotalWorkShortNightsPrice +
+                              project.TotalWorkLongNightsPrice);
+                BuildRow("Essais jour", project.TotalTestDays, project.TestDayRate, project.TotalTestDayPrice);
+                BuildRow("Essais nuit", project.TotalTestNights, project.TestNightRate, project.TotalTestNightPrice);
+                BuildTotalRow(Resources.rosette, "Total Essais", project.TotalTestDays + project.TotalTestNights,
+                              project.TotalTestDayPrice + project.TotalTestNightPrice);
+                BuildTotalRow(Resources.user_suit, "Total Divers", project.TotalOtherDays,
+                              project.TotalOtherDaysPrice);
+                BuildBigTotalRow(Resources.coins, "Total", project.TotalDays, project.TotalPrice);
+            }
+            dataGridViewSummary.ResumeLayout(true);
+        }
+
+        private void BuildBigTotalRow(Bitmap icon, string name, double? days, double cost)
+        {
+            int index = dataGridViewSummary.Rows.Add(
+                icon,
+                name,
+                days,
+                null,
+                cost
+                );
+            foreach (DataGridViewCell cell in dataGridViewSummary.Rows[index].Cells)
+            {
+                cell.Style.BackColor = SystemColors.ControlDarkDark;
+                cell.Style.Font = new Font(defaultFont, FontStyle.Bold);
+                cell.Style.ForeColor = SystemColors.Window;
+                cell.ReadOnly = true;
+            }
+        }
+
+        private void BuildTotalRow(Bitmap icon, string name, double? days, double cost)
+        {
+            int index = dataGridViewSummary.Rows.Add(
+                icon,
+                name,
+                days,
+                null,
+                cost
+                );
+            foreach (DataGridViewCell cell in dataGridViewSummary.Rows[index].Cells)
+            {
+                cell.Style.BackColor = SystemColors.ControlLight;
+                cell.Style.Font = new Font(defaultFont, FontStyle.Bold);
+                cell.ReadOnly = true;
+            }
+        }
+
+        private void BuildRow(string name, double time, double rate, double cost)
+        {
+            int index = dataGridViewSummary.Rows.Add(
+                Resources.blank,
+                name,
+                time,
+                rate,
+                cost
+                );
+            foreach (DataGridViewCell cell in dataGridViewSummary.Rows[index].Cells)
+            {
+                if (cell.ColumnIndex != 3)
+                    cell.ReadOnly = true;
+            }
+        }
+
+        #endregion
+
         public Project Project
         {
             get { return project; }
@@ -32,150 +120,64 @@ namespace Chiffrage
         }
 
         public Catalog Catalog { get; set; }
+        public event EventHandler ProjectChanged;
 
         private void LoadProject()
         {
-            if (this.project == null)
+            if (project == null)
                 return;
 
             projectSupplyDtoBindingSource.SuspendBinding();
             var source = new BindingList<ProjectSupplyDto>();
-            foreach (var item in project.Supplies)
+            foreach (ProjectSupply item in project.Supplies)
             {
                 var dto = new ProjectSupplyDto();
                 dto.ProjectSupply = item;
                 source.Add(dto);
             }
             projectSupplyDtoBindingSource.DataSource = source;
-            projectSupplyDtoBindingSource.CurrentItemChanged +=new EventHandler(projectSupplyDtoBindingSource_CurrentItemChanged);
             projectSupplyDtoBindingSource.ResumeBinding();
+            toolStripButtonRemove.Enabled = source.Count > 0;
 
             BuildSummary();
 
-            if (this.project.Comment == null)
-                this.project.Comment = string.Empty;
-            if (!(this.project.Comment.StartsWith("{\\rtf") && this.project.Comment.EndsWith("}")))
-                this.project.Comment = "{\\rtf" + this.project.Comment + "}";
-            if (this.project.StartDate == DateTime.MinValue)
-                this.project.StartDate = DateTime.Now;
-            if (this.project.EndDate == DateTime.MinValue)
-                this.project.EndDate = DateTime.Now;
+            if (project.Comment == null)
+                project.Comment = string.Empty;
+            if (!(project.Comment.StartsWith("{\\rtf") && project.Comment.EndsWith("}")))
+                project.Comment = "{\\rtf" + project.Comment + "}";
+            if (project.StartDate == DateTime.MinValue)
+                project.StartDate = DateTime.Now;
+            if (project.EndDate == DateTime.MinValue)
+                project.EndDate = DateTime.Now;
 
-            this.projectBindingSource.DataSource = project;
-            this.projectBindingSource.ResetBindings(false);
+            projectBindingSource.DataSource = project;
+            projectBindingSource.ResetBindings(false);
+
+            otherBenefitBindingSource.SuspendBinding();
+            otherBenefitBindingSource.DataSource = new BindingList<OtherBenefit>(project.OtherBenefits);
+            otherBenefitBindingSource.ResumeBinding();
         }
 
-
-        public ProjectUserControl()
-        {
-            InitializeComponent();
-        }
-
-        #region Summary
-        private void BuildSummary()
-        {
-            this.dataGridViewSummary.SuspendLayout();
-            this.dataGridViewSummary.Rows.Clear();
-            if (project != null)
-            {
-                this.BuildTotalRow(Resources.package, "Total matériel", null, project.TotalSuppliesCost);
-                this.BuildRow("Etude", project.TotalStudyDays, project.StudyRate, project.TotalStudyDaysPrice);
-                this.BuildRow("Saisie", project.TotalReferenceDays, project.ReferenceRate,
-                              project.TotalReferenceDaysPrice);
-                this.BuildTotalRow(Resources.map_edit, "Total Etude",
-                                   project.TotalStudyDays + project.TotalReferenceDays,
-                                   project.TotalStudyDaysPrice + project.TotalReferenceDaysPrice);
-                this.BuildRow("Traveaux jour", project.TotalWorkDays, project.WorkDayRate, project.TotalWorkDaysPrice);
-                this.BuildRow("Traveaux nuit courte", project.TotalWorkShortNights, project.WorkShortNightsRate,
-                              project.TotalWorkShortNightsPrice);
-                this.BuildRow("Traveaux nuit longue", project.TotalWorkLongNights, project.WorkLongNightsRate,
-                              project.TotalWorkLongNightsPrice);
-                this.BuildTotalRow(Resources.wrench, "Total Travaux",
-                                   project.TotalWorkDays + project.TotalWorkShortNights + project.TotalWorkLongNights,
-                                   project.TotalWorkDaysPrice + project.TotalWorkShortNightsPrice +
-                                   project.TotalWorkLongNightsPrice);
-                this.BuildRow("Essais jour", project.TotalTestDays, project.TestDayRate, project.TotalTestDayPrice);
-                this.BuildRow("Essais nuit", project.TotalTestNights, project.TestNightRate, project.TotalTestNightPrice);
-                this.BuildTotalRow(Resources.rosette, "Total Essais", project.TotalTestDays + project.TotalTestNights,
-                                   project.TotalTestDayPrice + project.TotalTestNightPrice);
-                this.BuildTotalRow(Resources.user_suit, "Total Divers", project.TotalOtherDays,
-                                   project.TotalOtherDaysPrice);
-                this.BuildBigTotalRow(Resources.coins, "Total", project.TotalDays, project.TotalPrice);
-            }
-            this.dataGridViewSummary.ResumeLayout(true);
-        }
-
-        private void BuildBigTotalRow(Bitmap icon, string name, double? days, double cost)
-        {
-            int index = this.dataGridViewSummary.Rows.Add(
-               icon,
-               name,
-               days,
-               null,
-               cost
-               );
-            foreach (DataGridViewCell cell in this.dataGridViewSummary.Rows[index].Cells)
-            {
-                cell.Style.BackColor = SystemColors.ControlDarkDark;
-                cell.Style.Font = new Font(defaultFont, FontStyle.Bold);
-                cell.Style.ForeColor = SystemColors.Window;
-                cell.ReadOnly = true;
-            }
-        }
-
-        private void BuildTotalRow(Bitmap icon, string name, double? days, double cost)
-        {
-            int index = this.dataGridViewSummary.Rows.Add(
-               icon,
-               name,
-               days,
-               null,
-               cost
-               );
-            foreach (DataGridViewCell cell in this.dataGridViewSummary.Rows[index].Cells)
-            {
-                cell.Style.BackColor = SystemColors.ControlLight;
-                cell.Style.Font = new Font(defaultFont, FontStyle.Bold);
-                cell.ReadOnly = true;
-            }
-        }
-
-        private void BuildRow(string name, double time, double rate, double cost)
-        {
-            int index = this.dataGridViewSummary.Rows.Add(
-                Resources.blank,
-                name,
-                time,
-                rate,
-                cost
-                );
-            foreach (DataGridViewCell cell in this.dataGridViewSummary.Rows[index].Cells)
-            {
-                if (cell.ColumnIndex != 3)
-                    cell.ReadOnly = true;
-            }
-        }
-        #endregion
 
         private void toolStripButtonAdd_Click(object sender, EventArgs e)
         {
             var page = new AddSupplyPage();
-            page.Catalog = this.Catalog;
+            page.Catalog = Catalog;
             var setting = new WizardSetting(page, "Ajouter un matériel", "Ajout d'un matériel au projet", true);
-            if (new WizardForm().ShowDialog(setting) == System.Windows.Forms.DialogResult.OK)
+            if (new WizardForm().ShowDialog(setting) == DialogResult.OK)
             {
-                foreach (var item in page.SelectedSupplies)
+                foreach (Supply item in page.SelectedSupplies)
                 {
-                    this.project.Supplies.Add(new ProjectSupply
-                                                  {
-                                                      Quantity = 1,
-                                                      Supply = item.Clone() as Supply,
-                                                      TestsDays = item.TestsDays,
-                                                      TestsNights = 0,
-                                                      WorkDays = item.WorkDays,
-                                                      WorkLongNights = 0,
-                                                      WorkShortNights = 0
-                                                  });
+                    project.Supplies.Add(new ProjectSupply
+                                             {
+                                                 Quantity = 1,
+                                                 Supply = item.Clone() as Supply,
+                                                 TestsDays = item.TestsDays,
+                                                 TestsNights = 0,
+                                                 WorkDays = item.WorkDays,
+                                                 WorkLongNights = 0,
+                                                 WorkShortNights = 0
+                                             });
                 }
                 LoadProject();
                 if (ProjectChanged != null)
@@ -191,11 +193,19 @@ namespace Chiffrage
 
         private void toolStripButtonRemove_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Êtes-vous sûr de vouloir supprimer cet item?", "Supprimer", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
+            ProjectSupplyDto current = (projectSupplyDtoBindingSource.Current as ProjectSupplyDto);
+            if (current != null)
             {
-                this.projectSupplyDtoBindingSource.RemoveCurrent();
-                if (ProjectChanged != null)
-                    ProjectChanged(this, new EventArgs());
+                var result = MessageBox.Show("Êtes-vous sûr de vouloir supprimer cet item?", "Supprimer",
+                                             MessageBoxButtons.OKCancel,
+                                             MessageBoxIcon.Question);
+                if (result == DialogResult.OK)
+                {
+                    project.Supplies.Remove(current.ProjectSupply);
+                    LoadProject();
+                    if (ProjectChanged != null)
+                        ProjectChanged(this, new EventArgs());
+                }
             }
         }
 
@@ -206,6 +216,17 @@ namespace Chiffrage
         }
 
         private void projectBindingSource_CurrentItemChanged(object sender, EventArgs e)
+        {
+            if (ProjectChanged != null)
+                ProjectChanged(this, new EventArgs());
+        }
+
+        private void textBox_Enter(object sender, EventArgs e)
+        {
+            (sender as TextBox).SelectAll();
+        }
+
+        private void otherBenefitBindingSource_CurrentItemChanged(object sender, EventArgs e)
         {
             if (ProjectChanged != null)
                 ProjectChanged(this, new EventArgs());

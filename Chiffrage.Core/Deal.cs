@@ -1,28 +1,104 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.ComponentModel;
 
 namespace Chiffrage.Core
 {
-    public class Deal
+    public class Deal : INotifyPropertyChanged
     {
-        public virtual int Id { get; set; }
-
-        public virtual string Name { get; set; }
-
-        public virtual string Reference { get; set; }
-
-        public virtual string Comment { get; set; }
-
-        public virtual DateTime StartDate { get; set; }
-
-        public virtual DateTime EndDate { get; set; }
-
-        public virtual IList<Project> Projects { get; set; }
+        private string comment;
+        private DateTime endDate;
+        private int id;
+        private string name;
+        private IList<Project> projects;
+        private string reference;
+        private DateTime startDate;
 
         public Deal()
         {
-            this.Projects = new List<Project>();
+            Projects = new List<Project>();
+        }
+
+        public virtual int Id
+        {
+            get { return id; }
+            set
+            {
+                id = value;
+                FirePropertyChanged("Id");
+            }
+        }
+
+        public virtual string Name
+        {
+            get { return name; }
+            set
+            {
+                name = value;
+                FirePropertyChanged("Name");
+            }
+        }
+
+        public virtual string Reference
+        {
+            get { return reference; }
+            set
+            {
+                reference = value;
+                FirePropertyChanged("Reference");
+            }
+        }
+
+        public virtual string Comment
+        {
+            get { return comment; }
+            set
+            {
+                comment = value;
+                FirePropertyChanged("Comment");
+            }
+        }
+
+        public virtual DateTime StartDate
+        {
+            get { return startDate; }
+            set
+            {
+                startDate = value;
+                FirePropertyChanged("StartDate");
+            }
+        }
+
+        public virtual DateTime EndDate
+        {
+            get { return endDate; }
+            set
+            {
+                endDate = value;
+                FirePropertyChanged("EndDateId");
+            }
+        }
+
+        public virtual IList<Project> Projects
+        {
+            get { return projects; }
+            set
+            {
+                projects = value;
+                FirePropertyChanged("Projects");
+            }
+        }
+
+        #region INotifyPropertyChanged Members
+
+        public virtual event PropertyChangedEventHandler PropertyChanged;
+
+        #endregion
+
+        private void FirePropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

@@ -1,31 +1,29 @@
-﻿using System.Linq;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 
 namespace Chiffrage.Core
 {
     public class Project : INotifyPropertyChanged
     {
+        private string comment;
+        private DateTime endDate;
         private int id;
         private string name;
-        private string reference;
-        private string comment;
-        private DateTime startDate;
-        private DateTime endDate;
-
         private IList<OtherBenefit> otherBenefits = new List<OtherBenefit>();
-
-        private IList<ProjectSupply> supplies = new List<ProjectSupply>();
+        private string reference;
+        private double referenceRate;
+        private DateTime startDate;
 
 
         private double studyRate;
-        private double referenceRate;
-        private double workLongNightsRate;
-        private double workShortNightsRate;
-        private double workDayRate;
+        private IList<ProjectSupply> supplies = new List<ProjectSupply>();
         private double testDayRate;
         private double testNightRate;
+        private double workDayRate;
+        private double workLongNightsRate;
+        private double workShortNightsRate;
 
         public virtual int Id
         {
@@ -110,44 +108,44 @@ namespace Chiffrage.Core
 
         public virtual double TotalSuppliesCost
         {
-            get { return this.Supplies.Sum((s) => s.TotalPrice); }
+            get { return Supplies.Sum((s) => s.TotalPrice); }
         }
 
         public virtual double TotalStudyDays
         {
-            get { return this.Supplies.Sum((s) => s.TotalStudyDays); }
+            get { return Supplies.Sum((s) => s.TotalStudyDays); }
         }
 
         public virtual double TotalReferenceDays
         {
-            get { return this.Supplies.Sum((s) => s.TotalReferenceDays); }
+            get { return Supplies.Sum((s) => s.TotalReferenceDays); }
         }
 
         public virtual double TotalWorkDays
         {
-            get { return this.Supplies.Sum((s) => s.TotalWorkDays); }
+            get { return Supplies.Sum((s) => s.TotalWorkDays); }
         }
 
 
         public virtual double TotalWorkShortNights
         {
-            get { return this.Supplies.Sum((s) => s.TotalWorkShortNights); }
+            get { return Supplies.Sum((s) => s.TotalWorkShortNights); }
         }
 
         public virtual double TotalWorkLongNights
         {
-            get { return this.Supplies.Sum((s) => s.TotalWorkLongNights); }
+            get { return Supplies.Sum((s) => s.TotalWorkLongNights); }
         }
 
 
         public virtual double TotalTestDays
         {
-            get { return this.Supplies.Sum((s) => s.TotalTestsDays); }
+            get { return Supplies.Sum((s) => s.TotalTestsDays); }
         }
 
         public virtual double TotalTestNights
         {
-            get { return this.Supplies.Sum((s) => s.TotalTestsNights); }
+            get { return Supplies.Sum((s) => s.TotalTestsNights); }
         }
 
 
@@ -242,40 +240,40 @@ namespace Chiffrage.Core
 
         public virtual double TotalStudyDaysPrice
         {
-            get { return this.TotalStudyDays*this.StudyRate; }
+            get { return TotalStudyDays*StudyRate; }
         }
 
         public virtual double TotalReferenceDaysPrice
         {
-            get { return this.TotalReferenceDays*this.ReferenceRate; }
+            get { return TotalReferenceDays*ReferenceRate; }
         }
 
         public virtual double TotalWorkDaysPrice
         {
-            get { return this.TotalWorkDays + this.WorkDayRate; }
+            get { return TotalWorkDays + WorkDayRate; }
         }
 
         public virtual double TotalWorkShortNightsPrice
         {
-            get { return this.TotalWorkShortNights + this.WorkShortNightsRate; }
+            get { return TotalWorkShortNights + WorkShortNightsRate; }
         }
 
         public virtual double TotalWorkLongNightsPrice
         {
-            get { return this.TotalWorkLongNights + this.WorkLongNightsRate; }
+            get { return TotalWorkLongNights + WorkLongNightsRate; }
         }
 
         public virtual double TotalOtherDays
         {
-            get { return this.OtherBenefits.Sum((o) => o.Days); }
+            get { return OtherBenefits.Sum((o) => o.Days); }
         }
 
         public virtual double TotalDays
         {
             get
             {
-                return this.TotalOtherDays + this.TotalReferenceDays + this.TotalStudyDays + this.TotalTestDays +
-                       this.TotalTestNights + this.TotalWorkDays + this.TotalWorkShortNights + this.TotalWorkShortNights;
+                return TotalOtherDays + TotalReferenceDays + TotalStudyDays + TotalTestDays +
+                       TotalTestNights + TotalWorkDays + TotalWorkShortNights + TotalWorkShortNights;
             }
         }
 
@@ -283,26 +281,26 @@ namespace Chiffrage.Core
         {
             get
             {
-                return this.TotalSuppliesCost + this.TotalOtherDaysPrice + this.TotalReferenceDaysPrice +
-                       this.TotalStudyDaysPrice + this.TotalTestDayPrice +
-                       this.TotalTestNightPrice + this.TotalWorkDaysPrice + this.TotalWorkShortNightsPrice +
-                       this.TotalWorkShortNightsPrice;
+                return TotalSuppliesCost + TotalOtherDaysPrice + TotalReferenceDaysPrice +
+                       TotalStudyDaysPrice + TotalTestDayPrice +
+                       TotalTestNightPrice + TotalWorkDaysPrice + TotalWorkShortNightsPrice +
+                       TotalWorkShortNightsPrice;
             }
         }
 
         public virtual double TotalOtherDaysPrice
         {
-            get { return this.OtherBenefits.Sum((o) => o.TotalCost); }
+            get { return OtherBenefits.Sum((o) => o.TotalCost); }
         }
 
         public virtual double TotalTestDayPrice
         {
-            get { return this.TotalTestDays*this.TestDayRate; }
+            get { return TotalTestDays*TestDayRate; }
         }
 
         public virtual double TotalTestNightPrice
         {
-            get { return this.TotalTestNights*this.TestNightRate; }
+            get { return TotalTestNights*TestNightRate; }
         }
 
         #region INotifyPropertyChanged Members

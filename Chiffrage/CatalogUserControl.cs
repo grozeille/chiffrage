@@ -1,50 +1,53 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
-using System.Data;
 using System.Linq;
-using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Chiffrage.Core;
-using System.Text.RegularExpressions;
 
 namespace Chiffrage
 {
     public partial class CatalogUserControl : UserControl
     {
+        private BindingList<Supply> bindingList;
         private SupplierCatalog catalog;
 
-        private BindingList<Supply> bindingList;
-
-        public event EventHandler CatalogChanged;
+        private bool loading = false;
 
         public CatalogUserControl()
         {
             InitializeComponent();
         }
 
-        private bool loading = false;
-
         public SupplierCatalog Catalog
         {
-            get {
-                return catalog;
-            }
-            set {
+            get { return catalog; }
+            set
+            {
                 catalog = value;
                 RefreshCatalog();
             }
         }
 
+        public event EventHandler CatalogChanged;
+
         private void RefreshCatalog()
         {
             loading = true;
             if (catalog == null)
-                this.bindingList = null;
+                bindingList = null;
             else
                 bindingList = new BindingList<Supply>(catalog.Supplies);
-            this.supplyBindingSource.DataSource = bindingList;
+            supplyBindingSource.DataSource = bindingList;
+
+            if (catalog != null)
+            {
+                if (catalog.Comment == null)
+                    catalog.Comment = string.Empty;
+                if (!(catalog.Comment.StartsWith("{\\rtf") && catalog.Comment.EndsWith("}")))
+                    catalog.Comment = "{\\rtf" + catalog.Comment + "}";
+                supplierCatalogBindingSource.DataSource = catalog;
+            }
             loading = false;
             RefreshCategories();
         }
@@ -59,14 +62,14 @@ namespace Chiffrage
         private void comboBoxCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
             loading = true;
-            if(string.IsNullOrEmpty(this.comboBoxCategory.Text))
+            if (string.IsNullOrEmpty(comboBoxCategory.Text))
                 bindingList = new BindingList<Supply>(catalog.Supplies);
             else
-            {            
-                Regex regex = new Regex(string.Format(".*{0}.*", this.comboBoxCategory.Text));
-                bindingList = new BindingList<Supply>(catalog.Supplies.Where((s) => regex.IsMatch(s.Category)).ToList());
+            {
+                var regex = new Regex(string.Format(".*{0}.*", comboBoxCategory.Text));
+                bindingList = new BindingList<Supply>(catalog.Supplies.Where((s) => s.Category != null && regex.IsMatch(s.Category)).ToList());
             }
-            this.supplyBindingSource.DataSource = bindingList;
+            supplyBindingSource.DataSource = bindingList;
             loading = false;
         }
 
@@ -77,7 +80,7 @@ namespace Chiffrage
 
         private void FireCatalogChanged()
         {
-            if(!loading && CatalogChanged != null)
+            if (!loading && CatalogChanged != null)
                 CatalogChanged(this, new EventArgs());
         }
 
@@ -85,16 +88,17 @@ namespace Chiffrage
         {
             if (!loading)
             {
-                if (this.comboBoxCategory.SelectedValue == null && this.comboBoxCategory.Items.Count > 1)
-                    this.comboBoxCategory.SelectedValue = this.comboBoxCategory.Items[0];
-                var selected = this.comboBoxCategory.SelectedValue;
-                this.comboBoxCategory.Items.Clear();
-                this.comboBoxCategory.Items.Add(string.Empty);
+                if (comboBoxCategory.SelectedValue == null && comboBoxCategory.Items.Count > 1)
+                    comboBoxCategory.SelectedValue = comboBoxCategory.Items[0];
+                object selected = comboBoxCategory.SelectedValue;
+                comboBoxCategory.Items.Clear();
+                comboBoxCategory.Items.Add(string.Empty);
                 if (catalog != null)
                 {
-                    this.comboBoxCategory.Items.AddRange(catalog.Supplies.Where((s) => s.Category != null).Select((s) => s.Category).Distinct().ToArray());
+                    comboBoxCategory.Items.AddRange(
+                        catalog.Supplies.Where((s) => s.Category != null).Select((s) => s.Category).Distinct().ToArray());
                 }
-                this.comboBoxCategory.SelectedValue = selected;
+                comboBoxCategory.SelectedValue = selected;
             }
         }
 
@@ -106,7 +110,15 @@ namespace Chiffrage
 
         private void dataGridViewCatalog_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-            //if(e.ColumnIndex == dataGridViewCatalog.columnHeader)
+            if(e.ColumnIndex == categoryDataGridViewTextBoxColumn.Index)
+            {
+                RefreshCategories();
+            }
+        }
+
+        private void supplierCatalogBindingSource_CurrentItemChanged(object sender, EventArgs e)
+        {
+            FireCatalogChanged();
         }
     }
 }
