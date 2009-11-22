@@ -36,7 +36,7 @@ namespace Chiffrage.Repositories
                 Session.Transaction.Commit();
                 return catalog;
             }
-            catch
+            catch(Exception ex)
             {
                 Session.Transaction.Rollback();
                 throw;

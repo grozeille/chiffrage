@@ -4,13 +4,15 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Chiffrage.Core;
+using Chiffrage.WizardPages;
 
 namespace Chiffrage
 {
     public partial class CatalogUserControl : UserControl
     {
-        private BindingList<Supply> bindingList;
+        private BindingList<Supply> supplyList;
         private SupplierCatalog catalog;
+        private BindingList<Hardware> hardwareList;
 
         private bool loading = false;
 
@@ -35,10 +37,17 @@ namespace Chiffrage
         {
             loading = true;
             if (catalog == null)
-                bindingList = null;
+            {
+                supplyList = null;
+                hardwareList = null;
+            }
             else
-                bindingList = new BindingList<Supply>(catalog.Supplies);
-            supplyBindingSource.DataSource = bindingList;
+            {
+                supplyList = new BindingList<Supply>(catalog.Supplies);
+                hardwareList = new BindingList<Hardware>(catalog.Hardwares);
+            }            
+            hardwareBindingSource.DataSource = hardwareList;
+            supplyBindingSource.DataSource = supplyList;
 
             if (catalog != null)
             {
@@ -46,7 +55,7 @@ namespace Chiffrage
                     catalog.Comment = string.Empty;
                 if (!(catalog.Comment.StartsWith("{\\rtf") && catalog.Comment.EndsWith("}")))
                     catalog.Comment = "{\\rtf" + catalog.Comment + "}";
-                supplierCatalogBindingSource.DataSource = catalog;
+                supplierCatalogBindingSource.DataSource = catalog;                
             }
             loading = false;
             RefreshCategories();
@@ -61,16 +70,7 @@ namespace Chiffrage
 
         private void comboBoxCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
-            loading = true;
-            if (string.IsNullOrEmpty(comboBoxCategory.Text))
-                bindingList = new BindingList<Supply>(catalog.Supplies);
-            else
-            {
-                var regex = new Regex(string.Format(".*{0}.*", comboBoxCategory.Text));
-                bindingList = new BindingList<Supply>(catalog.Supplies.Where((s) => s.Category != null && regex.IsMatch(s.Category)).ToList());
-            }
-            supplyBindingSource.DataSource = bindingList;
-            loading = false;
+           
         }
 
         private void supplyBindingSource_ListChanged(object sender, ListChangedEventArgs e)
@@ -88,17 +88,17 @@ namespace Chiffrage
         {
             if (!loading)
             {
-                if (comboBoxCategory.SelectedValue == null && comboBoxCategory.Items.Count > 1)
-                    comboBoxCategory.SelectedValue = comboBoxCategory.Items[0];
-                object selected = comboBoxCategory.SelectedValue;
-                comboBoxCategory.Items.Clear();
-                comboBoxCategory.Items.Add(string.Empty);
+                if (toolStripComboBoxCategory.SelectedItem == null && toolStripComboBoxCategory.Items.Count > 1)
+                    toolStripComboBoxCategory.SelectedItem = toolStripComboBoxCategory.Items[0];
+                object selected = toolStripComboBoxCategory.SelectedItem;
+                toolStripComboBoxCategory.Items.Clear();
+                toolStripComboBoxCategory.Items.Add(string.Empty);
                 if (catalog != null)
                 {
-                    comboBoxCategory.Items.AddRange(
+                    toolStripComboBoxCategory.Items.AddRange(
                         catalog.Supplies.Where((s) => s.Category != null).Select((s) => s.Category).Distinct().ToArray());
                 }
-                comboBoxCategory.SelectedValue = selected;
+                toolStripComboBoxCategory.SelectedItem = selected;
             }
         }
 
@@ -119,6 +119,112 @@ namespace Chiffrage
         private void supplierCatalogBindingSource_CurrentItemChanged(object sender, EventArgs e)
         {
             FireCatalogChanged();
+        }
+
+        private void toolStripButtonAddHardware_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toolStripButtonRemoveHardware_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toolStripComboBoxCategory_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            loading = true;
+            if (string.IsNullOrEmpty(toolStripComboBoxCategory.Text))
+                supplyList = new BindingList<Supply>(catalog.Supplies);
+            else
+            {
+                var regex = new Regex(string.Format(".*{0}.*", toolStripComboBoxCategory.Text));
+                supplyList = new BindingList<Supply>(catalog.Supplies.Where((s) => s.Category != null && regex.IsMatch(s.Category)).ToList());
+            }
+            supplyBindingSource.DataSource = supplyList;
+            loading = false;
+        }
+
+        private void toolStripButtonAdd_Click(object sender, EventArgs e)
+        {
+            var page1 = new NewHardwarePage();
+            var setting1 = new WizardSetting(page1, "Nouveau Matériel", "Création d'un nouveau matériel", true);
+            
+            var page2 = new AddSupplyPage();
+            var c = new Catalog();
+            c.SupplierCatalogs.Add(this.catalog);
+            page2.Catalog = c;
+            var setting2 = new WizardSetting(page2, "Ajout d'un composant", "Ajouter un composant au matériel", true);
+
+            if (new WizardForm().ShowDialog(new WizardSetting[]{setting1, setting2})== System.Windows.Forms.DialogResult.OK)
+            {
+                Hardware hardware = new Hardware();
+                hardware.Name = page1.HardwareName;
+                hardware.Components = new BindingList<HardwareSupply>();
+                foreach (var item in page2.SelectedSupplies)
+                {
+                    HardwareSupply supply = new HardwareSupply();
+                    supply.Supply = item;
+                    hardware.Components.Add(supply);
+                }
+
+                hardwareList.Add(hardware);
+                hardwareBindingSource.ResetBindings(false);
+                supplyBindingSourceHardware.ResetBindings(false);
+            }
+        }
+
+        private void hardwareBindingSource_CurrentChanged(object sender, EventArgs e)
+        {
+            Hardware current = hardwareBindingSource.Current as Hardware;
+            if (current != null)
+                this.supplyBindingSourceHardware.DataSource = current.Components;
+        }
+
+        private void toolStripButtonHardwareAdd_Click(object sender, EventArgs e)
+        {
+            var page = new AddSupplyPage();
+            var c = new Catalog();
+            c.SupplierCatalogs.Add(this.catalog);
+            page.Catalog = c;
+            var setting = new WizardSetting(page, "Ajout d'un composant", "Ajouter un composant au matériel", true);
+            if (new WizardForm().ShowDialog(setting) == System.Windows.Forms.DialogResult.OK)
+            {
+                Hardware current = hardwareBindingSource.Current as Hardware;
+                if (current != null)
+                {
+                    foreach (var item in page.SelectedSupplies)
+                    {
+                        HardwareSupply supply = new HardwareSupply();
+                        supply.Supply = item;
+                        current.Components.Add(supply);
+                    }
+                    this.supplyBindingSourceHardware.ResetBindings(false);
+                }                
+            }
+        }
+
+        private void hardwareBindingSource_CurrentItemChanged(object sender, EventArgs e)
+        {
+            FireCatalogChanged();
+        }
+
+        private void supplyBindingSourceHardware_CurrentItemChanged(object sender, EventArgs e)
+        {
+            hardwareBindingSource.ResetBindings(false);
+            FireCatalogChanged();
+        }
+
+        private void supplyBindingSourceHardware_ListChanged(object sender, ListChangedEventArgs e)
+        {
+            hardwareBindingSource.ResetBindings(false);
+        }
+
+        private void hardwareBindingSource_PositionChanged(object sender, EventArgs e)
+        {
+            Hardware current = hardwareBindingSource.Current as Hardware;
+            if (current != null)
+                this.supplyBindingSourceHardware.DataSource = current.Components;
         }
     }
 }

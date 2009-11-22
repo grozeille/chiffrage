@@ -22,17 +22,15 @@ namespace Chiffrage.WizardPages
         public Catalog Catalog
         {
             get { return catalog; }
-            set
-            {
-                catalog = value;
-                LoadCatalog();
-            }
+            set { catalog = value; }
         }
 
         public IList<Supply> SelectedSupplies
         {
             get
             {
+                if (filteredSupplySelectionDtos == null)
+                    return new List<Supply>();
                 return this.filteredSupplySelectionDtos
                     .Where((dto) => dto.Selected)
                     .Select((dto) => dto.Supply).ToList();
@@ -100,11 +98,14 @@ namespace Chiffrage.WizardPages
         {
             if (e.ColumnIndex == 0)
             {
-                var currentCell = dataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex];
-                if (currentCell.Selected)
+                if (e.RowIndex > -1)
                 {
-                    currentCell.Value = !(bool)currentCell.Value;
-                    dataGridView.EndEdit();
+                    var currentCell = dataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                    if (currentCell.Selected)
+                    {
+                        currentCell.Value = !(bool) currentCell.Value;
+                        dataGridView.EndEdit();
+                    }
                 }
             }
         }
@@ -127,6 +128,11 @@ namespace Chiffrage.WizardPages
             }
             catalogSupplySelectionDtoBindingSource.DataSource = filteredSupplySelectionDtos;
             catalogSupplySelectionDtoBindingSource.ResumeBinding();
+        }
+
+        private void AddSupplyPage_Load(object sender, EventArgs e)
+        {
+            LoadCatalog();
         }
     }
 }

@@ -12,11 +12,14 @@ using NHibernate.Cfg;
 using Settings=Chiffrage.Properties.Settings;
 using System.Reflection;
 using System.IO;
+using Common.Logging;
 
 namespace Chiffrage
 {
     static class Program
     {
+        private static ILog logger = LogManager.GetLogger(typeof (Program));
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -51,10 +54,11 @@ namespace Chiffrage
             {
                 connectionCatalog.Open();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 File.Delete(Settings.Default.CatalogPath);
                 connectionCatalog = new SQLiteConnection(string.Format("Data Source={0};FailIfMissing=false", Settings.Default.CatalogPath));
+                logger.Fatal("Cannot open catalog file", ex);
                 throw;
             }
             
@@ -65,16 +69,26 @@ namespace Chiffrage
             try
             {
                 configurationCatalog.AddAssembly(Assembly.GetExecutingAssembly());
-            }catch(Exception e)
+            }catch(Exception ex)
             {
+                logger.Fatal("Cannot configure NHibernate", ex);
                 throw;
             }
-            configurationCatalog.Properties.Add("connection.connection_string", connectionCatalog.ConnectionString);
-            ISessionFactory sf = configurationCatalog.BuildSessionFactory();
-            ISession sessionCatalog = sf.OpenSession(connectionCatalog);            
 
             CatalogRepository catalogRepository = new CatalogRepository();
-            catalogRepository.Session = sessionCatalog;            
+            try
+            {
+                configurationCatalog.Properties.Add("connection.connection_string", connectionCatalog.ConnectionString);
+                ISessionFactory sf = configurationCatalog.BuildSessionFactory();
+                ISession sessionCatalog = sf.OpenSession(connectionCatalog);
+                catalogRepository.Session = sessionCatalog;            
+
+            }catch(Exception ex)
+            {
+                logger.Fatal("Cannot open NHibernate session", ex);
+                throw;
+            }
+
 
             var form = new LoadingForm();
             var formMain = new FormMain();
@@ -89,9 +103,18 @@ namespace Chiffrage
                                                 formMain.LoadLastDealFile();
                                                 args.ReportProgress(100);
                                             });
-            Application.Run(form);            
-           
-            Application.Run(formMain);
+            try
+            {
+
+                Application.Run(form);
+
+                Application.Run(formMain);
+            }
+            catch (Exception ex)
+            {
+                logger.Fatal("Unexpected error during program execution", ex);
+                throw;
+            }
 
             connectionCatalog.Close();
         }

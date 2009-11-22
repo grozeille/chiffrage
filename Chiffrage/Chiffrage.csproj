@@ -32,9 +32,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Common.Logging, Version=1.2.0.0, Culture=neutral, PublicKeyToken=af08829b84f0328e">
+    <Reference Include="Common.Logging, Version=2.0.0.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\lib\NHibernate-2.1.1.GA\Common.Logging.dll</HintPath>
+      <HintPath>..\..\..\lib\Common.Logging-2.0.0\bin\net\2.0\release\Common.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Common.Logging.Log4Net, Version=2.0.0.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\lib\Common.Logging-2.0.0\bin\net\2.0\release\Common.Logging.Log4Net.dll</HintPath>
     </Reference>
     <Reference Include="Eyefinder, Version=1.0.4.2, Culture=neutral, PublicKeyToken=75b7ec17dd7c14c3">
       <SpecificVersion>False</SpecificVersion>
@@ -199,6 +203,12 @@
     <Compile Include="WizardPages\NewDealPage.Designer.cs">
       <DependentUpon>NewDealPage.cs</DependentUpon>
     </Compile>
+    <Compile Include="WizardPages\NewHardwarePage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WizardPages\NewHardwarePage.Designer.cs">
+      <DependentUpon>NewHardwarePage.cs</DependentUpon>
+    </Compile>
     <Compile Include="WizardPages\NewProjectPage.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -347,6 +357,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\DataSources\Chiffrage.Core.Catalog.datasource" />
+    <None Include="Properties\DataSources\Chiffrage.Core.Hardware.datasource" />
+    <None Include="Properties\DataSources\Chiffrage.Core.HardwareSupply.datasource" />
     <None Include="Properties\DataSources\Chiffrage.Core.OtherBenefit.datasource" />
     <None Include="Properties\DataSources\Chiffrage.Core.SupplierCatalog.datasource" />
     <None Include="Resources\arrow_refresh.png" />
@@ -356,6 +368,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mappings\Cable.hbm.xml" />
+    <EmbeddedResource Include="WizardPages\NewHardwarePage.resx">
+      <DependentUpon>NewHardwarePage.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mappings\HardwareSupply.hbm.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

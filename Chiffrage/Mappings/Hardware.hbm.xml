@@ -10,7 +10,7 @@
     <property name="Category"/>
     <bag name="Components" cascade="save-update">
       <key column="HardwareId"/>
-      <one-to-many class="Supply"/>
+      <one-to-many class="HardwareSupply"/>
     </bag>
   </class>
 </hibernate-mapping>

@@ -201,6 +201,7 @@
             this.Controls.Add(this.panelHeader);
             this.Name = "AddSupplyPage";
             this.Size = new System.Drawing.Size(443, 365);
+            this.Load += new System.EventHandler(this.AddSupplyPage_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
