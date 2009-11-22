@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace Chiffrage
+namespace Chiffrage.WizardPages
 {
     public partial class NewCatalogPage : UserControl
     {

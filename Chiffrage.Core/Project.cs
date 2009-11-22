@@ -27,253 +27,253 @@ namespace Chiffrage.Core
 
         public virtual int Id
         {
-            get { return id; }
+            get { return this.id; }
             set
             {
-                id = value;
-                FirePropertyChanged("Id");
+                this.id = value;
+                this.FirePropertyChanged("Id");
             }
         }
 
         public virtual string Name
         {
-            get { return name; }
+            get { return this.name; }
             set
             {
-                name = value;
-                FirePropertyChanged("Name");
+                this.name = value;
+                this.FirePropertyChanged("Name");
             }
         }
 
         public virtual string Reference
         {
-            get { return reference; }
+            get { return this.reference; }
             set
             {
-                reference = value;
-                FirePropertyChanged("Reference");
+                this.reference = value;
+                this.FirePropertyChanged("Reference");
             }
         }
 
         public virtual string Comment
         {
-            get { return comment; }
+            get { return this.comment; }
             set
             {
-                comment = value;
-                FirePropertyChanged("Comment");
+                this.comment = value;
+                this.FirePropertyChanged("Comment");
             }
         }
 
 
         public virtual DateTime StartDate
         {
-            get { return startDate; }
+            get { return this.startDate; }
             set
             {
-                startDate = value;
-                FirePropertyChanged("StartDate");
+                this.startDate = value;
+                this.FirePropertyChanged("StartDate");
             }
         }
 
         public virtual DateTime EndDate
         {
-            get { return endDate; }
+            get { return this.endDate; }
             set
             {
-                endDate = value;
-                FirePropertyChanged("EndDate");
+                this.endDate = value;
+                this.FirePropertyChanged("EndDate");
             }
         }
 
         public virtual IList<ProjectSupply> Supplies
         {
-            get { return supplies; }
+            get { return this.supplies; }
             set
             {
-                supplies = value;
-                FirePropertyChanged("Supplies");
+                this.supplies = value;
+                this.FirePropertyChanged("Supplies");
             }
         }
 
         public virtual IList<OtherBenefit> OtherBenefits
         {
-            get { return otherBenefits; }
+            get { return this.otherBenefits; }
             set
             {
-                otherBenefits = value;
-                FirePropertyChanged("OtherBenefits");
+                this.otherBenefits = value;
+                this.FirePropertyChanged("OtherBenefits");
             }
         }
 
         public virtual double TotalSuppliesCost
         {
-            get { return Supplies.Sum((s) => s.TotalPrice); }
+            get { return this.Supplies.Sum((s) => s.TotalPrice); }
         }
 
         public virtual double TotalStudyDays
         {
-            get { return Supplies.Sum((s) => s.TotalStudyDays); }
+            get { return this.Supplies.Sum((s) => s.TotalStudyDays); }
         }
 
         public virtual double TotalReferenceDays
         {
-            get { return Supplies.Sum((s) => s.TotalReferenceDays); }
+            get { return this.Supplies.Sum((s) => s.TotalReferenceDays); }
         }
 
         public virtual double TotalWorkDays
         {
-            get { return Supplies.Sum((s) => s.TotalWorkDays); }
+            get { return this.Supplies.Sum((s) => s.TotalWorkDays); }
         }
 
 
         public virtual double TotalWorkShortNights
         {
-            get { return Supplies.Sum((s) => s.TotalWorkShortNights); }
+            get { return this.Supplies.Sum((s) => s.TotalWorkShortNights); }
         }
 
         public virtual double TotalWorkLongNights
         {
-            get { return Supplies.Sum((s) => s.TotalWorkLongNights); }
+            get { return this.Supplies.Sum((s) => s.TotalWorkLongNights); }
         }
 
 
         public virtual double TotalTestDays
         {
-            get { return Supplies.Sum((s) => s.TotalTestsDays); }
+            get { return this.Supplies.Sum((s) => s.TotalTestsDays); }
         }
 
         public virtual double TotalTestNights
         {
-            get { return Supplies.Sum((s) => s.TotalTestsNights); }
+            get { return this.Supplies.Sum((s) => s.TotalTestsNights); }
         }
 
 
         public virtual double StudyRate
         {
-            get { return studyRate; }
+            get { return this.studyRate; }
             set
             {
-                studyRate = value;
-                FirePropertyChanged("StudyRate");
-                FirePropertyChanged("TotalStudyDaysPrice");
-                FirePropertyChanged("TotalPrice");
+                this.studyRate = value;
+                this.FirePropertyChanged("StudyRate");
+                this.FirePropertyChanged("TotalStudyDaysPrice");
+                this.FirePropertyChanged("TotalPrice");
             }
         }
 
         public virtual double ReferenceRate
         {
-            get { return referenceRate; }
+            get { return this.referenceRate; }
             set
             {
-                referenceRate = value;
-                FirePropertyChanged("ReferenceRate");
-                FirePropertyChanged("TotalReferenceDaysPrice");
-                FirePropertyChanged("TotalPrice");
+                this.referenceRate = value;
+                this.FirePropertyChanged("ReferenceRate");
+                this.FirePropertyChanged("TotalReferenceDaysPrice");
+                this.FirePropertyChanged("TotalPrice");
             }
         }
 
 
         public virtual double WorkDayRate
         {
-            get { return workDayRate; }
+            get { return this.workDayRate; }
             set
             {
-                workDayRate = value;
-                FirePropertyChanged("WorkDayRate");
-                FirePropertyChanged("TotalWorkDaysPrice");
-                FirePropertyChanged("TotalPrice");
+                this.workDayRate = value;
+                this.FirePropertyChanged("WorkDayRate");
+                this.FirePropertyChanged("TotalWorkDaysPrice");
+                this.FirePropertyChanged("TotalPrice");
             }
         }
 
 
         public virtual double WorkShortNightsRate
         {
-            get { return workShortNightsRate; }
+            get { return this.workShortNightsRate; }
             set
             {
-                workShortNightsRate = value;
-                FirePropertyChanged("WorkShortNightsRate");
-                FirePropertyChanged("TotalWorkShortNightsPrice");
-                FirePropertyChanged("TotalPrice");
+                this.workShortNightsRate = value;
+                this.FirePropertyChanged("WorkShortNightsRate");
+                this.FirePropertyChanged("TotalWorkShortNightsPrice");
+                this.FirePropertyChanged("TotalPrice");
             }
         }
 
 
         public virtual double WorkLongNightsRate
         {
-            get { return workLongNightsRate; }
+            get { return this.workLongNightsRate; }
             set
             {
-                workLongNightsRate = value;
-                FirePropertyChanged("WorkLongNightsRate");
-                FirePropertyChanged("TotalWorkLongNightsPrice");
-                FirePropertyChanged("TotalPrice");
+                this.workLongNightsRate = value;
+                this.FirePropertyChanged("WorkLongNightsRate");
+                this.FirePropertyChanged("TotalWorkLongNightsPrice");
+                this.FirePropertyChanged("TotalPrice");
             }
         }
 
 
         public virtual double TestDayRate
         {
-            get { return testDayRate; }
+            get { return this.testDayRate; }
             set
             {
-                testDayRate = value;
-                FirePropertyChanged("TestDayRate");
-                FirePropertyChanged("TotalTestDayPrice");
-                FirePropertyChanged("TotalPrice");
+                this.testDayRate = value;
+                this.FirePropertyChanged("TestDayRate");
+                this.FirePropertyChanged("TotalTestDayPrice");
+                this.FirePropertyChanged("TotalPrice");
             }
         }
 
 
         public virtual double TestNightRate
         {
-            get { return testNightRate; }
+            get { return this.testNightRate; }
             set
             {
-                testNightRate = value;
-                FirePropertyChanged("TestNightRate");
-                FirePropertyChanged("TotalTestNightPrice");
-                FirePropertyChanged("TotalPrice");
+                this.testNightRate = value;
+                this.FirePropertyChanged("TestNightRate");
+                this.FirePropertyChanged("TotalTestNightPrice");
+                this.FirePropertyChanged("TotalPrice");
             }
         }
 
         public virtual double TotalStudyDaysPrice
         {
-            get { return TotalStudyDays*StudyRate; }
+            get { return this.TotalStudyDays*this.StudyRate; }
         }
 
         public virtual double TotalReferenceDaysPrice
         {
-            get { return TotalReferenceDays*ReferenceRate; }
+            get { return this.TotalReferenceDays*this.ReferenceRate; }
         }
 
         public virtual double TotalWorkDaysPrice
         {
-            get { return TotalWorkDays + WorkDayRate; }
+            get { return this.TotalWorkDays + this.WorkDayRate; }
         }
 
         public virtual double TotalWorkShortNightsPrice
         {
-            get { return TotalWorkShortNights + WorkShortNightsRate; }
+            get { return this.TotalWorkShortNights + this.WorkShortNightsRate; }
         }
 
         public virtual double TotalWorkLongNightsPrice
         {
-            get { return TotalWorkLongNights + WorkLongNightsRate; }
+            get { return this.TotalWorkLongNights + this.WorkLongNightsRate; }
         }
 
         public virtual double TotalOtherDays
         {
-            get { return OtherBenefits.Sum((o) => o.Days); }
+            get { return this.OtherBenefits.Sum((o) => o.Days); }
         }
 
         public virtual double TotalDays
         {
             get
             {
-                return TotalOtherDays + TotalReferenceDays + TotalStudyDays + TotalTestDays +
-                       TotalTestNights + TotalWorkDays + TotalWorkShortNights + TotalWorkShortNights;
+                return this.TotalOtherDays + this.TotalReferenceDays + this.TotalStudyDays + this.TotalTestDays +
+                       this.TotalTestNights + this.TotalWorkDays + this.TotalWorkShortNights + this.TotalWorkShortNights;
             }
         }
 
@@ -281,26 +281,26 @@ namespace Chiffrage.Core
         {
             get
             {
-                return TotalSuppliesCost + TotalOtherDaysPrice + TotalReferenceDaysPrice +
-                       TotalStudyDaysPrice + TotalTestDayPrice +
-                       TotalTestNightPrice + TotalWorkDaysPrice + TotalWorkShortNightsPrice +
-                       TotalWorkShortNightsPrice;
+                return this.TotalSuppliesCost + this.TotalOtherDaysPrice + this.TotalReferenceDaysPrice +
+                       this.TotalStudyDaysPrice + this.TotalTestDayPrice +
+                       this.TotalTestNightPrice + this.TotalWorkDaysPrice + this.TotalWorkShortNightsPrice +
+                       this.TotalWorkShortNightsPrice;
             }
         }
 
         public virtual double TotalOtherDaysPrice
         {
-            get { return OtherBenefits.Sum((o) => o.TotalCost); }
+            get { return this.OtherBenefits.Sum((o) => o.TotalCost); }
         }
 
         public virtual double TotalTestDayPrice
         {
-            get { return TotalTestDays*TestDayRate; }
+            get { return this.TotalTestDays*this.TestDayRate; }
         }
 
         public virtual double TotalTestNightPrice
         {
-            get { return TotalTestNights*TestNightRate; }
+            get { return this.TotalTestNights*this.TestNightRate; }
         }
 
         #region INotifyPropertyChanged Members
@@ -311,8 +311,8 @@ namespace Chiffrage.Core
 
         private void FirePropertyChanged(string propertyName)
         {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            if (this.PropertyChanged != null)
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

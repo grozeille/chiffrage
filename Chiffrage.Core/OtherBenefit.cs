@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Chiffrage.Core
+﻿namespace Chiffrage.Core
 {
     public class OtherBenefit
     {
@@ -16,10 +12,7 @@ namespace Chiffrage.Core
 
         public virtual double TotalCost
         {
-            get
-            {
-                return this.Days*this.CostRate;
-            }
+            get { return this.Days*this.CostRate; }
         }
     }
 }

@@ -35,8 +35,18 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             this.headerControlCatalog = new TD.Eyefinder.HeaderControl();
+            this.tabControl = new System.Windows.Forms.TabControl();
+            this.tabPageMainInfo = new System.Windows.Forms.TabPage();
+            this.commentUserControl = new Chiffrage.CommentUserControl();
+            this.supplierCatalogBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.labelComment = new System.Windows.Forms.Label();
+            this.textBoxCatalogName = new System.Windows.Forms.TextBox();
+            this.labelCatalogue = new System.Windows.Forms.Label();
+            this.tabPageSupplies = new System.Windows.Forms.TabPage();
             this.dataGridViewCatalog = new System.Windows.Forms.DataGridView();
+            this.supplyBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.bindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
             this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorCountItem = new System.Windows.Forms.ToolStripLabel();
@@ -52,15 +62,8 @@
             this.panelHeader = new System.Windows.Forms.Panel();
             this.comboBoxCategory = new System.Windows.Forms.ComboBox();
             this.labelCategory = new System.Windows.Forms.Label();
+            this.tabPageHardware = new System.Windows.Forms.TabPage();
             this.dataGridViewComboBoxColumn1 = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.tabControl = new System.Windows.Forms.TabControl();
-            this.tabPageSupplies = new System.Windows.Forms.TabPage();
-            this.tabPageMainInfo = new System.Windows.Forms.TabPage();
-            this.labelComment = new System.Windows.Forms.Label();
-            this.textBoxCatalogName = new System.Windows.Forms.TextBox();
-            this.labelCatalogue = new System.Windows.Forms.Label();
-            this.commentUserControl = new Chiffrage.CommentUserControl();
-            this.supplierCatalogBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.referenceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.categoryDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -69,18 +72,18 @@
             this.studyDaysDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.referenceDaysDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.workDaysDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.executiveWorkDaysDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.testsDaysDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.supplyBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.headerControlCatalog.SuspendLayout();
+            this.tabControl.SuspendLayout();
+            this.tabPageMainInfo.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.supplierCatalogBindingSource)).BeginInit();
+            this.tabPageSupplies.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCatalog)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.supplyBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingNavigator)).BeginInit();
             this.bindingNavigator.SuspendLayout();
             this.panelHeader.SuspendLayout();
-            this.tabControl.SuspendLayout();
-            this.tabPageSupplies.SuspendLayout();
-            this.tabPageMainInfo.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.supplierCatalogBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.supplyBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // headerControlCatalog
@@ -94,6 +97,89 @@
             this.headerControlCatalog.Size = new System.Drawing.Size(572, 373);
             this.headerControlCatalog.TabIndex = 5;
             this.headerControlCatalog.Text = "Catalogue";
+            // 
+            // tabControl
+            // 
+            this.tabControl.Controls.Add(this.tabPageMainInfo);
+            this.tabControl.Controls.Add(this.tabPageSupplies);
+            this.tabControl.Controls.Add(this.tabPageHardware);
+            this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl.Location = new System.Drawing.Point(3, 28);
+            this.tabControl.Name = "tabControl";
+            this.tabControl.SelectedIndex = 0;
+            this.tabControl.Size = new System.Drawing.Size(566, 342);
+            this.tabControl.TabIndex = 7;
+            // 
+            // tabPageMainInfo
+            // 
+            this.tabPageMainInfo.Controls.Add(this.commentUserControl);
+            this.tabPageMainInfo.Controls.Add(this.labelComment);
+            this.tabPageMainInfo.Controls.Add(this.textBoxCatalogName);
+            this.tabPageMainInfo.Controls.Add(this.labelCatalogue);
+            this.tabPageMainInfo.Location = new System.Drawing.Point(4, 22);
+            this.tabPageMainInfo.Name = "tabPageMainInfo";
+            this.tabPageMainInfo.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageMainInfo.Size = new System.Drawing.Size(558, 316);
+            this.tabPageMainInfo.TabIndex = 1;
+            this.tabPageMainInfo.Text = "Catalogue";
+            this.tabPageMainInfo.UseVisualStyleBackColor = true;
+            // 
+            // commentUserControl
+            // 
+            this.commentUserControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.commentUserControl.DataBindings.Add(new System.Windows.Forms.Binding("Rtf", this.supplierCatalogBindingSource, "Comment", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.commentUserControl.Location = new System.Drawing.Point(12, 58);
+            this.commentUserControl.Name = "commentUserControl";
+            this.commentUserControl.Rtf = "{\\rtf1\\ansi\\ansicpg1252\\deff0\\deflang1036{\\fonttbl{\\f0\\fnil\\fcharset0 Microsoft S" +
+                "ans Serif;}}\r\n\\viewkind4\\uc1\\pard\\f0\\fs17 trertre\\par\r\ntreterert\\par\r\n}\r\n";
+            this.commentUserControl.Size = new System.Drawing.Size(533, 245);
+            this.commentUserControl.TabIndex = 20;
+            // 
+            // supplierCatalogBindingSource
+            // 
+            this.supplierCatalogBindingSource.DataSource = typeof(Chiffrage.Core.SupplierCatalog);
+            this.supplierCatalogBindingSource.CurrentItemChanged += new System.EventHandler(this.supplierCatalogBindingSource_CurrentItemChanged);
+            // 
+            // labelComment
+            // 
+            this.labelComment.AutoSize = true;
+            this.labelComment.Location = new System.Drawing.Point(9, 36);
+            this.labelComment.Name = "labelComment";
+            this.labelComment.Size = new System.Drawing.Size(71, 13);
+            this.labelComment.TabIndex = 21;
+            this.labelComment.Text = "Commentaire:";
+            // 
+            // textBoxCatalogName
+            // 
+            this.textBoxCatalogName.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.supplierCatalogBindingSource, "SupplierName", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.textBoxCatalogName.Location = new System.Drawing.Point(81, 6);
+            this.textBoxCatalogName.Name = "textBoxCatalogName";
+            this.textBoxCatalogName.Size = new System.Drawing.Size(200, 20);
+            this.textBoxCatalogName.TabIndex = 18;
+            // 
+            // labelCatalogue
+            // 
+            this.labelCatalogue.AutoSize = true;
+            this.labelCatalogue.Location = new System.Drawing.Point(9, 8);
+            this.labelCatalogue.Name = "labelCatalogue";
+            this.labelCatalogue.Size = new System.Drawing.Size(58, 13);
+            this.labelCatalogue.TabIndex = 19;
+            this.labelCatalogue.Text = "Catalogue:";
+            // 
+            // tabPageSupplies
+            // 
+            this.tabPageSupplies.Controls.Add(this.dataGridViewCatalog);
+            this.tabPageSupplies.Controls.Add(this.bindingNavigator);
+            this.tabPageSupplies.Controls.Add(this.panelHeader);
+            this.tabPageSupplies.Location = new System.Drawing.Point(4, 22);
+            this.tabPageSupplies.Name = "tabPageSupplies";
+            this.tabPageSupplies.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageSupplies.Size = new System.Drawing.Size(558, 316);
+            this.tabPageSupplies.TabIndex = 0;
+            this.tabPageSupplies.Text = "Fournitures";
+            this.tabPageSupplies.UseVisualStyleBackColor = true;
             // 
             // dataGridViewCatalog
             // 
@@ -112,6 +198,7 @@
             this.studyDaysDataGridViewTextBoxColumn,
             this.referenceDaysDataGridViewTextBoxColumn,
             this.workDaysDataGridViewTextBoxColumn,
+            this.executiveWorkDaysDataGridViewTextBoxColumn,
             this.testsDaysDataGridViewTextBoxColumn});
             this.dataGridViewCatalog.DataSource = this.supplyBindingSource;
             this.dataGridViewCatalog.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -122,6 +209,12 @@
             this.dataGridViewCatalog.Size = new System.Drawing.Size(552, 255);
             this.dataGridViewCatalog.TabIndex = 3;
             this.dataGridViewCatalog.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewCatalog_CellValueChanged);
+            // 
+            // supplyBindingSource
+            // 
+            this.supplyBindingSource.DataSource = typeof(Chiffrage.Core.Supply);
+            this.supplyBindingSource.CurrentItemChanged += new System.EventHandler(this.supplyBindingSource_CurrentItemChanged);
+            this.supplyBindingSource.ListChanged += new System.ComponentModel.ListChangedEventHandler(this.supplyBindingSource_ListChanged);
             // 
             // bindingNavigator
             // 
@@ -269,6 +362,16 @@
             this.labelCategory.TabIndex = 0;
             this.labelCategory.Text = "Categorie:";
             // 
+            // tabPageHardware
+            // 
+            this.tabPageHardware.Location = new System.Drawing.Point(4, 22);
+            this.tabPageHardware.Name = "tabPageHardware";
+            this.tabPageHardware.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageHardware.Size = new System.Drawing.Size(558, 316);
+            this.tabPageHardware.TabIndex = 2;
+            this.tabPageHardware.Text = "Matériels";
+            this.tabPageHardware.UseVisualStyleBackColor = true;
+            // 
             // dataGridViewComboBoxColumn1
             // 
             this.dataGridViewComboBoxColumn1.DataPropertyName = "SupplyCategory";
@@ -277,88 +380,6 @@
             "0",
             "1"});
             this.dataGridViewComboBoxColumn1.Name = "dataGridViewComboBoxColumn1";
-            // 
-            // tabControl
-            // 
-            this.tabControl.Controls.Add(this.tabPageMainInfo);
-            this.tabControl.Controls.Add(this.tabPageSupplies);
-            this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl.Location = new System.Drawing.Point(3, 28);
-            this.tabControl.Name = "tabControl";
-            this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(566, 342);
-            this.tabControl.TabIndex = 7;
-            // 
-            // tabPageSupplies
-            // 
-            this.tabPageSupplies.Controls.Add(this.dataGridViewCatalog);
-            this.tabPageSupplies.Controls.Add(this.bindingNavigator);
-            this.tabPageSupplies.Controls.Add(this.panelHeader);
-            this.tabPageSupplies.Location = new System.Drawing.Point(4, 22);
-            this.tabPageSupplies.Name = "tabPageSupplies";
-            this.tabPageSupplies.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageSupplies.Size = new System.Drawing.Size(558, 316);
-            this.tabPageSupplies.TabIndex = 0;
-            this.tabPageSupplies.Text = "Fournitures";
-            this.tabPageSupplies.UseVisualStyleBackColor = true;
-            // 
-            // tabPageMainInfo
-            // 
-            this.tabPageMainInfo.Controls.Add(this.commentUserControl);
-            this.tabPageMainInfo.Controls.Add(this.labelComment);
-            this.tabPageMainInfo.Controls.Add(this.textBoxCatalogName);
-            this.tabPageMainInfo.Controls.Add(this.labelCatalogue);
-            this.tabPageMainInfo.Location = new System.Drawing.Point(4, 22);
-            this.tabPageMainInfo.Name = "tabPageMainInfo";
-            this.tabPageMainInfo.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageMainInfo.Size = new System.Drawing.Size(558, 316);
-            this.tabPageMainInfo.TabIndex = 1;
-            this.tabPageMainInfo.Text = "Catalogue";
-            this.tabPageMainInfo.UseVisualStyleBackColor = true;
-            // 
-            // labelComment
-            // 
-            this.labelComment.AutoSize = true;
-            this.labelComment.Location = new System.Drawing.Point(9, 36);
-            this.labelComment.Name = "labelComment";
-            this.labelComment.Size = new System.Drawing.Size(71, 13);
-            this.labelComment.TabIndex = 21;
-            this.labelComment.Text = "Commentaire:";
-            // 
-            // textBoxCatalogName
-            // 
-            this.textBoxCatalogName.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.supplierCatalogBindingSource, "SupplierName", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.textBoxCatalogName.Location = new System.Drawing.Point(81, 6);
-            this.textBoxCatalogName.Name = "textBoxCatalogName";
-            this.textBoxCatalogName.Size = new System.Drawing.Size(200, 20);
-            this.textBoxCatalogName.TabIndex = 18;
-            // 
-            // labelCatalogue
-            // 
-            this.labelCatalogue.AutoSize = true;
-            this.labelCatalogue.Location = new System.Drawing.Point(9, 8);
-            this.labelCatalogue.Name = "labelCatalogue";
-            this.labelCatalogue.Size = new System.Drawing.Size(58, 13);
-            this.labelCatalogue.TabIndex = 19;
-            this.labelCatalogue.Text = "Catalogue:";
-            // 
-            // commentUserControl
-            // 
-            this.commentUserControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.commentUserControl.DataBindings.Add(new System.Windows.Forms.Binding("Rtf", this.supplierCatalogBindingSource, "Comment", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.commentUserControl.Location = new System.Drawing.Point(12, 58);
-            this.commentUserControl.Name = "commentUserControl";
-            this.commentUserControl.Rtf = "{\\rtf1\\ansi\\ansicpg1252\\deff0\\deflang1036{\\fonttbl{\\f0\\fnil\\fcharset0 Microsoft S" +
-                "ans Serif;}}\r\n\\viewkind4\\uc1\\pard\\f0\\fs17 trertre\\par\r\ntreterert\\par\r\n}\r\n";
-            this.commentUserControl.Size = new System.Drawing.Size(533, 245);
-            this.commentUserControl.TabIndex = 20;
-            // 
-            // supplierCatalogBindingSource
-            // 
-            this.supplierCatalogBindingSource.DataSource = typeof(Chiffrage.Core.SupplierCatalog);
-            this.supplierCatalogBindingSource.CurrentItemChanged += new System.EventHandler(this.supplierCatalogBindingSource_CurrentItemChanged);
             // 
             // nameDataGridViewTextBoxColumn
             // 
@@ -417,22 +438,26 @@
             this.workDaysDataGridViewTextBoxColumn.DataPropertyName = "WorkDays";
             dataGridViewCellStyle5.Format = "#.## j;#.## j;\\0 j";
             this.workDaysDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle5;
-            this.workDaysDataGridViewTextBoxColumn.HeaderText = "Travaux";
+            this.workDaysDataGridViewTextBoxColumn.HeaderText = "Travaux ETAM";
             this.workDaysDataGridViewTextBoxColumn.Name = "workDaysDataGridViewTextBoxColumn";
+            this.workDaysDataGridViewTextBoxColumn.Width = 120;
+            // 
+            // executiveWorkDaysDataGridViewTextBoxColumn
+            // 
+            this.executiveWorkDaysDataGridViewTextBoxColumn.DataPropertyName = "ExecutiveWorkDays";
+            dataGridViewCellStyle6.Format = "#.## j;#.## j;\\0 j";
+            this.executiveWorkDaysDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle6;
+            this.executiveWorkDaysDataGridViewTextBoxColumn.HeaderText = "Travaux CRNO";
+            this.executiveWorkDaysDataGridViewTextBoxColumn.Name = "executiveWorkDaysDataGridViewTextBoxColumn";
+            this.executiveWorkDaysDataGridViewTextBoxColumn.Width = 120;
             // 
             // testsDaysDataGridViewTextBoxColumn
             // 
             this.testsDaysDataGridViewTextBoxColumn.DataPropertyName = "TestsDays";
-            dataGridViewCellStyle6.Format = "#.## j;#.## j;\\0 j";
-            this.testsDaysDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle7.Format = "#.## j;#.## j;\\0 j";
+            this.testsDaysDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle7;
             this.testsDaysDataGridViewTextBoxColumn.HeaderText = "Essaie";
             this.testsDaysDataGridViewTextBoxColumn.Name = "testsDaysDataGridViewTextBoxColumn";
-            // 
-            // supplyBindingSource
-            // 
-            this.supplyBindingSource.DataSource = typeof(Chiffrage.Core.Supply);
-            this.supplyBindingSource.CurrentItemChanged += new System.EventHandler(this.supplyBindingSource_CurrentItemChanged);
-            this.supplyBindingSource.ListChanged += new System.ComponentModel.ListChangedEventHandler(this.supplyBindingSource_ListChanged);
             // 
             // CatalogUserControl
             // 
@@ -443,19 +468,19 @@
             this.Size = new System.Drawing.Size(572, 373);
             this.Load += new System.EventHandler(this.CatalogUserControl_Load);
             this.headerControlCatalog.ResumeLayout(false);
+            this.tabControl.ResumeLayout(false);
+            this.tabPageMainInfo.ResumeLayout(false);
+            this.tabPageMainInfo.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.supplierCatalogBindingSource)).EndInit();
+            this.tabPageSupplies.ResumeLayout(false);
+            this.tabPageSupplies.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCatalog)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.supplyBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingNavigator)).EndInit();
             this.bindingNavigator.ResumeLayout(false);
             this.bindingNavigator.PerformLayout();
             this.panelHeader.ResumeLayout(false);
             this.panelHeader.PerformLayout();
-            this.tabControl.ResumeLayout(false);
-            this.tabPageSupplies.ResumeLayout(false);
-            this.tabPageSupplies.PerformLayout();
-            this.tabPageMainInfo.ResumeLayout(false);
-            this.tabPageMainInfo.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.supplierCatalogBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.supplyBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -481,15 +506,6 @@
         private System.Windows.Forms.ToolStripSeparator bindingNavigatorSeparator2;
         private System.Windows.Forms.BindingSource supplyBindingSource;
         private System.Windows.Forms.DataGridViewComboBoxColumn dataGridViewComboBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn referenceDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn categoryDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn moduleSizeDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn priceDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn studyDaysDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn referenceDaysDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn workDaysDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn testsDaysDataGridViewTextBoxColumn;
         private System.Windows.Forms.TabControl tabControl;
         private System.Windows.Forms.TabPage tabPageMainInfo;
         private System.Windows.Forms.TabPage tabPageSupplies;
@@ -498,5 +514,16 @@
         private System.Windows.Forms.TextBox textBoxCatalogName;
         private System.Windows.Forms.Label labelCatalogue;
         private System.Windows.Forms.BindingSource supplierCatalogBindingSource;
+        private System.Windows.Forms.TabPage tabPageHardware;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn referenceDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn categoryDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn moduleSizeDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn priceDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn studyDaysDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn referenceDaysDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn workDaysDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn executiveWorkDaysDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn testsDaysDataGridViewTextBoxColumn;
     }
 }

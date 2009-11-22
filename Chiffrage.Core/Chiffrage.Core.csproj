@@ -41,8 +41,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cable.cs" />
     <Compile Include="Catalog.cs" />
     <Compile Include="Deal.cs" />
+    <Compile Include="Hardware.cs" />
+    <Compile Include="ISupply.cs" />
     <Compile Include="OtherBenefit.cs" />
     <Compile Include="Project.cs" />
     <Compile Include="ProjectSupply.cs" />
@@ -51,7 +54,6 @@
     <Compile Include="Repositories\IDealRepository.cs" />
     <Compile Include="SupplierCatalog.cs" />
     <Compile Include="Supply.cs" />
-    <Compile Include="SupplyCategory.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

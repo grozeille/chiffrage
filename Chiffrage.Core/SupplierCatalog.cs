@@ -12,48 +12,74 @@ namespace Chiffrage.Core
 
         private IList<Supply> supplies;
 
+        private IList<Hardware> hardwares;
+
+        private IList<Cable> cables;
+
         public SupplierCatalog()
         {
-            supplies = new List<Supply>();
+            this.supplies = new List<Supply>();
+            this.hardwares = new List<Hardware>();
+            this.cables = new List<Cable>();
         }
 
         public virtual int Id
         {
-            get { return id; }
+            get { return this.id; }
             set
             {
-                id = value;
-                FirePropertyChanged("Id");
+                this.id = value;
+                this.FirePropertyChanged("Id");
             }
         }
 
         public virtual string SupplierName
         {
-            get { return supplierName; }
+            get { return this.supplierName; }
             set
             {
-                supplierName = value;
-                FirePropertyChanged("SupplierName");
+                this.supplierName = value;
+                this.FirePropertyChanged("SupplierName");
             }
         }
 
         public virtual IList<Supply> Supplies
         {
-            get { return supplies; }
+            get { return this.supplies; }
             set
             {
-                supplies = value;
-                FirePropertyChanged("Supplies");
+                this.supplies = value;
+                this.FirePropertyChanged("Supplies");
+            }
+        }
+
+        public virtual IList<Hardware> Hardwares
+        {
+            get { return this.hardwares; }
+            set
+            {
+                this.hardwares = value;
+                this.FirePropertyChanged("Hardwares");
+            }
+        }
+
+        public virtual IList<Cable> Cables
+        {
+            get { return this.cables; }
+            set
+            {
+                this.cables = value;
+                this.FirePropertyChanged("Cables");
             }
         }
 
         public virtual string Comment
         {
-            get { return comment; }
+            get { return this.comment; }
             set
             {
-                comment = value;
-                FirePropertyChanged("Comment");
+                this.comment = value;
+                this.FirePropertyChanged("Comment");
             }
         }
 
@@ -65,8 +91,8 @@ namespace Chiffrage.Core
 
         private void FirePropertyChanged(string propertyName)
         {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            if (this.PropertyChanged != null)
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

@@ -17,7 +17,6 @@
       <property name="Name" column="Supply_Name"/>
       <property name="Reference" column="Supply_Reference"/>
       <property name="Category" column="Supply_Category"/>
-      <property name="SupplyCategory" column="Supply_SupplyCategory"/>
       <property name="ModuleSize" column="Supply_ModuleSize"/>
       <property name="Price" column="Supply_Price"/>
       <property name="StudyDays" column="Supply_StudyDays"/>

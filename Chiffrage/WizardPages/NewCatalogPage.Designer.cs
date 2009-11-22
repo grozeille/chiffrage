@@ -1,4 +1,4 @@
-﻿namespace Chiffrage
+﻿namespace Chiffrage.WizardPages
 {
     partial class NewCatalogPage
     {

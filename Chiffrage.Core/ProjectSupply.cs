@@ -1,21 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Chiffrage.Core
+﻿namespace Chiffrage.Core
 {
     public class ProjectSupply
     {
+        private Supply supply;
+
+        public ProjectSupply()
+        {
+            this.Supply = new Supply();
+        }
+
         public virtual int Id { get; set; }
 
-        private  Supply supply;
         public virtual Supply Supply
         {
-            get { return supply; }
+            get { return this.supply; }
             set
             {
-                supply = value;
-                if(supply != null)
+                this.supply = value;
+                if (this.supply != null)
                     this.Price = this.supply.Price;
                 else
                     this.Price = 0;
@@ -24,35 +26,21 @@ namespace Chiffrage.Core
 
         public virtual int Quantity { get; set; }
 
-        public ProjectSupply()
-        {
-            this.Supply = new Supply();            
-        }
-
         public virtual double Price { get; set; }
 
         public virtual double TotalPrice
         {
-            get
-            {
-                return this.Price*this.Quantity;
-            }
+            get { return this.Price*this.Quantity; }
         }
 
         public virtual double TotalStudyDays
         {
-            get
-            {
-                return this.Supply == null ? 0 : this.Supply.StudyDays * this.Quantity;
-            }
+            get { return this.Supply == null ? 0 : this.Supply.StudyDays*this.Quantity; }
         }
 
         public virtual double TotalReferenceDays
         {
-            get
-            {
-                return this.Supply == null ? 0 : this.Supply.ReferenceDays * this.Quantity;
-            }
+            get { return this.Supply == null ? 0 : this.Supply.ReferenceDays*this.Quantity; }
         }
 
         public virtual double WorkDays { get; set; }
@@ -63,26 +51,38 @@ namespace Chiffrage.Core
 
         public virtual double TotalWorkDays
         {
-            get
-            {
-                return this.WorkDays*this.Quantity; 
-            }
+            get { return this.WorkDays*this.Quantity; }
         }
 
         public virtual double TotalWorkShortNights
         {
-            get
-            {
-                return this.WorkShortNights * this.Quantity;
-            }
+            get { return this.WorkShortNights*this.Quantity; }
         }
 
         public virtual double TotalWorkLongNights
         {
-            get
-            {
-                return this.WorkLongNights * this.Quantity;
-            }
+            get { return this.WorkLongNights*this.Quantity; }
+        }
+
+        public virtual double ExecutiveWorkDays { get; set; }
+
+        public virtual double ExecutiveWorkShortNights { get; set; }
+
+        public virtual double ExecutiveWorkLongNights { get; set; }
+
+        public virtual double TotalExecutiveWorkDays
+        {
+            get { return this.ExecutiveWorkDays * this.Quantity; }
+        }
+
+        public virtual double TotalExecutiveWorkShortNights
+        {
+            get { return this.ExecutiveWorkShortNights * this.Quantity; }
+        }
+
+        public virtual double TotalExecutiveWorkLongNights
+        {
+            get { return this.ExecutiveWorkLongNights * this.Quantity; }
         }
 
         public virtual double TestsDays { get; set; }
@@ -91,18 +91,12 @@ namespace Chiffrage.Core
 
         public virtual double TotalTestsDays
         {
-            get
-            {
-                return this.TestsDays*this.Quantity;
-            }
+            get { return this.TestsDays*this.Quantity; }
         }
 
         public virtual double TotalTestsNights
         {
-            get
-            {
-                return this.TestsNights * this.Quantity;
-            }
+            get { return this.TestsNights*this.Quantity; }
         }
     }
 }

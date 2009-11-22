@@ -5,10 +5,19 @@
     <id name="Id" column="Id">
       <generator class="hilo"/>
     </id>
+    <property name="Comment"/>
     <property name="SupplierName"/>
     <bag name="Supplies" cascade="all">
       <key column="SupplierCatalogId"/>
       <one-to-many class="Supply"/>
-    </bag>    
+    </bag>
+    <bag name="Hardwares" cascade="all">
+      <key column="SupplierCatalogId"/>
+      <one-to-many class="Hardware"/>
+    </bag>
+    <bag name="Cables" cascade="all">
+      <key column="SupplierCatalogId"/>
+      <one-to-many class="Cable"/>
+    </bag>
   </class>
 </hibernate-mapping>

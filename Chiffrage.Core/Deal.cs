@@ -16,76 +16,76 @@ namespace Chiffrage.Core
 
         public Deal()
         {
-            Projects = new List<Project>();
+            this.Projects = new List<Project>();
         }
 
         public virtual int Id
         {
-            get { return id; }
+            get { return this.id; }
             set
             {
-                id = value;
-                FirePropertyChanged("Id");
+                this.id = value;
+                this.FirePropertyChanged("Id");
             }
         }
 
         public virtual string Name
         {
-            get { return name; }
+            get { return this.name; }
             set
             {
-                name = value;
-                FirePropertyChanged("Name");
+                this.name = value;
+                this.FirePropertyChanged("Name");
             }
         }
 
         public virtual string Reference
         {
-            get { return reference; }
+            get { return this.reference; }
             set
             {
-                reference = value;
-                FirePropertyChanged("Reference");
+                this.reference = value;
+                this.FirePropertyChanged("Reference");
             }
         }
 
         public virtual string Comment
         {
-            get { return comment; }
+            get { return this.comment; }
             set
             {
-                comment = value;
-                FirePropertyChanged("Comment");
+                this.comment = value;
+                this.FirePropertyChanged("Comment");
             }
         }
 
         public virtual DateTime StartDate
         {
-            get { return startDate; }
+            get { return this.startDate; }
             set
             {
-                startDate = value;
-                FirePropertyChanged("StartDate");
+                this.startDate = value;
+                this.FirePropertyChanged("StartDate");
             }
         }
 
         public virtual DateTime EndDate
         {
-            get { return endDate; }
+            get { return this.endDate; }
             set
             {
-                endDate = value;
-                FirePropertyChanged("EndDateId");
+                this.endDate = value;
+                this.FirePropertyChanged("EndDateId");
             }
         }
 
         public virtual IList<Project> Projects
         {
-            get { return projects; }
+            get { return this.projects; }
             set
             {
-                projects = value;
-                FirePropertyChanged("Projects");
+                this.projects = value;
+                this.FirePropertyChanged("Projects");
             }
         }
 
@@ -97,8 +97,8 @@ namespace Chiffrage.Core
 
         private void FirePropertyChanged(string propertyName)
         {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            if (this.PropertyChanged != null)
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

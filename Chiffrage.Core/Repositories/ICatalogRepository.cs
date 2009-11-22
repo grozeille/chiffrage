@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Chiffrage.Core.Repositories
+﻿namespace Chiffrage.Core.Repositories
 {
     public interface ICatalogRepository
     {

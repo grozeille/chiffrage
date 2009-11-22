@@ -231,5 +231,15 @@ namespace Chiffrage
             if (ProjectChanged != null)
                 ProjectChanged(this, new EventArgs());
         }
+
+        private void tabPageWork_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dataGridViewWork_Scroll(object sender, ScrollEventArgs e)
+        {
+            //dataGridViewWorkExecutive.
+        }
     }
 }

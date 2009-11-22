@@ -116,10 +116,10 @@
     <Compile Include="LoadingForm.Designer.cs">
       <DependentUpon>LoadingForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="NewCatalogPage.cs">
+    <Compile Include="WizardPages\NewCatalogPage.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="NewCatalogPage.Designer.cs">
+    <Compile Include="WizardPages\NewCatalogPage.Designer.cs">
       <DependentUpon>NewCatalogPage.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
@@ -142,7 +142,7 @@
     <EmbeddedResource Include="LoadingForm.resx">
       <DependentUpon>LoadingForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="NewCatalogPage.resx">
+    <EmbeddedResource Include="WizardPages\NewCatalogPage.resx">
       <DependentUpon>NewCatalogPage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ProjectUserControl.resx">
@@ -350,6 +350,12 @@
     <None Include="Properties\DataSources\Chiffrage.Core.OtherBenefit.datasource" />
     <None Include="Properties\DataSources\Chiffrage.Core.SupplierCatalog.datasource" />
     <None Include="Resources\arrow_refresh.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mappings\Hardware.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mappings\Cable.hbm.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

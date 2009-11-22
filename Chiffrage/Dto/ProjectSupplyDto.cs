@@ -82,6 +82,11 @@ namespace Chiffrage.Dto
             get { return ProjectSupply == null ? 0 : (ProjectSupply.Supply == null ? 0 :ProjectSupply.Supply.WorkDays); }
         }
 
+        public double CatalogExecutiveWorkDays
+        {
+            get { return ProjectSupply == null ? 0 : (ProjectSupply.Supply == null ? 0 : ProjectSupply.Supply.ExecutiveWorkDays); }
+        }
+
         public double WorkDays
         {
             get { return ProjectSupply == null ? 0 : ProjectSupply.WorkDays; }
@@ -94,9 +99,26 @@ namespace Chiffrage.Dto
             }
         }
 
+        public double ExecutiveWorkDays
+        {
+            get { return ProjectSupply == null ? 0 : ProjectSupply.ExecutiveWorkDays; }
+            set
+            {
+                if (ProjectSupply == null) return;
+                ProjectSupply.ExecutiveWorkDays = value;
+                FirePropertyChanged("ExecutiveWorkDays");
+                FirePropertyChanged("TotalExecutiveWorkDays");
+            }
+        }
+
         public double TotalWorkDays
         {
             get { return ProjectSupply == null ? 0 : ProjectSupply.TotalWorkDays; }
+        }
+
+        public double TotalExecutiveWorkDays
+        {
+            get { return ProjectSupply == null ? 0 : ProjectSupply.TotalExecutiveWorkDays; }
         }
 
         public double WorkShortNights
@@ -111,9 +133,26 @@ namespace Chiffrage.Dto
             }
         }
 
+        public double ExecutiveWorkShortNights
+        {
+            get { return ProjectSupply == null ? 0 : ProjectSupply.ExecutiveWorkShortNights; }
+            set
+            {
+                if (ProjectSupply == null) return;
+                ProjectSupply.ExecutiveWorkShortNights = value;
+                FirePropertyChanged("ExecutiveWorkShortNights");
+                FirePropertyChanged("TotalExecutiveWorkShortNights");
+            }
+        }
+
         public double TotalWorkShortNights
         {
             get { return ProjectSupply == null ? 0 : ProjectSupply.TotalWorkShortNights; }
+        }
+
+        public double TotalExecutiveWorkShortNights
+        {
+            get { return ProjectSupply == null ? 0 : ProjectSupply.TotalExecutiveWorkShortNights; }
         }
 
         public double WorkLongNights
@@ -128,9 +167,26 @@ namespace Chiffrage.Dto
             }
         }
 
+        public double ExecutiveWorkLongNights
+        {
+            get { return ProjectSupply == null ? 0 : ProjectSupply.ExecutiveWorkLongNights; }
+            set
+            {
+                if (ProjectSupply == null) return;
+                ProjectSupply.ExecutiveWorkLongNights = value;
+                FirePropertyChanged("ExecutiveWorkLongNights");
+                FirePropertyChanged("TotalExecutiveWorkLongNights");
+            }
+        }
+
         public double TotalWorkLongNights
         {
             get { return ProjectSupply == null ? 0 : ProjectSupply.TotalWorkLongNights; }
+        }
+
+        public double TotalExecutiveWorkLongNights
+        {
+            get { return ProjectSupply == null ? 0 : ProjectSupply.TotalExecutiveWorkLongNights; }
         }
 
         public double CatalogTestsDays
