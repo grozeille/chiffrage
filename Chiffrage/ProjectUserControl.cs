@@ -132,12 +132,24 @@ namespace Chiffrage
             foreach (ProjectSupply item in project.Supplies)
             {
                 var dto = new ProjectSupplyDto();
-                dto.ProjectSupply = item;
+                dto.Item = item;
                 source.Add(dto);
             }
             projectSupplyDtoBindingSource.DataSource = source;
             projectSupplyDtoBindingSource.ResumeBinding();
             toolStripButtonRemove.Enabled = source.Count > 0;
+
+            projectHarwareDtoBindingSource.SuspendBinding();
+            var sourceHardware = new BindingList<ProjectHardwareDto>();
+            foreach (ProjectHardware item in project.Hardwares)
+            {
+                var dto = new ProjectHardwareDto();
+                dto.Item = item;
+                sourceHardware.Add(dto);
+            }
+            projectHarwareDtoBindingSource.DataSource = sourceHardware;
+            projectHarwareDtoBindingSource.ResumeBinding();
+            toolStripButtonRemoveHardware.Enabled = source.Count > 0;
 
             BuildSummary();
 
@@ -161,22 +173,26 @@ namespace Chiffrage
 
         private void toolStripButtonAdd_Click(object sender, EventArgs e)
         {
-            var page = new AddSupplyPage();
+            var page = new AddCatalogItemPage();
             page.Catalog = Catalog;
+            page.DisplayItemType = AddCatalogItemPage.ItemType.Supply;
             var setting = new WizardSetting(page, "Ajouter un matériel", "Ajout d'un matériel au projet", true);
             if (new WizardForm().ShowDialog(setting) == DialogResult.OK)
             {
-                foreach (Supply item in page.SelectedSupplies)
+                foreach (Supply item in page.SelectedItems)
                 {
                     project.Supplies.Add(new ProjectSupply
                                              {
                                                  Quantity = 1,
-                                                 Supply = item.Clone() as Supply,
-                                                 TestsDays = item.TestsDays,
+                                                 Item = item.Clone() as Supply,
+                                                 TestsDays = item.CatalogTestsDays,
                                                  TestsNights = 0,
-                                                 WorkDays = item.WorkDays,
+                                                 WorkDays = item.CatalogWorkDays,
                                                  WorkLongNights = 0,
-                                                 WorkShortNights = 0
+                                                 WorkShortNights = 0,
+                                                 ExecutiveWorkDays = item.CatalogExecutiveWorkDays,
+                                                 ExecutiveWorkLongNights = 0,
+                                                 ExecutiveWorkShortNights = 0
                                              });
                 }
                 LoadProject();
@@ -201,7 +217,7 @@ namespace Chiffrage
                                              MessageBoxIcon.Question);
                 if (result == DialogResult.OK)
                 {
-                    project.Supplies.Remove(current.ProjectSupply);
+                    project.Supplies.Remove(current.Item);
                     LoadProject();
                     if (ProjectChanged != null)
                         ProjectChanged(this, new EventArgs());
@@ -240,6 +256,54 @@ namespace Chiffrage
         private void dataGridViewWork_Scroll(object sender, ScrollEventArgs e)
         {
             //dataGridViewWorkExecutive.
+        }
+
+        private void toolStripButtonAddHardware_Click(object sender, EventArgs e)
+        {
+            var page = new AddCatalogItemPage();
+            page.Catalog = Catalog;
+            page.DisplayItemType = AddCatalogItemPage.ItemType.Hardware;
+            var setting = new WizardSetting(page, "Ajouter un matériel", "Ajout d'un matériel au projet", true);
+            if (new WizardForm().ShowDialog(setting) == DialogResult.OK)
+            {
+                foreach (Hardware item in page.SelectedItems)
+                {
+                    project.Hardwares.Add(new ProjectHardware
+                    {
+                        Quantity = 1,
+                        Item = item.Clone() as Hardware,
+                        TestsDays = item.CatalogTestsDays,
+                        TestsNights = 0,
+                        WorkDays = item.CatalogWorkDays,
+                        WorkLongNights = 0,
+                        WorkShortNights = 0,
+                        ExecutiveWorkDays = item.CatalogExecutiveWorkDays,
+                        ExecutiveWorkLongNights = 0,
+                        ExecutiveWorkShortNights = 0
+                    });
+                }
+                LoadProject();
+                if (ProjectChanged != null)
+                    ProjectChanged(this, new EventArgs());
+            }
+        }
+
+        private void toolStripButtonRemoveHardware_Click(object sender, EventArgs e)
+        {
+            ProjectHardwareDto current = (projectHarwareDtoBindingSource.Current as ProjectHardwareDto);
+            if (current != null)
+            {
+                var result = MessageBox.Show("Êtes-vous sûr de vouloir supprimer cet item?", "Supprimer",
+                                             MessageBoxButtons.OKCancel,
+                                             MessageBoxIcon.Question);
+                if (result == DialogResult.OK)
+                {
+                    project.Hardwares.Remove(current.Item);
+                    LoadProject();
+                    if (ProjectChanged != null)
+                        ProjectChanged(this, new EventArgs());
+                }
+            }
         }
     }
 }

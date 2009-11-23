@@ -52,7 +52,7 @@
             // 
             this.buttonCancel.CausesValidation = false;
             this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.buttonCancel.Location = new System.Drawing.Point(291, 8);
+            this.buttonCancel.Location = new System.Drawing.Point(368, 8);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 4;
@@ -64,9 +64,9 @@
             this.panelProgression.Controls.Add(this.labelProgression);
             this.panelProgression.Controls.Add(this.progressBar);
             this.panelProgression.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelProgression.Location = new System.Drawing.Point(0, 303);
+            this.panelProgression.Location = new System.Drawing.Point(0, 347);
             this.panelProgression.Name = "panelProgression";
-            this.panelProgression.Size = new System.Drawing.Size(377, 46);
+            this.panelProgression.Size = new System.Drawing.Size(454, 46);
             this.panelProgression.TabIndex = 8;
             this.panelProgression.Visible = false;
             // 
@@ -85,7 +85,7 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.progressBar.Location = new System.Drawing.Point(11, 25);
             this.progressBar.Name = "progressBar";
-            this.progressBar.Size = new System.Drawing.Size(356, 12);
+            this.progressBar.Size = new System.Drawing.Size(433, 12);
             this.progressBar.TabIndex = 0;
             // 
             // panelContent
@@ -95,22 +95,22 @@
             this.panelContent.Location = new System.Drawing.Point(0, 50);
             this.panelContent.Name = "panelContent";
             this.panelContent.Padding = new System.Windows.Forms.Padding(8);
-            this.panelContent.Size = new System.Drawing.Size(377, 299);
+            this.panelContent.Size = new System.Drawing.Size(454, 343);
             this.panelContent.TabIndex = 7;
             // 
             // labelFooterSeparator
             // 
             this.labelFooterSeparator.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.labelFooterSeparator.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.labelFooterSeparator.Location = new System.Drawing.Point(0, 349);
+            this.labelFooterSeparator.Location = new System.Drawing.Point(0, 393);
             this.labelFooterSeparator.Name = "labelFooterSeparator";
-            this.labelFooterSeparator.Size = new System.Drawing.Size(377, 2);
+            this.labelFooterSeparator.Size = new System.Drawing.Size(454, 2);
             this.labelFooterSeparator.TabIndex = 10;
             // 
             // buttonBack
             // 
             this.buttonBack.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonBack.Location = new System.Drawing.Point(48, 8);
+            this.buttonBack.Location = new System.Drawing.Point(125, 8);
             this.buttonBack.Name = "buttonBack";
             this.buttonBack.Size = new System.Drawing.Size(75, 23);
             this.buttonBack.TabIndex = 2;
@@ -124,9 +124,9 @@
             this.panelHeader.Controls.Add(this.labelDescription);
             this.panelHeader.Controls.Add(this.labelTitle);
             this.panelHeader.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelHeader.Location = new System.Drawing.Point(0, 2);
+            this.panelHeader.Location = new System.Drawing.Point(0, 0);
             this.panelHeader.Name = "panelHeader";
-            this.panelHeader.Size = new System.Drawing.Size(377, 48);
+            this.panelHeader.Size = new System.Drawing.Size(454, 48);
             this.panelHeader.TabIndex = 9;
             // 
             // labelDescription
@@ -151,7 +151,7 @@
             // buttonNext
             // 
             this.buttonNext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonNext.Location = new System.Drawing.Point(129, 8);
+            this.buttonNext.Location = new System.Drawing.Point(206, 8);
             this.buttonNext.Name = "buttonNext";
             this.buttonNext.Size = new System.Drawing.Size(75, 23);
             this.buttonNext.TabIndex = 1;
@@ -171,17 +171,17 @@
             this.panelFooter.Controls.Add(this.buttonBack);
             this.panelFooter.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panelFooter.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
-            this.panelFooter.Location = new System.Drawing.Point(0, 351);
+            this.panelFooter.Location = new System.Drawing.Point(0, 395);
             this.panelFooter.Name = "panelFooter";
             this.panelFooter.Padding = new System.Windows.Forms.Padding(0, 5, 8, 5);
-            this.panelFooter.Size = new System.Drawing.Size(377, 39);
+            this.panelFooter.Size = new System.Drawing.Size(454, 39);
             this.panelFooter.TabIndex = 11;
             // 
             // buttonFinnish
             // 
             this.buttonFinnish.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonFinnish.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonFinnish.Location = new System.Drawing.Point(210, 8);
+            this.buttonFinnish.Location = new System.Drawing.Point(287, 8);
             this.buttonFinnish.Name = "buttonFinnish";
             this.buttonFinnish.Size = new System.Drawing.Size(75, 23);
             this.buttonFinnish.TabIndex = 0;
@@ -192,9 +192,9 @@
             // 
             this.labelHeaderSeparator.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.labelHeaderSeparator.Dock = System.Windows.Forms.DockStyle.Top;
-            this.labelHeaderSeparator.Location = new System.Drawing.Point(0, 0);
+            this.labelHeaderSeparator.Location = new System.Drawing.Point(0, 48);
             this.labelHeaderSeparator.Name = "labelHeaderSeparator";
-            this.labelHeaderSeparator.Size = new System.Drawing.Size(377, 2);
+            this.labelHeaderSeparator.Size = new System.Drawing.Size(454, 2);
             this.labelHeaderSeparator.TabIndex = 6;
             // 
             // WizardForm
@@ -203,13 +203,13 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.buttonCancel;
-            this.ClientSize = new System.Drawing.Size(377, 390);
+            this.ClientSize = new System.Drawing.Size(454, 434);
             this.Controls.Add(this.panelProgression);
             this.Controls.Add(this.panelContent);
             this.Controls.Add(this.labelFooterSeparator);
+            this.Controls.Add(this.labelHeaderSeparator);
             this.Controls.Add(this.panelHeader);
             this.Controls.Add(this.panelFooter);
-            this.Controls.Add(this.labelHeaderSeparator);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "WizardForm";

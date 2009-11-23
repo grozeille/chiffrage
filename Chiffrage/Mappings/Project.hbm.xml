@@ -14,6 +14,10 @@
       <key column="ProjectId"/>
       <one-to-many class="ProjectSupply"/>
     </bag>
+    <bag name="Hardwares" cascade="all">
+      <key column="ProjectId"/>
+      <one-to-many class="ProjectHardware"/>
+    </bag>
     <bag name="OtherBenefits" cascade="all">
       <key column="ProjectId"/>
       <one-to-many class="OtherBenefit"/>

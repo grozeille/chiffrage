@@ -105,7 +105,12 @@
     <Compile Include="DealUserControl.Designer.cs">
       <DependentUpon>DealUserControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Dto\CatalogItemSelectionDto.cs" />
     <Compile Include="Dto\CatalogSupplySelectionDto.cs" />
+    <Compile Include="Dto\CatalogHardwareSelectionDto.cs" />
+    <Compile Include="Dto\ICatalogItemSelectionDto.cs" />
+    <Compile Include="Dto\ProjectHardwareDto.cs" />
+    <Compile Include="Dto\ProjectItemDto.cs" />
     <Compile Include="Dto\ProjectSupplyDto.cs" />
     <Compile Include="FormMain.cs">
       <SubType>Form</SubType>
@@ -160,8 +165,8 @@
     <EmbeddedResource Include="WizardForm.resx">
       <DependentUpon>WizardForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="WizardPages\AddSupplyPage.resx">
-      <DependentUpon>AddSupplyPage.cs</DependentUpon>
+    <EmbeddedResource Include="WizardPages\AddCatalogItemPage.resx">
+      <DependentUpon>AddCatalogItemPage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WizardPages\NewDealPage.resx">
       <DependentUpon>NewDealPage.cs</DependentUpon>
@@ -191,11 +196,11 @@
     <Compile Include="WizardForm.Designer.cs">
       <DependentUpon>WizardForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="WizardPages\AddSupplyPage.cs">
+    <Compile Include="WizardPages\AddCatalogItemPage.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="WizardPages\AddSupplyPage.Designer.cs">
-      <DependentUpon>AddSupplyPage.cs</DependentUpon>
+    <Compile Include="WizardPages\AddCatalogItemPage.Designer.cs">
+      <DependentUpon>AddCatalogItemPage.cs</DependentUpon>
     </Compile>
     <Compile Include="WizardPages\NewDealPage.cs">
       <SubType>UserControl</SubType>
@@ -360,7 +365,11 @@
     <None Include="Properties\DataSources\Chiffrage.Core.Hardware.datasource" />
     <None Include="Properties\DataSources\Chiffrage.Core.HardwareSupply.datasource" />
     <None Include="Properties\DataSources\Chiffrage.Core.OtherBenefit.datasource" />
+    <None Include="Properties\DataSources\Chiffrage.Core.ProjectHardware.datasource" />
     <None Include="Properties\DataSources\Chiffrage.Core.SupplierCatalog.datasource" />
+    <None Include="Properties\DataSources\Chiffrage.Dto.CatalogHardwareSelectionDto.datasource" />
+    <None Include="Properties\DataSources\Chiffrage.Dto.ICatalogItemSelectionDto.datasource" />
+    <None Include="Properties\DataSources\Chiffrage.Dto.ProjectHardwareDto.datasource" />
     <None Include="Resources\arrow_refresh.png" />
   </ItemGroup>
   <ItemGroup>
@@ -374,6 +383,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Mappings\HardwareSupply.hbm.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Mappings\ProjectHardware.hbm.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

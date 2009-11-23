@@ -31,7 +31,6 @@ namespace Chiffrage
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-            this.SuspendLayout();
             if (wizardSettings != null)
             {
                 foreach (var page in wizardSettings)
@@ -39,7 +38,6 @@ namespace Chiffrage
                     page.Page.Validated += new EventHandler(Page_Validated);
                     page.Page.Validating += new CancelEventHandler(Page_Validating);
                 }
-                this.ResumeLayout(true);
 
                 if (wizardSettings.Count() > 1)
                 {
@@ -68,14 +66,12 @@ namespace Chiffrage
         private void DisplayCurrentPage()
         {
             this.CurrentSetting.Validated = false;
-            this.SuspendLayout();
             this.panelContent.Controls.Clear();
             this.CurrentSetting.Page.Dock = DockStyle.Fill;
-            this.panelContent.Controls.Add(this.CurrentSetting.Page);
+            this.panelContent.Controls.Add(this.CurrentSetting.Page);            
             this.labelTitle.Text = this.CurrentSetting.Title;
             this.labelDescription.Text = this.CurrentSetting.Description;
             RefreshNavigation();
-            this.ResumeLayout(true);
         }
 
         private void RefreshNavigation()

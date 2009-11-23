@@ -9,11 +9,11 @@
     <property name="Reference"/>
     <property name="Category"/>
     <property name="ModuleSize"/>
-    <property name="Price"/>
+    <property name="CatalogPrice"/>
     <property name="StudyDays"/>
     <property name="ReferenceDays"/>
-    <property name="WorkDays"/>
-    <property name="ExecutiveWorkDays"/>
-    <property name="TestsDays"/>    
+    <property name="CatalogWorkDays"/>
+    <property name="CatalogExecutiveWorkDays"/>
+    <property name="CatalogTestsDays"/>    
   </class>
 </hibernate-mapping>

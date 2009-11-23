@@ -1,6 +1,6 @@
 ﻿namespace Chiffrage.WizardPages
 {
-    partial class AddSupplyPage
+    partial class AddCatalogItemPage
     {
         /// <summary> 
         /// Required designer variable.
@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.textBoxSearch = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -37,17 +38,17 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.checkBoxSelectAll = new System.Windows.Forms.CheckBox();
             this.panelHeader = new System.Windows.Forms.Panel();
+            this.iCatalogItemSelectionDtoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.selectedDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.supplierDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.referenceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.priceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.moduleSizeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.catalogSupplySelectionDtoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.panel1.SuspendLayout();
             this.panelHeader.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.catalogSupplySelectionDtoBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.iCatalogItemSelectionDtoBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridView
@@ -66,14 +67,14 @@
             this.referenceDataGridViewTextBoxColumn,
             this.priceDataGridViewTextBoxColumn,
             this.moduleSizeDataGridViewTextBoxColumn});
-            this.dataGridView.DataSource = this.catalogSupplySelectionDtoBindingSource;
+            this.dataGridView.DataSource = this.iCatalogItemSelectionDtoBindingSource;
             this.dataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView.GridColor = System.Drawing.SystemColors.ControlLight;
             this.dataGridView.Location = new System.Drawing.Point(0, 29);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             this.dataGridView.RowHeadersVisible = false;
-            this.dataGridView.Size = new System.Drawing.Size(443, 312);
+            this.dataGridView.Size = new System.Drawing.Size(467, 332);
             this.dataGridView.TabIndex = 6;
             this.dataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_CellClick);
             // 
@@ -105,6 +106,7 @@
             this.comboBoxCategory.Name = "comboBoxCategory";
             this.comboBoxCategory.Size = new System.Drawing.Size(121, 21);
             this.comboBoxCategory.TabIndex = 1;
+            this.comboBoxCategory.SelectedIndexChanged += new System.EventHandler(this.comboBoxCategory_SelectedIndexChanged);
             // 
             // labelCategory
             // 
@@ -119,9 +121,9 @@
             // 
             this.panel1.Controls.Add(this.checkBoxSelectAll);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 341);
+            this.panel1.Location = new System.Drawing.Point(0, 361);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(443, 24);
+            this.panel1.Size = new System.Drawing.Size(467, 24);
             this.panel1.TabIndex = 8;
             // 
             // checkBoxSelectAll
@@ -144,13 +146,17 @@
             this.panelHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelHeader.Location = new System.Drawing.Point(0, 0);
             this.panelHeader.Name = "panelHeader";
-            this.panelHeader.Size = new System.Drawing.Size(443, 29);
+            this.panelHeader.Size = new System.Drawing.Size(467, 29);
             this.panelHeader.TabIndex = 7;
+            // 
+            // iCatalogItemSelectionDtoBindingSource
+            // 
+            this.iCatalogItemSelectionDtoBindingSource.DataSource = typeof(Chiffrage.Dto.ICatalogItemSelectionDto);
             // 
             // selectedDataGridViewCheckBoxColumn
             // 
             this.selectedDataGridViewCheckBoxColumn.DataPropertyName = "Selected";
-            this.selectedDataGridViewCheckBoxColumn.HeaderText = "Séléction";
+            this.selectedDataGridViewCheckBoxColumn.HeaderText = "Sélection";
             this.selectedDataGridViewCheckBoxColumn.Name = "selectedDataGridViewCheckBoxColumn";
             this.selectedDataGridViewCheckBoxColumn.Width = 60;
             // 
@@ -177,6 +183,9 @@
             // priceDataGridViewTextBoxColumn
             // 
             this.priceDataGridViewTextBoxColumn.DataPropertyName = "Price";
+            dataGridViewCellStyle1.Format = "C2";
+            dataGridViewCellStyle1.NullValue = null;
+            this.priceDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle1;
             this.priceDataGridViewTextBoxColumn.HeaderText = "Prix";
             this.priceDataGridViewTextBoxColumn.Name = "priceDataGridViewTextBoxColumn";
             this.priceDataGridViewTextBoxColumn.ReadOnly = true;
@@ -188,26 +197,22 @@
             this.moduleSizeDataGridViewTextBoxColumn.Name = "moduleSizeDataGridViewTextBoxColumn";
             this.moduleSizeDataGridViewTextBoxColumn.ReadOnly = true;
             // 
-            // catalogSupplySelectionDtoBindingSource
-            // 
-            this.catalogSupplySelectionDtoBindingSource.DataSource = typeof(Chiffrage.Dto.CatalogSupplySelectionDto);
-            // 
-            // AddSupplyPage
+            // AddCatalogItemPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.dataGridView);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panelHeader);
-            this.Name = "AddSupplyPage";
-            this.Size = new System.Drawing.Size(443, 365);
+            this.Name = "AddCatalogItemPage";
+            this.Size = new System.Drawing.Size(467, 385);
             this.Load += new System.EventHandler(this.AddSupplyPage_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panelHeader.ResumeLayout(false);
             this.panelHeader.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.catalogSupplySelectionDtoBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.iCatalogItemSelectionDtoBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -222,7 +227,7 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.CheckBox checkBoxSelectAll;
         private System.Windows.Forms.Panel panelHeader;
-        private System.Windows.Forms.BindingSource catalogSupplySelectionDtoBindingSource;
+        private System.Windows.Forms.BindingSource iCatalogItemSelectionDtoBindingSource;
         private System.Windows.Forms.DataGridViewCheckBoxColumn selectedDataGridViewCheckBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn supplierDataGridViewTextBoxColumn;

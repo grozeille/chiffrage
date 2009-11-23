@@ -13,8 +13,8 @@
     <property name="Length"/>
     <property name="StudyDays"/>
     <property name="ReferenceDays"/>
-    <property name="WorkDays"/>
-    <property name="ExecutiveWorkDays"/>
-    <property name="TestsDays"/>
+    <property name="CatalogWorkDays"/>
+    <property name="CatalogExecutiveWorkDays"/>
+    <property name="CatalogTestsDays"/>
   </class>
 </hibernate-mapping>

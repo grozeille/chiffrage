@@ -150,7 +150,7 @@ namespace Chiffrage
             var page1 = new NewHardwarePage();
             var setting1 = new WizardSetting(page1, "Nouveau Matériel", "Création d'un nouveau matériel", true);
             
-            var page2 = new AddSupplyPage();
+            var page2 = new AddCatalogItemPage();
             var c = new Catalog();
             c.SupplierCatalogs.Add(this.catalog);
             page2.Catalog = c;
@@ -161,10 +161,10 @@ namespace Chiffrage
                 Hardware hardware = new Hardware();
                 hardware.Name = page1.HardwareName;
                 hardware.Components = new BindingList<HardwareSupply>();
-                foreach (var item in page2.SelectedSupplies)
+                foreach (var item in page2.SelectedItems)
                 {
                     HardwareSupply supply = new HardwareSupply();
-                    supply.Supply = item;
+                    supply.Supply = item as Supply;
                     hardware.Components.Add(supply);
                 }
 
@@ -183,7 +183,7 @@ namespace Chiffrage
 
         private void toolStripButtonHardwareAdd_Click(object sender, EventArgs e)
         {
-            var page = new AddSupplyPage();
+            var page = new AddCatalogItemPage();
             var c = new Catalog();
             c.SupplierCatalogs.Add(this.catalog);
             page.Catalog = c;
@@ -193,10 +193,10 @@ namespace Chiffrage
                 Hardware current = hardwareBindingSource.Current as Hardware;
                 if (current != null)
                 {
-                    foreach (var item in page.SelectedSupplies)
+                    foreach (var item in page.SelectedItems)
                     {
                         HardwareSupply supply = new HardwareSupply();
-                        supply.Supply = item;
+                        supply.Supply = item as Supply;
                         current.Components.Add(supply);
                     }
                     this.supplyBindingSourceHardware.ResetBindings(false);
