@@ -72,6 +72,7 @@
             // 
             // toolStripText
             // 
+            this.toolStripText.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStripText.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripButtonBold});
             this.toolStripText.Location = new System.Drawing.Point(0, 0);

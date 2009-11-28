@@ -187,6 +187,7 @@ namespace Chiffrage
             var c = new Catalog();
             c.SupplierCatalogs.Add(this.catalog);
             page.Catalog = c;
+            page.DisplayItemType = AddCatalogItemPage.ItemType.Supply;
             var setting = new WizardSetting(page, "Ajout d'un composant", "Ajouter un composant au matériel", true);
             if (new WizardForm().ShowDialog(setting) == System.Windows.Forms.DialogResult.OK)
             {
@@ -225,6 +226,11 @@ namespace Chiffrage
             Hardware current = hardwareBindingSource.Current as Hardware;
             if (current != null)
                 this.supplyBindingSourceHardware.DataSource = current.Components;
+        }
+
+        private void toolStripButtonHardwareRemove_Click(object sender, EventArgs e)
+        {
+            supplyBindingSourceHardware.RemoveCurrent();
         }
     }
 }

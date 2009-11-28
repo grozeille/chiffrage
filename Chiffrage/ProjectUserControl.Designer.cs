@@ -29,13 +29,15 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle65 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle69 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle70 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle71 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle72 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle73 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle74 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle75 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle83 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle84 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle76 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle77 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle78 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -43,10 +45,33 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle80 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle81 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle82 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProjectUserControl));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle83 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle84 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle85 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle93 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle94 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle95 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle100 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle101 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle102 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle108 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle109 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle59 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle63 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle64 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle60 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle61 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle62 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle110 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle115 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle116 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle111 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle112 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle113 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle114 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProjectUserControl));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle66 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle67 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle68 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle72 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle86 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle87 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle88 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -54,21 +79,18 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle90 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle91 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle92 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle93 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle94 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle95 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle96 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle97 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle98 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle99 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle100 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle101 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle102 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.headerControlProject = new TD.Eyefinder.HeaderControl();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle103 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle104 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle105 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle106 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle107 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPageMain = new System.Windows.Forms.TabPage();
             this.projectBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.labelComment = new System.Windows.Forms.Label();
             this.dateTimePickerProjectEnd = new System.Windows.Forms.DateTimePicker();
             this.label1 = new System.Windows.Forms.Label();
             this.dateTimePickerProjectBegin = new System.Windows.Forms.DateTimePicker();
@@ -102,6 +124,9 @@
             this.toolStripButtonRemove = new System.Windows.Forms.ToolStripButton();
             this.tabPageSupply = new System.Windows.Forms.TabPage();
             this.dataGridViewHardware = new System.Windows.Forms.DataGridView();
+            this.hardwareMilestoneDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.hardwareQuantityDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.hardwareTotalPriceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.toolStripHardware = new System.Windows.Forms.ToolStrip();
             this.toolStripButtonAddHardware = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonRemoveHardware = new System.Windows.Forms.ToolStripButton();
@@ -140,6 +165,7 @@
             this.ColumnSumaryRate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnSumaryCost = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.imageListProject = new System.Windows.Forms.ImageList(this.components);
+            this.panelMain = new System.Windows.Forms.Panel();
             this.commentUserControl = new Chiffrage.CommentUserControl();
             this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.quantityDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -147,6 +173,9 @@
             this.priceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.totalPriceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.projectSupplyDtoBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.hardwareNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.hardwareModuleSizeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.hardwarePriceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.projectHarwareDtoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.nameDataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.quantityDataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -172,13 +201,6 @@
             this.quantityDataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.totalTestsDaysDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.totalTestsNightsDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.hardwareNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.hardwareMilestoneDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.hardwareQuantityDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.hardwareModuleSizeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.hardwarePriceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.hardwareTotalPriceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.headerControlProject.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.tabPageMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.projectBindingSource)).BeginInit();
@@ -205,22 +227,10 @@
             this.bindingNavigatorOthers.SuspendLayout();
             this.tabPageSummary.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSummary)).BeginInit();
+            this.panelMain.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.projectSupplyDtoBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.projectHarwareDtoBindingSource)).BeginInit();
             this.SuspendLayout();
-            // 
-            // headerControlProject
-            // 
-            this.headerControlProject.BackColor = System.Drawing.Color.White;
-            this.headerControlProject.Controls.Add(this.tabControl);
-            this.headerControlProject.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.headerControlProject.HeaderFont = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold);
-            this.headerControlProject.Location = new System.Drawing.Point(0, 0);
-            this.headerControlProject.Name = "headerControlProject";
-            this.headerControlProject.Padding = new System.Windows.Forms.Padding(2);
-            this.headerControlProject.Size = new System.Drawing.Size(690, 496);
-            this.headerControlProject.TabIndex = 1;
-            this.headerControlProject.Text = "Projet";
             // 
             // tabControl
             // 
@@ -235,47 +245,22 @@
             this.tabControl.Controls.Add(this.tabPageOther);
             this.tabControl.Controls.Add(this.tabPageSummary);
             this.tabControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl.Location = new System.Drawing.Point(3, 28);
+            this.tabControl.Location = new System.Drawing.Point(0, 0);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(684, 465);
+            this.tabControl.Size = new System.Drawing.Size(860, 507);
             this.tabControl.TabIndex = 3;
             this.tabControl.Selected += new System.Windows.Forms.TabControlEventHandler(this.tabControl_Selected);
+            this.tabControl.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.tabControl_DrawItem);
             // 
             // tabPageMain
             // 
             this.tabPageMain.Controls.Add(this.commentUserControl);
-            this.tabPageMain.Controls.Add(this.labelComment);
-            this.tabPageMain.Controls.Add(this.dateTimePickerProjectEnd);
-            this.tabPageMain.Controls.Add(this.label1);
-            this.tabPageMain.Controls.Add(this.dateTimePickerProjectBegin);
-            this.tabPageMain.Controls.Add(this.labelDealDate);
-            this.tabPageMain.Controls.Add(this.textBoxReference);
-            this.tabPageMain.Controls.Add(this.labelRef);
-            this.tabPageMain.Controls.Add(this.textBoxTestNightRate);
-            this.tabPageMain.Controls.Add(this.textBoxTestDayRate);
-            this.tabPageMain.Controls.Add(this.textBoxReferenceRate);
-            this.tabPageMain.Controls.Add(this.textBoxStudyRate);
-            this.tabPageMain.Controls.Add(this.textBoxWorkLongNightsRate);
-            this.tabPageMain.Controls.Add(this.textBoxWorkShortNightsRate);
-            this.tabPageMain.Controls.Add(this.labelTestNightRate);
-            this.tabPageMain.Controls.Add(this.labelTestDayRate);
-            this.tabPageMain.Controls.Add(this.labelReferenceRate);
-            this.tabPageMain.Controls.Add(this.labelStudyRate);
-            this.tabPageMain.Controls.Add(this.labelWorkLongNightsRate);
-            this.tabPageMain.Controls.Add(this.labelWorkShortNightsRate);
-            this.tabPageMain.Controls.Add(this.textBoxWorkDayRate);
-            this.tabPageMain.Controls.Add(this.labelWorkDayRate);
-            this.tabPageMain.Controls.Add(this.textBoxTotalPrice);
-            this.tabPageMain.Controls.Add(this.textBoxTotalDays);
-            this.tabPageMain.Controls.Add(this.labelTotalPrice);
-            this.tabPageMain.Controls.Add(this.labelTotalDays);
-            this.tabPageMain.Controls.Add(this.textBoxProjectName);
-            this.tabPageMain.Controls.Add(this.labelProject);
+            this.tabPageMain.Controls.Add(this.panelMain);
             this.tabPageMain.Location = new System.Drawing.Point(4, 22);
             this.tabPageMain.Name = "tabPageMain";
             this.tabPageMain.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageMain.Size = new System.Drawing.Size(676, 439);
+            this.tabPageMain.Size = new System.Drawing.Size(852, 481);
             this.tabPageMain.TabIndex = 6;
             this.tabPageMain.Text = "Projet";
             this.tabPageMain.UseVisualStyleBackColor = true;
@@ -285,19 +270,10 @@
             this.projectBindingSource.DataSource = typeof(Chiffrage.Core.Project);
             this.projectBindingSource.CurrentItemChanged += new System.EventHandler(this.projectBindingSource_CurrentItemChanged);
             // 
-            // labelComment
-            // 
-            this.labelComment.AutoSize = true;
-            this.labelComment.Location = new System.Drawing.Point(11, 183);
-            this.labelComment.Name = "labelComment";
-            this.labelComment.Size = new System.Drawing.Size(71, 13);
-            this.labelComment.TabIndex = 17;
-            this.labelComment.Text = "Commentaire:";
-            // 
             // dateTimePickerProjectEnd
             // 
             this.dateTimePickerProjectEnd.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.projectBindingSource, "EndDate", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.dateTimePickerProjectEnd.Location = new System.Drawing.Point(82, 84);
+            this.dateTimePickerProjectEnd.Location = new System.Drawing.Point(79, 85);
             this.dateTimePickerProjectEnd.Name = "dateTimePickerProjectEnd";
             this.dateTimePickerProjectEnd.Size = new System.Drawing.Size(200, 20);
             this.dateTimePickerProjectEnd.TabIndex = 3;
@@ -305,7 +281,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(11, 87);
+            this.label1.Location = new System.Drawing.Point(8, 88);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(24, 13);
             this.label1.TabIndex = 14;
@@ -314,7 +290,7 @@
             // dateTimePickerProjectBegin
             // 
             this.dateTimePickerProjectBegin.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.projectBindingSource, "StartDate", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.dateTimePickerProjectBegin.Location = new System.Drawing.Point(82, 58);
+            this.dateTimePickerProjectBegin.Location = new System.Drawing.Point(79, 59);
             this.dateTimePickerProjectBegin.Name = "dateTimePickerProjectBegin";
             this.dateTimePickerProjectBegin.Size = new System.Drawing.Size(200, 20);
             this.dateTimePickerProjectBegin.TabIndex = 2;
@@ -322,7 +298,7 @@
             // labelDealDate
             // 
             this.labelDealDate.AutoSize = true;
-            this.labelDealDate.Location = new System.Drawing.Point(11, 61);
+            this.labelDealDate.Location = new System.Drawing.Point(8, 62);
             this.labelDealDate.Name = "labelDealDate";
             this.labelDealDate.Size = new System.Drawing.Size(39, 13);
             this.labelDealDate.TabIndex = 13;
@@ -331,7 +307,7 @@
             // textBoxReference
             // 
             this.textBoxReference.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.projectBindingSource, "Reference", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.textBoxReference.Location = new System.Drawing.Point(82, 33);
+            this.textBoxReference.Location = new System.Drawing.Point(79, 34);
             this.textBoxReference.Name = "textBoxReference";
             this.textBoxReference.Size = new System.Drawing.Size(200, 20);
             this.textBoxReference.TabIndex = 1;
@@ -339,7 +315,7 @@
             // labelRef
             // 
             this.labelRef.AutoSize = true;
-            this.labelRef.Location = new System.Drawing.Point(10, 35);
+            this.labelRef.Location = new System.Drawing.Point(7, 36);
             this.labelRef.Name = "labelRef";
             this.labelRef.Size = new System.Drawing.Size(60, 13);
             this.labelRef.TabIndex = 9;
@@ -348,7 +324,7 @@
             // textBoxTestNightRate
             // 
             this.textBoxTestNightRate.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.projectBindingSource, "TestNightRate", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged, null, "#.## €/j;#.## €/j;\\0 €/j"));
-            this.textBoxTestNightRate.Location = new System.Drawing.Point(640, 58);
+            this.textBoxTestNightRate.Location = new System.Drawing.Point(637, 59);
             this.textBoxTestNightRate.Name = "textBoxTestNightRate";
             this.textBoxTestNightRate.Size = new System.Drawing.Size(88, 20);
             this.textBoxTestNightRate.TabIndex = 10;
@@ -358,7 +334,7 @@
             // textBoxTestDayRate
             // 
             this.textBoxTestDayRate.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.projectBindingSource, "TestDayRate", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged, null, "#.## €/j;#.## €/j;\\0 €/j"));
-            this.textBoxTestDayRate.Location = new System.Drawing.Point(640, 32);
+            this.textBoxTestDayRate.Location = new System.Drawing.Point(637, 33);
             this.textBoxTestDayRate.Name = "textBoxTestDayRate";
             this.textBoxTestDayRate.Size = new System.Drawing.Size(88, 20);
             this.textBoxTestDayRate.TabIndex = 9;
@@ -368,7 +344,7 @@
             // textBoxReferenceRate
             // 
             this.textBoxReferenceRate.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.projectBindingSource, "ReferenceRate", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged, null, "#.## €/j;#.## €/j;\\0 €/j"));
-            this.textBoxReferenceRate.Location = new System.Drawing.Point(420, 32);
+            this.textBoxReferenceRate.Location = new System.Drawing.Point(417, 33);
             this.textBoxReferenceRate.Name = "textBoxReferenceRate";
             this.textBoxReferenceRate.Size = new System.Drawing.Size(88, 20);
             this.textBoxReferenceRate.TabIndex = 5;
@@ -378,7 +354,7 @@
             // textBoxStudyRate
             // 
             this.textBoxStudyRate.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.projectBindingSource, "StudyRate", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged, null, "#.## €/j;#.## €/j;\\0 €/j"));
-            this.textBoxStudyRate.Location = new System.Drawing.Point(420, 6);
+            this.textBoxStudyRate.Location = new System.Drawing.Point(417, 7);
             this.textBoxStudyRate.Name = "textBoxStudyRate";
             this.textBoxStudyRate.Size = new System.Drawing.Size(88, 20);
             this.textBoxStudyRate.TabIndex = 4;
@@ -388,7 +364,7 @@
             // textBoxWorkLongNightsRate
             // 
             this.textBoxWorkLongNightsRate.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.projectBindingSource, "WorkLongNightsRate", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged, null, "#.## €/j;#.## €/j;\\0 €/j"));
-            this.textBoxWorkLongNightsRate.Location = new System.Drawing.Point(640, 6);
+            this.textBoxWorkLongNightsRate.Location = new System.Drawing.Point(637, 7);
             this.textBoxWorkLongNightsRate.Name = "textBoxWorkLongNightsRate";
             this.textBoxWorkLongNightsRate.Size = new System.Drawing.Size(88, 20);
             this.textBoxWorkLongNightsRate.TabIndex = 8;
@@ -398,7 +374,7 @@
             // textBoxWorkShortNightsRate
             // 
             this.textBoxWorkShortNightsRate.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.projectBindingSource, "WorkShortNightsRate", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged, null, "#.## €/j;#.## €/j;\\0 €/j"));
-            this.textBoxWorkShortNightsRate.Location = new System.Drawing.Point(420, 84);
+            this.textBoxWorkShortNightsRate.Location = new System.Drawing.Point(417, 85);
             this.textBoxWorkShortNightsRate.Name = "textBoxWorkShortNightsRate";
             this.textBoxWorkShortNightsRate.Size = new System.Drawing.Size(88, 20);
             this.textBoxWorkShortNightsRate.TabIndex = 7;
@@ -408,7 +384,7 @@
             // labelTestNightRate
             // 
             this.labelTestNightRate.AutoSize = true;
-            this.labelTestNightRate.Location = new System.Drawing.Point(522, 61);
+            this.labelTestNightRate.Location = new System.Drawing.Point(519, 62);
             this.labelTestNightRate.Name = "labelTestNightRate";
             this.labelTestNightRate.Size = new System.Drawing.Size(76, 13);
             this.labelTestNightRate.TabIndex = 10;
@@ -417,7 +393,7 @@
             // labelTestDayRate
             // 
             this.labelTestDayRate.AutoSize = true;
-            this.labelTestDayRate.Location = new System.Drawing.Point(522, 35);
+            this.labelTestDayRate.Location = new System.Drawing.Point(519, 36);
             this.labelTestDayRate.Name = "labelTestDayRate";
             this.labelTestDayRate.Size = new System.Drawing.Size(76, 13);
             this.labelTestDayRate.TabIndex = 10;
@@ -426,7 +402,7 @@
             // labelReferenceRate
             // 
             this.labelReferenceRate.AutoSize = true;
-            this.labelReferenceRate.Location = new System.Drawing.Point(302, 35);
+            this.labelReferenceRate.Location = new System.Drawing.Point(299, 36);
             this.labelReferenceRate.Name = "labelReferenceRate";
             this.labelReferenceRate.Size = new System.Drawing.Size(38, 13);
             this.labelReferenceRate.TabIndex = 10;
@@ -435,7 +411,7 @@
             // labelStudyRate
             // 
             this.labelStudyRate.AutoSize = true;
-            this.labelStudyRate.Location = new System.Drawing.Point(302, 9);
+            this.labelStudyRate.Location = new System.Drawing.Point(299, 10);
             this.labelStudyRate.Name = "labelStudyRate";
             this.labelStudyRate.Size = new System.Drawing.Size(38, 13);
             this.labelStudyRate.TabIndex = 10;
@@ -444,7 +420,7 @@
             // labelWorkLongNightsRate
             // 
             this.labelWorkLongNightsRate.AutoSize = true;
-            this.labelWorkLongNightsRate.Location = new System.Drawing.Point(522, 9);
+            this.labelWorkLongNightsRate.Location = new System.Drawing.Point(519, 10);
             this.labelWorkLongNightsRate.Name = "labelWorkLongNightsRate";
             this.labelWorkLongNightsRate.Size = new System.Drawing.Size(112, 13);
             this.labelWorkLongNightsRate.TabIndex = 10;
@@ -453,7 +429,7 @@
             // labelWorkShortNightsRate
             // 
             this.labelWorkShortNightsRate.AutoSize = true;
-            this.labelWorkShortNightsRate.Location = new System.Drawing.Point(302, 87);
+            this.labelWorkShortNightsRate.Location = new System.Drawing.Point(299, 88);
             this.labelWorkShortNightsRate.Name = "labelWorkShortNightsRate";
             this.labelWorkShortNightsRate.Size = new System.Drawing.Size(110, 13);
             this.labelWorkShortNightsRate.TabIndex = 10;
@@ -462,7 +438,7 @@
             // textBoxWorkDayRate
             // 
             this.textBoxWorkDayRate.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.projectBindingSource, "WorkDayRate", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged, null, "#.## €/j;#.## €/j;\\0 €/j"));
-            this.textBoxWorkDayRate.Location = new System.Drawing.Point(420, 58);
+            this.textBoxWorkDayRate.Location = new System.Drawing.Point(417, 59);
             this.textBoxWorkDayRate.Name = "textBoxWorkDayRate";
             this.textBoxWorkDayRate.Size = new System.Drawing.Size(88, 20);
             this.textBoxWorkDayRate.TabIndex = 6;
@@ -472,7 +448,7 @@
             // labelWorkDayRate
             // 
             this.labelWorkDayRate.AutoSize = true;
-            this.labelWorkDayRate.Location = new System.Drawing.Point(302, 61);
+            this.labelWorkDayRate.Location = new System.Drawing.Point(299, 62);
             this.labelWorkDayRate.Name = "labelWorkDayRate";
             this.labelWorkDayRate.Size = new System.Drawing.Size(77, 13);
             this.labelWorkDayRate.TabIndex = 10;
@@ -481,7 +457,7 @@
             // textBoxTotalPrice
             // 
             this.textBoxTotalPrice.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.projectBindingSource, "TotalDays", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged, null, "C2"));
-            this.textBoxTotalPrice.Location = new System.Drawing.Point(82, 145);
+            this.textBoxTotalPrice.Location = new System.Drawing.Point(79, 146);
             this.textBoxTotalPrice.Name = "textBoxTotalPrice";
             this.textBoxTotalPrice.ReadOnly = true;
             this.textBoxTotalPrice.Size = new System.Drawing.Size(88, 20);
@@ -490,7 +466,7 @@
             // textBoxTotalDays
             // 
             this.textBoxTotalDays.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.projectBindingSource, "TotalDays", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged, null, "#.## j;#.## j;\\0 j"));
-            this.textBoxTotalDays.Location = new System.Drawing.Point(82, 119);
+            this.textBoxTotalDays.Location = new System.Drawing.Point(79, 120);
             this.textBoxTotalDays.Name = "textBoxTotalDays";
             this.textBoxTotalDays.ReadOnly = true;
             this.textBoxTotalDays.Size = new System.Drawing.Size(88, 20);
@@ -499,7 +475,7 @@
             // labelTotalPrice
             // 
             this.labelTotalPrice.AutoSize = true;
-            this.labelTotalPrice.Location = new System.Drawing.Point(11, 148);
+            this.labelTotalPrice.Location = new System.Drawing.Point(8, 149);
             this.labelTotalPrice.Name = "labelTotalPrice";
             this.labelTotalPrice.Size = new System.Drawing.Size(59, 13);
             this.labelTotalPrice.TabIndex = 10;
@@ -508,7 +484,7 @@
             // labelTotalDays
             // 
             this.labelTotalDays.AutoSize = true;
-            this.labelTotalDays.Location = new System.Drawing.Point(11, 122);
+            this.labelTotalDays.Location = new System.Drawing.Point(8, 123);
             this.labelTotalDays.Name = "labelTotalDays";
             this.labelTotalDays.Size = new System.Drawing.Size(69, 13);
             this.labelTotalDays.TabIndex = 10;
@@ -517,7 +493,7 @@
             // textBoxProjectName
             // 
             this.textBoxProjectName.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.projectBindingSource, "Name", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.textBoxProjectName.Location = new System.Drawing.Point(82, 7);
+            this.textBoxProjectName.Location = new System.Drawing.Point(79, 8);
             this.textBoxProjectName.Name = "textBoxProjectName";
             this.textBoxProjectName.Size = new System.Drawing.Size(200, 20);
             this.textBoxProjectName.TabIndex = 0;
@@ -525,7 +501,7 @@
             // labelProject
             // 
             this.labelProject.AutoSize = true;
-            this.labelProject.Location = new System.Drawing.Point(10, 9);
+            this.labelProject.Location = new System.Drawing.Point(7, 10);
             this.labelProject.Name = "labelProject";
             this.labelProject.Size = new System.Drawing.Size(37, 13);
             this.labelProject.TabIndex = 10;
@@ -538,7 +514,7 @@
             this.tabPageOtherSupply.Location = new System.Drawing.Point(4, 22);
             this.tabPageOtherSupply.Name = "tabPageOtherSupply";
             this.tabPageOtherSupply.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageOtherSupply.Size = new System.Drawing.Size(676, 439);
+            this.tabPageOtherSupply.Size = new System.Drawing.Size(852, 481);
             this.tabPageOtherSupply.TabIndex = 0;
             this.tabPageOtherSupply.Text = "Fourniture";
             this.tabPageOtherSupply.UseVisualStyleBackColor = true;
@@ -551,6 +527,14 @@
             this.dataGridView.BackgroundColor = System.Drawing.SystemColors.Window;
             this.dataGridView.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dataGridView.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle65.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle65.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle65.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle65.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle65.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle65.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle65.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle65;
             this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.nameDataGridViewTextBoxColumn,
@@ -559,23 +543,40 @@
             this.priceDataGridViewTextBoxColumn,
             this.totalPriceDataGridViewTextBoxColumn});
             this.dataGridView.DataSource = this.projectSupplyDtoBindingSource;
+            dataGridViewCellStyle69.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle69.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle69.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle69.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle69.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle69.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle69.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView.DefaultCellStyle = dataGridViewCellStyle69;
             this.dataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView.GridColor = System.Drawing.SystemColors.ControlLight;
             this.dataGridView.Location = new System.Drawing.Point(3, 28);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle70.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle70.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle70.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle70.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle70.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle70.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle70.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle70;
             this.dataGridView.RowHeadersVisible = false;
-            this.dataGridView.Size = new System.Drawing.Size(670, 408);
+            this.dataGridView.Size = new System.Drawing.Size(846, 450);
             this.dataGridView.TabIndex = 0;
             // 
             // toolStripProject
             // 
+            this.toolStripProject.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStripProject.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripButtonAdd,
             this.toolStripButtonRemove});
             this.toolStripProject.Location = new System.Drawing.Point(3, 3);
             this.toolStripProject.Name = "toolStripProject";
-            this.toolStripProject.Size = new System.Drawing.Size(670, 25);
+            this.toolStripProject.Size = new System.Drawing.Size(846, 25);
             this.toolStripProject.TabIndex = 1;
             this.toolStripProject.Text = "Projet";
             // 
@@ -604,7 +605,7 @@
             this.tabPageSupply.Location = new System.Drawing.Point(4, 22);
             this.tabPageSupply.Name = "tabPageSupply";
             this.tabPageSupply.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageSupply.Size = new System.Drawing.Size(676, 439);
+            this.tabPageSupply.Size = new System.Drawing.Size(852, 481);
             this.tabPageSupply.TabIndex = 7;
             this.tabPageSupply.Text = "Matériel";
             this.tabPageSupply.UseVisualStyleBackColor = true;
@@ -617,6 +618,14 @@
             this.dataGridViewHardware.BackgroundColor = System.Drawing.SystemColors.Window;
             this.dataGridViewHardware.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dataGridViewHardware.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle71.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle71.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle71.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle71.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle71.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle71.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle71.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewHardware.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle71;
             this.dataGridViewHardware.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewHardware.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.hardwareNameDataGridViewTextBoxColumn,
@@ -626,23 +635,59 @@
             this.hardwarePriceDataGridViewTextBoxColumn,
             this.hardwareTotalPriceDataGridViewTextBoxColumn});
             this.dataGridViewHardware.DataSource = this.projectHarwareDtoBindingSource;
+            dataGridViewCellStyle73.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle73.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle73.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle73.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle73.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle73.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle73.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewHardware.DefaultCellStyle = dataGridViewCellStyle73;
             this.dataGridViewHardware.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewHardware.GridColor = System.Drawing.SystemColors.ControlLight;
             this.dataGridViewHardware.Location = new System.Drawing.Point(3, 28);
             this.dataGridViewHardware.Name = "dataGridViewHardware";
             this.dataGridViewHardware.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle74.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle74.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle74.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle74.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle74.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle74.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle74.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewHardware.RowHeadersDefaultCellStyle = dataGridViewCellStyle74;
             this.dataGridViewHardware.RowHeadersVisible = false;
-            this.dataGridViewHardware.Size = new System.Drawing.Size(670, 408);
+            this.dataGridViewHardware.Size = new System.Drawing.Size(846, 450);
             this.dataGridViewHardware.TabIndex = 1;
+            // 
+            // hardwareMilestoneDataGridViewTextBoxColumn
+            // 
+            this.hardwareMilestoneDataGridViewTextBoxColumn.DataPropertyName = "Milestone";
+            this.hardwareMilestoneDataGridViewTextBoxColumn.HeaderText = "PK";
+            this.hardwareMilestoneDataGridViewTextBoxColumn.Name = "hardwareMilestoneDataGridViewTextBoxColumn";
+            // 
+            // hardwareQuantityDataGridViewTextBoxColumn
+            // 
+            this.hardwareQuantityDataGridViewTextBoxColumn.DataPropertyName = "Quantity";
+            this.hardwareQuantityDataGridViewTextBoxColumn.HeaderText = "Quantité";
+            this.hardwareQuantityDataGridViewTextBoxColumn.Name = "hardwareQuantityDataGridViewTextBoxColumn";
+            // 
+            // hardwareTotalPriceDataGridViewTextBoxColumn
+            // 
+            this.hardwareTotalPriceDataGridViewTextBoxColumn.DataPropertyName = "TotalPrice";
+            this.hardwareTotalPriceDataGridViewTextBoxColumn.HeaderText = "Coût Total";
+            this.hardwareTotalPriceDataGridViewTextBoxColumn.Name = "hardwareTotalPriceDataGridViewTextBoxColumn";
+            this.hardwareTotalPriceDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // toolStripHardware
             // 
+            this.toolStripHardware.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.toolStripHardware.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripButtonAddHardware,
             this.toolStripButtonRemoveHardware});
             this.toolStripHardware.Location = new System.Drawing.Point(3, 3);
             this.toolStripHardware.Name = "toolStripHardware";
-            this.toolStripHardware.Size = new System.Drawing.Size(670, 25);
+            this.toolStripHardware.Size = new System.Drawing.Size(846, 25);
             this.toolStripHardware.TabIndex = 2;
             this.toolStripHardware.Text = "Projet";
             // 
@@ -668,7 +713,7 @@
             // 
             this.tabPageCable.Location = new System.Drawing.Point(4, 22);
             this.tabPageCable.Name = "tabPageCable";
-            this.tabPageCable.Size = new System.Drawing.Size(676, 439);
+            this.tabPageCable.Size = new System.Drawing.Size(852, 481);
             this.tabPageCable.TabIndex = 8;
             this.tabPageCable.Text = "Câbles";
             this.tabPageCable.UseVisualStyleBackColor = true;
@@ -677,7 +722,7 @@
             // 
             this.tabPageAllSuplies.Location = new System.Drawing.Point(4, 22);
             this.tabPageAllSuplies.Name = "tabPageAllSuplies";
-            this.tabPageAllSuplies.Size = new System.Drawing.Size(676, 439);
+            this.tabPageAllSuplies.Size = new System.Drawing.Size(852, 481);
             this.tabPageAllSuplies.TabIndex = 9;
             this.tabPageAllSuplies.Text = "Tous le matériel";
             this.tabPageAllSuplies.UseVisualStyleBackColor = true;
@@ -688,7 +733,7 @@
             this.tabPageWork.Location = new System.Drawing.Point(4, 22);
             this.tabPageWork.Name = "tabPageWork";
             this.tabPageWork.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageWork.Size = new System.Drawing.Size(676, 439);
+            this.tabPageWork.Size = new System.Drawing.Size(852, 481);
             this.tabPageWork.TabIndex = 3;
             this.tabPageWork.Text = "Travaux";
             this.tabPageWork.UseVisualStyleBackColor = true;
@@ -709,7 +754,7 @@
             // splitContainer.Panel2
             // 
             this.splitContainer.Panel2.Controls.Add(this.dataGridViewWorkExecutive);
-            this.splitContainer.Size = new System.Drawing.Size(670, 433);
+            this.splitContainer.Size = new System.Drawing.Size(846, 475);
             this.splitContainer.SplitterDistance = 223;
             this.splitContainer.TabIndex = 6;
             // 
@@ -721,6 +766,14 @@
             this.dataGridViewWork.BackgroundColor = System.Drawing.SystemColors.Window;
             this.dataGridViewWork.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dataGridViewWork.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle75.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle75.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle75.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle75.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle75.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle75.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle75.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewWork.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle75;
             this.dataGridViewWork.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewWork.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.nameDataGridViewTextBoxColumn2,
@@ -733,20 +786,36 @@
             this.totalExecutiveWorkShortNightsDataGridViewTextBoxColumn,
             this.totalExecutiveWorkLongNightsDataGridViewTextBoxColumn2});
             this.dataGridViewWork.DataSource = this.projectSupplyDtoBindingSource;
+            dataGridViewCellStyle83.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle83.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle83.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle83.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle83.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle83.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle83.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewWork.DefaultCellStyle = dataGridViewCellStyle83;
             this.dataGridViewWork.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewWork.GridColor = System.Drawing.SystemColors.ControlLight;
             this.dataGridViewWork.Location = new System.Drawing.Point(0, 0);
             this.dataGridViewWork.Name = "dataGridViewWork";
+            dataGridViewCellStyle84.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle84.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle84.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle84.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle84.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle84.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle84.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewWork.RowHeadersDefaultCellStyle = dataGridViewCellStyle84;
             this.dataGridViewWork.RowHeadersVisible = false;
-            this.dataGridViewWork.Size = new System.Drawing.Size(670, 223);
+            this.dataGridViewWork.Size = new System.Drawing.Size(846, 223);
             this.dataGridViewWork.TabIndex = 4;
             this.dataGridViewWork.Scroll += new System.Windows.Forms.ScrollEventHandler(this.dataGridViewWork_Scroll);
             // 
             // catalogExecutiveWorkDaysDataGridViewTextBoxColumn
             // 
             this.catalogExecutiveWorkDaysDataGridViewTextBoxColumn.DataPropertyName = "CatalogExecutiveWorkDays";
-            dataGridViewCellStyle69.Format = "#.## j;#.## j;\\0 j";
-            this.catalogExecutiveWorkDaysDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle69;
+            dataGridViewCellStyle76.Format = "#.## j;#.## j;\\0 j";
+            this.catalogExecutiveWorkDaysDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle76;
             this.catalogExecutiveWorkDaysDataGridViewTextBoxColumn.HeaderText = "Travaux Catalogue ETAM";
             this.catalogExecutiveWorkDaysDataGridViewTextBoxColumn.Name = "catalogExecutiveWorkDaysDataGridViewTextBoxColumn";
             this.catalogExecutiveWorkDaysDataGridViewTextBoxColumn.ReadOnly = true;
@@ -755,20 +824,20 @@
             // executiveWorkDaysDataGridViewTextBoxColumn
             // 
             this.executiveWorkDaysDataGridViewTextBoxColumn.DataPropertyName = "ExecutiveWorkDays";
-            dataGridViewCellStyle70.BackColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle70.ForeColor = System.Drawing.Color.Navy;
-            dataGridViewCellStyle70.Format = "#.## j;#.## j;\\0 j";
-            this.executiveWorkDaysDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle70;
+            dataGridViewCellStyle77.BackColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle77.ForeColor = System.Drawing.Color.Navy;
+            dataGridViewCellStyle77.Format = "#.## j;#.## j;\\0 j";
+            this.executiveWorkDaysDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle77;
             this.executiveWorkDaysDataGridViewTextBoxColumn.HeaderText = "Travaux jour ETAM";
             this.executiveWorkDaysDataGridViewTextBoxColumn.Name = "executiveWorkDaysDataGridViewTextBoxColumn";
             // 
             // executiveWorkShortNightsDataGridViewTextBoxColumn
             // 
             this.executiveWorkShortNightsDataGridViewTextBoxColumn.DataPropertyName = "ExecutiveWorkShortNights";
-            dataGridViewCellStyle71.BackColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle71.ForeColor = System.Drawing.Color.Navy;
-            dataGridViewCellStyle71.Format = "#.## j;#.## j;\\0 j";
-            this.executiveWorkShortNightsDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle71;
+            dataGridViewCellStyle78.BackColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle78.ForeColor = System.Drawing.Color.Navy;
+            dataGridViewCellStyle78.Format = "#.## j;#.## j;\\0 j";
+            this.executiveWorkShortNightsDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle78;
             this.executiveWorkShortNightsDataGridViewTextBoxColumn.HeaderText = "Travaux nuit courte ETAM";
             this.executiveWorkShortNightsDataGridViewTextBoxColumn.Name = "executiveWorkShortNightsDataGridViewTextBoxColumn";
             this.executiveWorkShortNightsDataGridViewTextBoxColumn.Width = 130;
@@ -776,10 +845,10 @@
             // executiveWorkLongNightsDataGridViewTextBoxColumn2
             // 
             this.executiveWorkLongNightsDataGridViewTextBoxColumn2.DataPropertyName = "ExecutiveWorkLongNights";
-            dataGridViewCellStyle72.BackColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle72.ForeColor = System.Drawing.Color.Navy;
-            dataGridViewCellStyle72.Format = "#.## j;#.## j;\\0 j";
-            this.executiveWorkLongNightsDataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle72;
+            dataGridViewCellStyle79.BackColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle79.ForeColor = System.Drawing.Color.Navy;
+            dataGridViewCellStyle79.Format = "#.## j;#.## j;\\0 j";
+            this.executiveWorkLongNightsDataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle79;
             this.executiveWorkLongNightsDataGridViewTextBoxColumn2.HeaderText = "Travaux nuit longue ETAM";
             this.executiveWorkLongNightsDataGridViewTextBoxColumn2.Name = "executiveWorkLongNightsDataGridViewTextBoxColumn2";
             this.executiveWorkLongNightsDataGridViewTextBoxColumn2.Width = 130;
@@ -787,8 +856,8 @@
             // totalExecutiveWorkDaysDataGridViewTextBoxColumn
             // 
             this.totalExecutiveWorkDaysDataGridViewTextBoxColumn.DataPropertyName = "TotalExecutiveWorkDays";
-            dataGridViewCellStyle73.Format = "#.## j;#.## j;\\0 j";
-            this.totalExecutiveWorkDaysDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle73;
+            dataGridViewCellStyle80.Format = "#.## j;#.## j;\\0 j";
+            this.totalExecutiveWorkDaysDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle80;
             this.totalExecutiveWorkDaysDataGridViewTextBoxColumn.HeaderText = "Total travaux jour ETAM";
             this.totalExecutiveWorkDaysDataGridViewTextBoxColumn.Name = "totalExecutiveWorkDaysDataGridViewTextBoxColumn";
             this.totalExecutiveWorkDaysDataGridViewTextBoxColumn.ReadOnly = true;
@@ -797,8 +866,8 @@
             // totalExecutiveWorkShortNightsDataGridViewTextBoxColumn
             // 
             this.totalExecutiveWorkShortNightsDataGridViewTextBoxColumn.DataPropertyName = "TotalExecutiveWorkShortNights";
-            dataGridViewCellStyle74.Format = "#.## j;#.## j;\\0 j";
-            this.totalExecutiveWorkShortNightsDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle74;
+            dataGridViewCellStyle81.Format = "#.## j;#.## j;\\0 j";
+            this.totalExecutiveWorkShortNightsDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle81;
             this.totalExecutiveWorkShortNightsDataGridViewTextBoxColumn.HeaderText = "Total travaux nuit courte ETAM";
             this.totalExecutiveWorkShortNightsDataGridViewTextBoxColumn.Name = "totalExecutiveWorkShortNightsDataGridViewTextBoxColumn";
             this.totalExecutiveWorkShortNightsDataGridViewTextBoxColumn.ReadOnly = true;
@@ -807,8 +876,8 @@
             // totalExecutiveWorkLongNightsDataGridViewTextBoxColumn2
             // 
             this.totalExecutiveWorkLongNightsDataGridViewTextBoxColumn2.DataPropertyName = "TotalExecutiveWorkLongNights";
-            dataGridViewCellStyle75.Format = "#.## j;#.## j;\\0 j";
-            this.totalExecutiveWorkLongNightsDataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle75;
+            dataGridViewCellStyle82.Format = "#.## j;#.## j;\\0 j";
+            this.totalExecutiveWorkLongNightsDataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle82;
             this.totalExecutiveWorkLongNightsDataGridViewTextBoxColumn2.HeaderText = "Total travaux nuit longue ETAM";
             this.totalExecutiveWorkLongNightsDataGridViewTextBoxColumn2.Name = "totalExecutiveWorkLongNightsDataGridViewTextBoxColumn2";
             this.totalExecutiveWorkLongNightsDataGridViewTextBoxColumn2.ReadOnly = true;
@@ -822,6 +891,14 @@
             this.dataGridViewWorkExecutive.BackgroundColor = System.Drawing.SystemColors.Window;
             this.dataGridViewWorkExecutive.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dataGridViewWorkExecutive.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle85.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle85.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle85.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle85.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle85.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle85.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle85.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewWorkExecutive.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle85;
             this.dataGridViewWorkExecutive.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewWorkExecutive.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dataGridViewTextBoxColumn1,
@@ -834,12 +911,28 @@
             this.dataGridViewTextBoxColumn15,
             this.dataGridViewTextBoxColumn16});
             this.dataGridViewWorkExecutive.DataSource = this.projectSupplyDtoBindingSource;
+            dataGridViewCellStyle93.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle93.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle93.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle93.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle93.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle93.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle93.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewWorkExecutive.DefaultCellStyle = dataGridViewCellStyle93;
             this.dataGridViewWorkExecutive.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewWorkExecutive.GridColor = System.Drawing.SystemColors.ControlLight;
             this.dataGridViewWorkExecutive.Location = new System.Drawing.Point(0, 0);
             this.dataGridViewWorkExecutive.Name = "dataGridViewWorkExecutive";
+            dataGridViewCellStyle94.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle94.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle94.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle94.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle94.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle94.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle94.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewWorkExecutive.RowHeadersDefaultCellStyle = dataGridViewCellStyle94;
             this.dataGridViewWorkExecutive.RowHeadersVisible = false;
-            this.dataGridViewWorkExecutive.Size = new System.Drawing.Size(670, 206);
+            this.dataGridViewWorkExecutive.Size = new System.Drawing.Size(846, 248);
             this.dataGridViewWorkExecutive.TabIndex = 5;
             // 
             // tabPageStudy
@@ -848,7 +941,7 @@
             this.tabPageStudy.Location = new System.Drawing.Point(4, 22);
             this.tabPageStudy.Name = "tabPageStudy";
             this.tabPageStudy.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageStudy.Size = new System.Drawing.Size(676, 439);
+            this.tabPageStudy.Size = new System.Drawing.Size(852, 481);
             this.tabPageStudy.TabIndex = 2;
             this.tabPageStudy.Text = "Etude";
             this.tabPageStudy.UseVisualStyleBackColor = true;
@@ -861,6 +954,14 @@
             this.dataGridViewStudy.BackgroundColor = System.Drawing.SystemColors.Window;
             this.dataGridViewStudy.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dataGridViewStudy.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle95.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle95.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle95.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle95.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle95.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle95.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle95.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewStudy.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle95;
             this.dataGridViewStudy.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewStudy.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.nameDataGridViewTextBoxColumn1,
@@ -870,12 +971,28 @@
             this.totalStudyDaysDataGridViewTextBoxColumn,
             this.totalReferenceDaysDataGridViewTextBoxColumn});
             this.dataGridViewStudy.DataSource = this.projectSupplyDtoBindingSource;
+            dataGridViewCellStyle100.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle100.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle100.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle100.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle100.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle100.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle100.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewStudy.DefaultCellStyle = dataGridViewCellStyle100;
             this.dataGridViewStudy.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewStudy.GridColor = System.Drawing.SystemColors.ControlLight;
             this.dataGridViewStudy.Location = new System.Drawing.Point(3, 3);
             this.dataGridViewStudy.Name = "dataGridViewStudy";
+            dataGridViewCellStyle101.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle101.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle101.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle101.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle101.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle101.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle101.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewStudy.RowHeadersDefaultCellStyle = dataGridViewCellStyle101;
             this.dataGridViewStudy.RowHeadersVisible = false;
-            this.dataGridViewStudy.Size = new System.Drawing.Size(670, 433);
+            this.dataGridViewStudy.Size = new System.Drawing.Size(846, 475);
             this.dataGridViewStudy.TabIndex = 1;
             // 
             // tabPageTests
@@ -884,7 +1001,7 @@
             this.tabPageTests.Location = new System.Drawing.Point(4, 22);
             this.tabPageTests.Name = "tabPageTests";
             this.tabPageTests.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageTests.Size = new System.Drawing.Size(676, 439);
+            this.tabPageTests.Size = new System.Drawing.Size(852, 481);
             this.tabPageTests.TabIndex = 4;
             this.tabPageTests.Text = "Essais";
             this.tabPageTests.UseVisualStyleBackColor = true;
@@ -897,6 +1014,14 @@
             this.dataGridViewTests.BackgroundColor = System.Drawing.SystemColors.Window;
             this.dataGridViewTests.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dataGridViewTests.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle102.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle102.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle102.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle102.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle102.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle102.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle102.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewTests.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle102;
             this.dataGridViewTests.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewTests.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.nameDataGridViewTextBoxColumn3,
@@ -907,12 +1032,28 @@
             this.totalTestsDaysDataGridViewTextBoxColumn,
             this.totalTestsNightsDataGridViewTextBoxColumn});
             this.dataGridViewTests.DataSource = this.projectSupplyDtoBindingSource;
+            dataGridViewCellStyle108.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle108.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle108.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle108.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle108.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle108.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle108.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewTests.DefaultCellStyle = dataGridViewCellStyle108;
             this.dataGridViewTests.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewTests.GridColor = System.Drawing.SystemColors.ControlLight;
             this.dataGridViewTests.Location = new System.Drawing.Point(3, 3);
             this.dataGridViewTests.Name = "dataGridViewTests";
+            dataGridViewCellStyle109.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle109.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle109.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle109.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle109.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle109.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle109.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewTests.RowHeadersDefaultCellStyle = dataGridViewCellStyle109;
             this.dataGridViewTests.RowHeadersVisible = false;
-            this.dataGridViewTests.Size = new System.Drawing.Size(670, 433);
+            this.dataGridViewTests.Size = new System.Drawing.Size(846, 475);
             this.dataGridViewTests.TabIndex = 3;
             // 
             // tabPageOther
@@ -922,7 +1063,7 @@
             this.tabPageOther.Location = new System.Drawing.Point(4, 22);
             this.tabPageOther.Name = "tabPageOther";
             this.tabPageOther.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageOther.Size = new System.Drawing.Size(676, 439);
+            this.tabPageOther.Size = new System.Drawing.Size(852, 481);
             this.tabPageOther.TabIndex = 5;
             this.tabPageOther.Text = "Divers";
             this.tabPageOther.UseVisualStyleBackColor = true;
@@ -933,6 +1074,14 @@
             this.dataGridViewOther.BackgroundColor = System.Drawing.SystemColors.Window;
             this.dataGridViewOther.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dataGridViewOther.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle59.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle59.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle59.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle59.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle59.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle59.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle59.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewOther.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle59;
             this.dataGridViewOther.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewOther.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.nameDataGridViewTextBoxColumn4,
@@ -940,12 +1089,28 @@
             this.costRateDataGridViewTextBoxColumn,
             this.totalCostDataGridViewTextBoxColumn});
             this.dataGridViewOther.DataSource = this.otherBenefitBindingSource;
+            dataGridViewCellStyle63.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle63.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle63.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle63.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle63.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle63.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle63.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewOther.DefaultCellStyle = dataGridViewCellStyle63;
             this.dataGridViewOther.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewOther.GridColor = System.Drawing.SystemColors.ControlLight;
             this.dataGridViewOther.Location = new System.Drawing.Point(3, 28);
             this.dataGridViewOther.Name = "dataGridViewOther";
+            dataGridViewCellStyle64.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle64.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle64.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle64.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle64.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle64.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle64.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewOther.RowHeadersDefaultCellStyle = dataGridViewCellStyle64;
             this.dataGridViewOther.RowHeadersVisible = false;
-            this.dataGridViewOther.Size = new System.Drawing.Size(670, 408);
+            this.dataGridViewOther.Size = new System.Drawing.Size(846, 450);
             this.dataGridViewOther.TabIndex = 7;
             // 
             // nameDataGridViewTextBoxColumn4
@@ -957,24 +1122,24 @@
             // daysDataGridViewTextBoxColumn
             // 
             this.daysDataGridViewTextBoxColumn.DataPropertyName = "Days";
-            dataGridViewCellStyle76.Format = "#.## j;#.## j;\\0 j";
-            this.daysDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle76;
+            dataGridViewCellStyle60.Format = "#.## j;#.## j;\\0 j";
+            this.daysDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle60;
             this.daysDataGridViewTextBoxColumn.HeaderText = "Temps";
             this.daysDataGridViewTextBoxColumn.Name = "daysDataGridViewTextBoxColumn";
             // 
             // costRateDataGridViewTextBoxColumn
             // 
             this.costRateDataGridViewTextBoxColumn.DataPropertyName = "CostRate";
-            dataGridViewCellStyle77.Format = "#.## €/j;#.## €/j;\\0 €/j";
-            this.costRateDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle77;
+            dataGridViewCellStyle61.Format = "#.## €/j;#.## €/j;\\0 €/j";
+            this.costRateDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle61;
             this.costRateDataGridViewTextBoxColumn.HeaderText = "Taux";
             this.costRateDataGridViewTextBoxColumn.Name = "costRateDataGridViewTextBoxColumn";
             // 
             // totalCostDataGridViewTextBoxColumn
             // 
             this.totalCostDataGridViewTextBoxColumn.DataPropertyName = "TotalCost";
-            dataGridViewCellStyle78.Format = "C2";
-            this.totalCostDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle78;
+            dataGridViewCellStyle62.Format = "C2";
+            this.totalCostDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle62;
             this.totalCostDataGridViewTextBoxColumn.HeaderText = "Coût Total";
             this.totalCostDataGridViewTextBoxColumn.Name = "totalCostDataGridViewTextBoxColumn";
             this.totalCostDataGridViewTextBoxColumn.ReadOnly = true;
@@ -990,6 +1155,7 @@
             this.bindingNavigatorOthers.BindingSource = this.otherBenefitBindingSource;
             this.bindingNavigatorOthers.CountItem = null;
             this.bindingNavigatorOthers.DeleteItem = this.bindingNavigatorDeleteItem;
+            this.bindingNavigatorOthers.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
             this.bindingNavigatorOthers.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.bindingNavigatorAddNewItem,
             this.bindingNavigatorDeleteItem});
@@ -1000,7 +1166,7 @@
             this.bindingNavigatorOthers.MovePreviousItem = null;
             this.bindingNavigatorOthers.Name = "bindingNavigatorOthers";
             this.bindingNavigatorOthers.PositionItem = null;
-            this.bindingNavigatorOthers.Size = new System.Drawing.Size(670, 25);
+            this.bindingNavigatorOthers.Size = new System.Drawing.Size(846, 25);
             this.bindingNavigatorOthers.TabIndex = 8;
             this.bindingNavigatorOthers.Text = "bindingNavigator";
             // 
@@ -1026,7 +1192,7 @@
             this.tabPageSummary.Location = new System.Drawing.Point(4, 22);
             this.tabPageSummary.Name = "tabPageSummary";
             this.tabPageSummary.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageSummary.Size = new System.Drawing.Size(676, 439);
+            this.tabPageSummary.Size = new System.Drawing.Size(852, 481);
             this.tabPageSummary.TabIndex = 1;
             this.tabPageSummary.Text = "Recapitulatif";
             this.tabPageSummary.UseVisualStyleBackColor = true;
@@ -1040,6 +1206,14 @@
             this.dataGridViewSummary.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dataGridViewSummary.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
             this.dataGridViewSummary.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle110.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle110.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle110.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle110.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle110.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle110.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle110.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewSummary.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle110;
             this.dataGridViewSummary.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewSummary.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.ColumnSumaryIcon,
@@ -1047,19 +1221,35 @@
             this.ColumnSumaryDays,
             this.ColumnSumaryRate,
             this.ColumnSumaryCost});
+            dataGridViewCellStyle115.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle115.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle115.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle115.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle115.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle115.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle115.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewSummary.DefaultCellStyle = dataGridViewCellStyle115;
             this.dataGridViewSummary.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewSummary.GridColor = System.Drawing.SystemColors.ControlLight;
             this.dataGridViewSummary.Location = new System.Drawing.Point(3, 3);
             this.dataGridViewSummary.Name = "dataGridViewSummary";
+            dataGridViewCellStyle116.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle116.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle116.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle116.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle116.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle116.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle116.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewSummary.RowHeadersDefaultCellStyle = dataGridViewCellStyle116;
             this.dataGridViewSummary.RowHeadersVisible = false;
-            this.dataGridViewSummary.Size = new System.Drawing.Size(670, 433);
+            this.dataGridViewSummary.Size = new System.Drawing.Size(846, 475);
             this.dataGridViewSummary.TabIndex = 6;
             // 
             // ColumnSumaryIcon
             // 
-            dataGridViewCellStyle79.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle79.NullValue = "System.Drawing.Bitmap";
-            this.ColumnSumaryIcon.DefaultCellStyle = dataGridViewCellStyle79;
+            dataGridViewCellStyle111.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle111.NullValue = "System.Drawing.Bitmap";
+            this.ColumnSumaryIcon.DefaultCellStyle = dataGridViewCellStyle111;
             this.ColumnSumaryIcon.HeaderText = "";
             this.ColumnSumaryIcon.Name = "ColumnSumaryIcon";
             this.ColumnSumaryIcon.Width = 20;
@@ -1071,25 +1261,25 @@
             // 
             // ColumnSumaryDays
             // 
-            dataGridViewCellStyle80.Format = "#.## j;#.## j;\\0 j";
-            dataGridViewCellStyle80.NullValue = null;
-            this.ColumnSumaryDays.DefaultCellStyle = dataGridViewCellStyle80;
+            dataGridViewCellStyle112.Format = "#.## j;#.## j;\\0 j";
+            dataGridViewCellStyle112.NullValue = null;
+            this.ColumnSumaryDays.DefaultCellStyle = dataGridViewCellStyle112;
             this.ColumnSumaryDays.HeaderText = "Temps";
             this.ColumnSumaryDays.Name = "ColumnSumaryDays";
             // 
             // ColumnSumaryRate
             // 
-            dataGridViewCellStyle81.Format = "#.## €/j;#.## €/j;\\0 €/j";
-            dataGridViewCellStyle81.NullValue = null;
-            this.ColumnSumaryRate.DefaultCellStyle = dataGridViewCellStyle81;
+            dataGridViewCellStyle113.Format = "#.## €/j;#.## €/j;\\0 €/j";
+            dataGridViewCellStyle113.NullValue = null;
+            this.ColumnSumaryRate.DefaultCellStyle = dataGridViewCellStyle113;
             this.ColumnSumaryRate.HeaderText = "Taux";
             this.ColumnSumaryRate.Name = "ColumnSumaryRate";
             // 
             // ColumnSumaryCost
             // 
-            dataGridViewCellStyle82.Format = "C2";
-            dataGridViewCellStyle82.NullValue = null;
-            this.ColumnSumaryCost.DefaultCellStyle = dataGridViewCellStyle82;
+            dataGridViewCellStyle114.Format = "C2";
+            dataGridViewCellStyle114.NullValue = null;
+            this.ColumnSumaryCost.DefaultCellStyle = dataGridViewCellStyle114;
             this.ColumnSumaryCost.HeaderText = "Coût";
             this.ColumnSumaryCost.Name = "ColumnSumaryCost";
             // 
@@ -1106,17 +1296,49 @@
             this.imageListProject.Images.SetKeyName(6, "connect.png");
             this.imageListProject.Images.SetKeyName(7, "briefcase.png");
             // 
+            // panelMain
+            // 
+            this.panelMain.Controls.Add(this.labelProject);
+            this.panelMain.Controls.Add(this.textBoxProjectName);
+            this.panelMain.Controls.Add(this.labelTotalDays);
+            this.panelMain.Controls.Add(this.dateTimePickerProjectEnd);
+            this.panelMain.Controls.Add(this.labelTotalPrice);
+            this.panelMain.Controls.Add(this.label1);
+            this.panelMain.Controls.Add(this.textBoxTotalDays);
+            this.panelMain.Controls.Add(this.dateTimePickerProjectBegin);
+            this.panelMain.Controls.Add(this.textBoxTotalPrice);
+            this.panelMain.Controls.Add(this.labelDealDate);
+            this.panelMain.Controls.Add(this.labelWorkDayRate);
+            this.panelMain.Controls.Add(this.textBoxReference);
+            this.panelMain.Controls.Add(this.textBoxWorkDayRate);
+            this.panelMain.Controls.Add(this.labelRef);
+            this.panelMain.Controls.Add(this.labelWorkShortNightsRate);
+            this.panelMain.Controls.Add(this.textBoxTestNightRate);
+            this.panelMain.Controls.Add(this.labelWorkLongNightsRate);
+            this.panelMain.Controls.Add(this.textBoxTestDayRate);
+            this.panelMain.Controls.Add(this.labelStudyRate);
+            this.panelMain.Controls.Add(this.textBoxReferenceRate);
+            this.panelMain.Controls.Add(this.labelReferenceRate);
+            this.panelMain.Controls.Add(this.textBoxStudyRate);
+            this.panelMain.Controls.Add(this.labelTestDayRate);
+            this.panelMain.Controls.Add(this.textBoxWorkLongNightsRate);
+            this.panelMain.Controls.Add(this.labelTestNightRate);
+            this.panelMain.Controls.Add(this.textBoxWorkShortNightsRate);
+            this.panelMain.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelMain.Location = new System.Drawing.Point(3, 3);
+            this.panelMain.Name = "panelMain";
+            this.panelMain.Size = new System.Drawing.Size(846, 178);
+            this.panelMain.TabIndex = 18;
+            // 
             // commentUserControl
             // 
-            this.commentUserControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
             this.commentUserControl.DataBindings.Add(new System.Windows.Forms.Binding("Rtf", this.projectBindingSource, "Comment", true));
-            this.commentUserControl.Location = new System.Drawing.Point(13, 209);
+            this.commentUserControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.commentUserControl.Location = new System.Drawing.Point(3, 181);
             this.commentUserControl.Name = "commentUserControl";
             this.commentUserControl.Rtf = "{\\rtf1\\ansi\\ansicpg1252\\deff0\\deflang1036{\\fonttbl{\\f0\\fnil\\fcharset0 Microsoft S" +
                 "ans Serif;}}\r\n\\viewkind4\\uc1\\pard\\f0\\fs17 trertre\\par\r\ntreterert\\par\r\n}\r\n";
-            this.commentUserControl.Size = new System.Drawing.Size(648, 217);
+            this.commentUserControl.Size = new System.Drawing.Size(846, 297);
             this.commentUserControl.TabIndex = 14;
             // 
             // nameDataGridViewTextBoxColumn
@@ -1129,9 +1351,9 @@
             // quantityDataGridViewTextBoxColumn
             // 
             this.quantityDataGridViewTextBoxColumn.DataPropertyName = "Quantity";
-            dataGridViewCellStyle83.BackColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle83.ForeColor = System.Drawing.Color.Navy;
-            this.quantityDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle83;
+            dataGridViewCellStyle66.BackColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle66.ForeColor = System.Drawing.Color.Navy;
+            this.quantityDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle66;
             this.quantityDataGridViewTextBoxColumn.HeaderText = "Quantité";
             this.quantityDataGridViewTextBoxColumn.Name = "quantityDataGridViewTextBoxColumn";
             // 
@@ -1145,20 +1367,20 @@
             // priceDataGridViewTextBoxColumn
             // 
             this.priceDataGridViewTextBoxColumn.DataPropertyName = "Price";
-            dataGridViewCellStyle84.BackColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle84.ForeColor = System.Drawing.Color.Navy;
-            dataGridViewCellStyle84.Format = "C2";
-            dataGridViewCellStyle84.NullValue = null;
-            this.priceDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle84;
+            dataGridViewCellStyle67.BackColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle67.ForeColor = System.Drawing.Color.Navy;
+            dataGridViewCellStyle67.Format = "C2";
+            dataGridViewCellStyle67.NullValue = null;
+            this.priceDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle67;
             this.priceDataGridViewTextBoxColumn.HeaderText = "Coût Unitaire";
             this.priceDataGridViewTextBoxColumn.Name = "priceDataGridViewTextBoxColumn";
             // 
             // totalPriceDataGridViewTextBoxColumn
             // 
             this.totalPriceDataGridViewTextBoxColumn.DataPropertyName = "TotalPrice";
-            dataGridViewCellStyle85.Format = "C2";
-            dataGridViewCellStyle85.NullValue = null;
-            this.totalPriceDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle85;
+            dataGridViewCellStyle68.Format = "C2";
+            dataGridViewCellStyle68.NullValue = null;
+            this.totalPriceDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle68;
             this.totalPriceDataGridViewTextBoxColumn.HeaderText = "Coût Total";
             this.totalPriceDataGridViewTextBoxColumn.Name = "totalPriceDataGridViewTextBoxColumn";
             this.totalPriceDataGridViewTextBoxColumn.ReadOnly = true;
@@ -1167,6 +1389,32 @@
             // 
             this.projectSupplyDtoBindingSource.DataSource = typeof(Chiffrage.Dto.ProjectSupplyDto);
             this.projectSupplyDtoBindingSource.CurrentItemChanged += new System.EventHandler(this.projectSupplyDtoBindingSource_CurrentItemChanged);
+            // 
+            // hardwareNameDataGridViewTextBoxColumn
+            // 
+            this.hardwareNameDataGridViewTextBoxColumn.DataPropertyName = "Name";
+            this.hardwareNameDataGridViewTextBoxColumn.HeaderText = "Matériel";
+            this.hardwareNameDataGridViewTextBoxColumn.Name = "hardwareNameDataGridViewTextBoxColumn";
+            this.hardwareNameDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // hardwareModuleSizeDataGridViewTextBoxColumn
+            // 
+            this.hardwareModuleSizeDataGridViewTextBoxColumn.DataPropertyName = "ModuleSize";
+            this.hardwareModuleSizeDataGridViewTextBoxColumn.HeaderText = "Modules";
+            this.hardwareModuleSizeDataGridViewTextBoxColumn.Name = "hardwareModuleSizeDataGridViewTextBoxColumn";
+            this.hardwareModuleSizeDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // hardwarePriceDataGridViewTextBoxColumn
+            // 
+            this.hardwarePriceDataGridViewTextBoxColumn.DataPropertyName = "Price";
+            dataGridViewCellStyle72.BackColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle72.ForeColor = System.Drawing.Color.Navy;
+            dataGridViewCellStyle72.Format = "C2";
+            dataGridViewCellStyle72.NullValue = null;
+            this.hardwarePriceDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle72;
+            this.hardwarePriceDataGridViewTextBoxColumn.HeaderText = "Coût Unitaire";
+            this.hardwarePriceDataGridViewTextBoxColumn.Name = "hardwarePriceDataGridViewTextBoxColumn";
+            this.hardwarePriceDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // projectHarwareDtoBindingSource
             // 
@@ -1284,8 +1532,8 @@
             // studyDaysDataGridViewTextBoxColumn
             // 
             this.studyDaysDataGridViewTextBoxColumn.DataPropertyName = "StudyDays";
-            dataGridViewCellStyle93.Format = "#.## j;#.## j;\\0 j";
-            this.studyDaysDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle93;
+            dataGridViewCellStyle96.Format = "#.## j;#.## j;\\0 j";
+            this.studyDaysDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle96;
             this.studyDaysDataGridViewTextBoxColumn.HeaderText = "Etude";
             this.studyDaysDataGridViewTextBoxColumn.Name = "studyDaysDataGridViewTextBoxColumn";
             this.studyDaysDataGridViewTextBoxColumn.ReadOnly = true;
@@ -1293,8 +1541,8 @@
             // referenceDaysDataGridViewTextBoxColumn
             // 
             this.referenceDaysDataGridViewTextBoxColumn.DataPropertyName = "ReferenceDays";
-            dataGridViewCellStyle94.Format = "#.## j;#.## j;\\0 j";
-            this.referenceDaysDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle94;
+            dataGridViewCellStyle97.Format = "#.## j;#.## j;\\0 j";
+            this.referenceDaysDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle97;
             this.referenceDaysDataGridViewTextBoxColumn.HeaderText = "Saisie";
             this.referenceDaysDataGridViewTextBoxColumn.Name = "referenceDaysDataGridViewTextBoxColumn";
             this.referenceDaysDataGridViewTextBoxColumn.ReadOnly = true;
@@ -1309,8 +1557,8 @@
             // totalStudyDaysDataGridViewTextBoxColumn
             // 
             this.totalStudyDaysDataGridViewTextBoxColumn.DataPropertyName = "TotalStudyDays";
-            dataGridViewCellStyle95.Format = "#.## j;#.## j;\\0 j";
-            this.totalStudyDaysDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle95;
+            dataGridViewCellStyle98.Format = "#.## j;#.## j;\\0 j";
+            this.totalStudyDaysDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle98;
             this.totalStudyDaysDataGridViewTextBoxColumn.HeaderText = "Total étude";
             this.totalStudyDaysDataGridViewTextBoxColumn.Name = "totalStudyDaysDataGridViewTextBoxColumn";
             this.totalStudyDaysDataGridViewTextBoxColumn.ReadOnly = true;
@@ -1318,8 +1566,8 @@
             // totalReferenceDaysDataGridViewTextBoxColumn
             // 
             this.totalReferenceDaysDataGridViewTextBoxColumn.DataPropertyName = "TotalReferenceDays";
-            dataGridViewCellStyle96.Format = "#.## j;#.## j;\\0 j";
-            this.totalReferenceDaysDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle96;
+            dataGridViewCellStyle99.Format = "#.## j;#.## j;\\0 j";
+            this.totalReferenceDaysDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle99;
             this.totalReferenceDaysDataGridViewTextBoxColumn.HeaderText = "Total saisie";
             this.totalReferenceDaysDataGridViewTextBoxColumn.Name = "totalReferenceDaysDataGridViewTextBoxColumn";
             this.totalReferenceDaysDataGridViewTextBoxColumn.ReadOnly = true;
@@ -1334,8 +1582,8 @@
             // catalogTestsDaysDataGridViewTextBoxColumn
             // 
             this.catalogTestsDaysDataGridViewTextBoxColumn.DataPropertyName = "CatalogTestsDays";
-            dataGridViewCellStyle97.Format = "#.## j;#.## j;\\0 j";
-            this.catalogTestsDaysDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle97;
+            dataGridViewCellStyle103.Format = "#.## j;#.## j;\\0 j";
+            this.catalogTestsDaysDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle103;
             this.catalogTestsDaysDataGridViewTextBoxColumn.HeaderText = "Essais catalogue";
             this.catalogTestsDaysDataGridViewTextBoxColumn.Name = "catalogTestsDaysDataGridViewTextBoxColumn";
             this.catalogTestsDaysDataGridViewTextBoxColumn.ReadOnly = true;
@@ -1344,20 +1592,20 @@
             // testsDaysDataGridViewTextBoxColumn
             // 
             this.testsDaysDataGridViewTextBoxColumn.DataPropertyName = "TestsDays";
-            dataGridViewCellStyle98.BackColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle98.ForeColor = System.Drawing.Color.Navy;
-            dataGridViewCellStyle98.Format = "#.## j;#.## j;\\0 j";
-            this.testsDaysDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle98;
+            dataGridViewCellStyle104.BackColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle104.ForeColor = System.Drawing.Color.Navy;
+            dataGridViewCellStyle104.Format = "#.## j;#.## j;\\0 j";
+            this.testsDaysDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle104;
             this.testsDaysDataGridViewTextBoxColumn.HeaderText = "Essais jour";
             this.testsDaysDataGridViewTextBoxColumn.Name = "testsDaysDataGridViewTextBoxColumn";
             // 
             // testsNightsDataGridViewTextBoxColumn
             // 
             this.testsNightsDataGridViewTextBoxColumn.DataPropertyName = "TestsNights";
-            dataGridViewCellStyle99.BackColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle99.ForeColor = System.Drawing.Color.Navy;
-            dataGridViewCellStyle99.Format = "#.## j;#.## j;\\0 j";
-            this.testsNightsDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle99;
+            dataGridViewCellStyle105.BackColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle105.ForeColor = System.Drawing.Color.Navy;
+            dataGridViewCellStyle105.Format = "#.## j;#.## j;\\0 j";
+            this.testsNightsDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle105;
             this.testsNightsDataGridViewTextBoxColumn.HeaderText = "Essais nuit";
             this.testsNightsDataGridViewTextBoxColumn.Name = "testsNightsDataGridViewTextBoxColumn";
             // 
@@ -1371,8 +1619,8 @@
             // totalTestsDaysDataGridViewTextBoxColumn
             // 
             this.totalTestsDaysDataGridViewTextBoxColumn.DataPropertyName = "TotalTestsDays";
-            dataGridViewCellStyle100.Format = "#.## j;#.## j;\\0 j";
-            this.totalTestsDaysDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle100;
+            dataGridViewCellStyle106.Format = "#.## j;#.## j;\\0 j";
+            this.totalTestsDaysDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle106;
             this.totalTestsDaysDataGridViewTextBoxColumn.HeaderText = "Total essais jour";
             this.totalTestsDaysDataGridViewTextBoxColumn.Name = "totalTestsDaysDataGridViewTextBoxColumn";
             this.totalTestsDaysDataGridViewTextBoxColumn.ReadOnly = true;
@@ -1381,69 +1629,22 @@
             // totalTestsNightsDataGridViewTextBoxColumn
             // 
             this.totalTestsNightsDataGridViewTextBoxColumn.DataPropertyName = "TotalTestsNights";
-            dataGridViewCellStyle101.Format = "#.## j;#.## j;\\0 j";
-            this.totalTestsNightsDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle101;
+            dataGridViewCellStyle107.Format = "#.## j;#.## j;\\0 j";
+            this.totalTestsNightsDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle107;
             this.totalTestsNightsDataGridViewTextBoxColumn.HeaderText = "Total essais nuit";
             this.totalTestsNightsDataGridViewTextBoxColumn.Name = "totalTestsNightsDataGridViewTextBoxColumn";
             this.totalTestsNightsDataGridViewTextBoxColumn.ReadOnly = true;
             this.totalTestsNightsDataGridViewTextBoxColumn.Width = 150;
             // 
-            // hardwareNameDataGridViewTextBoxColumn
-            // 
-            this.hardwareNameDataGridViewTextBoxColumn.DataPropertyName = "Name";
-            this.hardwareNameDataGridViewTextBoxColumn.HeaderText = "Matériel";
-            this.hardwareNameDataGridViewTextBoxColumn.Name = "hardwareNameDataGridViewTextBoxColumn";
-            this.hardwareNameDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // hardwareMilestoneDataGridViewTextBoxColumn
-            // 
-            this.hardwareMilestoneDataGridViewTextBoxColumn.DataPropertyName = "Milestone";
-            this.hardwareMilestoneDataGridViewTextBoxColumn.HeaderText = "PK";
-            this.hardwareMilestoneDataGridViewTextBoxColumn.Name = "hardwareMilestoneDataGridViewTextBoxColumn";
-            // 
-            // hardwareQuantityDataGridViewTextBoxColumn
-            // 
-            this.hardwareQuantityDataGridViewTextBoxColumn.DataPropertyName = "Quantity";
-            this.hardwareQuantityDataGridViewTextBoxColumn.HeaderText = "Quantité";
-            this.hardwareQuantityDataGridViewTextBoxColumn.Name = "hardwareQuantityDataGridViewTextBoxColumn";
-            // 
-            // hardwareModuleSizeDataGridViewTextBoxColumn
-            // 
-            this.hardwareModuleSizeDataGridViewTextBoxColumn.DataPropertyName = "ModuleSize";
-            this.hardwareModuleSizeDataGridViewTextBoxColumn.HeaderText = "Modules";
-            this.hardwareModuleSizeDataGridViewTextBoxColumn.Name = "hardwareModuleSizeDataGridViewTextBoxColumn";
-            this.hardwareModuleSizeDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // hardwarePriceDataGridViewTextBoxColumn
-            // 
-            this.hardwarePriceDataGridViewTextBoxColumn.DataPropertyName = "Price";
-            dataGridViewCellStyle102.BackColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle102.ForeColor = System.Drawing.Color.Navy;
-            dataGridViewCellStyle102.Format = "C2";
-            dataGridViewCellStyle102.NullValue = null;
-            this.hardwarePriceDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle102;
-            this.hardwarePriceDataGridViewTextBoxColumn.HeaderText = "Coût Unitaire";
-            this.hardwarePriceDataGridViewTextBoxColumn.Name = "hardwarePriceDataGridViewTextBoxColumn";
-            this.hardwarePriceDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // hardwareTotalPriceDataGridViewTextBoxColumn
-            // 
-            this.hardwareTotalPriceDataGridViewTextBoxColumn.DataPropertyName = "TotalPrice";
-            this.hardwareTotalPriceDataGridViewTextBoxColumn.HeaderText = "Coût Total";
-            this.hardwareTotalPriceDataGridViewTextBoxColumn.Name = "hardwareTotalPriceDataGridViewTextBoxColumn";
-            this.hardwareTotalPriceDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
             // ProjectUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.headerControlProject);
+            this.Controls.Add(this.tabControl);
             this.Name = "ProjectUserControl";
-            this.Size = new System.Drawing.Size(690, 496);
-            this.headerControlProject.ResumeLayout(false);
+            this.Size = new System.Drawing.Size(860, 507);
             this.tabControl.ResumeLayout(false);
             this.tabPageMain.ResumeLayout(false);
-            this.tabPageMain.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.projectBindingSource)).EndInit();
             this.tabPageOtherSupply.ResumeLayout(false);
             this.tabPageOtherSupply.PerformLayout();
@@ -1474,6 +1675,8 @@
             this.bindingNavigatorOthers.PerformLayout();
             this.tabPageSummary.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSummary)).EndInit();
+            this.panelMain.ResumeLayout(false);
+            this.panelMain.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.projectSupplyDtoBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.projectHarwareDtoBindingSource)).EndInit();
             this.ResumeLayout(false);
@@ -1482,7 +1685,6 @@
 
         #endregion
 
-        private TD.Eyefinder.HeaderControl headerControlProject;
         private System.Windows.Forms.TabControl tabControl;
         private System.Windows.Forms.TabPage tabPageOtherSupply;
         private System.Windows.Forms.DataGridView dataGridView;
@@ -1512,7 +1714,6 @@
         private System.Windows.Forms.TabPage tabPageMain;
         private System.Windows.Forms.BindingSource projectBindingSource;
         private CommentUserControl commentUserControl;
-        private System.Windows.Forms.Label labelComment;
         private System.Windows.Forms.DateTimePicker dateTimePickerProjectEnd;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DateTimePicker dateTimePickerProjectBegin;
@@ -1596,5 +1797,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn hardwareModuleSizeDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn hardwarePriceDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn hardwareTotalPriceDataGridViewTextBoxColumn;
+        private System.Windows.Forms.Panel panelMain;
     }
 }

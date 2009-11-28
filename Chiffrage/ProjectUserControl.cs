@@ -305,5 +305,21 @@ namespace Chiffrage
                 }
             }
         }
+
+        private void tabControl_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            //e.DrawBackground();
+            var control = (TabControl) sender;
+            e.Bounds.Inflate(this.imageListProject.Images[0].Width + 4,0);
+            e.Graphics.DrawImage(this.imageListProject.Images[0], e.Bounds.X+2, e.Bounds.Y+2);
+            SolidBrush drawBrush = new SolidBrush(Color.Black);
+            e.Graphics.DrawString("toto", control.Font, drawBrush, 0, 0);
+            e.Graphics.DrawString(
+                control.TabPages[e.Index].Text,
+                control.Font, 
+                drawBrush, 
+                e.Bounds.X + 2 + this.imageListProject.Images[0].Size.Width+2,
+                e.Bounds.Y + 2);
+        }
     }
 }

@@ -16,7 +16,8 @@
     <property name="ExecutiveWorkLongNights"/>
     <property name="TestsDays"/>
     <property name="TestsNights"/>
-    <component name="Hardware" class="Hardware">
+    <many-to-one name="Hardware" class="Hardware"/>
+    <!--<component name="Hardware">
       <property name="Id" column="Harware_Id"/>
       <property name="Name" column="Harware_Name"/>
       <property name="Reference" column="Harware_Reference"/>
@@ -25,6 +26,6 @@
         <key column="ProjectHardwareId"/>
         <one-to-many class="HardwareSupply"/>
       </bag>
-    </component>
+    </component>-->
   </class>
 </hibernate-mapping>
