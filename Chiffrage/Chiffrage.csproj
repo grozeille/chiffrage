@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -15,9 +15,6 @@
     <SignManifests>false</SignManifests>
     <ManifestCertificateThumbprint>E184AB7A73B3729EB9D6A0465B91407CB6C09808</ManifestCertificateThumbprint>
     <ManifestKeyFile>Chiffrage_TemporaryKey.pfx</ManifestKeyFile>
-    <SignAssembly>false</SignAssembly>
-    <AssemblyOriginatorKeyFile>
-    </AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -46,11 +43,11 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\lib\Common.Logging-2.0.0\bin\net\2.0\release\Common.Logging.Log4Net.dll</HintPath>
     </Reference>
-    <Reference Include="LinFu.DynamicProxy, Version=1.0.3.14911, Culture=neutral, PublicKeyToken=62a6874124340d6e, processorArchitecture=MSIL">
+    <Reference Include="LinFu.DynamicProxy, Version=1.0.3.14911, Culture=neutral, PublicKeyToken=62a6874124340d6e">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\lib\NHibernate-2.1.1.GA\LinFu.DynamicProxy.dll</HintPath>
     </Reference>
-    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\lib\log4net-1.2.10\bin\mono\2.0\release\log4net.dll</HintPath>
     </Reference>
@@ -58,7 +55,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\lib\NHibernate-2.1.1.GA\NHibernate.dll</HintPath>
     </Reference>
-    <Reference Include="NHibernate.ByteCode.LinFu, Version=2.1.1.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+    <Reference Include="NHibernate.ByteCode.LinFu, Version=2.1.1.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\lib\NHibernate-2.1.1.GA\NHibernate.ByteCode.LinFu.dll</HintPath>
     </Reference>

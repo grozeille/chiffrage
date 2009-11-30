@@ -40,6 +40,11 @@ namespace Chiffrage.Dto
             get { return object.Equals(item, default(T)) ? 0 : item.ModuleSize; }
         }
 
+        public double CatalogPrice
+        {
+            get { return this.item.CatalogPrice; }
+        }
+
         public double Price
         {
             get { return object.Equals(item, default(T)) ? 0 : item.Price; }
@@ -79,12 +84,12 @@ namespace Chiffrage.Dto
 
         public double CatalogWorkDays
         {
-            get { return object.Equals(item, default(T)) ? 0 : item.WorkDays; }
+            get { return object.Equals(item, default(T)) ? 0 : item.CatalogWorkDays; }
         }
 
         public double CatalogExecutiveWorkDays
         {
-            get { return object.Equals(item, default(T)) ? 0 : item.ExecutiveWorkDays; }
+            get { return object.Equals(item, default(T)) ? 0 : item.CatalogExecutiveWorkDays; }
         }
 
         public double WorkDays

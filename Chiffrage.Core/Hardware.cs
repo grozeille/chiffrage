@@ -4,16 +4,16 @@ using System.Linq;
 
 namespace Chiffrage.Core
 {
-    public class Hardware : ISupply
+    public class Hardware : ICatalogItem
     {
-        private IList<Supply> components;
+        private IList<HardwareSupply> components;
 
         public Hardware()
         {
-            this.components = new List<Supply>();
+            this.components = new List<HardwareSupply>();
         }
 
-        public virtual IList<Supply> Components
+        public virtual IList<HardwareSupply> Components
         {
             get { return this.components; }
             set { this.components = value; }
@@ -28,43 +28,47 @@ namespace Chiffrage.Core
 
         public virtual int ModuleSize
         {
-            get { return this.components.Sum((s) => s.ModuleSize); }
+            get { return this.components.Sum((s) => (s.Supply != null ? s.Supply.ModuleSize*s.Quantity : 0)); }
         }
 
-        public virtual double Price
+        public virtual double CatalogPrice
         {
-            get { return this.components.Sum((s) => s.Price); }
+            get { return this.components.Sum((s) => (s.Supply != null ? s.Supply.CatalogPrice * s.Quantity : 0)); }
         }
 
         public virtual double StudyDays
         {
-            get { return this.components.Sum((s) => s.StudyDays); }
+            get { return this.components.Sum((s) => (s.Supply != null ? s.Supply.StudyDays * s.Quantity : 0)); }
         }
 
         public virtual double ReferenceDays
         {
-            get { return this.components.Sum((s) => s.ReferenceDays); }
+            get { return this.components.Sum((s) => (s.Supply != null ? s.Supply.ReferenceDays * s.Quantity : 0)); }
         }
 
-        public virtual double WorkDays
+        public virtual double CatalogWorkDays
         {
-            get { return this.components.Sum((s) => s.WorkDays); }
+            get { return this.components.Sum((s) => (s.Supply != null ? s.Supply.CatalogWorkDays * s.Quantity : 0)); }
         }
 
-        public virtual double ExecutiveWorkDays
+        public virtual double CatalogExecutiveWorkDays
         {
-            get { return this.components.Sum((s) => s.ExecutiveWorkDays); }
+            get { return this.components.Sum((s) => (s.Supply != null ? s.Supply.CatalogExecutiveWorkDays * s.Quantity : 0)); }
         }
 
-        public virtual double TestsDays
+        public virtual double CatalogTestsDays
         {
-            get { return this.components.Sum((s) => s.TestsDays); }
+            get { return this.components.Sum((s) => (s.Supply != null ? s.Supply.CatalogTestsDays * s.Quantity : 0)); }
         }
 
 
         public virtual object Clone()
         {
-            return MemberwiseClone();
+            var h = (Hardware)MemberwiseClone();
+            h.components = new List<HardwareSupply>();
+            foreach(var item in this.components)
+                h.components.Add(item.Clone() as HardwareSupply);
+            return h;
         }
 
         #endregion

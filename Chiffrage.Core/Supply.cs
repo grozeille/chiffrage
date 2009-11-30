@@ -1,6 +1,6 @@
 ﻿namespace Chiffrage.Core
 {
-    public class Supply : ISupply
+    public class Supply : ICatalogItem
     {
         #region ISupply Members
 
@@ -14,17 +14,17 @@
 
         public virtual int ModuleSize { get; set; }
 
-        public virtual double Price { get; set; }
+        public virtual double CatalogPrice { get; set; }
 
         public virtual double StudyDays { get; set; }
 
         public virtual double ReferenceDays { get; set; }
 
-        public virtual double WorkDays { get; set; }
+        public virtual double CatalogWorkDays { get; set; }
 
-        public virtual double ExecutiveWorkDays { get; set; }
+        public virtual double CatalogExecutiveWorkDays { get; set; }
 
-        public virtual double TestsDays { get; set; }
+        public virtual double CatalogTestsDays { get; set; }
 
         public virtual object Clone()
         {

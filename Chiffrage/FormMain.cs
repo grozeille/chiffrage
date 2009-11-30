@@ -93,16 +93,14 @@ namespace Chiffrage
             {
                 var dealNode = this.treeNodeDeals.Nodes.Add(deal.Name, deal.Name, 0, 0);
                 dealNode.Tag = deal;
-                if (deal.Equals(oldSelected))
-                    this.treeView.SelectedNode = dealNode;
                 foreach (var project in deal.Projects.OrderBy((p) => p.Name))
                 {
                     var projectNode = dealNode.Nodes.Add(project.Name, project.Name, 2, 2);
                     projectNode.Tag = project;
-                    if (project.Equals(oldSelected))
-                        this.treeView.SelectedNode = projectNode;
                 }
             }
+            var node = this.FindNodeByTag(this.treeView, oldSelected);
+            if(node != null) this.treeView.SelectedNode = node;
             this.treeNodeDeals.Expand();
             this.treeView.EndUpdate();
         }
@@ -110,11 +108,14 @@ namespace Chiffrage
         private void RefreshCatalogs()
         {
             this.treeView.BeginUpdate();
+            var oldSelected = this.treeView.SelectedNode != null ? this.treeView.SelectedNode.Tag : null;
             this.treeNodeCatalogs.Nodes.Clear();
             foreach (var item in this.Catalog.SupplierCatalogs)
             {
                 treeNodeCatalogs.Nodes.Add(item.SupplierName, item.SupplierName, 3, 3).Tag = item;
             }
+            var node = this.FindNodeByTag(this.treeView, oldSelected);
+            if (node != null) this.treeView.SelectedNode = node;            
             this.treeNodeCatalogs.Expand();
             this.treeView.EndUpdate();
         }
@@ -224,6 +225,13 @@ namespace Chiffrage
         #endregion
 
         #region helpers for treeview
+        private void SelectNode(object o)
+        {
+            var node = this.FindNodeByTag(this.treeView, o);
+            if (node != null)
+                this.treeView.SelectedNode = node;
+        }
+
         private TreeNode FindNodeByTag(TreeView treeView, Object obj)
         {
             return FindNodeByTag(treeView.Nodes, obj);
@@ -264,26 +272,19 @@ namespace Chiffrage
 
             RefreshDeals();
 
-            if (selectedProjectId.HasValue)
+            if(selectedProjectId.HasValue)
             {
-                foreach (TreeNode item in this.treeView.Nodes)
-                {
-                    foreach (TreeNode item2 in item.Nodes)
-                    {
-                        if (item2.Tag is Project && ((Project)item2.Tag).Id == selectedProjectId)
-                            treeView.SelectedNode = item2;
-                    }
-                }
-            }
-            else if (selectedDealId.HasValue)
-            {
-                foreach (TreeNode item in this.treeView.Nodes)
-                {
-                    if (item.Tag is Deal && ((Deal)item.Tag).Id == selectedDealId)
-                        treeView.SelectedNode = item;
-                }
-            }
+                var selectedProject = this.Deals.SelectMany((d) => d.Projects).Where((p) => p.Id == selectedProjectId.Value).FirstOrDefault();
 
+                this.SelectNode(selectedProject);
+            }
+            else if(selectedDealId.HasValue)
+            {
+                var selectedDeal = this.Deals.Where((d) => d.Id == selectedDealId.Value).FirstOrDefault();
+
+                this.SelectNode(selectedDeal);
+            }
+            
             DealsDirty = false;
             return true;
         }
@@ -317,13 +318,13 @@ namespace Chiffrage
         private void SaveCatalog(SupplierCatalog catalog)
         {
             this.CatalogRepository.Save(catalog);
+
             RefreshCatalogs();
-            CatalogDirty = false;
-            foreach (TreeNode item in this.treeView.Nodes)
-            {
-                if (object.Equals(item.Tag, catalog))
-                    this.treeView.SelectedNode = item;
-            }
+
+            var selectedCatalog = this.Catalog.SupplierCatalogs.Where((c) => c.Id == catalog.Id).FirstOrDefault();
+            this.SelectNode(selectedCatalog);
+            
+            CatalogDirty = false;            
         }
         #endregion
 

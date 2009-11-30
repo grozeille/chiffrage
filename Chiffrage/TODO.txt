@@ -1,0 +1,16 @@
+﻿Chiffrage
+- Cables
+- Export/Import CSV Catalogue
+- Jours => Heures
+- Matériel avant Fourniture
+- Etude-Travaux-Essais
+- bug sur sauvegarde (hardware)
+- '.' au lieu de ','
+- mettre en rouge les prix différent du catalogue
+- click droit -> update catalog price
+- mettre en rouge si les jours sont mal répartie (travaux nuit/jour) calculer la différence?
+- dernière grille pas trillable
+- demander la sauvegarde avant de changer de catalogue
+- sélection du nouveau projet après sauvegarde
+- fiche "Durée moyens"
+- fiche rapport

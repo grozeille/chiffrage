@@ -5,6 +5,9 @@ using System.Linq;
 
 namespace Chiffrage.Core
 {
+    /// <summary>
+    /// TODO : mauvais calul car ne tiens pas en compte les hardwares
+    /// </summary>
     public class Project : INotifyPropertyChanged
     {
         private string comment;
@@ -19,6 +22,7 @@ namespace Chiffrage.Core
 
         private double studyRate;
         private IList<ProjectSupply> supplies = new List<ProjectSupply>();
+        private IList<ProjectHardware> hardwares = new List<ProjectHardware>();
         private double testDayRate;
         private double testNightRate;
         private double workDayRate;
@@ -93,6 +97,16 @@ namespace Chiffrage.Core
             {
                 this.supplies = value;
                 this.FirePropertyChanged("Supplies");
+            }
+        }
+
+        public virtual IList<ProjectHardware> Hardwares
+        {
+            get { return this.hardwares; }
+            set
+            {
+                this.hardwares = value;
+                this.FirePropertyChanged("Hardwares");
             }
         }
 

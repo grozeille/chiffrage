@@ -2,7 +2,7 @@
 
 namespace Chiffrage.Core
 {
-    public class Cable : ISupply
+    public class Cable : ICatalogItem
     {
         public virtual long Length { get; set; }
 
@@ -21,17 +21,17 @@ namespace Chiffrage.Core
         public virtual string Category { get; set; }
         public virtual int ModuleSize { get; set; }
 
-        public virtual double Price
+        public virtual double CatalogPrice
         {
             get { return this.Length*this.PricePerMeter; }
         }
 
         public virtual double StudyDays { get; set; }
         public virtual double ReferenceDays { get; set; }
-        public virtual double WorkDays { get; set; }
-        public virtual double ExecutiveWorkDays { get; set; }
+        public virtual double CatalogWorkDays { get; set; }
+        public virtual double CatalogExecutiveWorkDays { get; set; }
 
-        public virtual double TestsDays { get; set; }
+        public virtual double CatalogTestsDays { get; set; }
 
         #endregion
     }

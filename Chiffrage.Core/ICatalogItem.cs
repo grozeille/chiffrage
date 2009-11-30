@@ -2,18 +2,18 @@ using System;
 
 namespace Chiffrage.Core
 {
-    public interface ISupply : ICloneable
+    public interface ICatalogItem : ICloneable
     {
         int Id { get; }
         string Name { get; }
         string Reference { get; }
         string Category { get; }
         int ModuleSize { get; }
-        double Price { get; }
+        double CatalogPrice { get; }
         double StudyDays { get; }
         double ReferenceDays { get; }
-        double WorkDays { get; }
-        double ExecutiveWorkDays { get; }
-        double TestsDays { get; }
+        double CatalogWorkDays { get; }
+        double CatalogExecutiveWorkDays { get; }
+        double CatalogTestsDays { get; }
     }
 }
