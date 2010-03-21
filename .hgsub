@@ -1,1 +1,1 @@
-Libs/Common.Logging = https://grozeille@bitbucket.org/grozeille/.net-repository/Common.Logging/2.0.0/net/2.0/release 
+Libs/Common.Logging = ssh://hg@bitbucket.org/grozeille/.net-repository/Common.Logging/2.0.0/net/2.0/release 
