@@ -68,12 +68,21 @@
             this.projectUserControl = new Chiffrage.ProjectUserControl();
             this.dealUserControl = new Chiffrage.DealUserControl();
             this.catalogUserControl = new Chiffrage.CatalogUserControl();
+            this.contextMenuStripDealsRoot = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolStripMenuItemNewDeal = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuStripDeal = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.contextMenuStripCatalogsRoot = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolStripMenuItemNewProject = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemNewCatalog = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip.SuspendLayout();
             this.menuStrip.SuspendLayout();
             this.panelMain.SuspendLayout();
             this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.Panel2.SuspendLayout();
             this.splitContainer.SuspendLayout();
+            this.contextMenuStripDealsRoot.SuspendLayout();
+            this.contextMenuStripDeal.SuspendLayout();
+            this.contextMenuStripCatalogsRoot.SuspendLayout();
             this.SuspendLayout();
             // 
             // statusStrip
@@ -211,7 +220,7 @@
             // 
             this.affaireToolStripMenuItem.Image = global::Chiffrage.Properties.Resources.user_suit;
             this.affaireToolStripMenuItem.Name = "affaireToolStripMenuItem";
-            this.affaireToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.affaireToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
             this.affaireToolStripMenuItem.Text = "Affaire...";
             this.affaireToolStripMenuItem.Click += new System.EventHandler(this.affaireToolStripMenuItem2_Click);
             // 
@@ -219,7 +228,7 @@
             // 
             this.projetToolStripMenuItem.Image = global::Chiffrage.Properties.Resources.report;
             this.projetToolStripMenuItem.Name = "projetToolStripMenuItem";
-            this.projetToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.projetToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
             this.projetToolStripMenuItem.Text = "Projet...";
             this.projetToolStripMenuItem.Click += new System.EventHandler(this.projetToolStripMenuItem2_Click);
             // 
@@ -227,7 +236,7 @@
             // 
             this.catalogueToolStripMenuItem.Image = global::Chiffrage.Properties.Resources.lorry;
             this.catalogueToolStripMenuItem.Name = "catalogueToolStripMenuItem";
-            this.catalogueToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.catalogueToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
             this.catalogueToolStripMenuItem.Text = "Catalogue...";
             this.catalogueToolStripMenuItem.Click += new System.EventHandler(this.catalogueToolStripMenuItem_Click);
             // 
@@ -420,6 +429,48 @@
             this.catalogUserControl.TabIndex = 0;
             this.catalogUserControl.CatalogChanged += new System.EventHandler(this.catalogUserControl_CatalogChanged);
             // 
+            // contextMenuStripDealsRoot
+            // 
+            this.contextMenuStripDealsRoot.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItemNewDeal});
+            this.contextMenuStripDealsRoot.Name = "contextMenuStripDealsRoot";
+            this.contextMenuStripDealsRoot.Size = new System.Drawing.Size(160, 48);
+            // 
+            // toolStripMenuItemNewDeal
+            // 
+            this.toolStripMenuItemNewDeal.Image = global::Chiffrage.Properties.Resources.user_suit;
+            this.toolStripMenuItemNewDeal.Name = "toolStripMenuItemNewDeal";
+            this.toolStripMenuItemNewDeal.Size = new System.Drawing.Size(159, 22);
+            this.toolStripMenuItemNewDeal.Text = "Nouvelle Affaire";
+            // 
+            // contextMenuStripDeal
+            // 
+            this.contextMenuStripDeal.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItemNewProject});
+            this.contextMenuStripDeal.Name = "contextMenuStripDeal";
+            this.contextMenuStripDeal.Size = new System.Drawing.Size(157, 26);
+            // 
+            // contextMenuStripCatalogsRoot
+            // 
+            this.contextMenuStripCatalogsRoot.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItemNewCatalog});
+            this.contextMenuStripCatalogsRoot.Name = "contextMenuStripCatalogsRoot";
+            this.contextMenuStripCatalogsRoot.Size = new System.Drawing.Size(180, 26);
+            // 
+            // toolStripMenuItemNewProject
+            // 
+            this.toolStripMenuItemNewProject.Image = global::Chiffrage.Properties.Resources.report;
+            this.toolStripMenuItemNewProject.Name = "toolStripMenuItemNewProject";
+            this.toolStripMenuItemNewProject.Size = new System.Drawing.Size(156, 22);
+            this.toolStripMenuItemNewProject.Text = "Nouveau Projet";
+            // 
+            // toolStripMenuItemNewCatalog
+            // 
+            this.toolStripMenuItemNewCatalog.Image = global::Chiffrage.Properties.Resources.book_open;
+            this.toolStripMenuItemNewCatalog.Name = "toolStripMenuItemNewCatalog";
+            this.toolStripMenuItemNewCatalog.Size = new System.Drawing.Size(179, 22);
+            this.toolStripMenuItemNewCatalog.Text = "Nouveau Catalogue";
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -442,6 +493,9 @@
             this.splitContainer.Panel1.ResumeLayout(false);
             this.splitContainer.Panel2.ResumeLayout(false);
             this.splitContainer.ResumeLayout(false);
+            this.contextMenuStripDealsRoot.ResumeLayout(false);
+            this.contextMenuStripDeal.ResumeLayout(false);
+            this.contextMenuStripCatalogsRoot.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -487,6 +541,12 @@
         private System.Windows.Forms.ToolStripMenuItem historyToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemCloseCatalog;
         private System.Windows.Forms.ToolStripButton toolStripButtonRefresh;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStripDealsRoot;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemNewDeal;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStripDeal;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStripCatalogsRoot;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemNewProject;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemNewCatalog;
     }
 }
 

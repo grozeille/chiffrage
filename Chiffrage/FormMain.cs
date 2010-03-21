@@ -74,10 +74,14 @@ namespace Chiffrage
             this.treeNodeDeals.Name = "NodeDeals";
             this.treeNodeDeals.SelectedImageKey = "folder_user.png";
             this.treeNodeDeals.Text = "Affaires";
+            this.treeNodeDeals.ContextMenuStrip = this.contextMenuStripDealsRoot;
+
             this.treeNodeCatalogs.ImageKey = "folder_table.png";
             this.treeNodeCatalogs.Name = "NodeCatalogs";
             this.treeNodeCatalogs.SelectedImageKey = "folder_table.png";
             this.treeNodeCatalogs.Text = "Catalogues";
+            this.treeNodeCatalogs.ContextMenuStrip = this.contextMenuStripCatalogsRoot;
+
             this.treeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             this.treeNodeDeals,
             this.treeNodeCatalogs});
@@ -92,6 +96,7 @@ namespace Chiffrage
             foreach (var deal in this.Deals.OrderBy((d) => d.Name))
             {
                 var dealNode = this.treeNodeDeals.Nodes.Add(deal.Name, deal.Name, 0, 0);
+                dealNode.ContextMenuStrip = this.contextMenuStripDeal;
                 dealNode.Tag = deal;
                 foreach (var project in deal.Projects.OrderBy((p) => p.Name))
                 {
