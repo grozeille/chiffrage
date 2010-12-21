@@ -181,7 +181,7 @@
             // 
             // supplierCatalogBindingSource
             // 
-            this.supplierCatalogBindingSource.DataSource = typeof(Chiffrage.Core.SupplierCatalog);
+            this.supplierCatalogBindingSource.DataSource = typeof(Chiffrage.Catalogs.Domain.SupplierCatalog);
             this.supplierCatalogBindingSource.CurrentItemChanged += new System.EventHandler(this.supplierCatalogBindingSource_CurrentItemChanged);
             // 
             // panelMain
@@ -278,7 +278,7 @@
             // 
             // supplyBindingSource
             // 
-            this.supplyBindingSource.DataSource = typeof(Chiffrage.Core.Supply);
+            this.supplyBindingSource.DataSource = typeof(Chiffrage.Catalogs.Domain.Supply);
             this.supplyBindingSource.CurrentItemChanged += new System.EventHandler(this.supplyBindingSource_CurrentItemChanged);
             this.supplyBindingSource.ListChanged += new System.ComponentModel.ListChangedEventHandler(this.supplyBindingSource_ListChanged);
             // 
@@ -429,7 +429,7 @@
             // 
             // hardwareBindingSource
             // 
-            this.hardwareBindingSource.DataSource = typeof(Chiffrage.Core.Hardware);
+            this.hardwareBindingSource.DataSource = typeof(Chiffrage.Catalogs.Domain.Hardware);
             this.hardwareBindingSource.CurrentChanged += new System.EventHandler(this.hardwareBindingSource_CurrentChanged);
             this.hardwareBindingSource.PositionChanged += new System.EventHandler(this.hardwareBindingSource_PositionChanged);
             this.hardwareBindingSource.CurrentItemChanged += new System.EventHandler(this.hardwareBindingSource_CurrentItemChanged);
@@ -520,7 +520,7 @@
             // 
             // supplyBindingSourceHardware
             // 
-            this.supplyBindingSourceHardware.DataSource = typeof(Chiffrage.Core.HardwareSupply);
+            this.supplyBindingSourceHardware.DataSource = typeof(Chiffrage.Catalogs.Domain.HardwareSupply);
             this.supplyBindingSourceHardware.CurrentItemChanged += new System.EventHandler(this.supplyBindingSourceHardware_CurrentItemChanged);
             this.supplyBindingSourceHardware.ListChanged += new System.ComponentModel.ListChangedEventHandler(this.supplyBindingSourceHardware_ListChanged);
             // 

@@ -4,8 +4,9 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using Chiffrage.Catalogs.Domain;
 using Chiffrage.Core;
-using Chiffrage.Dto;
+using Chiffrage.ViewModel;
 
 namespace Chiffrage.WizardPages
 {
@@ -18,9 +19,9 @@ namespace Chiffrage.WizardPages
             Supply
         }
 
-        private BindingList<ICatalogItemSelectionDto> filteredselectionDtos;
+        private BindingList<ICatalogItemSelectionViewModel> filteredselectionDtos;
         private bool refreshCheckbox = false;
-        private BindingList<ICatalogItemSelectionDto> selectionDtos;
+        private BindingList<ICatalogItemSelectionViewModel> selectionDtos;
 
         public AddCatalogItemPage()
         {
@@ -46,14 +47,14 @@ namespace Chiffrage.WizardPages
         private void LoadCatalog()
         {
             this.iCatalogItemSelectionDtoBindingSource.SuspendBinding();
-            this.selectionDtos = new BindingList<ICatalogItemSelectionDto>();
+            this.selectionDtos = new BindingList<ICatalogItemSelectionViewModel>();
             foreach (SupplierCatalog supplier in this.Catalog.SupplierCatalogs)
             {
                 if (DisplayItemType == ItemType.All || DisplayItemType == ItemType.Supply)
                 {
                     foreach (Supply supply in supplier.Supplies)
                     {
-                        var dto = new CatalogSupplySelectionDto()
+                        var dto = new CatalogSupplySelectionViewModel()
                                   {
                                       Supplier = supplier.SupplierName,
                                       Item = supply
@@ -66,7 +67,7 @@ namespace Chiffrage.WizardPages
                 {
                     foreach (Hardware hardware in supplier.Hardwares)
                     {
-                        var dto = new CatalogHardwareSelectionDto()
+                        var dto = new CatalogHardwareSelectionViewModel()
                         {
                             Supplier = supplier.SupplierName,
                             Item = hardware
@@ -109,7 +110,7 @@ namespace Chiffrage.WizardPages
 
         private bool IsAllSelected()
         {
-            foreach (ICatalogItemSelectionDto item in this.filteredselectionDtos)
+            foreach (ICatalogItemSelectionViewModel item in this.filteredselectionDtos)
             {
                 if (!item.Selected)
                     return false;
@@ -122,7 +123,7 @@ namespace Chiffrage.WizardPages
             if (!this.refreshCheckbox)
             {
                 this.iCatalogItemSelectionDtoBindingSource.SuspendBinding();
-                foreach (ICatalogItemSelectionDto item in this.filteredselectionDtos)
+                foreach (ICatalogItemSelectionViewModel item in this.filteredselectionDtos)
                     item.Selected = this.checkBoxSelectAll.Checked;
                 this.iCatalogItemSelectionDtoBindingSource.ResumeBinding();
             }
@@ -159,7 +160,7 @@ namespace Chiffrage.WizardPages
             // filter by category
             if(!string.IsNullOrEmpty(this.comboBoxCategory.Text))
             {
-                this.filteredselectionDtos = new BindingList<ICatalogItemSelectionDto>(
+                this.filteredselectionDtos = new BindingList<ICatalogItemSelectionViewModel>(
                     (from dto in this.filteredselectionDtos
                      where dto.CatalogItem.Category != null && dto.CatalogItem.Category.Equals(this.comboBoxCategory.Text)
                      select dto).ToList());
@@ -169,7 +170,7 @@ namespace Chiffrage.WizardPages
             if(!string.IsNullOrEmpty(this.textBoxSearch.Text))
             {
                 var searchRegex = new Regex(string.Format(".*{0}.*", this.textBoxSearch.Text), RegexOptions.IgnoreCase);
-                this.filteredselectionDtos = new BindingList<ICatalogItemSelectionDto>(
+                this.filteredselectionDtos = new BindingList<ICatalogItemSelectionViewModel>(
                     (from dto in this.filteredselectionDtos
                      where dto.Name != null && dto.Reference != null && (searchRegex.IsMatch(dto.Name) || searchRegex.IsMatch(dto.Reference))
                      select dto).ToList());

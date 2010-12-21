@@ -1,4 +1,6 @@
-﻿namespace Chiffrage
+﻿using Chiffrage.ViewModel;
+
+namespace Chiffrage
 {
     partial class ProjectUserControl
     {
@@ -1300,7 +1302,7 @@
             // 
             // projectBindingSource
             // 
-            this.projectBindingSource.DataSource = typeof(Chiffrage.Core.Project);
+            this.projectBindingSource.DataSource = typeof(Chiffrage.Projects.Domain.Project);
             this.projectBindingSource.CurrentItemChanged += new System.EventHandler(this.projectBindingSource_CurrentItemChanged);
             // 
             // nameDataGridViewTextBoxColumn
@@ -1349,12 +1351,12 @@
             // 
             // projectSupplyDtoBindingSource
             // 
-            this.projectSupplyDtoBindingSource.DataSource = typeof(Chiffrage.Dto.ProjectSupplyDto);
+            this.projectSupplyDtoBindingSource.DataSource = typeof(ProjectSupplyViewModel);
             this.projectSupplyDtoBindingSource.CurrentItemChanged += new System.EventHandler(this.projectSupplyDtoBindingSource_CurrentItemChanged);
             // 
             // projectHarwareDtoBindingSource
             // 
-            this.projectHarwareDtoBindingSource.DataSource = typeof(Chiffrage.Dto.ProjectHardwareDto);
+            this.projectHarwareDtoBindingSource.DataSource = typeof(ProjectHardwareViewModel);
             // 
             // nameDataGridViewTextBoxColumn2
             // 
@@ -1605,7 +1607,7 @@
             // 
             // otherBenefitBindingSource
             // 
-            this.otherBenefitBindingSource.DataSource = typeof(Chiffrage.Core.OtherBenefit);
+            this.otherBenefitBindingSource.DataSource = typeof(Chiffrage.Projects.Domain.OtherBenefit);
             this.otherBenefitBindingSource.CurrentItemChanged += new System.EventHandler(this.otherBenefitBindingSource_CurrentItemChanged);
             // 
             // hardwareNameDataGridViewTextBoxColumn

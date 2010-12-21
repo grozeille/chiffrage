@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Chiffrage.Core;
-using Chiffrage.Core.Repositories;
+using Chiffrage.Projects.Domain;
+using Chiffrage.Projects.Domain.Repositories;
 using NHibernate;
 
 namespace Chiffrage.Repositories
@@ -30,6 +31,11 @@ namespace Chiffrage.Repositories
             {
                 Session.Transaction.Rollback();
             }
+        }
+
+        public Deal FindById(int dealId)
+        {
+            return this.Session.Get<Deal>(dealId);
         }
     }
 }

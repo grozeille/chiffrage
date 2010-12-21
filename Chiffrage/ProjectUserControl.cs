@@ -2,10 +2,12 @@
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
+using Chiffrage.Catalogs.Domain;
 using Chiffrage.Core;
-using Chiffrage.Dto;
 using Chiffrage.Properties;
+using Chiffrage.ViewModel;
 using Chiffrage.WizardPages;
+using Chiffrage.Projects.Domain;
 
 namespace Chiffrage
 {
@@ -128,10 +130,10 @@ namespace Chiffrage
                 return;
 
             projectSupplyDtoBindingSource.SuspendBinding();
-            var source = new BindingList<ProjectSupplyDto>();
+            var source = new BindingList<ProjectSupplyViewModel>();
             foreach (ProjectSupply item in project.Supplies)
             {
-                var dto = new ProjectSupplyDto();
+                var dto = new ProjectSupplyViewModel();
                 dto.Item = item;
                 source.Add(dto);
             }
@@ -140,10 +142,10 @@ namespace Chiffrage
             toolStripButtonRemove.Enabled = source.Count > 0;
 
             projectHarwareDtoBindingSource.SuspendBinding();
-            var sourceHardware = new BindingList<ProjectHardwareDto>();
+            var sourceHardware = new BindingList<ProjectHardwareViewModel>();
             foreach (ProjectHardware item in project.Hardwares)
             {
-                var dto = new ProjectHardwareDto();
+                var dto = new ProjectHardwareViewModel();
                 dto.Item = item;
                 sourceHardware.Add(dto);
             }
@@ -181,10 +183,9 @@ namespace Chiffrage
             {
                 foreach (Supply item in page.SelectedItems)
                 {
-                    project.Supplies.Add(new ProjectSupply
+                    project.Supplies.Add(new ProjectSupply(item)
                                              {
                                                  Quantity = 1,
-                                                 Item = item.Clone() as Supply,
                                                  TestsDays = item.CatalogTestsDays,
                                                  TestsNights = 0,
                                                  WorkDays = item.CatalogWorkDays,
@@ -209,7 +210,7 @@ namespace Chiffrage
 
         private void toolStripButtonRemove_Click(object sender, EventArgs e)
         {
-            ProjectSupplyDto current = (projectSupplyDtoBindingSource.Current as ProjectSupplyDto);
+            ProjectSupplyViewModel current = (projectSupplyDtoBindingSource.Current as ProjectSupplyViewModel);
             if (current != null)
             {
                 var result = MessageBox.Show("Êtes-vous sûr de vouloir supprimer cet item?", "Supprimer",
@@ -268,10 +269,9 @@ namespace Chiffrage
             {
                 foreach (Hardware item in page.SelectedItems)
                 {
-                    project.Hardwares.Add(new ProjectHardware
+                    project.Hardwares.Add(new ProjectHardware(item)
                     {
                         Quantity = 1,
-                        Item = item.Clone() as Hardware,
                         TestsDays = item.CatalogTestsDays,
                         TestsNights = 0,
                         WorkDays = item.CatalogWorkDays,
@@ -290,7 +290,7 @@ namespace Chiffrage
 
         private void toolStripButtonRemoveHardware_Click(object sender, EventArgs e)
         {
-            ProjectHardwareDto current = (projectHarwareDtoBindingSource.Current as ProjectHardwareDto);
+            ProjectHardwareViewModel current = (projectHarwareDtoBindingSource.Current as ProjectHardwareViewModel);
             if (current != null)
             {
                 var result = MessageBox.Show("Êtes-vous sûr de vouloir supprimer cet item?", "Supprimer",

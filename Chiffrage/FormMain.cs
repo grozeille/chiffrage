@@ -10,13 +10,16 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
+using Chiffrage.Catalogs.Domain;
+using Chiffrage.Catalogs.Domain.Repositories;
 using Chiffrage.Core;
+using Chiffrage.Projects.Domain;
 using Chiffrage.Repositories;
 using Chiffrage.WizardPages;
-using Chiffrage.Core.Repositories;
 using NHibernate;
 using NHibernate.Cfg;
 using Settings = Chiffrage.Properties.Settings;
+using Chiffrage.ViewModel;
 
 namespace Chiffrage
 {
@@ -25,6 +28,8 @@ namespace Chiffrage
         public Configuration Configuration { get; set; }
 
         public DealRepository DealRepository { get; set; }
+
+        public ProjectRepository ProjectRepository { get; set; }
 
         public bool DealsDirty
         {
@@ -65,6 +70,7 @@ namespace Chiffrage
         {
             Deals = new List<Deal>();
             this.DealRepository = new DealRepository();
+            this.ProjectRepository = new ProjectRepository();
             InitializeComponent();
 
             this.treeNodeDeals = new System.Windows.Forms.TreeNode("Affaires");
@@ -91,35 +97,50 @@ namespace Chiffrage
         private void RefreshDeals()
         {
             this.treeView.BeginUpdate();
-            var oldSelected = this.treeView.SelectedNode != null ? this.treeView.SelectedNode.Tag : null;
+            
+            // keep in memory the selected node
+            var oldSelected = this.treeView.SelectedNode;
+
+            // delete all deals
             this.treeNodeDeals.Nodes.Clear();
+
+            // load all deals
             foreach (var deal in this.Deals.OrderBy((d) => d.Name))
             {
-                var dealNode = this.treeNodeDeals.Nodes.Add(deal.Name, deal.Name, 0, 0);
+                var dealNode = new DealTreeNode(deal);
+                this.treeNodeDeals.Nodes.Add(dealNode);
                 dealNode.ContextMenuStrip = this.contextMenuStripDeal;
-                dealNode.Tag = deal;
+
                 foreach (var project in deal.Projects.OrderBy((p) => p.Name))
                 {
-                    var projectNode = dealNode.Nodes.Add(project.Name, project.Name, 2, 2);
-                    projectNode.Tag = project;
+                    var projectNode = new ProjectTreeNode(project);
+                    dealNode.Nodes.Add(projectNode);                    
                 }
             }
-            var node = this.FindNodeByTag(this.treeView, oldSelected);
+
+            var node = this.FindNodeOldNode(this.treeView, oldSelected);
             if(node != null) this.treeView.SelectedNode = node;
             this.treeNodeDeals.Expand();
             this.treeView.EndUpdate();
-        }
+        }       
 
         private void RefreshCatalogs()
         {
             this.treeView.BeginUpdate();
-            var oldSelected = this.treeView.SelectedNode != null ? this.treeView.SelectedNode.Tag : null;
+
+            // keep in memory the selected node
+            var oldSelected = this.treeView.SelectedNode;
+
+            // delete all catalogs
             this.treeNodeCatalogs.Nodes.Clear();
+
+            // load all catalogs
             foreach (var item in this.Catalog.SupplierCatalogs)
             {
-                treeNodeCatalogs.Nodes.Add(item.SupplierName, item.SupplierName, 3, 3).Tag = item;
+                treeNodeCatalogs.Nodes.Add(new CatalogTreeNode(item));
             }
-            var node = this.FindNodeByTag(this.treeView, oldSelected);
+
+            var node = this.FindNodeOldNode(this.treeView, oldSelected);
             if (node != null) this.treeView.SelectedNode = node;            
             this.treeNodeCatalogs.Expand();
             this.treeView.EndUpdate();
@@ -135,19 +156,21 @@ namespace Chiffrage
                 this.DisplayNone();
             else
             {
-                if (this.treeView.SelectedNode.Tag is Deal)
-                    this.DisplayDealDetails(this.treeView.SelectedNode.Tag as Deal);
-                else if (this.treeView.SelectedNode.Tag is Project)
-                    this.DisplayProjectDetails(this.treeView.SelectedNode.Tag as Project);
-                else if (this.treeView.SelectedNode.Tag is SupplierCatalog)
-                    this.DisplayCatalog(this.treeView.SelectedNode.Tag as SupplierCatalog);
+                if (this.treeView.SelectedNode is DealTreeNode)
+                    this.DisplayDealDetails((this.treeView.SelectedNode as DealTreeNode).DealId);
+                else if (this.treeView.SelectedNode is ProjectTreeNode)
+                    this.DisplayProjectDetails((this.treeView.SelectedNode as ProjectTreeNode).ProjectId);
+                else if (this.treeView.SelectedNode is CatalogTreeNode)
+                    this.DisplayCatalog((this.treeView.SelectedNode as CatalogTreeNode).CatalogId);
             }
         }
         #endregion
 
         #region display details in panel
-        private void DisplayCatalog(SupplierCatalog catalog)
+        private void DisplayCatalog(int catalogId)
         {
+            var catalog = this.CatalogRepository.FindById(catalogId);
+
             CatalogDirty = CatalogDirty;
             this.SuspendLayout();
             catalogUserControl.Visible = true;
@@ -157,8 +180,10 @@ namespace Chiffrage
             this.ResumeLayout(true);
         }
 
-        private void DisplayProjectDetails(Project project)
+        private void DisplayProjectDetails(int projectId)
         {
+            var project = this.ProjectRepository.FindById(projectId);
+
             this.SuspendLayout();
             catalogUserControl.Visible = false;
             dealUserControl.Visible = false;
@@ -168,12 +193,14 @@ namespace Chiffrage
             this.ResumeLayout(true);
         }
 
-        private void DisplayDealDetails(Deal deal)
+        private void DisplayDealDetails(int dealId)
         {
+            var deal = this.DealRepository.FindById(dealId);
+
             this.SuspendLayout();
             catalogUserControl.Visible = false;
             dealUserControl.Visible = true;
-            dealUserControl.Deal = deal;
+            dealUserControl.Deal = DealViewModel.Build(deal);
             projectUserControl.Visible = false;
             this.ResumeLayout(true);
         }
@@ -235,6 +262,33 @@ namespace Chiffrage
             var node = this.FindNodeByTag(this.treeView, o);
             if (node != null)
                 this.treeView.SelectedNode = node;
+        }
+
+        private TreeNode FindNodeOldNode(TreeView view, TreeNode old)
+        {
+            return FindNodeOldNode(treeView.Nodes, old);
+        }
+
+        private TreeNode FindNodeOldNode(TreeNodeCollection collection, TreeNode old)
+        {
+            if (collection == null)
+                return null;
+
+            foreach (TreeNode node in collection)
+            {
+                if (node.Equals(old))
+                {
+                    return node;
+                }
+                else
+                {
+                    var child = FindNodeOldNode(node.Nodes, old);
+                    if (child != null)
+                        return child;
+                }
+            }
+
+            return null;
         }
 
         private TreeNode FindNodeByTag(TreeView treeView, Object obj)
@@ -461,7 +515,9 @@ namespace Chiffrage
                 }
                 this.Configuration.Properties["connection.connection_string"] = connection.ConnectionString;
                 ISessionFactory sf = this.Configuration.BuildSessionFactory();
+
                 this.DealRepository.Session = sf.OpenSession(connection);
+                this.ProjectRepository.Session = sf.OpenSession(connection);
             }
         }
 

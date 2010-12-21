@@ -1,4 +1,6 @@
-﻿namespace Chiffrage.WizardPages
+﻿using Chiffrage.ViewModel;
+
+namespace Chiffrage.WizardPages
 {
     partial class AddCatalogItemPage
     {
@@ -151,7 +153,7 @@
             // 
             // iCatalogItemSelectionDtoBindingSource
             // 
-            this.iCatalogItemSelectionDtoBindingSource.DataSource = typeof(Chiffrage.Dto.ICatalogItemSelectionDto);
+            this.iCatalogItemSelectionDtoBindingSource.DataSource = typeof(ICatalogItemSelectionViewModel);
             // 
             // selectedDataGridViewCheckBoxColumn
             // 

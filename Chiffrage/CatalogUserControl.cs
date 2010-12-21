@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using Chiffrage.Catalogs.Domain;
 using Chiffrage.Core;
 using Chiffrage.WizardPages;
 

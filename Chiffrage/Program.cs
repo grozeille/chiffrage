@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data.SQLite;
 using System.Linq;
 using System.Windows.Forms;
+using Chiffrage.Catalogs.Domain;
 using Chiffrage.Repositories;
 using Chiffrage.Core;
 using System.Threading;

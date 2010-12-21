@@ -1,19 +1,21 @@
 ﻿using System;
 using System.Windows.Forms;
 using Chiffrage.Core;
+using Chiffrage.Projects.Domain;
+using Chiffrage.ViewModel;
 
 namespace Chiffrage
 {
     public partial class DealUserControl : UserControl
     {
-        private Deal deal;
+        private DealViewModel deal;
 
         public DealUserControl()
         {
             InitializeComponent();
         }
 
-        public Deal Deal
+        public DealViewModel Deal
         {
             get { return deal; }
             set

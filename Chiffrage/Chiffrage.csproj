@@ -110,13 +110,17 @@
     <Compile Include="DealUserControl.Designer.cs">
       <DependentUpon>DealUserControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Dto\CatalogItemSelectionDto.cs" />
-    <Compile Include="Dto\CatalogSupplySelectionDto.cs" />
-    <Compile Include="Dto\CatalogHardwareSelectionDto.cs" />
-    <Compile Include="Dto\ICatalogItemSelectionDto.cs" />
-    <Compile Include="Dto\ProjectHardwareDto.cs" />
-    <Compile Include="Dto\ProjectItemDto.cs" />
-    <Compile Include="Dto\ProjectSupplyDto.cs" />
+    <Compile Include="Repositories\ProjectRepository.cs" />
+    <Compile Include="ViewModel\CatalogItemSelectionViewModel.cs" />
+    <Compile Include="ViewModel\CatalogSupplySelectionViewModel.cs" />
+    <Compile Include="ViewModel\CatalogHardwareSelectionViewModel.cs" />
+    <Compile Include="ViewModel\CatalogTreeNode.cs" />
+    <Compile Include="ViewModel\DealTreeNode.cs" />
+    <Compile Include="ViewModel\DealViewModel.cs" />
+    <Compile Include="ViewModel\ICatalogItemSelectionViewModel.cs" />
+    <Compile Include="ViewModel\ProjectHardwareViewModel.cs" />
+    <Compile Include="ViewModel\ProjectItemViewModel.cs" />
+    <Compile Include="ViewModel\ProjectSupplyViewModel.cs" />
     <Compile Include="FormMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -131,7 +135,6 @@
       <DependentUpon>LoadingForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Mappings\CableMap.cs" />
-    <Compile Include="Mappings\SupplyComponentMap.cs" />
     <Compile Include="Mappings\SupplyMap.cs" />
     <Compile Include="Mappings\SupplierCatalogMap.cs" />
     <Compile Include="Mappings\ProjectSupplyMap.cs" />
@@ -141,6 +144,7 @@
     <Compile Include="Mappings\HardwareSupplyMap.cs" />
     <Compile Include="Mappings\HardwareMap.cs" />
     <Compile Include="Mappings\DealMap.cs" />
+    <Compile Include="ViewModel\ProjectTreeNode.cs" />
     <Compile Include="WizardPages\NewCatalogPage.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -192,6 +196,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="Properties\DataSources\Chiffrage.ViewModel.DealViewModel.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
     </None>
@@ -252,8 +257,6 @@
     <None Include="Resources\map_edit.png" />
     <None Include="Resources\package.png" />
     <None Include="Resources\rosette.png" />
-    <None Include="Properties\DataSources\Chiffrage.Dto.CatalogSupplySelectionDto.datasource" />
-    <None Include="Properties\DataSources\Chiffrage.Dto.ProjectSupplyDto.datasource" />
     <None Include="Resources\blank.png" />
     <None Include="Resources\lorry.png" />
     <None Include="Resources\resultset_first.png" />
@@ -277,19 +280,7 @@
     <None Include="Resources\text_lowercase.png" />
     <None Include="Resources\text_strikethrough.png" />
     <None Include="Resources\text_underline.png" />
-    <None Include="Properties\DataSources\Chiffrage.Core.Deal.datasource" />
-    <None Include="Properties\DataSources\Chiffrage.Core.Project.datasource" />
-    <None Include="Properties\DataSources\Chiffrage.Core.Supply.datasource" />
     <None Include="Resources\text_uppercase.png" />
-    <None Include="Properties\DataSources\Chiffrage.Core.Catalog.datasource" />
-    <None Include="Properties\DataSources\Chiffrage.Core.Hardware.datasource" />
-    <None Include="Properties\DataSources\Chiffrage.Core.HardwareSupply.datasource" />
-    <None Include="Properties\DataSources\Chiffrage.Core.OtherBenefit.datasource" />
-    <None Include="Properties\DataSources\Chiffrage.Core.ProjectHardware.datasource" />
-    <None Include="Properties\DataSources\Chiffrage.Core.SupplierCatalog.datasource" />
-    <None Include="Properties\DataSources\Chiffrage.Dto.CatalogHardwareSelectionDto.datasource" />
-    <None Include="Properties\DataSources\Chiffrage.Dto.ICatalogItemSelectionDto.datasource" />
-    <None Include="Properties\DataSources\Chiffrage.Dto.ProjectHardwareDto.datasource" />
     <None Include="Resources\arrow_refresh.png" />
     <EmbeddedResource Include="WizardPages\NewHardwarePage.resx">
       <DependentUpon>NewHardwarePage.cs</DependentUpon>
@@ -299,9 +290,13 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Chiffrage.Core\Chiffrage.Core.csproj">
-      <Project>{664F8363-73CF-45DB-B468-EF4BB119F4E6}</Project>
-      <Name>Chiffrage.Core</Name>
+    <ProjectReference Include="..\Chiffrage.Catalogs.Domain\Chiffrage.Catalogs.Domain.csproj">
+      <Project>{BD6DAC1A-3B56-4E12-84DE-E7BD79316FF6}</Project>
+      <Name>Chiffrage.Catalogs.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Chiffrage.Projects.Domain\Chiffrage.Projects.Domain.csproj">
+      <Project>{28B2F9CD-626A-425C-8D41-CAB32F21134F}</Project>
+      <Name>Chiffrage.Projects.Domain</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

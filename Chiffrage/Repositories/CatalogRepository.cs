@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Chiffrage.Catalogs.Domain;
+using Chiffrage.Catalogs.Domain.Repositories;
 using Chiffrage.Core;
-using Chiffrage.Core.Repositories;
 using NHibernate;
 
 namespace Chiffrage.Repositories
@@ -47,6 +48,12 @@ namespace Chiffrage.Repositories
         {
             Session.Clear();
             return Session.CreateCriteria(typeof(SupplierCatalog)).List<SupplierCatalog>();
+        }
+
+        public SupplierCatalog FindById(int catalogId)
+        {
+            Session.Clear();
+            return Session.Get<SupplierCatalog>(catalogId);
         }
     }
 }
