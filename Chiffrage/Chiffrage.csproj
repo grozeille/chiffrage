@@ -35,6 +35,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=1.1.0.188, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="Common.Logging, Version=2.0.0.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\Common.Logging.dll</HintPath>
@@ -110,11 +114,14 @@
     <Compile Include="DealUserControl.Designer.cs">
       <DependentUpon>DealUserControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Repositories\ProjectRepository.cs" />
+    <Compile Include="ViewModel\CatalogHardwareSupplyViewModel.cs" />
+    <Compile Include="ViewModel\CatalogHardwareViewModel.cs" />
     <Compile Include="ViewModel\CatalogItemSelectionViewModel.cs" />
     <Compile Include="ViewModel\CatalogSupplySelectionViewModel.cs" />
     <Compile Include="ViewModel\CatalogHardwareSelectionViewModel.cs" />
+    <Compile Include="ViewModel\CatalogSupplyViewModel.cs" />
     <Compile Include="ViewModel\CatalogTreeNode.cs" />
+    <Compile Include="ViewModel\CatalogViewModel.cs" />
     <Compile Include="ViewModel\DealTreeNode.cs" />
     <Compile Include="ViewModel\DealViewModel.cs" />
     <Compile Include="ViewModel\ICatalogItemSelectionViewModel.cs" />
@@ -134,16 +141,6 @@
     <Compile Include="LoadingForm.Designer.cs">
       <DependentUpon>LoadingForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Mappings\CableMap.cs" />
-    <Compile Include="Mappings\SupplyMap.cs" />
-    <Compile Include="Mappings\SupplierCatalogMap.cs" />
-    <Compile Include="Mappings\ProjectSupplyMap.cs" />
-    <Compile Include="Mappings\ProjectHardwareMap.cs" />
-    <Compile Include="Mappings\ProjectMap.cs" />
-    <Compile Include="Mappings\OtherBenefitMap.cs" />
-    <Compile Include="Mappings\HardwareSupplyMap.cs" />
-    <Compile Include="Mappings\HardwareMap.cs" />
-    <Compile Include="Mappings\DealMap.cs" />
     <Compile Include="ViewModel\ProjectTreeNode.cs" />
     <Compile Include="WizardPages\NewCatalogPage.cs">
       <SubType>UserControl</SubType>
@@ -196,6 +193,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="Properties\DataSources\Chiffrage.ViewModel.CatalogSupplyViewItem.datasource" />
     <None Include="Properties\DataSources\Chiffrage.ViewModel.DealViewModel.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -203,8 +201,6 @@
     <Compile Include="Properties\Settings.Designer.cs">
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="Repositories\CatalogRepository.cs" />
-    <Compile Include="Repositories\DealRepository.cs" />
     <Compile Include="WizardForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -290,9 +286,17 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Chiffrage.Catalogs.Dal\Chiffrage.Catalogs.Dal.csproj">
+      <Project>{BB8D0D2C-CF88-4B85-A001-14C234FCF0FD}</Project>
+      <Name>Chiffrage.Catalogs.Dal</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Chiffrage.Catalogs.Domain\Chiffrage.Catalogs.Domain.csproj">
       <Project>{BD6DAC1A-3B56-4E12-84DE-E7BD79316FF6}</Project>
       <Name>Chiffrage.Catalogs.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Chiffrage.Projects.Dal\Chiffrage.Projects.Dal.csproj">
+      <Project>{E0FD926A-6B66-459F-A667-D5EFEF605129}</Project>
+      <Name>Chiffrage.Projects.Dal</Name>
     </ProjectReference>
     <ProjectReference Include="..\Chiffrage.Projects.Domain\Chiffrage.Projects.Domain.csproj">
       <Project>{28B2F9CD-626A-425C-8D41-CAB32F21134F}</Project>

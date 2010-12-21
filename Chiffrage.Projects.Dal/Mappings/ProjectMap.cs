@@ -6,7 +6,7 @@ using Chiffrage.Core;
 using Chiffrage.Projects.Domain;
 using FluentNHibernate.Mapping;
 
-namespace Chiffrage.Mappings
+namespace Chiffrage.Projects.Dal.Mappings
 {
     public class ProjectMap : ClassMap<Project>
     {
@@ -29,12 +29,15 @@ namespace Chiffrage.Mappings
 
             HasMany(x => x.Supplies)
                 .Cascade.All()
+                .Not.LazyLoad()
                 .AsBag();
             HasMany(x => x.Hardwares)
                 .Cascade.All()
+                .Not.LazyLoad()
                 .AsBag();
             HasMany(x => x.OtherBenefits)
                 .Cascade.All()
+                .Not.LazyLoad()
                 .AsBag();
         }
     }

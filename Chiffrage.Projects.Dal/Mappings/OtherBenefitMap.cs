@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Chiffrage.Core;
 using Chiffrage.Projects.Domain;
 using FluentNHibernate.Mapping;
 
-namespace Chiffrage.Mappings
+namespace Chiffrage.Projects.Dal.Mappings
 {
     public class OtherBenefitMap : ClassMap<OtherBenefit>
     {

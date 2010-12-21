@@ -6,7 +6,7 @@ using Chiffrage.Catalogs.Domain;
 using Chiffrage.Core;
 using FluentNHibernate.Mapping;
 
-namespace Chiffrage.Mappings
+namespace Chiffrage.Catalogs.Dal.Mappings
 {
     public class HardwareSupplyMap : ClassMap<HardwareSupply>
     {
@@ -14,7 +14,7 @@ namespace Chiffrage.Mappings
         {
             Id(x => x.Id);
             Map(x => x.Quantity);
-            HasOne(x => x.Supply);                
+            HasOne(x => x.Supply).Not.LazyLoad();                
         }
     }
 }

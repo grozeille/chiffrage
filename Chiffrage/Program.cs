@@ -1,22 +1,13 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Data.SQLite;
-using System.Linq;
 using System.Windows.Forms;
+using Chiffrage.Catalogs.Dal.Repositories;
 using Chiffrage.Catalogs.Domain;
-using Chiffrage.Repositories;
-using Chiffrage.Core;
-using System.Threading;
-using FluentNHibernate.Automapping;
+using Common.Logging;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using NHibernate;
 using NHibernate.Cfg;
 using Settings = Chiffrage.Properties.Settings;
-using System.Reflection;
-using System.IO;
-using Common.Logging;
 
 namespace Chiffrage
 {
@@ -37,8 +28,6 @@ namespace Chiffrage
 
                 Catalog catalog = new Catalog();
 
-                System.Data.SQLite.SQLiteConnection connectionCatalog = null;
-
                 if (string.IsNullOrEmpty(Settings.Default.CatalogPath))
                 {
                     MessageBox.Show(
@@ -55,75 +44,39 @@ namespace Chiffrage
                     Settings.Default.Save();
                 }
 
-                connectionCatalog = new SQLiteConnection(string.Format("Data Source={0};FailIfMissing=false", Settings.Default.CatalogPath));
-                try
+                Configuration configurationCatalog = Fluently.Configure()
+                    .Database(SQLiteConfiguration.Standard
+                        .UsingFile(Settings.Default.CatalogPath)
+                        .ProxyFactoryFactory(typeof(NHibernate.ByteCode.Spring.ProxyFactoryFactory)))
+                    .Mappings(m => m.FluentMappings.AddFromAssembly(typeof(CatalogRepository).Assembly))
+                    .BuildConfiguration();
+
+                configurationCatalog.Properties["hbm2ddl.auto"] = "update";
+
+                using (ISessionFactory sf = configurationCatalog.BuildSessionFactory())
                 {
-                    connectionCatalog.Open();
-                }
-                catch (Exception ex)
-                {
-                    File.Delete(Settings.Default.CatalogPath);
-                    logger.Fatal("Cannot open catalog file", ex);
-                    throw;
-                }
+                    var catalogRepository = new CatalogRepository();
+                    catalogRepository.SessionFactory = sf;
 
-                using (connectionCatalog)
-                {
-                    Configuration configurationCatalog = null;
-                    /*            
-                    Configuration configurationCatalog = new Configuration();
-                    configurationCatalog.Configure();
-
-                    try
-                    {
-                        configurationCatalog.AddAssembly(Assembly.GetExecutingAssembly());
-                    }catch(Exception ex)
-                    {
-                        logger.Fatal("Cannot configure NHibernate", ex);
-                        throw;
-                    }*/
-
-                    configurationCatalog = Fluently.Configure()
-                        .Database(SQLiteConfiguration.Standard
-                            .UsingFile(Settings.Default.CatalogPath)
-                            .ProxyFactoryFactory(typeof(NHibernate.ByteCode.Spring.ProxyFactoryFactory)))
-                        .Mappings(m => m.FluentMappings.AddFromAssembly(Assembly.GetEntryAssembly()))
-                        .BuildConfiguration();
-
-                    configurationCatalog.Properties["hbm2ddl.auto"] = "update";
-                    configurationCatalog.Properties["connection.connection_string"] = connectionCatalog.ConnectionString;
-
-                    using (ISessionFactory sf = configurationCatalog.BuildSessionFactory())
-                    {
-                        using (ISession sessionCatalog = sf.OpenSession(connectionCatalog))
-                        {
-
-                            var catalogRepository = new CatalogRepository();
-                            catalogRepository.Session = sessionCatalog;
-
-                            var formLoading = new LoadingForm();
-                            var formMain = new FormMain();
-                            formLoading.OnLoadingApplication =
-                                new EventHandler<LoadingEventArgs>(delegate(object sender, LoadingEventArgs args)
-                                                                   {
-                                                                       args.ReportProgress(10);
-                                                                       catalog.SupplierCatalogs = catalogRepository.FindAll();
-                                                                       args.ReportProgress(60);
-                                                                       formMain.Catalog = catalog;
-                                                                       formMain.CatalogRepository = catalogRepository;
-                                                                       formMain.Configuration = configurationCatalog;
-                                                                       formMain.LoadLastDealFile();
-                                                                       args.ReportProgress(100);
-                                                                   });
+                    var formLoading = new LoadingForm();
+                    var formMain = new FormMain();
+                    formLoading.OnLoadingApplication =
+                        new EventHandler<LoadingEventArgs>(delegate(object sender, LoadingEventArgs args)
+                                                           {
+                                                               args.ReportProgress(10);
+                                                               catalog.SupplierCatalogs = catalogRepository.FindAll();
+                                                               args.ReportProgress(60);
+                                                               formMain.Catalog = catalog;
+                                                               formMain.CatalogRepository = catalogRepository;
+                                                               formMain.LoadLastDealFile();
+                                                               args.ReportProgress(100);
+                                                           });
 
 
-                            Application.Run(formLoading);
+                    Application.Run(formLoading);
 
-                            Application.Run(formMain);
-
-                        }
-                    }
-                }
+                    Application.Run(formMain);
+                }                
             }
             catch (Exception ex)
             {

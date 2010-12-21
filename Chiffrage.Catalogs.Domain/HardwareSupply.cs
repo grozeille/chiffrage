@@ -19,52 +19,52 @@ namespace Chiffrage.Catalogs.Domain
         public virtual int Id { get; set; }
         public virtual string Name
         {
-            get { return this.Supply.Name; }
+            get { return this.supply == null ? null : this.Supply.Name; }
         }
 
         public virtual string Reference
         {
-            get { return this.Supply.Reference; }
+            get { return this.supply == null ? null : this.Supply.Reference; }
         }
 
         public virtual string Category
         {
-            get { return this.Supply.Category; }
+            get { return this.supply == null ? null : this.Supply.Category; }
         }
 
         public virtual int ModuleSize
         {
-            get { return this.Supply.ModuleSize; }
+            get { return this.supply == null ? 0 : this.Supply.ModuleSize; }
         }
 
         public virtual double CatalogPrice
         {
-            get { return this.Supply.CatalogPrice; }
+            get { return this.supply == null ? 0.0 : this.Supply.CatalogPrice; }
         }
 
         public virtual double StudyDays
         {
-            get { return this.Supply.StudyDays; }
+            get { return this.supply == null ? 0.0: this.Supply.StudyDays; }
         }
 
         public virtual double ReferenceDays
         {
-            get { return this.Supply.ReferenceDays; }
+            get { return this.supply == null ? 0.0 : this.Supply.ReferenceDays; }
         }
 
         public virtual double CatalogWorkDays
         {
-            get { return this.Supply.CatalogWorkDays; }
+            get { return this.supply == null ? 0.0 : this.Supply.CatalogWorkDays; }
         }
 
         public virtual double CatalogExecutiveWorkDays
         {
-            get { return this.Supply.CatalogExecutiveWorkDays; }
+            get { return this.supply == null ? 0.0 : this.Supply.CatalogExecutiveWorkDays; }
         }
 
         public virtual double CatalogTestsDays
         {
-            get { return this.Supply.CatalogTestsDays; }
+            get { return this.supply == null ? 0.0 : this.Supply.CatalogTestsDays; }
         }
 
         public virtual Supply Supply

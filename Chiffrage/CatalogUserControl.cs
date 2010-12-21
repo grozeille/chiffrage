@@ -6,14 +6,13 @@ using System.Windows.Forms;
 using Chiffrage.Catalogs.Domain;
 using Chiffrage.Core;
 using Chiffrage.WizardPages;
+using Chiffrage.ViewModel;
 
 namespace Chiffrage
 {
     public partial class CatalogUserControl : UserControl
     {
-        private BindingList<Supply> supplyList;
-        private SupplierCatalog catalog;
-        private BindingList<Hardware> hardwareList;
+        private CatalogViewModel catalog;
 
         private bool loading = false;
 
@@ -22,7 +21,9 @@ namespace Chiffrage
             InitializeComponent();
         }
 
-        public SupplierCatalog Catalog
+        public Catalog GlobalCatalog { get; set; }
+
+        public CatalogViewModel Catalog
         {
             get { return catalog; }
             set
@@ -36,19 +37,7 @@ namespace Chiffrage
 
         private void RefreshCatalog()
         {
-            loading = true;
-            if (catalog == null)
-            {
-                supplyList = null;
-                hardwareList = null;
-            }
-            else
-            {
-                supplyList = new BindingList<Supply>(catalog.Supplies);
-                hardwareList = new BindingList<Hardware>(catalog.Hardwares);
-            }            
-            hardwareBindingSource.DataSource = hardwareList;
-            supplyBindingSource.DataSource = supplyList;
+            loading = true;            
 
             if (catalog != null)
             {
@@ -56,7 +45,11 @@ namespace Chiffrage
                     catalog.Comment = string.Empty;
                 if (!(catalog.Comment.StartsWith("{\\rtf") && catalog.Comment.EndsWith("}")))
                     catalog.Comment = "{\\rtf" + catalog.Comment + "}";
-                supplierCatalogBindingSource.DataSource = catalog;                
+
+                supplierCatalogBindingSource.DataSource = catalog;
+
+                hardwareBindingSource.DataSource = catalog.Hardwares;
+                supplyBindingSource.DataSource = catalog.Supplies;           
             }
             loading = false;
             RefreshCategories();
@@ -136,13 +129,12 @@ namespace Chiffrage
         {
             loading = true;
             if (string.IsNullOrEmpty(toolStripComboBoxCategory.Text))
-                supplyList = new BindingList<Supply>(catalog.Supplies);
+                supplyBindingSource.DataSource = catalog.Supplies;
             else
             {
                 var regex = new Regex(string.Format(".*{0}.*", toolStripComboBoxCategory.Text));
-                supplyList = new BindingList<Supply>(catalog.Supplies.Where((s) => s.Category != null && regex.IsMatch(s.Category)).ToList());
+                supplyBindingSource.DataSource = new BindingList<CatalogSupplyViewModel>(catalog.Supplies.Where((s) => s.Category != null && regex.IsMatch(s.Category)).ToList());
             }
-            supplyBindingSource.DataSource = supplyList;
             loading = false;
         }
 
@@ -152,9 +144,7 @@ namespace Chiffrage
             var setting1 = new WizardSetting(page1, "Nouveau Matériel", "Création d'un nouveau matériel", true);
             
             var page2 = new AddCatalogItemPage();
-            var c = new Catalog();
-            c.SupplierCatalogs.Add(this.catalog);
-            page2.Catalog = c;
+            page2.Catalog = this.GlobalCatalog;
             var setting2 = new WizardSetting(page2, "Ajout d'un composant", "Ajouter un composant au matériel", true);
 
             if (new WizardForm().ShowDialog(new WizardSetting[]{setting1, setting2})== System.Windows.Forms.DialogResult.OK)
@@ -169,7 +159,7 @@ namespace Chiffrage
                     hardware.Components.Add(supply);
                 }
 
-                hardwareList.Add(hardware);
+                catalog.Hardwares.Add(CatalogHardwareViewModel.Build(hardware));
                 hardwareBindingSource.ResetBindings(false);
                 supplyBindingSourceHardware.ResetBindings(false);
             }
@@ -185,9 +175,7 @@ namespace Chiffrage
         private void toolStripButtonHardwareAdd_Click(object sender, EventArgs e)
         {
             var page = new AddCatalogItemPage();
-            var c = new Catalog();
-            c.SupplierCatalogs.Add(this.catalog);
-            page.Catalog = c;
+            page.Catalog = this.GlobalCatalog;
             page.DisplayItemType = AddCatalogItemPage.ItemType.Supply;
             var setting = new WizardSetting(page, "Ajout d'un composant", "Ajouter un composant au matériel", true);
             if (new WizardForm().ShowDialog(setting) == System.Windows.Forms.DialogResult.OK)

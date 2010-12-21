@@ -21,7 +21,7 @@ namespace Chiffrage.ViewModel
 
         public override bool Equals(object obj)
         {
-            return obj is DealTreeNode && (obj as DealTreeNode).DealId == this.ProjectId;
+            return obj is ProjectTreeNode && (obj as ProjectTreeNode).ProjectId == this.ProjectId;
         }
     }
 }

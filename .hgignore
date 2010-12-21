@@ -3,3 +3,6 @@ resharper.user
 obj
 bin
 .suo
+.DS_Store
+.orig
+.user

@@ -10,6 +10,9 @@ namespace Chiffrage.ViewModel
     {
         public static DealViewModel Build(Deal deal)
         {
+            if (deal == null)
+                return null;
+
             return new DealViewModel
             {
                 Id = deal.Id,

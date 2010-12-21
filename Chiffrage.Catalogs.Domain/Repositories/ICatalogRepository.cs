@@ -6,7 +6,7 @@ namespace Chiffrage.Catalogs.Domain.Repositories
     {
         void Save(Catalog catalog);
 
-        SupplierCatalog Save(SupplierCatalog catalog);
+        void Save(SupplierCatalog catalog);
 
         IList<SupplierCatalog> FindAll();
 

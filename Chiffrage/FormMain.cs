@@ -1,32 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
-using System.ComponentModel;
-using System.Data;
-using System.Data.SQLite;
-using System.Drawing;
-using System.IO;
 using System.Linq;
-using System.Reflection;
-using System.Text;
 using System.Windows.Forms;
+using AutoMapper;
 using Chiffrage.Catalogs.Domain;
 using Chiffrage.Catalogs.Domain.Repositories;
-using Chiffrage.Core;
+using Chiffrage.Projects.Dal.Repositories;
 using Chiffrage.Projects.Domain;
-using Chiffrage.Repositories;
-using Chiffrage.WizardPages;
-using NHibernate;
-using NHibernate.Cfg;
-using Settings = Chiffrage.Properties.Settings;
 using Chiffrage.ViewModel;
+using Chiffrage.WizardPages;
+using FluentNHibernate.Cfg;
+using FluentNHibernate.Cfg.Db;
+using NHibernate;
+using Settings = Chiffrage.Properties.Settings;
 
 namespace Chiffrage
 {
     public partial class FormMain : Form
     {
-        public Configuration Configuration { get; set; }
-
         public DealRepository DealRepository { get; set; }
 
         public ProjectRepository ProjectRepository { get; set; }
@@ -55,9 +47,9 @@ namespace Chiffrage
 
         public ICatalogRepository CatalogRepository { get; set; }
 
-        public Catalog Catalog { get; set; }
-
         private string filePath = null;
+
+        private ISessionFactory dealSessionFactory;
 
         private bool dealsDirty = false;
         private bool catalogDirty = false;
@@ -65,6 +57,8 @@ namespace Chiffrage
         private TreeNode treeNodeDeals;
 
         public IList<Deal> Deals { get; set; }
+
+        public Catalog Catalog { get; set; }
 
         public FormMain()
         {
@@ -111,10 +105,13 @@ namespace Chiffrage
                 this.treeNodeDeals.Nodes.Add(dealNode);
                 dealNode.ContextMenuStrip = this.contextMenuStripDeal;
 
-                foreach (var project in deal.Projects.OrderBy((p) => p.Name))
+                if (deal.Projects != null)
                 {
-                    var projectNode = new ProjectTreeNode(project);
-                    dealNode.Nodes.Add(projectNode);                    
+                    foreach (var project in deal.Projects.OrderBy((p) => p.Name))
+                    {
+                        var projectNode = new ProjectTreeNode(project);
+                        dealNode.Nodes.Add(projectNode);
+                    }
                 }
             }
 
@@ -173,10 +170,11 @@ namespace Chiffrage
 
             CatalogDirty = CatalogDirty;
             this.SuspendLayout();
-            catalogUserControl.Visible = true;
-            catalogUserControl.Catalog = catalog;
-            dealUserControl.Visible = false;
-            projectUserControl.Visible = false;
+            this.catalogUserControl.Visible = true;
+            this.catalogUserControl.GlobalCatalog = this.Catalog;
+            this.catalogUserControl.Catalog = CatalogViewModel.Build(catalog);
+            this.dealUserControl.Visible = false;
+            this.projectUserControl.Visible = false;
             this.ResumeLayout(true);
         }
 
@@ -215,54 +213,7 @@ namespace Chiffrage
         }
         #endregion
 
-        #region Getter for selected object
-        private Project SelectedProject
-        {
-            get
-            {
-                return treeView.SelectedNode == null ? null : treeView.SelectedNode.Tag as Project;
-            }
-        }
-
-        private SupplierCatalog SelectedSupplierCatalog
-        {
-            get
-            {
-                return treeView.SelectedNode == null ? null : treeView.SelectedNode.Tag as SupplierCatalog;
-            }
-        }
-
-        private Deal SelectedDeal
-        {
-            get
-            {
-                var deal = treeView.SelectedNode == null ? null : treeView.SelectedNode.Tag as Deal;
-                var project = treeView.SelectedNode == null ? null : treeView.SelectedNode.Tag as Project;
-
-                // find the parent deal of the selected project
-                if (project != null)
-                {
-                    foreach (TreeNode dealNode in this.treeNodeDeals.Nodes)
-                    {
-                        foreach (TreeNode projectNode in dealNode.Nodes)
-                        {
-                            if (projectNode.Tag == project)
-                                deal = dealNode.Tag as Deal;
-                        }
-                    }
-                }
-                return deal;
-            }
-        }
-        #endregion
-
         #region helpers for treeview
-        private void SelectNode(object o)
-        {
-            var node = this.FindNodeByTag(this.treeView, o);
-            if (node != null)
-                this.treeView.SelectedNode = node;
-        }
 
         private TreeNode FindNodeOldNode(TreeView view, TreeNode old)
         {
@@ -291,99 +242,60 @@ namespace Chiffrage
             return null;
         }
 
-        private TreeNode FindNodeByTag(TreeView treeView, Object obj)
-        {
-            return FindNodeByTag(treeView.Nodes, obj);
-        }
-
-        private TreeNode FindNodeByTag(TreeNodeCollection collection, Object obj)
-        {
-            if (collection == null)
-                return null;
-
-            foreach (TreeNode node in collection)
-            {
-                if (node.Tag != null && node.Tag.Equals(obj))
-                {
-                    return node;
-                }
-                else
-                {
-                    var child = FindNodeByTag(node.Nodes, obj);
-                    if (child != null)
-                        return child;
-                }
-            }
-
-            return null;
-        }
         #endregion
        
         #region save methods
-        private bool SaveDeals(IEnumerable<Deal> deals)
-        {
-            foreach (var item in deals)
-                this.DealRepository.Save(item);
-            // get the selected id
-            int? selectedProjectId = this.SelectedProject != null ? (int?)this.SelectedProject.Id : null;
-            int? selectedDealId = this.SelectedDeal != null ? (int?)this.SelectedDeal.Id : null;
-            this.Deals = this.DealRepository.FindAll();
-
-            RefreshDeals();
-
-            if(selectedProjectId.HasValue)
-            {
-                var selectedProject = this.Deals.SelectMany((d) => d.Projects).Where((p) => p.Id == selectedProjectId.Value).FirstOrDefault();
-
-                this.SelectNode(selectedProject);
-            }
-            else if(selectedDealId.HasValue)
-            {
-                var selectedDeal = this.Deals.Where((d) => d.Id == selectedDealId.Value).FirstOrDefault();
-
-                this.SelectNode(selectedDeal);
-            }
-            
-            DealsDirty = false;
-            return true;
-        }
-
-        private bool SaveDealsAs()
+        private void SaveDealsAs()
         {
             if (this.saveFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
             {
                 this.LoadDealFile(this.saveFileDialog.FileName);
-                BuildHistory();
-                return this.SaveDeals(this.Deals);
-            }
+                this.BuildHistory();
 
-            return false;
+                foreach(var deal in this.Deals)
+                    this.DealRepository.Save(deal);
+
+                this.RefreshDeals();
+
+                this.DealsDirty = false;
+            }
         }
 
-        private bool SaveCurrentDeals()
+        private void SaveCurrentProject(Project project)
         {
-            Deal currentDeal = treeView.SelectedNode.Tag as Deal;
-            if (currentDeal == null)
-            {
-                Project currentProject = treeView.SelectedNode.Tag as Project;
-                if (currentProject != null)
-                {
-                    currentDeal = treeView.SelectedNode.Parent.Tag as Deal;
-                }
-            }
-            return this.SaveDeals(new Deal[] { currentDeal });
+            this.ProjectRepository.Save(project);
+
+            this.RefreshDeals();
+
+            this.DealsDirty = false;
         }
 
-        private void SaveCatalog(SupplierCatalog catalog)
+        private void SaveCurrentDeals(DealViewModel dealViewModel)
         {
+            var currentDeal = this.DealRepository.FindById(dealViewModel.Id);
+
+            Mapper.CreateMap<DealViewModel, Deal>();
+            Mapper.Map(dealViewModel, currentDeal);
+
+            this.DealRepository.Save(currentDeal);
+
+            this.RefreshDeals();
+
+            this.DealsDirty = false;
+        }
+
+        private void SaveCatalog(CatalogViewModel catalogViewModel)
+        {
+            var catalog = CatalogRepository.FindById(catalogViewModel.Id);
+            
+            Mapper.CreateMap<CatalogViewModel, SupplierCatalog>();
+            Mapper.Map(catalogViewModel, catalog);
+
             this.CatalogRepository.Save(catalog);
 
-            RefreshCatalogs();
-
-            var selectedCatalog = this.Catalog.SupplierCatalogs.Where((c) => c.Id == catalog.Id).FirstOrDefault();
-            this.SelectNode(selectedCatalog);
+            this.RefreshCatalogs();
             
-            CatalogDirty = false;            
+            this.CatalogDirty = false;            
         }
         #endregion
 
@@ -409,16 +321,20 @@ namespace Chiffrage
                 var catalog = new SupplierCatalog();
                 catalog.SupplierName = page.SupplierName;
                 this.Catalog.SupplierCatalogs.Add(catalog);
+                
                 this.CatalogRepository.Save(this.Catalog);
-                RefreshCatalogs();
-                treeView.SelectedNode = FindNodeByTag(treeView, catalog);
+
+                this.RefreshCatalogs();
+                this.treeView.SelectedNode = this.FindNodeOldNode(this.treeView, new CatalogTreeNode(catalog));
+                CatalogDirty = true;
             }
         }
 
         private void CreateProject()
         {
-            Deal deal = this.SelectedDeal;
-
+            var dealNode = this.treeView.SelectedNode as DealTreeNode;
+            var deal = this.DealRepository.FindById(dealNode.DealId);
+            
             var page = new NewProjectPage();
             var setting = new WizardSetting(page, "Nouveau projet", "Création d'un nouveau projet", true);
             if (new WizardForm().ShowDialog(setting) == System.Windows.Forms.DialogResult.OK)
@@ -426,8 +342,14 @@ namespace Chiffrage
                 Project project = new Project();
                 project.Name = page.ProjectName;
                 deal.Projects.Add(project);
-                RefreshDeals();
-                treeView.SelectedNode = FindNodeByTag(treeView, project);
+
+                this.DealRepository.Save(deal);
+
+                var oldDeal = this.Deals.Where(d => d.Id == deal.Id).FirstOrDefault();
+                this.Deals[this.Deals.IndexOf(oldDeal)] = deal;
+                                
+                this.RefreshDeals();
+                this.treeView.SelectedNode = this.FindNodeOldNode(this.treeView, new ProjectTreeNode(project));                
                 DealsDirty = true;
             }
         }
@@ -440,9 +362,12 @@ namespace Chiffrage
             {
                 var deal = new Deal();
                 deal.Name = page.DealName;
+
+                this.DealRepository.Save(deal);
+
                 this.Deals.Add(deal);
-                RefreshDeals();
-                treeView.SelectedNode = FindNodeByTag(treeView, deal);
+                this.RefreshDeals();
+                this.treeView.SelectedNode = this.FindNodeOldNode(this.treeView, new DealTreeNode(deal));
                 DealsDirty = true;
             }
         }
@@ -494,42 +419,35 @@ namespace Chiffrage
             Settings.Default.Save();
 
             this.filePath = filePath;
-            if (this.DealRepository.Session != null)
+
+            if (this.dealSessionFactory != null)
             {
-                this.DealRepository.Session.Close();
-                this.DealRepository.Session = null;
+                this.dealSessionFactory.Close();
+                this.dealSessionFactory = null;
             }
 
-            if (this.DealRepository.Session == null)
-            {
-                var connection = new SQLiteConnection(string.Format("Data Source={0};FailIfMissing=false", this.filePath));
-                connection.Open();
+            var configuration = Fluently.Configure()
+                    .Database(SQLiteConfiguration.Standard
+                        .UsingFile(this.filePath)
+                        .ProxyFactoryFactory(typeof(NHibernate.ByteCode.Spring.ProxyFactoryFactory)))
+                    .Mappings(m => m.FluentMappings.AddFromAssembly(typeof(DealRepository).Assembly))
+                    .BuildConfiguration();
 
-                if (!File.Exists(this.filePath))
-                {
-                    this.Configuration.Properties["hbm2ddl.auto"] = "create";
-                }
-                else
-                {
-                    this.Configuration.Properties["hbm2ddl.auto"] = "update";
-                }
-                this.Configuration.Properties["connection.connection_string"] = connection.ConnectionString;
-                ISessionFactory sf = this.Configuration.BuildSessionFactory();
+            configuration.Properties["hbm2ddl.auto"] = "update";
 
-                this.DealRepository.Session = sf.OpenSession(connection);
-                this.ProjectRepository.Session = sf.OpenSession(connection);
-            }
+            this.dealSessionFactory = configuration.BuildSessionFactory();
+
+            this.DealRepository.SessionFactory = this.dealSessionFactory;
+            this.ProjectRepository.SessionFactory = this.dealSessionFactory;
         }
 
-        private void LoadDeal()
+        private void LoadDeals()
         {
             if (DealsDirty)
             {
                 if (MessageBox.Show("Voulez-vous sauvegarder vos affaires avant de quitter?", "Sauvegarder", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.OK)
                 {
-                    var saved = SaveCurrentDeals();
-                    if (!saved)
-                        return;
+                    SaveCurrentDeals(this.dealUserControl.Deal);                    
                 }
             }
 
@@ -562,24 +480,29 @@ namespace Chiffrage
 
         private void sauvegarderToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (this.SelectedSupplierCatalog != null)
+            if (this.catalogUserControl.Visible == true)
             {
-                SaveCatalog(this.SelectedSupplierCatalog);
+                SaveCatalog(this.catalogUserControl.Catalog);
             }
-            else if (this.SelectedDeal != null)
+            else if (this.projectUserControl.Visible == true)
             {
                 if (string.IsNullOrEmpty(filePath))
                     SaveDealsAs();
-                else
-                {
-                    SaveCurrentDeals();
-                }
+
+                SaveCurrentProject(this.projectUserControl.Project);
+            }
+            else if (this.dealUserControl.Visible == true)
+            {
+                if (string.IsNullOrEmpty(filePath))
+                    SaveDealsAs();
+
+                SaveCurrentDeals(this.dealUserControl.Deal);
             }
         }
 
         private void ouvrirToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            LoadDeal();            
+            LoadDeals();            
         }
 
         private void projectUserControl_ProjectChanged(object sender, EventArgs e)
@@ -612,9 +535,9 @@ namespace Chiffrage
 
         protected override void OnClosed(EventArgs e)
         {
-            if (this.DealRepository.Session != null)
+            if (this.dealSessionFactory != null)
             {
-                this.DealRepository.Session.Close();
+                this.dealSessionFactory.Close();
             }
             base.OnClosed(e);
         }
@@ -631,24 +554,18 @@ namespace Chiffrage
 
         private void toolStripButtonRefresh_Click(object sender, EventArgs e)
         {
-            if (this.SelectedSupplierCatalog != null)
-            {
-                RefreshCatalogs();
-            }
-            else if (this.SelectedDeal != null)
-            {
-                RefreshDeals();
-            }
+            RefreshCatalogs();
+            RefreshDeals();
         }
 
         private void treeView_BeforeSelect(object sender, TreeViewCancelEventArgs e)
         {
             // ask to save before changing the catalog
-            if (this.SelectedSupplierCatalog != null && this.CatalogDirty)
+            if (this.catalogUserControl.Visible && this.CatalogDirty)
             {
                 if (MessageBox.Show("Voulez-vous sauvegarder le catalogue avant de changer?", "Sauvegarder", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.OK)
                 {
-                    SaveCatalog(this.SelectedSupplierCatalog);
+                    SaveCatalog(this.catalogUserControl.Catalog);
                     this.CatalogDirty = false;
                 }
                 else
@@ -671,7 +588,7 @@ namespace Chiffrage
                                              MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
                 if (result == System.Windows.Forms.DialogResult.Yes)
                 {
-                    this.SaveCurrentDeals();
+                    this.SaveCurrentDeals(this.dealUserControl.Deal);
                     this.DealsDirty = false;
                 }
                 else if(result == System.Windows.Forms.DialogResult.Cancel)

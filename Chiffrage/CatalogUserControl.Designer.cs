@@ -32,18 +32,6 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle31 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle32 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle33 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle37 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle38 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle34 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle35 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle36 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -51,6 +39,9 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -60,6 +51,9 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle31 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle32 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle24 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle25 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle26 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -67,6 +61,12 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle28 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle29 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle30 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle33 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle37 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle38 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle34 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle35 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle36 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPageMainInfo = new System.Windows.Forms.TabPage();
             this.supplierCatalogBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -75,32 +75,6 @@
             this.labelCatalogue = new System.Windows.Forms.Label();
             this.tabPageSupplies = new System.Windows.Forms.TabPage();
             this.dataGridViewCatalog = new System.Windows.Forms.DataGridView();
-            this.supplyBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.bindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
-            this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
-            this.bindingNavigatorDeleteItem = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparatorCategory = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripLabelCategory = new System.Windows.Forms.ToolStripLabel();
-            this.toolStripComboBoxCategory = new System.Windows.Forms.ToolStripComboBox();
-            this.tabPageHardware = new System.Windows.Forms.TabPage();
-            this.splitContainerHardware = new System.Windows.Forms.SplitContainer();
-            this.dataGridViewHardware = new System.Windows.Forms.DataGridView();
-            this.hardwareBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.toolStripHardware = new System.Windows.Forms.ToolStrip();
-            this.toolStripButtonAdd = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButtonRemove = new System.Windows.Forms.ToolStripButton();
-            this.dataGridViewHardwareSupplies = new System.Windows.Forms.DataGridView();
-            this.supplyBindingSourceHardware = new System.Windows.Forms.BindingSource(this.components);
-            this.toolStripHardwareSupplies = new System.Windows.Forms.ToolStrip();
-            this.toolStripButtonHardwareAdd = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButtonHardwareRemove = new System.Windows.Forms.ToolStripButton();
-            this.dataGridViewComboBoxColumn1 = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.dataGridView = new System.Windows.Forms.DataGridView();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.quantityDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.totalPriceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.referenceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.categoryDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -111,6 +85,16 @@
             this.studyDaysDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.referenceDaysDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CatalogTestsDays = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.supplyBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.bindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
+            this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
+            this.bindingNavigatorDeleteItem = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparatorCategory = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripLabelCategory = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripComboBoxCategory = new System.Windows.Forms.ToolStripComboBox();
+            this.tabPageHardware = new System.Windows.Forms.TabPage();
+            this.splitContainerHardware = new System.Windows.Forms.SplitContainer();
+            this.dataGridViewHardware = new System.Windows.Forms.DataGridView();
             this.nameDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.referenceDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.categoryDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -121,7 +105,11 @@
             this.referenceDaysDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.studyDaysDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.commentUserControl = new Chiffrage.CommentUserControl();
+            this.hardwareBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.toolStripHardware = new System.Windows.Forms.ToolStrip();
+            this.toolStripButtonAdd = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonRemove = new System.Windows.Forms.ToolStripButton();
+            this.dataGridViewHardwareSupplies = new System.Windows.Forms.DataGridView();
             this.quantityDataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nameDataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.referenceDataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -133,6 +121,18 @@
             this.referenceDaysDataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.studyDaysDataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.supplyBindingSourceHardware = new System.Windows.Forms.BindingSource(this.components);
+            this.toolStripHardwareSupplies = new System.Windows.Forms.ToolStrip();
+            this.toolStripButtonHardwareAdd = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonHardwareRemove = new System.Windows.Forms.ToolStripButton();
+            this.dataGridViewComboBoxColumn1 = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.dataGridView = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.quantityDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.totalPriceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.commentUserControl = new Chiffrage.CommentUserControl();
             this.tabControl.SuspendLayout();
             this.tabPageMainInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.supplierCatalogBindingSource)).BeginInit();
@@ -276,9 +276,87 @@
             this.dataGridViewCatalog.TabIndex = 3;
             this.dataGridViewCatalog.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewCatalog_CellValueChanged);
             // 
+            // nameDataGridViewTextBoxColumn
+            // 
+            this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
+            this.nameDataGridViewTextBoxColumn.HeaderText = "Nom";
+            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
+            // 
+            // referenceDataGridViewTextBoxColumn
+            // 
+            this.referenceDataGridViewTextBoxColumn.DataPropertyName = "Reference";
+            this.referenceDataGridViewTextBoxColumn.HeaderText = "Référence";
+            this.referenceDataGridViewTextBoxColumn.Name = "referenceDataGridViewTextBoxColumn";
+            // 
+            // categoryDataGridViewTextBoxColumn
+            // 
+            this.categoryDataGridViewTextBoxColumn.DataPropertyName = "Category";
+            this.categoryDataGridViewTextBoxColumn.HeaderText = "Categorie";
+            this.categoryDataGridViewTextBoxColumn.Name = "categoryDataGridViewTextBoxColumn";
+            // 
+            // moduleSizeDataGridViewTextBoxColumn
+            // 
+            this.moduleSizeDataGridViewTextBoxColumn.DataPropertyName = "ModuleSize";
+            dataGridViewCellStyle2.Format = "N0";
+            dataGridViewCellStyle2.NullValue = null;
+            this.moduleSizeDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle2;
+            this.moduleSizeDataGridViewTextBoxColumn.HeaderText = "Modules";
+            this.moduleSizeDataGridViewTextBoxColumn.Name = "moduleSizeDataGridViewTextBoxColumn";
+            // 
+            // CatalogPrice
+            // 
+            this.CatalogPrice.DataPropertyName = "CatalogPrice";
+            dataGridViewCellStyle3.Format = "C2";
+            dataGridViewCellStyle3.NullValue = null;
+            this.CatalogPrice.DefaultCellStyle = dataGridViewCellStyle3;
+            this.CatalogPrice.HeaderText = "Prix";
+            this.CatalogPrice.Name = "CatalogPrice";
+            // 
+            // CatalogWorkDays
+            // 
+            this.CatalogWorkDays.DataPropertyName = "CatalogWorkDays";
+            dataGridViewCellStyle4.Format = "#.## j;#.## j;\\0 j";
+            this.CatalogWorkDays.DefaultCellStyle = dataGridViewCellStyle4;
+            this.CatalogWorkDays.HeaderText = "Travaux CNRO";
+            this.CatalogWorkDays.Name = "CatalogWorkDays";
+            this.CatalogWorkDays.Width = 150;
+            // 
+            // CatalogExecutiveWorkDays
+            // 
+            this.CatalogExecutiveWorkDays.DataPropertyName = "CatalogExecutiveWorkDays";
+            dataGridViewCellStyle5.Format = "#.## j;#.## j;\\0 j";
+            this.CatalogExecutiveWorkDays.DefaultCellStyle = dataGridViewCellStyle5;
+            this.CatalogExecutiveWorkDays.HeaderText = "Travaux ETAM";
+            this.CatalogExecutiveWorkDays.Name = "CatalogExecutiveWorkDays";
+            this.CatalogExecutiveWorkDays.Width = 150;
+            // 
+            // studyDaysDataGridViewTextBoxColumn
+            // 
+            this.studyDaysDataGridViewTextBoxColumn.DataPropertyName = "StudyDays";
+            dataGridViewCellStyle6.Format = "#.## j;#.## j;\\0 j";
+            this.studyDaysDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle6;
+            this.studyDaysDataGridViewTextBoxColumn.HeaderText = "Etude";
+            this.studyDaysDataGridViewTextBoxColumn.Name = "studyDaysDataGridViewTextBoxColumn";
+            // 
+            // referenceDaysDataGridViewTextBoxColumn
+            // 
+            this.referenceDaysDataGridViewTextBoxColumn.DataPropertyName = "ReferenceDays";
+            dataGridViewCellStyle7.Format = "#.## j;#.## j;\\0 j";
+            this.referenceDaysDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle7;
+            this.referenceDaysDataGridViewTextBoxColumn.HeaderText = "Saisie";
+            this.referenceDaysDataGridViewTextBoxColumn.Name = "referenceDaysDataGridViewTextBoxColumn";
+            // 
+            // CatalogTestsDays
+            // 
+            this.CatalogTestsDays.DataPropertyName = "CatalogTestsDays";
+            dataGridViewCellStyle8.Format = "#.## j;#.## j;\\0 j";
+            this.CatalogTestsDays.DefaultCellStyle = dataGridViewCellStyle8;
+            this.CatalogTestsDays.HeaderText = "Essais";
+            this.CatalogTestsDays.Name = "CatalogTestsDays";
+            // 
             // supplyBindingSource
             // 
-            this.supplyBindingSource.DataSource = typeof(Chiffrage.Catalogs.Domain.Supply);
+            this.supplyBindingSource.DataSource = typeof(Chiffrage.ViewModel.CatalogSupplyViewModel);
             this.supplyBindingSource.CurrentItemChanged += new System.EventHandler(this.supplyBindingSource_CurrentItemChanged);
             this.supplyBindingSource.ListChanged += new System.ComponentModel.ListChangedEventHandler(this.supplyBindingSource_ListChanged);
             // 
@@ -427,6 +505,97 @@
             this.dataGridViewHardware.Size = new System.Drawing.Size(558, 113);
             this.dataGridViewHardware.TabIndex = 2;
             // 
+            // nameDataGridViewTextBoxColumn1
+            // 
+            this.nameDataGridViewTextBoxColumn1.DataPropertyName = "Name";
+            dataGridViewCellStyle12.BackColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle12.ForeColor = System.Drawing.Color.Navy;
+            this.nameDataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle12;
+            this.nameDataGridViewTextBoxColumn1.HeaderText = "Nom";
+            this.nameDataGridViewTextBoxColumn1.Name = "nameDataGridViewTextBoxColumn1";
+            // 
+            // referenceDataGridViewTextBoxColumn1
+            // 
+            this.referenceDataGridViewTextBoxColumn1.DataPropertyName = "Reference";
+            dataGridViewCellStyle13.BackColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle13.ForeColor = System.Drawing.Color.Navy;
+            this.referenceDataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle13;
+            this.referenceDataGridViewTextBoxColumn1.HeaderText = "Référence";
+            this.referenceDataGridViewTextBoxColumn1.Name = "referenceDataGridViewTextBoxColumn1";
+            // 
+            // categoryDataGridViewTextBoxColumn1
+            // 
+            this.categoryDataGridViewTextBoxColumn1.DataPropertyName = "Category";
+            dataGridViewCellStyle14.BackColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle14.ForeColor = System.Drawing.Color.Navy;
+            this.categoryDataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle14;
+            this.categoryDataGridViewTextBoxColumn1.HeaderText = "Catégorie";
+            this.categoryDataGridViewTextBoxColumn1.Name = "categoryDataGridViewTextBoxColumn1";
+            // 
+            // moduleSizeDataGridViewTextBoxColumn1
+            // 
+            this.moduleSizeDataGridViewTextBoxColumn1.DataPropertyName = "ModuleSize";
+            this.moduleSizeDataGridViewTextBoxColumn1.HeaderText = "Modules";
+            this.moduleSizeDataGridViewTextBoxColumn1.Name = "moduleSizeDataGridViewTextBoxColumn1";
+            this.moduleSizeDataGridViewTextBoxColumn1.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.DataPropertyName = "CatalogPrice";
+            dataGridViewCellStyle15.Format = "C2";
+            dataGridViewCellStyle15.NullValue = null;
+            this.dataGridViewTextBoxColumn4.DefaultCellStyle = dataGridViewCellStyle15;
+            this.dataGridViewTextBoxColumn4.HeaderText = "Prix";
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn5
+            // 
+            this.dataGridViewTextBoxColumn5.DataPropertyName = "CatalogWorkDays";
+            dataGridViewCellStyle16.Format = "#.## j;#.## j;\\0 j";
+            this.dataGridViewTextBoxColumn5.DefaultCellStyle = dataGridViewCellStyle16;
+            this.dataGridViewTextBoxColumn5.HeaderText = "Travaux CNRO";
+            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            this.dataGridViewTextBoxColumn5.ReadOnly = true;
+            this.dataGridViewTextBoxColumn5.Width = 150;
+            // 
+            // dataGridViewTextBoxColumn6
+            // 
+            this.dataGridViewTextBoxColumn6.DataPropertyName = "CatalogExecutiveWorkDays";
+            dataGridViewCellStyle17.Format = "#.## j;#.## j;\\0 j";
+            this.dataGridViewTextBoxColumn6.DefaultCellStyle = dataGridViewCellStyle17;
+            this.dataGridViewTextBoxColumn6.HeaderText = "Travaux ETAM";
+            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
+            this.dataGridViewTextBoxColumn6.ReadOnly = true;
+            this.dataGridViewTextBoxColumn6.Width = 150;
+            // 
+            // referenceDaysDataGridViewTextBoxColumn1
+            // 
+            this.referenceDaysDataGridViewTextBoxColumn1.DataPropertyName = "ReferenceDays";
+            dataGridViewCellStyle18.Format = "#.## j;#.## j;\\0 j";
+            this.referenceDaysDataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle18;
+            this.referenceDaysDataGridViewTextBoxColumn1.HeaderText = "Saisie";
+            this.referenceDaysDataGridViewTextBoxColumn1.Name = "referenceDaysDataGridViewTextBoxColumn1";
+            this.referenceDaysDataGridViewTextBoxColumn1.ReadOnly = true;
+            // 
+            // studyDaysDataGridViewTextBoxColumn1
+            // 
+            this.studyDaysDataGridViewTextBoxColumn1.DataPropertyName = "StudyDays";
+            dataGridViewCellStyle19.Format = "#.## j;#.## j;\\0 j";
+            this.studyDaysDataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle19;
+            this.studyDaysDataGridViewTextBoxColumn1.HeaderText = "Etude";
+            this.studyDaysDataGridViewTextBoxColumn1.Name = "studyDaysDataGridViewTextBoxColumn1";
+            this.studyDaysDataGridViewTextBoxColumn1.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn7
+            // 
+            this.dataGridViewTextBoxColumn7.DataPropertyName = "CatalogTestsDays";
+            dataGridViewCellStyle20.Format = "#.## j;#.## j;\\0 j";
+            this.dataGridViewTextBoxColumn7.DefaultCellStyle = dataGridViewCellStyle20;
+            this.dataGridViewTextBoxColumn7.HeaderText = "Essais";
+            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
+            this.dataGridViewTextBoxColumn7.ReadOnly = true;
+            // 
             // hardwareBindingSource
             // 
             this.hardwareBindingSource.DataSource = typeof(Chiffrage.Catalogs.Domain.Hardware);
@@ -517,6 +686,101 @@
             this.dataGridViewHardwareSupplies.RowHeadersVisible = false;
             this.dataGridViewHardwareSupplies.Size = new System.Drawing.Size(558, 174);
             this.dataGridViewHardwareSupplies.TabIndex = 4;
+            // 
+            // quantityDataGridViewTextBoxColumn2
+            // 
+            this.quantityDataGridViewTextBoxColumn2.DataPropertyName = "Quantity";
+            dataGridViewCellStyle24.BackColor = System.Drawing.Color.WhiteSmoke;
+            dataGridViewCellStyle24.ForeColor = System.Drawing.Color.Navy;
+            this.quantityDataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle24;
+            this.quantityDataGridViewTextBoxColumn2.HeaderText = "Quantité";
+            this.quantityDataGridViewTextBoxColumn2.Name = "quantityDataGridViewTextBoxColumn2";
+            this.quantityDataGridViewTextBoxColumn2.Width = 50;
+            // 
+            // nameDataGridViewTextBoxColumn2
+            // 
+            this.nameDataGridViewTextBoxColumn2.DataPropertyName = "Name";
+            this.nameDataGridViewTextBoxColumn2.HeaderText = "Nom";
+            this.nameDataGridViewTextBoxColumn2.Name = "nameDataGridViewTextBoxColumn2";
+            this.nameDataGridViewTextBoxColumn2.ReadOnly = true;
+            // 
+            // referenceDataGridViewTextBoxColumn2
+            // 
+            this.referenceDataGridViewTextBoxColumn2.DataPropertyName = "Reference";
+            this.referenceDataGridViewTextBoxColumn2.HeaderText = "Référence";
+            this.referenceDataGridViewTextBoxColumn2.Name = "referenceDataGridViewTextBoxColumn2";
+            this.referenceDataGridViewTextBoxColumn2.ReadOnly = true;
+            // 
+            // categoryDataGridViewTextBoxColumn2
+            // 
+            this.categoryDataGridViewTextBoxColumn2.DataPropertyName = "Category";
+            this.categoryDataGridViewTextBoxColumn2.HeaderText = "Categorie";
+            this.categoryDataGridViewTextBoxColumn2.Name = "categoryDataGridViewTextBoxColumn2";
+            this.categoryDataGridViewTextBoxColumn2.ReadOnly = true;
+            // 
+            // moduleSizeDataGridViewTextBoxColumn2
+            // 
+            this.moduleSizeDataGridViewTextBoxColumn2.DataPropertyName = "ModuleSize";
+            this.moduleSizeDataGridViewTextBoxColumn2.HeaderText = "Modules";
+            this.moduleSizeDataGridViewTextBoxColumn2.Name = "moduleSizeDataGridViewTextBoxColumn2";
+            this.moduleSizeDataGridViewTextBoxColumn2.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn8
+            // 
+            this.dataGridViewTextBoxColumn8.DataPropertyName = "CatalogPrice";
+            dataGridViewCellStyle25.Format = "C2";
+            dataGridViewCellStyle25.NullValue = null;
+            this.dataGridViewTextBoxColumn8.DefaultCellStyle = dataGridViewCellStyle25;
+            this.dataGridViewTextBoxColumn8.HeaderText = "Prix";
+            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
+            this.dataGridViewTextBoxColumn8.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn9
+            // 
+            this.dataGridViewTextBoxColumn9.DataPropertyName = "CatalogWorkDays";
+            dataGridViewCellStyle26.Format = "#.## j;#.## j;\\0 j";
+            this.dataGridViewTextBoxColumn9.DefaultCellStyle = dataGridViewCellStyle26;
+            this.dataGridViewTextBoxColumn9.HeaderText = "Travaux CNRO";
+            this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
+            this.dataGridViewTextBoxColumn9.ReadOnly = true;
+            this.dataGridViewTextBoxColumn9.Width = 150;
+            // 
+            // dataGridViewTextBoxColumn10
+            // 
+            this.dataGridViewTextBoxColumn10.DataPropertyName = "CatalogExecutiveWorkDays";
+            dataGridViewCellStyle27.Format = "#.## j;#.## j;\\0 j";
+            this.dataGridViewTextBoxColumn10.DefaultCellStyle = dataGridViewCellStyle27;
+            this.dataGridViewTextBoxColumn10.HeaderText = "Travaux ETAM";
+            this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
+            this.dataGridViewTextBoxColumn10.ReadOnly = true;
+            this.dataGridViewTextBoxColumn10.Width = 150;
+            // 
+            // referenceDaysDataGridViewTextBoxColumn2
+            // 
+            this.referenceDaysDataGridViewTextBoxColumn2.DataPropertyName = "ReferenceDays";
+            dataGridViewCellStyle28.Format = "#.## j;#.## j;\\0 j";
+            this.referenceDaysDataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle28;
+            this.referenceDaysDataGridViewTextBoxColumn2.HeaderText = "Saisie";
+            this.referenceDaysDataGridViewTextBoxColumn2.Name = "referenceDaysDataGridViewTextBoxColumn2";
+            this.referenceDaysDataGridViewTextBoxColumn2.ReadOnly = true;
+            // 
+            // studyDaysDataGridViewTextBoxColumn2
+            // 
+            this.studyDaysDataGridViewTextBoxColumn2.DataPropertyName = "StudyDays";
+            dataGridViewCellStyle29.Format = "#.## j;#.## j;\\0 j";
+            this.studyDaysDataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle29;
+            this.studyDaysDataGridViewTextBoxColumn2.HeaderText = "Etude";
+            this.studyDaysDataGridViewTextBoxColumn2.Name = "studyDaysDataGridViewTextBoxColumn2";
+            this.studyDaysDataGridViewTextBoxColumn2.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn11
+            // 
+            this.dataGridViewTextBoxColumn11.DataPropertyName = "CatalogTestsDays";
+            dataGridViewCellStyle30.Format = "#.## j;#.## j;\\0 j";
+            this.dataGridViewTextBoxColumn11.DefaultCellStyle = dataGridViewCellStyle30;
+            this.dataGridViewTextBoxColumn11.HeaderText = "Essais";
+            this.dataGridViewTextBoxColumn11.Name = "dataGridViewTextBoxColumn11";
+            this.dataGridViewTextBoxColumn11.ReadOnly = true;
             // 
             // supplyBindingSourceHardware
             // 
@@ -655,175 +919,6 @@
             this.totalPriceDataGridViewTextBoxColumn.Name = "totalPriceDataGridViewTextBoxColumn";
             this.totalPriceDataGridViewTextBoxColumn.ReadOnly = true;
             // 
-            // nameDataGridViewTextBoxColumn
-            // 
-            this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
-            this.nameDataGridViewTextBoxColumn.HeaderText = "Nom";
-            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
-            // 
-            // referenceDataGridViewTextBoxColumn
-            // 
-            this.referenceDataGridViewTextBoxColumn.DataPropertyName = "Reference";
-            this.referenceDataGridViewTextBoxColumn.HeaderText = "Référence";
-            this.referenceDataGridViewTextBoxColumn.Name = "referenceDataGridViewTextBoxColumn";
-            // 
-            // categoryDataGridViewTextBoxColumn
-            // 
-            this.categoryDataGridViewTextBoxColumn.DataPropertyName = "Category";
-            this.categoryDataGridViewTextBoxColumn.HeaderText = "Categorie";
-            this.categoryDataGridViewTextBoxColumn.Name = "categoryDataGridViewTextBoxColumn";
-            // 
-            // moduleSizeDataGridViewTextBoxColumn
-            // 
-            this.moduleSizeDataGridViewTextBoxColumn.DataPropertyName = "ModuleSize";
-            dataGridViewCellStyle2.Format = "N0";
-            dataGridViewCellStyle2.NullValue = null;
-            this.moduleSizeDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle2;
-            this.moduleSizeDataGridViewTextBoxColumn.HeaderText = "Modules";
-            this.moduleSizeDataGridViewTextBoxColumn.Name = "moduleSizeDataGridViewTextBoxColumn";
-            // 
-            // CatalogPrice
-            // 
-            this.CatalogPrice.DataPropertyName = "CatalogPrice";
-            dataGridViewCellStyle3.Format = "C2";
-            dataGridViewCellStyle3.NullValue = null;
-            this.CatalogPrice.DefaultCellStyle = dataGridViewCellStyle3;
-            this.CatalogPrice.HeaderText = "Prix";
-            this.CatalogPrice.Name = "CatalogPrice";
-            // 
-            // CatalogWorkDays
-            // 
-            this.CatalogWorkDays.DataPropertyName = "CatalogWorkDays";
-            dataGridViewCellStyle4.Format = "#.## j;#.## j;\\0 j";
-            this.CatalogWorkDays.DefaultCellStyle = dataGridViewCellStyle4;
-            this.CatalogWorkDays.HeaderText = "Travaux CNRO";
-            this.CatalogWorkDays.Name = "CatalogWorkDays";
-            this.CatalogWorkDays.Width = 150;
-            // 
-            // CatalogExecutiveWorkDays
-            // 
-            this.CatalogExecutiveWorkDays.DataPropertyName = "CatalogExecutiveWorkDays";
-            dataGridViewCellStyle5.Format = "#.## j;#.## j;\\0 j";
-            this.CatalogExecutiveWorkDays.DefaultCellStyle = dataGridViewCellStyle5;
-            this.CatalogExecutiveWorkDays.HeaderText = "Travaux ETAM";
-            this.CatalogExecutiveWorkDays.Name = "CatalogExecutiveWorkDays";
-            this.CatalogExecutiveWorkDays.Width = 150;
-            // 
-            // studyDaysDataGridViewTextBoxColumn
-            // 
-            this.studyDaysDataGridViewTextBoxColumn.DataPropertyName = "StudyDays";
-            dataGridViewCellStyle6.Format = "#.## j;#.## j;\\0 j";
-            this.studyDaysDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle6;
-            this.studyDaysDataGridViewTextBoxColumn.HeaderText = "Etude";
-            this.studyDaysDataGridViewTextBoxColumn.Name = "studyDaysDataGridViewTextBoxColumn";
-            // 
-            // referenceDaysDataGridViewTextBoxColumn
-            // 
-            this.referenceDaysDataGridViewTextBoxColumn.DataPropertyName = "ReferenceDays";
-            dataGridViewCellStyle7.Format = "#.## j;#.## j;\\0 j";
-            this.referenceDaysDataGridViewTextBoxColumn.DefaultCellStyle = dataGridViewCellStyle7;
-            this.referenceDaysDataGridViewTextBoxColumn.HeaderText = "Saisie";
-            this.referenceDaysDataGridViewTextBoxColumn.Name = "referenceDaysDataGridViewTextBoxColumn";
-            // 
-            // CatalogTestsDays
-            // 
-            this.CatalogTestsDays.DataPropertyName = "CatalogTestsDays";
-            dataGridViewCellStyle8.Format = "#.## j;#.## j;\\0 j";
-            this.CatalogTestsDays.DefaultCellStyle = dataGridViewCellStyle8;
-            this.CatalogTestsDays.HeaderText = "Essais";
-            this.CatalogTestsDays.Name = "CatalogTestsDays";
-            // 
-            // nameDataGridViewTextBoxColumn1
-            // 
-            this.nameDataGridViewTextBoxColumn1.DataPropertyName = "Name";
-            dataGridViewCellStyle12.BackColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle12.ForeColor = System.Drawing.Color.Navy;
-            this.nameDataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle12;
-            this.nameDataGridViewTextBoxColumn1.HeaderText = "Nom";
-            this.nameDataGridViewTextBoxColumn1.Name = "nameDataGridViewTextBoxColumn1";
-            // 
-            // referenceDataGridViewTextBoxColumn1
-            // 
-            this.referenceDataGridViewTextBoxColumn1.DataPropertyName = "Reference";
-            dataGridViewCellStyle13.BackColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle13.ForeColor = System.Drawing.Color.Navy;
-            this.referenceDataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle13;
-            this.referenceDataGridViewTextBoxColumn1.HeaderText = "Référence";
-            this.referenceDataGridViewTextBoxColumn1.Name = "referenceDataGridViewTextBoxColumn1";
-            // 
-            // categoryDataGridViewTextBoxColumn1
-            // 
-            this.categoryDataGridViewTextBoxColumn1.DataPropertyName = "Category";
-            dataGridViewCellStyle14.BackColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle14.ForeColor = System.Drawing.Color.Navy;
-            this.categoryDataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle14;
-            this.categoryDataGridViewTextBoxColumn1.HeaderText = "Catégorie";
-            this.categoryDataGridViewTextBoxColumn1.Name = "categoryDataGridViewTextBoxColumn1";
-            // 
-            // moduleSizeDataGridViewTextBoxColumn1
-            // 
-            this.moduleSizeDataGridViewTextBoxColumn1.DataPropertyName = "ModuleSize";
-            this.moduleSizeDataGridViewTextBoxColumn1.HeaderText = "Modules";
-            this.moduleSizeDataGridViewTextBoxColumn1.Name = "moduleSizeDataGridViewTextBoxColumn1";
-            this.moduleSizeDataGridViewTextBoxColumn1.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn4
-            // 
-            this.dataGridViewTextBoxColumn4.DataPropertyName = "CatalogPrice";
-            dataGridViewCellStyle15.Format = "C2";
-            dataGridViewCellStyle15.NullValue = null;
-            this.dataGridViewTextBoxColumn4.DefaultCellStyle = dataGridViewCellStyle15;
-            this.dataGridViewTextBoxColumn4.HeaderText = "Prix";
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            this.dataGridViewTextBoxColumn4.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn5
-            // 
-            this.dataGridViewTextBoxColumn5.DataPropertyName = "CatalogWorkDays";
-            dataGridViewCellStyle16.Format = "#.## j;#.## j;\\0 j";
-            this.dataGridViewTextBoxColumn5.DefaultCellStyle = dataGridViewCellStyle16;
-            this.dataGridViewTextBoxColumn5.HeaderText = "Travaux CNRO";
-            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
-            this.dataGridViewTextBoxColumn5.ReadOnly = true;
-            this.dataGridViewTextBoxColumn5.Width = 150;
-            // 
-            // dataGridViewTextBoxColumn6
-            // 
-            this.dataGridViewTextBoxColumn6.DataPropertyName = "CatalogExecutiveWorkDays";
-            dataGridViewCellStyle17.Format = "#.## j;#.## j;\\0 j";
-            this.dataGridViewTextBoxColumn6.DefaultCellStyle = dataGridViewCellStyle17;
-            this.dataGridViewTextBoxColumn6.HeaderText = "Travaux ETAM";
-            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
-            this.dataGridViewTextBoxColumn6.ReadOnly = true;
-            this.dataGridViewTextBoxColumn6.Width = 150;
-            // 
-            // referenceDaysDataGridViewTextBoxColumn1
-            // 
-            this.referenceDaysDataGridViewTextBoxColumn1.DataPropertyName = "ReferenceDays";
-            dataGridViewCellStyle18.Format = "#.## j;#.## j;\\0 j";
-            this.referenceDaysDataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle18;
-            this.referenceDaysDataGridViewTextBoxColumn1.HeaderText = "Saisie";
-            this.referenceDaysDataGridViewTextBoxColumn1.Name = "referenceDaysDataGridViewTextBoxColumn1";
-            this.referenceDaysDataGridViewTextBoxColumn1.ReadOnly = true;
-            // 
-            // studyDaysDataGridViewTextBoxColumn1
-            // 
-            this.studyDaysDataGridViewTextBoxColumn1.DataPropertyName = "StudyDays";
-            dataGridViewCellStyle19.Format = "#.## j;#.## j;\\0 j";
-            this.studyDaysDataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle19;
-            this.studyDaysDataGridViewTextBoxColumn1.HeaderText = "Etude";
-            this.studyDaysDataGridViewTextBoxColumn1.Name = "studyDaysDataGridViewTextBoxColumn1";
-            this.studyDaysDataGridViewTextBoxColumn1.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn7
-            // 
-            this.dataGridViewTextBoxColumn7.DataPropertyName = "CatalogTestsDays";
-            dataGridViewCellStyle20.Format = "#.## j;#.## j;\\0 j";
-            this.dataGridViewTextBoxColumn7.DefaultCellStyle = dataGridViewCellStyle20;
-            this.dataGridViewTextBoxColumn7.HeaderText = "Essais";
-            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
-            this.dataGridViewTextBoxColumn7.ReadOnly = true;
-            // 
             // commentUserControl
             // 
             this.commentUserControl.DataBindings.Add(new System.Windows.Forms.Binding("Rtf", this.supplierCatalogBindingSource, "Comment", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
@@ -834,101 +929,6 @@
                 "ans Serif;}}\r\n\\viewkind4\\uc1\\pard\\f0\\fs17 trertre\\par\r\ntreterert\\par\r\n}\r\n";
             this.commentUserControl.Size = new System.Drawing.Size(558, 309);
             this.commentUserControl.TabIndex = 20;
-            // 
-            // quantityDataGridViewTextBoxColumn2
-            // 
-            this.quantityDataGridViewTextBoxColumn2.DataPropertyName = "Quantity";
-            dataGridViewCellStyle24.BackColor = System.Drawing.Color.WhiteSmoke;
-            dataGridViewCellStyle24.ForeColor = System.Drawing.Color.Navy;
-            this.quantityDataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle24;
-            this.quantityDataGridViewTextBoxColumn2.HeaderText = "Quantité";
-            this.quantityDataGridViewTextBoxColumn2.Name = "quantityDataGridViewTextBoxColumn2";
-            this.quantityDataGridViewTextBoxColumn2.Width = 50;
-            // 
-            // nameDataGridViewTextBoxColumn2
-            // 
-            this.nameDataGridViewTextBoxColumn2.DataPropertyName = "Name";
-            this.nameDataGridViewTextBoxColumn2.HeaderText = "Nom";
-            this.nameDataGridViewTextBoxColumn2.Name = "nameDataGridViewTextBoxColumn2";
-            this.nameDataGridViewTextBoxColumn2.ReadOnly = true;
-            // 
-            // referenceDataGridViewTextBoxColumn2
-            // 
-            this.referenceDataGridViewTextBoxColumn2.DataPropertyName = "Reference";
-            this.referenceDataGridViewTextBoxColumn2.HeaderText = "Référence";
-            this.referenceDataGridViewTextBoxColumn2.Name = "referenceDataGridViewTextBoxColumn2";
-            this.referenceDataGridViewTextBoxColumn2.ReadOnly = true;
-            // 
-            // categoryDataGridViewTextBoxColumn2
-            // 
-            this.categoryDataGridViewTextBoxColumn2.DataPropertyName = "Category";
-            this.categoryDataGridViewTextBoxColumn2.HeaderText = "Categorie";
-            this.categoryDataGridViewTextBoxColumn2.Name = "categoryDataGridViewTextBoxColumn2";
-            this.categoryDataGridViewTextBoxColumn2.ReadOnly = true;
-            // 
-            // moduleSizeDataGridViewTextBoxColumn2
-            // 
-            this.moduleSizeDataGridViewTextBoxColumn2.DataPropertyName = "ModuleSize";
-            this.moduleSizeDataGridViewTextBoxColumn2.HeaderText = "Modules";
-            this.moduleSizeDataGridViewTextBoxColumn2.Name = "moduleSizeDataGridViewTextBoxColumn2";
-            this.moduleSizeDataGridViewTextBoxColumn2.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn8
-            // 
-            this.dataGridViewTextBoxColumn8.DataPropertyName = "CatalogPrice";
-            dataGridViewCellStyle25.Format = "C2";
-            dataGridViewCellStyle25.NullValue = null;
-            this.dataGridViewTextBoxColumn8.DefaultCellStyle = dataGridViewCellStyle25;
-            this.dataGridViewTextBoxColumn8.HeaderText = "Prix";
-            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
-            this.dataGridViewTextBoxColumn8.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn9
-            // 
-            this.dataGridViewTextBoxColumn9.DataPropertyName = "CatalogWorkDays";
-            dataGridViewCellStyle26.Format = "#.## j;#.## j;\\0 j";
-            this.dataGridViewTextBoxColumn9.DefaultCellStyle = dataGridViewCellStyle26;
-            this.dataGridViewTextBoxColumn9.HeaderText = "Travaux CNRO";
-            this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
-            this.dataGridViewTextBoxColumn9.ReadOnly = true;
-            this.dataGridViewTextBoxColumn9.Width = 150;
-            // 
-            // dataGridViewTextBoxColumn10
-            // 
-            this.dataGridViewTextBoxColumn10.DataPropertyName = "CatalogExecutiveWorkDays";
-            dataGridViewCellStyle27.Format = "#.## j;#.## j;\\0 j";
-            this.dataGridViewTextBoxColumn10.DefaultCellStyle = dataGridViewCellStyle27;
-            this.dataGridViewTextBoxColumn10.HeaderText = "Travaux ETAM";
-            this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
-            this.dataGridViewTextBoxColumn10.ReadOnly = true;
-            this.dataGridViewTextBoxColumn10.Width = 150;
-            // 
-            // referenceDaysDataGridViewTextBoxColumn2
-            // 
-            this.referenceDaysDataGridViewTextBoxColumn2.DataPropertyName = "ReferenceDays";
-            dataGridViewCellStyle28.Format = "#.## j;#.## j;\\0 j";
-            this.referenceDaysDataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle28;
-            this.referenceDaysDataGridViewTextBoxColumn2.HeaderText = "Saisie";
-            this.referenceDaysDataGridViewTextBoxColumn2.Name = "referenceDaysDataGridViewTextBoxColumn2";
-            this.referenceDaysDataGridViewTextBoxColumn2.ReadOnly = true;
-            // 
-            // studyDaysDataGridViewTextBoxColumn2
-            // 
-            this.studyDaysDataGridViewTextBoxColumn2.DataPropertyName = "StudyDays";
-            dataGridViewCellStyle29.Format = "#.## j;#.## j;\\0 j";
-            this.studyDaysDataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle29;
-            this.studyDaysDataGridViewTextBoxColumn2.HeaderText = "Etude";
-            this.studyDaysDataGridViewTextBoxColumn2.Name = "studyDaysDataGridViewTextBoxColumn2";
-            this.studyDaysDataGridViewTextBoxColumn2.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn11
-            // 
-            this.dataGridViewTextBoxColumn11.DataPropertyName = "CatalogTestsDays";
-            dataGridViewCellStyle30.Format = "#.## j;#.## j;\\0 j";
-            this.dataGridViewTextBoxColumn11.DefaultCellStyle = dataGridViewCellStyle30;
-            this.dataGridViewTextBoxColumn11.HeaderText = "Essais";
-            this.dataGridViewTextBoxColumn11.Name = "dataGridViewTextBoxColumn11";
-            this.dataGridViewTextBoxColumn11.ReadOnly = true;
             // 
             // CatalogUserControl
             // 

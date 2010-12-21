@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chiffrage.Catalogs.Domain",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chiffrage.Projects.Domain", "Chiffrage.Projects.Domain\Chiffrage.Projects.Domain.csproj", "{28B2F9CD-626A-425C-8D41-CAB32F21134F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chiffrage.Catalogs.Dal", "Chiffrage.Catalogs.Dal\Chiffrage.Catalogs.Dal.csproj", "{BB8D0D2C-CF88-4B85-A001-14C234FCF0FD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chiffrage.Projects.Dal", "Chiffrage.Projects.Dal\Chiffrage.Projects.Dal.csproj", "{E0FD926A-6B66-459F-A667-D5EFEF605129}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +29,14 @@ Global
 		{28B2F9CD-626A-425C-8D41-CAB32F21134F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{28B2F9CD-626A-425C-8D41-CAB32F21134F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{28B2F9CD-626A-425C-8D41-CAB32F21134F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB8D0D2C-CF88-4B85-A001-14C234FCF0FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB8D0D2C-CF88-4B85-A001-14C234FCF0FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB8D0D2C-CF88-4B85-A001-14C234FCF0FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB8D0D2C-CF88-4B85-A001-14C234FCF0FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E0FD926A-6B66-459F-A667-D5EFEF605129}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0FD926A-6B66-459F-A667-D5EFEF605129}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0FD926A-6B66-459F-A667-D5EFEF605129}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0FD926A-6B66-459F-A667-D5EFEF605129}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
