@@ -13,11 +13,16 @@ namespace Chiffrage.Projects.Dal.Repositories
 {
     public class DealRepository : IDealRepository
     {
-        public ISessionFactory SessionFactory { get; set; }
+        private readonly ISessionFactory sessionFactory;
+
+        public DealRepository(ISessionFactory sessionFactory)
+        {
+            this.sessionFactory = sessionFactory;
+        }
 
         public IList<Deal> FindAll()
         {
-            using (var session = this.SessionFactory.OpenSession())
+            using (var session = this.sessionFactory.OpenSession())
             {
                 return session.Query<Deal>().ToList();
             }
@@ -25,7 +30,7 @@ namespace Chiffrage.Projects.Dal.Repositories
 
         public void Save(Deal deal)
         {
-            using (var session = this.SessionFactory.OpenSession())
+            using (var session = this.sessionFactory.OpenSession())
             {
                 using (var transaction = session.BeginTransaction())
                 {
@@ -37,7 +42,7 @@ namespace Chiffrage.Projects.Dal.Repositories
 
         public Deal FindById(int dealId)
         {
-            using (var session = this.SessionFactory.OpenSession())
+            using (var session = this.sessionFactory.OpenSession())
             {
                 return session.Query<Deal>().Where(x => x.Id == dealId).FirstOrDefault();
             }

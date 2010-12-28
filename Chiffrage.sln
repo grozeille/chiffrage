@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chiffrage.Catalogs.Dal", "C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chiffrage.Projects.Dal", "Chiffrage.Projects.Dal\Chiffrage.Projects.Dal.csproj", "{E0FD926A-6B66-459F-A667-D5EFEF605129}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chiffrage.Tests", "Chiffrage.Tests\Chiffrage.Tests.csproj", "{58158197-6FF3-4554-B213-98001DF7FB22}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chiffrage.App", "Chiffrage.App\Chiffrage.App.csproj", "{97DC56B8-7346-41B9-A632-69EBF064F3B7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +41,14 @@ Global
 		{E0FD926A-6B66-459F-A667-D5EFEF605129}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E0FD926A-6B66-459F-A667-D5EFEF605129}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E0FD926A-6B66-459F-A667-D5EFEF605129}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58158197-6FF3-4554-B213-98001DF7FB22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58158197-6FF3-4554-B213-98001DF7FB22}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58158197-6FF3-4554-B213-98001DF7FB22}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58158197-6FF3-4554-B213-98001DF7FB22}.Release|Any CPU.Build.0 = Release|Any CPU
+		{97DC56B8-7346-41B9-A632-69EBF064F3B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97DC56B8-7346-41B9-A632-69EBF064F3B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97DC56B8-7346-41B9-A632-69EBF064F3B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97DC56B8-7346-41B9-A632-69EBF064F3B7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

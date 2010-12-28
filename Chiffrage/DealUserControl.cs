@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using Chiffrage.App.ViewModel;
 using Chiffrage.Core;
 using Chiffrage.Projects.Domain;
 using Chiffrage.ViewModel;

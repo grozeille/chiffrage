@@ -6,7 +6,7 @@ using Chiffrage.Core;
 
 namespace Chiffrage.Catalogs.Domain
 {
-    public class HardwareSupply : ICatalogItem
+    public class HardwareSupply// : ICatalogItem
     {
         private Supply supply;
 
@@ -17,6 +17,8 @@ namespace Chiffrage.Catalogs.Domain
         }
 
         public virtual int Id { get; set; }
+
+        /*
         public virtual string Name
         {
             get { return this.supply == null ? null : this.Supply.Name; }
@@ -66,7 +68,7 @@ namespace Chiffrage.Catalogs.Domain
         {
             get { return this.supply == null ? 0.0 : this.Supply.CatalogTestsDays; }
         }
-
+        */
         public virtual Supply Supply
         {
             get { return this.supply; }

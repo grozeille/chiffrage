@@ -13,11 +13,16 @@ namespace Chiffrage.Catalogs.Dal.Repositories
 {
     public class CatalogRepository : ICatalogRepository
     {
-        public ISessionFactory SessionFactory { get; set; }
+        private readonly ISessionFactory sessionFactory;
+
+        public CatalogRepository(ISessionFactory sessionFactory)
+        {
+            this.sessionFactory = sessionFactory;
+        }
 
         public void Save(Catalog catalog)
         {
-            using (var session = this.SessionFactory.OpenSession())
+            using (var session = this.sessionFactory.OpenSession())
             {
                 using (var transaction = session.BeginTransaction())
                 {
@@ -30,7 +35,7 @@ namespace Chiffrage.Catalogs.Dal.Repositories
 
         public void Save(SupplierCatalog catalog)
         {
-            using (var session = this.SessionFactory.OpenSession())
+            using (var session = this.sessionFactory.OpenSession())
             {
                 using (var transaction = session.BeginTransaction())
                 {
@@ -42,7 +47,7 @@ namespace Chiffrage.Catalogs.Dal.Repositories
 
         public IList<SupplierCatalog> FindAll()
         {
-            using (var session = this.SessionFactory.OpenSession())
+            using (var session = this.sessionFactory.OpenSession())
             {
                 return session.Query<SupplierCatalog>().ToList();
             }            
@@ -50,7 +55,7 @@ namespace Chiffrage.Catalogs.Dal.Repositories
 
         public SupplierCatalog FindById(int catalogId)
         {
-            using (var session = this.SessionFactory.OpenSession())
+            using (var session = this.sessionFactory.OpenSession())
             {
                 return session.Query<SupplierCatalog>().Where(x => x.Id == catalogId).FirstOrDefault();
             }  

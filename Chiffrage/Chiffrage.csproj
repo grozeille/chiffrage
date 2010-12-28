@@ -75,6 +75,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\Spring.Core.dll</HintPath>
     </Reference>
+    <Reference Include="Strongshell.Recoil.Core, Version=1.1.2.0, Culture=neutral, PublicKeyToken=cc018521c983252f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\Strongshell.Recoil.Core.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -96,6 +100,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CatalogContainer.cs" />
+    <Compile Include="ApplicationItemUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ApplicationItemUserControl.Designer.cs">
+      <DependentUpon>ApplicationItemUserControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="CatalogUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -108,26 +119,20 @@
     <Compile Include="CommentUserControl.Designer.cs">
       <DependentUpon>CommentUserControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="DealContainer.cs" />
     <Compile Include="DealUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="DealUserControl.Designer.cs">
       <DependentUpon>DealUserControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="ViewModel\CatalogHardwareSupplyViewModel.cs" />
-    <Compile Include="ViewModel\CatalogHardwareViewModel.cs" />
-    <Compile Include="ViewModel\CatalogItemSelectionViewModel.cs" />
-    <Compile Include="ViewModel\CatalogSupplySelectionViewModel.cs" />
-    <Compile Include="ViewModel\CatalogHardwareSelectionViewModel.cs" />
-    <Compile Include="ViewModel\CatalogSupplyViewModel.cs" />
-    <Compile Include="ViewModel\CatalogTreeNode.cs" />
-    <Compile Include="ViewModel\CatalogViewModel.cs" />
-    <Compile Include="ViewModel\DealTreeNode.cs" />
-    <Compile Include="ViewModel\DealViewModel.cs" />
-    <Compile Include="ViewModel\ICatalogItemSelectionViewModel.cs" />
-    <Compile Include="ViewModel\ProjectHardwareViewModel.cs" />
-    <Compile Include="ViewModel\ProjectItemViewModel.cs" />
-    <Compile Include="ViewModel\ProjectSupplyViewModel.cs" />
+    <Compile Include="EventHandlersFactory.cs" />
+    <Compile Include="FormContainer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormContainer.Designer.cs">
+      <DependentUpon>FormContainer.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -141,7 +146,7 @@
     <Compile Include="LoadingForm.Designer.cs">
       <DependentUpon>LoadingForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="ViewModel\ProjectTreeNode.cs" />
+    <Compile Include="MvcContainer.cs" />
     <Compile Include="WizardPages\NewCatalogPage.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -156,11 +161,17 @@
       <DependentUpon>ProjectUserControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="ApplicationItemUserControl.resx">
+      <DependentUpon>ApplicationItemUserControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CatalogUserControl.resx">
       <DependentUpon>CatalogUserControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DealUserControl.resx">
       <DependentUpon>DealUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormContainer.resx">
+      <DependentUpon>FormContainer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
@@ -193,7 +204,12 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <None Include="Properties\DataSources\Chiffrage.ViewModel.CatalogSupplyViewItem.datasource" />
+    <None Include="Properties\DataSources\Chiffrage.App.ViewModel.CatalogHardwareViewModel.datasource" />
+    <None Include="Properties\DataSources\Chiffrage.App.ViewModel.CatalogSupplyViewModel.datasource" />
+    <None Include="Properties\DataSources\Chiffrage.App.ViewModel.CatalogViewModel.datasource" />
+    <None Include="Properties\DataSources\Chiffrage.ViewModel.CatalogHardwareViewModel.datasource" />
+    <None Include="Properties\DataSources\Chiffrage.ViewModel.CatalogSupplyViewModel.datasource" />
+    <None Include="Properties\DataSources\Chiffrage.ViewModel.CatalogViewModel.datasource" />
     <None Include="Properties\DataSources\Chiffrage.ViewModel.DealViewModel.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -286,6 +302,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Chiffrage.App\Chiffrage.App.csproj">
+      <Project>{97DC56B8-7346-41B9-A632-69EBF064F3B7}</Project>
+      <Name>Chiffrage.App</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Chiffrage.Catalogs.Dal\Chiffrage.Catalogs.Dal.csproj">
       <Project>{BB8D0D2C-CF88-4B85-A001-14C234FCF0FD}</Project>
       <Name>Chiffrage.Catalogs.Dal</Name>
@@ -304,9 +324,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Controllers\" />
     <Folder Include="Model\" />
-    <Folder Include="Views\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

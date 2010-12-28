@@ -1,17 +1,23 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using AutoMapper;
+using Chiffrage.App.ViewModel;
 using Chiffrage.Catalogs.Domain;
 using Chiffrage.Core;
 using Chiffrage.WizardPages;
 using Chiffrage.ViewModel;
+using Chiffrage.App.Views;
 
 namespace Chiffrage
 {
-    public partial class CatalogUserControl : UserControl
+    public partial class CatalogUserControl : UserControlView, ICatalogView
     {
+        private int id;
+
         private CatalogViewModel catalog;
 
         private bool loading = false;
@@ -39,18 +45,15 @@ namespace Chiffrage
         {
             loading = true;            
 
-            if (catalog != null)
+            /*if (catalog != null)
             {
                 if (catalog.Comment == null)
                     catalog.Comment = string.Empty;
                 if (!(catalog.Comment.StartsWith("{\\rtf") && catalog.Comment.EndsWith("}")))
                     catalog.Comment = "{\\rtf" + catalog.Comment + "}";
 
-                supplierCatalogBindingSource.DataSource = catalog;
-
-                hardwareBindingSource.DataSource = catalog.Hardwares;
-                supplyBindingSource.DataSource = catalog.Supplies;           
-            }
+                catalogBindingSource.DataSource = catalog;        
+            }*/
             loading = false;
             RefreshCategories();
         }
@@ -65,11 +68,6 @@ namespace Chiffrage
         private void comboBoxCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
            
-        }
-
-        private void supplyBindingSource_ListChanged(object sender, ListChangedEventArgs e)
-        {
-            FireCatalogChanged();
         }
 
         private void FireCatalogChanged()
@@ -87,19 +85,13 @@ namespace Chiffrage
                 object selected = toolStripComboBoxCategory.SelectedItem;
                 toolStripComboBoxCategory.Items.Clear();
                 toolStripComboBoxCategory.Items.Add(string.Empty);
-                if (catalog != null)
+                /*if (catalog != null)
                 {
-                    toolStripComboBoxCategory.Items.AddRange(
+                     toolStripComboBoxCategory.Items.AddRange(
                         catalog.Supplies.Where((s) => s.Category != null).Select((s) => s.Category).Distinct().ToArray());
-                }
+                }*/
                 toolStripComboBoxCategory.SelectedItem = selected;
             }
-        }
-
-        private void supplyBindingSource_CurrentItemChanged(object sender, EventArgs e)
-        {
-            //RefreshCategories();
-            FireCatalogChanged();
         }
 
         private void dataGridViewCatalog_CellValueChanged(object sender, DataGridViewCellEventArgs e)
@@ -110,7 +102,7 @@ namespace Chiffrage
             }
         }
 
-        private void supplierCatalogBindingSource_CurrentItemChanged(object sender, EventArgs e)
+        private void item_CurrentItemChanged(object sender, EventArgs e)
         {
             FireCatalogChanged();
         }
@@ -128,13 +120,13 @@ namespace Chiffrage
         private void toolStripComboBoxCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
             loading = true;
-            if (string.IsNullOrEmpty(toolStripComboBoxCategory.Text))
+            /*if (string.IsNullOrEmpty(toolStripComboBoxCategory.Text))
                 supplyBindingSource.DataSource = catalog.Supplies;
             else
             {
                 var regex = new Regex(string.Format(".*{0}.*", toolStripComboBoxCategory.Text));
                 supplyBindingSource.DataSource = new BindingList<CatalogSupplyViewModel>(catalog.Supplies.Where((s) => s.Category != null && regex.IsMatch(s.Category)).ToList());
-            }
+            }*/
             loading = false;
         }
 
@@ -159,17 +151,10 @@ namespace Chiffrage
                     hardware.Components.Add(supply);
                 }
 
-                catalog.Hardwares.Add(CatalogHardwareViewModel.Build(hardware));
-                hardwareBindingSource.ResetBindings(false);
-                supplyBindingSourceHardware.ResetBindings(false);
+                // TODO : catalog.Hardwares.Add(CatalogHardwareViewModel.CreateFrom(hardware));
+                hardwaresBindingSource.ResetBindings(false);
+                componentsBindingSource.ResetBindings(false);
             }
-        }
-
-        private void hardwareBindingSource_CurrentChanged(object sender, EventArgs e)
-        {
-            Hardware current = hardwareBindingSource.Current as Hardware;
-            if (current != null)
-                this.supplyBindingSourceHardware.DataSource = current.Components;
         }
 
         private void toolStripButtonHardwareAdd_Click(object sender, EventArgs e)
@@ -180,46 +165,47 @@ namespace Chiffrage
             var setting = new WizardSetting(page, "Ajout d'un composant", "Ajouter un composant au matériel", true);
             if (new WizardForm().ShowDialog(setting) == System.Windows.Forms.DialogResult.OK)
             {
-                Hardware current = hardwareBindingSource.Current as Hardware;
+                var current = hardwaresBindingSource.Current as CatalogHardwareViewModel;
                 if (current != null)
                 {
                     foreach (var item in page.SelectedItems)
                     {
                         HardwareSupply supply = new HardwareSupply();
                         supply.Supply = item as Supply;
-                        current.Components.Add(supply);
+                        current.Components.Add(CatalogHardwareSupplyViewModel.CreateFrom(supply));
                     }
-                    this.supplyBindingSourceHardware.ResetBindings(false);
-                }                
+                    
+                    var tmp = new Hardware();
+                    /* TODO: current.CopyTo(tmp);
+                    current.CopyFrom(tmp);*/
+                    
+                    this.componentsBindingSource.ResetBindings(false);
+                }
             }
-        }
-
-        private void hardwareBindingSource_CurrentItemChanged(object sender, EventArgs e)
-        {
-            FireCatalogChanged();
-        }
-
-        private void supplyBindingSourceHardware_CurrentItemChanged(object sender, EventArgs e)
-        {
-            hardwareBindingSource.ResetBindings(false);
-            FireCatalogChanged();
-        }
-
-        private void supplyBindingSourceHardware_ListChanged(object sender, ListChangedEventArgs e)
-        {
-            hardwareBindingSource.ResetBindings(false);
-        }
-
-        private void hardwareBindingSource_PositionChanged(object sender, EventArgs e)
-        {
-            Hardware current = hardwareBindingSource.Current as Hardware;
-            if (current != null)
-                this.supplyBindingSourceHardware.DataSource = current.Components;
         }
 
         private void toolStripButtonHardwareRemove_Click(object sender, EventArgs e)
         {
-            supplyBindingSourceHardware.RemoveCurrent();
+            componentsBindingSource.RemoveCurrent();
         }
+
+        #region ICatalogView Members
+
+        public void Display(CatalogViewModel viewModel)
+        {
+            if (this.InvokeRequired)
+            {
+                this.BeginInvoke(new Action<CatalogViewModel>(this.Display), viewModel);
+                return;
+            }
+
+            this.textBoxCatalogName.Text = viewModel.SupplierName;
+            this.id = viewModel.Id;
+            if (!(viewModel.Comment.StartsWith("{\\rtf") && viewModel.Comment.EndsWith("}")))
+                viewModel.Comment = "{\\rtf" + viewModel.Comment + "}";
+            this.commentUserControl.Rtf = viewModel.Comment;
+        }
+
+        #endregion
     }
 }

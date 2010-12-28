@@ -1,4 +1,4 @@
-﻿using Chiffrage.ViewModel;
+﻿using Chiffrage.App.ViewModel;
 
 namespace Chiffrage.WizardPages
 {

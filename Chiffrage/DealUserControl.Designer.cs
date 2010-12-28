@@ -46,7 +46,7 @@
             // 
             // dealBindingSource
             // 
-            this.dealBindingSource.DataSource = typeof(Chiffrage.ViewModel.DealViewModel);
+            this.dealBindingSource.DataSource = typeof(Chiffrage.App.ViewModel.DealViewModel);
             this.dealBindingSource.CurrentItemChanged += new System.EventHandler(this.dealBindingSource_CurrentItemChanged);
             // 
             // dateTimePickerDealEnd

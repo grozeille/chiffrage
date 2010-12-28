@@ -4,6 +4,7 @@ using System.Collections.Specialized;
 using System.Linq;
 using System.Windows.Forms;
 using AutoMapper;
+using Chiffrage.App.ViewModel;
 using Chiffrage.Catalogs.Domain;
 using Chiffrage.Catalogs.Domain.Repositories;
 using Chiffrage.Projects.Dal.Repositories;
@@ -63,8 +64,8 @@ namespace Chiffrage
         public FormMain()
         {
             Deals = new List<Deal>();
-            this.DealRepository = new DealRepository();
-            this.ProjectRepository = new ProjectRepository();
+            this.DealRepository = new DealRepository(null);
+            this.ProjectRepository = new ProjectRepository(null);
             InitializeComponent();
 
             this.treeNodeDeals = new System.Windows.Forms.TreeNode("Affaires");
@@ -172,7 +173,7 @@ namespace Chiffrage
             this.SuspendLayout();
             this.catalogUserControl.Visible = true;
             this.catalogUserControl.GlobalCatalog = this.Catalog;
-            this.catalogUserControl.Catalog = CatalogViewModel.Build(catalog);
+            //this.catalogUserControl.Catalog = new CatalogController().BuildCatalogViewModel(catalog);
             this.dealUserControl.Visible = false;
             this.projectUserControl.Visible = false;
             this.ResumeLayout(true);
@@ -287,8 +288,14 @@ namespace Chiffrage
         private void SaveCatalog(CatalogViewModel catalogViewModel)
         {
             var catalog = CatalogRepository.FindById(catalogViewModel.Id);
-            
-            Mapper.CreateMap<CatalogViewModel, SupplierCatalog>();
+
+            Mapper.CreateMap<CatalogHardwareViewModel, Hardware>();
+            Mapper.CreateMap<CatalogHardwareSupplyViewModel, HardwareSupply>();
+            Mapper.CreateMap<CatalogSupplyViewModel, Supply>();
+            Mapper.CreateMap<CatalogViewModel, SupplierCatalog>()
+                //.ForMember(dest => dest.Supplies, opt => opt.Ignore())
+                //.ForMember(dest => dest.Hardwares, opt => opt.Ignore())
+                .ForMember(dest => dest.Cables, opt => opt.Ignore());
             Mapper.Map(catalogViewModel, catalog);
 
             this.CatalogRepository.Save(catalog);
@@ -437,8 +444,8 @@ namespace Chiffrage
 
             this.dealSessionFactory = configuration.BuildSessionFactory();
 
-            this.DealRepository.SessionFactory = this.dealSessionFactory;
-            this.ProjectRepository.SessionFactory = this.dealSessionFactory;
+            this.DealRepository = new DealRepository(this.dealSessionFactory);
+            this.ProjectRepository = new ProjectRepository(this.dealSessionFactory);
         }
 
         private void LoadDeals()

@@ -421,7 +421,6 @@
             // 
             // catalogUserControl
             // 
-            this.catalogUserControl.Catalog = null;
             this.catalogUserControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.catalogUserControl.Location = new System.Drawing.Point(0, 3);
             this.catalogUserControl.Name = "catalogUserControl";

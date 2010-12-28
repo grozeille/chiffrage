@@ -4,9 +4,9 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using Chiffrage.App.ViewModel;
 using Chiffrage.Catalogs.Domain;
 using Chiffrage.Core;
-using Chiffrage.ViewModel;
 
 namespace Chiffrage.WizardPages
 {

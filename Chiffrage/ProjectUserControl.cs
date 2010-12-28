@@ -2,10 +2,9 @@
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
+using Chiffrage.App.ViewModel;
 using Chiffrage.Catalogs.Domain;
-using Chiffrage.Core;
 using Chiffrage.Properties;
-using Chiffrage.ViewModel;
 using Chiffrage.WizardPages;
 using Chiffrage.Projects.Domain;
 
