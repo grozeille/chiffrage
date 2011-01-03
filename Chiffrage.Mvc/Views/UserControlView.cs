@@ -1,41 +1,40 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading;
 using System.Windows.Forms;
 
 namespace Chiffrage.Mvc.Views
 {
     public class UserControlView : UserControl, IView
     {
+        #region IView Members
+
         public void SetParent(Control parent)
         {
-            this.Parent = parent;
-            this.Dock = DockStyle.Fill;
+            Parent = parent;
+            Dock = DockStyle.Fill;
         }
 
         public void ShowView()
         {
-            if (this.InvokeRequired)
+            if (InvokeRequired)
             {
-                this.BeginInvoke(new Action(this.ShowView));
+                BeginInvoke(new Action(this.ShowView));
                 return;
             }
 
-            this.Show();
+            Show();
         }
 
         public void HideView()
         {
-            if (this.InvokeRequired)
+            if (InvokeRequired)
             {
-                this.BeginInvoke(new Action(this.HideView));
+                BeginInvoke(new Action(this.HideView));
                 return;
             }
 
-            this.Hide();
+            Hide();
         }
+
+        #endregion
     }
 }

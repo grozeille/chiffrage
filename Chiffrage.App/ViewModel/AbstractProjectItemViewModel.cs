@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using Chiffrage.Core;
+﻿using System.ComponentModel;
 using Chiffrage.Projects.Domain;
 
 namespace Chiffrage.App.ViewModel
@@ -14,15 +9,15 @@ namespace Chiffrage.App.ViewModel
 
         public string Name
         {
-            get { return object.Equals(this.item, default(T)) ? null : this.item.Name; }
+            get { return Equals(this.item, default(T)) ? null : this.item.Name; }
         }
 
         public int Quantity
         {
-            get { return object.Equals(this.item, default(T)) ? 0 : this.item.Quantity; }
+            get { return Equals(this.item, default(T)) ? 0 : this.item.Quantity; }
             set
             {
-                if (object.Equals(this.item, default(T))) return;
+                if (Equals(this.item, default(T))) return;
                 this.item.Quantity = value;
                 this.FirePropertyChanged("Quantity");
                 this.FirePropertyChanged("TotalPrice");
@@ -38,7 +33,7 @@ namespace Chiffrage.App.ViewModel
 
         public int ModuleSize
         {
-            get { return object.Equals(this.item, default(T)) ? 0 : this.item.ModuleSize; }
+            get { return Equals(this.item, default(T)) ? 0 : this.item.ModuleSize; }
         }
 
         public double CatalogPrice
@@ -48,10 +43,10 @@ namespace Chiffrage.App.ViewModel
 
         public double Price
         {
-            get { return object.Equals(this.item, default(T)) ? 0 : this.item.Price; }
+            get { return Equals(this.item, default(T)) ? 0 : this.item.Price; }
             set
             {
-                if (object.Equals(this.item, default(T))) return;
+                if (Equals(this.item, default(T))) return;
                 this.item.Price = value;
                 this.FirePropertyChanged("Price");
                 this.FirePropertyChanged("TotalPrice");
@@ -60,45 +55,45 @@ namespace Chiffrage.App.ViewModel
 
         public double TotalPrice
         {
-            get { return object.Equals(this.item, default(T)) ? 0 : this.item.TotalPrice; }
+            get { return Equals(this.item, default(T)) ? 0 : this.item.TotalPrice; }
         }
 
         public double StudyDays
         {
-            get { return object.Equals(this.item, default(T)) ? 0 : this.item.StudyDays; }
+            get { return Equals(this.item, default(T)) ? 0 : this.item.StudyDays; }
         }
 
         public double TotalStudyDays
         {
-            get { return object.Equals(this.item, default(T)) ? 0 : this.item.TotalStudyDays; }
+            get { return Equals(this.item, default(T)) ? 0 : this.item.TotalStudyDays; }
         }
 
         public double ReferenceDays
         {
-            get { return object.Equals(this.item, default(T)) ? 0 : this.item.ReferenceDays; }
+            get { return Equals(this.item, default(T)) ? 0 : this.item.ReferenceDays; }
         }
 
         public double TotalReferenceDays
         {
-            get { return object.Equals(this.item, default(T)) ? 0 : this.item.TotalReferenceDays; }
+            get { return Equals(this.item, default(T)) ? 0 : this.item.TotalReferenceDays; }
         }
 
         public double CatalogWorkDays
         {
-            get { return object.Equals(this.item, default(T)) ? 0 : this.item.CatalogWorkDays; }
+            get { return Equals(this.item, default(T)) ? 0 : this.item.CatalogWorkDays; }
         }
 
         public double CatalogExecutiveWorkDays
         {
-            get { return object.Equals(this.item, default(T)) ? 0 : this.item.CatalogExecutiveWorkDays; }
+            get { return Equals(this.item, default(T)) ? 0 : this.item.CatalogExecutiveWorkDays; }
         }
 
         public double WorkDays
         {
-            get { return object.Equals(this.item, default(T)) ? 0 : this.item.WorkDays; }
+            get { return Equals(this.item, default(T)) ? 0 : this.item.WorkDays; }
             set
             {
-                if (object.Equals(this.item, default(T))) return;
+                if (Equals(this.item, default(T))) return;
                 this.item.WorkDays = value;
                 this.FirePropertyChanged("WorkDays");
                 this.FirePropertyChanged("TotalWorkDays");
@@ -107,10 +102,10 @@ namespace Chiffrage.App.ViewModel
 
         public double ExecutiveWorkDays
         {
-            get { return object.Equals(this.item, default(T)) ? 0 : this.item.ExecutiveWorkDays; }
+            get { return Equals(this.item, default(T)) ? 0 : this.item.ExecutiveWorkDays; }
             set
             {
-                if (object.Equals(this.item, default(T))) return;
+                if (Equals(this.item, default(T))) return;
                 this.item.ExecutiveWorkDays = value;
                 this.FirePropertyChanged("ExecutiveWorkDays");
                 this.FirePropertyChanged("TotalExecutiveWorkDays");
@@ -119,20 +114,20 @@ namespace Chiffrage.App.ViewModel
 
         public double TotalWorkDays
         {
-            get { return object.Equals(this.item, default(T)) ? 0 : this.item.TotalWorkDays; }
+            get { return Equals(this.item, default(T)) ? 0 : this.item.TotalWorkDays; }
         }
 
         public double TotalExecutiveWorkDays
         {
-            get { return object.Equals(this.item, default(T)) ? 0 : this.item.TotalExecutiveWorkDays; }
+            get { return Equals(this.item, default(T)) ? 0 : this.item.TotalExecutiveWorkDays; }
         }
 
         public double WorkShortNights
         {
-            get { return object.Equals(this.item, default(T)) ? 0 : this.item.WorkShortNights; }
+            get { return Equals(this.item, default(T)) ? 0 : this.item.WorkShortNights; }
             set
             {
-                if (object.Equals(this.item, default(T))) return;
+                if (Equals(this.item, default(T))) return;
                 this.item.WorkShortNights = value;
                 this.FirePropertyChanged("WorkShortNights");
                 this.FirePropertyChanged("TotalWorkShortNights");
@@ -141,10 +136,10 @@ namespace Chiffrage.App.ViewModel
 
         public double ExecutiveWorkShortNights
         {
-            get { return object.Equals(this.item, default(T)) ? 0 : this.item.ExecutiveWorkShortNights; }
+            get { return Equals(this.item, default(T)) ? 0 : this.item.ExecutiveWorkShortNights; }
             set
             {
-                if (object.Equals(this.item, default(T))) return;
+                if (Equals(this.item, default(T))) return;
                 this.item.ExecutiveWorkShortNights = value;
                 this.FirePropertyChanged("ExecutiveWorkShortNights");
                 this.FirePropertyChanged("TotalExecutiveWorkShortNights");
@@ -153,20 +148,20 @@ namespace Chiffrage.App.ViewModel
 
         public double TotalWorkShortNights
         {
-            get { return object.Equals(this.item, default(T)) ? 0 : this.item.TotalWorkShortNights; }
+            get { return Equals(this.item, default(T)) ? 0 : this.item.TotalWorkShortNights; }
         }
 
         public double TotalExecutiveWorkShortNights
         {
-            get { return object.Equals(this.item, default(T)) ? 0 : this.item.TotalExecutiveWorkShortNights; }
+            get { return Equals(this.item, default(T)) ? 0 : this.item.TotalExecutiveWorkShortNights; }
         }
 
         public double WorkLongNights
         {
-            get { return object.Equals(this.item, default(T)) ? 0 : this.item.WorkLongNights; }
+            get { return Equals(this.item, default(T)) ? 0 : this.item.WorkLongNights; }
             set
             {
-                if (object.Equals(this.item, default(T))) return;
+                if (Equals(this.item, default(T))) return;
                 this.item.WorkLongNights = value;
                 this.FirePropertyChanged("WorkLongNights");
                 this.FirePropertyChanged("TotalWorkLongNights");
@@ -175,10 +170,10 @@ namespace Chiffrage.App.ViewModel
 
         public double ExecutiveWorkLongNights
         {
-            get { return object.Equals(this.item, default(T)) ? 0 : this.item.ExecutiveWorkLongNights; }
+            get { return Equals(this.item, default(T)) ? 0 : this.item.ExecutiveWorkLongNights; }
             set
             {
-                if (object.Equals(this.item, default(T))) return;
+                if (Equals(this.item, default(T))) return;
                 this.item.ExecutiveWorkLongNights = value;
                 this.FirePropertyChanged("ExecutiveWorkLongNights");
                 this.FirePropertyChanged("TotalExecutiveWorkLongNights");
@@ -187,25 +182,25 @@ namespace Chiffrage.App.ViewModel
 
         public double TotalWorkLongNights
         {
-            get { return object.Equals(this.item, default(T)) ? 0 : this.item.TotalWorkLongNights; }
+            get { return Equals(this.item, default(T)) ? 0 : this.item.TotalWorkLongNights; }
         }
 
         public double TotalExecutiveWorkLongNights
         {
-            get { return object.Equals(this.item, default(T)) ? 0 : this.item.TotalExecutiveWorkLongNights; }
+            get { return Equals(this.item, default(T)) ? 0 : this.item.TotalExecutiveWorkLongNights; }
         }
 
         public double CatalogTestsDays
         {
-            get { return object.Equals(this.item, default(T)) ? 0 : this.item.TestsDays; }
+            get { return Equals(this.item, default(T)) ? 0 : this.item.TestsDays; }
         }
 
         public double TestsDays
         {
-            get { return object.Equals(this.item, default(T)) ? 0 : this.item.TestsDays; }
+            get { return Equals(this.item, default(T)) ? 0 : this.item.TestsDays; }
             set
             {
-                if (object.Equals(this.item, default(T))) return;
+                if (Equals(this.item, default(T))) return;
                 this.item.TestsDays = value;
                 this.FirePropertyChanged("TestsDays");
                 this.FirePropertyChanged("TotalTestsDays");
@@ -214,10 +209,10 @@ namespace Chiffrage.App.ViewModel
 
         public double TestsNights
         {
-            get { return object.Equals(this.item, default(T)) ? 0 : this.item.TestsNights; }
+            get { return Equals(this.item, default(T)) ? 0 : this.item.TestsNights; }
             set
             {
-                if (object.Equals(this.item, default(T))) return;
+                if (Equals(this.item, default(T))) return;
                 this.item.TestsNights = value;
                 this.FirePropertyChanged("TestsNights");
                 this.FirePropertyChanged("TotalTestsNights");
@@ -226,12 +221,12 @@ namespace Chiffrage.App.ViewModel
 
         public double TotalTestsDays
         {
-            get { return object.Equals(this.item, default(T)) ? 0 : this.item.TotalTestsDays; }
+            get { return Equals(this.item, default(T)) ? 0 : this.item.TotalTestsDays; }
         }
 
         public double TotalTestsNights
         {
-            get { return object.Equals(this.item, default(T)) ? 0 : this.item.TotalTestsNights; }
+            get { return Equals(this.item, default(T)) ? 0 : this.item.TotalTestsNights; }
         }
 
         public T Item
@@ -242,14 +237,14 @@ namespace Chiffrage.App.ViewModel
 
         #region INotifyPropertyChanged Members
 
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        #endregion
+
         private void FirePropertyChanged(string propertyName)
         {
             if (this.PropertyChanged != null)
                 this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
         }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        #endregion
     }
 }

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Chiffrage.Catalogs.Domain;
-using Chiffrage.Core;
+﻿using Chiffrage.Catalogs.Domain;
 using FluentNHibernate.Mapping;
 
 namespace Chiffrage.Catalogs.Dal.Mappings
@@ -15,7 +10,7 @@ namespace Chiffrage.Catalogs.Dal.Mappings
             Id(x => x.Id);
             Map(x => x.Comment);
             Map(x => x.SupplierName);
-            
+
             HasMany(x => x.Supplies)
                 .Not.LazyLoad()
                 .Cascade.All()

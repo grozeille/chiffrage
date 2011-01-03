@@ -6,7 +6,6 @@ namespace Chiffrage.Projects.Domain
     {
         public ProjectSupply()
         {
-            
         }
 
         public ProjectSupply(Supply item)

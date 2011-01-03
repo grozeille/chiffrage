@@ -1,13 +1,9 @@
-﻿using System.Linq;
-using NHibernate.Linq;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Chiffrage.Catalogs.Domain;
 using Chiffrage.Catalogs.Domain.Repositories;
-using Chiffrage.Core;
 using NHibernate;
+using NHibernate.Linq;
 
 namespace Chiffrage.Catalogs.Dal.Repositories
 {
@@ -19,6 +15,8 @@ namespace Chiffrage.Catalogs.Dal.Repositories
         {
             this.sessionFactory = sessionFactory;
         }
+
+        #region ICatalogRepository Members
 
         public void Save(Catalog catalog)
         {
@@ -50,7 +48,7 @@ namespace Chiffrage.Catalogs.Dal.Repositories
             using (var session = this.sessionFactory.OpenSession())
             {
                 return session.Query<SupplierCatalog>().ToList();
-            }            
+            }
         }
 
         public SupplierCatalog FindById(int catalogId)
@@ -58,7 +56,9 @@ namespace Chiffrage.Catalogs.Dal.Repositories
             using (var session = this.sessionFactory.OpenSession())
             {
                 return session.Query<SupplierCatalog>().Where(x => x.Id == catalogId).FirstOrDefault();
-            }  
+            }
         }
+
+        #endregion
     }
 }

@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using AutoMapper;
-using Chiffrage.Catalogs.Domain;
-
-namespace Chiffrage.App.ViewModel
+﻿namespace Chiffrage.App.ViewModel
 {
     public struct CatalogViewModel
     {

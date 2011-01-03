@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using Chiffrage.Catalogs.Domain;
-using Chiffrage.Core;
+﻿using Chiffrage.Catalogs.Domain;
 
 namespace Chiffrage.App.ViewModel
 {

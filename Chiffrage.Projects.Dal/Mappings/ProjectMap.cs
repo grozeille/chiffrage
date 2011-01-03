@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Chiffrage.Core;
-using Chiffrage.Projects.Domain;
+﻿using Chiffrage.Projects.Domain;
 using FluentNHibernate.Mapping;
 
 namespace Chiffrage.Projects.Dal.Mappings
@@ -18,7 +13,7 @@ namespace Chiffrage.Projects.Dal.Mappings
             Map(x => x.Comment);
             Map(x => x.StartDate);
             Map(x => x.EndDate);
-            
+
             Map(x => x.StudyRate);
             Map(x => x.ReferenceRate);
             Map(x => x.WorkDayRate);

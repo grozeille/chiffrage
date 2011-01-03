@@ -1,11 +1,6 @@
-﻿using System;
-using System.Windows.Forms;
-using Chiffrage.App.ViewModel;
+﻿using Chiffrage.App.ViewModel;
 using Chiffrage.App.Views;
-using Chiffrage.Core;
 using Chiffrage.Mvc.Views;
-using Chiffrage.Projects.Domain;
-using Chiffrage.ViewModel;
 
 namespace Chiffrage
 {
@@ -15,8 +10,10 @@ namespace Chiffrage
 
         public DealUserControl()
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
+
+        #region IDealView Members
 
         public void DisplayDeal(DealViewModel viewModel)
         {
@@ -30,5 +27,7 @@ namespace Chiffrage
             this.dateTimePickerDealEnd.Value = viewModel.EndDate;
             this.commentUserControl.Rtf = viewModel.Comment;
         }
+
+        #endregion
     }
-} 
+}

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Collections.Generic;
 using System.Threading;
 using Common.Logging;
@@ -10,22 +9,23 @@ namespace Chiffrage.Mvc.Events
     {
         private readonly Queue<IEvent> eventQueue = new Queue<IEvent>();
 
-        private Thread dispatchingThread;
-
         private readonly IList<IEventHandler> subscribers = new List<IEventHandler>();
+        private Thread dispatchingThread;
 
         public IEventHandler[] Subscribers
         {
             set
             {
-                lock(this.subscribers)
+                lock (this.subscribers)
                 {
-                    this.subscribers.Clear();                    
-                    foreach(var item in value)
+                    this.subscribers.Clear();
+                    foreach (var item in value)
                         this.subscribers.Add(item);
                 }
             }
         }
+
+        #region IEventBroker Members
 
         public void Start()
         {
@@ -46,6 +46,8 @@ namespace Chiffrage.Mvc.Events
                 this.eventQueue.Enqueue(eventObject);
             }
         }
+
+        #endregion
 
         private void DispatchEvents()
         {
@@ -74,16 +76,16 @@ namespace Chiffrage.Mvc.Events
                                     var eventType = interfaceType.GetGenericArguments()[0];
                                     if (eventType.IsInstanceOfType(eventObject))
                                     {
-                                        var method = interfaceType.GetMethod("ProcessAction", new[] { eventType });
+                                        var method = interfaceType.GetMethod("ProcessAction", new[] {eventType});
                                         try
                                         {
-                                            method.Invoke(subscriber, new[] { eventObject });
+                                            method.Invoke(subscriber, new[] {eventObject});
                                         }
                                         catch (Exception ex)
                                         {
-                                            LogManager.GetLogger<EventBroker>().ErrorFormat("Unable to dispatch event", ex);
+                                            LogManager.GetLogger<EventBroker>().ErrorFormat("Unable to dispatch event",
+                                                                                            ex);
                                         }
-                                        
                                     }
                                 }
                             }
@@ -91,6 +93,6 @@ namespace Chiffrage.Mvc.Events
                     }
                 }
             } while (true);
-        }        
+        }
     }
 }

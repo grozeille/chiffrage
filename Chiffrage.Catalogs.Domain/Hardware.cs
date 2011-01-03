@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Chiffrage.Core;
 
@@ -20,7 +19,7 @@ namespace Chiffrage.Catalogs.Domain
             set { this.components = value; }
         }
 
-        #region ISupply Members
+        #region ICatalogItem Members
 
         public virtual int Id { get; set; }
         public virtual string Name { get; set; }
@@ -34,40 +33,40 @@ namespace Chiffrage.Catalogs.Domain
 
         public virtual double CatalogPrice
         {
-            get { return this.components.Sum((s) => (s.Supply != null ? s.Supply.CatalogPrice * s.Quantity : 0)); }
+            get { return this.components.Sum((s) => (s.Supply != null ? s.Supply.CatalogPrice*s.Quantity : 0)); }
         }
 
         public virtual double StudyDays
         {
-            get { return this.components.Sum((s) => (s.Supply != null ? s.Supply.StudyDays * s.Quantity : 0)); }
+            get { return this.components.Sum((s) => (s.Supply != null ? s.Supply.StudyDays*s.Quantity : 0)); }
         }
 
         public virtual double ReferenceDays
         {
-            get { return this.components.Sum((s) => (s.Supply != null ? s.Supply.ReferenceDays * s.Quantity : 0)); }
+            get { return this.components.Sum((s) => (s.Supply != null ? s.Supply.ReferenceDays*s.Quantity : 0)); }
         }
 
         public virtual double CatalogWorkDays
         {
-            get { return this.components.Sum((s) => (s.Supply != null ? s.Supply.CatalogWorkDays * s.Quantity : 0)); }
+            get { return this.components.Sum((s) => (s.Supply != null ? s.Supply.CatalogWorkDays*s.Quantity : 0)); }
         }
 
         public virtual double CatalogExecutiveWorkDays
         {
-            get { return this.components.Sum((s) => (s.Supply != null ? s.Supply.CatalogExecutiveWorkDays * s.Quantity : 0)); }
+            get { return this.components.Sum((s) => (s.Supply != null ? s.Supply.CatalogExecutiveWorkDays*s.Quantity : 0)); }
         }
 
         public virtual double CatalogTestsDays
         {
-            get { return this.components.Sum((s) => (s.Supply != null ? s.Supply.CatalogTestsDays * s.Quantity : 0)); }
+            get { return this.components.Sum((s) => (s.Supply != null ? s.Supply.CatalogTestsDays*s.Quantity : 0)); }
         }
 
 
         public virtual object Clone()
         {
-            var h = (Hardware)MemberwiseClone();
+            var h = (Hardware) MemberwiseClone();
             h.components = new List<HardwareSupply>();
-            foreach(var item in this.components)
+            foreach (var item in this.components)
                 h.components.Add(item.Clone() as HardwareSupply);
             return h;
         }

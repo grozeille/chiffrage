@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Chiffrage.Core;
-
-namespace Chiffrage.Catalogs.Domain
+﻿namespace Chiffrage.Catalogs.Domain
 {
-    public class HardwareSupply// : ICatalogItem
+    public class HardwareSupply // : ICatalogItem
     {
         private Supply supply;
 
@@ -69,26 +63,20 @@ namespace Chiffrage.Catalogs.Domain
             get { return this.supply == null ? 0.0 : this.Supply.CatalogTestsDays; }
         }
         */
+
         public virtual Supply Supply
         {
             get { return this.supply; }
-            set
-            {
-                this.supply = value;
-            }
+            set { this.supply = value; }
         }
 
         public virtual int Quantity { get; set; }
 
-        #region ICloneable Members
-
         public virtual object Clone()
         {
-            var hardwareSupply =  (HardwareSupply)this.MemberwiseClone();
-            hardwareSupply.supply = (Supply)this.supply.Clone();
+            var hardwareSupply = (HardwareSupply) MemberwiseClone();
+            hardwareSupply.supply = (Supply) this.supply.Clone();
             return hardwareSupply;
         }
-
-        #endregion
     }
 }

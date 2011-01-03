@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.ComponentModel;
-using AutoMapper;
-using Chiffrage.Catalogs.Domain;
+﻿using System.ComponentModel;
 
 namespace Chiffrage.App.ViewModel
 {
     public class CatalogHardwareViewModel
     {
+        public CatalogHardwareViewModel()
+        {
+            this.Components = new BindingList<CatalogHardwareSupplyViewModel>();
+        }
+
         public int Id { get; set; }
 
         public string Name { get; set; }
@@ -33,10 +32,5 @@ namespace Chiffrage.App.ViewModel
         public double CatalogTestsDays { get; set; }
 
         public BindingList<CatalogHardwareSupplyViewModel> Components { get; set; }
-
-        public CatalogHardwareViewModel()
-        {
-            this.Components = new BindingList<CatalogHardwareSupplyViewModel>();
-        }        
     }
 }

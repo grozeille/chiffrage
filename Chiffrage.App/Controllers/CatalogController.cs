@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using AutoMapper;
+﻿using AutoMapper;
 using Chiffrage.App.Events;
 using Chiffrage.App.ViewModel;
 using Chiffrage.App.Views;
@@ -13,13 +9,12 @@ using Chiffrage.Mvc.Events;
 namespace Chiffrage.App.Controllers
 {
     public class CatalogController : ICatalogController,
-        IGenericEventHandler<CatalogSelectedEvent>,
-        IGenericEventHandler<CatalogUnselectedEvent>,
-        IGenericEventHandler<ApplicationStartEvent>
+                                     IGenericEventHandler<CatalogSelectedEvent>,
+                                     IGenericEventHandler<CatalogUnselectedEvent>,
+                                     IGenericEventHandler<ApplicationStartEvent>
     {
-        private readonly ICatalogView view;
-
         private readonly ICatalogRepository repository;
+        private readonly ICatalogView view;
 
         public CatalogController(ICatalogView view, ICatalogRepository repository)
         {
@@ -89,6 +84,8 @@ namespace Chiffrage.App.Controllers
 
         }*/
 
+        #region ICatalogController Members
+
         public void DisplayCatalog(int id)
         {
             var catalog = this.repository.FindById(id);
@@ -111,20 +108,34 @@ namespace Chiffrage.App.Controllers
             this.repository.Save(catalog);
         }
 
-        public void ProcessAction(CatalogSelectedEvent eventObject)
-        {
-            this.view.ShowView();
-            this.DisplayCatalog(eventObject.Id);
-        }
+        #endregion
+
+        #region IGenericEventHandler<ApplicationStartEvent> Members
 
         public void ProcessAction(ApplicationStartEvent eventObject)
         {
             this.view.HideView();
         }
 
+        #endregion
+
+        #region IGenericEventHandler<CatalogSelectedEvent> Members
+
+        public void ProcessAction(CatalogSelectedEvent eventObject)
+        {
+            this.view.ShowView();
+            this.DisplayCatalog(eventObject.Id);
+        }
+
+        #endregion
+
+        #region IGenericEventHandler<CatalogUnselectedEvent> Members
+
         public void ProcessAction(CatalogUnselectedEvent eventObject)
         {
             this.view.HideView();
         }
+
+        #endregion
     }
 }

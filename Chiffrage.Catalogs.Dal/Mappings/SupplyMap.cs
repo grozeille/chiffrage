@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Chiffrage.Catalogs.Domain;
-using Chiffrage.Core;
+﻿using Chiffrage.Catalogs.Domain;
 using FluentNHibernate.Mapping;
 
 namespace Chiffrage.Catalogs.Dal.Mappings

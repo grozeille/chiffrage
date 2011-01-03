@@ -1,13 +1,9 @@
-﻿using System.Linq;
-using NHibernate.Linq;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using Chiffrage.Core;
 using Chiffrage.Projects.Domain;
 using Chiffrage.Projects.Domain.Repositories;
 using NHibernate;
+using NHibernate.Linq;
 
 namespace Chiffrage.Projects.Dal.Repositories
 {
@@ -19,6 +15,8 @@ namespace Chiffrage.Projects.Dal.Repositories
         {
             this.sessionFactory = sessionFactory;
         }
+
+        #region IDealRepository Members
 
         public IList<Deal> FindAll()
         {
@@ -47,5 +45,7 @@ namespace Chiffrage.Projects.Dal.Repositories
                 return session.Query<Deal>().Where(x => x.Id == dealId).FirstOrDefault();
             }
         }
+
+        #endregion
     }
 }

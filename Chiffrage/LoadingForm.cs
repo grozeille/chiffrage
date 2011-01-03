@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace Chiffrage
@@ -15,13 +10,13 @@ namespace Chiffrage
 
         public LoadingForm()
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
 
         private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            if(OnLoadingApplication != null)
-                OnLoadingApplication(this, new LoadingEventArgs(this.backgroundWorker));
+            if (this.OnLoadingApplication != null)
+                this.OnLoadingApplication(this, new LoadingEventArgs(this.backgroundWorker));
         }
 
         private void backgroundWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
@@ -31,7 +26,7 @@ namespace Chiffrage
 
         private void backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private void LoadingForm_Load(object sender, EventArgs e)

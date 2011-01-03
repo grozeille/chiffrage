@@ -1,22 +1,20 @@
-﻿using System.Linq;
-using System;
+﻿using System;
+using System.Collections;
 using System.Windows.Forms;
 using Chiffrage.App.Events;
 using Chiffrage.Catalogs.Dal.Repositories;
 using Chiffrage.Catalogs.Domain;
 using Chiffrage.Mvc.Events;
-using Chiffrage.Projects.Dal.Repositories;
 using Common.Logging;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using NHibernate;
+using NHibernate.ByteCode.Spring;
 using NHibernate.Cfg;
+using Spring.Context;
 using Spring.Context.Support;
 using Strongshell.Recoil.Core.Integration;
-using Settings = Chiffrage.Properties.Settings;
-using Chiffrage.App.Controllers;
-using Spring.Context;
-using System.Collections;
+using Settings=Chiffrage.Properties.Settings;
 
 namespace Chiffrage
 {
@@ -24,25 +22,25 @@ namespace Chiffrage
     {
         public static T GetObject<T>(this IApplicationContext applicationContext)
         {
-            foreach(DictionaryEntry item in  applicationContext.GetObjectsOfType(typeof(T)))
+            foreach (DictionaryEntry item in  applicationContext.GetObjectsOfType(typeof (T)))
             {
-                return (T)item.Value;
+                return (T) item.Value;
             }
 
             return default(T);
         }
     }
 
-    static class Program
+    internal static class Program
     {
-        private static ILog logger = LogManager.GetLogger(typeof(Program));
+        private static ILog logger = LogManager.GetLogger(typeof (Program));
 
 
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        private static void Main()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
@@ -65,7 +63,6 @@ namespace Chiffrage
             }
             catch (Exception ex)
             {
-
                 logger.Fatal("Fatal error", ex);
             }
         }
@@ -75,21 +72,21 @@ namespace Chiffrage
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main2()
+        private static void Main2()
         {
             try
             {
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
 
-                Catalog catalog = new Catalog();
+                var catalog = new Catalog();
 
                 if (string.IsNullOrEmpty(Settings.Default.CatalogPath))
                 {
                     MessageBox.Show(
                         "Pas de catalogue détecté.\n\r Veuillez sélectionner un chemin de fichier pour un nouveau catalogue ou un catalogue existant.",
                         "Catalogue inexistant.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    OpenFileDialog openFileDialog = new OpenFileDialog();
+                    var openFileDialog = new OpenFileDialog();
                     openFileDialog.CheckFileExists = false;
                     openFileDialog.Filter = "Catalogue (*.ctb)|*.ctb";
                     if (openFileDialog.ShowDialog() != DialogResult.OK)
@@ -102,9 +99,9 @@ namespace Chiffrage
 
                 Configuration configurationCatalog = Fluently.Configure()
                     .Database(SQLiteConfiguration.Standard
-                        .UsingFile(Settings.Default.CatalogPath)
-                        .ProxyFactoryFactory(typeof(NHibernate.ByteCode.Spring.ProxyFactoryFactory)))
-                    .Mappings(m => m.FluentMappings.AddFromAssembly(typeof(CatalogRepository).Assembly))
+                                  .UsingFile(Settings.Default.CatalogPath)
+                                  .ProxyFactoryFactory(typeof (ProxyFactoryFactory)))
+                    .Mappings(m => m.FluentMappings.AddFromAssembly(typeof (CatalogRepository).Assembly))
                     .BuildConfiguration();
 
                 configurationCatalog.Properties["hbm2ddl.auto"] = "update";

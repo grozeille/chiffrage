@@ -12,12 +12,16 @@ namespace Chiffrage.WizardPages
 {
     public partial class AddCatalogItemPage : UserControl
     {
+        #region ItemType enum
+
         public enum ItemType
         {
             All,
             Hardware,
             Supply
         }
+
+        #endregion
 
         private BindingList<ICatalogItemSelectionViewModel> filteredselectionDtos;
         private bool refreshCheckbox = false;
@@ -50,20 +54,20 @@ namespace Chiffrage.WizardPages
             this.selectionDtos = new BindingList<ICatalogItemSelectionViewModel>();
             foreach (SupplierCatalog supplier in this.Catalog.SupplierCatalogs)
             {
-                if (DisplayItemType == ItemType.All || DisplayItemType == ItemType.Supply)
+                if (this.DisplayItemType == ItemType.All || this.DisplayItemType == ItemType.Supply)
                 {
                     foreach (Supply supply in supplier.Supplies)
                     {
                         var dto = new CatalogSupplySelectionViewModel()
-                                  {
-                                      Supplier = supplier.SupplierName,
-                                      Item = supply
-                                  };
+                        {
+                            Supplier = supplier.SupplierName,
+                            Item = supply
+                        };
                         this.selectionDtos.Add(dto);
                         dto.PropertyChanged += new PropertyChangedEventHandler(this.dto_PropertyChanged);
                     }
                 }
-                if (DisplayItemType == ItemType.All || DisplayItemType == ItemType.Hardware)
+                if (this.DisplayItemType == ItemType.All || this.DisplayItemType == ItemType.Hardware)
                 {
                     foreach (Hardware hardware in supplier.Hardwares)
                     {
@@ -84,19 +88,19 @@ namespace Chiffrage.WizardPages
             this.comboBoxCategory.Items.Clear();
             this.comboBoxCategory.Items.Add(string.Empty);
             var categories = new List<string>();
-            if (DisplayItemType == ItemType.All || DisplayItemType == ItemType.Supply)
+            if (this.DisplayItemType == ItemType.All || this.DisplayItemType == ItemType.Supply)
             {
                 categories.AddRange(this.Catalog.SupplierCatalogs
-                                                     .SelectMany((s, c) => s.Supplies)
-                                                     .Select((s) => s.Category)
-                                                     .Where((c) => !string.IsNullOrEmpty(c)));
+                                        .SelectMany((s, c) => s.Supplies)
+                                        .Select((s) => s.Category)
+                                        .Where((c) => !string.IsNullOrEmpty(c)));
             }
-            if (DisplayItemType == ItemType.All || DisplayItemType == ItemType.Hardware)
+            if (this.DisplayItemType == ItemType.All || this.DisplayItemType == ItemType.Hardware)
             {
                 categories.AddRange(this.Catalog.SupplierCatalogs
-                                                     .SelectMany((s, c) => s.Hardwares)
-                                                     .Select((h) => h.Category)
-                                                     .Where((c) => !string.IsNullOrEmpty(c)));
+                                        .SelectMany((s, c) => s.Hardwares)
+                                        .Select((h) => h.Category)
+                                        .Where((c) => !string.IsNullOrEmpty(c)));
             }
             this.comboBoxCategory.Items.AddRange(categories.Distinct().ToArray());
         }
@@ -153,26 +157,29 @@ namespace Chiffrage.WizardPages
         private void DoFilter()
         {
             this.iCatalogItemSelectionDtoBindingSource.SuspendBinding();
-            
+
             // reset the filter
             this.filteredselectionDtos = this.selectionDtos;
 
             // filter by category
-            if(!string.IsNullOrEmpty(this.comboBoxCategory.Text))
+            if (!string.IsNullOrEmpty(this.comboBoxCategory.Text))
             {
                 this.filteredselectionDtos = new BindingList<ICatalogItemSelectionViewModel>(
                     (from dto in this.filteredselectionDtos
-                     where dto.CatalogItem.Category != null && dto.CatalogItem.Category.Equals(this.comboBoxCategory.Text)
+                     where
+                         dto.CatalogItem.Category != null && dto.CatalogItem.Category.Equals(this.comboBoxCategory.Text)
                      select dto).ToList());
             }
 
             // execute filter
-            if(!string.IsNullOrEmpty(this.textBoxSearch.Text))
+            if (!string.IsNullOrEmpty(this.textBoxSearch.Text))
             {
                 var searchRegex = new Regex(string.Format(".*{0}.*", this.textBoxSearch.Text), RegexOptions.IgnoreCase);
                 this.filteredselectionDtos = new BindingList<ICatalogItemSelectionViewModel>(
                     (from dto in this.filteredselectionDtos
-                     where dto.Name != null && dto.Reference != null && (searchRegex.IsMatch(dto.Name) || searchRegex.IsMatch(dto.Reference))
+                     where
+                         dto.Name != null && dto.Reference != null &&
+                         (searchRegex.IsMatch(dto.Name) || searchRegex.IsMatch(dto.Reference))
                      select dto).ToList());
             }
             this.iCatalogItemSelectionDtoBindingSource.DataSource = this.filteredselectionDtos;

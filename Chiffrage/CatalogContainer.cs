@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Chiffrage.Catalogs.Dal.Repositories;
-using Chiffrage.Projects.Dal.Repositories;
+﻿using Chiffrage.Catalogs.Dal.Repositories;
 using Chiffrage.Properties;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
-using NHibernate;
+using NHibernate.ByteCode.Spring;
 using Strongshell.Recoil.Core.Composition;
-using Spring.Objects.Factory.Config;
 
 namespace Chiffrage
 {
@@ -18,11 +12,11 @@ namespace Chiffrage
         public override void SetupContainer()
         {
             var configurationCatalog = Fluently.Configure()
-                    .Database(SQLiteConfiguration.Standard
-                        .UsingFile(Settings.Default.CatalogPath)
-                        .ProxyFactoryFactory(typeof(NHibernate.ByteCode.Spring.ProxyFactoryFactory)))
-                    .Mappings(m => m.FluentMappings.AddFromAssembly(typeof(CatalogRepository).Assembly))
-                    .BuildConfiguration();
+                .Database(SQLiteConfiguration.Standard
+                              .UsingFile(Settings.Default.CatalogPath)
+                              .ProxyFactoryFactory(typeof (ProxyFactoryFactory)))
+                .Mappings(m => m.FluentMappings.AddFromAssembly(typeof (CatalogRepository).Assembly))
+                .BuildConfiguration();
 
             configurationCatalog.Properties["hbm2ddl.auto"] = "update";
 

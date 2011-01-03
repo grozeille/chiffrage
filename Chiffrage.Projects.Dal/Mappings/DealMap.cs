@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Chiffrage.Projects.Domain;
+﻿using Chiffrage.Projects.Domain;
 using FluentNHibernate.Mapping;
 
 namespace Chiffrage.Projects.Dal.Mappings
@@ -20,7 +16,7 @@ namespace Chiffrage.Projects.Dal.Mappings
             HasMany(x => x.Projects)
                 .Cascade.All()
                 .Not.LazyLoad()
-                .AsBag();                
+                .AsBag();
         }
     }
 }

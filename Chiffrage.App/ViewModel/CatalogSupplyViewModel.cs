@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Chiffrage.Catalogs.Domain;
-
-namespace Chiffrage.App.ViewModel
+﻿namespace Chiffrage.App.ViewModel
 {
     public class CatalogSupplyViewModel
     {

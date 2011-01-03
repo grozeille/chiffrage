@@ -13,24 +13,9 @@ namespace Chiffrage.Projects.Domain
             this.Update(item);
         }
 
-        public virtual void Update(T item)
-        {
-            this.CatalogId = item.Id;
-            this.Reference = item.Reference;
-            this.Name = item.Name;
-            this.Category = item.Category;
-            this.ModuleSize = item.ModuleSize;
-            this.CatalogPrice = item.CatalogPrice;
-            this.StudyDays = item.StudyDays;
-            this.ReferenceDays = item.ReferenceDays;
-            this.CatalogWorkDays = item.CatalogWorkDays;
-            this.CatalogExecutiveWorkDays = item.CatalogExecutiveWorkDays;
-            this.CatalogTestsDays = item.CatalogTestsDays;   
-        }
+        public virtual int CatalogId { get; protected set; }
 
         #region IProjectItem Members
-
-        public virtual int CatalogId { get; protected set; }
 
         public virtual int Id { get; set; }
 
@@ -109,42 +94,48 @@ namespace Chiffrage.Projects.Domain
             get { return this.TestsNights*this.Quantity; }
         }
 
-        public virtual string Name
-        { get; protected set; }
+        public virtual string Name { get; protected set; }
 
-        public virtual string Reference
-        { get; protected set; }
+        public virtual string Reference { get; protected set; }
 
-        public virtual string Category
-        { get; protected set; }
+        public virtual string Category { get; protected set; }
 
-        public virtual int ModuleSize
-        { get; protected set; }
+        public virtual int ModuleSize { get; protected set; }
 
-        public virtual double StudyDays
-        { get; protected set; }
+        public virtual double StudyDays { get; protected set; }
 
-        public virtual double ReferenceDays
-        { get; protected set; }
+        public virtual double ReferenceDays { get; protected set; }
 
 
-        public virtual double CatalogPrice
-        { get; protected set; }
+        public virtual double CatalogPrice { get; protected set; }
 
-        public virtual double CatalogWorkDays
-        { get; protected set; }
+        public virtual double CatalogWorkDays { get; protected set; }
 
-        public virtual double CatalogExecutiveWorkDays
-        { get; protected set; }
+        public virtual double CatalogExecutiveWorkDays { get; protected set; }
 
-        public virtual double CatalogTestsDays
-        { get; protected set; }
+        public virtual double CatalogTestsDays { get; protected set; }
 
-        #endregion
         public virtual object Clone()
         {
-            var clone = (ProjectItem<T>)MemberwiseClone();
+            var clone = (ProjectItem<T>) MemberwiseClone();
             return clone;
+        }
+
+        #endregion
+
+        public virtual void Update(T item)
+        {
+            this.CatalogId = item.Id;
+            this.Reference = item.Reference;
+            this.Name = item.Name;
+            this.Category = item.Category;
+            this.ModuleSize = item.ModuleSize;
+            this.CatalogPrice = item.CatalogPrice;
+            this.StudyDays = item.StudyDays;
+            this.ReferenceDays = item.ReferenceDays;
+            this.CatalogWorkDays = item.CatalogWorkDays;
+            this.CatalogExecutiveWorkDays = item.CatalogExecutiveWorkDays;
+            this.CatalogTestsDays = item.CatalogTestsDays;
         }
     }
 }

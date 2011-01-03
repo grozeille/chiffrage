@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 using Chiffrage.Projects.Domain;
 
 namespace Chiffrage.ViewModel
@@ -11,10 +7,10 @@ namespace Chiffrage.ViewModel
     {
         public DealTreeNode(Deal deal)
         {
-            this.Text = deal.Name;
+            Text = deal.Name;
             this.DealId = deal.Id;
-            this.ImageKey = "user_suit.png";
-            this.SelectedImageKey = "user_suit.png";
+            ImageKey = "user_suit.png";
+            SelectedImageKey = "user_suit.png";
         }
 
         public int DealId { get; set; }

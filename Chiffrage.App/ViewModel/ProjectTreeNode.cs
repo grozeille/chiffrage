@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 using Chiffrage.Projects.Domain;
 
 namespace Chiffrage.App.ViewModel
@@ -11,10 +7,10 @@ namespace Chiffrage.App.ViewModel
     {
         public ProjectTreeNode(Project project)
         {
-            this.Text = project.Name;
+            Text = project.Name;
             this.ProjectId = project.Id;
-            this.ImageKey = "report.png";
-            this.SelectedImageKey = "report.png";
+            ImageKey = "report.png";
+            SelectedImageKey = "report.png";
         }
 
         public int ProjectId { get; set; }

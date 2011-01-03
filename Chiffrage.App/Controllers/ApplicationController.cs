@@ -1,37 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
+using AutoMapper;
 using Chiffrage.App.Events;
+using Chiffrage.App.ViewModel;
 using Chiffrage.App.Views;
+using Chiffrage.Catalogs.Domain;
 using Chiffrage.Catalogs.Domain.Repositories;
 using Chiffrage.Mvc.Events;
-using Chiffrage.Projects.Domain.Repositories;
-using Chiffrage.App.ViewModel;
-using AutoMapper;
-using Chiffrage.Catalogs.Domain;
 using Chiffrage.Projects.Domain;
+using Chiffrage.Projects.Domain.Repositories;
 
 namespace Chiffrage.App.Controllers
 {
     public class ApplicationController : IApplicationController,
-        IGenericEventHandler<ApplicationStartEvent>
+                                         IGenericEventHandler<ApplicationStartEvent>
     {
+        private readonly IApplicationView applicationView;
+
+        private readonly ICatalogController catalogController;
         private readonly ICatalogRepository catalogRepository;
 
         private readonly IDealRepository dealRepository;
 
-        private readonly IApplicationView applicationView;
-
-        private readonly ICatalogController catalogController;
-
-        public ApplicationController(ICatalogRepository catalogRepository, IDealRepository dealRepository, IApplicationView applicationView, ICatalogController catalogController)
+        public ApplicationController(ICatalogRepository catalogRepository, IDealRepository dealRepository,
+                                     IApplicationView applicationView, ICatalogController catalogController)
         {
             this.catalogRepository = catalogRepository;
             this.dealRepository = dealRepository;
             this.applicationView = applicationView;
             this.catalogController = catalogController;
         }
+
+        #region IApplicationController Members
 
         public void Display()
         {
@@ -58,9 +57,15 @@ namespace Chiffrage.App.Controllers
             this.catalogController.DisplayCatalog(catalogId);
         }
 
+        #endregion
+
+        #region IGenericEventHandler<ApplicationStartEvent> Members
+
         public void ProcessAction(ApplicationStartEvent eventObject)
         {
             this.Display();
         }
+
+        #endregion
     }
 }

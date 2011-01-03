@@ -1,25 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Chiffrage.App.Views;
-using NUnit.Framework;
-using Chiffrage.App.Controllers;
-using Chiffrage.Catalogs.Domain.Repositories;
-using Rhino.Mocks;
-using Chiffrage.Projects.Domain.Repositories;
-using Chiffrage.Catalogs.Domain;
-using Chiffrage.Projects.Domain;
+﻿using Chiffrage.App.Controllers;
 using Chiffrage.App.ViewModel;
+using Chiffrage.App.Views;
+using Chiffrage.Catalogs.Domain;
+using Chiffrage.Catalogs.Domain.Repositories;
+using Chiffrage.Projects.Domain;
+using Chiffrage.Projects.Domain.Repositories;
+using NUnit.Framework;
+using Rhino.Mocks;
 
 namespace Chiffrage.Tests
 {
     [TestFixture]
     public class ApplicationControllerTests
     {
-        private SupplierCatalog[] catalogs;
-
-        private Deal[] deals;
+        #region Setup/Teardown
 
         [SetUp]
         public void Setup()
@@ -54,6 +48,12 @@ namespace Chiffrage.Tests
             };
         }
 
+        #endregion
+
+        private SupplierCatalog[] catalogs;
+
+        private Deal[] deals;
+
         [Test]
         public void CanDisplayItems()
         {
@@ -69,7 +69,8 @@ namespace Chiffrage.Tests
 
             var catalogController = MockRepository.GenerateStub<ICatalogController>();
 
-            var controller = new ApplicationController(catalogRepository, dealRepository, applicationView, catalogController);
+            var controller = new ApplicationController(catalogRepository, dealRepository, applicationView,
+                                                       catalogController);
 
             // display all items
             controller.Display();

@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Chiffrage.App.Events;
 using Chiffrage.Mvc.Events;
-using Spring.Objects.Factory;
 using Spring.Context;
+using Spring.Objects.Factory;
 
 namespace Chiffrage
 {
@@ -14,15 +11,24 @@ namespace Chiffrage
     {
         private IApplicationContext applicationContext;
 
+        #region IApplicationContextAware Members
+
+        public IApplicationContext ApplicationContext
+        {
+            set { this.applicationContext = value; }
+        }
+
+        #endregion
+
         #region IFactoryObject Members
 
         public object GetObject()
         {
             var result = new List<IEventHandler>();
 
-            foreach (DictionaryEntry item in applicationContext.GetObjectsOfType(typeof(IEventHandler)))
+            foreach (DictionaryEntry item in this.applicationContext.GetObjectsOfType(typeof (IEventHandler)))
             {
-                result.Add((IEventHandler)item.Value);
+                result.Add((IEventHandler) item.Value);
             }
 
             return result.ToArray();
@@ -35,16 +41,7 @@ namespace Chiffrage
 
         public Type ObjectType
         {
-            get { return typeof(IEventHandler[]); }
-        }
-
-        #endregion
-
-        #region IApplicationContextAware Members
-
-        public IApplicationContext ApplicationContext
-        {
-            set { this.applicationContext = value; }
+            get { return typeof (IEventHandler[]); }
         }
 
         #endregion

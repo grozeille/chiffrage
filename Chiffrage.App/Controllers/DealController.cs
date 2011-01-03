@@ -1,31 +1,37 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using AutoMapper;
 using Chiffrage.App.Events;
 using Chiffrage.App.ViewModel;
 using Chiffrage.App.Views;
 using Chiffrage.Mvc.Events;
 using Chiffrage.Projects.Domain;
 using Chiffrage.Projects.Domain.Repositories;
-using AutoMapper;
 
 namespace Chiffrage.App.Controllers
 {
-    public class DealController : 
+    public class DealController :
         IGenericEventHandler<DealSelectedEvent>,
         IGenericEventHandler<DealUnselectedEvent>,
         IGenericEventHandler<ApplicationStartEvent>
     {
-        private readonly IDealView dealView;
-
         private readonly IDealRepository dealRepository;
+        private readonly IDealView dealView;
 
         public DealController(IDealRepository dealRepository, IDealView dealView)
         {
             this.dealView = dealView;
             this.dealRepository = dealRepository;
         }
+
+        #region IGenericEventHandler<ApplicationStartEvent> Members
+
+        public void ProcessAction(ApplicationStartEvent eventObject)
+        {
+            this.dealView.HideView();
+        }
+
+        #endregion
+
+        #region IGenericEventHandler<DealSelectedEvent> Members
 
         public void ProcessAction(DealSelectedEvent eventObject)
         {
@@ -39,14 +45,15 @@ namespace Chiffrage.App.Controllers
             this.dealView.ShowView();
         }
 
+        #endregion
+
+        #region IGenericEventHandler<DealUnselectedEvent> Members
+
         public void ProcessAction(DealUnselectedEvent eventObject)
         {
             this.dealView.HideView();
         }
 
-        public void ProcessAction(ApplicationStartEvent eventObject)
-        {
-            this.dealView.HideView();
-        }
+        #endregion
     }
 }

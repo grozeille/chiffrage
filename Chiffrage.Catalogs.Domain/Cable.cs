@@ -1,5 +1,4 @@
-﻿using System;
-using Chiffrage.Core;
+﻿using Chiffrage.Core;
 
 namespace Chiffrage.Catalogs.Domain
 {
@@ -9,7 +8,7 @@ namespace Chiffrage.Catalogs.Domain
 
         public virtual double PricePerMeter { get; set; }
 
-        #region ISupply Members
+        #region ICatalogItem Members
 
         public virtual object Clone()
         {

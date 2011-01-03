@@ -4,7 +4,7 @@ namespace Chiffrage.Catalogs.Domain
 {
     public class Supply : ICatalogItem
     {
-        #region ISupply Members
+        #region ICatalogItem Members
 
         public virtual int Id { get; set; }
 

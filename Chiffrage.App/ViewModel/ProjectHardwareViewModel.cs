@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Chiffrage.Core;
-using Chiffrage.Projects.Domain;
+﻿using Chiffrage.Projects.Domain;
 
 namespace Chiffrage.App.ViewModel
 {
@@ -11,8 +6,8 @@ namespace Chiffrage.App.ViewModel
     {
         public double Milestone
         {
-            get { return this.item.Milestone; }
-            set { this.item.Milestone = value; }
+            get { return item.Milestone; }
+            set { item.Milestone = value; }
         }
     }
 }

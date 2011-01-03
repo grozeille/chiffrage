@@ -6,7 +6,6 @@ namespace Chiffrage.Projects.Domain
     {
         public ProjectHardware()
         {
-            
         }
 
         public ProjectHardware(Hardware item)
@@ -14,6 +13,6 @@ namespace Chiffrage.Projects.Domain
         {
         }
 
-        public virtual double Milestone { get; set; }        
+        public virtual double Milestone { get; set; }
     }
 }

@@ -1,69 +1,68 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using AutoMapper;
+﻿using System.Collections.Generic;
 using Chiffrage.App.Controllers;
 using Chiffrage.App.ViewModel;
 using Chiffrage.App.Views;
-using NUnit.Framework;
 using Chiffrage.Catalogs.Domain;
-using Rhino.Mocks;
 using Chiffrage.Catalogs.Domain.Repositories;
-using Rhino.Mocks.Constraints;
+using NUnit.Framework;
+using Rhino.Mocks;
 
 namespace Chiffrage.Tests
 {
     [TestFixture]
     public class CatalogControllerTests
     {
-        private SupplierCatalog catalog;
-        private Hardware hardware;
-        private Supply supply;
-        private HardwareSupply hardwareSupply;
+        #region Setup/Teardown
 
         [SetUp]
         public void Setup()
         {
             this.catalog = new SupplierCatalog()
-                          {
-                              Id = 3,
-                              Comment = "no comment",
-                              SupplierName = "Catalog"
-                          };
+            {
+                Id = 3,
+                Comment = "no comment",
+                SupplierName = "Catalog"
+            };
 
             this.hardware = new Hardware
-                           {
-                               Id = 1,
-                               Name = "Roullette de tape",
-                               Category = "Fourniture",
-                               Reference = "RDT"
-                           };
+            {
+                Id = 1,
+                Name = "Roullette de tape",
+                Category = "Fourniture",
+                Reference = "RDT"
+            };
             this.supply = new Supply
-                         {
-                             Id = 1,
-                             Name = "Cable",
-                             Reference = "CB1",
-                             ModuleSize = 1,
-                             Category = "Cables",
-                             CatalogPrice = 100.0,
-                             CatalogExecutiveWorkDays = 1,
-                             CatalogTestsDays = 1,
-                             CatalogWorkDays = 1,
-                             ReferenceDays = 1,
-                             StudyDays = 2
-                         };
+            {
+                Id = 1,
+                Name = "Cable",
+                Reference = "CB1",
+                ModuleSize = 1,
+                Category = "Cables",
+                CatalogPrice = 100.0,
+                CatalogExecutiveWorkDays = 1,
+                CatalogTestsDays = 1,
+                CatalogWorkDays = 1,
+                ReferenceDays = 1,
+                StudyDays = 2
+            };
             this.hardwareSupply = new HardwareSupply
-                                 {
-                                     Id = 0,
-                                     Quantity = 2,
-                                     Supply = this.supply
-                                 };
+            {
+                Id = 0,
+                Quantity = 2,
+                Supply = this.supply
+            };
             this.hardware.Components.Add(this.hardwareSupply);
 
             this.catalog.Hardwares = new List<Hardware>();
             this.catalog.Hardwares.Add(this.hardware);
         }
+
+        #endregion
+
+        private SupplierCatalog catalog;
+        private Hardware hardware;
+        private Supply supply;
+        private HardwareSupply hardwareSupply;
 
         [Test]
         public void CanDisplayCatalog()
@@ -90,7 +89,8 @@ namespace Chiffrage.Tests
             expectedViewModel.Comment = "new comment";
             controller.SaveCatalog(expectedViewModel);
 
-            catalogRepository.AssertWasCalled(x => x.Save(Arg<SupplierCatalog>.Matches(c => c.Comment.Equals("new comment"))));
+            catalogRepository.AssertWasCalled(
+                x => x.Save(Arg<SupplierCatalog>.Matches(c => c.Comment.Equals("new comment"))));
         }
     }
 }

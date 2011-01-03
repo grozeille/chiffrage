@@ -1,66 +1,59 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace Chiffrage
 {
     public partial class WizardForm : Form
     {
-        private WizardSetting[] wizardSettings;
-
         private int currentPosition = 0;
-
-        protected WizardSetting CurrentSetting
-        {
-            get
-            {
-                return this.wizardSettings[this.currentPosition];
-            }
-        }
+        private WizardSetting[] wizardSettings;
 
         public WizardForm()
         {
-            InitializeComponent();
+            this.InitializeComponent();
+        }
+
+        protected WizardSetting CurrentSetting
+        {
+            get { return this.wizardSettings[this.currentPosition]; }
         }
 
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-            if (wizardSettings != null)
+            if (this.wizardSettings != null)
             {
-                foreach (var page in wizardSettings)
+                foreach (var page in this.wizardSettings)
                 {
-                    page.Page.Validated += new EventHandler(Page_Validated);
-                    page.Page.Validating += new CancelEventHandler(Page_Validating);
+                    page.Page.Validated += new EventHandler(this.Page_Validated);
+                    page.Page.Validating += new CancelEventHandler(this.Page_Validating);
                 }
 
-                if (wizardSettings.Count() > 1)
+                if (this.wizardSettings.Count() > 1)
                 {
-                    DisplayNavigation();
+                    this.DisplayNavigation();
                 }
                 else
                 {
-                    HideNavigation();
-                }            
-                DisplayCurrentPage();
+                    this.HideNavigation();
+                }
+                this.DisplayCurrentPage();
             }
         }
 
-        void Page_Validating(object sender, CancelEventArgs e)
+        private void Page_Validating(object sender, CancelEventArgs e)
         {
             this.CurrentSetting.Validated = false;
-            RefreshNavigation();
+            this.RefreshNavigation();
         }
 
-        void Page_Validated(object sender, EventArgs e)
+        private void Page_Validated(object sender, EventArgs e)
         {
             this.CurrentSetting.Validated = true;
-            RefreshNavigation();
+            this.RefreshNavigation();
         }
 
         private void DisplayCurrentPage()
@@ -68,17 +61,20 @@ namespace Chiffrage
             this.CurrentSetting.Validated = false;
             this.panelContent.Controls.Clear();
             this.CurrentSetting.Page.Dock = DockStyle.Fill;
-            this.panelContent.Controls.Add(this.CurrentSetting.Page);            
+            this.panelContent.Controls.Add(this.CurrentSetting.Page);
             this.labelTitle.Text = this.CurrentSetting.Title;
             this.labelDescription.Text = this.CurrentSetting.Description;
-            RefreshNavigation();
+            this.RefreshNavigation();
         }
 
         private void RefreshNavigation()
         {
-            this.buttonFinnish.Enabled = (this.CurrentSetting.CanFinish || currentPosition == this.wizardSettings.Length - 1);// && this.CurrentSetting.Validated;
-            this.buttonBack.Enabled = currentPosition > 0;
-            this.buttonNext.Enabled = currentPosition < this.wizardSettings.Length - 1 && this.CurrentSetting.Validated;
+            this.buttonFinnish.Enabled = (this.CurrentSetting.CanFinish ||
+                                          this.currentPosition == this.wizardSettings.Length - 1);
+                // && this.CurrentSetting.Validated;
+            this.buttonBack.Enabled = this.currentPosition > 0;
+            this.buttonNext.Enabled = this.currentPosition < this.wizardSettings.Length - 1 &&
+                                      this.CurrentSetting.Validated;
         }
 
         private void HideNavigation()
@@ -96,24 +92,24 @@ namespace Chiffrage
         public DialogResult ShowDialog(WizardSetting wizardSetting)
         {
             this.wizardSettings = new WizardSetting[] {wizardSetting};
-            return this.ShowDialog();
+            return ShowDialog();
         }
 
         public DialogResult ShowDialog(IEnumerable<WizardSetting> wizardSettings)
         {
             this.wizardSettings = wizardSettings.ToArray();
-            return this.ShowDialog();
+            return ShowDialog();
         }
 
         private void buttonBack_Click(object sender, EventArgs e)
         {
-            currentPosition--;
+            this.currentPosition--;
             this.DisplayCurrentPage();
         }
 
         private void buttonNext_Click(object sender, EventArgs e)
         {
-            currentPosition++;
+            this.currentPosition++;
             this.DisplayCurrentPage();
         }
     }
