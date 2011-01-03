@@ -3,7 +3,7 @@ using Chiffrage.Mvc.Events;
 using Spring.Objects.Factory.Config;
 using Strongshell.Recoil.Core.Composition;
 
-namespace Chiffrage
+namespace Chiffrage.Ioc
 {
     public class MvcContainer : WiringContainer
     {

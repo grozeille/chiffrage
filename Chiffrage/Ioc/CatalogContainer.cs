@@ -5,7 +5,7 @@ using FluentNHibernate.Cfg.Db;
 using NHibernate.ByteCode.Spring;
 using Strongshell.Recoil.Core.Composition;
 
-namespace Chiffrage
+namespace Chiffrage.Ioc
 {
     public class CatalogContainer : WiringContainer
     {
