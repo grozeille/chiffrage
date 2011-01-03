@@ -199,7 +199,7 @@ namespace Chiffrage
             this.SuspendLayout();
             catalogUserControl.Visible = false;
             dealUserControl.Visible = true;
-            dealUserControl.Deal = DealViewModel.Build(deal);
+            //dealUserControl.Deal = DealViewModel.Build(deal);
             projectUserControl.Visible = false;
             this.ResumeLayout(true);
         }
@@ -454,7 +454,7 @@ namespace Chiffrage
             {
                 if (MessageBox.Show("Voulez-vous sauvegarder vos affaires avant de quitter?", "Sauvegarder", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.OK)
                 {
-                    SaveCurrentDeals(this.dealUserControl.Deal);                    
+                    //SaveCurrentDeals(this.dealUserControl.Deal);                    
                 }
             }
 
@@ -503,7 +503,7 @@ namespace Chiffrage
                 if (string.IsNullOrEmpty(filePath))
                     SaveDealsAs();
 
-                SaveCurrentDeals(this.dealUserControl.Deal);
+                //SaveCurrentDeals(this.dealUserControl.Deal);
             }
         }
 
@@ -595,7 +595,7 @@ namespace Chiffrage
                                              MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
                 if (result == System.Windows.Forms.DialogResult.Yes)
                 {
-                    this.SaveCurrentDeals(this.dealUserControl.Deal);
+                    //this.SaveCurrentDeals(this.dealUserControl.Deal);
                     this.DealsDirty = false;
                 }
                 else if(result == System.Windows.Forms.DialogResult.Cancel)

@@ -411,13 +411,11 @@
             // dealUserControl
             // 
             this.dealUserControl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.dealUserControl.Deal = null;
             this.dealUserControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dealUserControl.Location = new System.Drawing.Point(0, 3);
             this.dealUserControl.Name = "dealUserControl";
             this.dealUserControl.Size = new System.Drawing.Size(796, 503);
-            this.dealUserControl.TabIndex = 1;
-            this.dealUserControl.OnDealChanged += new System.EventHandler(this.dealUserControl_OnDealChanged);
+            this.dealUserControl.TabIndex = 1;            
             // 
             // catalogUserControl
             // 

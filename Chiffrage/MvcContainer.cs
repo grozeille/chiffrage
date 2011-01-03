@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Chiffrage.App.Controllers;
+using Chiffrage.Mvc.Events;
 using Strongshell.Recoil.Core.Composition;
 using Spring.Objects.Factory.Config;
 using Chiffrage.App.Events;

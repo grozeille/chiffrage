@@ -314,6 +314,10 @@
       <Project>{BD6DAC1A-3B56-4E12-84DE-E7BD79316FF6}</Project>
       <Name>Chiffrage.Catalogs.Domain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Chiffrage.Mvc\Chiffrage.Mvc.csproj">
+      <Project>{771D2DDA-D611-4E74-8857-6E60C08536EE}</Project>
+      <Name>Chiffrage.Mvc</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Chiffrage.Projects.Dal\Chiffrage.Projects.Dal.csproj">
       <Project>{E0FD926A-6B66-459F-A667-D5EFEF605129}</Project>
       <Name>Chiffrage.Projects.Dal</Name>

@@ -8,22 +8,6 @@ namespace Chiffrage.App.ViewModel
 {
     public class DealViewModel
     {
-        public static DealViewModel Build(Deal deal)
-        {
-            if (deal == null)
-                return null;
-
-            return new DealViewModel
-                       {
-                           Id = deal.Id,
-                           Name = deal.Name,
-                           Reference = deal.Reference,
-                           StartDate = deal.StartDate,
-                           EndDate = deal.EndDate,
-                           Comment = deal.Comment
-                       };
-        }
-
         public int Id { get; set; }
 
         public string Name { get; set; }

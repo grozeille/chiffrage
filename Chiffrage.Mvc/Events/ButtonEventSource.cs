@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace Chiffrage.App.Events
+namespace Chiffrage.Mvc.Events
 {
     public static class ButtonEventSource
     {

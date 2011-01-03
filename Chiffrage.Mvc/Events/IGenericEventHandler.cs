@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Chiffrage.App.Events
+namespace Chiffrage.Mvc.Events
 {
     public interface IGenericEventHandler<T> :IEventHandler
         where T : IEvent

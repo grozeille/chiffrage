@@ -9,6 +9,8 @@ using System.Windows.Forms;
 using Chiffrage.App.ViewModel;
 using Chiffrage.App.Views;
 using Chiffrage.App.Events;
+using Chiffrage.Mvc.Events;
+using Chiffrage.Mvc.Views;
 
 namespace Chiffrage
 {

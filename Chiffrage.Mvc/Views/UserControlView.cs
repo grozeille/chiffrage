@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 
-namespace Chiffrage.App.Views
+namespace Chiffrage.Mvc.Views
 {
     public class UserControlView : UserControl, IView
     {

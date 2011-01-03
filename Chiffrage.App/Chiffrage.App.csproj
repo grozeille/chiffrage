@@ -54,20 +54,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\DealController.cs" />
     <Compile Include="Events\ApplicationStartEvent.cs" />
-    <Compile Include="Events\ButtonEventSource.cs" />
     <Compile Include="Events\CatalogSelectedEvent.cs" />
     <Compile Include="Events\CatalogUnselectedEvent.cs" />
     <Compile Include="Events\ProjectSelectedEvent.cs" />
     <Compile Include="Events\ProjectUnselectedEvent.cs" />
     <Compile Include="Events\DealSelectedEvent.cs" />
     <Compile Include="Events\DealUnselectedEvent.cs" />
-    <Compile Include="Events\EventBroker.cs" />
-    <Compile Include="Events\IEvent.cs" />
-    <Compile Include="Events\IEventBroker.cs" />
-    <Compile Include="Events\IEventHandler.cs" />
-    <Compile Include="Events\IGenericEventHandler.cs" />
-    <Compile Include="Events\TreeNodeEventSource.cs" />
     <Compile Include="Controllers\ApplicationController.cs" />
     <Compile Include="Controllers\CatalogController.cs" />
     <Compile Include="Controllers\IApplicationController.cs" />
@@ -94,15 +88,16 @@
     <Compile Include="ViewModel\ProjectTreeNode.cs" />
     <Compile Include="Views\IApplicationView.cs" />
     <Compile Include="Views\ICatalogView.cs" />
-    <Compile Include="Views\IView.cs" />
-    <Compile Include="Views\UserControlView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Include="Views\IDealView.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Chiffrage.Catalogs.Domain\Chiffrage.Catalogs.Domain.csproj">
       <Project>{BD6DAC1A-3B56-4E12-84DE-E7BD79316FF6}</Project>
       <Name>Chiffrage.Catalogs.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Chiffrage.Mvc\Chiffrage.Mvc.csproj">
+      <Project>{771D2DDA-D611-4E74-8857-6E60C08536EE}</Project>
+      <Name>Chiffrage.Mvc</Name>
     </ProjectReference>
     <ProjectReference Include="..\Chiffrage.Projects.Domain\Chiffrage.Projects.Domain.csproj">
       <Project>{28B2F9CD-626A-425C-8D41-CAB32F21134F}</Project>

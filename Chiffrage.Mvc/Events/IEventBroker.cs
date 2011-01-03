@@ -1,4 +1,4 @@
-namespace Chiffrage.App.Events
+namespace Chiffrage.Mvc.Events
 {
     public interface IEventBroker
     {

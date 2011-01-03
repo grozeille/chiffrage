@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chiffrage.Tests", "Chiffrag
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chiffrage.App", "Chiffrage.App\Chiffrage.App.csproj", "{97DC56B8-7346-41B9-A632-69EBF064F3B7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chiffrage.Mvc", "Chiffrage.Mvc\Chiffrage.Mvc.csproj", "{771D2DDA-D611-4E74-8857-6E60C08536EE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +51,10 @@ Global
 		{97DC56B8-7346-41B9-A632-69EBF064F3B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{97DC56B8-7346-41B9-A632-69EBF064F3B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{97DC56B8-7346-41B9-A632-69EBF064F3B7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{771D2DDA-D611-4E74-8857-6E60C08536EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{771D2DDA-D611-4E74-8857-6E60C08536EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{771D2DDA-D611-4E74-8857-6E60C08536EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{771D2DDA-D611-4E74-8857-6E60C08536EE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

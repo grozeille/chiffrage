@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Chiffrage.App.Events
+namespace Chiffrage.Mvc.Events
 {
-    public class IEvent
+    public interface IEventHandler
     {
     }
 }

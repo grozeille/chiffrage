@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Chiffrage.App.Events;
+using Chiffrage.Mvc.Events;
 using Spring.Objects.Factory;
 using Spring.Context;
 

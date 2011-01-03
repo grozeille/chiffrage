@@ -1,57 +1,34 @@
 ﻿using System;
 using System.Windows.Forms;
 using Chiffrage.App.ViewModel;
+using Chiffrage.App.Views;
 using Chiffrage.Core;
+using Chiffrage.Mvc.Views;
 using Chiffrage.Projects.Domain;
 using Chiffrage.ViewModel;
 
 namespace Chiffrage
 {
-    public partial class DealUserControl : UserControl
+    public partial class DealUserControl : UserControlView, IDealView
     {
-        private DealViewModel deal;
+        private int dealId;
 
         public DealUserControl()
         {
             InitializeComponent();
         }
 
-        public DealViewModel Deal
+        public void DisplayDeal(DealViewModel viewModel)
         {
-            get { return deal; }
-            set
-            {
-                deal = value;
-                RefreshDeal();
-            }
-        }
+            if (!(viewModel.Comment.StartsWith("{\\rtf") && viewModel.Comment.EndsWith("}")))
+                viewModel.Comment = "{\\rtf" + viewModel.Comment + "}";
 
-        public event EventHandler OnDealChanged;
-
-        private void RefreshDeal()
-        {
-            if (deal == null)
-                return;
-            if (deal.Comment == null)
-                deal.Comment = string.Empty;
-            if (!(deal.Comment.StartsWith("{\\rtf") && deal.Comment.EndsWith("}")))
-                deal.Comment = "{\\rtf" + deal.Comment + "}";
-            if (deal.StartDate == DateTime.MinValue)
-                deal.StartDate = DateTime.Now;
-            if (deal.EndDate == DateTime.MinValue)
-                deal.EndDate = DateTime.Now;
-
-            dealBindingSource.DataSource = deal;
-        }
-
-        private void textBoxDealName_TextChanged(object sender, EventArgs e)
-        {
-        }
-
-        private void dealBindingSource_CurrentItemChanged(object sender, EventArgs e)
-        {
-            if (OnDealChanged != null)
-                OnDealChanged(this, new EventArgs());
+            this.dealId = viewModel.Id;
+            this.textBoxDealName.Text = viewModel.Name;
+            this.textBoxReference.Text = viewModel.Reference;
+            this.dateTimePickerDealBegin.Value = viewModel.StartDate;
+            this.dateTimePickerDealEnd.Value = viewModel.EndDate;
+            this.commentUserControl.Rtf = viewModel.Comment;
         }
     }
-}
+} 

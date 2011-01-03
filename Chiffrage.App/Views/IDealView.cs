@@ -7,8 +7,8 @@ using Chiffrage.Mvc.Views;
 
 namespace Chiffrage.App.Views
 {
-    public interface ICatalogView: IView
+    public interface IDealView : IView
     {
-        void Display(CatalogViewModel viewModel);
+        void DisplayDeal(DealViewModel viewModel);
     }
 }

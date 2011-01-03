@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Threading;
 using Common.Logging;
 
-namespace Chiffrage.App.Events
+namespace Chiffrage.Mvc.Events
 {
     public class EventBroker : IEventBroker
     {

@@ -28,8 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.dealBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.dateTimePickerDealEnd = new System.Windows.Forms.DateTimePicker();
             this.labelEnd = new System.Windows.Forms.Label();
             this.dateTimePickerDealBegin = new System.Windows.Forms.DateTimePicker();
@@ -40,18 +38,11 @@
             this.labelDeal = new System.Windows.Forms.Label();
             this.panelMain = new System.Windows.Forms.Panel();
             this.commentUserControl = new Chiffrage.CommentUserControl();
-            ((System.ComponentModel.ISupportInitialize)(this.dealBindingSource)).BeginInit();
             this.panelMain.SuspendLayout();
             this.SuspendLayout();
             // 
-            // dealBindingSource
-            // 
-            this.dealBindingSource.DataSource = typeof(Chiffrage.App.ViewModel.DealViewModel);
-            this.dealBindingSource.CurrentItemChanged += new System.EventHandler(this.dealBindingSource_CurrentItemChanged);
-            // 
             // dateTimePickerDealEnd
             // 
-            this.dateTimePickerDealEnd.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.dealBindingSource, "EndDate", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.dateTimePickerDealEnd.Location = new System.Drawing.Point(76, 87);
             this.dateTimePickerDealEnd.Name = "dateTimePickerDealEnd";
             this.dateTimePickerDealEnd.Size = new System.Drawing.Size(200, 20);
@@ -68,7 +59,6 @@
             // 
             // dateTimePickerDealBegin
             // 
-            this.dateTimePickerDealBegin.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.dealBindingSource, "StartDate", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.dateTimePickerDealBegin.Location = new System.Drawing.Point(76, 61);
             this.dateTimePickerDealBegin.Name = "dateTimePickerDealBegin";
             this.dateTimePickerDealBegin.Size = new System.Drawing.Size(200, 20);
@@ -85,7 +75,6 @@
             // 
             // textBoxReference
             // 
-            this.textBoxReference.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.dealBindingSource, "Reference", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.textBoxReference.Location = new System.Drawing.Point(76, 36);
             this.textBoxReference.Name = "textBoxReference";
             this.textBoxReference.Size = new System.Drawing.Size(200, 20);
@@ -102,12 +91,10 @@
             // 
             // textBoxDealName
             // 
-            this.textBoxDealName.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.dealBindingSource, "Name", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.textBoxDealName.Location = new System.Drawing.Point(76, 10);
             this.textBoxDealName.Name = "textBoxDealName";
             this.textBoxDealName.Size = new System.Drawing.Size(200, 20);
             this.textBoxDealName.TabIndex = 1;
-            this.textBoxDealName.TextChanged += new System.EventHandler(this.textBoxDealName_TextChanged);
             // 
             // labelDeal
             // 
@@ -136,7 +123,6 @@
             // 
             // commentUserControl
             // 
-            this.commentUserControl.DataBindings.Add(new System.Windows.Forms.Binding("Rtf", this.dealBindingSource, "Comment", true));
             this.commentUserControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.commentUserControl.Location = new System.Drawing.Point(0, 121);
             this.commentUserControl.Name = "commentUserControl";
@@ -153,7 +139,6 @@
             this.Controls.Add(this.panelMain);
             this.Name = "DealUserControl";
             this.Size = new System.Drawing.Size(445, 381);
-            ((System.ComponentModel.ISupportInitialize)(this.dealBindingSource)).EndInit();
             this.panelMain.ResumeLayout(false);
             this.panelMain.PerformLayout();
             this.ResumeLayout(false);
@@ -171,7 +156,6 @@
         private System.Windows.Forms.TextBox textBoxReference;
         private System.Windows.Forms.Label labelRef;
         private CommentUserControl commentUserControl;
-        private System.Windows.Forms.BindingSource dealBindingSource;
         private System.Windows.Forms.Panel panelMain;
     }
 }

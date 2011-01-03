@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using Chiffrage.App.Events;
 using Chiffrage.Catalogs.Dal.Repositories;
 using Chiffrage.Catalogs.Domain;
+using Chiffrage.Mvc.Events;
 using Chiffrage.Projects.Dal.Repositories;
 using Common.Logging;
 using FluentNHibernate.Cfg;

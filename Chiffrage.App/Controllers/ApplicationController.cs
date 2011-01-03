@@ -5,6 +5,7 @@ using System.Text;
 using Chiffrage.App.Events;
 using Chiffrage.App.Views;
 using Chiffrage.Catalogs.Domain.Repositories;
+using Chiffrage.Mvc.Events;
 using Chiffrage.Projects.Domain.Repositories;
 using Chiffrage.App.ViewModel;
 using AutoMapper;

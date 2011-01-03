@@ -8,6 +8,7 @@ using Chiffrage.App.ViewModel;
 using Chiffrage.App.Views;
 using Chiffrage.Catalogs.Domain;
 using Chiffrage.Catalogs.Domain.Repositories;
+using Chiffrage.Mvc.Events;
 
 namespace Chiffrage.App.Controllers
 {

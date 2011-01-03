@@ -8,6 +8,7 @@ using AutoMapper;
 using Chiffrage.App.ViewModel;
 using Chiffrage.Catalogs.Domain;
 using Chiffrage.Core;
+using Chiffrage.Mvc.Views;
 using Chiffrage.WizardPages;
 using Chiffrage.ViewModel;
 using Chiffrage.App.Views;
