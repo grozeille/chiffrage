@@ -34,7 +34,6 @@
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.aProposToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aideToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.panelMain = new System.Windows.Forms.Panel();
             this.splitContainer = new System.Windows.Forms.SplitContainer();
             this.imageList = new System.Windows.Forms.ImageList(this.components);
             this.historyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -70,13 +69,15 @@
             this.catalogueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemCloseCatalog = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparatorSave = new System.Windows.Forms.ToolStripSeparator();
-            this.panelMain.SuspendLayout();
+            this.splitContainerMain = new System.Windows.Forms.SplitContainer();
             this.splitContainer.SuspendLayout();
             this.contextMenuStripDeal.SuspendLayout();
             this.contextMenuStripCatalogsRoot.SuspendLayout();
             this.contextMenuStripDealsRoot.SuspendLayout();
             this.toolStrip.SuspendLayout();
             this.menuStrip.SuspendLayout();
+            this.splitContainerMain.Panel1.SuspendLayout();
+            this.splitContainerMain.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStripSeparatorHelp
@@ -105,21 +106,11 @@
             this.aideToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.aideToolStripMenuItem.Text = "Aide";
             // 
-            // panelMain
-            // 
-            this.panelMain.Controls.Add(this.splitContainer);
-            this.panelMain.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelMain.Location = new System.Drawing.Point(0, 49);
-            this.panelMain.Name = "panelMain";
-            this.panelMain.Padding = new System.Windows.Forms.Padding(3);
-            this.panelMain.Size = new System.Drawing.Size(821, 493);
-            this.panelMain.TabIndex = 4;
-            // 
             // splitContainer
             // 
             this.splitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
-            this.splitContainer.Location = new System.Drawing.Point(3, 3);
+            this.splitContainer.Location = new System.Drawing.Point(0, 0);
             this.splitContainer.Name = "splitContainer";
             // 
             // splitContainer.Panel1
@@ -129,7 +120,7 @@
             // splitContainer.Panel2
             // 
             this.splitContainer.Panel2.Padding = new System.Windows.Forms.Padding(0, 3, 3, 3);
-            this.splitContainer.Size = new System.Drawing.Size(815, 487);
+            this.splitContainer.Size = new System.Drawing.Size(821, 386);
             this.splitContainer.SplitterDistance = 172;
             this.splitContainer.TabIndex = 2;
             // 
@@ -237,7 +228,6 @@
             // 
             // saveToolStripButton
             // 
-            this.saveToolStripButton.Enabled = false;
             this.saveToolStripButton.Image = global::Chiffrage.Properties.Resources.disk;
             this.saveToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.saveToolStripButton.Name = "saveToolStripButton";
@@ -399,18 +389,32 @@
             this.toolStripSeparatorSave.Name = "toolStripSeparatorSave";
             this.toolStripSeparatorSave.Size = new System.Drawing.Size(176, 6);
             // 
+            // splitContainerMain
+            // 
+            this.splitContainerMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainerMain.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
+            this.splitContainerMain.Location = new System.Drawing.Point(0, 49);
+            this.splitContainerMain.Name = "splitContainerMain";
+            this.splitContainerMain.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainerMain.Panel1
+            // 
+            this.splitContainerMain.Panel1.Controls.Add(this.splitContainer);
+            this.splitContainerMain.Size = new System.Drawing.Size(821, 493);
+            this.splitContainerMain.SplitterDistance = 386;
+            this.splitContainerMain.TabIndex = 8;
+            // 
             // FormContainer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(821, 564);
-            this.Controls.Add(this.panelMain);
+            this.Controls.Add(this.splitContainerMain);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.toolStrip);
             this.Controls.Add(this.menuStrip);
             this.Name = "FormContainer";
             this.Text = "FormContainer";
-            this.panelMain.ResumeLayout(false);
             this.splitContainer.ResumeLayout(false);
             this.contextMenuStripDeal.ResumeLayout(false);
             this.contextMenuStripCatalogsRoot.ResumeLayout(false);
@@ -419,6 +423,8 @@
             this.toolStrip.PerformLayout();
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
+            this.splitContainerMain.Panel1.ResumeLayout(false);
+            this.splitContainerMain.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -430,7 +436,6 @@
         private System.Windows.Forms.StatusStrip statusStrip;
         private System.Windows.Forms.ToolStripMenuItem aProposToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aideToolStripMenuItem;
-        private System.Windows.Forms.Panel panelMain;
         private System.Windows.Forms.SplitContainer splitContainer;
         private System.Windows.Forms.ImageList imageList;
         private System.Windows.Forms.ToolStripMenuItem historyToolStripMenuItem;
@@ -466,5 +471,6 @@
         private System.Windows.Forms.ToolStripMenuItem catalogueToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemCloseCatalog;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparatorSave;
+        private System.Windows.Forms.SplitContainer splitContainerMain;
     }
 }

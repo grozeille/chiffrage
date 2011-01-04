@@ -1,24 +1,31 @@
-﻿using AutoMapper;
+﻿using System;
+using AutoMapper;
 using Chiffrage.App.Events;
 using Chiffrage.App.ViewModel;
 using Chiffrage.App.Views;
 using Chiffrage.Mvc.Events;
 using Chiffrage.Projects.Domain;
 using Chiffrage.Projects.Domain.Repositories;
+using System.Linq;
 
 namespace Chiffrage.App.Controllers
 {
     public class DealController :
         IGenericEventHandler<DealSelectedEvent>,
         IGenericEventHandler<DealUnselectedEvent>,
-        IGenericEventHandler<ApplicationStartEvent>
+        IGenericEventHandler<ApplicationStartEvent>,
+        IGenericEventHandler<SaveEvent>,
+        IGenericEventHandler<DealUpdatedEvent>
     {
-        private readonly IDealRepository dealRepository;
-        private readonly IDealView dealView;
+        private readonly IEventBroker eventBroker;
 
-        public DealController(IDealRepository dealRepository, IDealView dealView)
+        private readonly IDealRepository dealRepository;
+        private readonly IDealView view;
+
+        public DealController(IEventBroker eventBroker, IDealRepository dealRepository, IDealView view)
         {
-            this.dealView = dealView;
+            this.eventBroker = eventBroker;
+            this.view = view;
             this.dealRepository = dealRepository;
         }
 
@@ -26,7 +33,7 @@ namespace Chiffrage.App.Controllers
 
         public void ProcessAction(ApplicationStartEvent eventObject)
         {
-            this.dealView.HideView();
+            this.view.HideView();
         }
 
         #endregion
@@ -41,8 +48,8 @@ namespace Chiffrage.App.Controllers
 
             var dealViewModel = Mapper.Map<Deal, DealViewModel>(deal);
 
-            this.dealView.DisplayDeal(dealViewModel);
-            this.dealView.ShowView();
+            this.view.Display(dealViewModel);
+            this.view.ShowView();
         }
 
         #endregion
@@ -51,9 +58,37 @@ namespace Chiffrage.App.Controllers
 
         public void ProcessAction(DealUnselectedEvent eventObject)
         {
-            this.dealView.HideView();
+            this.view.HideView();
         }
 
         #endregion
+
+        public void ProcessAction(SaveEvent eventObject)
+        {
+            var viewModel = this.view.GetViewModel();
+            if (viewModel == null)
+            {
+                return;
+            }
+
+            Mapper.CreateMap<DealViewModel, Deal>();
+
+            var deal = this.dealRepository.FindById(viewModel.Id);
+
+            Mapper.Map(viewModel, deal);
+
+            this.dealRepository.Save(deal);
+
+            this.eventBroker.Publish(new DealUpdatedEvent(deal));
+        }
+
+        public void ProcessAction(DealUpdatedEvent eventObject)
+        {
+            Mapper.CreateMap<Deal, DealViewModel>();
+
+            var result = Mapper.Map<Deal, DealViewModel>(eventObject.NewDeal);
+
+            this.view.Display(result);
+        }
     }
 }

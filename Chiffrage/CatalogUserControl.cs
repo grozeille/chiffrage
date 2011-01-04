@@ -12,8 +12,7 @@ namespace Chiffrage
 {
     public partial class CatalogUserControl : UserControlView, ICatalogView
     {
-        private CatalogViewModel catalog;
-        private int id;
+        private int? catalogId;
 
         private bool loading = false;
 
@@ -24,16 +23,6 @@ namespace Chiffrage
 
         public Catalog GlobalCatalog { get; set; }
 
-        public CatalogViewModel Catalog
-        {
-            get { return this.catalog; }
-            set
-            {
-                this.catalog = value;
-                this.RefreshCatalog();
-            }
-        }
-
         #region ICatalogView Members
 
         public void Display(CatalogViewModel viewModel)
@@ -41,44 +30,35 @@ namespace Chiffrage
             this.InvokeIfRequired(() =>
             {
                 this.textBoxCatalogName.Text = viewModel.SupplierName;
-                this.id = viewModel.Id;
+                this.catalogId = viewModel.Id;
                 if (!(viewModel.Comment.StartsWith("{\\rtf") && viewModel.Comment.EndsWith("}")))
                     viewModel.Comment = "{\\rtf" + viewModel.Comment + "}";
                 this.commentUserControl.Rtf = viewModel.Comment;
             });
         }
 
+        public CatalogViewModel GetViewModel()
+        {
+            return this.InvokeIfRequired(() =>
+            {
+                if (!this.catalogId.HasValue)
+                {
+                    return null;
+                }
+
+                var viewModel = new CatalogViewModel();
+
+                viewModel.SupplierName = this.textBoxCatalogName.Text;
+                viewModel.Id = this.catalogId.Value;                
+                viewModel.Comment = this.commentUserControl.Rtf;
+
+                return viewModel;
+            });
+        }
+
         #endregion
 
         public event EventHandler CatalogChanged;
-
-        private void RefreshCatalog()
-        {
-            this.loading = true;
-
-            /*if (catalog != null)
-            {
-                if (catalog.Comment == null)
-                    catalog.Comment = string.Empty;
-                if (!(catalog.Comment.StartsWith("{\\rtf") && catalog.Comment.EndsWith("}")))
-                    catalog.Comment = "{\\rtf" + catalog.Comment + "}";
-
-                catalogBindingSource.DataSource = catalog;        
-            }*/
-            this.loading = false;
-            this.RefreshCategories();
-        }
-
-        private void CatalogUserControl_Load(object sender, EventArgs e)
-        {
-            /*SupplyCategory.DataSource = Enum.GetValues(typeof(SupplyCategory));
-            SupplyCategory.DataPropertyName = "SupplyCategory";
-            SupplyCategory.Name = "SupplyCategory";*/
-        }
-
-        private void comboBoxCategory_SelectedIndexChanged(object sender, EventArgs e)
-        {
-        }
 
         private void FireCatalogChanged()
         {
@@ -116,14 +96,6 @@ namespace Chiffrage
         private void item_CurrentItemChanged(object sender, EventArgs e)
         {
             this.FireCatalogChanged();
-        }
-
-        private void toolStripButtonAddHardware_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void toolStripButtonRemoveHardware_Click(object sender, EventArgs e)
-        {
         }
 
         private void toolStripComboBoxCategory_SelectedIndexChanged(object sender, EventArgs e)
@@ -196,6 +168,12 @@ namespace Chiffrage
         private void toolStripButtonHardwareRemove_Click(object sender, EventArgs e)
         {
             this.componentsBindingSource.RemoveCurrent();
+        }
+
+        public override void HideView()
+        {
+            this.catalogId = null;
+            base.HideView();
         }
     }
 }

@@ -468,7 +468,7 @@ namespace Chiffrage
         {
             if (this.catalogUserControl.Visible == true)
             {
-                this.SaveCatalog(this.catalogUserControl.Catalog);
+                //this.SaveCatalog(this.catalogUserControl.Catalog);
             }
             else if (this.projectUserControl.Visible == true)
             {
@@ -553,7 +553,7 @@ namespace Chiffrage
                     MessageBox.Show("Voulez-vous sauvegarder le catalogue avant de changer?", "Sauvegarder",
                                     MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
                 {
-                    this.SaveCatalog(this.catalogUserControl.Catalog);
+                    //this.SaveCatalog(this.catalogUserControl.Catalog);
                     this.CatalogDirty = false;
                 }
                 else

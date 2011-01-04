@@ -1040,7 +1040,6 @@
             this.Controls.Add(this.tabControl);
             this.Name = "CatalogUserControl";
             this.Size = new System.Drawing.Size(572, 373);
-            this.Load += new System.EventHandler(this.CatalogUserControl_Load);
             this.tabControl.ResumeLayout(false);
             this.tabPageMainInfo.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.catalogBindingSource)).EndInit();

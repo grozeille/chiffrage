@@ -100,6 +100,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ErrorLogView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ErrorLogView.Designer.cs">
+      <DependentUpon>ErrorLogView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Ioc\CatalogContainer.cs" />
     <Compile Include="ApplicationItemUserControl.cs">
       <SubType>UserControl</SubType>
@@ -169,6 +175,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DealUserControl.resx">
       <DependentUpon>DealUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ErrorLogView.resx">
+      <DependentUpon>ErrorLogView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormContainer.resx">
       <DependentUpon>FormContainer.cs</DependentUpon>

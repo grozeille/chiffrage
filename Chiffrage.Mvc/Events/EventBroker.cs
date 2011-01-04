@@ -84,8 +84,9 @@ namespace Chiffrage.Mvc.Events
                                         }
                                         catch (Exception ex)
                                         {
-                                            LogManager.GetLogger<EventBroker>().ErrorFormat("Unable to dispatch event",
-                                                                                            ex);
+                                            LogManager.GetLogger<EventBroker>().ErrorFormat("Unable to dispatch event", ex);
+
+                                            this.Publish(new ErrorEvent(ex));
                                         }
                                     }
                                 }

@@ -7,7 +7,7 @@ namespace Chiffrage
 {
     public partial class DealUserControl : UserControlView, IDealView
     {
-        private int dealId;
+        private int? dealId;
 
         public DealUserControl()
         {
@@ -16,7 +16,7 @@ namespace Chiffrage
 
         #region IDealView Members
 
-        public void DisplayDeal(DealViewModel viewModel)
+        public void Display(DealViewModel viewModel)
         {
             this.InvokeIfRequired(() =>
             {
@@ -32,6 +32,34 @@ namespace Chiffrage
             });
         }
 
-        #endregion       
+        public DealViewModel GetViewModel()
+        {
+            return this.InvokeIfRequired(() =>
+            {
+                if(!this.dealId.HasValue)
+                {
+                    return null;
+                }
+
+                var viewModel = new DealViewModel();
+
+                viewModel.Id = this.dealId.Value;
+                viewModel.Name = this.textBoxDealName.Text;
+                viewModel.Reference = this.textBoxReference.Text;
+                viewModel.StartDate = this.dateTimePickerDealBegin.Value;
+                viewModel.EndDate = this.dateTimePickerDealEnd.Value;
+                viewModel.Comment = this.commentUserControl.Rtf;
+
+                return viewModel;
+            });
+        }
+
+        #endregion
+
+        public override void HideView()
+        {
+            this.dealId = null;
+            base.HideView();
+        }
     }
 }

@@ -44,5 +44,18 @@ namespace Chiffrage.Mvc.Views
                 action();   
             }            
         }
+
+        public T InvokeIfRequired<T>(Func<T> func)
+        {
+            if (this.InvokeRequired)
+            {
+                var asyncResult = BeginInvoke(func);
+                return (T)EndInvoke(asyncResult);
+            }
+            else
+            {
+                return func();
+            }
+        }
     }
 }

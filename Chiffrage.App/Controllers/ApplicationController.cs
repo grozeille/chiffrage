@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using AutoMapper;
 using Chiffrage.App.Events;
 using Chiffrage.App.ViewModel;
@@ -11,23 +12,23 @@ using Chiffrage.Projects.Domain.Repositories;
 
 namespace Chiffrage.App.Controllers
 {
-    public class ApplicationController : IApplicationController,
-                                         IGenericEventHandler<ApplicationStartEvent>
+    public class ApplicationController : 
+        IGenericEventHandler<ApplicationStartEvent>,
+        IGenericEventHandler<CatalogUpdatedEvent>,
+        IGenericEventHandler<DealUpdatedEvent>
     {
         private readonly IApplicationView applicationView;
 
-        private readonly ICatalogController catalogController;
         private readonly ICatalogRepository catalogRepository;
 
         private readonly IDealRepository dealRepository;
 
         public ApplicationController(ICatalogRepository catalogRepository, IDealRepository dealRepository,
-                                     IApplicationView applicationView, ICatalogController catalogController)
+                                     IApplicationView applicationView)
         {
             this.catalogRepository = catalogRepository;
             this.dealRepository = dealRepository;
             this.applicationView = applicationView;
-            this.catalogController = catalogController;
         }
 
         #region IApplicationController Members
@@ -52,11 +53,6 @@ namespace Chiffrage.App.Controllers
             this.applicationView.Display(result);
         }
 
-        public void DisplayCatalog(int catalogId)
-        {
-            this.catalogController.DisplayCatalog(catalogId);
-        }
-
         #endregion
 
         #region IGenericEventHandler<ApplicationStartEvent> Members
@@ -67,5 +63,23 @@ namespace Chiffrage.App.Controllers
         }
 
         #endregion
+
+        public void ProcessAction(CatalogUpdatedEvent eventObject)
+        {
+            Mapper.CreateMap<SupplierCatalog, CatalogItemViewModel>();
+
+            var result = Mapper.Map<SupplierCatalog, CatalogItemViewModel>(eventObject.NewCatalog);
+
+            this.applicationView.UpdateCatalog(result);
+        }
+
+        public void ProcessAction(DealUpdatedEvent eventObject)
+        {
+            Mapper.CreateMap<Deal, DealItemViewModel>();
+
+            var result = Mapper.Map<Deal, DealItemViewModel>(eventObject.NewDeal);
+
+            this.applicationView.UpdateDeal(result);
+        }
     }
 }

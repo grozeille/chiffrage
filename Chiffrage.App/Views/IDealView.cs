@@ -5,6 +5,8 @@ namespace Chiffrage.App.Views
 {
     public interface IDealView : IView
     {
-        void DisplayDeal(DealViewModel viewModel);
+        void Display(DealViewModel viewModel);
+        
+        DealViewModel GetViewModel();
     }
 }

@@ -51,11 +51,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Events\ButtonEventSource.cs" />
+    <Compile Include="Events\ErrorEvent.cs" />
     <Compile Include="Events\EventBroker.cs" />
     <Compile Include="Events\IEvent.cs" />
     <Compile Include="Events\IEventBroker.cs" />
     <Compile Include="Events\IEventHandler.cs" />
     <Compile Include="Events\IGenericEventHandler.cs" />
+    <Compile Include="Events\ToolStripBouttonEventSource.cs" />
     <Compile Include="Events\TreeNodeEventSource.cs" />
     <Compile Include="Exceptions\NoParentViewException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

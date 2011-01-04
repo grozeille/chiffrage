@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System;
+using AutoMapper;
 using Chiffrage.App.Events;
 using Chiffrage.App.ViewModel;
 using Chiffrage.App.Views;
@@ -8,18 +9,21 @@ using Chiffrage.Mvc.Events;
 
 namespace Chiffrage.App.Controllers
 {
-    public class CatalogController : ICatalogController,
-                                     IGenericEventHandler<CatalogSelectedEvent>,
+    public class CatalogController : IGenericEventHandler<CatalogSelectedEvent>,
                                      IGenericEventHandler<CatalogUnselectedEvent>,
-                                     IGenericEventHandler<ApplicationStartEvent>
+                                     IGenericEventHandler<ApplicationStartEvent>,
+                                     IGenericEventHandler<CatalogUpdatedEvent>,
+                                     IGenericEventHandler<SaveEvent>
     {
         private readonly ICatalogRepository repository;
         private readonly ICatalogView view;
+        private readonly IEventBroker eventBroker;
 
-        public CatalogController(ICatalogView view, ICatalogRepository repository)
+        public CatalogController(IEventBroker eventBroker, ICatalogView view, ICatalogRepository repository)
         {
             this.view = view;
             this.repository = repository;
+            this.eventBroker = eventBroker;
         }
 
         /*
@@ -106,6 +110,8 @@ namespace Chiffrage.App.Controllers
             Mapper.Map(model, catalog);
 
             this.repository.Save(catalog);
+
+            this.eventBroker.Publish(new CatalogUpdatedEvent(catalog));
         }
 
         #endregion
@@ -137,5 +143,33 @@ namespace Chiffrage.App.Controllers
         }
 
         #endregion
+
+        public void ProcessAction(CatalogUpdatedEvent eventObject)
+        {
+            Mapper.CreateMap<SupplierCatalog, CatalogViewModel>();
+
+            var result = Mapper.Map<SupplierCatalog, CatalogViewModel>(eventObject.NewCatalog);
+
+            this.view.Display(result);
+        }
+
+        public void ProcessAction(SaveEvent eventObject)
+        {
+            var viewModel = this.view.GetViewModel();
+            if (viewModel == null)
+            {
+                return;
+            }
+
+            Mapper.CreateMap<CatalogViewModel, SupplierCatalog>();
+
+            var catalog = this.repository.FindById(viewModel.Id);
+
+            Mapper.Map(viewModel, catalog);
+
+            this.repository.Save(catalog);
+
+            this.eventBroker.Publish(new CatalogUpdatedEvent(catalog));
+        }
     }
 }

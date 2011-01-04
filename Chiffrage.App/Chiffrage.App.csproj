@@ -55,17 +55,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\DealController.cs" />
+    <Compile Include="Controllers\ErrorLogController.cs" />
     <Compile Include="Events\ApplicationStartEvent.cs" />
     <Compile Include="Events\CatalogSelectedEvent.cs" />
     <Compile Include="Events\CatalogUnselectedEvent.cs" />
+    <Compile Include="Events\CatalogUpdatedEvent.cs" />
+    <Compile Include="Events\DealUpdatedEvent.cs" />
     <Compile Include="Events\ProjectSelectedEvent.cs" />
     <Compile Include="Events\ProjectUnselectedEvent.cs" />
     <Compile Include="Events\DealSelectedEvent.cs" />
     <Compile Include="Events\DealUnselectedEvent.cs" />
     <Compile Include="Controllers\ApplicationController.cs" />
     <Compile Include="Controllers\CatalogController.cs" />
-    <Compile Include="Controllers\IApplicationController.cs" />
-    <Compile Include="Controllers\ICatalogController.cs" />
+    <Compile Include="Events\SaveEvent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModel\ApplicationItemViewModel.cs" />
     <Compile Include="ViewModel\CatalogHardwareSelectionViewModel.cs" />
@@ -81,14 +83,17 @@
     <Compile Include="ViewModel\DealTreeNode.cs" />
     <Compile Include="ViewModel\DealViewModel.cs" />
     <Compile Include="ViewModel\ICatalogItemSelectionViewModel.cs" />
+    <Compile Include="ViewModel\LogItemViewModel.cs" />
     <Compile Include="ViewModel\ProjectHardwareViewModel.cs" />
     <Compile Include="ViewModel\AbstractProjectItemViewModel.cs" />
     <Compile Include="ViewModel\ProjectItemViewModel.cs" />
     <Compile Include="ViewModel\ProjectSupplyViewModel.cs" />
     <Compile Include="ViewModel\ProjectTreeNode.cs" />
+    <Compile Include="ViewModel\SeverityType.cs" />
     <Compile Include="Views\IApplicationView.cs" />
     <Compile Include="Views\ICatalogView.cs" />
     <Compile Include="Views\IDealView.cs" />
+    <Compile Include="Views\IErrorLogView.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Chiffrage.Catalogs.Domain\Chiffrage.Catalogs.Domain.csproj">

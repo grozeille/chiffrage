@@ -1,4 +1,5 @@
-﻿using Chiffrage.App.Controllers;
+﻿using System;
+using Chiffrage.App.Controllers;
 using Chiffrage.Mvc.Events;
 using Chiffrage.Mvc.Views;
 using Spring.Aop.Framework.AutoProxy;
@@ -17,16 +18,15 @@ namespace Chiffrage.Ioc
 
             Define<EventHandlersFactory>()
                 .AsSingleton();
-            
-            Define<ApplicationController>()
-                .AutoWire(AutoWiringMode.Constructor)
-                .AsSingleton();
 
-            Define<CatalogController>()
-                .AutoWire(AutoWiringMode.Constructor)
-                .AsSingleton();
+            this.SetupControllers();
 
-            Define<DealController>()
+            this.Views();
+        }
+
+        private void Views()
+        {
+            Define<FormContainer>()
                 .AutoWire(AutoWiringMode.Constructor)
                 .AsSingleton();
 
@@ -42,9 +42,28 @@ namespace Chiffrage.Ioc
                 .AutoWire(AutoWiringMode.Constructor)
                 .AsSingleton();
 
-            Define<FormContainer>()
+            Define<ErrorLogView>()
                 .AutoWire(AutoWiringMode.Constructor)
                 .AsSingleton();
+        }
+
+        private void SetupControllers()
+        {
+            Define<ApplicationController>()
+                .AutoWire(AutoWiringMode.Constructor)
+                .AsSingleton();
+
+            Define<CatalogController>()
+                .AutoWire(AutoWiringMode.Constructor)
+                .AsSingleton();
+
+            Define<DealController>()
+                .AutoWire(AutoWiringMode.Constructor)
+                .AsSingleton();
+
+            Define<ErrorLogController>()
+               .AutoWire(AutoWiringMode.Constructor)
+               .AsSingleton();
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Chiffrage.App.ViewModel
 {
-    public struct CatalogViewModel
+    public class CatalogViewModel
     {
         public int Id { get; set; }
 

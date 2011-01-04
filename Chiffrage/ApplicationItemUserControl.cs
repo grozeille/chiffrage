@@ -1,4 +1,5 @@
-﻿using System;
+﻿using System.Linq;
+using System;
 using System.Windows.Forms;
 using Chiffrage.App.Events;
 using Chiffrage.App.ViewModel;
@@ -32,48 +33,89 @@ namespace Chiffrage
 
         public void Display(ApplicationItemViewModel viewModel)
         {
-            if (InvokeRequired)
+            this.InvokeIfRequired(() =>
             {
-                BeginInvoke(new Action<ApplicationItemViewModel>(this.Display), viewModel);
-                return;
-            }
+                this.treeView.BeginUpdate();
 
-            this.treeView.BeginUpdate();
+                this.treeNodeDeals.Nodes.Clear();
+                this.treeNodeCatalogs.Nodes.Clear();
 
-            this.treeNodeDeals.Nodes.Clear();
-            this.treeNodeCatalogs.Nodes.Clear();
-
-            foreach (var deal in viewModel.Deals)
-            {
-                var nodeDeal = this.treeNodeDeals.Nodes.Add("deal_" + deal.Id, deal.Name, "user_suit.png",
-                                                            "user_suit.png");
-                nodeDeal.Tag = deal;
-                this.eventBroker.RegisterTreeNodeSelectEventSource(nodeDeal, new DealSelectedEvent(deal.Id));
-                this.eventBroker.RegisterTreeNodeUnselectEventSource(nodeDeal, new DealUnselectedEvent(deal.Id));
-
-                foreach (var project in deal.Projects)
+                foreach (var deal in viewModel.Deals)
                 {
-                    var nodeProject = nodeDeal.Nodes.Add("project_" + project.Id, project.Name, "book_open.png",
-                                                         "book_open.png");
-                    nodeProject.Tag = project;
-                    this.eventBroker.RegisterTreeNodeSelectEventSource(nodeDeal, new ProjectSelectedEvent(project.Id));
-                    this.eventBroker.RegisterTreeNodeUnselectEventSource(nodeDeal,
-                                                                         new ProjectUnselectedEvent(project.Id));
+                    var nodeDeal = this.treeNodeDeals.Nodes.Add("deal_" + deal.Id, deal.Name, "user_suit.png",
+                                                                "user_suit.png");
+                    nodeDeal.Tag = deal;
+                    this.eventBroker.RegisterTreeNodeSelectEventSource(nodeDeal, new DealSelectedEvent(deal.Id));
+                    this.eventBroker.RegisterTreeNodeUnselectEventSource(nodeDeal, new DealUnselectedEvent(deal.Id));
+
+                    foreach (var project in deal.Projects)
+                    {
+                        var nodeProject = nodeDeal.Nodes.Add("project_" + project.Id, project.Name, "book_open.png",
+                                                             "book_open.png");
+                        nodeProject.Tag = project;
+                        this.eventBroker.RegisterTreeNodeSelectEventSource(nodeDeal,
+                                                                           new ProjectSelectedEvent(project.Id));
+                        this.eventBroker.RegisterTreeNodeUnselectEventSource(nodeDeal,
+                                                                             new ProjectUnselectedEvent(project.Id));
+                    }
                 }
-            }
-            this.treeNodeDeals.ExpandAll();
+                this.treeNodeDeals.ExpandAll();
 
-            foreach (var catalog in viewModel.Catalogs)
+                foreach (var catalog in viewModel.Catalogs)
+                {
+                    var nodeCatalog = this.treeNodeCatalogs.Nodes.Add("catalog_" + catalog.Id, catalog.SupplierName,
+                                                                      "table.png", "table.png");
+                    nodeCatalog.Tag = catalog;
+                    this.eventBroker.RegisterTreeNodeSelectEventSource(nodeCatalog, new CatalogSelectedEvent(catalog.Id));
+                    this.eventBroker.RegisterTreeNodeUnselectEventSource(nodeCatalog,
+                                                                         new CatalogUnselectedEvent(catalog.Id));
+                }
+                this.treeNodeCatalogs.ExpandAll();
+
+                this.treeView.EndUpdate();
+            });
+        }
+
+        public void UpdateCatalog(CatalogItemViewModel viewModel)
+        {
+            this.InvokeIfRequired(() =>
             {
-                var nodeCatalog = this.treeNodeCatalogs.Nodes.Add("catalog_" + catalog.Id, catalog.SupplierName,
-                                                                  "table.png", "table.png");
-                nodeCatalog.Tag = catalog;
-                this.eventBroker.RegisterTreeNodeSelectEventSource(nodeCatalog, new CatalogSelectedEvent(catalog.Id));
-                this.eventBroker.RegisterTreeNodeUnselectEventSource(nodeCatalog, new CatalogUnselectedEvent(catalog.Id));
-            }
-            this.treeNodeCatalogs.ExpandAll();
+                this.treeView.BeginUpdate();
 
-            this.treeView.EndUpdate();
+                foreach(TreeNode node in this.treeNodeCatalogs.Nodes)
+                {
+                    var catalogViewModel = (CatalogItemViewModel)node.Tag;
+                    if(catalogViewModel.Id == viewModel.Id)
+                    {
+                        node.Text = viewModel.SupplierName;
+                        node.Tag = viewModel;
+                        break;                        
+                    }
+                }
+
+                this.treeView.EndUpdate();
+            });
+        }
+
+        public void UpdateDeal(DealItemViewModel viewModel)
+        {
+            this.InvokeIfRequired(() =>
+            {
+                this.treeView.BeginUpdate();
+
+                foreach (TreeNode node in this.treeNodeDeals.Nodes)
+                {
+                    var dealViewModel = (DealItemViewModel)node.Tag;
+                    if (dealViewModel.Id == viewModel.Id)
+                    {
+                        node.Text = viewModel.Name;
+                        node.Tag = viewModel;
+                        break;
+                    }
+                }
+
+                this.treeView.EndUpdate();
+            });
         }
 
         #endregion
