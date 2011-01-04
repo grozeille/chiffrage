@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using Chiffrage.Mvc.Exceptions;
 
 namespace Chiffrage.Mvc.Views
 {
@@ -7,34 +8,41 @@ namespace Chiffrage.Mvc.Views
     {
         #region IView Members
 
-        public void SetParent(Control parent)
+        public virtual void SetParent(Control parent)
         {
             Parent = parent;
             Dock = DockStyle.Fill;
         }
 
-        public void ShowView()
+        public virtual void ShowView()
         {
-            if (InvokeRequired)
+            if(this.Parent == null)
             {
-                BeginInvoke(new Action(this.ShowView));
-                return;
+                throw new NoParentViewException();
             }
-
-            Show();
+            else
+            {
+                InvokeIfRequired(Show);   
+            }            
         }
 
-        public void HideView()
+        public virtual void HideView()
         {
-            if (InvokeRequired)
-            {
-                BeginInvoke(new Action(this.HideView));
-                return;
-            }
-
-            Hide();
+            InvokeIfRequired(Hide);
         }
 
         #endregion
+
+        public void InvokeIfRequired(Action action)
+        {
+            if (this.InvokeRequired)
+            {
+                BeginInvoke(action);
+            }
+            else
+            {
+                action();   
+            }            
+        }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using Common.Logging;
+using System.Windows.Forms;
 
 namespace Chiffrage.Mvc.Events
 {
@@ -79,7 +80,7 @@ namespace Chiffrage.Mvc.Events
                                         var method = interfaceType.GetMethod("ProcessAction", new[] {eventType});
                                         try
                                         {
-                                            method.Invoke(subscriber, new[] {eventObject});
+                                            method.Invoke(subscriber, new[] { eventObject });                                   
                                         }
                                         catch (Exception ex)
                                         {

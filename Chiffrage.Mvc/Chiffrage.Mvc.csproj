@@ -57,6 +57,7 @@
     <Compile Include="Events\IEventHandler.cs" />
     <Compile Include="Events\IGenericEventHandler.cs" />
     <Compile Include="Events\TreeNodeEventSource.cs" />
+    <Compile Include="Exceptions\NoParentViewException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\IView.cs" />
     <Compile Include="Views\UserControlView.cs">

@@ -8,12 +8,14 @@ namespace Chiffrage
     {
         private readonly IApplicationView applicationView;
         private readonly ICatalogView catalogView;
+        private readonly IDealView dealView;
 
-        public FormContainer(IApplicationView applicationView, ICatalogView catalogView)
+        public FormContainer(IApplicationView applicationView, ICatalogView catalogView, IDealView dealView)
             : this()
         {
             this.applicationView = applicationView;
             this.catalogView = catalogView;
+            this.dealView = dealView;
         }
 
         public FormContainer()
@@ -26,6 +28,7 @@ namespace Chiffrage
             base.OnLoad(e);
             this.applicationView.SetParent(this.splitContainer.Panel1);
             this.catalogView.SetParent(this.splitContainer.Panel2);
+            this.dealView.SetParent(this.splitContainer.Panel2);
         }
     }
 }

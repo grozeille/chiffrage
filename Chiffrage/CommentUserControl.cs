@@ -16,13 +16,53 @@ namespace Chiffrage
         public override string Text
         {
             get { return this.richTextBoxComment.Text; }
-            set { this.richTextBoxComment.Text = value; }
+            set
+            {
+                this.SetText(value);
+            }
         }
 
         public string Rtf
         {
             get { return this.richTextBoxComment.Rtf; }
-            set { this.richTextBoxComment.Rtf = value; }
+            set
+            {
+                this.SetRtf(value);                
+            }
+        }
+
+        private void SetText(string value)
+        {
+            if(this.InvokeRequired)
+            {
+                this.BeginInvoke(new Action<string>(this.SetText), value);
+                return;
+            }
+
+            if (this.richTextBoxComment.InvokeRequired)
+            {
+                this.richTextBoxComment.BeginInvoke(new Action<string>(this.SetText), value);
+                return;
+            }
+
+            this.richTextBoxComment.Text = value;
+        }                
+
+        private void SetRtf(string value)
+        {
+            if(this.InvokeRequired)
+            {
+                this.BeginInvoke(new Action<string>(this.SetRtf), value);
+                return;
+            }
+
+            if (this.richTextBoxComment.InvokeRequired)
+            {
+                this.richTextBoxComment.BeginInvoke(new Action<string>(this.SetRtf), value);
+                return;
+            }
+
+            this.richTextBoxComment.Rtf = value;
         }
 
         private void richTextBoxComment_SelectionChanged(object sender, EventArgs e)
@@ -47,6 +87,22 @@ namespace Chiffrage
                                                                      FontStyle.Regular);
                 }
             }
+        }
+
+        protected override void SetVisibleCore(bool value)
+        {
+            if (this.InvokeRequired)
+            {
+                this.BeginInvoke(new Action<bool>(base.SetVisibleCore), value);
+                return;
+            }
+
+            if (this.richTextBoxComment.InvokeRequired)
+            {
+                this.richTextBoxComment.BeginInvoke(new Action<bool>(base.SetVisibleCore), value);
+                return;
+            }
+            base.SetVisibleCore(value);
         }
     }
 }

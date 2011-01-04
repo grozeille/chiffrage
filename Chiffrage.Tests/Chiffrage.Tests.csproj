@@ -79,10 +79,6 @@
       <Project>{28B2F9CD-626A-425C-8D41-CAB32F21134F}</Project>
       <Name>Chiffrage.Projects.Domain</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Chiffrage\Chiffrage.csproj">
-      <Project>{B41F3EBF-5486-411C-AE38-0F97327F89E1}</Project>
-      <Name>Chiffrage</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

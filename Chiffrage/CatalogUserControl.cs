@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Windows.Forms;
 using Chiffrage.App.ViewModel;
 using Chiffrage.App.Views;
@@ -37,17 +38,14 @@ namespace Chiffrage
 
         public void Display(CatalogViewModel viewModel)
         {
-            if (InvokeRequired)
+            this.InvokeIfRequired(() =>
             {
-                BeginInvoke(new Action<CatalogViewModel>(this.Display), viewModel);
-                return;
-            }
-
-            this.textBoxCatalogName.Text = viewModel.SupplierName;
-            this.id = viewModel.Id;
-            if (!(viewModel.Comment.StartsWith("{\\rtf") && viewModel.Comment.EndsWith("}")))
-                viewModel.Comment = "{\\rtf" + viewModel.Comment + "}";
-            this.commentUserControl.Rtf = viewModel.Comment;
+                this.textBoxCatalogName.Text = viewModel.SupplierName;
+                this.id = viewModel.Id;
+                if (!(viewModel.Comment.StartsWith("{\\rtf") && viewModel.Comment.EndsWith("}")))
+                    viewModel.Comment = "{\\rtf" + viewModel.Comment + "}";
+                this.commentUserControl.Rtf = viewModel.Comment;
+            });
         }
 
         #endregion
