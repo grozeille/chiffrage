@@ -1,37 +1,37 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Windows.Forms;
+using Chiffrage.App.Views;
+using Chiffrage.Mvc.Views;
+using System.Threading;
 
 namespace Chiffrage
 {
     public partial class LoadingForm : Form
     {
-        public EventHandler<LoadingEventArgs> OnLoadingApplication;
-
         public LoadingForm()
         {
             this.InitializeComponent();
         }
 
-        private void backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
+        public void Start()
         {
-            if (this.OnLoadingApplication != null)
-                this.OnLoadingApplication(this, new LoadingEventArgs(this.backgroundWorker));
+            new Thread(() => Application.Run(this)).Start();
         }
 
-        private void backgroundWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        public void Stop()
         {
-            this.progressBar.Value = e.ProgressPercentage;
+            this.BeginInvoke(new Action(this.Close));
         }
 
-        private void backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        public void UpdateProgress(int position, int max, string status)
         {
-            Close();
-        }
-
-        private void LoadingForm_Load(object sender, EventArgs e)
-        {
-            this.backgroundWorker.RunWorkerAsync();
+            this.BeginInvoke(new Action(()=>
+            {
+                this.progressBar.Value = position;
+                this.progressBar.Maximum = max;
+                this.label.Text = status;
+            }));
         }
     }
 }

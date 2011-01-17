@@ -98,6 +98,8 @@ namespace Chiffrage.App.Controllers
 
             var result = Mapper.Map<SupplierCatalog, CatalogViewModel>(catalog);
 
+
+
             this.view.Display(result);
         }
 

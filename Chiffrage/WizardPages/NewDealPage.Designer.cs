@@ -66,6 +66,7 @@
             this.Controls.Add(this.labelDeal);
             this.Name = "NewDealPage";
             this.Size = new System.Drawing.Size(295, 34);
+            this.Load += new System.EventHandler(this.NewDealPage_Load);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

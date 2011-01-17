@@ -20,13 +20,25 @@ namespace Chiffrage
         {
             this.InvokeIfRequired(() =>
             {
-                if (!(viewModel.Comment.StartsWith("{\\rtf") && viewModel.Comment.EndsWith("}")))
+                if (viewModel.Comment == null || !(viewModel.Comment.StartsWith("{\\rtf") && viewModel.Comment.EndsWith("}")))
                     viewModel.Comment = "{\\rtf" + viewModel.Comment + "}";
 
                 this.dealId = viewModel.Id;
                 this.textBoxDealName.Text = viewModel.Name;
                 this.textBoxReference.Text = viewModel.Reference;
+
+                if (viewModel.StartDate == DateTime.MinValue)
+                {
+                    viewModel.StartDate = DateTime.Now;
+                }
+
                 this.dateTimePickerDealBegin.Value = viewModel.StartDate;
+
+                if (viewModel.EndDate == DateTime.MinValue)
+                {
+                    viewModel.EndDate = DateTime.Now;
+                }
+
                 this.dateTimePickerDealEnd.Value = viewModel.EndDate;
                 this.commentUserControl.Rtf = viewModel.Comment;
             });

@@ -13,5 +13,10 @@ namespace Chiffrage.WizardPages
         {
             get { return this.textBoxDealName.Text; }
         }
+
+        private void NewDealPage_Load(object sender, System.EventArgs e)
+        {
+            this.textBoxDealName.Focus();
+        }
     }
 }

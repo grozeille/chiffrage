@@ -382,7 +382,7 @@
             // 
             // suppliesBindingSource
             // 
-            this.suppliesBindingSource.DataSource = typeof(Chiffrage.App.ViewModel.CatalogSupplyViewModel);
+            //this.suppliesBindingSource.DataSource = typeof(Chiffrage.App.ViewModel.CatalogSupplyViewModel);
             this.suppliesBindingSource.CurrentChanged += new System.EventHandler(this.item_CurrentItemChanged);
             // 
             // bindingNavigator
@@ -623,7 +623,7 @@
             // 
             // hardwaresBindingSource
             // 
-            this.hardwaresBindingSource.DataSource = typeof(Chiffrage.App.ViewModel.CatalogHardwareViewModel);
+            //this.hardwaresBindingSource.DataSource = typeof(Chiffrage.App.ViewModel.CatalogHardwareViewModel);
             this.hardwaresBindingSource.CurrentChanged += new System.EventHandler(this.item_CurrentItemChanged);
             // 
             // toolStripHardware
@@ -1030,8 +1030,8 @@
             // 
             // componentsBindingSource
             // 
-            this.componentsBindingSource.DataMember = "Components";
-            this.componentsBindingSource.DataSource = this.hardwaresBindingSource;
+            //this.componentsBindingSource.DataMember = "Components";
+            //this.componentsBindingSource.DataSource = this.hardwaresBindingSource;
             // 
             // CatalogUserControl
             // 

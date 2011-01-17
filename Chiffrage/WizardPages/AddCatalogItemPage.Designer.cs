@@ -153,7 +153,7 @@ namespace Chiffrage.WizardPages
             // 
             // iCatalogItemSelectionDtoBindingSource
             // 
-            this.iCatalogItemSelectionDtoBindingSource.DataSource = typeof(ICatalogItemSelectionViewModel);
+            //this.iCatalogItemSelectionDtoBindingSource.DataSource = typeof(ICatalogItemSelectionViewModel);
             // 
             // selectedDataGridViewCheckBoxColumn
             // 

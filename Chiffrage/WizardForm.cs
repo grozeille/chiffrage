@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
+using Chiffrage.Mvc.Views;
 
 namespace Chiffrage
 {
@@ -14,6 +15,11 @@ namespace Chiffrage
         public WizardForm()
         {
             this.InitializeComponent();
+        }
+
+        public WizardSetting[] WizardSettings
+        {
+            set { this.wizardSettings = value; }
         }
 
         protected WizardSetting CurrentSetting
@@ -62,6 +68,7 @@ namespace Chiffrage
             this.panelContent.Controls.Clear();
             this.CurrentSetting.Page.Dock = DockStyle.Fill;
             this.panelContent.Controls.Add(this.CurrentSetting.Page);
+            this.CurrentSetting.Page.Focus();
             this.labelTitle.Text = this.CurrentSetting.Title;
             this.labelDescription.Text = this.CurrentSetting.Description;
             this.RefreshNavigation();
@@ -87,18 +94,6 @@ namespace Chiffrage
         {
             this.buttonNext.Visible = true;
             this.buttonBack.Visible = true;
-        }
-
-        public DialogResult ShowDialog(WizardSetting wizardSetting)
-        {
-            this.wizardSettings = new WizardSetting[] {wizardSetting};
-            return ShowDialog();
-        }
-
-        public DialogResult ShowDialog(IEnumerable<WizardSetting> wizardSettings)
-        {
-            this.wizardSettings = wizardSettings.ToArray();
-            return ShowDialog();
         }
 
         private void buttonBack_Click(object sender, EventArgs e)

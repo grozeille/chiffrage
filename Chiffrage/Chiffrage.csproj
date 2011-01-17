@@ -15,6 +15,7 @@
     <SignManifests>false</SignManifests>
     <ManifestCertificateThumbprint>E184AB7A73B3729EB9D6A0465B91407CB6C09808</ManifestCertificateThumbprint>
     <ManifestKeyFile>Chiffrage_TemporaryKey.pfx</ManifestKeyFile>
+    <ApplicationIcon>app.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -107,11 +108,11 @@
       <DependentUpon>ErrorLogView.cs</DependentUpon>
     </Compile>
     <Compile Include="Ioc\CatalogContainer.cs" />
-    <Compile Include="ApplicationItemUserControl.cs">
+    <Compile Include="NavigationUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ApplicationItemUserControl.Designer.cs">
-      <DependentUpon>ApplicationItemUserControl.cs</DependentUpon>
+    <Compile Include="NavigationUserControl.Designer.cs">
+      <DependentUpon>NavigationUserControl.cs</DependentUpon>
     </Compile>
     <Compile Include="CatalogUserControl.cs">
       <SubType>UserControl</SubType>
@@ -133,17 +134,11 @@
       <DependentUpon>DealUserControl.cs</DependentUpon>
     </Compile>
     <Compile Include="EventHandlersFactory.cs" />
-    <Compile Include="FormContainer.cs">
+    <Compile Include="ApplicationForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormContainer.Designer.cs">
-      <DependentUpon>FormContainer.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FormMain.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormMain.Designer.cs">
-      <DependentUpon>FormMain.cs</DependentUpon>
+    <Compile Include="ApplicationForm.Designer.cs">
+      <DependentUpon>ApplicationForm.cs</DependentUpon>
     </Compile>
     <Compile Include="LoadingEventArgs.cs" />
     <Compile Include="LoadingForm.cs">
@@ -153,6 +148,8 @@
       <DependentUpon>LoadingForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Ioc\MvcContainer.cs" />
+    <Compile Include="NewDealWizardView.cs">
+    </Compile>
     <Compile Include="WizardPages\NewCatalogPage.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -167,8 +164,8 @@
       <DependentUpon>ProjectUserControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="ApplicationItemUserControl.resx">
-      <DependentUpon>ApplicationItemUserControl.cs</DependentUpon>
+    <EmbeddedResource Include="NavigationUserControl.resx">
+      <DependentUpon>NavigationUserControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CatalogUserControl.resx">
       <DependentUpon>CatalogUserControl.cs</DependentUpon>
@@ -179,11 +176,8 @@
     <EmbeddedResource Include="ErrorLogView.resx">
       <DependentUpon>ErrorLogView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormContainer.resx">
-      <DependentUpon>FormContainer.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormMain.resx">
-      <DependentUpon>FormMain.cs</DependentUpon>
+    <EmbeddedResource Include="ApplicationForm.resx">
+      <DependentUpon>ApplicationForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LoadingForm.resx">
       <DependentUpon>LoadingForm.cs</DependentUpon>
@@ -335,6 +329,9 @@
       <Project>{28B2F9CD-626A-425C-8D41-CAB32F21134F}</Project>
       <Name>Chiffrage.Projects.Domain</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="app.ico" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Model\" />

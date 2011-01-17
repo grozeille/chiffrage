@@ -15,17 +15,21 @@ namespace Chiffrage.App.Controllers
         IGenericEventHandler<DealUnselectedEvent>,
         IGenericEventHandler<ApplicationStartEvent>,
         IGenericEventHandler<SaveEvent>,
-        IGenericEventHandler<DealUpdatedEvent>
+        IGenericEventHandler<DealUpdatedEvent>,
+        IGenericEventHandler<NewDealEvent>,
+        IGenericEventHandler<CreateNewDealEvent>
     {
         private readonly IEventBroker eventBroker;
 
         private readonly IDealRepository dealRepository;
-        private readonly IDealView view;
+        private readonly IDealView dealView;
+        private readonly INewDealView newDealView;
 
-        public DealController(IEventBroker eventBroker, IDealRepository dealRepository, IDealView view)
+        public DealController(IEventBroker eventBroker, IDealRepository dealRepository, IDealView dealView, INewDealView newDealView)
         {
             this.eventBroker = eventBroker;
-            this.view = view;
+            this.dealView = dealView;
+            this.newDealView = newDealView;
             this.dealRepository = dealRepository;
         }
 
@@ -33,7 +37,7 @@ namespace Chiffrage.App.Controllers
 
         public void ProcessAction(ApplicationStartEvent eventObject)
         {
-            this.view.HideView();
+            this.dealView.HideView();
         }
 
         #endregion
@@ -48,8 +52,8 @@ namespace Chiffrage.App.Controllers
 
             var dealViewModel = Mapper.Map<Deal, DealViewModel>(deal);
 
-            this.view.Display(dealViewModel);
-            this.view.ShowView();
+            this.dealView.Display(dealViewModel);
+            this.dealView.ShowView();
         }
 
         #endregion
@@ -58,14 +62,14 @@ namespace Chiffrage.App.Controllers
 
         public void ProcessAction(DealUnselectedEvent eventObject)
         {
-            this.view.HideView();
+            this.dealView.HideView();
         }
 
         #endregion
 
         public void ProcessAction(SaveEvent eventObject)
         {
-            var viewModel = this.view.GetViewModel();
+            var viewModel = this.dealView.GetViewModel();
             if (viewModel == null)
             {
                 return;
@@ -88,7 +92,22 @@ namespace Chiffrage.App.Controllers
 
             var result = Mapper.Map<Deal, DealViewModel>(eventObject.NewDeal);
 
-            this.view.Display(result);
+            this.dealView.Display(result);
+        }
+
+        public void ProcessAction(NewDealEvent eventObject)
+        {
+            this.newDealView.ShowView();
+        }
+
+        public void ProcessAction(CreateNewDealEvent eventObject)
+        {
+            var newDeal = new Deal();
+            newDeal.Name = eventObject.DealName;
+
+            this.dealRepository.Save(newDeal);
+
+            this.eventBroker.Publish(new DealCreatedEvent(newDeal));
         }
     }
 }

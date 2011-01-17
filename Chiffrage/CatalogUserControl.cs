@@ -31,7 +31,7 @@ namespace Chiffrage
             {
                 this.textBoxCatalogName.Text = viewModel.SupplierName;
                 this.catalogId = viewModel.Id;
-                if (!(viewModel.Comment.StartsWith("{\\rtf") && viewModel.Comment.EndsWith("}")))
+                if (viewModel.Comment == null || !(viewModel.Comment.StartsWith("{\\rtf") && viewModel.Comment.EndsWith("}")))
                     viewModel.Comment = "{\\rtf" + viewModel.Comment + "}";
                 this.commentUserControl.Rtf = viewModel.Comment;
             });
@@ -117,20 +117,24 @@ namespace Chiffrage
             var setting1 = new WizardSetting(page1, "Nouveau Matériel", "Création d'un nouveau matériel", true);
 
             var page2 = new AddCatalogItemPage();
-            page2.Catalog = this.GlobalCatalog;
+            //page2.Catalog = this.GlobalCatalog;
             var setting2 = new WizardSetting(page2, "Ajout d'un composant", "Ajouter un composant au matériel", true);
 
-            if (new WizardForm().ShowDialog(new WizardSetting[] {setting1, setting2}) == DialogResult.OK)
+            var wizard = new WizardForm
+            {
+                WizardSettings = new[] {setting1, setting2}
+            };
+            if (wizard.ShowDialog() == DialogResult.OK)
             {
                 var hardware = new Hardware();
                 hardware.Name = page1.HardwareName;
                 hardware.Components = new BindingList<HardwareSupply>();
-                foreach (var item in page2.SelectedItems)
+                /*foreach (var item in page2.SelectedItems)
                 {
                     var supply = new HardwareSupply();
                     supply.Supply = item as Supply;
                     hardware.Components.Add(supply);
-                }
+                }*/
 
                 // TODO : catalog.Hardwares.Add(CatalogHardwareViewModel.CreateFrom(hardware));
                 this.hardwaresBindingSource.ResetBindings(false);
@@ -141,27 +145,33 @@ namespace Chiffrage
         private void toolStripButtonHardwareAdd_Click(object sender, EventArgs e)
         {
             var page = new AddCatalogItemPage();
-            page.Catalog = this.GlobalCatalog;
-            page.DisplayItemType = AddCatalogItemPage.ItemType.Supply;
+            //page.Catalog = this.GlobalCatalog;
+            //page.DisplayItemType = AddCatalogItemPage.ItemType.Supply;
             var setting = new WizardSetting(page, "Ajout d'un composant", "Ajouter un composant au matériel", true);
-            if (new WizardForm().ShowDialog(setting) == DialogResult.OK)
+
+            var wizard = new WizardForm
             {
-                var current = this.hardwaresBindingSource.Current as CatalogHardwareViewModel;
-                if (current != null)
-                {
-                    foreach (var item in page.SelectedItems)
-                    {
-                        var supply = new HardwareSupply();
-                        supply.Supply = item as Supply;
-                        current.Components.Add(CatalogHardwareSupplyViewModel.CreateFrom(supply));
-                    }
+                WizardSettings = new[] {setting}
+            };
 
-                    var tmp = new Hardware();
-                    /* TODO: current.CopyTo(tmp);
-                    current.CopyFrom(tmp);*/
+            if (wizard.ShowDialog() == DialogResult.OK)
+            {
+                //var current = this.hardwaresBindingSource.Current as CatalogHardwareViewModel;
+                //if (current != null)
+                //{
+                //    foreach (var item in page.SelectedItems)
+                //    {
+                //        var supply = new HardwareSupply();
+                //        supply.Supply = item as Supply;
+                //        current.Components.Add(CatalogHardwareSupplyViewModel.CreateFrom(supply));
+                //    }
 
-                    this.componentsBindingSource.ResetBindings(false);
-                }
+                //    var tmp = new Hardware();
+                //    /* TODO: current.CopyTo(tmp);
+                //    current.CopyFrom(tmp);*/
+
+                //    this.componentsBindingSource.ResetBindings(false);
+                //}
             }
         }
 

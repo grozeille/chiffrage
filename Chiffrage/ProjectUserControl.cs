@@ -3,15 +3,19 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 using Chiffrage.App.ViewModel;
+using Chiffrage.App.Views;
 using Chiffrage.Catalogs.Domain;
+using Chiffrage.Mvc.Views;
 using Chiffrage.Projects.Domain;
 using Chiffrage.Properties;
 using Chiffrage.WizardPages;
 
 namespace Chiffrage
 {
-    public partial class ProjectUserControl : UserControl
+    public partial class ProjectUserControl : UserControlView, IProjectView
     {
+        private int? id;
+
         private Font defaultFont = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Regular,
                                             GraphicsUnit.Point, ((byte) (0)));
 
@@ -123,14 +127,14 @@ namespace Chiffrage
             set
             {
                 this.project = value;
-                this.LoadProject();
+                //this.LoadProject();
             }
         }
 
         public Catalog Catalog { get; set; }
         public event EventHandler ProjectChanged;
 
-        private void LoadProject()
+        /*private void LoadProject()
         {
             if (this.project == null)
                 return;
@@ -176,12 +180,12 @@ namespace Chiffrage
             this.otherBenefitBindingSource.SuspendBinding();
             this.otherBenefitBindingSource.DataSource = new BindingList<OtherBenefit>(this.project.OtherBenefits);
             this.otherBenefitBindingSource.ResumeBinding();
-        }
+        }*/
 
 
         private void toolStripButtonAdd_Click(object sender, EventArgs e)
         {
-            var page = new AddCatalogItemPage();
+            /*var page = new AddCatalogItemPage();
             page.Catalog = this.Catalog;
             page.DisplayItemType = AddCatalogItemPage.ItemType.Supply;
             var setting = new WizardSetting(page, "Ajouter un matériel", "Ajout d'un matériel au projet", true);
@@ -205,7 +209,7 @@ namespace Chiffrage
                 this.LoadProject();
                 if (this.ProjectChanged != null)
                     this.ProjectChanged(this, new EventArgs());
-            }
+            }*/
         }
 
         private void tabControl_Selected(object sender, TabControlEventArgs e)
@@ -216,7 +220,7 @@ namespace Chiffrage
 
         private void toolStripButtonRemove_Click(object sender, EventArgs e)
         {
-            var current = (this.projectSupplyDtoBindingSource.Current as ProjectSupplyViewModel);
+            /*var current = (this.projectSupplyDtoBindingSource.Current as ProjectSupplyViewModel);
             if (current != null)
             {
                 var result = MessageBox.Show("Êtes-vous sûr de vouloir supprimer cet item?", "Supprimer",
@@ -229,7 +233,7 @@ namespace Chiffrage
                     if (this.ProjectChanged != null)
                         this.ProjectChanged(this, new EventArgs());
                 }
-            }
+            }*/
         }
 
         private void projectSupplyDtoBindingSource_CurrentItemChanged(object sender, EventArgs e)
@@ -266,7 +270,7 @@ namespace Chiffrage
 
         private void toolStripButtonAddHardware_Click(object sender, EventArgs e)
         {
-            var page = new AddCatalogItemPage();
+            /*var page = new AddCatalogItemPage();
             page.Catalog = this.Catalog;
             page.DisplayItemType = AddCatalogItemPage.ItemType.Hardware;
             var setting = new WizardSetting(page, "Ajouter un matériel", "Ajout d'un matériel au projet", true);
@@ -290,12 +294,12 @@ namespace Chiffrage
                 this.LoadProject();
                 if (this.ProjectChanged != null)
                     this.ProjectChanged(this, new EventArgs());
-            }
+            }*/
         }
 
         private void toolStripButtonRemoveHardware_Click(object sender, EventArgs e)
         {
-            var current = (this.projectHarwareDtoBindingSource.Current as ProjectHardwareViewModel);
+            /*var current = (this.projectHarwareDtoBindingSource.Current as ProjectHardwareViewModel);
             if (current != null)
             {
                 var result = MessageBox.Show("Êtes-vous sûr de vouloir supprimer cet item?", "Supprimer",
@@ -308,7 +312,7 @@ namespace Chiffrage
                     if (this.ProjectChanged != null)
                         this.ProjectChanged(this, new EventArgs());
                 }
-            }
+            }*/
         }
 
         private void tabControl_DrawItem(object sender, DrawItemEventArgs e)
@@ -325,6 +329,37 @@ namespace Chiffrage
                 drawBrush,
                 e.Bounds.X + 2 + this.imageListProject.Images[0].Size.Width + 2,
                 e.Bounds.Y + 2);
+        }
+
+        #region IProjectView Members
+
+        public void Display(ProjectViewModel viewModel)
+        {
+            this.InvokeIfRequired(() =>
+            {
+                this.id = viewModel.Id;
+                this.textBoxProjectName.Text = viewModel.Name;
+                this.textBoxReference.Text = viewModel.Reference;
+                this.dateTimePickerProjectBegin.Value = viewModel.StartDate;
+                this.dateTimePickerProjectEnd.Value = viewModel.EndDate;
+                this.textBoxReferenceRate.Text = viewModel.ReferenceRate;
+                this.textBoxStudyRate.Text = viewModel.StudyRate;
+                this.textBoxWorkDayRate.Text = viewModel.WorkDayRate;
+                this.textBoxWorkShortNightsRate.Text = viewModel.WorkShortNightsRate;
+                this.textBoxWorkLongNightsRate.Text = viewModel.WorkLongNightsRate;
+                this.textBoxTestDayRate.Text = viewModel.TestDayRate;
+                this.textBoxTestNightRate.Text = viewModel.TestNightRate;
+                this.textBoxTotalDays.Text = viewModel.TotalDays;
+                this.textBoxTotalPrice.Text = viewModel.TotalPrice;
+            });
+        }
+
+        #endregion
+
+        public override void HideView()
+        {
+            this.id = null;
+            base.HideView();
         }
     }
 }

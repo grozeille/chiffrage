@@ -10,7 +10,6 @@ using Chiffrage.Catalogs.Domain.Repositories;
 using Chiffrage.Projects.Dal.Repositories;
 using Chiffrage.Projects.Domain;
 using Chiffrage.Properties;
-using Chiffrage.ViewModel;
 using Chiffrage.WizardPages;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;

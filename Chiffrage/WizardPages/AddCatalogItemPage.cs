@@ -22,7 +22,7 @@ namespace Chiffrage.WizardPages
         }
 
         #endregion
-
+        /*
         private BindingList<ICatalogItemSelectionViewModel> filteredselectionDtos;
         private bool refreshCheckbox = false;
         private BindingList<ICatalogItemSelectionViewModel> selectionDtos;
@@ -120,17 +120,17 @@ namespace Chiffrage.WizardPages
                     return false;
             }
             return true;
-        }
+        }*/
 
         private void checkBoxSelectAll_CheckedChanged(object sender, EventArgs e)
         {
-            if (!this.refreshCheckbox)
-            {
-                this.iCatalogItemSelectionDtoBindingSource.SuspendBinding();
-                foreach (ICatalogItemSelectionViewModel item in this.filteredselectionDtos)
-                    item.Selected = this.checkBoxSelectAll.Checked;
-                this.iCatalogItemSelectionDtoBindingSource.ResumeBinding();
-            }
+            //if (!this.refreshCheckbox)
+            //{
+            //    this.iCatalogItemSelectionDtoBindingSource.SuspendBinding();
+            //    foreach (ICatalogItemSelectionViewModel item in this.filteredselectionDtos)
+            //        item.Selected = this.checkBoxSelectAll.Checked;
+            //    this.iCatalogItemSelectionDtoBindingSource.ResumeBinding();
+            //}
         }
 
         private void dataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -151,10 +151,10 @@ namespace Chiffrage.WizardPages
 
         private void textBoxSearch_TextChanged(object sender, EventArgs e)
         {
-            this.DoFilter();
+            //this.DoFilter();
         }
 
-        private void DoFilter()
+        /*private void DoFilter()
         {
             this.iCatalogItemSelectionDtoBindingSource.SuspendBinding();
 
@@ -185,15 +185,15 @@ namespace Chiffrage.WizardPages
             this.iCatalogItemSelectionDtoBindingSource.DataSource = this.filteredselectionDtos;
             this.iCatalogItemSelectionDtoBindingSource.ResumeBinding();
         }
-
+        */
         private void AddSupplyPage_Load(object sender, EventArgs e)
         {
-            this.LoadCatalog();
+            //this.LoadCatalog();
         }
 
         private void comboBoxCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
-            this.DoFilter();
+            //this.DoFilter();
         }
     }
 }

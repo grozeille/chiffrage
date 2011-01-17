@@ -3,6 +3,7 @@ using Chiffrage.App.ViewModel;
 using Chiffrage.App.Views;
 using Chiffrage.Catalogs.Domain;
 using Chiffrage.Catalogs.Domain.Repositories;
+using Chiffrage.Mvc.Events;
 using Chiffrage.Projects.Domain;
 using Chiffrage.Projects.Domain.Repositories;
 using NUnit.Framework;
@@ -65,18 +66,20 @@ namespace Chiffrage.Tests
             dealRepository.Stub(x => x.FindAll())
                 .Return(this.deals);
 
-            var applicationView = MockRepository.GenerateStub<IApplicationView>();
+            var applicationView = MockRepository.GenerateStub<INavigationView>();
 
-            var controller = new ApplicationController(catalogRepository, dealRepository, applicationView);
+            var eventBroker = MockRepository.GenerateStub<IEventBroker>();
+
+            var controller = new NavigationController(eventBroker, catalogRepository, dealRepository, applicationView);
 
             // display all items
-            controller.Display();
+            controller.ProcessAction(new ApplicationStartEvent());
 
             catalogRepository.AssertWasCalled(x => x.FindAll());
 
             dealRepository.AssertWasCalled(x => x.FindAll());
 
-            var expectedApplicationItem = new ApplicationItemViewModel
+            var expectedApplicationItem = new NavigationItemViewModel
             {
                 Catalogs = new CatalogItemViewModel[]
                 {

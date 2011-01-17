@@ -6,7 +6,7 @@ using Chiffrage.Mvc.Views;
 
 namespace Chiffrage.App.Views
 {
-    public interface IApplicationView : IView
+    public interface INewDealView : IView
     {
     }
 }

@@ -12,7 +12,8 @@ namespace Chiffrage.App.Controllers
     public class ErrorLogController : 
         IGenericEventHandler<ErrorEvent>,
         IGenericEventHandler<CatalogUpdatedEvent>,
-        IGenericEventHandler<DealUpdatedEvent>
+        IGenericEventHandler<DealUpdatedEvent>,
+        IGenericEventHandler<DealCreatedEvent>
     {
         private readonly IErrorLogView view;
 
@@ -64,6 +65,11 @@ namespace Chiffrage.App.Controllers
         public void ProcessAction(DealUpdatedEvent eventObject)
         {
             this.AppendInfoLog(string.Format("Deal '{0}' updated successfully", eventObject.NewDeal.Name));
+        }
+
+        public void ProcessAction(DealCreatedEvent eventObject)
+        {
+            this.AppendInfoLog(string.Format("Deal '{0}' created successfully", eventObject.NewDeal.Name));
         }
     }
 }

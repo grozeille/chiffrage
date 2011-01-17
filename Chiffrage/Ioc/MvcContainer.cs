@@ -26,11 +26,11 @@ namespace Chiffrage.Ioc
 
         private void Views()
         {
-            Define<FormContainer>()
+            Define<ApplicationForm>()
                 .AutoWire(AutoWiringMode.Constructor)
                 .AsSingleton();
 
-            Define<ApplicationItemUserControl>()
+            Define<NavigationUserControl>()
                 .AutoWire(AutoWiringMode.Constructor)
                 .AsSingleton();
 
@@ -45,11 +45,27 @@ namespace Chiffrage.Ioc
             Define<ErrorLogView>()
                 .AutoWire(AutoWiringMode.Constructor)
                 .AsSingleton();
+
+            Define<ProjectUserControl>()
+                .AutoWire(AutoWiringMode.Constructor)
+                .AsSingleton();
+
+            Define<LoadingForm>()
+                .AutoWire(AutoWiringMode.Constructor)
+                .AsSingleton();
+
+            Define<ApplicationForm>()
+               .AutoWire(AutoWiringMode.Constructor)
+               .AsSingleton();
+
+            Define<NewDealWizardView>()
+               .AutoWire(AutoWiringMode.Constructor)
+               .AsSingleton();
         }
 
         private void SetupControllers()
         {
-            Define<ApplicationController>()
+            Define<NavigationController>()
                 .AutoWire(AutoWiringMode.Constructor)
                 .AsSingleton();
 
@@ -62,6 +78,14 @@ namespace Chiffrage.Ioc
                 .AsSingleton();
 
             Define<ErrorLogController>()
+               .AutoWire(AutoWiringMode.Constructor)
+               .AsSingleton();
+
+            Define<ProjectController>()
+               .AutoWire(AutoWiringMode.Constructor)
+               .AsSingleton();
+
+            Define<ApplicationController>()
                .AutoWire(AutoWiringMode.Constructor)
                .AsSingleton();
         }

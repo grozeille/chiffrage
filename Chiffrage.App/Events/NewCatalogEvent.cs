@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Chiffrage.Mvc.Views;
+using Chiffrage.Mvc.Events;
 
-namespace Chiffrage.App.Views
+namespace Chiffrage.App.Events
 {
-    public interface IApplicationView : IView
+    public class NewCatalogEvent : IEvent
     {
     }
 }

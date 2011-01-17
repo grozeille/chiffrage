@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Chiffrage.Mvc.Views;
 
-namespace Chiffrage.App.Views
+namespace Chiffrage.Mvc.Events
 {
-    public interface IApplicationView : IView
+    public class ApplicationEndEvent : IEvent
     {
     }
 }

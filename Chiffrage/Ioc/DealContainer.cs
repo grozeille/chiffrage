@@ -11,9 +11,15 @@ namespace Chiffrage.Ioc
     {
         public override void SetupContainer()
         {
+            var file = "deal.ctb";
+            if (Settings.Default.DealsRecentPath != null && Settings.Default.DealsRecentPath.Count > 0)
+            {
+                file = Settings.Default.DealsRecentPath[Settings.Default.DealsRecentPath.Count - 1];
+            }
+
             var configurationDeals = Fluently.Configure()
                 .Database(SQLiteConfiguration.Standard
-                              .UsingFile(Settings.Default.DealsRecentPath[Settings.Default.DealsRecentPath.Count - 1])
+                              .UsingFile(file)
                               .ProxyFactoryFactory(typeof (ProxyFactoryFactory)))
                 .Mappings(m => m.FluentMappings.AddFromAssembly(typeof (DealRepository).Assembly))
                 .BuildConfiguration();

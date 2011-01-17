@@ -1,5 +1,4 @@
-﻿using Chiffrage.ViewModel;
-using Chiffrage.App.ViewModel;
+﻿using Chiffrage.App.ViewModel;
 
 namespace Chiffrage
 {
@@ -1352,12 +1351,12 @@ namespace Chiffrage
             // 
             // projectSupplyDtoBindingSource
             // 
-            this.projectSupplyDtoBindingSource.DataSource = typeof(ProjectSupplyViewModel);
+            //this.projectSupplyDtoBindingSource.DataSource = typeof(ProjectSupplyViewModel);
             this.projectSupplyDtoBindingSource.CurrentItemChanged += new System.EventHandler(this.projectSupplyDtoBindingSource_CurrentItemChanged);
             // 
             // projectHarwareDtoBindingSource
             // 
-            this.projectHarwareDtoBindingSource.DataSource = typeof(ProjectHardwareViewModel);
+            //this.projectHarwareDtoBindingSource.DataSource = typeof(ProjectHardwareViewModel);
             // 
             // nameDataGridViewTextBoxColumn2
             // 
