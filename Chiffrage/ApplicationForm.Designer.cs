@@ -189,7 +189,7 @@
             // 
             // catalogueToolStripMenuItem1
             // 
-            this.catalogueToolStripMenuItem1.Image = global::Chiffrage.Properties.Resources.lorry;
+            this.catalogueToolStripMenuItem1.Image = global::Chiffrage.Properties.Resources.book_open;
             this.catalogueToolStripMenuItem1.Name = "catalogueToolStripMenuItem1";
             this.catalogueToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
             this.catalogueToolStripMenuItem1.Text = "Catalogue";

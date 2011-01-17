@@ -64,7 +64,7 @@ namespace Chiffrage
                 foreach (var catalog in viewModel.Catalogs)
                 {
                     var nodeCatalog = this.treeNodeCatalogs.Nodes.Add("catalog_" + catalog.Id, catalog.SupplierName,
-                                                                      "table.png", "table.png");
+                                                                      "book_open.png", "book_open.png");
                     nodeCatalog.Tag = catalog;
 
                     this.eventBroker.RegisterTreeNodeSelectEventSource(nodeCatalog, new CatalogSelectedEvent(catalog.Id));
@@ -132,8 +132,8 @@ namespace Chiffrage
 
                 foreach (var project in viewModel.Projects)
                 {
-                    var nodeProject = nodeDeal.Nodes.Add("project_" + project.Id, project.Name, "book_open.png",
-                                                         "book_open.png");
+                    var nodeProject = nodeDeal.Nodes.Add("project_" + project.Id, project.Name, "report.png",
+                                                         "report.png");
                     nodeProject.Tag = project;
 
                     this.eventBroker.RegisterTreeNodeSelectEventSource(nodeProject, new ProjectSelectedEvent(project.Id));

@@ -340,7 +340,19 @@ namespace Chiffrage
                 this.id = viewModel.Id;
                 this.textBoxProjectName.Text = viewModel.Name;
                 this.textBoxReference.Text = viewModel.Reference;
+                
+                if (viewModel.StartDate == DateTime.MinValue)
+                {
+                    viewModel.StartDate = DateTime.Now;
+                }
+
                 this.dateTimePickerProjectBegin.Value = viewModel.StartDate;
+
+                if (viewModel.EndDate == DateTime.MinValue)
+                {
+                    viewModel.EndDate = DateTime.Now;
+                }
+
                 this.dateTimePickerProjectEnd.Value = viewModel.EndDate;
                 this.textBoxReferenceRate.Text = viewModel.ReferenceRate;
                 this.textBoxStudyRate.Text = viewModel.StudyRate;

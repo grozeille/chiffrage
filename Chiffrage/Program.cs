@@ -82,6 +82,10 @@ namespace Chiffrage
             {
                 logger.Fatal("Fatal error", ex);
                 Application.OnThreadException(ex);
+                if (this.eventBroker != null)
+                {
+                    this.eventBroker.Stop();
+                }
             }
         }
 
