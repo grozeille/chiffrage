@@ -12,5 +12,15 @@ namespace Chiffrage.App.Views
         void UpdateDeal(DealItemViewModel viewModel);
 
         void AddDeal(DealItemViewModel viewModel);
+
+        void AddCatalog(CatalogItemViewModel viewModel);
+
+        void AddProject(int dealId, ProjectItemViewModel viewModel);
+
+        void SelectDeal(int dealId);
+
+        void SelectCatalog(int catalogId);
+
+        void SelectProject(int projectId);
     }
 }

@@ -12,6 +12,7 @@ namespace Chiffrage.App.Controllers
     public class ErrorLogController : 
         IGenericEventHandler<ErrorEvent>,
         IGenericEventHandler<CatalogUpdatedEvent>,
+        IGenericEventHandler<CatalogCreatedEvent>,
         IGenericEventHandler<DealUpdatedEvent>,
         IGenericEventHandler<DealCreatedEvent>
     {
@@ -70,6 +71,11 @@ namespace Chiffrage.App.Controllers
         public void ProcessAction(DealCreatedEvent eventObject)
         {
             this.AppendInfoLog(string.Format("Deal '{0}' created successfully", eventObject.NewDeal.Name));
+        }
+
+        public void ProcessAction(CatalogCreatedEvent eventObject)
+        {
+            this.AppendInfoLog(string.Format("Catalog '{0}' created successfully", eventObject.NewCatalog.SupplierName));
         }
     }
 }

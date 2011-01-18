@@ -101,6 +101,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="NewCatalogWizardView.cs" />
     <Compile Include="ErrorLogView.cs">
       <SubType>UserControl</SubType>
     </Compile>

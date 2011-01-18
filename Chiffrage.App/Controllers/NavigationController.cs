@@ -15,8 +15,9 @@ namespace Chiffrage.App.Controllers
     public class NavigationController : 
         IGenericEventHandler<ApplicationStartEvent>,
         IGenericEventHandler<CatalogUpdatedEvent>,
+        IGenericEventHandler<CatalogCreatedEvent>,
         IGenericEventHandler<DealUpdatedEvent>,
-        IGenericEventHandler<DealCreatedEvent>
+        IGenericEventHandler<DealCreatedEvent>     
     {
         private readonly INavigationView navigationView;
 
@@ -37,8 +38,6 @@ namespace Chiffrage.App.Controllers
             this.dealRepository = dealRepository;
             this.navigationView = navigationView;
         }
-
-        #region IGenericEventHandler<ApplicationStartEvent> Members
 
         public void ProcessAction(ApplicationStartEvent eventObject)
         {
@@ -68,9 +67,6 @@ namespace Chiffrage.App.Controllers
             this.navigationView.ShowView();
         }
 
-
-        #endregion
-
         public void ProcessAction(CatalogUpdatedEvent eventObject)
         {
             Mapper.CreateMap<SupplierCatalog, CatalogItemViewModel>();
@@ -96,6 +92,17 @@ namespace Chiffrage.App.Controllers
             var result = Mapper.Map<Deal, DealItemViewModel>(eventObject.NewDeal);
 
             this.navigationView.AddDeal(result);
+            this.navigationView.SelectDeal(result.Id);
+        }
+
+        public void ProcessAction(CatalogCreatedEvent eventObject)
+        {
+            Mapper.CreateMap<SupplierCatalog, CatalogItemViewModel>();
+
+            var result = Mapper.Map<SupplierCatalog, CatalogItemViewModel>(eventObject.NewCatalog);
+
+            this.navigationView.AddCatalog(result);
+            this.navigationView.SelectCatalog(result.Id);
         }
     }
 }

@@ -350,7 +350,7 @@
             this.Controls.Add(this.menuStrip);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ApplicationForm";
-            this.Text = "FormContainer";
+            this.Text = "Chiffrage";
             this.splitContainer.ResumeLayout(false);
             this.toolStrip.ResumeLayout(false);
             this.toolStrip.PerformLayout();

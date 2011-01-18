@@ -13,17 +13,37 @@ namespace Chiffrage.App.Controllers
                                      IGenericEventHandler<CatalogUnselectedEvent>,
                                      IGenericEventHandler<ApplicationStartEvent>,
                                      IGenericEventHandler<CatalogUpdatedEvent>,
-                                     IGenericEventHandler<SaveEvent>
+                                     IGenericEventHandler<SaveEvent>,
+                                     IGenericEventHandler<NewCatalogEvent>,
+        IGenericEventHandler<CreateNewCatalogEvent>
     {
-        private readonly ICatalogRepository repository;
-        private readonly ICatalogView view;
         private readonly IEventBroker eventBroker;
+        private readonly ICatalogRepository repository;
+        private readonly ICatalogView catalogView;
+        private readonly INewCatalogView newCatalogView;
 
-        public CatalogController(IEventBroker eventBroker, ICatalogView view, ICatalogRepository repository)
+        public CatalogController(IEventBroker eventBroker, ICatalogView catalogView, INewCatalogView newCatalogView, ICatalogRepository repository)
         {
-            this.view = view;
+            this.catalogView = catalogView;
+            this.newCatalogView = newCatalogView;
             this.repository = repository;
             this.eventBroker = eventBroker;
+        }
+
+        public void ProcessAction(ApplicationStartEvent eventObject)
+        {
+            this.catalogView.HideView();
+        }
+
+        public void ProcessAction(CatalogSelectedEvent eventObject)
+        {
+            this.catalogView.ShowView();
+            this.DisplayCatalog(eventObject.Id);
+        }
+
+        public void ProcessAction(CatalogUnselectedEvent eventObject)
+        {
+            this.catalogView.HideView();
         }
 
         /*
@@ -88,7 +108,38 @@ namespace Chiffrage.App.Controllers
 
         }*/
 
-        #region ICatalogController Members
+        public void ProcessAction(CatalogUpdatedEvent eventObject)
+        {
+            Mapper.CreateMap<SupplierCatalog, CatalogViewModel>();
+
+            var result = Mapper.Map<SupplierCatalog, CatalogViewModel>(eventObject.NewCatalog);
+
+            this.catalogView.Display(result);
+        }
+
+        public void ProcessAction(NewCatalogEvent eventObject)
+        {
+            this.newCatalogView.ShowView();            
+        }
+
+        public void ProcessAction(SaveEvent eventObject)
+        {
+            var viewModel = this.catalogView.GetViewModel();
+            if (viewModel == null)
+            {
+                return;
+            }
+
+            Mapper.CreateMap<CatalogViewModel, SupplierCatalog>();
+
+            var catalog = this.repository.FindById(viewModel.Id);
+
+            Mapper.Map(viewModel, catalog);
+
+            this.repository.Save(catalog);
+
+            this.eventBroker.Publish(new CatalogUpdatedEvent(catalog));
+        }
 
         public void DisplayCatalog(int id)
         {
@@ -99,8 +150,7 @@ namespace Chiffrage.App.Controllers
             var result = Mapper.Map<SupplierCatalog, CatalogViewModel>(catalog);
 
 
-
-            this.view.Display(result);
+            this.catalogView.Display(result);
         }
 
         public void SaveCatalog(CatalogViewModel model)
@@ -116,62 +166,14 @@ namespace Chiffrage.App.Controllers
             this.eventBroker.Publish(new CatalogUpdatedEvent(catalog));
         }
 
-        #endregion
-
-        #region IGenericEventHandler<ApplicationStartEvent> Members
-
-        public void ProcessAction(ApplicationStartEvent eventObject)
+        public void ProcessAction(CreateNewCatalogEvent eventObject)
         {
-            this.view.HideView();
-        }
-
-        #endregion
-
-        #region IGenericEventHandler<CatalogSelectedEvent> Members
-
-        public void ProcessAction(CatalogSelectedEvent eventObject)
-        {
-            this.view.ShowView();
-            this.DisplayCatalog(eventObject.Id);
-        }
-
-        #endregion
-
-        #region IGenericEventHandler<CatalogUnselectedEvent> Members
-
-        public void ProcessAction(CatalogUnselectedEvent eventObject)
-        {
-            this.view.HideView();
-        }
-
-        #endregion
-
-        public void ProcessAction(CatalogUpdatedEvent eventObject)
-        {
-            Mapper.CreateMap<SupplierCatalog, CatalogViewModel>();
-
-            var result = Mapper.Map<SupplierCatalog, CatalogViewModel>(eventObject.NewCatalog);
-
-            this.view.Display(result);
-        }
-
-        public void ProcessAction(SaveEvent eventObject)
-        {
-            var viewModel = this.view.GetViewModel();
-            if (viewModel == null)
-            {
-                return;
-            }
-
-            Mapper.CreateMap<CatalogViewModel, SupplierCatalog>();
-
-            var catalog = this.repository.FindById(viewModel.Id);
-
-            Mapper.Map(viewModel, catalog);
+            var catalog = new SupplierCatalog();
+            catalog.SupplierName = eventObject.Name;
 
             this.repository.Save(catalog);
 
-            this.eventBroker.Publish(new CatalogUpdatedEvent(catalog));
+            this.eventBroker.Publish(new CatalogCreatedEvent(catalog));
         }
     }
 }

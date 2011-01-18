@@ -33,16 +33,10 @@ namespace Chiffrage.App.Controllers
             this.dealRepository = dealRepository;
         }
 
-        #region IGenericEventHandler<ApplicationStartEvent> Members
-
         public void ProcessAction(ApplicationStartEvent eventObject)
         {
             this.dealView.HideView();
         }
-
-        #endregion
-
-        #region IGenericEventHandler<DealSelectedEvent> Members
 
         public void ProcessAction(DealSelectedEvent eventObject)
         {
@@ -56,16 +50,10 @@ namespace Chiffrage.App.Controllers
             this.dealView.ShowView();
         }
 
-        #endregion
-
-        #region IGenericEventHandler<DealUnselectedEvent> Members
-
         public void ProcessAction(DealUnselectedEvent eventObject)
         {
             this.dealView.HideView();
         }
-
-        #endregion
 
         public void ProcessAction(SaveEvent eventObject)
         {
