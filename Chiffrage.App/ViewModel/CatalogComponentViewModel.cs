@@ -3,7 +3,7 @@ using Chiffrage.Catalogs.Domain;
 
 namespace Chiffrage.App.ViewModel
 {
-    public class CatalogHardwareSupplyViewModel
+    public class CatalogComponentViewModel
     {
         public int Id { get; set; }
 
@@ -30,25 +30,5 @@ namespace Chiffrage.App.ViewModel
         public double CatalogExecutiveWorkDays { get; set; }
 
         public double CatalogTestsDays { get; set; }
-
-        public static CatalogHardwareSupplyViewModel CreateFrom(HardwareSupply supply)
-        {
-            Mapper.CreateMap<HardwareSupply, CatalogHardwareViewModel>();
-            Mapper.CreateMap<HardwareSupply, CatalogHardwareSupplyViewModel>();
-
-            var result = new CatalogHardwareSupplyViewModel();
-
-            Mapper.Map(supply, result);
-
-            return result;
-        }
-
-        public void CopyTo(HardwareSupply supply)
-        {
-            Mapper.CreateMap<CatalogHardwareViewModel, HardwareSupply>();
-            Mapper.CreateMap<CatalogHardwareSupplyViewModel, HardwareSupply>();
-
-            Mapper.Map(this, supply);
-        }
     }
 }

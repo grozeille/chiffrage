@@ -2,23 +2,37 @@
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows.Forms;
+using Chiffrage.App.Events;
 using Chiffrage.App.ViewModel;
 using Chiffrage.App.Views;
 using Chiffrage.Catalogs.Domain;
 using Chiffrage.Mvc.Views;
 using Chiffrage.WizardPages;
+using Chiffrage.Mvc.Events;
 
 namespace Chiffrage
 {
     public partial class CatalogUserControl : UserControlView, ICatalogView
     {
+        private readonly IEventBroker eventBroker;
+
         private int? catalogId;
 
-        private bool loading = false;
+        private BindingList<CatalogSupplyViewModel> supplies = new BindingList<CatalogSupplyViewModel>();
+
+        public CatalogUserControl(IEventBroker eventBroker):this()
+        {
+            this.eventBroker = eventBroker;
+
+            this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonAddSupply, () => 
+                this.catalogId.HasValue ? new RequestAddSupplyToCatalogEvent(this.catalogId.Value) : null);
+        }
 
         public CatalogUserControl()
         {
             this.InitializeComponent();
+
+            this.suppliesBindingSource.DataSource = supplies;
         }
 
         public Catalog GlobalCatalog { get; set; }
@@ -56,60 +70,17 @@ namespace Chiffrage
             });
         }
 
+        public void AddSupply(CatalogSupplyViewModel result)
+        {
+            this.InvokeIfRequired(() =>
+            {
+                this.supplies.Add(result);
+            });
+        }
+
         #endregion
 
         public event EventHandler CatalogChanged;
-
-        private void FireCatalogChanged()
-        {
-            if (!this.loading && this.CatalogChanged != null)
-                this.CatalogChanged(this, new EventArgs());
-        }
-
-        private void RefreshCategories()
-        {
-            if (!this.loading)
-            {
-                if (this.toolStripComboBoxCategory.SelectedItem == null &&
-                    this.toolStripComboBoxCategory.Items.Count > 1)
-                    this.toolStripComboBoxCategory.SelectedItem = this.toolStripComboBoxCategory.Items[0];
-                object selected = this.toolStripComboBoxCategory.SelectedItem;
-                this.toolStripComboBoxCategory.Items.Clear();
-                this.toolStripComboBoxCategory.Items.Add(string.Empty);
-                /*if (catalog != null)
-                {
-                     toolStripComboBoxCategory.Items.AddRange(
-                        catalog.Supplies.Where((s) => s.Category != null).Select((s) => s.Category).Distinct().ToArray());
-                }*/
-                this.toolStripComboBoxCategory.SelectedItem = selected;
-            }
-        }
-
-        private void dataGridViewCatalog_CellValueChanged(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.ColumnIndex == this.categoryDataGridViewTextBoxColumn.Index)
-            {
-                this.RefreshCategories();
-            }
-        }
-
-        private void item_CurrentItemChanged(object sender, EventArgs e)
-        {
-            this.FireCatalogChanged();
-        }
-
-        private void toolStripComboBoxCategory_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            this.loading = true;
-            /*if (string.IsNullOrEmpty(toolStripComboBoxCategory.Text))
-                supplyBindingSource.DataSource = catalog.Supplies;
-            else
-            {
-                var regex = new Regex(string.Format(".*{0}.*", toolStripComboBoxCategory.Text));
-                supplyBindingSource.DataSource = new BindingList<CatalogSupplyViewModel>(catalog.Supplies.Where((s) => s.Category != null && regex.IsMatch(s.Category)).ToList());
-            }*/
-            this.loading = false;
-        }
 
         private void toolStripButtonAdd_Click(object sender, EventArgs e)
         {
@@ -138,7 +109,6 @@ namespace Chiffrage
 
                 // TODO : catalog.Hardwares.Add(CatalogHardwareViewModel.CreateFrom(hardware));
                 this.hardwaresBindingSource.ResetBindings(false);
-                this.componentsBindingSource.ResetBindings(false);
             }
         }
 
@@ -177,13 +147,34 @@ namespace Chiffrage
 
         private void toolStripButtonHardwareRemove_Click(object sender, EventArgs e)
         {
-            this.componentsBindingSource.RemoveCurrent();
         }
 
         public override void HideView()
         {
             this.catalogId = null;
             base.HideView();
+        }
+
+        private void suppliesBindingSource_ListChanged(object sender, ListChangedEventArgs e)
+        {
+            if(e.ListChangedType == ListChangedType.ItemChanged)
+            {
+
+            }
+            else if(e.ListChangedType == ListChangedType.ItemDeleted)
+            {
+                
+            }
+        }
+
+        private void hardwaresBindingSource_ListChanged(object sender, ListChangedEventArgs e)
+        {
+
+        }
+
+        private void componentsBindingSource_ListChanged(object sender, ListChangedEventArgs e)
+        {
+
         }
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Chiffrage.App.Views;
+using Chiffrage.Mvc.Views;
 using Chiffrage.WizardPages;
 using Chiffrage.Mvc.Events;
 using Chiffrage.App.Events;

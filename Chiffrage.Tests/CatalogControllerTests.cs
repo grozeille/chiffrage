@@ -70,13 +70,14 @@ namespace Chiffrage.Tests
         {
             var catalogView = MockRepository.GenerateStub<ICatalogView>();
             var newCatalogView = MockRepository.GenerateStub<INewCatalogView>();
+            var newSupplyView = MockRepository.GenerateStub<INewSupplyView>();
             var catalogRepository = MockRepository.GenerateStub<ICatalogRepository>();
             var eventBroker = MockRepository.GenerateStub<IEventBroker>();
 
             catalogRepository.Stub(x => x.FindById(3))
                 .Return(this.catalog);
 
-            var controller = new CatalogController(eventBroker, catalogView, newCatalogView, catalogRepository);
+            var controller = new CatalogController(eventBroker, catalogView, newCatalogView, newSupplyView, catalogRepository);
 
             // load the catalog
             controller.DisplayCatalog(3);

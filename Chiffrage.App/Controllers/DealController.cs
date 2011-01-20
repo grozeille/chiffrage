@@ -16,7 +16,7 @@ namespace Chiffrage.App.Controllers
         IGenericEventHandler<ApplicationStartEvent>,
         IGenericEventHandler<SaveEvent>,
         IGenericEventHandler<DealUpdatedEvent>,
-        IGenericEventHandler<NewDealEvent>,
+        IGenericEventHandler<RequestNewDealEvent>,
         IGenericEventHandler<CreateNewDealEvent>
     {
         private readonly IEventBroker eventBroker;
@@ -83,7 +83,7 @@ namespace Chiffrage.App.Controllers
             this.dealView.Display(result);
         }
 
-        public void ProcessAction(NewDealEvent eventObject)
+        public void ProcessAction(RequestNewDealEvent eventObject)
         {
             this.newDealView.ShowView();
         }

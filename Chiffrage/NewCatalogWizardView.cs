@@ -4,53 +4,35 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Chiffrage.App.Views;
+using Chiffrage.Mvc.Views;
 using Chiffrage.WizardPages;
 using Chiffrage.Mvc.Events;
 using Chiffrage.App.Events;
 
 namespace Chiffrage
 {
-    public class NewCatalogWizardView : INewCatalogView
+    public class NewCatalogWizardView : WizardView, INewCatalogView
     {
-        private readonly IEventBroker eventBroker;
-
-        private Control parent;
-
-        private readonly WizardForm form;
+        private GenericWizardSetting<NewCatalogPage> newCatalogPage;
 
         public NewCatalogWizardView(IEventBroker eventBroker)
+            : base(eventBroker)
         {
-            this.eventBroker = eventBroker;
-            this.form = new WizardForm();
+        }        
+
+        protected override WizardSetting[] BuildWizardPages()
+        {
+            this.newCatalogPage = new GenericWizardSetting<NewCatalogPage>("Nouveau catalogue", "Création d'un nouveau catalogue fournisseur", true);
+
+            return new[]{ this.newCatalogPage };
         }
 
-        public void SetParent(Control parent)
+        protected override void OnWizardClosed(DialogResult result)
         {
-            this.parent = parent;
-        }
-
-        public void ShowView()
-        {
-            var newCatalogPage = new NewCatalogPage();
-
-            this.form.WizardSettings = new[]
+            if (result == DialogResult.OK)
             {
-                new WizardSetting(newCatalogPage, "Nouveau catalogue", "Création d'un nouveau catalogue fournisseur", true)
-            }; 
-
-            this.parent.BeginInvoke(new Action(() =>
-            {
-                var result = this.form.ShowDialog(this.parent);
-                if (result == DialogResult.OK)
-                {
-                    this.eventBroker.Publish(new CreateNewCatalogEvent(newCatalogPage.SupplierName));
-                }
-            }));            
-        }
-
-        public void HideView()
-        {
-            this.form.Close();
+                this.EventBroker.Publish(new CreateNewCatalogEvent(newCatalogPage.TypedPage.SupplierName));
+            }
         }
     }
 }

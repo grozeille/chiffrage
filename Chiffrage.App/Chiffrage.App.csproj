@@ -65,11 +65,13 @@
     <Compile Include="Events\CatalogUpdatedEvent.cs" />
     <Compile Include="Events\CreateNewCatalogEvent.cs" />
     <Compile Include="Events\CreateNewDealEvent.cs" />
+    <Compile Include="Events\CreateNewSupplyEvent.cs" />
     <Compile Include="Events\DealCreatedEvent.cs" />
     <Compile Include="Events\DealUpdatedEvent.cs" />
-    <Compile Include="Events\NewCatalogEvent.cs" />
-    <Compile Include="Events\NewDealEvent.cs" />
-    <Compile Include="Events\NewProjectEvent.cs" />
+    <Compile Include="Events\RequestAddSupplyToCatalogEvent.cs" />
+    <Compile Include="Events\RequestNewCatalogEvent.cs" />
+    <Compile Include="Events\RequestNewDealEvent.cs" />
+    <Compile Include="Events\RequestNewProjectEvent.cs" />
     <Compile Include="Events\ProjectSelectedEvent.cs" />
     <Compile Include="Events\ProjectUnselectedEvent.cs" />
     <Compile Include="Events\DealSelectedEvent.cs" />
@@ -77,7 +79,11 @@
     <Compile Include="Controllers\NavigationController.cs" />
     <Compile Include="Controllers\CatalogController.cs" />
     <Compile Include="Events\SaveEvent.cs" />
+    <Compile Include="Events\SupplyCreatedEvent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModel\CatalogComponentViewModel.cs" />
+    <Compile Include="ViewModel\CatalogHardwareViewModel.cs" />
+    <Compile Include="ViewModel\CatalogSupplyViewModel.cs" />
     <Compile Include="ViewModel\NavigationItemViewModel.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -105,6 +111,7 @@
     <Compile Include="ViewModel\SeverityType.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Views\INewSupplyView.cs" />
     <Compile Include="Views\IApplicationView.cs" />
     <Compile Include="Views\INavigationView.cs" />
     <Compile Include="Views\ICatalogView.cs" />

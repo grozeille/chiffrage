@@ -6,7 +6,7 @@ using Chiffrage.Mvc.Events;
 
 namespace Chiffrage.App.Events
 {
-    public class NewCatalogEvent : IEvent
+    public class RequestNewDealEvent : IEvent
     {
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System.Windows.Forms;
 
-namespace Chiffrage
+namespace Chiffrage.Mvc.Views
 {
     public class WizardSetting
     {
@@ -12,14 +12,14 @@ namespace Chiffrage
             this.Description = description;
         }
 
-        public UserControl Page { get; private set; }
+        public UserControl Page { get; protected set; }
 
-        public bool CanFinish { get; private set; }
+        public bool CanFinish { get; protected set; }
 
         public bool Validated { get; set; }
 
-        public string Title { get; private set; }
+        public string Title { get; protected set; }
 
-        public string Description { get; private set; }
+        public string Description { get; protected set; }
     }
 }

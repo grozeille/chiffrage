@@ -14,18 +14,28 @@ namespace Chiffrage.App.Controllers
                                      IGenericEventHandler<ApplicationStartEvent>,
                                      IGenericEventHandler<CatalogUpdatedEvent>,
                                      IGenericEventHandler<SaveEvent>,
-                                     IGenericEventHandler<NewCatalogEvent>,
-        IGenericEventHandler<CreateNewCatalogEvent>
+                                     IGenericEventHandler<RequestNewCatalogEvent>,
+                                     IGenericEventHandler<RequestAddSupplyToCatalogEvent>,
+                                     IGenericEventHandler<CreateNewSupplyEvent>,
+                                     IGenericEventHandler<CreateNewCatalogEvent>,
+                                     IGenericEventHandler<SupplyCreatedEvent>
     {
-        private readonly IEventBroker eventBroker;
-        private readonly ICatalogRepository repository;
         private readonly ICatalogView catalogView;
+        private readonly IEventBroker eventBroker;
         private readonly INewCatalogView newCatalogView;
+        private readonly INewSupplyView newSupplyView;
+        private readonly ICatalogRepository repository;
 
-        public CatalogController(IEventBroker eventBroker, ICatalogView catalogView, INewCatalogView newCatalogView, ICatalogRepository repository)
+        public CatalogController(
+            IEventBroker eventBroker,
+            ICatalogView catalogView,
+            INewCatalogView newCatalogView,
+            INewSupplyView newSupplyView,
+            ICatalogRepository repository)
         {
             this.catalogView = catalogView;
             this.newCatalogView = newCatalogView;
+            this.newSupplyView = newSupplyView;
             this.repository = repository;
             this.eventBroker = eventBroker;
         }
@@ -117,9 +127,40 @@ namespace Chiffrage.App.Controllers
             this.catalogView.Display(result);
         }
 
-        public void ProcessAction(NewCatalogEvent eventObject)
+        public void ProcessAction(CreateNewCatalogEvent eventObject)
         {
-            this.newCatalogView.ShowView();            
+            var catalog = new SupplierCatalog();
+            catalog.SupplierName = eventObject.Name;
+
+            this.repository.Save(catalog);
+
+            this.eventBroker.Publish(new CatalogCreatedEvent(catalog));
+        }
+
+        public void ProcessAction(CreateNewSupplyEvent eventObject)
+        {
+            var catalog = this.repository.FindById(eventObject.CatalogId);
+
+            Mapper.CreateMap<CatalogSupplyViewModel, Supply>();
+
+            var supply = Mapper.Map<CatalogSupplyViewModel, Supply>(eventObject.ViewModel);
+
+            catalog.Supplies.Add(supply);
+
+            this.repository.Save(catalog);
+
+            this.eventBroker.Publish(new SupplyCreatedEvent(catalog.Id, supply));
+        }
+
+        public void ProcessAction(RequestAddSupplyToCatalogEvent eventObject)
+        {
+            this.newSupplyView.CatalogId = eventObject.CatalogId;
+            this.newSupplyView.ShowView();
+        }
+
+        public void ProcessAction(RequestNewCatalogEvent eventObject)
+        {
+            this.newCatalogView.ShowView();
         }
 
         public void ProcessAction(SaveEvent eventObject)
@@ -149,7 +190,6 @@ namespace Chiffrage.App.Controllers
 
             var result = Mapper.Map<SupplierCatalog, CatalogViewModel>(catalog);
 
-
             this.catalogView.Display(result);
         }
 
@@ -166,14 +206,13 @@ namespace Chiffrage.App.Controllers
             this.eventBroker.Publish(new CatalogUpdatedEvent(catalog));
         }
 
-        public void ProcessAction(CreateNewCatalogEvent eventObject)
+        public void ProcessAction(SupplyCreatedEvent eventObject)
         {
-            var catalog = new SupplierCatalog();
-            catalog.SupplierName = eventObject.Name;
+            Mapper.CreateMap<Supply, CatalogSupplyViewModel>();
 
-            this.repository.Save(catalog);
+            var result = Mapper.Map<Supply, CatalogSupplyViewModel>(eventObject.Supply);
 
-            this.eventBroker.Publish(new CatalogCreatedEvent(catalog));
+            this.catalogView.AddSupply(result);
         }
     }
 }

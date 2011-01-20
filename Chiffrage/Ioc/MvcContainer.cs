@@ -65,6 +65,10 @@ namespace Chiffrage.Ioc
             Define<NewCatalogWizardView>()
                .AutoWire(AutoWiringMode.Constructor)
                .AsSingleton();
+
+            Define<NewSupplyWizardView>()
+               .AutoWire(AutoWiringMode.Constructor)
+               .AsSingleton();
         }
 
         private void SetupControllers()

@@ -35,6 +35,18 @@ namespace Chiffrage.Mvc.Events
             button.Click += (sender, e) => eventBroker.Publish(myEvent);
         }
 
+        public static void RegisterToolStripBouttonClickEventSource(this IEventBroker eventBroker, ToolStripButton button, Func<IEvent> eventFunction)
+        {
+            button.Click += (sender, e) =>
+            {
+                var myEvent = eventFunction();
+                if (myEvent != null)
+                {
+                    eventBroker.Publish(myEvent);
+                }
+            };
+        }
+
         public static void RegisterToolStripMenuItemClickEventSource(this IEventBroker eventBroker, ToolStripMenuItem item, IEvent myEvent)
         {
             item.Click += (sender, e) => eventBroker.Publish(myEvent);

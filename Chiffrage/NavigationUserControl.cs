@@ -17,8 +17,8 @@ namespace Chiffrage
             : this()
         {
             this.eventBroker = eventBroker;
-            this.eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemNewCatalog, new NewCatalogEvent());
-            this.eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemNewDeal, new NewDealEvent());
+            this.eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemNewCatalog, new RequestNewCatalogEvent());
+            this.eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemNewDeal, new RequestNewDealEvent());
             this.eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemNewProject, () =>
             {
                 if (this.treeView.SelectedNode != null)
@@ -26,7 +26,7 @@ namespace Chiffrage
                     var deal = this.treeView.SelectedNode.Tag as DealItemViewModel;
                     if (deal != null)
                     {
-                        return new NewProjectEvent(deal.Id);
+                        return new RequestNewProjectEvent(deal.Id);
                     }
                 }
 

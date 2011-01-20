@@ -6,11 +6,11 @@ using Chiffrage.Mvc.Events;
 
 namespace Chiffrage.App.Events
 {
-    public class NewProjectEvent : IEvent
+    public class RequestNewProjectEvent : IEvent
     {
         public int DealId { get; private set; }
 
-        public NewProjectEvent(int dealId)
+        public RequestNewProjectEvent(int dealId)
         {
             this.DealId = dealId;
         }
