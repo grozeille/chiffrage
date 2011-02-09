@@ -84,9 +84,9 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
-    <Reference Include="System.Data.SQLite, Version=1.0.66.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=AMD64">
+    <Reference Include="System.Data.SQLite, Version=1.0.65.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\System.Data.SQLite.DLL</HintPath>
+      <HintPath>..\..\..\lib\SQLite-1.0.65.0-binaries\bin\System.Data.SQLite.DLL</HintPath>
     </Reference>
     <Reference Include="System.Design" />
     <Reference Include="System.Xml.Linq">
@@ -101,6 +101,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EditSupplyWizardView.cs" />
     <Compile Include="NewCatalogWizardView.cs" />
     <Compile Include="ErrorLogView.cs">
       <SubType>UserControl</SubType>
@@ -152,6 +153,12 @@
     <Compile Include="NewDealWizardView.cs">
     </Compile>
     <Compile Include="NewSupplyWizardView.cs" />
+    <Compile Include="WizardPages\EditSupplyPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WizardPages\EditSupplyPage.Designer.cs">
+      <DependentUpon>EditSupplyPage.cs</DependentUpon>
+    </Compile>
     <Compile Include="WizardPages\NewCatalogPage.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -183,6 +190,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="LoadingForm.resx">
       <DependentUpon>LoadingForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WizardPages\EditSupplyPage.resx">
+      <DependentUpon>EditSupplyPage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WizardPages\NewCatalogPage.resx">
       <DependentUpon>NewCatalogPage.cs</DependentUpon>

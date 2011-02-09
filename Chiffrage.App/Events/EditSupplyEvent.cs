@@ -7,11 +7,11 @@ using Chiffrage.Mvc.Events;
 
 namespace Chiffrage.App.Events
 {
-    public class CreateNewSupplyEvent : IEvent
+    public class EditSupplyEvent : IEvent
     {
         private readonly CatalogSupplyViewModel viewModel;
 
-        public CreateNewSupplyEvent(CatalogSupplyViewModel viewModel)
+        public EditSupplyEvent(CatalogSupplyViewModel viewModel)
         {
             this.viewModel = viewModel;
         }

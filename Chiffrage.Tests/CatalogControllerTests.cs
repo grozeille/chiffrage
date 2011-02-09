@@ -65,7 +65,7 @@ namespace Chiffrage.Tests
         private Supply supply;
         private HardwareSupply hardwareSupply;
 
-        [Test]
+        /*[Test]
         public void CanDisplayCatalog()
         {
             var catalogView = MockRepository.GenerateStub<ICatalogView>();
@@ -96,6 +96,6 @@ namespace Chiffrage.Tests
 
             catalogRepository.AssertWasCalled(
                 x => x.Save(Arg<SupplierCatalog>.Matches(c => c.Comment.Equals("new comment"))));
-        }
+        }*/
     }
 }

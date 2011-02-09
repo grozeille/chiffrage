@@ -15,7 +15,8 @@ namespace Chiffrage.App.Controllers
         IGenericEventHandler<CatalogCreatedEvent>,
         IGenericEventHandler<DealUpdatedEvent>,
         IGenericEventHandler<DealCreatedEvent>,
-        IGenericEventHandler<SupplyCreatedEvent>
+        IGenericEventHandler<SupplyCreatedEvent>,
+        IGenericEventHandler<SupplyUpdatedEvent>
     {
         private readonly IErrorLogView view;
 
@@ -82,6 +83,11 @@ namespace Chiffrage.App.Controllers
         public void ProcessAction(SupplyCreatedEvent eventObject)
         {
             this.AppendInfoLog(string.Format("Supply '{0}' added successfully", eventObject.Supply.Name));
+        }
+
+        public void ProcessAction(SupplyUpdatedEvent eventObject)
+        {
+            this.AppendInfoLog(string.Format("Supply '{0}' updated successfully", eventObject.Supply.Name));
         }
     }
 }

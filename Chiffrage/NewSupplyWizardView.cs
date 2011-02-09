@@ -26,6 +26,7 @@ namespace Chiffrage
 
             this.newSupplyPage = new GenericWizardSetting<NewSupplyPage>("Création d'une fourniture",
                                                                          "Vous pouvez ici créer une nouvelle fourniture", true);
+            this.newSupplyPage.TypedPage.CatalogId = this.catalogId;
 
             return new WizardSetting[] { this.newSupplyPage };
         }
@@ -34,7 +35,7 @@ namespace Chiffrage
         {
             if(result == DialogResult.OK)
             {
-                this.EventBroker.Publish(new CreateNewSupplyEvent(catalogId, newSupplyPage.TypedPage.ViewModel));
+                this.EventBroker.Publish(new CreateNewSupplyEvent(newSupplyPage.TypedPage.ViewModel));
             }
         }
 

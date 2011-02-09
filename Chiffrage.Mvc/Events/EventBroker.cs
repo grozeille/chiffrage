@@ -53,13 +53,18 @@ namespace Chiffrage.Mvc.Events
         private void DispatchEvents()
         {
             do
-            {
-                Thread.Sleep(10);
+            {                
                 IEvent eventObject = null;
                 lock (this.eventQueue)
                 {
                     if (this.eventQueue.Count > 0)
+                    {
                         eventObject = this.eventQueue.Dequeue();
+                    }
+                    else
+                    {
+                        Thread.Sleep(10);
+                    }
                 }
 
                 lock (this.subscribers)

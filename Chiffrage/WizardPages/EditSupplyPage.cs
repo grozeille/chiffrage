@@ -10,11 +10,13 @@ using Chiffrage.App.ViewModel;
 
 namespace Chiffrage.WizardPages
 {
-    public partial class NewSupplyPage : UserControl
+    public partial class EditSupplyPage : UserControl
     {
         private int catalogId;
 
-        public NewSupplyPage()
+        private int supplyId;
+
+        public EditSupplyPage()
         {
             InitializeComponent();
         }
@@ -26,14 +28,17 @@ namespace Chiffrage.WizardPages
                 return new CatalogSupplyViewModel
                 {
                     CatalogId = this.catalogId,
-                    Name = this.textBoxName.Text,
+                    Id = this.supplyId,
+                    Name = this.textBoxName.Text
                 };
             }
-        }
 
-        public int CatalogId
-        {
-            set { this.catalogId = value; }
+            set
+            {
+                this.catalogId = value.CatalogId;
+                this.supplyId = value.Id;
+                this.textBoxName.Text = value.Name;
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using System.Linq;
+using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows.Forms;
@@ -18,7 +19,7 @@ namespace Chiffrage
 
         private int? catalogId;
 
-        private BindingList<CatalogSupplyViewModel> supplies = new BindingList<CatalogSupplyViewModel>();
+        private readonly BindingList<CatalogSupplyViewModel> supplies = new BindingList<CatalogSupplyViewModel>();
 
         public CatalogUserControl(IEventBroker eventBroker):this()
         {
@@ -72,16 +73,22 @@ namespace Chiffrage
 
         public void AddSupply(CatalogSupplyViewModel result)
         {
+            this.InvokeIfRequired(() => this.supplies.Add(result));
+        }
+
+        public void UpdateSupply(CatalogSupplyViewModel result)
+        {
             this.InvokeIfRequired(() =>
             {
-                this.supplies.Add(result);
+                var supply = this.supplies.Where(s => s.Id == result.Id).First();
+                var index = this.supplies.IndexOf(supply);
+                this.supplies[index] = result;
             });
         }
 
         #endregion
 
-        public event EventHandler CatalogChanged;
-
+        /*
         private void toolStripButtonAdd_Click(object sender, EventArgs e)
         {
             var page1 = new NewHardwarePage();
@@ -100,12 +107,12 @@ namespace Chiffrage
                 var hardware = new Hardware();
                 hardware.Name = page1.HardwareName;
                 hardware.Components = new BindingList<HardwareSupply>();
-                /*foreach (var item in page2.SelectedItems)
+                foreach (var item in page2.SelectedItems)
                 {
                     var supply = new HardwareSupply();
                     supply.Supply = item as Supply;
                     hardware.Components.Add(supply);
-                }*/
+                }
 
                 // TODO : catalog.Hardwares.Add(CatalogHardwareViewModel.CreateFrom(hardware));
                 this.hardwaresBindingSource.ResetBindings(false);
@@ -137,8 +144,8 @@ namespace Chiffrage
                 //    }
 
                 //    var tmp = new Hardware();
-                //    /* TODO: current.CopyTo(tmp);
-                //    current.CopyFrom(tmp);*/
+                //    // TODO: current.CopyTo(tmp);
+                //    current.CopyFrom(tmp);
 
                 //    this.componentsBindingSource.ResetBindings(false);
                 //}
@@ -147,7 +154,7 @@ namespace Chiffrage
 
         private void toolStripButtonHardwareRemove_Click(object sender, EventArgs e)
         {
-        }
+        }*/
 
         public override void HideView()
         {
@@ -155,26 +162,10 @@ namespace Chiffrage
             base.HideView();
         }
 
-        private void suppliesBindingSource_ListChanged(object sender, ListChangedEventArgs e)
+        private void dataGridViewSupplies_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            if(e.ListChangedType == ListChangedType.ItemChanged)
-            {
-
-            }
-            else if(e.ListChangedType == ListChangedType.ItemDeleted)
-            {
-                
-            }
-        }
-
-        private void hardwaresBindingSource_ListChanged(object sender, ListChangedEventArgs e)
-        {
-
-        }
-
-        private void componentsBindingSource_ListChanged(object sender, ListChangedEventArgs e)
-        {
-
+            var supply = this.suppliesBindingSource[e.RowIndex] as CatalogSupplyViewModel;
+            this.eventBroker.Publish(new RequestEditSupplyEvent(supply));
         }
     }
 }
