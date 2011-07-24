@@ -128,6 +128,7 @@
       <DependentUpon>ApplicationForm.cs</DependentUpon>
     </Compile>
     <Compile Include="EditSupplyWizardView.cs" />
+    <Compile Include="Ioc\ByTypeWiringContainer.cs" />
     <Compile Include="NewCatalogWizardView.cs" />
     <Compile Include="ErrorLogView.cs">
       <SubType>UserControl</SubType>

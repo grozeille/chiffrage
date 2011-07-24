@@ -7,10 +7,12 @@ using Chiffrage.Mvc.Events;
 using Chiffrage.Projects.Domain;
 using Chiffrage.Projects.Domain.Repositories;
 using System.Linq;
+using Chiffrage.Mvc.Controllers;
 
 namespace Chiffrage.App.Controllers
 {
     public class DealController :
+        IController,
         IGenericEventHandler<DealSelectedEvent>,
         IGenericEventHandler<DealUnselectedEvent>,
         IGenericEventHandler<ApplicationStartEvent>,

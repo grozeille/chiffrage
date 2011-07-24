@@ -9,10 +9,12 @@ using Chiffrage.Catalogs.Domain.Repositories;
 using Chiffrage.Mvc.Events;
 using Chiffrage.Projects.Domain;
 using Chiffrage.Projects.Domain.Repositories;
+using Chiffrage.Mvc.Controllers;
 
 namespace Chiffrage.App.Controllers
 {
     public class NavigationController : 
+        IController,
         IGenericEventHandler<ApplicationStartEvent>,
         IGenericEventHandler<CatalogUpdatedEvent>,
         IGenericEventHandler<CatalogCreatedEvent>,

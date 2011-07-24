@@ -1,14 +1,20 @@
-﻿using System;
+﻿using System.Linq;
+using System;
 using Chiffrage.App.Controllers;
 using Chiffrage.Mvc.Events;
 using Chiffrage.Mvc.Views;
 using Spring.Aop.Framework.AutoProxy;
 using Spring.Objects.Factory.Config;
 using Strongshell.Recoil.Core.Composition;
+using System.Reflection;
+using Spring.Context.Support;
+using Spring.Objects.Factory.Support;
+using System.Collections.Generic;
+using Chiffrage.Mvc.Controllers;
 
 namespace Chiffrage.Ioc
 {
-    public class MvcContainer : WiringContainer
+    public class MvcContainer : ByTypeWiringContainer
     {
         public override void SetupContainer()
         {
@@ -19,87 +25,28 @@ namespace Chiffrage.Ioc
             Define<EventHandlersFactory>()
                 .AsSingleton();
 
-            this.SetupControllers();
-
-            this.Views();
+            base.SetupContainer();
         }
 
-        private void Views()
+        private IEnumerable<Type> GetViews()
         {
-            Define<ApplicationForm>()
-                .AutoWire(AutoWiringMode.Constructor)
-                .AsSingleton();
-
-            Define<NavigationUserControl>()
-                .AutoWire(AutoWiringMode.Constructor)
-                .AsSingleton();
-
-            Define<CatalogUserControl>()
-                .AutoWire(AutoWiringMode.Constructor)
-                .AsSingleton();
-
-            Define<DealUserControl>()
-                .AutoWire(AutoWiringMode.Constructor)
-                .AsSingleton();
-
-            Define<ErrorLogView>()
-                .AutoWire(AutoWiringMode.Constructor)
-                .AsSingleton();
-
-            Define<ProjectUserControl>()
-                .AutoWire(AutoWiringMode.Constructor)
-                .AsSingleton();
-
-            Define<LoadingForm>()
-                .AutoWire(AutoWiringMode.Constructor)
-                .AsSingleton();
-
-            Define<ApplicationForm>()
-               .AutoWire(AutoWiringMode.Constructor)
-               .AsSingleton();
-
-            Define<NewDealWizardView>()
-               .AutoWire(AutoWiringMode.Constructor)
-               .AsSingleton();
-
-            Define<NewCatalogWizardView>()
-               .AutoWire(AutoWiringMode.Constructor)
-               .AsSingleton();
-
-            Define<NewSupplyWizardView>()
-               .AutoWire(AutoWiringMode.Constructor)
-               .AsSingleton();
-
-            Define<EditSupplyWizardView>()
-              .AutoWire(AutoWiringMode.Constructor)
-              .AsSingleton();
+            return AppDomain.CurrentDomain.GetAssemblies()
+                .Where(a => a.FullName.StartsWith("Chiffrage"))
+                .SelectMany(a => a.GetTypes())
+                .Where(t => t.GetInterface(typeof(IView).Name) != null && !t.IsAbstract && t.IsPublic);
         }
 
-        private void SetupControllers()
+        private IEnumerable<Type> GetControllers()
         {
-            Define<NavigationController>()
-                .AutoWire(AutoWiringMode.Constructor)
-                .AsSingleton();
+            return AppDomain.CurrentDomain.GetAssemblies()
+                .Where(a => a.FullName.StartsWith("Chiffrage"))
+                .SelectMany(a => a.GetTypes())
+                .Where(t => t.GetInterface(typeof(IController).Name) != null && !t.IsAbstract && t.IsPublic);
+        }
 
-            Define<CatalogController>()
-                .AutoWire(AutoWiringMode.Constructor)
-                .AsSingleton();
-
-            Define<DealController>()
-                .AutoWire(AutoWiringMode.Constructor)
-                .AsSingleton();
-
-            Define<ErrorLogController>()
-               .AutoWire(AutoWiringMode.Constructor)
-               .AsSingleton();
-
-            Define<ProjectController>()
-               .AutoWire(AutoWiringMode.Constructor)
-               .AsSingleton();
-
-            Define<ApplicationController>()
-               .AutoWire(AutoWiringMode.Constructor)
-               .AsSingleton();
+        protected override IEnumerable<Type> GetTypesToRegister()
+        {
+            return this.GetViews().Concat(this.GetControllers());            
         }
     }
 }

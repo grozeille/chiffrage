@@ -6,10 +6,12 @@ using Chiffrage.App.ViewModel;
 using Chiffrage.App.Views;
 using Chiffrage.Mvc.Events;
 using Chiffrage.App.Events;
+using Chiffrage.Mvc.Controllers;
 
 namespace Chiffrage.App.Controllers
 {
-    public class ErrorLogController : 
+    public class ErrorLogController :
+        IController,
         IGenericEventHandler<ErrorEvent>,
         IGenericEventHandler<CatalogUpdatedEvent>,
         IGenericEventHandler<CatalogCreatedEvent>,

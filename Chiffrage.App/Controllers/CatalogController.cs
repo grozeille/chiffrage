@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using System;
 using AutoMapper;
 using Chiffrage.App.Events;
 using Chiffrage.App.ViewModel;
@@ -7,10 +6,12 @@ using Chiffrage.App.Views;
 using Chiffrage.Catalogs.Domain;
 using Chiffrage.Catalogs.Domain.Repositories;
 using Chiffrage.Mvc.Events;
+using Chiffrage.Mvc.Controllers;
 
 namespace Chiffrage.App.Controllers
 {
-    public class CatalogController : 
+    public class CatalogController :
+        IController,
         IGenericEventHandler<CatalogSelectedEvent>,
         IGenericEventHandler<CatalogUnselectedEvent>,
         IGenericEventHandler<ApplicationStartEvent>,

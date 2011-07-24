@@ -9,10 +9,12 @@ using Chiffrage.App.Views;
 using Chiffrage.Mvc.Events;
 using Chiffrage.Projects.Domain;
 using Chiffrage.Projects.Domain.Repositories;
+using Chiffrage.Mvc.Controllers;
 
 namespace Chiffrage.App.Controllers
 {
     public class ProjectController :
+        IController,
         IGenericEventHandler<ApplicationStartEvent>,
         IGenericEventHandler<ProjectSelectedEvent>,
         IGenericEventHandler<ProjectUnselectedEvent>,
