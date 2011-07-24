@@ -4,6 +4,8 @@ using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using NHibernate.ByteCode.Spring;
 using Strongshell.Recoil.Core.Composition;
+using System;
+using System.IO;
 
 namespace Chiffrage.Ioc
 {
@@ -11,9 +13,15 @@ namespace Chiffrage.Ioc
     {
         public override void SetupContainer()
         {
+            var catalogPath = Settings.Default.CatalogPath;
+            if (string.IsNullOrEmpty(catalogPath))
+            {
+                catalogPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "catalog.cat");
+            }
+
             var configurationCatalog = Fluently.Configure()
                 .Database(SQLiteConfiguration.Standard
-                              .UsingFile(Settings.Default.CatalogPath)
+                              .UsingFile(catalogPath)
                               .ProxyFactoryFactory(typeof (ProxyFactoryFactory)))
                 .Mappings(m => m.FluentMappings.AddFromAssembly(typeof (CatalogRepository).Assembly))
                 .BuildConfiguration();

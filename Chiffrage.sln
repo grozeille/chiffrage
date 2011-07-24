@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chiffrage", "Chiffrage\Chiffrage.csproj", "{B41F3EBF-5486-411C-AE38-0F97327F89E1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chiffrage.Catalogs.Domain", "Chiffrage.Catalogs.Domain\Chiffrage.Catalogs.Domain.csproj", "{BD6DAC1A-3B56-4E12-84DE-E7BD79316FF6}"
