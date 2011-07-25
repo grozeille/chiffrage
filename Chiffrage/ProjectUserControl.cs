@@ -366,6 +366,35 @@ namespace Chiffrage
             });
         }
 
+        public ProjectViewModel GetViewModel()
+        {
+            return this.InvokeIfRequired(() =>
+            {
+                if (!this.id.HasValue)
+                {
+                    return null;
+                }
+
+                return new ProjectViewModel
+                {
+                    Id = this.id.Value,
+                    Name = this.textBoxProjectName.Text,
+                    Reference = this.textBoxReference.Text,
+                    StartDate = this.dateTimePickerProjectBegin.Value,
+                    EndDate = this.dateTimePickerProjectEnd.Value,
+                    ReferenceRate = this.textBoxReferenceRate.Text,
+                    StudyRate = this.textBoxStudyRate.Text,
+                    WorkDayRate = this.textBoxWorkDayRate.Text,
+                    WorkShortNightsRate = this.textBoxWorkShortNightsRate.Text,
+                    WorkLongNightsRate = this.textBoxWorkLongNightsRate.Text,
+                    TestDayRate = this.textBoxTestDayRate.Text,
+                    TestNightRate = this.textBoxTestNightRate.Text,
+                    TotalDays = this.textBoxTotalDays.Text,
+                    TotalPrice = this.textBoxTotalPrice.Text
+                };
+            });
+        }
+
         #endregion
 
         public override void HideView()

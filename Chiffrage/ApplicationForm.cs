@@ -18,6 +18,7 @@ namespace Chiffrage
             IProjectView projectView,
             INewDealView newDealView,
             INewCatalogView newCatalogView,
+            INewProjectView newProjectView,
             IEditSupplyView editSupplyView,
             INewSupplyView newSupplyView)
             : this()
@@ -31,9 +32,14 @@ namespace Chiffrage
             newCatalogView.SetParent(this);
             newSupplyView.SetParent(this);
             editSupplyView.SetParent(this);
+            newProjectView.SetParent(this);
 
             eventBroker.RegisterToolStripBouttonClickEventSource(this.saveToolStripButton, new SaveEvent());
             eventBroker.RegisterToolStripMenuItemClickEventSource(this.affaireToolStripMenuItem2, new RequestNewDealEvent());
+            //eventBroker.RegisterToolStripMenuItemClickEventSource(this.projetToolStripMenuItem2, ()=>
+            //    {
+            //        new RequestNewProjectEvent(this.)
+            //    });
         }
 
         public ApplicationForm()

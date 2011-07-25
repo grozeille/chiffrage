@@ -95,6 +95,20 @@ namespace Chiffrage
             });
         }
 
+        public void UpdateProject(ProjectItemViewModel viewModel)
+        {
+            InvokeIfRequired(() =>
+            {
+                this.treeView.BeginUpdate();
+
+                var node = this.GetProjectTreeNode(viewModel.Id);
+                node.Text = viewModel.Name;
+                node.Tag = viewModel;
+
+                this.treeView.EndUpdate();
+            });
+        }
+
         public void AddDeal(DealItemViewModel viewModel)
         {
             InvokeIfRequired(() =>
@@ -136,20 +150,34 @@ namespace Chiffrage
             });
         }
 
-
         public void SelectDeal(int dealId)
         {
-            InvokeIfRequired(() => { this.treeView.SelectedNode = this.GetDealTreeNode(dealId); });
+            InvokeIfRequired(() =>
+            {
+                this.treeView.SelectedNode = this.GetDealTreeNode(dealId);
+                if (this.treeView.SelectedNode != null)
+                    this.treeView.SelectedNode.EnsureVisible();
+            });
         }
 
         public void SelectCatalog(int catalogId)
         {
-            InvokeIfRequired(() => { this.treeView.SelectedNode = this.GetCatalogTreeNode(catalogId); });
+            InvokeIfRequired(() =>
+            {
+                this.treeView.SelectedNode = this.GetCatalogTreeNode(catalogId);
+                if (this.treeView.SelectedNode != null)
+                    this.treeView.SelectedNode.EnsureVisible();
+            });
         }
 
         public void SelectProject(int projectId)
         {
-            InvokeIfRequired(() => { this.treeView.SelectedNode = this.GetProjectTreeNode(projectId); });
+            InvokeIfRequired(() =>
+            {
+                this.treeView.SelectedNode = this.GetProjectTreeNode(projectId);
+                if (this.treeView.SelectedNode != null)
+                    this.treeView.SelectedNode.EnsureVisible();
+            });
         }
 
         private TreeNode GetProjectTreeNode(int projectId)
@@ -158,10 +186,10 @@ namespace Chiffrage
             {
                 foreach (TreeNode subItem in item.Nodes)
                 {
-                    var project = item.Tag as ProjectItemViewModel;
+                    var project = subItem.Tag as ProjectItemViewModel;
                     if (project != null && project.Id == projectId)
                     {
-                        return item;
+                        return subItem;
                     }
                 }
             }

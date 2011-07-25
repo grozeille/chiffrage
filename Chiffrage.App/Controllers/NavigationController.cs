@@ -19,15 +19,17 @@ namespace Chiffrage.App.Controllers
         IGenericEventHandler<CatalogUpdatedEvent>,
         IGenericEventHandler<CatalogCreatedEvent>,
         IGenericEventHandler<DealUpdatedEvent>,
-        IGenericEventHandler<DealCreatedEvent>     
+        IGenericEventHandler<DealCreatedEvent>,
+        IGenericEventHandler<ProjectCreatedEvent>,
+        IGenericEventHandler<ProjectUpdatedEvent>
     {
         private readonly INavigationView navigationView;
 
         private readonly IEventBroker eventBroker;
+
         private readonly ICatalogRepository catalogRepository;
 
         private readonly IDealRepository dealRepository;
-
 
         public NavigationController(
             IEventBroker eventBroker,
@@ -105,6 +107,25 @@ namespace Chiffrage.App.Controllers
 
             this.navigationView.AddCatalog(result);
             this.navigationView.SelectCatalog(result.Id);
+        }
+
+        public void ProcessAction(ProjectCreatedEvent eventObject)
+        {
+            Mapper.CreateMap<Project, ProjectItemViewModel>();
+
+            var result = Mapper.Map<Project, ProjectItemViewModel>(eventObject.NewProject);
+
+            this.navigationView.AddProject(eventObject.ParentDeal.Id, result);
+            this.navigationView.SelectProject(result.Id);
+        }
+
+        public void ProcessAction(ProjectUpdatedEvent eventObject)
+        {
+            Mapper.CreateMap<Project, ProjectItemViewModel>();
+
+            var result = Mapper.Map<Project, ProjectItemViewModel>(eventObject.NewProject);
+
+            this.navigationView.UpdateProject(result);
         }
     }
 }
