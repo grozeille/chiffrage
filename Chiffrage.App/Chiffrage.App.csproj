@@ -68,6 +68,11 @@
     <Compile Include="Events\CatalogSelectedEvent.cs" />
     <Compile Include="Events\CatalogUnselectedEvent.cs" />
     <Compile Include="Events\CatalogUpdatedEvent.cs" />
+    <Compile Include="Events\HardwareDeletedEvent.cs" />
+    <Compile Include="Events\RequestDeleteHardwareEvent.cs" />
+    <Compile Include="Events\HardwareUpdatedEvent.cs" />
+    <Compile Include="Events\EditHardwareEvent.cs" />
+    <Compile Include="Events\RequestEditHardwareEvent.cs" />
     <Compile Include="Events\HardwareCreatedEvent.cs" />
     <Compile Include="Events\HardwareMustBeUniqueErrorEvent.cs" />
     <Compile Include="Events\CreateNewHardwareEvent.cs" />
@@ -130,6 +135,7 @@
     <Compile Include="ViewModel\SeverityType.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Views\IEditHardwareView.cs" />
     <Compile Include="Views\INewHardwareView.cs" />
     <Compile Include="Views\IEditSupplyView.cs" />
     <Compile Include="Views\INewProjectView.cs" />

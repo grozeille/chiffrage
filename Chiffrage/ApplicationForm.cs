@@ -15,12 +15,7 @@ namespace Chiffrage
             ICatalogView catalogView,
             IDealView dealView,
             IErrorLogView errorLogView,
-            IProjectView projectView,
-            INewDealView newDealView,
-            INewCatalogView newCatalogView,
-            INewProjectView newProjectView,
-            IEditSupplyView editSupplyView,
-            INewSupplyView newSupplyView)
+            IProjectView projectView)
             : this()
         {
             applicationView.SetParent(this.splitContainer.Panel1);
@@ -28,12 +23,7 @@ namespace Chiffrage
             dealView.SetParent(this.splitContainer.Panel2);
             projectView.SetParent(this.splitContainer.Panel2);
             errorLogView.SetParent(this.splitContainerMain.Panel2);
-            newDealView.SetParent(this);
-            newCatalogView.SetParent(this);
-            newSupplyView.SetParent(this);
-            editSupplyView.SetParent(this);
-            newProjectView.SetParent(this);
-
+            
             eventBroker.RegisterToolStripBouttonClickEventSource(this.saveToolStripButton, new SaveEvent());
             eventBroker.RegisterToolStripMenuItemClickEventSource(this.affaireToolStripMenuItem2, new RequestNewDealEvent());
             //eventBroker.RegisterToolStripMenuItemClickEventSource(this.projetToolStripMenuItem2, ()=>

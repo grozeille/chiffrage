@@ -31,18 +31,16 @@ namespace Chiffrage.Mvc.Views
         {
             if (this.Parent == null)
             {
-                throw new NoParentViewException();
+                this.Parent = Application.OpenForms[0];
             }
-            else
-            {
-                this.Form.WizardSettings = this.BuildWizardPages();
 
-                this.Parent.BeginInvoke(new Action(() =>
-                {
-                    var result = this.Form.ShowDialog(this.Parent);
-                    this.OnWizardClosed(result);
-                }));
-            }
+            this.Form.WizardSettings = this.BuildWizardPages();
+
+            this.Parent.BeginInvoke(new Action(() =>
+            {
+                var result = this.Form.ShowDialog(this.Parent);
+                this.OnWizardClosed(result);
+            }));
         }
 
         protected abstract WizardSetting[] BuildWizardPages();

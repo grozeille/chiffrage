@@ -47,8 +47,26 @@ namespace Chiffrage
 
                     return null;
                 });
-            this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonHardwareAdd, () =>
+            this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonAddHardware, () =>
                this.catalogId.HasValue ? new RequestNewHardwareEvent(this.catalogId.Value) : null);
+
+            this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonRemoveHardware, () =>
+            {
+                if (this.catalogId.HasValue)
+                {
+                    var hardware = this.hardwaresBindingSource.Current as CatalogHardwareViewModel;
+                    if (hardware != null)
+                    {
+                        var result = MessageBox.Show("Êtes-vous sûr de vouloir supprimer le matériel '" + hardware.Name + "'?", "Supprimer?", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                        if (result == DialogResult.OK)
+                        {
+                            return new RequestDeleteHardwareEvent(this.catalogId.Value, hardware.Id);
+                        }
+                    }
+                }
+
+                return null;
+            });
         }
 
         public CatalogUserControl()
@@ -126,13 +144,32 @@ namespace Chiffrage
             });
         }
 
+        public void UpdateHardware(CatalogHardwareViewModel result)
+        {
+            this.InvokeIfRequired(() =>
+            {
+                var hardware = this.hardwares.Where(s => s.Id == result.Id).First();
+                var index = this.hardwares.IndexOf(hardware);
+                this.hardwares[index] = result;
+            });
+        }
+
         public void RemoveSupply(CatalogSupplyViewModel result)
         {
             this.InvokeIfRequired(() =>
-                {
-                    var supply = this.supplies.Where(x => x.Id == result.Id).First();
-                    this.supplies.Remove(supply);
-                });
+            {
+                var supply = this.supplies.Where(x => x.Id == result.Id).First();
+                this.supplies.Remove(supply);
+            });
+        }
+
+        public void RemoveHardware(CatalogHardwareViewModel result)
+        {
+            this.InvokeIfRequired(() =>
+            {
+                var hardware = this.hardwares.Where(x => x.Id == result.Id).First();
+                this.hardwares.Remove(hardware);
+            });
         }
 
         #endregion
@@ -217,6 +254,15 @@ namespace Chiffrage
             if (supply != null)
             {
                 this.eventBroker.Publish(new RequestEditSupplyEvent(supply));
+            }
+        }
+
+        private void dataGridViewHardwares_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            var hardware = this.hardwaresBindingSource[e.RowIndex] as CatalogHardwareViewModel;
+            if (hardware != null)
+            {
+                this.eventBroker.Publish(new RequestEditHardwareEvent(hardware));
             }
         }
     }

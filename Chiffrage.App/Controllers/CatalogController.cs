@@ -21,16 +21,21 @@ namespace Chiffrage.App.Controllers
         IGenericEventHandler<RequestNewCatalogEvent>,
         IGenericEventHandler<RequestNewSupplyEvent>,
         IGenericEventHandler<RequestNewHardwareEvent>,
+        IGenericEventHandler<RequestEditSupplyEvent>,
+        IGenericEventHandler<RequestEditHardwareEvent>, 
         IGenericEventHandler<RequestDeleteSupplyEvent>,
+        IGenericEventHandler<RequestDeleteHardwareEvent>, 
         IGenericEventHandler<CreateNewSupplyEvent>,
         IGenericEventHandler<CreateNewCatalogEvent>,        
         IGenericEventHandler<CreateNewHardwareEvent>,
-        IGenericEventHandler<RequestEditSupplyEvent>,
         IGenericEventHandler<EditSupplyEvent>,
+        IGenericEventHandler<EditHardwareEvent>,
         IGenericEventHandler<SupplyCreatedEvent>,
         IGenericEventHandler<SupplyUpdatedEvent>,        
         IGenericEventHandler<SupplyDeletedEvent>,
-        IGenericEventHandler<HardwareCreatedEvent>
+        IGenericEventHandler<HardwareCreatedEvent>,
+        IGenericEventHandler<HardwareUpdatedEvent>,        
+        IGenericEventHandler<HardwareDeletedEvent>
     {
         private readonly ICatalogView catalogView;
         private readonly IEventBroker eventBroker;
@@ -38,6 +43,7 @@ namespace Chiffrage.App.Controllers
         private readonly INewSupplyView newSupplyView;
         private readonly INewHardwareView newHardwareView;
         private readonly IEditSupplyView editSupplyView;
+        private readonly IEditHardwareView editHardwareView;
         private readonly ICatalogRepository repository;
 
         public CatalogController(
@@ -47,6 +53,7 @@ namespace Chiffrage.App.Controllers
             INewSupplyView newSupplyView,
             INewHardwareView newHardwareView,
             IEditSupplyView editSupplyView,
+            IEditHardwareView editHardwareView,
             ICatalogRepository repository)
         {
             this.catalogView = catalogView;
@@ -54,6 +61,7 @@ namespace Chiffrage.App.Controllers
             this.newSupplyView = newSupplyView;
             this.newHardwareView = newHardwareView;
             this.editSupplyView = editSupplyView;
+            this.editHardwareView = editHardwareView;
             this.repository = repository;
             this.eventBroker = eventBroker;
         }
@@ -139,6 +147,8 @@ namespace Chiffrage.App.Controllers
         public void ProcessAction(CatalogUpdatedEvent eventObject)
         {
             Mapper.CreateMap<SupplierCatalog, CatalogViewModel>();
+            Mapper.CreateMap<Supply, CatalogSupplyViewModel>();
+            Mapper.CreateMap<Hardware, CatalogHardwareViewModel>();
 
             var result = Mapper.Map<SupplierCatalog, CatalogViewModel>(eventObject.NewCatalog);
             foreach (var item in result.Hardwares)
@@ -224,9 +234,14 @@ namespace Chiffrage.App.Controllers
 
             Mapper.CreateMap<SupplierCatalog, CatalogViewModel>();
             Mapper.CreateMap<Supply, CatalogSupplyViewModel>();
+            Mapper.CreateMap<Hardware, CatalogHardwareViewModel>();
             
             var result = Mapper.Map<SupplierCatalog, CatalogViewModel>(catalog);
             foreach(var item in result.Supplies)
+            {
+                item.CatalogId = result.Id;
+            }
+            foreach (var item in result.Hardwares)
             {
                 item.CatalogId = result.Id;
             }
@@ -264,6 +279,13 @@ namespace Chiffrage.App.Controllers
             this.editSupplyView.ShowView();
         }
 
+        public void ProcessAction(RequestEditHardwareEvent eventObject)
+        {
+            this.editHardwareView.Hardware = eventObject.Hardware;
+
+            this.editHardwareView.ShowView();
+        }
+
         public void ProcessAction(EditSupplyEvent eventObject)
         {
             var catalog = this.repository.FindById(eventObject.ViewModel.CatalogId);
@@ -279,6 +301,21 @@ namespace Chiffrage.App.Controllers
             this.eventBroker.Publish(new SupplyUpdatedEvent(catalog.Id, supply));
         }
 
+        public void ProcessAction(EditHardwareEvent eventObject)
+        {
+            var catalog = this.repository.FindById(eventObject.ViewModel.CatalogId);
+
+            var hardware = catalog.Hardwares.Where(s => s.Id == eventObject.ViewModel.Id).First();
+
+            Mapper.CreateMap<CatalogHardwareViewModel, Hardware>();
+
+            Mapper.Map(eventObject.ViewModel, hardware);
+
+            this.repository.Save(catalog);
+
+            this.eventBroker.Publish(new HardwareUpdatedEvent(catalog.Id, hardware));
+        }
+
         public void ProcessAction(SupplyUpdatedEvent eventObject)
         {
             Mapper.CreateMap<Supply, CatalogSupplyViewModel>();
@@ -287,6 +324,25 @@ namespace Chiffrage.App.Controllers
             result.CatalogId = eventObject.CatalogId;
 
             this.catalogView.UpdateSupply(result);
+        }
+
+        public void ProcessAction(HardwareUpdatedEvent eventObject)
+        {
+            Mapper.CreateMap<Supply, CatalogHardwareViewModel>();
+
+            var result = Mapper.Map<Hardware, CatalogHardwareViewModel>(eventObject.Hardware);
+            result.CatalogId = eventObject.CatalogId;
+
+            this.catalogView.UpdateHardware(result);
+        }
+
+        public void ProcessAction(HardwareDeletedEvent eventObject)
+        {
+            Mapper.CreateMap<Hardware, CatalogHardwareViewModel>();
+
+            var result = Mapper.Map<Hardware, CatalogHardwareViewModel>(eventObject.Hardware);
+
+            this.catalogView.RemoveHardware(result);
         }
 
         public void ProcessAction(RequestDeleteSupplyEvent eventObject)
@@ -302,6 +358,22 @@ namespace Chiffrage.App.Controllers
                 this.repository.Save(catalog);
 
                 this.eventBroker.Publish(new SupplyDeletedEvent(catalog.Id, supply));
+            }
+        }
+
+        public void ProcessAction(RequestDeleteHardwareEvent eventObject)
+        {
+            var catalog = this.repository.FindById(eventObject.CatalogId);
+
+            var hardware = catalog.Hardwares.Where(x => x.Id == eventObject.HardwareId).FirstOrDefault();
+
+            if (hardware != null)
+            {
+                catalog.Hardwares.Remove(hardware);
+
+                this.repository.Save(catalog);
+
+                this.eventBroker.Publish(new HardwareDeletedEvent(catalog.Id, hardware));
             }
         }
 

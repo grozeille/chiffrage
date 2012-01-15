@@ -127,6 +127,7 @@
     <Compile Include="ApplicationForm.Designer.cs">
       <DependentUpon>ApplicationForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="EditHardwareWizardView.cs" />
     <Compile Include="NewHardwareWizardView.cs" />
     <Compile Include="NewProjectWizardView.cs" />
     <Compile Include="EditSupplyWizardView.cs" />
@@ -186,6 +187,12 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="WizardPages\EditHardwarePage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WizardPages\EditHardwarePage.Designer.cs">
+      <DependentUpon>EditHardwarePage.cs</DependentUpon>
+    </Compile>
     <Compile Include="WizardPages\EditSupplyPage.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -229,6 +236,9 @@
       <SubType>Designer</SubType>
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources1.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WizardPages\EditHardwarePage.resx">
+      <DependentUpon>EditHardwarePage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WizardPages\EditSupplyPage.resx">
       <DependentUpon>EditSupplyPage.cs</DependentUpon>
