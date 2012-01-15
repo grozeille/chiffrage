@@ -7,6 +7,7 @@ using Chiffrage.Catalogs.Domain;
 using Chiffrage.Catalogs.Domain.Repositories;
 using Chiffrage.Mvc.Events;
 using Chiffrage.Mvc.Controllers;
+using System.Collections.Generic;
 
 namespace Chiffrage.App.Controllers
 {
@@ -19,19 +20,23 @@ namespace Chiffrage.App.Controllers
         IGenericEventHandler<SaveEvent>,
         IGenericEventHandler<RequestNewCatalogEvent>,
         IGenericEventHandler<RequestNewSupplyEvent>,
+        IGenericEventHandler<RequestNewHardwareEvent>,
+        IGenericEventHandler<RequestDeleteSupplyEvent>,
         IGenericEventHandler<CreateNewSupplyEvent>,
-        IGenericEventHandler<CreateNewCatalogEvent>,
-        IGenericEventHandler<SupplyCreatedEvent>,
+        IGenericEventHandler<CreateNewCatalogEvent>,        
+        IGenericEventHandler<CreateNewHardwareEvent>,
         IGenericEventHandler<RequestEditSupplyEvent>,
         IGenericEventHandler<EditSupplyEvent>,
-        IGenericEventHandler<SupplyUpdatedEvent>,
-        IGenericEventHandler<RequestDeleteSupplyEvent>,
-        IGenericEventHandler<SupplyDeletedEvent>
+        IGenericEventHandler<SupplyCreatedEvent>,
+        IGenericEventHandler<SupplyUpdatedEvent>,        
+        IGenericEventHandler<SupplyDeletedEvent>,
+        IGenericEventHandler<HardwareCreatedEvent>
     {
         private readonly ICatalogView catalogView;
         private readonly IEventBroker eventBroker;
         private readonly INewCatalogView newCatalogView;
         private readonly INewSupplyView newSupplyView;
+        private readonly INewHardwareView newHardwareView;
         private readonly IEditSupplyView editSupplyView;
         private readonly ICatalogRepository repository;
 
@@ -40,12 +45,14 @@ namespace Chiffrage.App.Controllers
             ICatalogView catalogView,
             INewCatalogView newCatalogView,
             INewSupplyView newSupplyView,
+            INewHardwareView newHardwareView,
             IEditSupplyView editSupplyView,
             ICatalogRepository repository)
         {
             this.catalogView = catalogView;
             this.newCatalogView = newCatalogView;
             this.newSupplyView = newSupplyView;
+            this.newHardwareView = newHardwareView;
             this.editSupplyView = editSupplyView;
             this.repository = repository;
             this.eventBroker = eventBroker;
@@ -134,6 +141,14 @@ namespace Chiffrage.App.Controllers
             Mapper.CreateMap<SupplierCatalog, CatalogViewModel>();
 
             var result = Mapper.Map<SupplierCatalog, CatalogViewModel>(eventObject.NewCatalog);
+            foreach (var item in result.Hardwares)
+            {
+                item.CatalogId = result.Id;
+            }
+            foreach (var item in result.Supplies)
+            {
+                item.CatalogId = result.Id;
+            }
 
             this.catalogView.Display(result);
         }
@@ -190,7 +205,9 @@ namespace Chiffrage.App.Controllers
                 return;
             }
 
-            Mapper.CreateMap<CatalogViewModel, SupplierCatalog>();
+            Mapper.CreateMap<CatalogViewModel, SupplierCatalog>()
+                .ForMember(x => x.Supplies, x => x.Ignore())
+                .ForMember(x => x.Hardwares, x => x.Ignore());
 
             var catalog = this.repository.FindById(viewModel.Id);
 
@@ -295,6 +312,45 @@ namespace Chiffrage.App.Controllers
             var result = Mapper.Map<Supply, CatalogSupplyViewModel>(eventObject.Supply);
 
             this.catalogView.RemoveSupply(result);
+        }
+
+        public void ProcessAction(RequestNewHardwareEvent eventObject)
+        {
+            this.newHardwareView.CatalogId = eventObject.CatalogId;
+            this.newHardwareView.ShowView();
+        }
+
+        public void ProcessAction(CreateNewHardwareEvent eventObject)
+        {
+            var catalog = this.repository.FindById(eventObject.ViewModel.CatalogId);
+
+            Mapper.CreateMap<CatalogHardwareViewModel, Hardware>();
+
+            var hardware = Mapper.Map<CatalogHardwareViewModel, Hardware>(eventObject.ViewModel);
+
+            // supply name must be unique
+            if (catalog.Hardwares.Where(x => x.Name.Equals(hardware.Name, System.StringComparison.OrdinalIgnoreCase)).Any())
+            {
+                this.eventBroker.Publish(new HardwareMustBeUniqueErrorEvent(catalog.Id, hardware));
+            }
+            else
+            {
+                catalog.Hardwares.Add(hardware);
+
+                this.repository.Save(catalog);
+
+                this.eventBroker.Publish(new HardwareCreatedEvent(catalog.Id, hardware));
+            }
+        }
+
+        public void ProcessAction(HardwareCreatedEvent eventObject)
+        {
+            Mapper.CreateMap<Supply, CatalogHardwareViewModel>();
+
+            var result = Mapper.Map<Hardware, CatalogHardwareViewModel>(eventObject.Hardware);
+            result.CatalogId = eventObject.CatalogId;
+
+            this.catalogView.AddHardware(result);
         }
     }
 }

@@ -127,6 +127,7 @@
     <Compile Include="ApplicationForm.Designer.cs">
       <DependentUpon>ApplicationForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="NewHardwareWizardView.cs" />
     <Compile Include="NewProjectWizardView.cs" />
     <Compile Include="EditSupplyWizardView.cs" />
     <Compile Include="Ioc\ByTypeWiringContainer.cs" />

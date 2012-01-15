@@ -68,6 +68,9 @@
     <Compile Include="Events\CatalogSelectedEvent.cs" />
     <Compile Include="Events\CatalogUnselectedEvent.cs" />
     <Compile Include="Events\CatalogUpdatedEvent.cs" />
+    <Compile Include="Events\HardwareCreatedEvent.cs" />
+    <Compile Include="Events\HardwareMustBeUniqueErrorEvent.cs" />
+    <Compile Include="Events\CreateNewHardwareEvent.cs" />
     <Compile Include="Events\ProjectUpdatedEvent.cs" />
     <Compile Include="Events\CreateNewProjectEvent.cs" />
     <Compile Include="Events\EditSupplyEvent.cs" />
@@ -77,6 +80,7 @@
     <Compile Include="Events\DealCreatedEvent.cs" />
     <Compile Include="Events\DealUpdatedEvent.cs" />
     <Compile Include="Events\ProjectCreatedEvent.cs" />
+    <Compile Include="Events\RequestNewHardwareEvent.cs" />
     <Compile Include="Events\RequestNewSupplyEvent.cs" />
     <Compile Include="Events\RequestEditSupplyEvent.cs" />
     <Compile Include="Events\RequestNewCatalogEvent.cs" />
@@ -126,6 +130,7 @@
     <Compile Include="ViewModel\SeverityType.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Views\INewHardwareView.cs" />
     <Compile Include="Views\IEditSupplyView.cs" />
     <Compile Include="Views\INewProjectView.cs" />
     <Compile Include="Views\INewSupplyView.cs" />

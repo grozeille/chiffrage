@@ -28,8 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NewHardwarePage));
             this.textBoxHardwareName = new System.Windows.Forms.TextBox();
             this.labelHardware = new System.Windows.Forms.Label();
+            this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // textBoxHardwareName
@@ -48,6 +52,12 @@
             this.labelHardware.TabIndex = 4;
             this.labelHardware.Text = "Matériel:";
             // 
+            // errorProvider
+            // 
+            this.errorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            this.errorProvider.ContainerControl = this;
+            this.errorProvider.Icon = ((System.Drawing.Icon)(resources.GetObject("errorProvider.Icon")));
+            // 
             // NewHardwarePage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -56,6 +66,7 @@
             this.Controls.Add(this.labelHardware);
             this.Name = "NewHardwarePage";
             this.Size = new System.Drawing.Size(276, 30);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -65,5 +76,6 @@
 
         private System.Windows.Forms.TextBox textBoxHardwareName;
         private System.Windows.Forms.Label labelHardware;
+        private System.Windows.Forms.ErrorProvider errorProvider;
     }
 }

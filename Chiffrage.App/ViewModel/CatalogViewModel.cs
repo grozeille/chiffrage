@@ -11,6 +11,8 @@ namespace Chiffrage.App.ViewModel
 
         public BindingList<CatalogSupplyViewModel> Supplies { get; set; }
 
+        public BindingList<CatalogHardwareViewModel> Hardwares { get; set; }
+
         /*public string SupplyCategoryFilter { get; set; }
 
         public BindingList<CatalogSupplyViewModel> FilteredSupplies

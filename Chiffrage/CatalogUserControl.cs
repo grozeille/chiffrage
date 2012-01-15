@@ -21,6 +21,8 @@ namespace Chiffrage
 
         private readonly BindingList<CatalogSupplyViewModel> supplies = new BindingList<CatalogSupplyViewModel>();
 
+        private readonly BindingList<CatalogHardwareViewModel> hardwares = new BindingList<CatalogHardwareViewModel>();
+
         public CatalogUserControl(IEventBroker eventBroker)
             : this()
         {
@@ -45,6 +47,8 @@ namespace Chiffrage
 
                     return null;
                 });
+            this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonHardwareAdd, () =>
+               this.catalogId.HasValue ? new RequestNewHardwareEvent(this.catalogId.Value) : null);
         }
 
         public CatalogUserControl()
@@ -52,6 +56,7 @@ namespace Chiffrage
             this.InitializeComponent();
 
             this.suppliesBindingSource.DataSource = supplies;
+            this.hardwaresBindingSource.DataSource = hardwares;
         }
 
         public Catalog GlobalCatalog { get; set; }
@@ -68,13 +73,20 @@ namespace Chiffrage
                     viewModel.Comment = "{\\rtf" + viewModel.Comment + "}";
                 this.commentUserControl.Rtf = viewModel.Comment;
 
+                this.supplies.Clear();
                 foreach (var item in viewModel.Supplies)
                 {
-                    this.AddSupply(item);
+                    this.supplies.Add(item);
+                }
+
+                this.hardwares.Clear();
+                foreach (var item in viewModel.Hardwares)
+                {
+                    this.hardwares.Add(item);
                 }
             });
         }
-
+        
         public CatalogViewModel GetViewModel()
         {
             return this.InvokeIfRequired(() =>
@@ -92,6 +104,11 @@ namespace Chiffrage
 
                 return viewModel;
             });
+        }
+
+        public void AddHardware(CatalogHardwareViewModel result)
+        {
+            this.InvokeIfRequired(() => this.hardwares.Add(result));
         }
 
         public void AddSupply(CatalogSupplyViewModel result)

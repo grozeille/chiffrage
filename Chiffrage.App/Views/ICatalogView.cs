@@ -16,5 +16,7 @@ namespace Chiffrage.App.Views
         void UpdateSupply(CatalogSupplyViewModel result);
 
         void RemoveSupply(CatalogSupplyViewModel result);
+
+        void AddHardware(CatalogHardwareViewModel result);
     }
 }
