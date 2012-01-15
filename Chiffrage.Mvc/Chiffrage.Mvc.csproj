@@ -44,10 +44,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\Spring.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Strongshell.Recoil.Core, Version=1.1.2.0, Culture=neutral, PublicKeyToken=cc018521c983252f, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\Strongshell.Recoil.Core.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>

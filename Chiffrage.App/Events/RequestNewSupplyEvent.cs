@@ -6,11 +6,11 @@ using Chiffrage.Mvc.Events;
 
 namespace Chiffrage.App.Events
 {
-    public class RequestAddSupplyToCatalogEvent : IEvent
+    public class RequestNewSupplyEvent : IEvent
     {
         private readonly int catalogId;
 
-        public RequestAddSupplyToCatalogEvent(int catalogId)
+        public RequestNewSupplyEvent(int catalogId)
         {
             this.catalogId = catalogId;
         }

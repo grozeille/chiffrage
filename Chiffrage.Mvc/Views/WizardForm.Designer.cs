@@ -41,7 +41,7 @@
             this.buttonNext = new System.Windows.Forms.Button();
             this.job = new System.ComponentModel.BackgroundWorker();
             this.panelFooter = new System.Windows.Forms.FlowLayoutPanel();
-            this.buttonFinnish = new System.Windows.Forms.Button();
+            this.buttonFinish = new System.Windows.Forms.Button();
             this.labelHeaderSeparator = new System.Windows.Forms.Label();
             this.panelProgression.SuspendLayout();
             this.panelHeader.SuspendLayout();
@@ -82,7 +82,7 @@
             // progressBar
             // 
             this.progressBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                                                                            | System.Windows.Forms.AnchorStyles.Right)));
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.progressBar.Location = new System.Drawing.Point(11, 25);
             this.progressBar.Name = "progressBar";
             this.progressBar.Size = new System.Drawing.Size(433, 12);
@@ -166,7 +166,7 @@
             // panelFooter
             // 
             this.panelFooter.Controls.Add(this.buttonCancel);
-            this.panelFooter.Controls.Add(this.buttonFinnish);
+            this.panelFooter.Controls.Add(this.buttonFinish);
             this.panelFooter.Controls.Add(this.buttonNext);
             this.panelFooter.Controls.Add(this.buttonBack);
             this.panelFooter.Dock = System.Windows.Forms.DockStyle.Bottom;
@@ -177,16 +177,16 @@
             this.panelFooter.Size = new System.Drawing.Size(454, 39);
             this.panelFooter.TabIndex = 11;
             // 
-            // buttonFinnish
+            // buttonFinish
             // 
-            this.buttonFinnish.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonFinnish.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.buttonFinnish.Location = new System.Drawing.Point(287, 8);
-            this.buttonFinnish.Name = "buttonFinnish";
-            this.buttonFinnish.Size = new System.Drawing.Size(75, 23);
-            this.buttonFinnish.TabIndex = 0;
-            this.buttonFinnish.Text = "Terminer";
-            this.buttonFinnish.UseVisualStyleBackColor = true;
+            this.buttonFinish.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonFinish.DialogResult = System.Windows.Forms.DialogResult.OK;
+            this.buttonFinish.Location = new System.Drawing.Point(287, 8);
+            this.buttonFinish.Name = "buttonFinish";
+            this.buttonFinish.Size = new System.Drawing.Size(75, 23);
+            this.buttonFinish.TabIndex = 0;
+            this.buttonFinish.Text = "Terminer";
+            this.buttonFinish.UseVisualStyleBackColor = true;
             // 
             // labelHeaderSeparator
             // 
@@ -199,9 +199,10 @@
             // 
             // WizardForm
             // 
-            this.AcceptButton = this.buttonFinnish;
+            this.AcceptButton = this.buttonFinish;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoValidate = System.Windows.Forms.AutoValidate.Disable;
             this.CancelButton = this.buttonCancel;
             this.ClientSize = new System.Drawing.Size(454, 434);
             this.Controls.Add(this.panelProgression);
@@ -241,7 +242,7 @@
         private System.Windows.Forms.Button buttonNext;
         private System.ComponentModel.BackgroundWorker job;
         private System.Windows.Forms.FlowLayoutPanel panelFooter;
-        private System.Windows.Forms.Button buttonFinnish;
+        private System.Windows.Forms.Button buttonFinish;
         private System.Windows.Forms.Label labelHeaderSeparator;
     }
 }

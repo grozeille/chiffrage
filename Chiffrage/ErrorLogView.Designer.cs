@@ -37,7 +37,7 @@
             this.listBoxLog.FormattingEnabled = true;
             this.listBoxLog.Location = new System.Drawing.Point(0, 0);
             this.listBoxLog.Name = "listBoxLog";
-            this.listBoxLog.Size = new System.Drawing.Size(545, 160);
+            this.listBoxLog.Size = new System.Drawing.Size(545, 169);
             this.listBoxLog.TabIndex = 0;
             // 
             // ErrorLogView

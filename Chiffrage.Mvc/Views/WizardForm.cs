@@ -15,6 +15,8 @@ namespace Chiffrage.Mvc.Views
         public WizardForm()
         {
             this.InitializeComponent();
+
+            this.buttonCancel.CausesValidation = false;
         }
 
         public WizardSetting[] WizardSettings
@@ -50,6 +52,15 @@ namespace Chiffrage.Mvc.Views
             }
         }
 
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            base.OnClosing(e);
+            if (this.DialogResult == System.Windows.Forms.DialogResult.OK)
+            {
+                e.Cancel = !this.ValidateChildren();
+            }
+        }
+
         private void Page_Validating(object sender, CancelEventArgs e)
         {
             this.CurrentSetting.Validated = false;
@@ -76,7 +87,7 @@ namespace Chiffrage.Mvc.Views
 
         private void RefreshNavigation()
         {
-            this.buttonFinnish.Enabled = (this.CurrentSetting.CanFinish ||
+            this.buttonFinish.Enabled = (this.CurrentSetting.CanFinish ||
                                           this.currentPosition == this.wizardSettings.Length - 1);
             // && this.CurrentSetting.Validated;
             this.buttonBack.Enabled = this.currentPosition > 0;
@@ -98,14 +109,20 @@ namespace Chiffrage.Mvc.Views
 
         private void buttonBack_Click(object sender, EventArgs e)
         {
-            this.currentPosition--;
-            this.DisplayCurrentPage();
+            if (this.ValidateChildren())
+            {
+                this.currentPosition--;
+                this.DisplayCurrentPage();
+            }
         }
 
         private void buttonNext_Click(object sender, EventArgs e)
         {
-            this.currentPosition++;
-            this.DisplayCurrentPage();
+            if (this.ValidateChildren())
+            {
+                this.currentPosition++;
+                this.DisplayCurrentPage();
+            }
         }
     }
 }

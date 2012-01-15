@@ -21,12 +21,30 @@ namespace Chiffrage
 
         private readonly BindingList<CatalogSupplyViewModel> supplies = new BindingList<CatalogSupplyViewModel>();
 
-        public CatalogUserControl(IEventBroker eventBroker):this()
+        public CatalogUserControl(IEventBroker eventBroker)
+            : this()
         {
             this.eventBroker = eventBroker;
 
-            this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonAddSupply, () => 
-                this.catalogId.HasValue ? new RequestAddSupplyToCatalogEvent(this.catalogId.Value) : null);
+            this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonAddSupply, () =>
+                this.catalogId.HasValue ? new RequestNewSupplyEvent(this.catalogId.Value) : null);
+            this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonRemoveSupply, () =>
+                {
+                    if (this.catalogId.HasValue)
+                    {
+                        var supply = this.suppliesBindingSource.Current as CatalogSupplyViewModel;
+                        if (supply != null)
+                        {
+                            var result = MessageBox.Show("Êtes-vous sûr de vouloir supprimer le composant '" + supply.Name + "'?", "Supprimer?", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                            if (result == DialogResult.OK)
+                            {
+                                return new RequestDeleteSupplyEvent(this.catalogId.Value, supply.Id);
+                            }
+                        }
+                    }
+
+                    return null;
+                });
         }
 
         public CatalogUserControl()
@@ -49,6 +67,11 @@ namespace Chiffrage
                 if (viewModel.Comment == null || !(viewModel.Comment.StartsWith("{\\rtf") && viewModel.Comment.EndsWith("}")))
                     viewModel.Comment = "{\\rtf" + viewModel.Comment + "}";
                 this.commentUserControl.Rtf = viewModel.Comment;
+
+                foreach (var item in viewModel.Supplies)
+                {
+                    this.AddSupply(item);
+                }
             });
         }
 
@@ -64,7 +87,7 @@ namespace Chiffrage
                 var viewModel = new CatalogViewModel();
 
                 viewModel.SupplierName = this.textBoxCatalogName.Text;
-                viewModel.Id = this.catalogId.Value;                
+                viewModel.Id = this.catalogId.Value;
                 viewModel.Comment = this.commentUserControl.Rtf;
 
                 return viewModel;
@@ -84,6 +107,15 @@ namespace Chiffrage
                 var index = this.supplies.IndexOf(supply);
                 this.supplies[index] = result;
             });
+        }
+
+        public void RemoveSupply(CatalogSupplyViewModel result)
+        {
+            this.InvokeIfRequired(() =>
+                {
+                    var supply = this.supplies.Where(x => x.Id == result.Id).First();
+                    this.supplies.Remove(supply);
+                });
         }
 
         #endregion
@@ -165,7 +197,10 @@ namespace Chiffrage
         private void dataGridViewSupplies_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             var supply = this.suppliesBindingSource[e.RowIndex] as CatalogSupplyViewModel;
-            this.eventBroker.Publish(new RequestEditSupplyEvent(supply));
+            if (supply != null)
+            {
+                this.eventBroker.Publish(new RequestEditSupplyEvent(supply));
+            }
         }
     }
 }

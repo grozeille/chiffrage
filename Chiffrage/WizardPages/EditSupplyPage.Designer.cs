@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditSupplyPage));
             this.textBoxName = new System.Windows.Forms.TextBox();
             this.labelName = new System.Windows.Forms.Label();
             this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
@@ -40,16 +42,18 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.textBox6 = new System.Windows.Forms.TextBox();
-            this.textBox7 = new System.Windows.Forms.TextBox();
-            this.textBox8 = new System.Windows.Forms.TextBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.textBoxReference = new System.Windows.Forms.TextBox();
+            this.textBoxModuleSize = new System.Windows.Forms.TextBox();
+            this.textBoxCatalogPrice = new System.Windows.Forms.TextBox();
+            this.textBoxStudyDays = new System.Windows.Forms.TextBox();
+            this.textBoxReferenceDays = new System.Windows.Forms.TextBox();
+            this.textBoxCatalogWorkDays = new System.Windows.Forms.TextBox();
+            this.textBoxCatalogExecutiveWorkDays = new System.Windows.Forms.TextBox();
+            this.textBoxTestsDays = new System.Windows.Forms.TextBox();
+            this.comboBoxCategory = new System.Windows.Forms.ComboBox();
+            this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.tableLayoutPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // textBoxName
@@ -87,15 +91,15 @@
             this.tableLayoutPanel.Controls.Add(this.label7, 0, 8);
             this.tableLayoutPanel.Controls.Add(this.label8, 0, 9);
             this.tableLayoutPanel.Controls.Add(this.label9, 0, 10);
-            this.tableLayoutPanel.Controls.Add(this.textBox1, 1, 1);
-            this.tableLayoutPanel.Controls.Add(this.textBox2, 1, 3);
-            this.tableLayoutPanel.Controls.Add(this.textBox3, 1, 4);
-            this.tableLayoutPanel.Controls.Add(this.textBox4, 1, 6);
-            this.tableLayoutPanel.Controls.Add(this.textBox5, 1, 7);
-            this.tableLayoutPanel.Controls.Add(this.textBox6, 1, 8);
-            this.tableLayoutPanel.Controls.Add(this.textBox7, 1, 9);
-            this.tableLayoutPanel.Controls.Add(this.textBox8, 1, 10);
-            this.tableLayoutPanel.Controls.Add(this.comboBox1, 1, 2);
+            this.tableLayoutPanel.Controls.Add(this.textBoxReference, 1, 1);
+            this.tableLayoutPanel.Controls.Add(this.textBoxModuleSize, 1, 3);
+            this.tableLayoutPanel.Controls.Add(this.textBoxCatalogPrice, 1, 4);
+            this.tableLayoutPanel.Controls.Add(this.textBoxStudyDays, 1, 6);
+            this.tableLayoutPanel.Controls.Add(this.textBoxReferenceDays, 1, 7);
+            this.tableLayoutPanel.Controls.Add(this.textBoxCatalogWorkDays, 1, 8);
+            this.tableLayoutPanel.Controls.Add(this.textBoxCatalogExecutiveWorkDays, 1, 9);
+            this.tableLayoutPanel.Controls.Add(this.textBoxTestsDays, 1, 10);
+            this.tableLayoutPanel.Controls.Add(this.comboBoxCategory, 1, 2);
             this.tableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel.Name = "tableLayoutPanel";
@@ -206,88 +210,95 @@
             this.label9.TabIndex = 6;
             this.label9.Text = "Tests:";
             // 
-            // textBox1
+            // textBoxReference
             // 
-            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox1.Location = new System.Drawing.Point(102, 39);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(194, 20);
-            this.textBox1.TabIndex = 7;
+            this.textBoxReference.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxReference.Location = new System.Drawing.Point(102, 39);
+            this.textBoxReference.Name = "textBoxReference";
+            this.textBoxReference.Size = new System.Drawing.Size(194, 20);
+            this.textBoxReference.TabIndex = 7;
             // 
-            // textBox2
+            // textBoxModuleSize
             // 
-            this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox2.Location = new System.Drawing.Point(102, 92);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(194, 20);
-            this.textBox2.TabIndex = 7;
+            this.textBoxModuleSize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxModuleSize.Location = new System.Drawing.Point(102, 92);
+            this.textBoxModuleSize.Name = "textBoxModuleSize";
+            this.textBoxModuleSize.Size = new System.Drawing.Size(194, 20);
+            this.textBoxModuleSize.TabIndex = 7;
             // 
-            // textBox3
+            // textBoxCatalogPrice
             // 
-            this.textBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox3.Location = new System.Drawing.Point(102, 118);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(194, 20);
-            this.textBox3.TabIndex = 7;
+            this.textBoxCatalogPrice.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxCatalogPrice.Location = new System.Drawing.Point(102, 118);
+            this.textBoxCatalogPrice.Name = "textBoxCatalogPrice";
+            this.textBoxCatalogPrice.Size = new System.Drawing.Size(194, 20);
+            this.textBoxCatalogPrice.TabIndex = 7;
             // 
-            // textBox4
+            // textBoxStudyDays
             // 
-            this.textBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox4.Location = new System.Drawing.Point(102, 164);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(194, 20);
-            this.textBox4.TabIndex = 7;
+            this.textBoxStudyDays.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxStudyDays.Location = new System.Drawing.Point(102, 164);
+            this.textBoxStudyDays.Name = "textBoxStudyDays";
+            this.textBoxStudyDays.Size = new System.Drawing.Size(194, 20);
+            this.textBoxStudyDays.TabIndex = 7;
             // 
-            // textBox5
+            // textBoxReferenceDays
             // 
-            this.textBox5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox5.Location = new System.Drawing.Point(102, 190);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(194, 20);
-            this.textBox5.TabIndex = 7;
+            this.textBoxReferenceDays.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxReferenceDays.Location = new System.Drawing.Point(102, 190);
+            this.textBoxReferenceDays.Name = "textBoxReferenceDays";
+            this.textBoxReferenceDays.Size = new System.Drawing.Size(194, 20);
+            this.textBoxReferenceDays.TabIndex = 7;
             // 
-            // textBox6
+            // textBoxCatalogWorkDays
             // 
-            this.textBox6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox6.Location = new System.Drawing.Point(102, 216);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(194, 20);
-            this.textBox6.TabIndex = 7;
+            this.textBoxCatalogWorkDays.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxCatalogWorkDays.Location = new System.Drawing.Point(102, 216);
+            this.textBoxCatalogWorkDays.Name = "textBoxCatalogWorkDays";
+            this.textBoxCatalogWorkDays.Size = new System.Drawing.Size(194, 20);
+            this.textBoxCatalogWorkDays.TabIndex = 7;
             // 
-            // textBox7
+            // textBoxCatalogExecutiveWorkDays
             // 
-            this.textBox7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox7.Location = new System.Drawing.Point(102, 242);
-            this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(194, 20);
-            this.textBox7.TabIndex = 7;
+            this.textBoxCatalogExecutiveWorkDays.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxCatalogExecutiveWorkDays.Location = new System.Drawing.Point(102, 242);
+            this.textBoxCatalogExecutiveWorkDays.Name = "textBoxCatalogExecutiveWorkDays";
+            this.textBoxCatalogExecutiveWorkDays.Size = new System.Drawing.Size(194, 20);
+            this.textBoxCatalogExecutiveWorkDays.TabIndex = 7;
             // 
-            // textBox8
+            // textBoxTestsDays
             // 
-            this.textBox8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBox8.Location = new System.Drawing.Point(102, 268);
-            this.textBox8.Name = "textBox8";
-            this.textBox8.Size = new System.Drawing.Size(194, 20);
-            this.textBox8.TabIndex = 7;
+            this.textBoxTestsDays.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxTestsDays.Location = new System.Drawing.Point(102, 268);
+            this.textBoxTestsDays.Name = "textBoxTestsDays";
+            this.textBoxTestsDays.Size = new System.Drawing.Size(194, 20);
+            this.textBoxTestsDays.TabIndex = 7;
             // 
-            // comboBox1
+            // comboBoxCategory
             // 
-            this.comboBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(102, 65);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(194, 21);
-            this.comboBox1.TabIndex = 8;
+            this.comboBoxCategory.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBoxCategory.FormattingEnabled = true;
+            this.comboBoxCategory.Location = new System.Drawing.Point(102, 65);
+            this.comboBoxCategory.Name = "comboBoxCategory";
+            this.comboBoxCategory.Size = new System.Drawing.Size(194, 21);
+            this.comboBoxCategory.TabIndex = 8;
             // 
-            // NewSupplyPage
+            // errorProvider
+            // 
+            this.errorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            this.errorProvider.ContainerControl = this;
+            this.errorProvider.Icon = ((System.Drawing.Icon)(resources.GetObject("errorProvider.Icon")));
+            // 
+            // EditSupplyPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.tableLayoutPanel);
-            this.Name = "NewSupplyPage";
+            this.Name = "EditSupplyPage";
             this.Size = new System.Drawing.Size(355, 323);
             this.tableLayoutPanel.ResumeLayout(false);
             this.tableLayoutPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -306,14 +317,15 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBox5;
-        private System.Windows.Forms.TextBox textBox6;
-        private System.Windows.Forms.TextBox textBox7;
-        private System.Windows.Forms.TextBox textBox8;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.TextBox textBoxReference;
+        private System.Windows.Forms.TextBox textBoxModuleSize;
+        private System.Windows.Forms.TextBox textBoxCatalogPrice;
+        private System.Windows.Forms.TextBox textBoxStudyDays;
+        private System.Windows.Forms.TextBox textBoxReferenceDays;
+        private System.Windows.Forms.TextBox textBoxCatalogWorkDays;
+        private System.Windows.Forms.TextBox textBoxCatalogExecutiveWorkDays;
+        private System.Windows.Forms.TextBox textBoxTestsDays;
+        private System.Windows.Forms.ComboBox comboBoxCategory;
+        private System.Windows.Forms.ErrorProvider errorProvider;
     }
 }

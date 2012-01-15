@@ -18,13 +18,15 @@ namespace Chiffrage.App.Controllers
         IGenericEventHandler<CatalogUpdatedEvent>,
         IGenericEventHandler<SaveEvent>,
         IGenericEventHandler<RequestNewCatalogEvent>,
-        IGenericEventHandler<RequestAddSupplyToCatalogEvent>,
+        IGenericEventHandler<RequestNewSupplyEvent>,
         IGenericEventHandler<CreateNewSupplyEvent>,
         IGenericEventHandler<CreateNewCatalogEvent>,
         IGenericEventHandler<SupplyCreatedEvent>,
         IGenericEventHandler<RequestEditSupplyEvent>,
         IGenericEventHandler<EditSupplyEvent>,
-        IGenericEventHandler<SupplyUpdatedEvent>
+        IGenericEventHandler<SupplyUpdatedEvent>,
+        IGenericEventHandler<RequestDeleteSupplyEvent>,
+        IGenericEventHandler<SupplyDeletedEvent>
     {
         private readonly ICatalogView catalogView;
         private readonly IEventBroker eventBroker;
@@ -154,14 +156,22 @@ namespace Chiffrage.App.Controllers
 
             var supply = Mapper.Map<CatalogSupplyViewModel, Supply>(eventObject.ViewModel);
 
-            catalog.Supplies.Add(supply);
+            // supply name must be unique
+            if (catalog.Supplies.Where(x => x.Name.Equals(supply.Name, System.StringComparison.OrdinalIgnoreCase)).Any())
+            {
+                this.eventBroker.Publish(new SupplyMustBeUniqueErrorEvent(catalog.Id, supply));
+            }
+            else
+            {
+                catalog.Supplies.Add(supply);
 
-            this.repository.Save(catalog);
+                this.repository.Save(catalog);
 
-            this.eventBroker.Publish(new SupplyCreatedEvent(catalog.Id, supply));
+                this.eventBroker.Publish(new SupplyCreatedEvent(catalog.Id, supply));
+            }
         }
 
-        public void ProcessAction(RequestAddSupplyToCatalogEvent eventObject)
+        public void ProcessAction(RequestNewSupplyEvent eventObject)
         {
             this.newSupplyView.CatalogId = eventObject.CatalogId;
             this.newSupplyView.ShowView();
@@ -196,8 +206,13 @@ namespace Chiffrage.App.Controllers
             var catalog = this.repository.FindById(id);
 
             Mapper.CreateMap<SupplierCatalog, CatalogViewModel>();
-
+            Mapper.CreateMap<Supply, CatalogSupplyViewModel>();
+            
             var result = Mapper.Map<SupplierCatalog, CatalogViewModel>(catalog);
+            foreach(var item in result.Supplies)
+            {
+                item.CatalogId = result.Id;
+            }
 
             this.catalogView.Display(result);
         }
@@ -220,6 +235,7 @@ namespace Chiffrage.App.Controllers
             Mapper.CreateMap<Supply, CatalogSupplyViewModel>();
 
             var result = Mapper.Map<Supply, CatalogSupplyViewModel>(eventObject.Supply);
+            result.CatalogId = eventObject.CatalogId;
 
             this.catalogView.AddSupply(result);
         }
@@ -239,7 +255,7 @@ namespace Chiffrage.App.Controllers
 
             Mapper.CreateMap<CatalogSupplyViewModel, Supply>();
 
-            Mapper.Map(eventObject, supply);
+            Mapper.Map(eventObject.ViewModel, supply);
 
             this.repository.Save(catalog);
 
@@ -254,6 +270,31 @@ namespace Chiffrage.App.Controllers
             result.CatalogId = eventObject.CatalogId;
 
             this.catalogView.UpdateSupply(result);
+        }
+
+        public void ProcessAction(RequestDeleteSupplyEvent eventObject)
+        {
+            var catalog = this.repository.FindById(eventObject.CatalogId);
+
+            var supply = catalog.Supplies.Where(x => x.Id == eventObject.SupplyId).FirstOrDefault();
+
+            if (supply != null)
+            {
+                catalog.Supplies.Remove(supply);
+
+                this.repository.Save(catalog);
+
+                this.eventBroker.Publish(new SupplyDeletedEvent(catalog.Id, supply));
+            }
+        }
+
+        public void ProcessAction(SupplyDeletedEvent eventObject)
+        {
+            Mapper.CreateMap<Supply, CatalogSupplyViewModel>();
+
+            var result = Mapper.Map<Supply, CatalogSupplyViewModel>(eventObject.Supply);
+
+            this.catalogView.RemoveSupply(result);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿namespace Chiffrage.App.ViewModel
+﻿using System.ComponentModel;
+namespace Chiffrage.App.ViewModel
 {
     public class CatalogViewModel
     {
@@ -7,6 +8,8 @@
         public string SupplierName { get; set; }
 
         public string Comment { get; set; }
+
+        public BindingList<CatalogSupplyViewModel> Supplies { get; set; }
 
         /*public string SupplyCategoryFilter { get; set; }
 
