@@ -10,8 +10,65 @@ using Chiffrage.Core;
 
 namespace Chiffrage.WizardPages
 {
-    public partial class AddCatalogItemPage : UserControl
+    public partial class NewHardwareSupplyPage : UserControl
     {
+        private IList<CatalogSupplyViewModel> supplies;
+
+        public NewHardwareSupplyPage()
+        {
+            this.InitializeComponent();
+        }
+
+        public IList<CatalogSupplyViewModel> Supplies
+        {
+            set { this.supplies = value; }
+        }
+
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+
+            this.catalogSupplyViewModelBindingSource.DataSource = this.supplies; ;
+            this.catalogSupplyViewModelBindingSource.ResetBindings(false);
+        }
+
+        public int SelectedSupply
+        {
+            get
+            {
+                var selected = this.catalogSupplyViewModelBindingSource.Current as CatalogSupplyViewModel;
+
+                return selected.Id;
+            }
+        }
+
+        public int Quantity
+        {
+            get { return int.Parse(this.textBoxQuantity.Text); }
+        }
+
+        protected override void OnValidating(CancelEventArgs e)
+        {
+            base.OnValidating(e);
+
+            int temp;
+            
+            if (!int.TryParse(this.textBoxQuantity.Text, out temp))
+            {
+                e.Cancel = true;
+                this.errorProvider.SetError(this.textBoxQuantity, "Doit être un nombre");
+            }
+
+            var selected = this.catalogSupplyViewModelBindingSource.Current as CatalogSupplyViewModel;
+
+            if (selected == null)
+            {
+                e.Cancel = true;
+                this.errorProvider.SetError(this.labelComponent, "Obligatoire");
+            }
+        }
+
+
         #region ItemType enum
 
         public enum ItemType
@@ -151,7 +208,8 @@ namespace Chiffrage.WizardPages
 
         private void textBoxSearch_TextChanged(object sender, EventArgs e)
         {
-            //this.DoFilter();
+            this.timerFilter.Enabled = false;
+            this.timerFilter.Enabled = true;
         }
 
         /*private void DoFilter()
@@ -194,6 +252,14 @@ namespace Chiffrage.WizardPages
         private void comboBoxCategory_SelectedIndexChanged(object sender, EventArgs e)
         {
             //this.DoFilter();
+        }
+
+        private void timerFilter_Tick(object sender, EventArgs e)
+        {
+            var searchRegex = new Regex(string.Format(".*{0}.*", this.textBoxSearch.Text), RegexOptions.IgnoreCase);
+            this.catalogSupplyViewModelBindingSource.DataSource = this.supplies.Where(x => searchRegex.IsMatch(x.Name) || searchRegex.IsMatch(x.Reference)).ToList();
+            this.catalogSupplyViewModelBindingSource.ResetBindings(false);
+            this.timerFilter.Enabled = false;
         }
     }
 }

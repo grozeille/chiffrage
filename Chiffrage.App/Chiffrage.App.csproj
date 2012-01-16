@@ -68,6 +68,10 @@
     <Compile Include="Events\CatalogSelectedEvent.cs" />
     <Compile Include="Events\CatalogUnselectedEvent.cs" />
     <Compile Include="Events\CatalogUpdatedEvent.cs" />
+    <Compile Include="Events\HardwareSupplyCreatedEvent.cs" />
+    <Compile Include="Events\HardwareSupplyMustBeUniqueErrorEvent.cs" />
+    <Compile Include="Events\CreateNewHardwareSupplyEvent.cs" />
+    <Compile Include="Events\RequestNewHardwareSupplyEvent.cs" />
     <Compile Include="Events\HardwareDeletedEvent.cs" />
     <Compile Include="Events\RequestDeleteHardwareEvent.cs" />
     <Compile Include="Events\HardwareUpdatedEvent.cs" />
@@ -105,9 +109,10 @@
     <Compile Include="Events\SupplyUpdatedEvent.cs" />
     <Compile Include="MapperUtils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModel\CatalogComponentViewModel.cs" />
+    <Compile Include="ViewModel\CatalogHardwareSupplySelectionViewModel.cs" />
     <Compile Include="ViewModel\CatalogHardwareViewModel.cs" />
     <Compile Include="ViewModel\CatalogSupplyViewModel.cs" />
+    <Compile Include="ViewModel\CatalogHardwareSupplyViewModel.cs" />
     <Compile Include="ViewModel\NavigationItemViewModel.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -135,6 +140,7 @@
     <Compile Include="ViewModel\SeverityType.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Views\INewHardwareSupplyView.cs" />
     <Compile Include="Views\IEditHardwareView.cs" />
     <Compile Include="Views\INewHardwareView.cs" />
     <Compile Include="Views\IEditSupplyView.cs" />

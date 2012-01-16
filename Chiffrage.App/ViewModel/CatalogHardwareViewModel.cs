@@ -6,7 +6,7 @@ namespace Chiffrage.App.ViewModel
     {
         public CatalogHardwareViewModel()
         {
-            this.Components = new BindingList<CatalogComponentViewModel>();
+            this.Components = new BindingList<CatalogHardwareSupplyViewModel>();
         }
 
         public int Id { get; set; }
@@ -33,6 +33,6 @@ namespace Chiffrage.App.ViewModel
 
         public double CatalogTestsDays { get; set; }
 
-        public BindingList<CatalogComponentViewModel> Components { get; set; }
+        public BindingList<CatalogHardwareSupplyViewModel> Components { get; set; }
     }
 }

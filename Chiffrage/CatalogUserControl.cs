@@ -30,6 +30,7 @@ namespace Chiffrage
 
             this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonAddSupply, () =>
                 this.catalogId.HasValue ? new RequestNewSupplyEvent(this.catalogId.Value) : null);
+
             this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonRemoveSupply, () =>
                 {
                     if (this.catalogId.HasValue)
@@ -47,6 +48,7 @@ namespace Chiffrage
 
                     return null;
                 });
+
             this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonAddHardware, () =>
                this.catalogId.HasValue ? new RequestNewHardwareEvent(this.catalogId.Value) : null);
 
@@ -67,6 +69,21 @@ namespace Chiffrage
 
                 return null;
             });
+
+            this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonAddHardwareSupply, () =>
+                {
+                    if (this.catalogId.HasValue)
+                    {
+                        var hardware = this.hardwaresBindingSource.Current as CatalogHardwareViewModel;
+                        if (hardware != null)
+                        {
+                            return new RequestNewHardwareSupplyEvent(this.catalogId.Value, hardware.Id);
+                        }
+                    }
+
+                    return null;
+                });
+
         }
 
         public CatalogUserControl()
@@ -104,7 +121,7 @@ namespace Chiffrage
                 }
             });
         }
-        
+
         public CatalogViewModel GetViewModel()
         {
             return this.InvokeIfRequired(() =>
@@ -132,6 +149,14 @@ namespace Chiffrage
         public void AddSupply(CatalogSupplyViewModel result)
         {
             this.InvokeIfRequired(() => this.supplies.Add(result));
+        }
+
+        public void AddHardwareSupply(CatalogHardwareSupplyViewModel result)
+        {
+            this.InvokeIfRequired(() =>
+                {
+                    // TODO : if the selected hardware is the correct one, add the item to the grid
+                });
         }
 
         public void UpdateSupply(CatalogSupplyViewModel result)

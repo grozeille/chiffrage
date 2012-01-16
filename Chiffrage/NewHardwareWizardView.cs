@@ -24,7 +24,6 @@ namespace Chiffrage
 
         protected override WizardSetting[] BuildWizardPages()
         {
-
             this.newHardwarePage = new GenericWizardSetting<NewHardwarePage>("Création d'une matériel",
                                                                          "Vous pouvez ici créer un nouveau matériel", true);
             this.newHardwarePage.TypedPage.CatalogId = this.catalogId;

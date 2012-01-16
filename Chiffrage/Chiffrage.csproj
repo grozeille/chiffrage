@@ -127,6 +127,7 @@
     <Compile Include="ApplicationForm.Designer.cs">
       <DependentUpon>ApplicationForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="NewHardwareSupplyWizardView.cs" />
     <Compile Include="EditHardwareWizardView.cs" />
     <Compile Include="NewHardwareWizardView.cs" />
     <Compile Include="NewProjectWizardView.cs" />
@@ -187,6 +188,12 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="WizardPages\NewProjectSupplyPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WizardPages\NewProjectSupplyPage.Designer.cs">
+      <DependentUpon>NewProjectSupplyPage.cs</DependentUpon>
+    </Compile>
     <Compile Include="WizardPages\EditHardwarePage.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -237,6 +244,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources1.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="WizardPages\NewProjectSupplyPage.resx">
+      <DependentUpon>NewProjectSupplyPage.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="WizardPages\EditHardwarePage.resx">
       <DependentUpon>EditHardwarePage.cs</DependentUpon>
     </EmbeddedResource>
@@ -249,8 +259,8 @@
     <EmbeddedResource Include="ProjectUserControl.resx">
       <DependentUpon>ProjectUserControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="WizardPages\AddCatalogItemPage.resx">
-      <DependentUpon>AddCatalogItemPage.cs</DependentUpon>
+    <EmbeddedResource Include="WizardPages\NewHardwareSupplyPage.resx">
+      <DependentUpon>NewHardwareSupplyPage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WizardPages\NewDealPage.resx">
       <DependentUpon>NewDealPage.cs</DependentUpon>
@@ -265,11 +275,11 @@
     <None Include="Properties\DataSources\Chiffrage.ViewModel.CatalogSupplyViewModel.datasource" />
     <None Include="Properties\DataSources\Chiffrage.ViewModel.CatalogViewModel.datasource" />
     <None Include="Properties\DataSources\Chiffrage.ViewModel.DealViewModel.datasource" />
-    <Compile Include="WizardPages\AddCatalogItemPage.cs">
+    <Compile Include="WizardPages\NewHardwareSupplyPage.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="WizardPages\AddCatalogItemPage.Designer.cs">
-      <DependentUpon>AddCatalogItemPage.cs</DependentUpon>
+    <Compile Include="WizardPages\NewHardwareSupplyPage.Designer.cs">
+      <DependentUpon>NewHardwareSupplyPage.cs</DependentUpon>
     </Compile>
     <Compile Include="WizardPages\NewDealPage.cs">
       <SubType>UserControl</SubType>

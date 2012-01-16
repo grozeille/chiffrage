@@ -1,11 +1,19 @@
-﻿using AutoMapper;
-using Chiffrage.Catalogs.Domain;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
 namespace Chiffrage.App.ViewModel
 {
-    public class CatalogComponentViewModel
+    public class CatalogHardwareSupplySelectionViewModel
     {
+        public bool Selected { get; set; }
+
         public int Id { get; set; }
+
+        public int CatalogId { get; set; }
+
+        public int HardwareId { get; set; }
 
         public int SupplyId { get; set; }
 
