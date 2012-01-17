@@ -52,14 +52,29 @@
   <ItemGroup>
     <Compile Include="Cable.cs" />
     <Compile Include="Catalog.cs" />
+    <Compile Include="Commands\CreateNewCatalogCommand.cs" />
+    <Compile Include="Commands\CreateNewSupplyCommand.cs" />
+    <Compile Include="Commands\UpdateCatalogCommand.cs" />
+    <Compile Include="Events\CatalogCreatedEvent.cs" />
+    <Compile Include="Events\CatalogUpdatedEvent.cs" />
+    <Compile Include="Events\SupplyCreatedEvent.cs" />
+    <Compile Include="Events\SupplyMustBeUniqueErrorEvent.cs" />
     <Compile Include="Hardware.cs" />
     <Compile Include="HardwareSupply.cs" />
     <Compile Include="ICatalogItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ICatalogRepository.cs" />
+    <Compile Include="Services\CatalogService.cs" />
     <Compile Include="SupplierCatalog.cs" />
     <Compile Include="Supply.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Chiffrage.Mvc\Chiffrage.Mvc.csproj">
+      <Project>{771D2DDA-D611-4E74-8857-6E60C08536EE}</Project>
+      <Name>Chiffrage.Mvc</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

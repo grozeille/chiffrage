@@ -4,20 +4,17 @@ using System.Linq;
 using System.Text;
 using Chiffrage.Mvc.Events;
 
-namespace Chiffrage.App.Events
+namespace Chiffrage.Catalogs.Domain.Commands
 {
-    public class CreateNewCatalogEvent : IEvent
+    public class CreateNewCatalogCommand : IEvent
     {
         private readonly string name;
 
-        public CreateNewCatalogEvent(string name)
+        public CreateNewCatalogCommand(string name)
         {
             this.name = name;
         }
 
-        public string Name
-        {
-            get { return this.name; }
-        }
+        public string Name { get { return this.name; } }
     }
 }

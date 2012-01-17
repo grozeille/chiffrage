@@ -10,6 +10,7 @@ using Chiffrage.Mvc.Events;
 using Chiffrage.Projects.Domain;
 using Chiffrage.Projects.Domain.Repositories;
 using Chiffrage.Mvc.Controllers;
+using Chiffrage.Catalogs.Domain.Events;
 
 namespace Chiffrage.App.Controllers
 {
@@ -75,7 +76,7 @@ namespace Chiffrage.App.Controllers
         {
             Mapper.CreateMap<SupplierCatalog, CatalogItemViewModel>();
 
-            var result = Mapper.Map<SupplierCatalog, CatalogItemViewModel>(eventObject.NewCatalog);
+            var result = Mapper.Map<SupplierCatalog, CatalogItemViewModel>(eventObject.Catalog);
 
             this.navigationView.UpdateCatalog(result);
         }
@@ -103,7 +104,7 @@ namespace Chiffrage.App.Controllers
         {
             Mapper.CreateMap<SupplierCatalog, CatalogItemViewModel>();
 
-            var result = Mapper.Map<SupplierCatalog, CatalogItemViewModel>(eventObject.NewCatalog);
+            var result = Mapper.Map<SupplierCatalog, CatalogItemViewModel>(eventObject.Catalog);
 
             this.navigationView.AddCatalog(result);
             this.navigationView.SelectCatalog(result.Id);

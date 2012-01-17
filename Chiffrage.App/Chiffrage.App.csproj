@@ -64,10 +64,8 @@
     <Compile Include="Controllers\ErrorLogController.cs" />
     <Compile Include="Controllers\ProjectController.cs" />
     <Compile Include="Events\ApplicationLoadedEvent.cs" />
-    <Compile Include="Events\CatalogCreatedEvent.cs" />
     <Compile Include="Events\CatalogSelectedEvent.cs" />
     <Compile Include="Events\CatalogUnselectedEvent.cs" />
-    <Compile Include="Events\CatalogUpdatedEvent.cs" />
     <Compile Include="Events\HardwareSupplyCreatedEvent.cs" />
     <Compile Include="Events\HardwareSupplyMustBeUniqueErrorEvent.cs" />
     <Compile Include="Events\CreateNewHardwareSupplyEvent.cs" />
@@ -83,9 +81,7 @@
     <Compile Include="Events\ProjectUpdatedEvent.cs" />
     <Compile Include="Events\CreateNewProjectEvent.cs" />
     <Compile Include="Events\EditSupplyEvent.cs" />
-    <Compile Include="Events\CreateNewCatalogEvent.cs" />
     <Compile Include="Events\CreateNewDealEvent.cs" />
-    <Compile Include="Events\CreateNewSupplyEvent.cs" />
     <Compile Include="Events\DealCreatedEvent.cs" />
     <Compile Include="Events\DealUpdatedEvent.cs" />
     <Compile Include="Events\ProjectCreatedEvent.cs" />
@@ -103,9 +99,7 @@
     <Compile Include="Controllers\CatalogController.cs" />
     <Compile Include="Events\RequestDeleteSupplyEvent.cs" />
     <Compile Include="Events\SaveEvent.cs" />
-    <Compile Include="Events\SupplyCreatedEvent.cs" />
     <Compile Include="Events\SupplyDeletedEvent.cs" />
-    <Compile Include="Events\SupplyMustBeUniqueErrorEvent.cs" />
     <Compile Include="Events\SupplyUpdatedEvent.cs" />
     <Compile Include="MapperUtils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

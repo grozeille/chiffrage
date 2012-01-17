@@ -11,6 +11,7 @@ using Spring.Context.Support;
 using Spring.Objects.Factory.Support;
 using System.Collections.Generic;
 using Chiffrage.Mvc.Controllers;
+using Chiffrage.Mvc.Services;
 
 namespace Chiffrage.Ioc
 {
@@ -44,9 +45,19 @@ namespace Chiffrage.Ioc
                 .Where(t => t.GetInterface(typeof(IController).Name) != null && !t.IsAbstract && t.IsPublic);
         }
 
+        private IEnumerable<Type> GetServices()
+        {
+            return AppDomain.CurrentDomain.GetAssemblies()
+                .Where(a => a.FullName.StartsWith("Chiffrage"))
+                .SelectMany(a => a.GetTypes())
+                .Where(t => t.GetInterface(typeof(IService).Name) != null && !t.IsAbstract && t.IsPublic);
+        }
+
         protected override IEnumerable<Type> GetTypesToRegister()
         {
-            return this.GetViews().Concat(this.GetControllers());            
+            return this.GetViews()
+                .Concat(this.GetControllers())
+                .Concat(this.GetServices());
         }
     }
 }

@@ -7,6 +7,7 @@ using Chiffrage.App.Views;
 using Chiffrage.Mvc.Events;
 using Chiffrage.App.Events;
 using Chiffrage.Mvc.Controllers;
+using Chiffrage.Catalogs.Domain.Events;
 
 namespace Chiffrage.App.Controllers
 {
@@ -66,7 +67,7 @@ namespace Chiffrage.App.Controllers
 
         public void ProcessAction(CatalogUpdatedEvent eventObject)
         {
-            this.AppendInfoLog(string.Format("Catalog '{0}' updated successfully", eventObject.NewCatalog.SupplierName));
+            this.AppendInfoLog(string.Format("Catalog '{0}' updated successfully", eventObject.Catalog.SupplierName));
         }
 
         public void ProcessAction(DealUpdatedEvent eventObject)
@@ -81,7 +82,7 @@ namespace Chiffrage.App.Controllers
 
         public void ProcessAction(CatalogCreatedEvent eventObject)
         {
-            this.AppendInfoLog(string.Format("Catalog '{0}' created successfully", eventObject.NewCatalog.SupplierName));
+            this.AppendInfoLog(string.Format("Catalog '{0}' created successfully", eventObject.Catalog.SupplierName));
         }
 
         public void ProcessAction(SupplyCreatedEvent eventObject)

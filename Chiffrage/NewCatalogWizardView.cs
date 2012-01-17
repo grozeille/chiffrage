@@ -8,6 +8,7 @@ using Chiffrage.Mvc.Views;
 using Chiffrage.WizardPages;
 using Chiffrage.Mvc.Events;
 using Chiffrage.App.Events;
+using Chiffrage.Catalogs.Domain.Commands;
 
 namespace Chiffrage
 {
@@ -31,7 +32,7 @@ namespace Chiffrage
         {
             if (result == DialogResult.OK)
             {
-                this.EventBroker.Publish(new CreateNewCatalogEvent(newCatalogPage.TypedPage.SupplierName));
+                this.EventBroker.Publish(new CreateNewCatalogCommand(newCatalogPage.TypedPage.SupplierName));
             }
         }
     }
