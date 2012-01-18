@@ -9,6 +9,7 @@ using Chiffrage.App.Views;
 using Chiffrage.Mvc.Events;
 using Chiffrage.Mvc.Views;
 using Chiffrage.WizardPages;
+using Chiffrage.Catalogs.Domain.Commands;
 
 namespace Chiffrage
 {
@@ -37,7 +38,20 @@ namespace Chiffrage
         {
             if(result == DialogResult.OK)
             {
-                this.EventBroker.Publish(new EditSupplyEvent(editSupplyPage.TypedPage.ViewModel));
+                var command = new UpdateSupplyCommand(
+                    editSupplyPage.TypedPage.ViewModel.CatalogId,
+                    editSupplyPage.TypedPage.ViewModel.Id,
+                    editSupplyPage.TypedPage.ViewModel.Name,
+                    editSupplyPage.TypedPage.ViewModel.Reference,
+                    editSupplyPage.TypedPage.ViewModel.Category,
+                    editSupplyPage.TypedPage.ViewModel.ModuleSize,
+                    editSupplyPage.TypedPage.ViewModel.CatalogPrice,
+                    editSupplyPage.TypedPage.ViewModel.StudyDays,
+                    editSupplyPage.TypedPage.ViewModel.ReferenceDays,
+                    editSupplyPage.TypedPage.ViewModel.CatalogWorkDays,
+                    editSupplyPage.TypedPage.ViewModel.CatalogExecutiveWorkDays,
+                    editSupplyPage.TypedPage.ViewModel.CatalogTestsDays);
+                this.EventBroker.Publish(command);
             }
         }
 

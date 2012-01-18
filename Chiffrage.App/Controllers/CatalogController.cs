@@ -25,13 +25,8 @@ namespace Chiffrage.App.Controllers
         IGenericEventHandler<RequestNewHardwareEvent>,
         IGenericEventHandler<RequestNewHardwareSupplyEvent>,
         IGenericEventHandler<RequestEditSupplyEvent>,
-        IGenericEventHandler<RequestEditHardwareEvent>, 
-        IGenericEventHandler<RequestDeleteSupplyEvent>,
-        IGenericEventHandler<RequestDeleteHardwareEvent>, 
-        IGenericEventHandler<CreateNewHardwareEvent>,
+        IGenericEventHandler<RequestEditHardwareEvent>,
         IGenericEventHandler<CreateNewHardwareSupplyEvent>,
-        IGenericEventHandler<EditSupplyEvent>,
-        IGenericEventHandler<EditHardwareEvent>,
         IGenericEventHandler<SupplyCreatedEvent>,
         IGenericEventHandler<SupplyUpdatedEvent>,        
         IGenericEventHandler<SupplyDeletedEvent>,
@@ -291,36 +286,6 @@ namespace Chiffrage.App.Controllers
             this.editHardwareView.ShowView();
         }
 
-        public void ProcessAction(EditSupplyEvent eventObject)
-        {
-            var catalog = this.repository.FindById(eventObject.ViewModel.CatalogId);
-
-            var supply = catalog.Supplies.Where(s => s.Id == eventObject.ViewModel.Id).First();
-
-            Mapper.CreateMap<CatalogSupplyViewModel, Supply>();
-
-            Mapper.Map(eventObject.ViewModel, supply);
-
-            this.repository.Save(catalog);
-
-            this.eventBroker.Publish(new SupplyUpdatedEvent(catalog.Id, supply));
-        }
-
-        public void ProcessAction(EditHardwareEvent eventObject)
-        {
-            var catalog = this.repository.FindById(eventObject.ViewModel.CatalogId);
-
-            var hardware = catalog.Hardwares.Where(s => s.Id == eventObject.ViewModel.Id).First();
-
-            Mapper.CreateMap<CatalogHardwareViewModel, Hardware>();
-
-            Mapper.Map(eventObject.ViewModel, hardware);
-
-            this.repository.Save(catalog);
-
-            this.eventBroker.Publish(new HardwareUpdatedEvent(catalog.Id, hardware));
-        }
-
         public void ProcessAction(SupplyUpdatedEvent eventObject)
         {
             Mapper.CreateMap<Supply, CatalogSupplyViewModel>();
@@ -364,38 +329,6 @@ namespace Chiffrage.App.Controllers
             this.catalogView.RemoveHardware(result);
         }
 
-        public void ProcessAction(RequestDeleteSupplyEvent eventObject)
-        {
-            var catalog = this.repository.FindById(eventObject.CatalogId);
-
-            var supply = catalog.Supplies.Where(x => x.Id == eventObject.SupplyId).FirstOrDefault();
-
-            if (supply != null)
-            {
-                catalog.Supplies.Remove(supply);
-
-                this.repository.Save(catalog);
-
-                this.eventBroker.Publish(new SupplyDeletedEvent(catalog.Id, supply));
-            }
-        }
-
-        public void ProcessAction(RequestDeleteHardwareEvent eventObject)
-        {
-            var catalog = this.repository.FindById(eventObject.CatalogId);
-
-            var hardware = catalog.Hardwares.Where(x => x.Id == eventObject.HardwareId).FirstOrDefault();
-
-            if (hardware != null)
-            {
-                catalog.Hardwares.Remove(hardware);
-
-                this.repository.Save(catalog);
-
-                this.eventBroker.Publish(new HardwareDeletedEvent(catalog.Id, hardware));
-            }
-        }
-
         public void ProcessAction(SupplyDeletedEvent eventObject)
         {
             Mapper.CreateMap<Supply, CatalogSupplyViewModel>();
@@ -422,29 +355,6 @@ namespace Chiffrage.App.Controllers
             this.newHardwareSupplyView.ParentHardwareId = eventObject.HardwareId;
             this.newHardwareSupplyView.Supplies = supplies;
             this.newHardwareSupplyView.ShowView();
-        }
-
-        public void ProcessAction(CreateNewHardwareEvent eventObject)
-        {
-            var catalog = this.repository.FindById(eventObject.ViewModel.CatalogId);
-
-            Mapper.CreateMap<CatalogHardwareViewModel, Hardware>();
-
-            var hardware = Mapper.Map<CatalogHardwareViewModel, Hardware>(eventObject.ViewModel);
-
-            // supply name must be unique
-            if (catalog.Hardwares.Where(x => x.Name.Equals(hardware.Name, System.StringComparison.OrdinalIgnoreCase)).Any())
-            {
-                this.eventBroker.Publish(new HardwareMustBeUniqueErrorEvent(catalog.Id, hardware));
-            }
-            else
-            {
-                catalog.Hardwares.Add(hardware);
-
-                this.repository.Save(catalog);
-
-                this.eventBroker.Publish(new HardwareCreatedEvent(catalog.Id, hardware));
-            }
         }
 
         public void ProcessAction(HardwareCreatedEvent eventObject)

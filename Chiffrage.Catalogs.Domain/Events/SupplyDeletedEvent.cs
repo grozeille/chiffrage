@@ -3,24 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Chiffrage.Mvc.Events;
+using Chiffrage.Catalogs.Domain;
 
-namespace Chiffrage.App.Events
+namespace Chiffrage.Catalogs.Domain.Events
 {
-    public class RequestDeleteHardwareEvent: IEvent
+    public class SupplyDeletedEvent  : IEvent
     {
         private readonly int catalogId;
+        private readonly Supply supply;
 
-        private readonly int hardwareId;
-
-        public RequestDeleteHardwareEvent(int catalogId, int hardwareId)
+        public SupplyDeletedEvent(int catalogId, Supply supply)
         {
             this.catalogId = catalogId;
-            this.hardwareId = hardwareId;
+            this.supply = supply;
         }
 
-        public int HardwareId
+        public Supply Supply
         {
-            get { return this.hardwareId; }
+            get { return this.supply; }
         }
 
         public int CatalogId

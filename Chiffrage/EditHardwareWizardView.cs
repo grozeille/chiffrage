@@ -9,6 +9,7 @@ using Chiffrage.App.Views;
 using Chiffrage.Mvc.Events;
 using Chiffrage.Mvc.Views;
 using Chiffrage.WizardPages;
+using Chiffrage.Catalogs.Domain.Commands;
 
 namespace Chiffrage
 {
@@ -37,7 +38,11 @@ namespace Chiffrage
         {
             if(result == DialogResult.OK)
             {
-                this.EventBroker.Publish(new EditHardwareEvent(editHardwarePage.TypedPage.ViewModel));
+                var command = new UpdateHardwareCommand(
+                    editHardwarePage.TypedPage.ViewModel.CatalogId,
+                    editHardwarePage.TypedPage.ViewModel.Id,
+                    editHardwarePage.TypedPage.ViewModel.Name);
+                this.EventBroker.Publish(command);
             }
         }
 

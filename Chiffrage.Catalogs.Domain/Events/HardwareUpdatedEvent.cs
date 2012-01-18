@@ -5,7 +5,7 @@ using System.Text;
 using Chiffrage.Catalogs.Domain;
 using Chiffrage.Mvc.Events;
 
-namespace Chiffrage.App.Events
+namespace Chiffrage.Catalogs.Domain.Events
 {
     public class HardwareUpdatedEvent : IEvent
     {

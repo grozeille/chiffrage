@@ -10,6 +10,7 @@ using Chiffrage.Catalogs.Domain;
 using Chiffrage.Mvc.Views;
 using Chiffrage.WizardPages;
 using Chiffrage.Mvc.Events;
+using Chiffrage.Catalogs.Domain.Commands;
 
 namespace Chiffrage
 {
@@ -41,7 +42,7 @@ namespace Chiffrage
                             var result = MessageBox.Show("Êtes-vous sûr de vouloir supprimer le composant '" + supply.Name + "'?", "Supprimer?", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
                             if (result == DialogResult.OK)
                             {
-                                return new RequestDeleteSupplyEvent(this.catalogId.Value, supply.Id);
+                                return new DeleteSupplyCommand(this.catalogId.Value, supply.Id);
                             }
                         }
                     }
@@ -62,7 +63,7 @@ namespace Chiffrage
                         var result = MessageBox.Show("Êtes-vous sûr de vouloir supprimer le matériel '" + hardware.Name + "'?", "Supprimer?", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
                         if (result == DialogResult.OK)
                         {
-                            return new RequestDeleteHardwareEvent(this.catalogId.Value, hardware.Id);
+                            return new DeleteHardwareCommand(this.catalogId.Value, hardware.Id);
                         }
                     }
                 }

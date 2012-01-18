@@ -7,13 +7,19 @@ using Chiffrage.Catalogs.Domain.Repositories;
 using Chiffrage.Catalogs.Domain.Commands;
 using Chiffrage.Catalogs.Domain.Events;
 using Chiffrage.Mvc.Services;
+using AutoMapper;
 
 namespace Chiffrage.Catalogs.Domain.Services
 {
     public class CatalogService : IService, 
         IGenericEventHandler<CreateNewCatalogCommand>,
         IGenericEventHandler<UpdateCatalogCommand>,
-        IGenericEventHandler<CreateNewSupplyCommand>
+        IGenericEventHandler<CreateNewSupplyCommand>,
+        IGenericEventHandler<UpdateSupplyCommand>,
+        IGenericEventHandler<DeleteSupplyCommand>,
+        IGenericEventHandler<CreateNewHardwareCommand>,
+        IGenericEventHandler<UpdateHardwareCommand>,
+        IGenericEventHandler<DeleteHardwareCommand>
     {
         private readonly IEventBroker eventBroker;
         private readonly ICatalogRepository repository;
@@ -51,19 +57,9 @@ namespace Chiffrage.Catalogs.Domain.Services
         {
             var catalog = this.repository.FindById(eventObject.CatalogId);
 
-            var supply = new Supply
-            {
-                Name = eventObject.Name,
-                Reference = eventObject.Reference,
-                ModuleSize = eventObject.ModuleSize,
-                ReferenceDays = eventObject.ReferenceDays,
-                StudyDays = eventObject.StudyDays,
-                CatalogTestsDays = eventObject.CatalogTestsDays,
-                CatalogWorkDays = eventObject.CatalogWorkDays,
-                CatalogExecutiveWorkDays = eventObject.CatalogExecutiveWorkDays,
-                CatalogPrice = eventObject.CatalogPrice,
-                Category = eventObject.Category
-            };
+            Mapper.CreateMap<CreateNewSupplyCommand, Supply>();
+
+            var supply = Mapper.Map<CreateNewSupplyCommand, Supply>(eventObject);
 
             // supply name must be unique
             if (catalog.Supplies.Where(x => x.Name.Equals(eventObject.Name, System.StringComparison.OrdinalIgnoreCase)).Any())
@@ -77,6 +73,91 @@ namespace Chiffrage.Catalogs.Domain.Services
                 this.repository.Save(catalog);
 
                 this.eventBroker.Publish(new SupplyCreatedEvent(catalog.Id, supply));
+            }
+        }
+
+        public void ProcessAction(UpdateSupplyCommand eventObject)
+        {
+            var catalog = this.repository.FindById(eventObject.CatalogId);
+
+            var supply = catalog.Supplies.Where(s => s.Id == eventObject.SupplyId).First();
+
+            Mapper.CreateMap<UpdateSupplyCommand, Supply>();
+
+            Mapper.Map(eventObject, supply);
+
+            this.repository.Save(catalog);
+
+            this.eventBroker.Publish(new SupplyUpdatedEvent(catalog.Id, supply));
+        }
+
+        public void ProcessAction(DeleteSupplyCommand eventObject)
+        {
+            var catalog = this.repository.FindById(eventObject.CatalogId);
+
+            var supply = catalog.Supplies.Where(x => x.Id == eventObject.SupplyId).FirstOrDefault();
+
+            if (supply != null)
+            {
+                catalog.Supplies.Remove(supply);
+
+                this.repository.Save(catalog);
+
+                this.eventBroker.Publish(new SupplyDeletedEvent(catalog.Id, supply));
+            }
+        }
+
+        public void ProcessAction(CreateNewHardwareCommand eventObject)
+        {
+            var catalog = this.repository.FindById(eventObject.CatalogId);
+
+            Mapper.CreateMap<CreateNewHardwareCommand, Hardware>();
+
+            var hardware = Mapper.Map<CreateNewHardwareCommand, Hardware>(eventObject);
+
+            // hardware name must be unique
+            if (catalog.Hardwares.Where(x => x.Name.Equals(hardware.Name, System.StringComparison.OrdinalIgnoreCase)).Any())
+            {
+                this.eventBroker.Publish(new HardwareMustBeUniqueErrorEvent(catalog.Id, hardware));
+            }
+            else
+            {
+                catalog.Hardwares.Add(hardware);
+
+                this.repository.Save(catalog);
+
+                this.eventBroker.Publish(new HardwareCreatedEvent(catalog.Id, hardware));
+            }
+        }
+
+        public void ProcessAction(UpdateHardwareCommand eventObject)
+        {
+            var catalog = this.repository.FindById(eventObject.CatalogId);
+
+            var hardware = catalog.Hardwares.Where(s => s.Id == eventObject.HardwareId).First();
+
+            Mapper.CreateMap<UpdateHardwareCommand, Hardware>();
+
+            Mapper.Map(eventObject, hardware);
+
+            this.repository.Save(catalog);
+
+            this.eventBroker.Publish(new HardwareUpdatedEvent(catalog.Id, hardware));
+        }
+
+        public void ProcessAction(DeleteHardwareCommand eventObject)
+        {
+            var catalog = this.repository.FindById(eventObject.CatalogId);
+
+            var hardware = catalog.Hardwares.Where(x => x.Id == eventObject.HardwareId).FirstOrDefault();
+
+            if (hardware != null)
+            {
+                catalog.Hardwares.Remove(hardware);
+
+                this.repository.Save(catalog);
+
+                this.eventBroker.Publish(new HardwareDeletedEvent(catalog.Id, hardware));
             }
         }
     }

@@ -36,6 +36,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper">
+      <HintPath>..\Libs\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -52,13 +55,24 @@
   <ItemGroup>
     <Compile Include="Cable.cs" />
     <Compile Include="Catalog.cs" />
+    <Compile Include="Commands\DeleteHardwareCommand.cs" />
+    <Compile Include="Commands\UpdateHardwareCommand.cs" />
+    <Compile Include="Commands\CreateNewHardwareCommand.cs" />
+    <Compile Include="Commands\DeleteSupplyCommand.cs" />
+    <Compile Include="Commands\UpdateSupplyCommand.cs" />
     <Compile Include="Commands\CreateNewCatalogCommand.cs" />
     <Compile Include="Commands\CreateNewSupplyCommand.cs" />
     <Compile Include="Commands\UpdateCatalogCommand.cs" />
     <Compile Include="Events\CatalogCreatedEvent.cs" />
     <Compile Include="Events\CatalogUpdatedEvent.cs" />
+    <Compile Include="Events\HardwareCreatedEvent.cs" />
+    <Compile Include="Events\HardwareDeletedEvent.cs" />
+    <Compile Include="Events\HardwareMustBeUniqueErrorEvent.cs" />
+    <Compile Include="Events\HardwareUpdatedEvent.cs" />
     <Compile Include="Events\SupplyCreatedEvent.cs" />
+    <Compile Include="Events\SupplyDeletedEvent.cs" />
     <Compile Include="Events\SupplyMustBeUniqueErrorEvent.cs" />
+    <Compile Include="Events\SupplyUpdatedEvent.cs" />
     <Compile Include="Hardware.cs" />
     <Compile Include="HardwareSupply.cs" />
     <Compile Include="ICatalogItem.cs" />
