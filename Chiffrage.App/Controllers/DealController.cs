@@ -8,6 +8,8 @@ using Chiffrage.Projects.Domain;
 using Chiffrage.Projects.Domain.Repositories;
 using System.Linq;
 using Chiffrage.Mvc.Controllers;
+using Chiffrage.Projects.Domain.Events;
+using Chiffrage.Projects.Domain.Commands;
 
 namespace Chiffrage.App.Controllers
 {
@@ -18,8 +20,7 @@ namespace Chiffrage.App.Controllers
         IGenericEventHandler<ApplicationStartEvent>,
         IGenericEventHandler<SaveEvent>,
         IGenericEventHandler<DealUpdatedEvent>,
-        IGenericEventHandler<RequestNewDealEvent>,
-        IGenericEventHandler<CreateNewDealEvent>
+        IGenericEventHandler<RequestNewDealEvent>
     {
         private readonly IEventBroker eventBroker;
 
@@ -64,16 +65,15 @@ namespace Chiffrage.App.Controllers
             {
                 return;
             }
+            var command = new UpdateDealCommand(
+                viewModel.Id,
+                viewModel.Name,
+                viewModel.Comment,
+                viewModel.Reference,
+                viewModel.StartDate,
+                viewModel.EndDate);
 
-            Mapper.CreateMap<DealViewModel, Deal>();
-
-            var deal = this.dealRepository.FindById(viewModel.Id);
-
-            Mapper.Map(viewModel, deal);
-
-            this.dealRepository.Save(deal);
-
-            this.eventBroker.Publish(new DealUpdatedEvent(deal));
+            this.eventBroker.Publish(command);
         }
 
         public void ProcessAction(DealUpdatedEvent eventObject)
@@ -88,16 +88,6 @@ namespace Chiffrage.App.Controllers
         public void ProcessAction(RequestNewDealEvent eventObject)
         {
             this.newDealView.ShowView();
-        }
-
-        public void ProcessAction(CreateNewDealEvent eventObject)
-        {
-            var newDeal = new Deal();
-            newDeal.Name = eventObject.DealName;
-
-            this.dealRepository.Save(newDeal);
-
-            this.eventBroker.Publish(new DealCreatedEvent(newDeal));
         }
     }
 }

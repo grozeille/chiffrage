@@ -192,6 +192,7 @@
             this.dataGridViewSupplies.AllowUserToAddRows = false;
             this.dataGridViewSupplies.AllowUserToDeleteRows = false;
             this.dataGridViewSupplies.AllowUserToOrderColumns = true;
+            this.dataGridViewSupplies.AllowUserToResizeRows = false;
             this.dataGridViewSupplies.AutoGenerateColumns = false;
             this.dataGridViewSupplies.BackgroundColor = System.Drawing.SystemColors.Window;
             this.dataGridViewSupplies.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
@@ -386,6 +387,7 @@
             // 
             this.dataGridViewHardwares.AllowUserToAddRows = false;
             this.dataGridViewHardwares.AllowUserToOrderColumns = true;
+            this.dataGridViewHardwares.AllowUserToResizeRows = false;
             this.dataGridViewHardwares.AutoGenerateColumns = false;
             this.dataGridViewHardwares.BackgroundColor = System.Drawing.SystemColors.Window;
             this.dataGridViewHardwares.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
@@ -408,6 +410,7 @@
             this.dataGridViewHardwares.GridColor = System.Drawing.SystemColors.ControlLight;
             this.dataGridViewHardwares.Location = new System.Drawing.Point(0, 25);
             this.dataGridViewHardwares.Name = "dataGridViewHardwares";
+            this.dataGridViewHardwares.ReadOnly = true;
             this.dataGridViewHardwares.RowHeadersVisible = false;
             this.dataGridViewHardwares.Size = new System.Drawing.Size(544, 113);
             this.dataGridViewHardwares.TabIndex = 8;
@@ -418,66 +421,77 @@
             this.dataGridViewTextBoxColumn21.DataPropertyName = "Id";
             this.dataGridViewTextBoxColumn21.HeaderText = "Id";
             this.dataGridViewTextBoxColumn21.Name = "dataGridViewTextBoxColumn21";
+            this.dataGridViewTextBoxColumn21.ReadOnly = true;
             // 
             // dataGridViewTextBoxColumn22
             // 
             this.dataGridViewTextBoxColumn22.DataPropertyName = "Name";
             this.dataGridViewTextBoxColumn22.HeaderText = "Name";
             this.dataGridViewTextBoxColumn22.Name = "dataGridViewTextBoxColumn22";
+            this.dataGridViewTextBoxColumn22.ReadOnly = true;
             // 
             // dataGridViewTextBoxColumn23
             // 
             this.dataGridViewTextBoxColumn23.DataPropertyName = "Reference";
             this.dataGridViewTextBoxColumn23.HeaderText = "Reference";
             this.dataGridViewTextBoxColumn23.Name = "dataGridViewTextBoxColumn23";
+            this.dataGridViewTextBoxColumn23.ReadOnly = true;
             // 
             // dataGridViewTextBoxColumn24
             // 
             this.dataGridViewTextBoxColumn24.DataPropertyName = "Category";
             this.dataGridViewTextBoxColumn24.HeaderText = "Category";
             this.dataGridViewTextBoxColumn24.Name = "dataGridViewTextBoxColumn24";
+            this.dataGridViewTextBoxColumn24.ReadOnly = true;
             // 
             // dataGridViewTextBoxColumn25
             // 
             this.dataGridViewTextBoxColumn25.DataPropertyName = "ModuleSize";
             this.dataGridViewTextBoxColumn25.HeaderText = "ModuleSize";
             this.dataGridViewTextBoxColumn25.Name = "dataGridViewTextBoxColumn25";
+            this.dataGridViewTextBoxColumn25.ReadOnly = true;
             // 
             // dataGridViewTextBoxColumn26
             // 
             this.dataGridViewTextBoxColumn26.DataPropertyName = "CatalogPrice";
             this.dataGridViewTextBoxColumn26.HeaderText = "CatalogPrice";
             this.dataGridViewTextBoxColumn26.Name = "dataGridViewTextBoxColumn26";
+            this.dataGridViewTextBoxColumn26.ReadOnly = true;
             // 
             // dataGridViewTextBoxColumn27
             // 
             this.dataGridViewTextBoxColumn27.DataPropertyName = "StudyDays";
             this.dataGridViewTextBoxColumn27.HeaderText = "StudyDays";
             this.dataGridViewTextBoxColumn27.Name = "dataGridViewTextBoxColumn27";
+            this.dataGridViewTextBoxColumn27.ReadOnly = true;
             // 
             // dataGridViewTextBoxColumn28
             // 
             this.dataGridViewTextBoxColumn28.DataPropertyName = "ReferenceDays";
             this.dataGridViewTextBoxColumn28.HeaderText = "ReferenceDays";
             this.dataGridViewTextBoxColumn28.Name = "dataGridViewTextBoxColumn28";
+            this.dataGridViewTextBoxColumn28.ReadOnly = true;
             // 
             // dataGridViewTextBoxColumn29
             // 
             this.dataGridViewTextBoxColumn29.DataPropertyName = "CatalogWorkDays";
             this.dataGridViewTextBoxColumn29.HeaderText = "CatalogWorkDays";
             this.dataGridViewTextBoxColumn29.Name = "dataGridViewTextBoxColumn29";
+            this.dataGridViewTextBoxColumn29.ReadOnly = true;
             // 
             // dataGridViewTextBoxColumn30
             // 
             this.dataGridViewTextBoxColumn30.DataPropertyName = "CatalogExecutiveWorkDays";
             this.dataGridViewTextBoxColumn30.HeaderText = "CatalogExecutiveWorkDays";
             this.dataGridViewTextBoxColumn30.Name = "dataGridViewTextBoxColumn30";
+            this.dataGridViewTextBoxColumn30.ReadOnly = true;
             // 
             // dataGridViewTextBoxColumn31
             // 
             this.dataGridViewTextBoxColumn31.DataPropertyName = "CatalogTestsDays";
             this.dataGridViewTextBoxColumn31.HeaderText = "CatalogTestsDays";
             this.dataGridViewTextBoxColumn31.Name = "dataGridViewTextBoxColumn31";
+            this.dataGridViewTextBoxColumn31.ReadOnly = true;
             // 
             // hardwaresBindingSource
             // 
@@ -515,6 +529,7 @@
             // 
             this.dataGridViewHardwareSupplies.AllowUserToAddRows = false;
             this.dataGridViewHardwareSupplies.AllowUserToOrderColumns = true;
+            this.dataGridViewHardwareSupplies.AllowUserToResizeRows = false;
             this.dataGridViewHardwareSupplies.AutoGenerateColumns = false;
             this.dataGridViewHardwareSupplies.BackgroundColor = System.Drawing.SystemColors.Window;
             this.dataGridViewHardwareSupplies.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
@@ -542,6 +557,7 @@
             this.dataGridViewHardwareSupplies.GridColor = System.Drawing.SystemColors.ControlLight;
             this.dataGridViewHardwareSupplies.Location = new System.Drawing.Point(0, 25);
             this.dataGridViewHardwareSupplies.Name = "dataGridViewHardwareSupplies";
+            this.dataGridViewHardwareSupplies.ReadOnly = true;
             this.dataGridViewHardwareSupplies.RowHeadersVisible = false;
             this.dataGridViewHardwareSupplies.Size = new System.Drawing.Size(544, 174);
             this.dataGridViewHardwareSupplies.TabIndex = 8;
@@ -551,96 +567,112 @@
             this.idDataGridViewTextBoxColumn.DataPropertyName = "Id";
             this.idDataGridViewTextBoxColumn.HeaderText = "Id";
             this.idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
+            this.idDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // catalogIdDataGridViewTextBoxColumn
             // 
             this.catalogIdDataGridViewTextBoxColumn.DataPropertyName = "CatalogId";
             this.catalogIdDataGridViewTextBoxColumn.HeaderText = "CatalogId";
             this.catalogIdDataGridViewTextBoxColumn.Name = "catalogIdDataGridViewTextBoxColumn";
+            this.catalogIdDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // hardwareIdDataGridViewTextBoxColumn
             // 
             this.hardwareIdDataGridViewTextBoxColumn.DataPropertyName = "HardwareId";
             this.hardwareIdDataGridViewTextBoxColumn.HeaderText = "HardwareId";
             this.hardwareIdDataGridViewTextBoxColumn.Name = "hardwareIdDataGridViewTextBoxColumn";
+            this.hardwareIdDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // supplyIdDataGridViewTextBoxColumn
             // 
             this.supplyIdDataGridViewTextBoxColumn.DataPropertyName = "SupplyId";
             this.supplyIdDataGridViewTextBoxColumn.HeaderText = "SupplyId";
             this.supplyIdDataGridViewTextBoxColumn.Name = "supplyIdDataGridViewTextBoxColumn";
+            this.supplyIdDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // supplyQuantityDataGridViewTextBoxColumn
             // 
             this.supplyQuantityDataGridViewTextBoxColumn.DataPropertyName = "SupplyQuantity";
             this.supplyQuantityDataGridViewTextBoxColumn.HeaderText = "SupplyQuantity";
             this.supplyQuantityDataGridViewTextBoxColumn.Name = "supplyQuantityDataGridViewTextBoxColumn";
+            this.supplyQuantityDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // supplyNameDataGridViewTextBoxColumn
             // 
             this.supplyNameDataGridViewTextBoxColumn.DataPropertyName = "SupplyName";
             this.supplyNameDataGridViewTextBoxColumn.HeaderText = "SupplyName";
             this.supplyNameDataGridViewTextBoxColumn.Name = "supplyNameDataGridViewTextBoxColumn";
+            this.supplyNameDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // supplyReferenceDataGridViewTextBoxColumn
             // 
             this.supplyReferenceDataGridViewTextBoxColumn.DataPropertyName = "SupplyReference";
             this.supplyReferenceDataGridViewTextBoxColumn.HeaderText = "SupplyReference";
             this.supplyReferenceDataGridViewTextBoxColumn.Name = "supplyReferenceDataGridViewTextBoxColumn";
+            this.supplyReferenceDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // supplyCategoryDataGridViewTextBoxColumn
             // 
             this.supplyCategoryDataGridViewTextBoxColumn.DataPropertyName = "SupplyCategory";
             this.supplyCategoryDataGridViewTextBoxColumn.HeaderText = "SupplyCategory";
             this.supplyCategoryDataGridViewTextBoxColumn.Name = "supplyCategoryDataGridViewTextBoxColumn";
+            this.supplyCategoryDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // supplyModuleSizeDataGridViewTextBoxColumn
             // 
             this.supplyModuleSizeDataGridViewTextBoxColumn.DataPropertyName = "SupplyModuleSize";
             this.supplyModuleSizeDataGridViewTextBoxColumn.HeaderText = "SupplyModuleSize";
             this.supplyModuleSizeDataGridViewTextBoxColumn.Name = "supplyModuleSizeDataGridViewTextBoxColumn";
+            this.supplyModuleSizeDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // supplyCatalogPriceDataGridViewTextBoxColumn
             // 
             this.supplyCatalogPriceDataGridViewTextBoxColumn.DataPropertyName = "SupplyCatalogPrice";
             this.supplyCatalogPriceDataGridViewTextBoxColumn.HeaderText = "SupplyCatalogPrice";
             this.supplyCatalogPriceDataGridViewTextBoxColumn.Name = "supplyCatalogPriceDataGridViewTextBoxColumn";
+            this.supplyCatalogPriceDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // supplyStudyDaysDataGridViewTextBoxColumn
             // 
             this.supplyStudyDaysDataGridViewTextBoxColumn.DataPropertyName = "SupplyStudyDays";
             this.supplyStudyDaysDataGridViewTextBoxColumn.HeaderText = "SupplyStudyDays";
             this.supplyStudyDaysDataGridViewTextBoxColumn.Name = "supplyStudyDaysDataGridViewTextBoxColumn";
+            this.supplyStudyDaysDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // supplyReferenceDaysDataGridViewTextBoxColumn
             // 
             this.supplyReferenceDaysDataGridViewTextBoxColumn.DataPropertyName = "SupplyReferenceDays";
             this.supplyReferenceDaysDataGridViewTextBoxColumn.HeaderText = "SupplyReferenceDays";
             this.supplyReferenceDaysDataGridViewTextBoxColumn.Name = "supplyReferenceDaysDataGridViewTextBoxColumn";
+            this.supplyReferenceDaysDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // supplyCatalogWorkDaysDataGridViewTextBoxColumn
             // 
             this.supplyCatalogWorkDaysDataGridViewTextBoxColumn.DataPropertyName = "SupplyCatalogWorkDays";
             this.supplyCatalogWorkDaysDataGridViewTextBoxColumn.HeaderText = "SupplyCatalogWorkDays";
             this.supplyCatalogWorkDaysDataGridViewTextBoxColumn.Name = "supplyCatalogWorkDaysDataGridViewTextBoxColumn";
+            this.supplyCatalogWorkDaysDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // supplyCatalogExecutiveWorkDaysDataGridViewTextBoxColumn
             // 
             this.supplyCatalogExecutiveWorkDaysDataGridViewTextBoxColumn.DataPropertyName = "SupplyCatalogExecutiveWorkDays";
             this.supplyCatalogExecutiveWorkDaysDataGridViewTextBoxColumn.HeaderText = "SupplyCatalogExecutiveWorkDays";
             this.supplyCatalogExecutiveWorkDaysDataGridViewTextBoxColumn.Name = "supplyCatalogExecutiveWorkDaysDataGridViewTextBoxColumn";
+            this.supplyCatalogExecutiveWorkDaysDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // supplyCatalogTestsDaysDataGridViewTextBoxColumn
             // 
             this.supplyCatalogTestsDaysDataGridViewTextBoxColumn.DataPropertyName = "SupplyCatalogTestsDays";
             this.supplyCatalogTestsDaysDataGridViewTextBoxColumn.HeaderText = "SupplyCatalogTestsDays";
             this.supplyCatalogTestsDaysDataGridViewTextBoxColumn.Name = "supplyCatalogTestsDaysDataGridViewTextBoxColumn";
+            this.supplyCatalogTestsDaysDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // quantityDataGridViewTextBoxColumn
             // 
             this.quantityDataGridViewTextBoxColumn.DataPropertyName = "Quantity";
             this.quantityDataGridViewTextBoxColumn.HeaderText = "Quantity";
             this.quantityDataGridViewTextBoxColumn.Name = "quantityDataGridViewTextBoxColumn";
+            this.quantityDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // componentsBindingSource
             // 

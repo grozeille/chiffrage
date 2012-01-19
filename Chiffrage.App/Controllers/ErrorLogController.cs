@@ -8,6 +8,7 @@ using Chiffrage.Mvc.Events;
 using Chiffrage.App.Events;
 using Chiffrage.Mvc.Controllers;
 using Chiffrage.Catalogs.Domain.Events;
+using Chiffrage.Projects.Domain.Events;
 
 namespace Chiffrage.App.Controllers
 {

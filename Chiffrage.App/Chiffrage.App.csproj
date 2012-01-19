@@ -68,12 +68,6 @@
     <Compile Include="Events\CatalogUnselectedEvent.cs" />
     <Compile Include="Events\RequestNewHardwareSupplyEvent.cs" />
     <Compile Include="Events\RequestEditHardwareEvent.cs" />
-    <Compile Include="Events\ProjectUpdatedEvent.cs" />
-    <Compile Include="Events\CreateNewProjectEvent.cs" />
-    <Compile Include="Events\CreateNewDealEvent.cs" />
-    <Compile Include="Events\DealCreatedEvent.cs" />
-    <Compile Include="Events\DealUpdatedEvent.cs" />
-    <Compile Include="Events\ProjectCreatedEvent.cs" />
     <Compile Include="Events\RequestNewHardwareEvent.cs" />
     <Compile Include="Events\RequestNewSupplyEvent.cs" />
     <Compile Include="Events\RequestEditSupplyEvent.cs" />

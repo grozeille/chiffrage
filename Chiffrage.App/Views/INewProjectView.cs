@@ -8,6 +8,6 @@ namespace Chiffrage.App.Views
 {
     public interface INewProjectView : IView
     {
-        void SetParentDeal(int parentDealId);
+        int ParentDealId { set; }
     }
 }

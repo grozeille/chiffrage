@@ -4,15 +4,15 @@ using System.Linq;
 using System.Text;
 using Chiffrage.Mvc.Events;
 
-namespace Chiffrage.App.Events
+namespace Chiffrage.Projects.Domain.Commands
 {
-    public class CreateNewProjectEvent : IEvent
+    public class CreateNewProjectCommand : IEvent
     {
         private readonly string projectName;
 
         private readonly int dealId;
 
-        public CreateNewProjectEvent(int dealId, string projectName)
+        public CreateNewProjectCommand(int dealId, string projectName)
         {
             this.projectName = projectName;
             this.dealId = dealId;

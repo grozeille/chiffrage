@@ -10,6 +10,7 @@ using Chiffrage.Mvc.Events;
 using Chiffrage.Projects.Domain;
 using Chiffrage.Projects.Domain.Repositories;
 using Chiffrage.Mvc.Controllers;
+using Chiffrage.Projects.Domain.Commands;
 
 namespace Chiffrage.App.Controllers
 {
@@ -19,7 +20,6 @@ namespace Chiffrage.App.Controllers
         IGenericEventHandler<ProjectSelectedEvent>,
         IGenericEventHandler<ProjectUnselectedEvent>,
         IGenericEventHandler<SaveEvent>,
-        IGenericEventHandler<CreateNewProjectEvent>,
         IGenericEventHandler<RequestNewProjectEvent>
     {
         private readonly IProjectView projectView;
@@ -73,35 +73,20 @@ namespace Chiffrage.App.Controllers
                 return;
             }
 
-            MapperUtils.CreateDefaultMap();
-            Mapper.CreateMap<ProjectViewModel, Project>();
+            var command = new UpdateProjectCommand(
+                viewModel.Id,
+                viewModel.Name,
+                viewModel.Comment,
+                viewModel.Reference,
+                viewModel.StartDate,
+                viewModel.EndDate);
 
-            var project = this.projectRepository.FindById(viewModel.Id);
-
-            Mapper.Map(viewModel, project);
-
-            this.projectRepository.Save(project);
-
-            this.eventBroker.Publish(new ProjectUpdatedEvent(project));
-        }
-
-        public void ProcessAction(CreateNewProjectEvent eventObject)
-        {
-            var deal = this.dealRepository.FindById(eventObject.DealId);
-
-            var newProject = new Project();
-            newProject.Name = eventObject.ProjectName;
-
-            this.projectRepository.Save(newProject);
-            deal.Projects.Add(newProject);
-            this.dealRepository.Save(deal);
-
-            this.eventBroker.Publish(new ProjectCreatedEvent(deal, newProject));
+            this.eventBroker.Publish(command);
         }
 
         public void ProcessAction(RequestNewProjectEvent eventObject)
         {
-            this.newProjectView.SetParentDeal(eventObject.DealId);
+            this.newProjectView.ParentDealId = eventObject.DealId;
             this.newProjectView.ShowView();
         }
     }

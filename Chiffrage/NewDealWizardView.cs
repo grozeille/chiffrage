@@ -8,50 +8,31 @@ using Chiffrage.Mvc.Views;
 using Chiffrage.WizardPages;
 using Chiffrage.Mvc.Events;
 using Chiffrage.App.Events;
+using Chiffrage.Projects.Domain.Commands;
 
 namespace Chiffrage
 {
-    public class NewDealWizardView : INewDealView
+    public class NewDealWizardView : WizardView, INewDealView
     {
-        private readonly IEventBroker eventBroker;
+        private GenericWizardSetting<NewDealPage> newDealPage;
 
-        private Control parent;
-
-        private readonly WizardForm form;
-
-        public NewDealWizardView(IEventBroker eventBroker)
+        public NewDealWizardView(IEventBroker eventBroker):base(eventBroker)
         {
-            this.eventBroker = eventBroker;
-            this.form = new WizardForm();
         }
 
-        public void SetParent(Control parent)
+        protected override WizardSetting[] BuildWizardPages()
         {
-            this.parent = parent;
+            this.newDealPage = new GenericWizardSetting<NewDealPage>("Nouvelle affaire", "Création d'une nouvelle affaire", true);
+
+            return new WizardSetting[] { this.newDealPage };
         }
 
-        public void ShowView()
+        protected override void OnWizardClosed(DialogResult result)
         {
-            var newDealPage = new NewDealPage();
-
-            this.form.WizardSettings = new[]
+            if (result == DialogResult.OK)
             {
-                new WizardSetting(newDealPage, "Nouvelle affaire", "Création d'une nouvelle affaire", true)
-            }; 
-
-            this.parent.BeginInvoke(new Action(() =>
-            {
-                var result = this.form.ShowDialog(this.parent);
-                if (result == DialogResult.OK)
-                {
-                    this.eventBroker.Publish(new CreateNewDealEvent(newDealPage.DealName));
-                }
-            }));            
-        }
-
-        public void HideView()
-        {
-            this.form.Close();
+                this.EventBroker.Publish(new CreateNewDealCommand(newDealPage.TypedPage.DealName));
+            }
         }
     }
 }

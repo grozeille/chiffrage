@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using Chiffrage.Mvc.Events;
 
-namespace Chiffrage.App.Events
+namespace Chiffrage.Projects.Domain.Commands
 {
-    public class CreateNewDealEvent : IEvent
+    public class CreateNewDealCommand : IEvent
     {
         private readonly string dealName;
 
-        public CreateNewDealEvent(string dealName)
+        public CreateNewDealCommand(string dealName)
         {
             this.dealName = dealName;
         }

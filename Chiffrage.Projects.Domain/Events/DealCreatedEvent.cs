@@ -5,7 +5,7 @@ using System.Text;
 using Chiffrage.Projects.Domain;
 using Chiffrage.Mvc.Events;
 
-namespace Chiffrage.App.Events
+namespace Chiffrage.Projects.Domain.Events
 {
     public class DealCreatedEvent : IEvent
     {

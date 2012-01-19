@@ -8,57 +8,39 @@ using Chiffrage.Mvc.Views;
 using Chiffrage.WizardPages;
 using Chiffrage.Mvc.Events;
 using Chiffrage.App.Events;
+using Chiffrage.Projects.Domain.Commands;
 
 namespace Chiffrage
 {
-    public class NewProjectWizardView : INewProjectView
+    public class NewProjectWizardView : WizardView, INewProjectView
     {
-        private readonly IEventBroker eventBroker;
-
-        private Control parent;
-
-        private readonly WizardForm form;
+        private GenericWizardSetting<NewProjectPage> newProjectPage;
 
         private int parentDealId;
 
         public NewProjectWizardView(IEventBroker eventBroker)
+            : base(eventBroker)
         {
-            this.eventBroker = eventBroker;
-            this.form = new WizardForm();
         }
 
-        public void SetParent(Control parent)
+        protected override WizardSetting[] BuildWizardPages()
         {
-            this.parent = parent;
+            this.newProjectPage = new GenericWizardSetting<NewProjectPage>("Nouveau projet", "Création d'une nouveau projet", true);
+
+            return new WizardSetting[] { this.newProjectPage };
         }
 
-        public void ShowView()
+        protected override void OnWizardClosed(DialogResult result)
         {
-            var newProjectPage = new NewProjectPage();
-
-            this.form.WizardSettings = new[]
+            if (result == DialogResult.OK)
             {
-                new WizardSetting(newProjectPage, "Nouveau projet", "Création d'une nouveau projet", true)
-            }; 
-
-            this.parent.BeginInvoke(new Action(() =>
-            {
-                var result = this.form.ShowDialog(this.parent);
-                if (result == DialogResult.OK)
-                {
-                    this.eventBroker.Publish(new CreateNewProjectEvent(parentDealId, newProjectPage.ProjectName));
-                }
-            }));            
+                this.EventBroker.Publish(new CreateNewProjectCommand(parentDealId, newProjectPage.TypedPage.ProjectName));
+            }
         }
 
-        public void HideView()
+        public int ParentDealId
         {
-            this.form.Close();
-        }
-
-        public void SetParentDeal(int parentDealId)
-        {
-            this.parentDealId = parentDealId;
+            set { this.parentDealId = value; }
         }
     }
 }
