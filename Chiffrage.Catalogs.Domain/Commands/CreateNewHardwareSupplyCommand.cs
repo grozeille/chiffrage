@@ -2,19 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Chiffrage.App.ViewModel;
 using Chiffrage.Mvc.Events;
 
-namespace Chiffrage.App.Events
+namespace Chiffrage.Catalogs.Domain.Commands
 {
-    public class CreateNewHardwareSupplyEvent : IEvent
+    public class CreateNewHardwareSupplyCommand : IEvent
     {
         private readonly int catalogId;
         private readonly int hardwareId;
         private readonly int supplyId;
         private readonly int quantity;
 
-        public CreateNewHardwareSupplyEvent(int catalogId, int hardwareId, int supplyId, int quantity)
+        public CreateNewHardwareSupplyCommand(int catalogId, int hardwareId, int supplyId, int quantity)
         {
             this.catalogId = catalogId;
             this.hardwareId = hardwareId;

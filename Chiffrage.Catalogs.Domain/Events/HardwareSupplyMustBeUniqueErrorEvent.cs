@@ -5,7 +5,7 @@ using System.Text;
 using Chiffrage.Mvc.Events;
 using Chiffrage.Catalogs.Domain;
 
-namespace Chiffrage.App.Events
+namespace Chiffrage.Catalogs.Domain.Events
 {
     public class HardwareSupplyMustBeUniqueErrorEvent : IEvent
     {

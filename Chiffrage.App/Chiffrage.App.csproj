@@ -66,9 +66,6 @@
     <Compile Include="Events\ApplicationLoadedEvent.cs" />
     <Compile Include="Events\CatalogSelectedEvent.cs" />
     <Compile Include="Events\CatalogUnselectedEvent.cs" />
-    <Compile Include="Events\HardwareSupplyCreatedEvent.cs" />
-    <Compile Include="Events\HardwareSupplyMustBeUniqueErrorEvent.cs" />
-    <Compile Include="Events\CreateNewHardwareSupplyEvent.cs" />
     <Compile Include="Events\RequestNewHardwareSupplyEvent.cs" />
     <Compile Include="Events\RequestEditHardwareEvent.cs" />
     <Compile Include="Events\ProjectUpdatedEvent.cs" />

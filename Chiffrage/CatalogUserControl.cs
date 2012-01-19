@@ -11,6 +11,7 @@ using Chiffrage.Mvc.Views;
 using Chiffrage.WizardPages;
 using Chiffrage.Mvc.Events;
 using Chiffrage.Catalogs.Domain.Commands;
+using System.Collections.Generic;
 
 namespace Chiffrage
 {
@@ -108,18 +109,6 @@ namespace Chiffrage
                 if (viewModel.Comment == null || !(viewModel.Comment.StartsWith("{\\rtf") && viewModel.Comment.EndsWith("}")))
                     viewModel.Comment = "{\\rtf" + viewModel.Comment + "}";
                 this.commentUserControl.Rtf = viewModel.Comment;
-
-                this.supplies.Clear();
-                foreach (var item in viewModel.Supplies)
-                {
-                    this.supplies.Add(item);
-                }
-
-                this.hardwares.Clear();
-                foreach (var item in viewModel.Hardwares)
-                {
-                    this.hardwares.Add(item);
-                }
             });
         }
 
@@ -155,9 +144,9 @@ namespace Chiffrage
         public void AddHardwareSupply(CatalogHardwareSupplyViewModel result)
         {
             this.InvokeIfRequired(() =>
-                {
-                    // TODO : if the selected hardware is the correct one, add the item to the grid
-                });
+            {
+                // TODO : if the selected hardware is the correct one, add the item to the grid
+            });
         }
 
         public void UpdateSupply(CatalogSupplyViewModel result)
@@ -195,6 +184,68 @@ namespace Chiffrage
             {
                 var hardware = this.hardwares.Where(x => x.Id == result.Id).First();
                 this.hardwares.Remove(hardware);
+            });
+        }
+
+        public void AddSupplies(IList<CatalogSupplyViewModel> result)
+        {
+            this.InvokeIfRequired(() =>
+            {
+                this.suppliesBindingSource.SuspendBinding();
+                foreach (var item in result)
+                {
+                    this.supplies.Add(item);
+                }
+                this.suppliesBindingSource.ResumeBinding();
+            });
+        }
+
+        public void AddHardwares(IList<CatalogHardwareViewModel> result)
+        {
+            this.InvokeIfRequired(() => 
+            {
+                this.hardwaresBindingSource.SuspendBinding();
+                foreach(var item in result)
+                {
+                    this.hardwares.Add(item);
+                }
+                this.hardwaresBindingSource.ResumeBinding();
+            });
+        }
+
+        public void RemoveSupplies()
+        {
+            this.InvokeIfRequired(() =>
+            {
+                this.suppliesBindingSource.SuspendBinding();
+                this.supplies.Clear();
+                this.suppliesBindingSource.ResumeBinding();
+            });
+        }
+
+        public void RemoveAllHardwares()
+        {
+            this.InvokeIfRequired(() =>
+            {
+                this.hardwaresBindingSource.SuspendBinding();
+                this.hardwares.Clear();
+                this.hardwaresBindingSource.ResumeBinding();
+            });
+        }
+
+
+        public void UpdateHardwares(IList<CatalogHardwareViewModel> result)
+        {
+            this.InvokeIfRequired(() =>
+            {
+                this.hardwaresBindingSource.SuspendBinding();
+                foreach (var item in result)
+                {
+                    var hardware = this.hardwares.Where(s => s.Id == item.Id).First();
+                    var index = this.hardwares.IndexOf(hardware);
+                    this.hardwares[index] = item;
+                }
+                this.hardwaresBindingSource.ResumeBinding();
             });
         }
 

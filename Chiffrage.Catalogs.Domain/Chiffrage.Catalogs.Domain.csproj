@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="Cable.cs" />
     <Compile Include="Catalog.cs" />
+    <Compile Include="Commands\CreateNewHardwareSupplyCommand.cs" />
     <Compile Include="Commands\DeleteHardwareCommand.cs" />
     <Compile Include="Commands\UpdateHardwareCommand.cs" />
     <Compile Include="Commands\CreateNewHardwareCommand.cs" />
@@ -68,6 +69,8 @@
     <Compile Include="Events\HardwareCreatedEvent.cs" />
     <Compile Include="Events\HardwareDeletedEvent.cs" />
     <Compile Include="Events\HardwareMustBeUniqueErrorEvent.cs" />
+    <Compile Include="Events\HardwareSupplyCreatedEvent.cs" />
+    <Compile Include="Events\HardwareSupplyMustBeUniqueErrorEvent.cs" />
     <Compile Include="Events\HardwareUpdatedEvent.cs" />
     <Compile Include="Events\SupplyCreatedEvent.cs" />
     <Compile Include="Events\SupplyDeletedEvent.cs" />

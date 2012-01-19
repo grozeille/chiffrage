@@ -9,6 +9,7 @@ using Chiffrage.WizardPages;
 using Chiffrage.Mvc.Events;
 using Chiffrage.App.Events;
 using Chiffrage.App.ViewModel;
+using Chiffrage.Catalogs.Domain.Commands;
 
 namespace Chiffrage
 {
@@ -40,7 +41,7 @@ namespace Chiffrage
         {
             if (result == DialogResult.OK)
             {
-                this.EventBroker.Publish(new CreateNewHardwareSupplyEvent(this.catalogId, this.parentHardwareId, this.newHardwareSupplyPage.TypedPage.SelectedSupply, this.newHardwareSupplyPage.TypedPage.Quantity));
+                this.EventBroker.Publish(new CreateNewHardwareSupplyCommand(this.catalogId, this.parentHardwareId, this.newHardwareSupplyPage.TypedPage.SelectedSupply, this.newHardwareSupplyPage.TypedPage.Quantity));
             }
         }
 

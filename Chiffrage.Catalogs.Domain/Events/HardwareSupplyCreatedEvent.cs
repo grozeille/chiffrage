@@ -5,18 +5,18 @@ using System.Text;
 using Chiffrage.Catalogs.Domain;
 using Chiffrage.Mvc.Events;
 
-namespace Chiffrage.App.Events
+namespace Chiffrage.Catalogs.Domain.Events
 {
     public class HardwareSupplyCreatedEvent : IEvent
     {
         private readonly int catalogId;
-        private readonly int hardwareId;
+        private readonly Hardware hardware;
         private readonly HardwareSupply component;
 
-        public HardwareSupplyCreatedEvent(int catalogId, int hardwareId, HardwareSupply component)
+        public HardwareSupplyCreatedEvent(int catalogId, Hardware hardware, HardwareSupply component)
         {
             this.catalogId = catalogId;
-            this.hardwareId = hardwareId;
+            this.hardware = hardware;
             this.component = component;
         }
 
@@ -30,9 +30,9 @@ namespace Chiffrage.App.Events
             get { return this.catalogId; }
         }
 
-        public int HardwareId
+        public Hardware Hardware
         {
-            get { return this.hardwareId; }
+            get { return this.hardware; }
         }
     }
 }

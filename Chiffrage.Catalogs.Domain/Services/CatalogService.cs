@@ -19,7 +19,8 @@ namespace Chiffrage.Catalogs.Domain.Services
         IGenericEventHandler<DeleteSupplyCommand>,
         IGenericEventHandler<CreateNewHardwareCommand>,
         IGenericEventHandler<UpdateHardwareCommand>,
-        IGenericEventHandler<DeleteHardwareCommand>
+        IGenericEventHandler<DeleteHardwareCommand>,
+        IGenericEventHandler<CreateNewHardwareSupplyCommand>
     {
         private readonly IEventBroker eventBroker;
         private readonly ICatalogRepository repository;
@@ -158,6 +159,32 @@ namespace Chiffrage.Catalogs.Domain.Services
                 this.repository.Save(catalog);
 
                 this.eventBroker.Publish(new HardwareDeletedEvent(catalog.Id, hardware));
+            }
+        }
+        public void ProcessAction(CreateNewHardwareSupplyCommand eventObject)
+        {
+            var catalog = this.repository.FindById(eventObject.CatalogId);
+            var hardware = catalog.Hardwares.Where(x => x.Id == eventObject.HardwareId).First();
+            var supply = catalog.Supplies.Where(x => x.Id == eventObject.SupplyId).First();
+
+            var hardwareSupply = new HardwareSupply
+            {
+                Quantity = eventObject.Quantity,
+                Supply = supply
+            };
+
+            // supply name must be unique in hardaware components
+            if (hardware.Components.Where(x => x.Id == supply.Id).Any())
+            {
+                this.eventBroker.Publish(new HardwareSupplyMustBeUniqueErrorEvent(catalog.Id, hardware.Id, supply));
+            }
+            else
+            {
+                hardware.Components.Add(hardwareSupply);
+
+                this.repository.Save(catalog);
+
+                this.eventBroker.Publish(new HardwareSupplyCreatedEvent(catalog.Id, hardware, hardwareSupply));
             }
         }
     }

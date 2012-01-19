@@ -10,6 +10,7 @@ using Chiffrage.Mvc.Controllers;
 using System.Collections.Generic;
 using Chiffrage.Catalogs.Domain.Commands;
 using Chiffrage.Catalogs.Domain.Events;
+using System.ComponentModel;
 
 namespace Chiffrage.App.Controllers
 {
@@ -26,7 +27,6 @@ namespace Chiffrage.App.Controllers
         IGenericEventHandler<RequestNewHardwareSupplyEvent>,
         IGenericEventHandler<RequestEditSupplyEvent>,
         IGenericEventHandler<RequestEditHardwareEvent>,
-        IGenericEventHandler<CreateNewHardwareSupplyEvent>,
         IGenericEventHandler<SupplyCreatedEvent>,
         IGenericEventHandler<SupplyUpdatedEvent>,        
         IGenericEventHandler<SupplyDeletedEvent>,
@@ -148,49 +148,10 @@ namespace Chiffrage.App.Controllers
         public void ProcessAction(CatalogUpdatedEvent eventObject)
         {
             Mapper.CreateMap<SupplierCatalog, CatalogViewModel>();
-            Mapper.CreateMap<Supply, CatalogSupplyViewModel>();
-            Mapper.CreateMap<Hardware, CatalogHardwareViewModel>();
 
             var result = Mapper.Map<SupplierCatalog, CatalogViewModel>(eventObject.Catalog);
-            foreach (var item in result.Hardwares)
-            {
-                item.CatalogId = result.Id;
-            }
-            foreach (var item in result.Supplies)
-            {
-                item.CatalogId = result.Id;
-            }
 
             this.catalogView.Display(result);
-        }
-
-        public void ProcessAction(CreateNewHardwareSupplyEvent eventObject)
-        {
-            var catalog = this.repository.FindById(eventObject.CatalogId);
-            var hardware = catalog.Hardwares.Where(x => x.Id == eventObject.HardwareId).First();
-            var supply = catalog.Supplies.Where(x => x.Id == eventObject.SupplyId).First();
-            
-            var hardwareSupply = new HardwareSupply
-            {
-                Quantity = eventObject.Quantity,
-                Supply = supply
-            };
-
-            // supply name must be unique in hardaware components
-            if (hardware.Components.Where(x => x.Id == supply.Id).Any())
-            {
-                this.eventBroker.Publish(new HardwareSupplyMustBeUniqueErrorEvent(catalog.Id, hardware.Id, supply));
-            }
-            else
-            {
-                hardware.Components.Add(hardwareSupply);
-
-                this.repository.Save(catalog);
-
-                this.eventBroker.Publish(new HardwareSupplyCreatedEvent(catalog.Id, hardware.Id, hardwareSupply));
-
-                this.eventBroker.Publish(new HardwareUpdatedEvent(catalog.Id, hardware));
-            }
         }
 
         public void ProcessAction(RequestNewSupplyEvent eventObject)
@@ -223,30 +184,26 @@ namespace Chiffrage.App.Controllers
             Mapper.CreateMap<Supply, CatalogSupplyViewModel>();
             Mapper.CreateMap<Hardware, CatalogHardwareViewModel>();
             Mapper.CreateMap<HardwareSupply, CatalogHardwareSupplyViewModel>();
-            
-            var result = Mapper.Map<SupplierCatalog, CatalogViewModel>(catalog);
-            foreach(var item in result.Supplies)
+
+            var catalogViewModel = Mapper.Map<SupplierCatalog, CatalogViewModel>(catalog);
+
+            var suppliesViewModel = Mapper.Map<IList<Supply>, IList<CatalogSupplyViewModel>>(catalog.Supplies);
+            foreach (var item in suppliesViewModel)
             {
-                item.CatalogId = result.Id;
-            }
-            foreach (var item in result.Hardwares)
-            {
-                item.CatalogId = result.Id;
-                item.ModuleSize = item.Components.Sum(x => x.SupplyModuleSize * x.Quantity);
-                item.CatalogPrice = item.Components.Sum(x => x.SupplyCatalogPrice * x.Quantity);
-                item.CatalogWorkDays = item.Components.Sum(x => x.SupplyCatalogWorkDays * x.Quantity);
-                item.CatalogExecutiveWorkDays = item.Components.Sum(x => x.SupplyCatalogExecutiveWorkDays * x.Quantity);
-                item.ReferenceDays = item.Components.Sum(x => x.SupplyReferenceDays * x.Quantity);
-                item.StudyDays = item.Components.Sum(x => x.SupplyStudyDays * x.Quantity);
-                item.CatalogTestsDays = item.Components.Sum(x => x.SupplyCatalogTestsDays * x.Quantity);
-                foreach (var subItem in item.Components)
-                {
-                    subItem.CatalogId = result.Id;
-                    subItem.HardwareId = item.Id;
-                }
+                item.CatalogId = catalogViewModel.Id;
             }
 
-            this.catalogView.Display(result);
+            var hardwaresViewModel = new List<CatalogHardwareViewModel>();
+            foreach (var item in catalog.Hardwares)
+            {
+                hardwaresViewModel.Add(Map(catalog.Id, item));
+            }
+            
+            this.catalogView.Display(catalogViewModel);
+            this.catalogView.RemoveAllHardwares();
+            this.catalogView.RemoveSupplies();
+            this.catalogView.AddSupplies(suppliesViewModel);
+            this.catalogView.AddHardwares(hardwaresViewModel);
         }
 
         public void SaveCatalog(CatalogViewModel model)
@@ -294,28 +251,20 @@ namespace Chiffrage.App.Controllers
             result.CatalogId = eventObject.CatalogId;
 
             this.catalogView.UpdateSupply(result);
+
+            // update also the HardwareSupplies
+            var catalog = this.repository.FindById(eventObject.CatalogId);
+            var hardwareToUpdates = catalog.Hardwares
+                .Where(x => x.Components.Where(y => y.Supply.Id == eventObject.Supply.Id).Any())
+                .Select(x => Map(eventObject.CatalogId, x))
+                .ToList();
+
+            this.catalogView.UpdateHardwares(hardwareToUpdates);
         }
 
         public void ProcessAction(HardwareUpdatedEvent eventObject)
         {
-            Mapper.CreateMap<Hardware, CatalogHardwareViewModel>();
-            Mapper.CreateMap<HardwareSupply, CatalogHardwareSupplyViewModel>();
-
-            var result = Mapper.Map<Hardware, CatalogHardwareViewModel>(eventObject.Hardware);
-            result.CatalogId = eventObject.CatalogId;
-            result.ModuleSize = result.Components.Sum(x => x.SupplyModuleSize * x.Quantity);
-            result.CatalogPrice = result.Components.Sum(x => x.SupplyCatalogPrice * x.Quantity);
-            result.CatalogWorkDays = result.Components.Sum(x => x.SupplyCatalogWorkDays * x.Quantity);
-            result.CatalogExecutiveWorkDays = result.Components.Sum(x => x.SupplyCatalogExecutiveWorkDays * x.Quantity);
-            result.ReferenceDays = result.Components.Sum(x => x.SupplyReferenceDays * x.Quantity);
-            result.StudyDays = result.Components.Sum(x => x.SupplyStudyDays * x.Quantity);
-            result.CatalogTestsDays = result.Components.Sum(x => x.SupplyCatalogTestsDays * x.Quantity);
-
-            foreach (var item in result.Components)
-            {
-                item.CatalogId = result.Id;
-                item.HardwareId = item.Id;
-            }
+            var result = Map(eventObject.CatalogId, eventObject.Hardware);
 
             this.catalogView.UpdateHardware(result);
         }
@@ -369,16 +318,32 @@ namespace Chiffrage.App.Controllers
 
         public void ProcessAction(HardwareSupplyCreatedEvent eventObject)
         {
-            Mapper.CreateMap<Supply, CatalogHardwareSupplyViewModel>();
+            var result = Map(eventObject.CatalogId, eventObject.Hardware);
 
-            var result = Mapper.Map<Supply, CatalogHardwareSupplyViewModel>(eventObject.Component.Supply);
-            result.CatalogId = eventObject.CatalogId;
-            result.SupplyId = eventObject.Component.Supply.Id;
-            result.Id = eventObject.Component.Id;
-            result.Quantity = eventObject.Component.Quantity;
-            result.HardwareId = eventObject.HardwareId;
+            this.catalogView.UpdateHardware(result);
+        }
 
-            this.catalogView.AddHardwareSupply(result);
+        private CatalogHardwareViewModel Map(int catalogId, Hardware hardware)
+        {
+            Mapper.CreateMap<HardwareSupply, CatalogHardwareSupplyViewModel>();
+            Mapper.CreateMap<Hardware, CatalogHardwareViewModel>();
+
+            var result = Mapper.Map<Hardware, CatalogHardwareViewModel>(hardware);
+            result.CatalogId = catalogId;
+            result.ModuleSize = result.Components.Sum(x => x.SupplyModuleSize * x.Quantity);
+            result.CatalogPrice = result.Components.Sum(x => x.SupplyCatalogPrice * x.Quantity);
+            result.CatalogWorkDays = result.Components.Sum(x => x.SupplyCatalogWorkDays * x.Quantity);
+            result.CatalogExecutiveWorkDays = result.Components.Sum(x => x.SupplyCatalogExecutiveWorkDays * x.Quantity);
+            result.ReferenceDays = result.Components.Sum(x => x.SupplyReferenceDays * x.Quantity);
+            result.StudyDays = result.Components.Sum(x => x.SupplyStudyDays * x.Quantity);
+            result.CatalogTestsDays = result.Components.Sum(x => x.SupplyCatalogTestsDays * x.Quantity);
+            foreach (var subItem in result.Components)
+            {
+                subItem.CatalogId = catalogId;
+                subItem.HardwareId = result.Id;
+            }
+
+            return result;
         }
     }
 }
