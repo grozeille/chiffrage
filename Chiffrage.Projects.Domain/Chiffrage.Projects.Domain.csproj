@@ -54,6 +54,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\CreateNewProjectSupplyCommand.cs" />
     <Compile Include="Commands\UpdateProjectCommand.cs" />
     <Compile Include="Commands\UpdateDealCommand.cs" />
     <Compile Include="Commands\CreateNewDealCommand.cs" />

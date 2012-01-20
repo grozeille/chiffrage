@@ -9,6 +9,8 @@ using Chiffrage.Mvc.Views;
 using Chiffrage.Projects.Domain;
 using Chiffrage.Properties;
 using Chiffrage.WizardPages;
+using Chiffrage.Mvc.Events;
+using Chiffrage.App.Events;
 
 namespace Chiffrage
 {
@@ -18,16 +20,25 @@ namespace Chiffrage
 
         private Font defaultFont = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Regular,
                                             GraphicsUnit.Point, ((byte) (0)));
-
-        private Project project;
+        
+        private readonly IEventBroker eventBroker;
 
         public ProjectUserControl()
         {
             this.InitializeComponent();
         }
 
-        #region Summary
+        public ProjectUserControl(IEventBroker eventBroker)
+            :this()
+        {
+            this.eventBroker = eventBroker;
 
+            this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonAdd, () =>
+                this.id.HasValue ? new RequestNewProjectSupplyEvent(this.id.Value) : null);
+        }
+
+        #region Summary
+        /*
         private void BuildSummary()
         {
             this.dataGridViewSummary.SuspendLayout();
@@ -66,7 +77,7 @@ namespace Chiffrage
                 this.BuildBigTotalRow(Resources.coins, "Total", this.project.TotalDays, this.project.TotalPrice);
             }
             this.dataGridViewSummary.ResumeLayout(true);
-        }
+        }*/
 
         private void BuildBigTotalRow(Bitmap icon, string name, double? days, double cost)
         {
@@ -121,18 +132,7 @@ namespace Chiffrage
 
         #endregion
 
-        public Project Project
-        {
-            get { return this.project; }
-            set
-            {
-                this.project = value;
-                //this.LoadProject();
-            }
-        }
-
-        public Catalog Catalog { get; set; }
-        public event EventHandler ProjectChanged;
+        
 
         /*private void LoadProject()
         {
@@ -214,8 +214,8 @@ namespace Chiffrage
 
         private void tabControl_Selected(object sender, TabControlEventArgs e)
         {
-            if (e.TabPage == this.tabPageSummary)
-                this.BuildSummary();
+            /*if (e.TabPage == this.tabPageSummary)
+                this.BuildSummary();*/
         }
 
         private void toolStripButtonRemove_Click(object sender, EventArgs e)
@@ -236,28 +236,13 @@ namespace Chiffrage
             }*/
         }
 
-        private void projectSupplyDtoBindingSource_CurrentItemChanged(object sender, EventArgs e)
-        {
-            if (this.ProjectChanged != null)
-                this.ProjectChanged(this, new EventArgs());
-        }
-
-        private void projectBindingSource_CurrentItemChanged(object sender, EventArgs e)
-        {
-            if (this.ProjectChanged != null)
-                this.ProjectChanged(this, new EventArgs());
-        }
+       
 
         private void textBox_Enter(object sender, EventArgs e)
         {
             (sender as TextBox).SelectAll();
         }
 
-        private void otherBenefitBindingSource_CurrentItemChanged(object sender, EventArgs e)
-        {
-            if (this.ProjectChanged != null)
-                this.ProjectChanged(this, new EventArgs());
-        }
 
         private void tabPageWork_Click(object sender, EventArgs e)
         {

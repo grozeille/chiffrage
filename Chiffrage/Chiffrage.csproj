@@ -132,6 +132,8 @@
     <Compile Include="ApplicationForm.Designer.cs">
       <DependentUpon>ApplicationForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="EditHardwareSupplyWizardView.cs" />
+    <Compile Include="NewProjectSupplyWizardView.cs" />
     <Compile Include="NewHardwareSupplyWizardView.cs" />
     <Compile Include="EditHardwareWizardView.cs" />
     <Compile Include="NewHardwareWizardView.cs" />
@@ -193,6 +195,12 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="WizardPages\EditHardwareSupplyPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WizardPages\EditHardwareSupplyPage.Designer.cs">
+      <DependentUpon>EditHardwareSupplyPage.cs</DependentUpon>
+    </Compile>
     <Compile Include="WizardPages\NewProjectSupplyPage.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -248,6 +256,9 @@
       <SubType>Designer</SubType>
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources1.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WizardPages\EditHardwareSupplyPage.resx">
+      <DependentUpon>EditHardwareSupplyPage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WizardPages\NewProjectSupplyPage.resx">
       <DependentUpon>NewProjectSupplyPage.cs</DependentUpon>

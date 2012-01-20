@@ -11,6 +11,8 @@ using Chiffrage.Projects.Domain;
 using Chiffrage.Projects.Domain.Repositories;
 using Chiffrage.Mvc.Controllers;
 using Chiffrage.Projects.Domain.Commands;
+using Chiffrage.Catalogs.Domain.Repositories;
+using Chiffrage.Catalogs.Domain;
 
 namespace Chiffrage.App.Controllers
 {
@@ -20,7 +22,8 @@ namespace Chiffrage.App.Controllers
         IGenericEventHandler<ProjectSelectedEvent>,
         IGenericEventHandler<ProjectUnselectedEvent>,
         IGenericEventHandler<SaveEvent>,
-        IGenericEventHandler<RequestNewProjectEvent>
+        IGenericEventHandler<RequestNewProjectEvent>,
+        IGenericEventHandler<RequestNewProjectSupplyEvent>
     {
         private readonly IProjectView projectView;
 
@@ -30,15 +33,28 @@ namespace Chiffrage.App.Controllers
 
         private readonly IDealRepository dealRepository;
 
+        private readonly ICatalogRepository catalogRepository;
+
         private readonly IEventBroker eventBroker;
 
-        public ProjectController(IEventBroker eventBroker, IProjectView projectView, INewProjectView newProjectView, IProjectRepository projectRepository, IDealRepository dealRepository)
+        private readonly INewProjectSupplyView newProjectSupplyView;
+
+        public ProjectController(
+            IEventBroker eventBroker, 
+            IProjectView projectView, 
+            INewProjectView newProjectView, 
+            IProjectRepository projectRepository, 
+            IDealRepository dealRepository,
+            INewProjectSupplyView newProjectSupplyView,
+            ICatalogRepository catalogRepository)
         {
             this.projectView = projectView;
             this.newProjectView = newProjectView;
             this.eventBroker = eventBroker;
             this.projectRepository = projectRepository;
             this.dealRepository = dealRepository;
+            this.newProjectSupplyView = newProjectSupplyView;
+            this.catalogRepository = catalogRepository;
         }
 
         public void ProcessAction(ApplicationStartEvent eventObject)
@@ -88,6 +104,19 @@ namespace Chiffrage.App.Controllers
         {
             this.newProjectView.ParentDealId = eventObject.DealId;
             this.newProjectView.ShowView();
+        }
+
+        public void ProcessAction(RequestNewProjectSupplyEvent eventObject)
+        {
+            var catalogs = this.catalogRepository.FindAll();
+            var supplies = catalogs.SelectMany(x => x.Supplies).ToList();
+            Mapper.CreateMap<Supply, CatalogSupplyViewModel>();
+
+            var suppliesViewModel = Mapper.Map<IList<Supply>, IList<CatalogSupplyViewModel>>(supplies);
+
+            this.newProjectSupplyView.Supplies = suppliesViewModel;
+            this.newProjectSupplyView.ProjectId = eventObject.ProjectId;
+            this.newProjectSupplyView.ShowView();
         }
     }
 }

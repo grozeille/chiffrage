@@ -57,9 +57,11 @@
     <Compile Include="Catalog.cs" />
     <Compile Include="Commands\CreateNewHardwareSupplyCommand.cs" />
     <Compile Include="Commands\DeleteHardwareCommand.cs" />
+    <Compile Include="Commands\DeleteHardwareSupplyCommand.cs" />
     <Compile Include="Commands\UpdateHardwareCommand.cs" />
     <Compile Include="Commands\CreateNewHardwareCommand.cs" />
     <Compile Include="Commands\DeleteSupplyCommand.cs" />
+    <Compile Include="Commands\UpdateHardwareSupplyCommand.cs" />
     <Compile Include="Commands\UpdateSupplyCommand.cs" />
     <Compile Include="Commands\CreateNewCatalogCommand.cs" />
     <Compile Include="Commands\CreateNewSupplyCommand.cs" />
@@ -70,7 +72,9 @@
     <Compile Include="Events\HardwareDeletedEvent.cs" />
     <Compile Include="Events\HardwareMustBeUniqueErrorEvent.cs" />
     <Compile Include="Events\HardwareSupplyCreatedEvent.cs" />
+    <Compile Include="Events\HardwareSupplyDeletedEvent.cs" />
     <Compile Include="Events\HardwareSupplyMustBeUniqueErrorEvent.cs" />
+    <Compile Include="Events\HardwareSupplyUpdatedEvent.cs" />
     <Compile Include="Events\HardwareUpdatedEvent.cs" />
     <Compile Include="Events\SupplyCreatedEvent.cs" />
     <Compile Include="Events\SupplyDeletedEvent.cs" />

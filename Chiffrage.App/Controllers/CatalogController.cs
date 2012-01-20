@@ -33,7 +33,10 @@ namespace Chiffrage.App.Controllers
         IGenericEventHandler<HardwareCreatedEvent>,
         IGenericEventHandler<HardwareUpdatedEvent>,        
         IGenericEventHandler<HardwareDeletedEvent>,
-        IGenericEventHandler<HardwareSupplyCreatedEvent>
+        IGenericEventHandler<HardwareSupplyCreatedEvent>,
+        IGenericEventHandler<HardwareSupplyDeletedEvent>,
+        IGenericEventHandler<RequestEditHardwareSupplyEvent>,
+        IGenericEventHandler<HardwareSupplyUpdatedEvent>
     {
         private readonly ICatalogView catalogView;
         private readonly IEventBroker eventBroker;
@@ -44,6 +47,7 @@ namespace Chiffrage.App.Controllers
         private readonly IEditHardwareView editHardwareView;
         private readonly ICatalogRepository repository;
         private readonly INewHardwareSupplyView newHardwareSupplyView;
+        private readonly IEditHardwareSupplyView editHardwareSupplyView;
 
         public CatalogController(
             IEventBroker eventBroker,
@@ -54,6 +58,7 @@ namespace Chiffrage.App.Controllers
             IEditSupplyView editSupplyView,
             IEditHardwareView editHardwareView,
             INewHardwareSupplyView newHardwareSupplyView,
+            IEditHardwareSupplyView editHardwareSupplyView,
             ICatalogRepository repository)
         {
             this.catalogView = catalogView;
@@ -63,6 +68,7 @@ namespace Chiffrage.App.Controllers
             this.editSupplyView = editSupplyView;
             this.editHardwareView = editHardwareView;
             this.newHardwareSupplyView = newHardwareSupplyView;
+            this.editHardwareSupplyView = editHardwareSupplyView;
             this.repository = repository;
             this.eventBroker = eventBroker;
         }
@@ -344,6 +350,26 @@ namespace Chiffrage.App.Controllers
             }
 
             return result;
+        }
+
+        public void ProcessAction(HardwareSupplyDeletedEvent eventObject)
+        {
+            var result = Map(eventObject.CatalogId, eventObject.Hardware);
+
+            this.catalogView.UpdateHardware(result);
+        }
+
+        public void ProcessAction(HardwareSupplyUpdatedEvent eventObject)
+        {
+            var result = Map(eventObject.CatalogId, eventObject.Hardware);
+
+            this.catalogView.UpdateHardware(result);
+        }
+
+        public void ProcessAction(RequestEditHardwareSupplyEvent eventObject)
+        {
+            this.editHardwareSupplyView.HardwareSupply = eventObject.HardwareSupply;
+            this.editHardwareSupplyView.ShowView();
         }
     }
 }

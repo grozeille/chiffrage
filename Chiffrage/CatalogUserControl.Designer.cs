@@ -78,7 +78,6 @@
             this.catalogIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.hardwareIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.supplyIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.supplyQuantityDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.supplyNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.supplyReferenceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.supplyCategoryDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -540,7 +539,6 @@
             this.catalogIdDataGridViewTextBoxColumn,
             this.hardwareIdDataGridViewTextBoxColumn,
             this.supplyIdDataGridViewTextBoxColumn,
-            this.supplyQuantityDataGridViewTextBoxColumn,
             this.supplyNameDataGridViewTextBoxColumn,
             this.supplyReferenceDataGridViewTextBoxColumn,
             this.supplyCategoryDataGridViewTextBoxColumn,
@@ -561,6 +559,7 @@
             this.dataGridViewHardwareSupplies.RowHeadersVisible = false;
             this.dataGridViewHardwareSupplies.Size = new System.Drawing.Size(544, 174);
             this.dataGridViewHardwareSupplies.TabIndex = 8;
+            this.dataGridViewHardwareSupplies.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewHardwareSupplies_CellDoubleClick);
             // 
             // idDataGridViewTextBoxColumn
             // 
@@ -589,13 +588,6 @@
             this.supplyIdDataGridViewTextBoxColumn.HeaderText = "SupplyId";
             this.supplyIdDataGridViewTextBoxColumn.Name = "supplyIdDataGridViewTextBoxColumn";
             this.supplyIdDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // supplyQuantityDataGridViewTextBoxColumn
-            // 
-            this.supplyQuantityDataGridViewTextBoxColumn.DataPropertyName = "SupplyQuantity";
-            this.supplyQuantityDataGridViewTextBoxColumn.HeaderText = "SupplyQuantity";
-            this.supplyQuantityDataGridViewTextBoxColumn.Name = "supplyQuantityDataGridViewTextBoxColumn";
-            this.supplyQuantityDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // supplyNameDataGridViewTextBoxColumn
             // 

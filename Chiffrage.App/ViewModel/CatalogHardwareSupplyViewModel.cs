@@ -12,8 +12,6 @@ namespace Chiffrage.App.ViewModel
 
         public int SupplyId { get; set; }
 
-        public int SupplyQuantity { get; set; }
-
         public string SupplyName { get; set; }
 
         public string SupplyReference { get; set; }

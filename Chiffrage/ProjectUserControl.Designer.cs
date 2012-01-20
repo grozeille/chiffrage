@@ -1303,7 +1303,7 @@ namespace Chiffrage
             // projectBindingSource
             // 
             this.projectBindingSource.DataSource = typeof(Chiffrage.Projects.Domain.Project);
-            this.projectBindingSource.CurrentItemChanged += new System.EventHandler(this.projectBindingSource_CurrentItemChanged);
+            
             // 
             // nameDataGridViewTextBoxColumn
             // 
@@ -1352,7 +1352,6 @@ namespace Chiffrage
             // projectSupplyDtoBindingSource
             // 
             //this.projectSupplyDtoBindingSource.DataSource = typeof(ProjectSupplyViewModel);
-            this.projectSupplyDtoBindingSource.CurrentItemChanged += new System.EventHandler(this.projectSupplyDtoBindingSource_CurrentItemChanged);
             // 
             // projectHarwareDtoBindingSource
             // 
@@ -1608,8 +1607,7 @@ namespace Chiffrage
             // otherBenefitBindingSource
             // 
             this.otherBenefitBindingSource.DataSource = typeof(Chiffrage.Projects.Domain.OtherBenefit);
-            this.otherBenefitBindingSource.CurrentItemChanged += new System.EventHandler(this.otherBenefitBindingSource_CurrentItemChanged);
-            // 
+                        // 
             // hardwareNameDataGridViewTextBoxColumn
             // 
             this.hardwareNameDataGridViewTextBoxColumn.DataPropertyName = "Name";

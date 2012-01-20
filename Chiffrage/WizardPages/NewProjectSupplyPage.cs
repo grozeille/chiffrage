@@ -12,5 +12,12 @@ namespace Chiffrage.WizardPages
 {
     public partial class NewProjectSupplyPage : UserControl
     {
+        public CatalogSupplyViewModel CatalogSupplyViewModel
+        {
+            get
+            {
+                return null;
+            }
+        }
     }
 }

@@ -20,7 +20,9 @@ namespace Chiffrage.Catalogs.Domain.Services
         IGenericEventHandler<CreateNewHardwareCommand>,
         IGenericEventHandler<UpdateHardwareCommand>,
         IGenericEventHandler<DeleteHardwareCommand>,
-        IGenericEventHandler<CreateNewHardwareSupplyCommand>
+        IGenericEventHandler<CreateNewHardwareSupplyCommand>,
+        IGenericEventHandler<DeleteHardwareSupplyCommand>,
+        IGenericEventHandler<UpdateHardwareSupplyCommand>
     {
         private readonly IEventBroker eventBroker;
         private readonly ICatalogRepository repository;
@@ -186,6 +188,32 @@ namespace Chiffrage.Catalogs.Domain.Services
 
                 this.eventBroker.Publish(new HardwareSupplyCreatedEvent(catalog.Id, hardware, hardwareSupply));
             }
+        }
+
+        public void ProcessAction(DeleteHardwareSupplyCommand eventObject)
+        {
+            var catalog = this.repository.FindById(eventObject.CatalogId);
+            var hardware = catalog.Hardwares.Where(x => x.Id == eventObject.HardwareId).First();
+            var hardwareSupply = hardware.Components.Where(x => x.Id == eventObject.HardwareSupplyId).First();
+
+            hardware.Components.Remove(hardwareSupply);
+
+            this.repository.Save(catalog);
+
+            this.eventBroker.Publish(new HardwareSupplyDeletedEvent(catalog.Id, hardware, hardwareSupply));
+        }
+
+        public void ProcessAction(UpdateHardwareSupplyCommand eventObject)
+        {
+            var catalog = this.repository.FindById(eventObject.CatalogId);
+            var hardware = catalog.Hardwares.Where(x => x.Id == eventObject.HardwareId).First();
+            var hardwareSupply = hardware.Components.Where(x => x.Id == eventObject.HardwareSupplyId).First();
+
+            hardwareSupply.Quantity = eventObject.Quantity;
+
+            this.repository.Save(catalog);
+
+            this.eventBroker.Publish(new HardwareSupplyUpdatedEvent(catalog.Id, hardware, hardwareSupply));
         }
     }
 }

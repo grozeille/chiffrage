@@ -86,6 +86,24 @@ namespace Chiffrage
                     return null;
                 });
 
+            this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonRemoveHardwareSupply, () =>
+                {
+                    if (this.catalogId.HasValue)
+                    {
+                        var hardwareSupply = this.componentsBindingSource.Current as CatalogHardwareSupplyViewModel;
+                        if (hardwareSupply != null)
+                        {
+                            var hardware = this.hardwaresBindingSource.Current as CatalogHardwareViewModel;
+                            var result = MessageBox.Show("Êtes-vous sûr de vouloir supprimer le componsant '" + hardwareSupply.SupplyName + "' du matériel '" + hardware.Name+ "' ?", "Supprimer?", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                            if (result == DialogResult.OK)
+                            {
+                                return new DeleteHardwareSupplyCommand(this.catalogId.Value, hardwareSupply.HardwareId, hardwareSupply.Id);
+                            }
+                        }
+                    }
+
+                    return null;
+                });
         }
 
         public CatalogUserControl()
@@ -95,8 +113,6 @@ namespace Chiffrage
             this.suppliesBindingSource.DataSource = supplies;
             this.hardwaresBindingSource.DataSource = hardwares;
         }
-
-        public Catalog GlobalCatalog { get; set; }
 
         #region ICatalogView Members
 
@@ -251,74 +267,6 @@ namespace Chiffrage
 
         #endregion
 
-        /*
-        private void toolStripButtonAdd_Click(object sender, EventArgs e)
-        {
-            var page1 = new NewHardwarePage();
-            var setting1 = new WizardSetting(page1, "Nouveau Matériel", "Création d'un nouveau matériel", true);
-
-            var page2 = new AddCatalogItemPage();
-            //page2.Catalog = this.GlobalCatalog;
-            var setting2 = new WizardSetting(page2, "Ajout d'un composant", "Ajouter un composant au matériel", true);
-
-            var wizard = new WizardForm
-            {
-                WizardSettings = new[] {setting1, setting2}
-            };
-            if (wizard.ShowDialog() == DialogResult.OK)
-            {
-                var hardware = new Hardware();
-                hardware.Name = page1.HardwareName;
-                hardware.Components = new BindingList<HardwareSupply>();
-                foreach (var item in page2.SelectedItems)
-                {
-                    var supply = new HardwareSupply();
-                    supply.Supply = item as Supply;
-                    hardware.Components.Add(supply);
-                }
-
-                // TODO : catalog.Hardwares.Add(CatalogHardwareViewModel.CreateFrom(hardware));
-                this.hardwaresBindingSource.ResetBindings(false);
-            }
-        }
-
-        private void toolStripButtonHardwareAdd_Click(object sender, EventArgs e)
-        {
-            var page = new AddCatalogItemPage();
-            //page.Catalog = this.GlobalCatalog;
-            //page.DisplayItemType = AddCatalogItemPage.ItemType.Supply;
-            var setting = new WizardSetting(page, "Ajout d'un composant", "Ajouter un composant au matériel", true);
-
-            var wizard = new WizardForm
-            {
-                WizardSettings = new[] {setting}
-            };
-
-            if (wizard.ShowDialog() == DialogResult.OK)
-            {
-                //var current = this.hardwaresBindingSource.Current as CatalogHardwareViewModel;
-                //if (current != null)
-                //{
-                //    foreach (var item in page.SelectedItems)
-                //    {
-                //        var supply = new HardwareSupply();
-                //        supply.Supply = item as Supply;
-                //        current.Components.Add(CatalogHardwareSupplyViewModel.CreateFrom(supply));
-                //    }
-
-                //    var tmp = new Hardware();
-                //    // TODO: current.CopyTo(tmp);
-                //    current.CopyFrom(tmp);
-
-                //    this.componentsBindingSource.ResetBindings(false);
-                //}
-            }
-        }
-
-        private void toolStripButtonHardwareRemove_Click(object sender, EventArgs e)
-        {
-        }*/
-
         public override void HideView()
         {
             this.catalogId = null;
@@ -340,6 +288,15 @@ namespace Chiffrage
             if (hardware != null)
             {
                 this.eventBroker.Publish(new RequestEditHardwareEvent(hardware));
+            }
+        }
+
+        private void dataGridViewHardwareSupplies_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            var hardwareSupply = this.componentsBindingSource[e.RowIndex] as CatalogHardwareSupplyViewModel;
+            if (hardwareSupply != null)
+            {
+                this.eventBroker.Publish(new RequestEditHardwareSupplyEvent(hardwareSupply));
             }
         }
     }
