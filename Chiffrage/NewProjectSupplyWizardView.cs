@@ -29,6 +29,7 @@ namespace Chiffrage
         protected override WizardSetting[] BuildWizardPages()
         {
             this.newProjectSupplyPage = new GenericWizardSetting<NewProjectSupplyPage>("Ajout d'un composant", "Ajouter un composant au project", true);
+            this.newProjectSupplyPage.TypedPage.Supplies = this.supplies;
 
             return new WizardSetting[] { this.newProjectSupplyPage };
         }
