@@ -9,8 +9,10 @@ namespace Chiffrage.App.Views
 {
     public interface IProjectView : IView
     {
-        void Display(ProjectViewModel viewModel);
+        void Display(ProjectViewModel viewModel, IList<ProjectSupplyViewModel> supplies);
 
         ProjectViewModel GetViewModel();
+
+        void AddSupply(ProjectSupplyViewModel viewModel);
     }
 }

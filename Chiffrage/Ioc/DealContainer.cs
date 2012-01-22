@@ -11,7 +11,7 @@ namespace Chiffrage.Ioc
     {
         public override void SetupContainer()
         {
-            var file = "deal.ctb";
+            var file = "deal.cat";
             if (Settings.Default.DealsRecentPath != null && Settings.Default.DealsRecentPath.Count > 0)
             {
                 file = Settings.Default.DealsRecentPath[Settings.Default.DealsRecentPath.Count - 1];

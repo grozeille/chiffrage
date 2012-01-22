@@ -63,6 +63,7 @@
     <Compile Include="Events\DealCreatedEvent.cs" />
     <Compile Include="Events\DealUpdatedEvent.cs" />
     <Compile Include="Events\ProjectCreatedEvent.cs" />
+    <Compile Include="Events\ProjectSupplyCreatedEvent.cs" />
     <Compile Include="Events\ProjectUpdatedEvent.cs" />
     <Compile Include="IProjectItem.cs" />
     <Compile Include="OtherBenefit.cs" />

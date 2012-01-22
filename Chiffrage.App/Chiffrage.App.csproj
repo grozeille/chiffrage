@@ -110,6 +110,7 @@
     <Compile Include="ViewModel\ProjectItemViewModel.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ViewModel\ProjectSupplyViewModel.cs" />
     <Compile Include="ViewModel\ProjectViewModel.cs">
       <SubType>Code</SubType>
     </Compile>

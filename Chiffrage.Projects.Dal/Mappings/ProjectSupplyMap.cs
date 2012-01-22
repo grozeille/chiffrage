@@ -9,15 +9,15 @@ namespace Chiffrage.Projects.Dal.Mappings
         {
             Id(x => x.Id);
             Map(x => x.Quantity);
-            Map(x => x.Price);
-            Map(x => x.WorkDays);
-            Map(x => x.WorkShortNights);
-            Map(x => x.WorkLongNights);
-            Map(x => x.ExecutiveWorkDays);
-            Map(x => x.ExecutiveWorkShortNights);
-            Map(x => x.ExecutiveWorkLongNights);
-            Map(x => x.TestsDays);
-            Map(x => x.TestsNights);
+            //Map(x => x.Price);
+            //Map(x => x.WorkDays);
+            //Map(x => x.WorkShortNights);
+            //Map(x => x.WorkLongNights);
+            //Map(x => x.ExecutiveWorkDays);
+            //Map(x => x.ExecutiveWorkShortNights);
+            //Map(x => x.ExecutiveWorkLongNights);
+            //Map(x => x.TestsDays);
+            //Map(x => x.TestsNights);
             Map(x => x.CatalogId);
 
             Map(x => x.Name);

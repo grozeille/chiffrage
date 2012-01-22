@@ -9,6 +9,7 @@ using Chiffrage.Projects.Domain.Repositories;
 using Chiffrage.Catalogs.Domain.Repositories;
 using Chiffrage.Projects.Domain.Events;
 using AutoMapper;
+using Chiffrage.Catalogs.Domain;
 
 namespace Chiffrage.Projects.Domain.Services
 {
@@ -16,7 +17,8 @@ namespace Chiffrage.Projects.Domain.Services
         IGenericEventHandler<CreateNewDealCommand>,
         IGenericEventHandler<CreateNewProjectCommand>,
         IGenericEventHandler<UpdateProjectCommand>,
-        IGenericEventHandler<UpdateDealCommand>
+        IGenericEventHandler<UpdateDealCommand>,
+        IGenericEventHandler<CreateNewProjectSupplyCommand>
     {
         private readonly IEventBroker eventBroker;
         private readonly ICatalogRepository catalogRepository;
@@ -83,6 +85,25 @@ namespace Chiffrage.Projects.Domain.Services
             this.dealRepository.Save(deal);
 
             this.eventBroker.Publish(new ProjectCreatedEvent(deal, newProject));
+        }
+
+        public void ProcessAction(CreateNewProjectSupplyCommand eventObject)
+        {
+            var catalog = this.catalogRepository.FindById(eventObject.CatalogId);
+            var supply = catalog.Supplies.Where(x => x.Id == eventObject.SupplyId).First();
+            var project = this.projectRepository.FindById(eventObject.SupplyId);
+
+            Mapper.CreateMap<Supply, ProjectSupply>()
+                .ForMember(x => x.SupplyId, y => y.MapFrom(z => z.Id))
+                .ForMember(x => x.Id, y => y.Ignore());
+
+            var projectSupply = Mapper.Map<Supply, ProjectSupply>(supply);
+            projectSupply.CatalogId = catalog.Id;
+            project.Supplies.Add(projectSupply);
+
+            this.projectRepository.Save(project);
+
+            this.eventBroker.Publish(new ProjectSupplyCreatedEvent(project.Id, projectSupply));
         }
     }
 }

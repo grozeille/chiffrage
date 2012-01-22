@@ -11,12 +11,15 @@ using Chiffrage.Properties;
 using Chiffrage.WizardPages;
 using Chiffrage.Mvc.Events;
 using Chiffrage.App.Events;
+using System.Collections.Generic;
 
 namespace Chiffrage
 {
     public partial class ProjectUserControl : UserControlView, IProjectView
     {
         private int? id;
+
+        private readonly BindingList<ProjectSupplyViewModel> supplies = new BindingList<ProjectSupplyViewModel>();
 
         private Font defaultFont = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Regular,
                                             GraphicsUnit.Point, ((byte) (0)));
@@ -26,6 +29,8 @@ namespace Chiffrage
         public ProjectUserControl()
         {
             this.InitializeComponent();
+
+            this.projectSupplyViewModelBindingSource.DataSource = supplies;
         }
 
         public ProjectUserControl(IEventBroker eventBroker)
@@ -303,7 +308,7 @@ namespace Chiffrage
         private void tabControl_DrawItem(object sender, DrawItemEventArgs e)
         {
             //e.DrawBackground();
-            var control = (TabControl) sender;
+            /*var control = (TabControl) sender;
             e.Bounds.Inflate(this.imageListProject.Images[0].Width + 4, 0);
             e.Graphics.DrawImage(this.imageListProject.Images[0], e.Bounds.X + 2, e.Bounds.Y + 2);
             var drawBrush = new SolidBrush(Color.Black);
@@ -313,12 +318,12 @@ namespace Chiffrage
                 control.Font,
                 drawBrush,
                 e.Bounds.X + 2 + this.imageListProject.Images[0].Size.Width + 2,
-                e.Bounds.Y + 2);
+                e.Bounds.Y + 2);*/
         }
 
         #region IProjectView Members
 
-        public void Display(ProjectViewModel viewModel)
+        public void Display(ProjectViewModel viewModel, IList<ProjectSupplyViewModel> supplies)
         {
             this.InvokeIfRequired(() =>
             {
@@ -348,6 +353,14 @@ namespace Chiffrage
                 this.textBoxTestNightRate.Text = viewModel.TestNightRate;
                 this.textBoxTotalDays.Text = viewModel.TotalDays;
                 this.textBoxTotalPrice.Text = viewModel.TotalPrice;
+
+                this.projectSupplyViewModelBindingSource.SuspendBinding();
+                this.supplies.Clear();
+                foreach(var item in supplies)
+                {
+                    this.supplies.Add(item);
+                }
+                this.projectSupplyViewModelBindingSource.ResumeBinding();
             });
         }
 
@@ -386,6 +399,12 @@ namespace Chiffrage
         {
             this.id = null;
             base.HideView();
+        }
+
+
+        public void AddSupply(ProjectSupplyViewModel viewModel)
+        {
+            this.InvokeIfRequired(() => supplies.Add(viewModel));
         }
     }
 }

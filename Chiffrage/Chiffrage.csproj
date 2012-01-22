@@ -108,8 +108,7 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
-    <Reference Include="System.Data.SQLite, Version=1.0.66.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=AMD64">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="System.Data.SQLite">
       <HintPath>..\Libs\System.Data.SQLite.DLL</HintPath>
     </Reference>
     <Reference Include="System.Design" />
@@ -252,6 +251,10 @@
     <EmbeddedResource Include="LoadingForm.resx">
       <DependentUpon>LoadingForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ProjectUserControl.resx">
+      <DependentUpon>ProjectUserControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <SubType>Designer</SubType>
       <Generator>ResXFileCodeGenerator</Generator>
@@ -272,9 +275,6 @@
     <EmbeddedResource Include="WizardPages\NewCatalogPage.resx">
       <DependentUpon>NewCatalogPage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ProjectUserControl.resx">
-      <DependentUpon>ProjectUserControl.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="WizardPages\NewHardwareSupplyPage.resx">
       <DependentUpon>NewHardwareSupplyPage.cs</DependentUpon>
     </EmbeddedResource>
@@ -287,6 +287,8 @@
     <None Include="Properties\DataSources\Chiffrage.App.ViewModel.CatalogHardwareViewModel.datasource" />
     <None Include="Properties\DataSources\Chiffrage.App.ViewModel.CatalogSupplyViewModel.datasource" />
     <None Include="Properties\DataSources\Chiffrage.App.ViewModel.CatalogViewModel.datasource" />
+    <None Include="Properties\DataSources\Chiffrage.App.ViewModel.ProjectSupplyViewModel.datasource" />
+    <None Include="Properties\DataSources\Chiffrage.App.ViewModel.ProjectViewModel.datasource" />
     <None Include="Properties\DataSources\Chiffrage.ViewModel.CatalogHardwareViewModel.datasource" />
     <None Include="Properties\DataSources\Chiffrage.ViewModel.CatalogSupplyViewModel.datasource" />
     <None Include="Properties\DataSources\Chiffrage.ViewModel.CatalogViewModel.datasource" />

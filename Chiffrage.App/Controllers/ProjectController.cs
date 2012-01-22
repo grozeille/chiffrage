@@ -13,6 +13,7 @@ using Chiffrage.Mvc.Controllers;
 using Chiffrage.Projects.Domain.Commands;
 using Chiffrage.Catalogs.Domain.Repositories;
 using Chiffrage.Catalogs.Domain;
+using Chiffrage.Projects.Domain.Events;
 
 namespace Chiffrage.App.Controllers
 {
@@ -23,7 +24,8 @@ namespace Chiffrage.App.Controllers
         IGenericEventHandler<ProjectUnselectedEvent>,
         IGenericEventHandler<SaveEvent>,
         IGenericEventHandler<RequestNewProjectEvent>,
-        IGenericEventHandler<RequestNewProjectSupplyEvent>
+        IGenericEventHandler<RequestNewProjectSupplyEvent>,
+        IGenericEventHandler<ProjectSupplyCreatedEvent>
     {
         private readonly IProjectView projectView;
 
@@ -67,10 +69,16 @@ namespace Chiffrage.App.Controllers
             var project = this.projectRepository.FindById(eventObject.Id);
 
             Mapper.CreateMap<Project, ProjectViewModel>();
+            Mapper.CreateMap<ProjectSupply, ProjectSupplyViewModel>();
 
             var viewModel = Mapper.Map<Project, ProjectViewModel>(project);
+            var supplies = Mapper.Map<IList<ProjectSupply>, IList<ProjectSupplyViewModel>>(project.Supplies);
+            foreach (var item in supplies)
+            {
+                item.ProjectId = viewModel.Id;
+            }
 
-            this.projectView.Display(viewModel);
+            this.projectView.Display(viewModel, supplies);
 
             this.projectView.ShowView();
         }
@@ -109,14 +117,38 @@ namespace Chiffrage.App.Controllers
         public void ProcessAction(RequestNewProjectSupplyEvent eventObject)
         {
             var catalogs = this.catalogRepository.FindAll();
-            var supplies = catalogs.SelectMany(x => x.Supplies).ToList();
+            List<CatalogSupplyViewModel> suppliesViewModel = new List<CatalogSupplyViewModel>();
             Mapper.CreateMap<Supply, CatalogSupplyViewModel>();
 
-            var suppliesViewModel = Mapper.Map<IList<Supply>, IList<CatalogSupplyViewModel>>(supplies);
+            foreach(var catalog in catalogs)
+            {
+                var supplies = Mapper.Map<IList<Supply>, IList<CatalogSupplyViewModel>>(catalog.Supplies);
+                foreach (var item in supplies)
+                {
+                    item.CatalogId = catalog.Id;
+                }
+                suppliesViewModel.AddRange(supplies);
+            }
 
             this.newProjectSupplyView.Supplies = suppliesViewModel;
             this.newProjectSupplyView.ProjectId = eventObject.ProjectId;
             this.newProjectSupplyView.ShowView();
+        }
+
+        public void ProcessAction(ProjectSupplyCreatedEvent eventObject)
+        {
+            Mapper.CreateMap<ProjectSupply, ProjectSupplyViewModel>();
+            var viewModel = Mapper.Map<ProjectSupply, ProjectSupplyViewModel>(eventObject.ProjectSupply);
+            viewModel.TotalModuleSize = eventObject.ProjectSupply.ModuleSize * eventObject.ProjectSupply.Quantity;
+            viewModel.TotalCatalogExecutiveWorkDays = eventObject.ProjectSupply.CatalogExecutiveWorkDays * eventObject.ProjectSupply.Quantity;
+            viewModel.TotalCatalogPrice = eventObject.ProjectSupply.CatalogPrice * eventObject.ProjectSupply.Quantity;
+            viewModel.TotalCatalogTestsDays = eventObject.ProjectSupply.CatalogTestsDays * eventObject.ProjectSupply.Quantity;
+            viewModel.TotalCatalogWorkDays = eventObject.ProjectSupply.CatalogWorkDays * eventObject.ProjectSupply.Quantity;
+            viewModel.TotalReferenceDays = eventObject.ProjectSupply.ReferenceDays * eventObject.ProjectSupply.Quantity;
+            viewModel.TotalStudyDays = eventObject.ProjectSupply.StudyDays * eventObject.ProjectSupply.Quantity;
+            viewModel.ProjectId = eventObject.ProjectId;
+
+            this.projectView.AddSupply(viewModel);
         }
     }
 }
