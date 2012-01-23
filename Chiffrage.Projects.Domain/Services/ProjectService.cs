@@ -18,7 +18,8 @@ namespace Chiffrage.Projects.Domain.Services
         IGenericEventHandler<CreateNewProjectCommand>,
         IGenericEventHandler<UpdateProjectCommand>,
         IGenericEventHandler<UpdateDealCommand>,
-        IGenericEventHandler<CreateNewProjectSupplyCommand>
+        IGenericEventHandler<CreateNewProjectSupplyCommand>,
+        IGenericEventHandler<DeleteProjectSupplyCommand>
     {
         private readonly IEventBroker eventBroker;
         private readonly ICatalogRepository catalogRepository;
@@ -104,6 +105,18 @@ namespace Chiffrage.Projects.Domain.Services
             this.projectRepository.Save(project);
 
             this.eventBroker.Publish(new ProjectSupplyCreatedEvent(project.Id, projectSupply));
+        }
+
+        public void ProcessAction(DeleteProjectSupplyCommand eventObject)
+        {
+            var project = this.projectRepository.FindById(eventObject.ProjectId);
+            var supply = project.Supplies.Where(x => x.Id == eventObject.ProjectSupplyId).First();
+
+            project.Supplies.Remove(supply);
+
+            this.projectRepository.Save(project);
+
+            this.eventBroker.Publish(new ProjectSupplyDeletedEvent(project.Id, supply));
         }
     }
 }

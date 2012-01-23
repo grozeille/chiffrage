@@ -25,7 +25,8 @@ namespace Chiffrage.App.Controllers
         IGenericEventHandler<SaveEvent>,
         IGenericEventHandler<RequestNewProjectEvent>,
         IGenericEventHandler<RequestNewProjectSupplyEvent>,
-        IGenericEventHandler<ProjectSupplyCreatedEvent>
+        IGenericEventHandler<ProjectSupplyCreatedEvent>,
+        IGenericEventHandler<ProjectSupplyDeletedEvent>
     {
         private readonly IProjectView projectView;
 
@@ -149,6 +150,18 @@ namespace Chiffrage.App.Controllers
             viewModel.ProjectId = eventObject.ProjectId;
 
             this.projectView.AddSupply(viewModel);
+        }
+
+        public void ProcessAction(ProjectSupplyDeletedEvent eventObject)
+        {
+            Mapper.CreateMap<ProjectSupply, ProjectSupplyViewModel>();
+
+            var supply = Mapper.Map<ProjectSupply, ProjectSupplyViewModel>(eventObject.Supply);
+            supply.ProjectId = eventObject.ProjectId;
+
+            this.projectView.RemoveSupply(supply);
+
+            this.projectView.ShowView();
         }
     }
 }

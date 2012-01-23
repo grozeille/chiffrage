@@ -14,5 +14,11 @@ namespace Chiffrage.App.Views
         ProjectViewModel GetViewModel();
 
         void AddSupply(ProjectSupplyViewModel viewModel);
+
+        void RemoveAllSupplies();
+
+        void AddSupplies(IList<ProjectSupplyViewModel> supplies);
+
+        void RemoveSupply(ProjectSupplyViewModel supply);
     }
 }

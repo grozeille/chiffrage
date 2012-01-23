@@ -1,4 +1,5 @@
-﻿using System;
+﻿using System.Linq;
+using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
@@ -12,6 +13,7 @@ using Chiffrage.WizardPages;
 using Chiffrage.Mvc.Events;
 using Chiffrage.App.Events;
 using System.Collections.Generic;
+using Chiffrage.Projects.Domain.Commands;
 
 namespace Chiffrage
 {
@@ -40,6 +42,24 @@ namespace Chiffrage
 
             this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonAdd, () =>
                 this.id.HasValue ? new RequestNewProjectSupplyEvent(this.id.Value) : null);
+
+            this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonRemove, () =>
+            {
+                if (this.id.HasValue)
+                {
+                    var projectSupply = this.projectSupplyViewModelBindingSource.Current as ProjectSupplyViewModel;
+                    if (projectSupply != null)
+                    {
+                        var result = MessageBox.Show("Êtes-vous sûr de vouloir supprimer le composant '" + projectSupply.Name + "'?", "Supprimer?", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                        if (result == DialogResult.OK)
+                        {
+                            return new DeleteProjectSupplyCommand(this.id.Value, projectSupply.Id);
+                        }
+                    }
+                }
+
+                return null;
+            });
         }
 
         #region Summary
@@ -405,6 +425,40 @@ namespace Chiffrage
         public void AddSupply(ProjectSupplyViewModel viewModel)
         {
             this.InvokeIfRequired(() => supplies.Add(viewModel));
+        }
+
+
+        public void RemoveAllSupplies()
+        {
+            this.InvokeIfRequired(() =>
+                {
+                    this.projectSupplyViewModelBindingSource.SuspendBinding();
+                    this.supplies.Clear();
+                    this.projectSupplyViewModelBindingSource.ResumeBinding();
+                });
+        }
+
+        public void AddSupplies(IList<ProjectSupplyViewModel> supplies)
+        {
+            this.InvokeIfRequired(() =>
+            {
+                this.projectSupplyViewModelBindingSource.SuspendBinding();
+                foreach (var item in supplies)
+                {
+                    this.supplies.Add(item);
+                }
+                this.projectSupplyViewModelBindingSource.ResumeBinding();
+            });
+        }
+
+
+        public void RemoveSupply(ProjectSupplyViewModel supply)
+        {
+            this.InvokeIfRequired(() =>
+            {
+                var item = this.supplies.Where(x => x.Id == supply.Id).First();
+                this.supplies.Remove(item);
+            });
         }
     }
 }

@@ -54,12 +54,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\DeleteProjectSupplyCommand.cs" />
     <Compile Include="Commands\CreateNewProjectSupplyCommand.cs" />
     <Compile Include="Commands\UpdateProjectCommand.cs" />
     <Compile Include="Commands\UpdateDealCommand.cs" />
     <Compile Include="Commands\CreateNewDealCommand.cs" />
     <Compile Include="Commands\CreateNewProjectCommand.cs" />
     <Compile Include="Deal.cs" />
+    <Compile Include="Events\ProjectSupplyDeletedEvent.cs" />
     <Compile Include="Events\DealCreatedEvent.cs" />
     <Compile Include="Events\DealUpdatedEvent.cs" />
     <Compile Include="Events\ProjectCreatedEvent.cs" />
