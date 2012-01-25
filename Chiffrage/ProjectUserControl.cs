@@ -460,5 +460,14 @@ namespace Chiffrage
                 this.supplies.Remove(item);
             });
         }
+
+        private void dataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            var supply = this.projectSupplyViewModelBindingSource[e.RowIndex] as ProjectSupplyViewModel;
+            if (supply != null)
+            {
+                this.eventBroker.Publish(new RequestEditProjectSupplyEvent(supply));
+            }
+        }
     }
 }

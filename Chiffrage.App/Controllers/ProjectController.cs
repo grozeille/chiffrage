@@ -26,7 +26,8 @@ namespace Chiffrage.App.Controllers
         IGenericEventHandler<RequestNewProjectEvent>,
         IGenericEventHandler<RequestNewProjectSupplyEvent>,
         IGenericEventHandler<ProjectSupplyCreatedEvent>,
-        IGenericEventHandler<ProjectSupplyDeletedEvent>
+        IGenericEventHandler<ProjectSupplyDeletedEvent>,
+        IGenericEventHandler<RequestEditProjectSupplyEvent>
     {
         private readonly IProjectView projectView;
 
@@ -162,6 +163,11 @@ namespace Chiffrage.App.Controllers
             this.projectView.RemoveSupply(supply);
 
             this.projectView.ShowView();
+        }
+
+        public void ProcessAction(RequestEditProjectSupplyEvent eventObject)
+        {
+            throw new NotImplementedException();
         }
     }
 }

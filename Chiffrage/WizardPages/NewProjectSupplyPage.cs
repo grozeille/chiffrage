@@ -22,8 +22,16 @@ namespace Chiffrage.WizardPages
             }
         }
 
+        public int Quantity
+        {
+            get
+            {
+                return int.Parse(this.textBoxQuantity.Text);
+            }
+        }
+
         public IList<CatalogSupplyViewModel> Supplies
-        { 
+        {
             set { this.supplies = value; }
         }
 
@@ -45,7 +53,13 @@ namespace Chiffrage.WizardPages
             base.OnValidating(e);
 
             int temp;
-            
+
+            if (!int.TryParse(this.textBoxQuantity.Text, out temp))
+            {
+                e.Cancel = true;
+                this.errorProvider.SetError(this.textBoxQuantity, "Doit être un nombre");
+            }
+
             var selected = this.catalogSupplyViewModelBindingSource.Current as CatalogSupplyViewModel;
 
             if (selected == null)

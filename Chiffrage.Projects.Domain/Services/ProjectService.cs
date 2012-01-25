@@ -100,6 +100,7 @@ namespace Chiffrage.Projects.Domain.Services
 
             var projectSupply = Mapper.Map<Supply, ProjectSupply>(supply);
             projectSupply.CatalogId = catalog.Id;
+            projectSupply.Quantity = eventObject.Quantity;
             project.Supplies.Add(projectSupply);
 
             this.projectRepository.Save(project);

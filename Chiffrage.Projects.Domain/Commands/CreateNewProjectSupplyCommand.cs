@@ -14,11 +14,14 @@ namespace Chiffrage.Projects.Domain.Commands
 
         private readonly int supplyId;
 
-        public CreateNewProjectSupplyCommand(int projectId, int catalogId, int supplyId)
+        private readonly int quantity;
+
+        public CreateNewProjectSupplyCommand(int projectId, int catalogId, int supplyId, int quantity)
         {
             this.projectId = projectId;
             this.catalogId = catalogId;
             this.supplyId = supplyId;
+            this.quantity = quantity;
         }
 
         public int CatalogId { get { return this.catalogId; } }
@@ -26,5 +29,7 @@ namespace Chiffrage.Projects.Domain.Commands
         public int SupplyId { get { return this.supplyId; } }
 
         public int ProjectId { get { return this.projectId; } }
+
+        public int Quantity { get { return this.quantity; } }
     }
 }

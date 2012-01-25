@@ -41,7 +41,8 @@ namespace Chiffrage
                 var command = new CreateNewProjectSupplyCommand(
                     projectId,
                     newProjectSupplyPage.TypedPage.CatalogSupplyViewModel.CatalogId,
-                    newProjectSupplyPage.TypedPage.CatalogSupplyViewModel.Id);
+                    newProjectSupplyPage.TypedPage.CatalogSupplyViewModel.Id,
+                    newProjectSupplyPage.TypedPage.Quantity);
 
                 this.EventBroker.Publish(command);
             }

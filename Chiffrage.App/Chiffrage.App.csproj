@@ -66,6 +66,7 @@
     <Compile Include="Events\ApplicationLoadedEvent.cs" />
     <Compile Include="Events\CatalogSelectedEvent.cs" />
     <Compile Include="Events\CatalogUnselectedEvent.cs" />
+    <Compile Include="Events\RequestEditProjectSupplyEvent.cs" />
     <Compile Include="Events\RequestEditHardwareSupplyEvent.cs" />
     <Compile Include="Events\RequestNewHardwareSupplyEvent.cs" />
     <Compile Include="Events\RequestEditHardwareEvent.cs" />
