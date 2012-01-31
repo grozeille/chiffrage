@@ -9,27 +9,32 @@ namespace Chiffrage.Projects.Dal.Mappings
         {
             Id(x => x.Id);
             Map(x => x.Quantity);
-            Map(x => x.Milestone);
-            Map(x => x.Price);
-            Map(x => x.WorkDays);
-            Map(x => x.WorkShortNights);
-            Map(x => x.WorkLongNights);
-            Map(x => x.ExecutiveWorkDays);
-            Map(x => x.ExecutiveWorkShortNights);
-            Map(x => x.ExecutiveWorkLongNights);
-            Map(x => x.TestsDays);
-            Map(x => x.TestsNights);
+            //Map(x => x.Milestone);
+            //Map(x => x.Price);
+            //Map(x => x.WorkDays);
+            //Map(x => x.WorkShortNights);
+            //Map(x => x.WorkLongNights);
+            //Map(x => x.ExecutiveWorkDays);
+            //Map(x => x.ExecutiveWorkShortNights);
+            //Map(x => x.ExecutiveWorkLongNights);
+            //Map(x => x.TestsDays);
+            //Map(x => x.TestsNights);
 
             Map(x => x.Name);
             Map(x => x.Reference);
             Map(x => x.Category);
-            Map(x => x.ModuleSize);
-            Map(x => x.CatalogPrice);
-            Map(x => x.StudyDays);
-            Map(x => x.ReferenceDays);
-            Map(x => x.CatalogWorkDays);
-            Map(x => x.CatalogExecutiveWorkDays);
-            Map(x => x.CatalogTestsDays);
+            //Map(x => x.ModuleSize);
+            //Map(x => x.CatalogPrice);
+            //Map(x => x.StudyDays);
+            //Map(x => x.ReferenceDays);
+            //Map(x => x.CatalogWorkDays);
+            //Map(x => x.CatalogExecutiveWorkDays);
+            //Map(x => x.CatalogTestsDays);
+
+            HasMany(x => x.Components)
+               .Not.LazyLoad()
+               .Cascade.SaveUpdate()
+               .AsBag();
         }
     }
 }

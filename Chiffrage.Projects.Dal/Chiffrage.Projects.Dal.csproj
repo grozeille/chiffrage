@@ -58,6 +58,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Mappings\ProjectHardwareSupplyMap.cs" />
     <Compile Include="Mappings\DealMap.cs" />
     <Compile Include="Mappings\OtherBenefitMap.cs" />
     <Compile Include="Mappings\ProjectHardwareMap.cs" />

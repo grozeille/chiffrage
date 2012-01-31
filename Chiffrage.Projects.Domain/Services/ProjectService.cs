@@ -19,7 +19,8 @@ namespace Chiffrage.Projects.Domain.Services
         IGenericEventHandler<UpdateProjectCommand>,
         IGenericEventHandler<UpdateDealCommand>,
         IGenericEventHandler<CreateNewProjectSupplyCommand>,
-        IGenericEventHandler<DeleteProjectSupplyCommand>
+        IGenericEventHandler<DeleteProjectSupplyCommand>,
+        IGenericEventHandler<CreateNewProjectHardwareCommand>
     {
         private readonly IEventBroker eventBroker;
         private readonly ICatalogRepository catalogRepository;
@@ -92,7 +93,7 @@ namespace Chiffrage.Projects.Domain.Services
         {
             var catalog = this.catalogRepository.FindById(eventObject.CatalogId);
             var supply = catalog.Supplies.Where(x => x.Id == eventObject.SupplyId).First();
-            var project = this.projectRepository.FindById(eventObject.SupplyId);
+            var project = this.projectRepository.FindById(eventObject.ProjectId);
 
             Mapper.CreateMap<Supply, ProjectSupply>()
                 .ForMember(x => x.SupplyId, y => y.MapFrom(z => z.Id))
@@ -118,6 +119,33 @@ namespace Chiffrage.Projects.Domain.Services
             this.projectRepository.Save(project);
 
             this.eventBroker.Publish(new ProjectSupplyDeletedEvent(project.Id, supply));
+        }
+
+        public void ProcessAction(CreateNewProjectHardwareCommand eventObject)
+        {
+            var catalog = this.catalogRepository.FindById(eventObject.CatalogId);
+            var hardware = catalog.Hardwares.Where(x => x.Id == eventObject.HardwareId).First();
+            var project = this.projectRepository.FindById(eventObject.ProjectId);
+
+            Mapper.CreateMap<Supply, ProjectSupply>()
+                .ForMember(x => x.SupplyId, y => y.MapFrom(z => z.Id))
+                .ForMember(x => x.Id, y => y.Ignore())
+                .ForMember(x => x.CatalogId, y => y.UseValue(catalog.Id));
+            Mapper.CreateMap<HardwareSupply, ProjectHardwareSupply>()
+                .ForMember(x => x.HardwareSupplyId, y => y.MapFrom(z => z.Id))
+                .ForMember(x => x.Id, y => y.Ignore());
+            Mapper.CreateMap<Hardware, ProjectHardware>()
+                .ForMember(x => x.HardwareId, y => y.MapFrom(z => z.Id))
+                .ForMember(x => x.Id, y => y.Ignore())
+                .ForMember(x => x.CatalogId, y => y.UseValue(catalog.Id));
+
+            var projectHardware = Mapper.Map<Hardware, ProjectHardware>(hardware);
+            projectHardware.Quantity = eventObject.Quantity;
+            project.Hardwares.Add(projectHardware);
+
+            this.projectRepository.Save(project);
+
+            this.eventBroker.Publish(new ProjectHardwareCreatedEvent(project.Id, projectHardware));
         }
     }
 }

@@ -2,10 +2,8 @@
 
 namespace Chiffrage.Catalogs.Domain
 {
-    public class Supply : ICatalogItem
+    public class Supply
     {
-        #region ICatalogItem Members
-
         public virtual int Id { get; set; }
 
         public virtual string Name { get; set; }
@@ -27,12 +25,5 @@ namespace Chiffrage.Catalogs.Domain
         public virtual double CatalogExecutiveWorkDays { get; set; }
 
         public virtual double CatalogTestsDays { get; set; }
-
-        public virtual object Clone()
-        {
-            return MemberwiseClone();
-        }
-
-        #endregion
     }
 }

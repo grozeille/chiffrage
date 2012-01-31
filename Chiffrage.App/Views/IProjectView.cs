@@ -9,7 +9,7 @@ namespace Chiffrage.App.Views
 {
     public interface IProjectView : IView
     {
-        void Display(ProjectViewModel viewModel, IList<ProjectSupplyViewModel> supplies);
+        void Display(ProjectViewModel viewModel, IList<ProjectSupplyViewModel> supplies, IList<ProjectHardwareViewModel> hardwares);
 
         ProjectViewModel GetViewModel();
 
@@ -20,5 +20,7 @@ namespace Chiffrage.App.Views
         void AddSupplies(IList<ProjectSupplyViewModel> supplies);
 
         void RemoveSupply(ProjectSupplyViewModel supply);
+
+        void AddHardware(ProjectHardwareViewModel viewModel);
     }
 }

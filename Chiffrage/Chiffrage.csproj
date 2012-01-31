@@ -131,6 +131,7 @@
     <Compile Include="ApplicationForm.Designer.cs">
       <DependentUpon>ApplicationForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="NewProjectHardwareWizardView.cs" />
     <Compile Include="EditHardwareSupplyWizardView.cs" />
     <Compile Include="NewProjectSupplyWizardView.cs" />
     <Compile Include="NewHardwareSupplyWizardView.cs" />
@@ -193,6 +194,12 @@
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="WizardPages\NewProjectHardwarePage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WizardPages\NewProjectHardwarePage.Designer.cs">
+      <DependentUpon>NewProjectHardwarePage.cs</DependentUpon>
     </Compile>
     <Compile Include="WizardPages\EditHardwareSupplyPage.cs">
       <SubType>UserControl</SubType>
@@ -260,6 +267,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources1.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="WizardPages\NewProjectHardwarePage.resx">
+      <DependentUpon>NewProjectHardwarePage.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="WizardPages\EditHardwareSupplyPage.resx">
       <DependentUpon>EditHardwareSupplyPage.cs</DependentUpon>
     </EmbeddedResource>
@@ -287,6 +297,7 @@
     <None Include="Properties\DataSources\Chiffrage.App.ViewModel.CatalogHardwareViewModel.datasource" />
     <None Include="Properties\DataSources\Chiffrage.App.ViewModel.CatalogSupplyViewModel.datasource" />
     <None Include="Properties\DataSources\Chiffrage.App.ViewModel.CatalogViewModel.datasource" />
+    <None Include="Properties\DataSources\Chiffrage.App.ViewModel.ProjectHardwareViewModel.datasource" />
     <None Include="Properties\DataSources\Chiffrage.App.ViewModel.ProjectSupplyViewModel.datasource" />
     <None Include="Properties\DataSources\Chiffrage.App.ViewModel.ProjectViewModel.datasource" />
     <None Include="Properties\DataSources\Chiffrage.ViewModel.CatalogHardwareViewModel.datasource" />

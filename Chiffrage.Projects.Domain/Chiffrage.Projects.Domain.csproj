@@ -54,6 +54,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\CreateNewProjectHardwareCommand.cs" />
+    <Compile Include="Commands\DeleteProjectHardwareCommand.cs" />
     <Compile Include="Commands\DeleteProjectSupplyCommand.cs" />
     <Compile Include="Commands\CreateNewProjectSupplyCommand.cs" />
     <Compile Include="Commands\UpdateProjectCommand.cs" />
@@ -61,17 +63,17 @@
     <Compile Include="Commands\CreateNewDealCommand.cs" />
     <Compile Include="Commands\CreateNewProjectCommand.cs" />
     <Compile Include="Deal.cs" />
+    <Compile Include="Events\ProjectHardwareCreatedEvent.cs" />
     <Compile Include="Events\ProjectSupplyDeletedEvent.cs" />
     <Compile Include="Events\DealCreatedEvent.cs" />
     <Compile Include="Events\DealUpdatedEvent.cs" />
     <Compile Include="Events\ProjectCreatedEvent.cs" />
     <Compile Include="Events\ProjectSupplyCreatedEvent.cs" />
     <Compile Include="Events\ProjectUpdatedEvent.cs" />
-    <Compile Include="IProjectItem.cs" />
+    <Compile Include="ProjectHardwareSupply.cs" />
     <Compile Include="OtherBenefit.cs" />
     <Compile Include="Project.cs" />
     <Compile Include="ProjectHardware.cs" />
-    <Compile Include="ProjectItem.cs" />
     <Compile Include="ProjectSupply.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\IProjectRepository.cs" />

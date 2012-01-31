@@ -27,7 +27,9 @@ namespace Chiffrage.App.Controllers
         IGenericEventHandler<RequestNewProjectSupplyEvent>,
         IGenericEventHandler<ProjectSupplyCreatedEvent>,
         IGenericEventHandler<ProjectSupplyDeletedEvent>,
-        IGenericEventHandler<RequestEditProjectSupplyEvent>
+        IGenericEventHandler<RequestEditProjectSupplyEvent>,
+        IGenericEventHandler<RequestNewProjectHardwareEvent>,
+        IGenericEventHandler<ProjectHardwareCreatedEvent>
     {
         private readonly IProjectView projectView;
 
@@ -43,6 +45,8 @@ namespace Chiffrage.App.Controllers
 
         private readonly INewProjectSupplyView newProjectSupplyView;
 
+        private readonly INewProjectHardwareView newProjectHardwareView;
+
         public ProjectController(
             IEventBroker eventBroker, 
             IProjectView projectView, 
@@ -50,6 +54,7 @@ namespace Chiffrage.App.Controllers
             IProjectRepository projectRepository, 
             IDealRepository dealRepository,
             INewProjectSupplyView newProjectSupplyView,
+            INewProjectHardwareView newProjectHardwareView,
             ICatalogRepository catalogRepository)
         {
             this.projectView = projectView;
@@ -58,6 +63,7 @@ namespace Chiffrage.App.Controllers
             this.projectRepository = projectRepository;
             this.dealRepository = dealRepository;
             this.newProjectSupplyView = newProjectSupplyView;
+            this.newProjectHardwareView = newProjectHardwareView;
             this.catalogRepository = catalogRepository;
         }
 
@@ -74,13 +80,19 @@ namespace Chiffrage.App.Controllers
             Mapper.CreateMap<ProjectSupply, ProjectSupplyViewModel>();
 
             var viewModel = Mapper.Map<Project, ProjectViewModel>(project);
-            var supplies = Mapper.Map<IList<ProjectSupply>, IList<ProjectSupplyViewModel>>(project.Supplies);
-            foreach (var item in supplies)
+            
+            var supplies = new List<ProjectSupplyViewModel>();
+            foreach (var item in project.Supplies)
             {
-                item.ProjectId = viewModel.Id;
+                supplies.Add(Map(item, project.Id));
+            }
+            var hardwares = new List<ProjectHardwareViewModel>();
+            foreach (var item in project.Hardwares)
+            {
+                hardwares.Add(Map(item, project.Id));
             }
 
-            this.projectView.Display(viewModel, supplies);
+            this.projectView.Display(viewModel, supplies, hardwares);
 
             this.projectView.ShowView();
         }
@@ -168,6 +180,91 @@ namespace Chiffrage.App.Controllers
         public void ProcessAction(RequestEditProjectSupplyEvent eventObject)
         {
             throw new NotImplementedException();
+        }
+
+        public void ProcessAction(RequestNewProjectHardwareEvent eventObject)
+        {
+            var catalogs = this.catalogRepository.FindAll();
+            List<CatalogHardwareViewModel> hardwaresViewModel = new List<CatalogHardwareViewModel>();
+            Mapper.CreateMap<Hardware, CatalogHardwareViewModel>();
+            Mapper.CreateMap<HardwareSupply, CatalogHardwareSupplyViewModel>();
+
+            foreach (var catalog in catalogs)
+            {
+                var hardwares = Mapper.Map<IList<Hardware>, IList<CatalogHardwareViewModel>>(catalog.Hardwares);
+                foreach (var item in hardwares)
+                {
+                    item.CatalogId = catalog.Id;
+                    item.ModuleSize = item.Components.Sum(x => x.SupplyModuleSize * x.Quantity);
+                    item.CatalogExecutiveWorkDays = item.Components.Sum(x => x.SupplyCatalogWorkDays * x.Quantity);
+                    item.CatalogPrice = item.Components.Sum(x => x.SupplyCatalogPrice * x.Quantity);
+                    item.CatalogTestsDays = item.Components.Sum(x => x.SupplyCatalogTestsDays * x.Quantity);
+                    item.CatalogWorkDays = item.Components.Sum(x => x.SupplyCatalogWorkDays * x.Quantity);
+                    item.ReferenceDays = item.Components.Sum(x => x.SupplyReferenceDays * x.Quantity);
+                    item.StudyDays = item.Components.Sum(x => x.SupplyStudyDays * x.Quantity);
+                    foreach (var subItem in item.Components)
+                    {
+                        subItem.HardwareId = item.Id;
+                        subItem.CatalogId = catalog.Id;
+                    }
+                }
+                hardwaresViewModel.AddRange(hardwares);
+            }
+
+            this.newProjectHardwareView.ProjectId = eventObject.ProjectId;
+            this.newProjectHardwareView.Hardwares = hardwaresViewModel;
+            this.newProjectHardwareView.ShowView();
+        }
+
+        public void ProcessAction(ProjectHardwareCreatedEvent eventObject)
+        {
+            var viewModel = Map(eventObject.ProjectHardware, eventObject.ProjectId);
+
+            this.projectView.AddHardware(viewModel);
+        }
+
+        private ProjectHardwareViewModel Map(ProjectHardware hardware, int projectId)
+        {
+            Mapper.CreateMap<ProjectHardware, ProjectHardwareViewModel>()
+                .ForMember(x => x.ProjectId, y => y.UseValue(projectId));
+            Mapper.CreateMap<ProjectHardwareSupply, ProjectHardwareSupplyViewModel>();
+            var viewModel = Mapper.Map<ProjectHardware, ProjectHardwareViewModel>(hardware);
+
+            viewModel.ModuleSize = hardware.Components.Sum(x => x.Supply.ModuleSize * x.Quantity);
+            viewModel.CatalogExecutiveWorkDays = hardware.Components.Sum(x => x.Supply.CatalogExecutiveWorkDays * x.Quantity);
+            viewModel.CatalogPrice = hardware.Components.Sum(x => x.Supply.CatalogPrice * x.Quantity);
+            viewModel.CatalogTestsDays = hardware.Components.Sum(x => x.Supply.CatalogTestsDays * x.Quantity);
+            viewModel.CatalogWorkDays = hardware.Components.Sum(x => x.Supply.CatalogWorkDays * x.Quantity);
+            viewModel.ReferenceDays = hardware.Components.Sum(x => x.Supply.ReferenceDays * x.Quantity);
+            viewModel.StudyDays = hardware.Components.Sum(x => x.Supply.StudyDays * x.Quantity);
+
+            viewModel.TotalModuleSize = viewModel.ModuleSize * viewModel.Quantity;
+            viewModel.TotalCatalogExecutiveWorkDays = viewModel.CatalogExecutiveWorkDays * viewModel.Quantity;
+            viewModel.TotalCatalogPrice = viewModel.CatalogPrice * viewModel.Quantity;
+            viewModel.TotalCatalogTestsDays = viewModel.CatalogTestsDays * viewModel.Quantity;
+            viewModel.TotalCatalogWorkDays = viewModel.CatalogWorkDays * viewModel.Quantity;
+            viewModel.TotalReferenceDays = viewModel.ReferenceDays * viewModel.Quantity;
+            viewModel.TotalStudyDays = viewModel.StudyDays * viewModel.Quantity;
+
+            return viewModel;
+        }
+
+        private ProjectSupplyViewModel Map(ProjectSupply supply, int projectId)
+        {
+            Mapper.CreateMap<ProjectSupply, ProjectSupplyViewModel>()
+                .ForMember(x => x.ProjectId, y => y.UseValue(projectId));
+
+            var viewModel = Mapper.Map<ProjectSupply, ProjectSupplyViewModel>(supply);
+
+            viewModel.TotalModuleSize = viewModel.ModuleSize * viewModel.Quantity;
+            viewModel.TotalCatalogExecutiveWorkDays = viewModel.CatalogExecutiveWorkDays * viewModel.Quantity;
+            viewModel.TotalCatalogPrice = viewModel.CatalogPrice * viewModel.Quantity;
+            viewModel.TotalCatalogTestsDays = viewModel.CatalogTestsDays * viewModel.Quantity;
+            viewModel.TotalCatalogWorkDays = viewModel.CatalogWorkDays * viewModel.Quantity;
+            viewModel.TotalReferenceDays = viewModel.ReferenceDays * viewModel.Quantity;
+            viewModel.TotalStudyDays = viewModel.StudyDays * viewModel.Quantity;
+
+            return viewModel;
         }
     }
 }

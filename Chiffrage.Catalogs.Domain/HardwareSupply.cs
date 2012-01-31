@@ -1,6 +1,6 @@
 ﻿namespace Chiffrage.Catalogs.Domain
 {
-    public class HardwareSupply // : ICatalogItem
+    public class HardwareSupply
     {
         private Supply supply;
 
@@ -19,12 +19,5 @@
         }
 
         public virtual int Quantity { get; set; }
-
-        public virtual object Clone()
-        {
-            var hardwareSupply = (HardwareSupply) MemberwiseClone();
-            hardwareSupply.supply = (Supply) this.supply.Clone();
-            return hardwareSupply;
-        }
     }
 }

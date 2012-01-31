@@ -23,6 +23,8 @@ namespace Chiffrage
 
         private readonly BindingList<ProjectSupplyViewModel> supplies = new BindingList<ProjectSupplyViewModel>();
 
+        private readonly BindingList<ProjectHardwareViewModel> hardwares = new BindingList<ProjectHardwareViewModel>();
+
         private Font defaultFont = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Regular,
                                             GraphicsUnit.Point, ((byte) (0)));
         
@@ -33,6 +35,7 @@ namespace Chiffrage
             this.InitializeComponent();
 
             this.projectSupplyViewModelBindingSource.DataSource = supplies;
+            this.projectHardwareViewModelBindingSource.DataSource = hardwares;
         }
 
         public ProjectUserControl(IEventBroker eventBroker)
@@ -54,6 +57,27 @@ namespace Chiffrage
                         if (result == DialogResult.OK)
                         {
                             return new DeleteProjectSupplyCommand(this.id.Value, projectSupply.Id);
+                        }
+                    }
+                }
+
+                return null;
+            });
+
+            this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonAddHardware, () =>
+                this.id.HasValue ? new RequestNewProjectHardwareEvent(this.id.Value) : null);
+
+            this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonRemoveHardware, () =>
+            {
+                if (this.id.HasValue)
+                {
+                    var projectHardware = this.projectHardwareViewModelBindingSource.Current as ProjectHardwareViewModel;
+                    if (projectHardware != null)
+                    {
+                        var result = MessageBox.Show("Êtes-vous sûr de vouloir supprimer le matériel '" + projectHardware.Name + "'?", "Supprimer?", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                        if (result == DialogResult.OK)
+                        {
+                            return new DeleteProjectHardwareCommand(this.id.Value, projectHardware.Id);
                         }
                     }
                 }
@@ -343,7 +367,7 @@ namespace Chiffrage
 
         #region IProjectView Members
 
-        public void Display(ProjectViewModel viewModel, IList<ProjectSupplyViewModel> supplies)
+        public void Display(ProjectViewModel viewModel, IList<ProjectSupplyViewModel> supplies, IList<ProjectHardwareViewModel> hardwares)
         {
             this.InvokeIfRequired(() =>
             {
@@ -381,6 +405,14 @@ namespace Chiffrage
                     this.supplies.Add(item);
                 }
                 this.projectSupplyViewModelBindingSource.ResumeBinding();
+
+                this.projectHardwareViewModelBindingSource.SuspendBinding();
+                this.hardwares.Clear();
+                foreach (var item in hardwares)
+                {
+                    this.hardwares.Add(item);
+                }
+                this.projectHardwareViewModelBindingSource.ResumeBinding();
             });
         }
 
@@ -468,6 +500,12 @@ namespace Chiffrage
             {
                 this.eventBroker.Publish(new RequestEditProjectSupplyEvent(supply));
             }
+        }
+
+
+        public void AddHardware(ProjectHardwareViewModel viewModel)
+        {
+            this.InvokeIfRequired(() => hardwares.Add(viewModel));
         }
     }
 }
