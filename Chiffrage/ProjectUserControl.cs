@@ -507,5 +507,15 @@ namespace Chiffrage
         {
             this.InvokeIfRequired(() => hardwares.Add(viewModel));
         }
+
+
+        public void RemoveHardware(ProjectHardwareViewModel hardware)
+        {
+            this.InvokeIfRequired(() =>
+            {
+                var item = this.hardwares.Where(x => x.Id == hardware.Id).First();
+                this.hardwares.Remove(item);
+            });
+        }
     }
 }

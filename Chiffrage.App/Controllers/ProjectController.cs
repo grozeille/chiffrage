@@ -29,7 +29,8 @@ namespace Chiffrage.App.Controllers
         IGenericEventHandler<ProjectSupplyDeletedEvent>,
         IGenericEventHandler<RequestEditProjectSupplyEvent>,
         IGenericEventHandler<RequestNewProjectHardwareEvent>,
-        IGenericEventHandler<ProjectHardwareCreatedEvent>
+        IGenericEventHandler<ProjectHardwareCreatedEvent>,
+        IGenericEventHandler<ProjectHardwareDeletedEvent>
     {
         private readonly IProjectView projectView;
 
@@ -77,8 +78,6 @@ namespace Chiffrage.App.Controllers
             var project = this.projectRepository.FindById(eventObject.Id);
 
             Mapper.CreateMap<Project, ProjectViewModel>();
-            Mapper.CreateMap<ProjectSupply, ProjectSupplyViewModel>();
-
             var viewModel = Mapper.Map<Project, ProjectViewModel>(project);
             
             var supplies = new List<ProjectSupplyViewModel>();
@@ -167,10 +166,7 @@ namespace Chiffrage.App.Controllers
 
         public void ProcessAction(ProjectSupplyDeletedEvent eventObject)
         {
-            Mapper.CreateMap<ProjectSupply, ProjectSupplyViewModel>();
-
-            var supply = Mapper.Map<ProjectSupply, ProjectSupplyViewModel>(eventObject.Supply);
-            supply.ProjectId = eventObject.ProjectId;
+            var supply = Map(eventObject.Supply, eventObject.ProjectId);
 
             this.projectView.RemoveSupply(supply);
 
@@ -265,6 +261,15 @@ namespace Chiffrage.App.Controllers
             viewModel.TotalStudyDays = viewModel.StudyDays * viewModel.Quantity;
 
             return viewModel;
+        }
+
+        public void ProcessAction(ProjectHardwareDeletedEvent eventObject)
+        {
+            var hardware = Map(eventObject.Hardware, eventObject.ProjectId);
+            
+            this.projectView.RemoveHardware(hardware);
+
+            this.projectView.ShowView();
         }
     }
 }

@@ -22,5 +22,7 @@ namespace Chiffrage.App.Views
         void RemoveSupply(ProjectSupplyViewModel supply);
 
         void AddHardware(ProjectHardwareViewModel viewModel);
+
+        void RemoveHardware(ProjectHardwareViewModel hardware);
     }
 }
