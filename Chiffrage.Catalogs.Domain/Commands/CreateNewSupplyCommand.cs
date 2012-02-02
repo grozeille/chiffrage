@@ -20,16 +20,11 @@ namespace Chiffrage.Catalogs.Domain.Commands
 
         private readonly double catalogPrice;
 
-        private readonly double studyDays;
+        private readonly int pfc0;
 
-        private readonly double referenceDays;
+        private readonly int pfc12;
 
-        private readonly double catalogWorkDays;
-
-        private readonly double catalogExecutiveWorkDays;
-
-        private readonly double catalogTestsDays;
-
+        private readonly int cap;
 
         public CreateNewSupplyCommand(
             int catalogId,
@@ -38,26 +33,21 @@ namespace Chiffrage.Catalogs.Domain.Commands
             string category,
             int moduleSize,
             double catalogPrice,
-            double studyDays,
-            double referenceDays,
-            double catalogWorkDays,
-            double catalogExecutiveWorkDays,
-            double catalogTestsDays)
+            int pfc12,
+            int pfc0,
+            int cap)
         {
             this.catalogId = catalogId;
             this.name = name;
             this.reference = reference;
             this.category = category;
             this.moduleSize = moduleSize;
+            this.pfc0 = pfc0;
+            this.pfc12 = pfc12;
+            this.cap = cap;
             this.catalogPrice = catalogPrice;
-            this.studyDays = studyDays;
-            this.referenceDays = referenceDays;
-            this.catalogWorkDays = catalogWorkDays;
-            this.catalogExecutiveWorkDays = catalogExecutiveWorkDays;
-            this.catalogTestsDays = catalogTestsDays;
         }
-
-
+        
         public int CatalogId { get { return this.catalogId; } }
 
         public string Name { get { return this.name; } }
@@ -68,16 +58,12 @@ namespace Chiffrage.Catalogs.Domain.Commands
 
         public int ModuleSize { get { return this.moduleSize; } }
 
+        public int PFC12 { get { return this.pfc12; } }
+
+        public int PFC0 { get { return this.pfc0; } }
+
+        public int Cap { get { return this.cap; } }
+
         public double CatalogPrice { get { return this.catalogPrice; } }
-
-        public double StudyDays { get { return this.studyDays; } }
-
-        public double ReferenceDays { get { return this.referenceDays; } }
-
-        public double CatalogWorkDays { get { return this.catalogWorkDays; } }
-
-        public double CatalogExecutiveWorkDays { get { return this.catalogExecutiveWorkDays; } }
-
-        public double CatalogTestsDays { get { return this.catalogTestsDays; } }
     }
 }

@@ -30,6 +30,7 @@ namespace Chiffrage
             this.editHardwareSupplyPage = new GenericWizardSetting<EditHardwareSupplyPage>("Edition d'un composant de matériel",
                                                                          "Vous pouvez ici éditer le composant du matériel", true);
             this.editHardwareSupplyPage.TypedPage.Quantity = this.hardwareSupply.Quantity;
+            this.editHardwareSupplyPage.TypedPage.Comment = this.hardwareSupply.Comment;
 
             return new WizardSetting[] { this.editHardwareSupplyPage };
         }
@@ -42,7 +43,8 @@ namespace Chiffrage
                     hardwareSupply.CatalogId,
                     hardwareSupply.HardwareId,
                     hardwareSupply.Id,
-                    this.editHardwareSupplyPage.TypedPage.Quantity);
+                    this.editHardwareSupplyPage.TypedPage.Quantity,
+                    this.editHardwareSupplyPage.TypedPage.Comment);
                 this.EventBroker.Publish(command);
             }
         }

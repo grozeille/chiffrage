@@ -27,8 +27,6 @@ namespace Chiffrage
         {
             this.newHardwarePage = new GenericWizardSetting<NewHardwarePage>("Création d'une matériel",
                                                                          "Vous pouvez ici créer un nouveau matériel", true);
-            this.newHardwarePage.TypedPage.CatalogId = this.catalogId;
-
             return new WizardSetting[] { this.newHardwarePage };
         }
 
@@ -36,7 +34,14 @@ namespace Chiffrage
         {
             if(result == DialogResult.OK)
             {
-                this.EventBroker.Publish(new CreateNewHardwareCommand(newHardwarePage.TypedPage.ViewModel.CatalogId, newHardwarePage.TypedPage.ViewModel.Name));
+                this.EventBroker.Publish(new CreateNewHardwareCommand(
+                    this.catalogId,
+                    newHardwarePage.TypedPage.HardwareName,
+                    newHardwarePage.TypedPage.StudyDays,
+                    newHardwarePage.TypedPage.ReferenceDays,
+                    newHardwarePage.TypedPage.CatalogWorkDays,
+                    newHardwarePage.TypedPage.CatalogExecutiveWorkDays,
+                    newHardwarePage.TypedPage.CatalogTestDays));
             }
         }
 

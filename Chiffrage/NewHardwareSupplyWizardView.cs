@@ -23,6 +23,8 @@ namespace Chiffrage
 
         private GenericWizardSetting<NewHardwareSupplyPage> newHardwareSupplyPage;
 
+        private GenericWizardSetting<CommentPage> commentPage;
+
         public NewHardwareSupplyWizardView(IEventBroker eventBroker)
             :base(eventBroker)
         {
@@ -33,15 +35,21 @@ namespace Chiffrage
         {
             this.newHardwareSupplyPage = new GenericWizardSetting<NewHardwareSupplyPage>("Nouveau composant de matériel", "Ajout d'un composant au matériel", true);
             this.newHardwareSupplyPage.TypedPage.Supplies = this.supplies;
+            this.commentPage = new GenericWizardSetting<CommentPage>("Nouveau composant de matériel", "Ajout d'un composant au matériel", true);
 
-            return new WizardSetting[] { this.newHardwareSupplyPage };
+            return new WizardSetting[] { this.newHardwareSupplyPage, this.commentPage };
         }
 
         protected override void OnWizardClosed(DialogResult result)
         {
             if (result == DialogResult.OK)
             {
-                this.EventBroker.Publish(new CreateNewHardwareSupplyCommand(this.catalogId, this.parentHardwareId, this.newHardwareSupplyPage.TypedPage.SelectedSupply, this.newHardwareSupplyPage.TypedPage.Quantity));
+                this.EventBroker.Publish(new CreateNewHardwareSupplyCommand(
+                    this.catalogId, 
+                    this.parentHardwareId, 
+                    this.newHardwareSupplyPage.TypedPage.SelectedSupply, 
+                    this.newHardwareSupplyPage.TypedPage.Quantity,
+                    null)); // TODO: add the comment from a second page
             }
         }
 

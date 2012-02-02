@@ -22,16 +22,14 @@ namespace Chiffrage.App.ViewModel
 
         public double SupplyCatalogPrice { get; set; }
 
-        public double SupplyStudyDays { get; set; }
+        public virtual int SupplyPFC0 { get; set; }
 
-        public double SupplyReferenceDays { get; set; }
+        public virtual int SupplyPFC12 { get; set; }
 
-        public double SupplyCatalogWorkDays { get; set; }
-
-        public double SupplyCatalogExecutiveWorkDays { get; set; }
-
-        public double SupplyCatalogTestsDays { get; set; }
+        public virtual int SupplyCap { get; set; }
 
         public int Quantity { get; set; }
+
+        public string Comment { get; set; }
     }
 }

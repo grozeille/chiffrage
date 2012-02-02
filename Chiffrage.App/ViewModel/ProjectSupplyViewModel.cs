@@ -22,15 +22,11 @@ namespace Chiffrage.App.ViewModel
 
         public virtual double CatalogPrice { get; set; }
 
-        public virtual double StudyDays { get; set; }
+        public virtual int PFC0 { get; set; }
 
-        public virtual double ReferenceDays { get; set; }
+        public virtual int PFC12 { get; set; }
 
-        public virtual double CatalogWorkDays { get; set; }
-
-        public virtual double CatalogExecutiveWorkDays { get; set; }
-
-        public virtual double CatalogTestsDays { get; set; }
+        public virtual int Cap { get; set; }
 
         public int ProjectId { get; set; }
 
@@ -38,15 +34,11 @@ namespace Chiffrage.App.ViewModel
 
         public virtual double TotalCatalogPrice { get; set; }
 
-        public virtual double TotalStudyDays { get; set; }
+        public virtual double TotalPFC0 { get; set; }
 
-        public virtual double TotalReferenceDays { get; set; }
+        public virtual double TotalPFC12 { get; set; }
 
-        public virtual double TotalCatalogWorkDays { get; set; }
-
-        public virtual double TotalCatalogExecutiveWorkDays { get; set; }
-
-        public virtual double TotalCatalogTestsDays { get; set; }
+        public virtual double TotalCap { get; set; }
 
     }
 }

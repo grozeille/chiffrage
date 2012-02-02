@@ -12,13 +12,15 @@ namespace Chiffrage.Catalogs.Domain.Commands
         private readonly int hardwareId;
         private readonly int supplyId;
         private readonly int quantity;
+        private readonly string comment;
 
-        public CreateNewHardwareSupplyCommand(int catalogId, int hardwareId, int supplyId, int quantity)
+        public CreateNewHardwareSupplyCommand(int catalogId, int hardwareId, int supplyId, int quantity, string comment)
         {
             this.catalogId = catalogId;
             this.hardwareId = hardwareId;
             this.supplyId = supplyId;
             this.quantity = quantity;
+            this.comment = comment;
         }
 
         public int SupplyId
@@ -39,6 +41,11 @@ namespace Chiffrage.Catalogs.Domain.Commands
         public int Quantity
         {
             get { return this.quantity; }
+        }
+
+        public string Comment
+        {
+            get { return this.comment;  }
         }
     }
 }

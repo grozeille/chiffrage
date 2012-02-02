@@ -23,13 +23,11 @@ namespace Chiffrage.Projects.Dal.Mappings
             Map(x => x.Name);
             Map(x => x.Reference);
             Map(x => x.Category);
-            //Map(x => x.ModuleSize);
-            //Map(x => x.CatalogPrice);
-            //Map(x => x.StudyDays);
-            //Map(x => x.ReferenceDays);
-            //Map(x => x.CatalogWorkDays);
-            //Map(x => x.CatalogExecutiveWorkDays);
-            //Map(x => x.CatalogTestsDays);
+            Map(x => x.StudyDays);
+            Map(x => x.ReferenceDays);
+            Map(x => x.CatalogWorkDays);
+            Map(x => x.CatalogExecutiveWorkDays);
+            Map(x => x.CatalogTestsDays);
 
             HasMany(x => x.Components)
                .Not.LazyLoad()

@@ -14,8 +14,6 @@ namespace Chiffrage.WizardPages
 {
     public partial class NewSupplyPage : UserControl
     {
-        private int catalogId;
-
         public NewSupplyPage()
         {
             InitializeComponent();
@@ -46,61 +44,63 @@ namespace Chiffrage.WizardPages
                 this.errorProvider.SetError(this.textBoxCatalogPrice, "Doit être un nombre");
             }
 
-            if (!int.TryParse(this.textBoxStudyDays.Text, out temp))
+            if (!int.TryParse(this.textBoxPFC0.Text, out temp))
             {
                 e.Cancel = true;
-                this.errorProvider.SetError(this.textBoxStudyDays, "Doit être un nombre");
+                this.errorProvider.SetError(this.textBoxPFC0, "Doit être un nombre");
             }
 
-            if (!int.TryParse(this.textBoxReferenceDays.Text, out temp))
+            if (!int.TryParse(this.textBoxPFC12.Text, out temp))
             {
                 e.Cancel = true;
-                this.errorProvider.SetError(this.textBoxReferenceDays, "Doit être un nombre");
+                this.errorProvider.SetError(this.textBoxPFC12, "Doit être un nombre");
             }
 
-            if (!int.TryParse(this.textBoxCatalogWorkDays.Text, out temp))
+            if (!int.TryParse(this.textBoxCap.Text, out temp))
             {
                 e.Cancel = true;
-                this.errorProvider.SetError(this.textBoxCatalogWorkDays, "Doit être un nombre");
-            }
-
-            if (!int.TryParse(this.textBoxCatalogExecutiveWorkDays.Text, out temp))
-            {
-                e.Cancel = true;
-                this.errorProvider.SetError(this.textBoxCatalogExecutiveWorkDays, "Doit être un nombre");
-            }
-
-            if (!int.TryParse(this.textBoxTestsDays.Text, out temp))
-            {
-                e.Cancel = true;
-                this.errorProvider.SetError(this.textBoxTestsDays, "Doit être un nombre");
+                this.errorProvider.SetError(this.textBoxCap, "Doit être un nombre");
             }
         }
 
-        public CatalogSupplyViewModel ViewModel
+        public string SupplyName
         {
-            get
-            {
-                return new CatalogSupplyViewModel
-                {
-                    CatalogId = this.catalogId,
-                    Name = this.textBoxName.Text,
-                    Reference = this.textBoxReference.Text,
-                    Category = this.comboBoxCategory.Text,
-                    ModuleSize = int.Parse(this.textBoxModuleSize.Text),
-                    CatalogPrice = double.Parse(this.textBoxCatalogPrice.Text, NumberStyles.Float, CultureInfo.InvariantCulture),
-                    StudyDays = int.Parse(this.textBoxStudyDays.Text),
-                    ReferenceDays = int.Parse(this.textBoxReferenceDays.Text),
-                    CatalogWorkDays = int.Parse(this.textBoxCatalogWorkDays.Text),
-                    CatalogExecutiveWorkDays = int.Parse(this.textBoxCatalogExecutiveWorkDays.Text),
-                    CatalogTestsDays = int.Parse(this.textBoxTestsDays.Text)
-                };
-            }
+            get { return this.textBoxName.Text; }
         }
 
-        public int CatalogId
+        public string Reference
         {
-            set { this.catalogId = value; }
+            get { return this.textBoxReference.Text; }
+        }
+
+        public string Category
+        {
+            get { return this.comboBoxCategory.Text; }
+        }
+
+        public int ModuleSize
+        {
+            get { return int.Parse(this.textBoxModuleSize.Text); }
+        }
+
+        public double CatalogPrice
+        {
+            get { return double.Parse(this.textBoxCatalogPrice.Text, NumberStyles.Float, CultureInfo.InvariantCulture); }
+        }
+
+        public int PFC12
+        {
+            get { return int.Parse(this.textBoxPFC12.Text); }
+        }
+
+        public int PFC0
+        {
+            get { return int.Parse(this.textBoxPFC0.Text); }
+        }
+
+        public int Cap
+        {
+            get { return int.Parse(this.textBoxCap.Text); }
         }
     }
 }

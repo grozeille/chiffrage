@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chiffrage.App", "Chiffrage.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chiffrage.Mvc", "Chiffrage.Mvc\Chiffrage.Mvc.csproj", "{771D2DDA-D611-4E74-8857-6E60C08536EE}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{A64F2F83-714E-43FA-98C2-889941269A25}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -58,6 +60,12 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{BD6DAC1A-3B56-4E12-84DE-E7BD79316FF6} = {A64F2F83-714E-43FA-98C2-889941269A25}
+		{BB8D0D2C-CF88-4B85-A001-14C234FCF0FD} = {A64F2F83-714E-43FA-98C2-889941269A25}
+		{E0FD926A-6B66-459F-A667-D5EFEF605129} = {A64F2F83-714E-43FA-98C2-889941269A25}
+		{28B2F9CD-626A-425C-8D41-CAB32F21134F} = {A64F2F83-714E-43FA-98C2-889941269A25}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Chiffrage\Chiffrage.csproj

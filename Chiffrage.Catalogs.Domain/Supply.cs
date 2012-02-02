@@ -14,16 +14,12 @@ namespace Chiffrage.Catalogs.Domain
 
         public virtual int ModuleSize { get; set; }
 
+        public virtual int PFC0 { get; set; }
+
+        public virtual int PFC12 { get; set; }
+
+        public virtual int Cap { get; set; }
+
         public virtual double CatalogPrice { get; set; }
-
-        public virtual double StudyDays { get; set; }
-
-        public virtual double ReferenceDays { get; set; }
-
-        public virtual double CatalogWorkDays { get; set; }
-
-        public virtual double CatalogExecutiveWorkDays { get; set; }
-
-        public virtual double CatalogTestsDays { get; set; }
     }
 }

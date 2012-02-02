@@ -22,6 +22,17 @@ namespace Chiffrage.WizardPages
             set { this.textBoxQuantity.Text = value.ToString(); }
         }
 
+        public string Comment
+        {
+            get { return this.commentUserContrl.Rtf; }
+            set
+            {
+                if (value == null || !(value.StartsWith("{\\rtf") && value.EndsWith("}")))
+                    value = "{\\rtf" + value + "}";
+                this.commentUserContrl.Rtf = value;
+            }
+        }
+
         protected override void OnValidating(CancelEventArgs e)
         {
             base.OnValidating(e);

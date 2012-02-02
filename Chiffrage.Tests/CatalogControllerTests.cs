@@ -39,12 +39,7 @@ namespace Chiffrage.Tests
                 Reference = "CB1",
                 ModuleSize = 1,
                 Category = "Cables",
-                CatalogPrice = 100.0,
-                CatalogExecutiveWorkDays = 1,
-                CatalogTestsDays = 1,
-                CatalogWorkDays = 1,
-                ReferenceDays = 1,
-                StudyDays = 2
+                CatalogPrice = 100.0
             };
             this.hardwareSupply = new HardwareSupply
             {

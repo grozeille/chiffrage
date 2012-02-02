@@ -29,7 +29,12 @@ namespace Chiffrage
 
             this.editHardwarePage = new GenericWizardSetting<EditHardwarePage>("Edition d'un matériel",
                                                                          "Vous pouvez ici éditer un matériel", true);
-            this.editHardwarePage.TypedPage.ViewModel = this.hardware;
+            this.editHardwarePage.TypedPage.HardwareName = this.hardware.Name;
+            this.editHardwarePage.TypedPage.ReferenceDays = this.hardware.ReferenceDays;
+            this.editHardwarePage.TypedPage.StudyDays = this.hardware.StudyDays;
+            this.editHardwarePage.TypedPage.CatalogExecutiveWorkDays = this.hardware.CatalogExecutiveWorkDays;
+            this.editHardwarePage.TypedPage.CatalogTestDays = this.hardware.CatalogTestsDays;
+            this.editHardwarePage.TypedPage.CatalogWorkDays = this.hardware.CatalogWorkDays;
 
             return new WizardSetting[] { this.editHardwarePage };
         }
@@ -39,9 +44,14 @@ namespace Chiffrage
             if(result == DialogResult.OK)
             {
                 var command = new UpdateHardwareCommand(
-                    editHardwarePage.TypedPage.ViewModel.CatalogId,
-                    editHardwarePage.TypedPage.ViewModel.Id,
-                    editHardwarePage.TypedPage.ViewModel.Name);
+                    hardware.CatalogId,
+                    hardware.Id,
+                    this.editHardwarePage.TypedPage.HardwareName,
+                    this.editHardwarePage.TypedPage.StudyDays,
+                    this.editHardwarePage.TypedPage.ReferenceDays,
+                    this.editHardwarePage.TypedPage.CatalogWorkDays,
+                    this.editHardwarePage.TypedPage.CatalogExecutiveWorkDays,
+                    this.editHardwarePage.TypedPage.CatalogTestDays);
                 this.EventBroker.Publish(command);
             }
         }

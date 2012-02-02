@@ -13,11 +13,9 @@ namespace Chiffrage.Catalogs.Dal.Mappings
             Map(x => x.Category);
             Map(x => x.ModuleSize);
             Map(x => x.CatalogPrice);
-            Map(x => x.StudyDays);
-            Map(x => x.ReferenceDays);
-            Map(x => x.CatalogWorkDays);
-            Map(x => x.CatalogExecutiveWorkDays);
-            Map(x => x.CatalogTestsDays);
+            Map(x => x.PFC0);
+            Map(x => x.PFC12);
+            Map(x => x.Cap);
         }
     }
 }

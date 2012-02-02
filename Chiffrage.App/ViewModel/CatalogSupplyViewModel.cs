@@ -16,14 +16,10 @@
 
         public double CatalogPrice { get; set; }
 
-        public double StudyDays { get; set; }
+        public virtual int PFC0 { get; set; }
 
-        public double ReferenceDays { get; set; }
+        public virtual int PFC12 { get; set; }
 
-        public double CatalogWorkDays { get; set; }
-
-        public double CatalogExecutiveWorkDays { get; set; }
-
-        public double CatalogTestsDays { get; set; }
+        public virtual int Cap { get; set; }
     }
 }

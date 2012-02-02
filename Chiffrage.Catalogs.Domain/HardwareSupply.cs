@@ -19,5 +19,7 @@
         }
 
         public virtual int Quantity { get; set; }
+
+        public virtual string Comment { get; set; }
     }
 }

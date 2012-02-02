@@ -338,11 +338,6 @@ namespace Chiffrage.App.Controllers
             result.CatalogId = catalogId;
             result.ModuleSize = result.Components.Sum(x => x.SupplyModuleSize * x.Quantity);
             result.CatalogPrice = result.Components.Sum(x => x.SupplyCatalogPrice * x.Quantity);
-            result.CatalogWorkDays = result.Components.Sum(x => x.SupplyCatalogWorkDays * x.Quantity);
-            result.CatalogExecutiveWorkDays = result.Components.Sum(x => x.SupplyCatalogExecutiveWorkDays * x.Quantity);
-            result.ReferenceDays = result.Components.Sum(x => x.SupplyReferenceDays * x.Quantity);
-            result.StudyDays = result.Components.Sum(x => x.SupplyStudyDays * x.Quantity);
-            result.CatalogTestsDays = result.Components.Sum(x => x.SupplyCatalogTestsDays * x.Quantity);
             foreach (var subItem in result.Components)
             {
                 subItem.CatalogId = catalogId;

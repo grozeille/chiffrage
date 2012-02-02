@@ -150,16 +150,7 @@ namespace Chiffrage.App.Controllers
 
         public void ProcessAction(ProjectSupplyCreatedEvent eventObject)
         {
-            Mapper.CreateMap<ProjectSupply, ProjectSupplyViewModel>();
-            var viewModel = Mapper.Map<ProjectSupply, ProjectSupplyViewModel>(eventObject.ProjectSupply);
-            viewModel.TotalModuleSize = eventObject.ProjectSupply.ModuleSize * eventObject.ProjectSupply.Quantity;
-            viewModel.TotalCatalogExecutiveWorkDays = eventObject.ProjectSupply.CatalogExecutiveWorkDays * eventObject.ProjectSupply.Quantity;
-            viewModel.TotalCatalogPrice = eventObject.ProjectSupply.CatalogPrice * eventObject.ProjectSupply.Quantity;
-            viewModel.TotalCatalogTestsDays = eventObject.ProjectSupply.CatalogTestsDays * eventObject.ProjectSupply.Quantity;
-            viewModel.TotalCatalogWorkDays = eventObject.ProjectSupply.CatalogWorkDays * eventObject.ProjectSupply.Quantity;
-            viewModel.TotalReferenceDays = eventObject.ProjectSupply.ReferenceDays * eventObject.ProjectSupply.Quantity;
-            viewModel.TotalStudyDays = eventObject.ProjectSupply.StudyDays * eventObject.ProjectSupply.Quantity;
-            viewModel.ProjectId = eventObject.ProjectId;
+            var viewModel = Map(eventObject.ProjectSupply, eventObject.ProjectId);
 
             this.projectView.AddSupply(viewModel);
         }
@@ -192,12 +183,7 @@ namespace Chiffrage.App.Controllers
                 {
                     item.CatalogId = catalog.Id;
                     item.ModuleSize = item.Components.Sum(x => x.SupplyModuleSize * x.Quantity);
-                    item.CatalogExecutiveWorkDays = item.Components.Sum(x => x.SupplyCatalogWorkDays * x.Quantity);
                     item.CatalogPrice = item.Components.Sum(x => x.SupplyCatalogPrice * x.Quantity);
-                    item.CatalogTestsDays = item.Components.Sum(x => x.SupplyCatalogTestsDays * x.Quantity);
-                    item.CatalogWorkDays = item.Components.Sum(x => x.SupplyCatalogWorkDays * x.Quantity);
-                    item.ReferenceDays = item.Components.Sum(x => x.SupplyReferenceDays * x.Quantity);
-                    item.StudyDays = item.Components.Sum(x => x.SupplyStudyDays * x.Quantity);
                     foreach (var subItem in item.Components)
                     {
                         subItem.HardwareId = item.Id;
@@ -227,13 +213,8 @@ namespace Chiffrage.App.Controllers
             var viewModel = Mapper.Map<ProjectHardware, ProjectHardwareViewModel>(hardware);
 
             viewModel.ModuleSize = hardware.Components.Sum(x => x.Supply.ModuleSize * x.Quantity);
-            viewModel.CatalogExecutiveWorkDays = hardware.Components.Sum(x => x.Supply.CatalogExecutiveWorkDays * x.Quantity);
             viewModel.CatalogPrice = hardware.Components.Sum(x => x.Supply.CatalogPrice * x.Quantity);
-            viewModel.CatalogTestsDays = hardware.Components.Sum(x => x.Supply.CatalogTestsDays * x.Quantity);
-            viewModel.CatalogWorkDays = hardware.Components.Sum(x => x.Supply.CatalogWorkDays * x.Quantity);
-            viewModel.ReferenceDays = hardware.Components.Sum(x => x.Supply.ReferenceDays * x.Quantity);
-            viewModel.StudyDays = hardware.Components.Sum(x => x.Supply.StudyDays * x.Quantity);
-
+            
             viewModel.TotalModuleSize = viewModel.ModuleSize * viewModel.Quantity;
             viewModel.TotalCatalogExecutiveWorkDays = viewModel.CatalogExecutiveWorkDays * viewModel.Quantity;
             viewModel.TotalCatalogPrice = viewModel.CatalogPrice * viewModel.Quantity;
@@ -253,13 +234,11 @@ namespace Chiffrage.App.Controllers
             var viewModel = Mapper.Map<ProjectSupply, ProjectSupplyViewModel>(supply);
 
             viewModel.TotalModuleSize = viewModel.ModuleSize * viewModel.Quantity;
-            viewModel.TotalCatalogExecutiveWorkDays = viewModel.CatalogExecutiveWorkDays * viewModel.Quantity;
             viewModel.TotalCatalogPrice = viewModel.CatalogPrice * viewModel.Quantity;
-            viewModel.TotalCatalogTestsDays = viewModel.CatalogTestsDays * viewModel.Quantity;
-            viewModel.TotalCatalogWorkDays = viewModel.CatalogWorkDays * viewModel.Quantity;
-            viewModel.TotalReferenceDays = viewModel.ReferenceDays * viewModel.Quantity;
-            viewModel.TotalStudyDays = viewModel.StudyDays * viewModel.Quantity;
-
+            viewModel.TotalPFC12 = viewModel.PFC12 * viewModel.Quantity;
+            viewModel.TotalPFC0 = viewModel.PFC0 * viewModel.Quantity;
+            viewModel.TotalCap = viewModel.Cap * viewModel.Quantity;
+            
             return viewModel;
         }
 

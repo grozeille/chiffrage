@@ -172,6 +172,7 @@ namespace Chiffrage.Catalogs.Domain.Services
             var hardwareSupply = new HardwareSupply
             {
                 Quantity = eventObject.Quantity,
+                Comment = eventObject.Comment,
                 Supply = supply
             };
 

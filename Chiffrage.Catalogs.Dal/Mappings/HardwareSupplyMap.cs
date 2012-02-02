@@ -9,6 +9,7 @@ namespace Chiffrage.Catalogs.Dal.Mappings
         {
             Id(x => x.Id);
             Map(x => x.Quantity);
+            Map(x => x.Comment);
             References(x => x.Supply)
                 .Not.LazyLoad()
                 .Cascade.SaveUpdate();

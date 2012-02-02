@@ -27,8 +27,6 @@ namespace Chiffrage
 
             this.newSupplyPage = new GenericWizardSetting<NewSupplyPage>("Création d'une fourniture",
                                                                          "Vous pouvez ici créer une nouvelle fourniture", true);
-            this.newSupplyPage.TypedPage.CatalogId = this.catalogId;
-
             return new WizardSetting[] { this.newSupplyPage };
         }
 
@@ -37,17 +35,15 @@ namespace Chiffrage
             if(result == DialogResult.OK)
             {
                 var command = new CreateNewSupplyCommand(
-                    newSupplyPage.TypedPage.ViewModel.CatalogId,
-                    newSupplyPage.TypedPage.ViewModel.Name,
-                    newSupplyPage.TypedPage.ViewModel.Reference,
-                    newSupplyPage.TypedPage.ViewModel.Category,
-                    newSupplyPage.TypedPage.ViewModel.ModuleSize,
-                    newSupplyPage.TypedPage.ViewModel.CatalogPrice,
-                    newSupplyPage.TypedPage.ViewModel.StudyDays,
-                    newSupplyPage.TypedPage.ViewModel.ReferenceDays,
-                    newSupplyPage.TypedPage.ViewModel.CatalogWorkDays,
-                    newSupplyPage.TypedPage.ViewModel.CatalogExecutiveWorkDays,
-                    newSupplyPage.TypedPage.ViewModel.CatalogTestsDays);
+                    this.catalogId,
+                    newSupplyPage.TypedPage.SupplyName,
+                    newSupplyPage.TypedPage.Reference,
+                    newSupplyPage.TypedPage.Category,
+                    newSupplyPage.TypedPage.ModuleSize,
+                    newSupplyPage.TypedPage.CatalogPrice,
+                    newSupplyPage.TypedPage.PFC12,
+                    newSupplyPage.TypedPage.PFC0,
+                    newSupplyPage.TypedPage.Cap);
                 this.EventBroker.Publish(command);
             }
         }
