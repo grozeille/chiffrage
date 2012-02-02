@@ -34,6 +34,7 @@ namespace Chiffrage.Mvc.Views
             base.OnLoad(e);
             if (this.wizardSettings != null)
             {
+                this.currentPosition = 0;
                 foreach (var page in this.wizardSettings)
                 {
                     page.Page.Validated += new EventHandler(this.Page_Validated);
@@ -82,6 +83,7 @@ namespace Chiffrage.Mvc.Views
             this.CurrentSetting.Page.Focus();
             this.labelTitle.Text = this.CurrentSetting.Title;
             this.labelDescription.Text = this.CurrentSetting.Description;
+
             this.RefreshNavigation();
         }
 
@@ -91,8 +93,7 @@ namespace Chiffrage.Mvc.Views
                                           this.currentPosition == this.wizardSettings.Length - 1);
             // && this.CurrentSetting.Validated;
             this.buttonBack.Enabled = this.currentPosition > 0;
-            this.buttonNext.Enabled = this.currentPosition < this.wizardSettings.Length - 1 &&
-                                      this.CurrentSetting.Validated;
+            this.buttonNext.Enabled = this.currentPosition < this.wizardSettings.Length - 1;
         }
 
         private void HideNavigation()

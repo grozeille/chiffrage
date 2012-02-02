@@ -34,10 +34,9 @@ namespace Chiffrage.Mvc.Views
                 this.Parent = Application.OpenForms[0];
             }
 
-            this.Form.WizardSettings = this.BuildWizardPages();
-
             this.Parent.BeginInvoke(new Action(() =>
             {
+                this.Form.WizardSettings = this.BuildWizardPages();
                 var result = this.Form.ShowDialog(this.Parent);
                 this.OnWizardClosed(result);
             }));

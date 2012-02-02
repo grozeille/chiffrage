@@ -29,7 +29,7 @@ namespace Chiffrage
             {
                 this.SetRtf(value);                
             }
-        }
+        }  
 
         private void SetText(string value)
         {

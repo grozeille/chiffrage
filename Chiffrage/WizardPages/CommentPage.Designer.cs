@@ -37,7 +37,6 @@
             this.commentUserContrl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.commentUserContrl.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.commentUserContrl.Location = new System.Drawing.Point(3, 27);
             this.commentUserContrl.Name = "commentUserContrl";
             this.commentUserContrl.Rtf = "{\\rtf1\\ansi\\ansicpg1252\\deff0\\deflang1036{\\fonttbl{\\f0\\fnil\\fcharset0 Microsoft S" +
