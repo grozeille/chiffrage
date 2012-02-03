@@ -24,7 +24,7 @@ namespace Chiffrage
         {
         }
 
-        protected override WizardSetting[] BuildWizardPages()
+        protected override IWizardSettingIterator BuildWizardPages()
         {
 
             this.editHardwareSupplyPage = new GenericWizardSetting<EditHardwareSupplyPage>("Edition d'un composant de matériel",
@@ -32,7 +32,7 @@ namespace Chiffrage
             this.editHardwareSupplyPage.TypedPage.Quantity = this.hardwareSupply.Quantity;
             this.editHardwareSupplyPage.TypedPage.Comment = this.hardwareSupply.Comment;
 
-            return new WizardSetting[] { this.editHardwareSupplyPage };
+            return new WizardSettingListIterator(this.editHardwareSupplyPage);
         }
 
         protected override void OnWizardClosed(DialogResult result)
@@ -52,6 +52,11 @@ namespace Chiffrage
         public CatalogHardwareSupplyViewModel HardwareSupply
         {
             set { this.hardwareSupply = value; }
+        }
+
+        public override string Name
+        {
+            get { return "Edition de composant de matériel"; }
         }
     }
 }

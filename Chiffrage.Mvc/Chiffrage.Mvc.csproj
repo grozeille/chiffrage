@@ -78,6 +78,15 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Views\IView.cs" />
+    <Compile Include="Views\IWizardSettingIterator.cs" />
+    <Compile Include="Views\WizardPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\WizardPage.Designer.cs">
+      <DependentUpon>WizardPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WizardViewListIterator.cs" />
+    <Compile Include="Views\WizardSettingListIterator.cs" />
     <Compile Include="Views\WizardView.cs" />
     <Compile Include="Views\UserControlView.cs">
       <SubType>UserControl</SubType>
@@ -93,6 +102,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Views\WizardForm.resx">
       <DependentUpon>WizardForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\WizardPage.resx">
+      <DependentUpon>WizardPage.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

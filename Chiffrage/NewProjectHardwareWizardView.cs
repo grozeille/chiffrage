@@ -26,12 +26,12 @@ namespace Chiffrage
         {
         }
 
-        protected override WizardSetting[] BuildWizardPages()
+        protected override IWizardSettingIterator BuildWizardPages()
         {
             this.newProjectSupplyPage = new GenericWizardSetting<NewProjectHardwarePage>("Ajout d'un composant", "Ajouter un composant au project", true);
             this.newProjectSupplyPage.TypedPage.Hardwares = this.hardwares;
 
-            return new WizardSetting[] { this.newProjectSupplyPage };
+            return new WizardSettingListIterator(this.newProjectSupplyPage);
         }
 
         protected override void OnWizardClosed(DialogResult result)
@@ -57,6 +57,11 @@ namespace Chiffrage
         public IList<CatalogHardwareViewModel> Hardwares
         {
             set { this.hardwares = value; }
+        }
+
+        public override string Name
+        {
+            get { return "Ajout de matériel"; }
         }
     }
 }

@@ -31,13 +31,13 @@ namespace Chiffrage
             
         }
 
-        protected override WizardSetting[] BuildWizardPages()
+        protected override IWizardSettingIterator BuildWizardPages()
         {
             this.newHardwareSupplyPage = new GenericWizardSetting<NewHardwareSupplyPage>("Nouveau composant de matériel", "Ajout d'un composant au matériel", true);
             this.newHardwareSupplyPage.TypedPage.Supplies = this.supplies;
             this.commentPage = new GenericWizardSetting<CommentPage>("Nouveau composant de matériel", "Ajout d'un composant au matériel", true);
 
-            return new WizardSetting[] { this.newHardwareSupplyPage, this.commentPage };
+            return new WizardSettingListIterator(this.newHardwareSupplyPage, this.commentPage);
         }
 
         protected override void OnWizardClosed(DialogResult result)
@@ -49,7 +49,7 @@ namespace Chiffrage
                     this.parentHardwareId, 
                     this.newHardwareSupplyPage.TypedPage.SelectedSupply, 
                     this.newHardwareSupplyPage.TypedPage.Quantity,
-                    null)); // TODO: add the comment from a second page
+                    this.commentPage.TypedPage.Comment));
             }
         }
 
@@ -67,6 +67,11 @@ namespace Chiffrage
         public int ParentHardwareId
         {
             set { this.parentHardwareId = value; }
+        }
+
+        public override string Name
+        {
+            get { return "Ajout de composant de matériel"; }
         }
     }
 }

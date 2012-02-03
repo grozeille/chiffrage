@@ -132,6 +132,7 @@
     <Compile Include="ApplicationForm.Designer.cs">
       <DependentUpon>ApplicationForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="NewWizardWizardView.cs" />
     <Compile Include="NewProjectHardwareWizardView.cs" />
     <Compile Include="EditHardwareSupplyWizardView.cs" />
     <Compile Include="NewProjectSupplyWizardView.cs" />

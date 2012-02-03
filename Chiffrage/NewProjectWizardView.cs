@@ -23,11 +23,11 @@ namespace Chiffrage
         {
         }
 
-        protected override WizardSetting[] BuildWizardPages()
+        protected override IWizardSettingIterator BuildWizardPages()
         {
             this.newProjectPage = new GenericWizardSetting<NewProjectPage>("Nouveau projet", "Création d'une nouveau projet", true);
 
-            return new WizardSetting[] { this.newProjectPage };
+            return new WizardSettingListIterator(this.newProjectPage);
         }
 
         protected override void OnWizardClosed(DialogResult result)
@@ -41,6 +41,11 @@ namespace Chiffrage
         public int ParentDealId
         {
             set { this.parentDealId = value; }
+        }
+
+        public override string Name
+        {
+            get { return "Nouveau projet"; }
         }
     }
 }

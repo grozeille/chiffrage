@@ -26,12 +26,12 @@ namespace Chiffrage
         {
         }
 
-        protected override WizardSetting[] BuildWizardPages()
+        protected override IWizardSettingIterator BuildWizardPages()
         {
             this.newProjectSupplyPage = new GenericWizardSetting<NewProjectSupplyPage>("Ajout d'un composant", "Ajouter un composant au project", true);
             this.newProjectSupplyPage.TypedPage.Supplies = this.supplies;
 
-            return new WizardSetting[] { this.newProjectSupplyPage };
+            return new WizardSettingListIterator(this.newProjectSupplyPage);
         }
 
         protected override void OnWizardClosed(DialogResult result)
@@ -57,6 +57,11 @@ namespace Chiffrage
         public IList<CatalogSupplyViewModel> Supplies
         {
             set { this.supplies = value; }
+        }
+
+        public override string Name
+        {
+            get { return "Ajout de fourniture"; }
         }
     }
 }

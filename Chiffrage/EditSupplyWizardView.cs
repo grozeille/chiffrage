@@ -24,7 +24,7 @@ namespace Chiffrage
         {
         }
 
-        protected override WizardSetting[] BuildWizardPages()
+        protected override IWizardSettingIterator BuildWizardPages()
         {
 
             this.editSupplyPage = new GenericWizardSetting<EditSupplyPage>("Edition d'une fourniture",
@@ -38,7 +38,7 @@ namespace Chiffrage
             this.editSupplyPage.TypedPage.PFC0 = this.supply.PFC0;
             this.editSupplyPage.TypedPage.Cap = this.supply.Cap;
 
-            return new WizardSetting[] { this.editSupplyPage };
+            return new WizardSettingListIterator(this.editSupplyPage);
         }
 
         protected override void OnWizardClosed(DialogResult result)
@@ -63,6 +63,11 @@ namespace Chiffrage
         public CatalogSupplyViewModel Supply
         {
             set { this.supply = value; }
+        }
+
+        public override string Name
+        {
+            get { return "Edition de fourniture"; }
         }
     }
 }

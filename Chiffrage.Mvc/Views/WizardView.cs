@@ -5,6 +5,7 @@ using System.Text;
 using System.Windows.Forms;
 using Chiffrage.Mvc.Events;
 using Chiffrage.Mvc.Exceptions;
+using System.Drawing;
 
 namespace Chiffrage.Mvc.Views
 {
@@ -15,6 +16,21 @@ namespace Chiffrage.Mvc.Views
         protected Control Parent;
 
         protected readonly WizardForm Form;
+
+        public virtual Icon Icon
+        {
+            get 
+            {
+                return null;
+            }
+        }
+
+        public abstract String Name
+        {
+            get;
+        }
+
+        private IWizardSettingIterator wizardSettingIterator;
 
         protected WizardView(IEventBroker eventBroker)
         {
@@ -27,7 +43,7 @@ namespace Chiffrage.Mvc.Views
             this.Parent = parent;
         }
 
-        public void ShowView()
+        public void PrepareView()
         {
             if (this.Parent == null)
             {
@@ -36,13 +52,37 @@ namespace Chiffrage.Mvc.Views
 
             this.Parent.BeginInvoke(new Action(() =>
             {
-                this.Form.WizardSettings = this.BuildWizardPages();
+                this.wizardSettingIterator = this.BuildWizardPages();
+            }));
+        }
+
+        public void ShowView()
+        {
+            if (this.Parent == null)
+            {
+                this.Parent = Application.OpenForms[0];
+            }
+
+            
+            this.Parent.BeginInvoke(new Action(() =>
+            {
+                this.Form.Text = this.Name;
+                this.wizardSettingIterator = this.BuildWizardPages();
+                this.Form.WizardSettings = this.wizardSettingIterator;
                 var result = this.Form.ShowDialog(this.Parent);
                 this.OnWizardClosed(result);
             }));
         }
 
-        protected abstract WizardSetting[] BuildWizardPages();
+        protected abstract IWizardSettingIterator BuildWizardPages();
+
+        public IWizardSettingIterator WizardSettingIterator
+        {
+            get
+            {
+                return this.wizardSettingIterator;
+            }
+        }
 
         protected abstract void OnWizardClosed(DialogResult result);
 

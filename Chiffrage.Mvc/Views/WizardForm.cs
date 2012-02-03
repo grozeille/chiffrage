@@ -9,45 +9,53 @@ namespace Chiffrage.Mvc.Views
 {
     public partial class WizardForm : Form
     {
-        private int currentPosition = 0;
-        private WizardSetting[] wizardSettings;
+        private IWizardSettingIterator wizardSettings;
+
+        private EventHandler pageValidatedEventHandler;
+
+        private CancelEventHandler pageValidatingEventHandler;
 
         public WizardForm()
         {
             this.InitializeComponent();
 
+            this.pageValidatedEventHandler = new EventHandler(this.Page_Validated);
+
+            this.pageValidatingEventHandler = new CancelEventHandler(this.Page_Validating);
+
             this.buttonCancel.CausesValidation = false;
         }
 
-        public WizardSetting[] WizardSettings
+        public IWizardSettingIterator WizardSettings
         {
             set { this.wizardSettings = value; }
         }
 
         protected WizardSetting CurrentSetting
         {
-            get { return this.wizardSettings[this.currentPosition]; }
+            get { return this.wizardSettings.Current; }
         }
 
         protected override void OnLoad(EventArgs e)
         {
+            
             base.OnLoad(e);
             if (this.wizardSettings != null)
             {
-                this.currentPosition = 0;
-                foreach (var page in this.wizardSettings)
-                {
-                    page.Page.Validated += new EventHandler(this.Page_Validated);
-                    page.Page.Validating += new CancelEventHandler(this.Page_Validating);
-                }
+                //foreach (var page in this.wizardSettings)
+                //{
+                //    page.Page.Validated += new EventHandler(this.Page_Validated);
+                //    page.Page.Validating += new CancelEventHandler(this.Page_Validating);
+                //}
 
-                if (this.wizardSettings.Count() > 1)
+                this.wizardSettings.Reset();
+                if (this.wizardSettings.IsLast && this.wizardSettings.IsFirst)
                 {
-                    this.DisplayNavigation();
+                    this.HideNavigation(); 
                 }
                 else
                 {
-                    this.HideNavigation();
+                    this.DisplayNavigation();
                 }
                 this.DisplayCurrentPage();
             }
@@ -89,11 +97,10 @@ namespace Chiffrage.Mvc.Views
 
         private void RefreshNavigation()
         {
-            this.buttonFinish.Enabled = (this.CurrentSetting.CanFinish ||
-                                          this.currentPosition == this.wizardSettings.Length - 1);
+            this.buttonFinish.Enabled = (this.CurrentSetting.CanFinish || this.wizardSettings.IsLast);
             // && this.CurrentSetting.Validated;
-            this.buttonBack.Enabled = this.currentPosition > 0;
-            this.buttonNext.Enabled = this.currentPosition < this.wizardSettings.Length - 1;
+            this.buttonBack.Enabled = !this.wizardSettings.IsFirst;
+            this.buttonNext.Enabled = !this.wizardSettings.IsLast;
         }
 
         private void HideNavigation()
@@ -112,7 +119,11 @@ namespace Chiffrage.Mvc.Views
         {
             if (this.ValidateChildren())
             {
-                this.currentPosition--;
+                this.wizardSettings.Current.Page.Validated -= this.pageValidatedEventHandler;
+                this.wizardSettings.Current.Page.Validating -= this.pageValidatingEventHandler;
+                this.wizardSettings.MovePrevious();
+                this.wizardSettings.Current.Page.Validated += this.pageValidatedEventHandler;
+                this.wizardSettings.Current.Page.Validating += this.pageValidatingEventHandler;
                 this.DisplayCurrentPage();
             }
         }
@@ -121,7 +132,11 @@ namespace Chiffrage.Mvc.Views
         {
             if (this.ValidateChildren())
             {
-                this.currentPosition++;
+                this.wizardSettings.Current.Page.Validated -= this.pageValidatedEventHandler;
+                this.wizardSettings.Current.Page.Validating -= this.pageValidatingEventHandler;
+                this.wizardSettings.MoveNext();
+                this.wizardSettings.Current.Page.Validated += this.pageValidatedEventHandler;
+                this.wizardSettings.Current.Page.Validating += this.pageValidatingEventHandler;
                 this.DisplayCurrentPage();
             }
         }

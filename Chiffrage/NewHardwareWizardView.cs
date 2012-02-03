@@ -23,11 +23,11 @@ namespace Chiffrage
         {
         }
 
-        protected override WizardSetting[] BuildWizardPages()
+        protected override IWizardSettingIterator BuildWizardPages()
         {
             this.newHardwarePage = new GenericWizardSetting<NewHardwarePage>("Création d'une matériel",
                                                                          "Vous pouvez ici créer un nouveau matériel", true);
-            return new WizardSetting[] { this.newHardwarePage };
+            return new WizardSettingListIterator(this.newHardwarePage);
         }
 
         protected override void OnWizardClosed(DialogResult result)
@@ -48,6 +48,11 @@ namespace Chiffrage
         public int CatalogId
         {
             set { this.catalogId = value; }
+        }
+
+        public override string Name
+        {
+            get { return "Nouveau matériel"; }
         }
     }
 }

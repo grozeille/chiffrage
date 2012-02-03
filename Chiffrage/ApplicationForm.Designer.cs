@@ -191,7 +191,7 @@
             // 
             this.catalogueToolStripMenuItem1.Image = global::Chiffrage.Properties.Resources.book_open;
             this.catalogueToolStripMenuItem1.Name = "catalogueToolStripMenuItem1";
-            this.catalogueToolStripMenuItem1.Size = new System.Drawing.Size(128, 22);
+            this.catalogueToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
             this.catalogueToolStripMenuItem1.Text = "Catalogue";
             // 
             // toolStripSeparator
@@ -224,19 +224,20 @@
             this.newToolStripSplitButton.Name = "newToolStripSplitButton";
             this.newToolStripSplitButton.Size = new System.Drawing.Size(87, 22);
             this.newToolStripSplitButton.Text = "Nouveau";
+            this.newToolStripSplitButton.ButtonClick += new System.EventHandler(this.newToolStripSplitButton_ButtonClick);
             // 
             // affaireToolStripMenuItem2
             // 
             this.affaireToolStripMenuItem2.Image = global::Chiffrage.Properties.Resources.user_suit;
             this.affaireToolStripMenuItem2.Name = "affaireToolStripMenuItem2";
-            this.affaireToolStripMenuItem2.Size = new System.Drawing.Size(128, 22);
+            this.affaireToolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
             this.affaireToolStripMenuItem2.Text = "Affaire";
             // 
             // projetToolStripMenuItem2
             // 
             this.projetToolStripMenuItem2.Image = global::Chiffrage.Properties.Resources.report;
             this.projetToolStripMenuItem2.Name = "projetToolStripMenuItem2";
-            this.projetToolStripMenuItem2.Size = new System.Drawing.Size(128, 22);
+            this.projetToolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
             this.projetToolStripMenuItem2.Text = "Projet";
             // 
             // helpToolStripButton

@@ -19,13 +19,13 @@ namespace Chiffrage
         public NewCatalogWizardView(IEventBroker eventBroker)
             : base(eventBroker)
         {
-        }        
+        }
 
-        protected override WizardSetting[] BuildWizardPages()
+        protected override IWizardSettingIterator BuildWizardPages()
         {
             this.newCatalogPage = new GenericWizardSetting<NewCatalogPage>("Nouveau catalogue", "Création d'un nouveau catalogue fournisseur", true);
 
-            return new[]{ this.newCatalogPage };
+            return new WizardSettingListIterator(this.newCatalogPage);
         }
 
         protected override void OnWizardClosed(DialogResult result)
@@ -34,6 +34,11 @@ namespace Chiffrage
             {
                 this.EventBroker.Publish(new CreateNewCatalogCommand(newCatalogPage.TypedPage.SupplierName));
             }
+        }
+
+        public override string Name
+        {
+            get { return "Nouveau catalogue"; }
         }
     }
 }

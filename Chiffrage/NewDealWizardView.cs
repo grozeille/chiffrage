@@ -20,11 +20,11 @@ namespace Chiffrage
         {
         }
 
-        protected override WizardSetting[] BuildWizardPages()
+        protected override IWizardSettingIterator BuildWizardPages()
         {
             this.newDealPage = new GenericWizardSetting<NewDealPage>("Nouvelle affaire", "Création d'une nouvelle affaire", true);
 
-            return new WizardSetting[] { this.newDealPage };
+            return new WizardSettingListIterator(this.newDealPage);
         }
 
         protected override void OnWizardClosed(DialogResult result)
@@ -33,6 +33,11 @@ namespace Chiffrage
             {
                 this.EventBroker.Publish(new CreateNewDealCommand(newDealPage.TypedPage.DealName));
             }
+        }
+
+        public override string Name
+        {
+            get { return "Nouvelle affaire"; }
         }
     }
 }

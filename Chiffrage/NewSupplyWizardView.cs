@@ -22,12 +22,12 @@ namespace Chiffrage
         {
         }
 
-        protected override WizardSetting[] BuildWizardPages()
+        protected override IWizardSettingIterator BuildWizardPages()
         {
 
             this.newSupplyPage = new GenericWizardSetting<NewSupplyPage>("Création d'une fourniture",
                                                                          "Vous pouvez ici créer une nouvelle fourniture", true);
-            return new WizardSetting[] { this.newSupplyPage };
+            return new WizardSettingListIterator(this.newSupplyPage);
         }
 
         protected override void OnWizardClosed(DialogResult result)
@@ -51,6 +51,11 @@ namespace Chiffrage
         public int CatalogId
         {
             set { this.catalogId = value; }
+        }
+
+        public override string Name
+        {
+            get { return "Nouvelle fourniture"; }
         }
     }
 }
