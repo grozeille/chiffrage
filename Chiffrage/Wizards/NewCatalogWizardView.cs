@@ -10,7 +10,7 @@ using Chiffrage.Mvc.Events;
 using Chiffrage.App.Events;
 using Chiffrage.Catalogs.Domain.Commands;
 
-namespace Chiffrage
+namespace Chiffrage.Wizards
 {
     public class NewCatalogWizardView : WizardView, INewCatalogView
     {

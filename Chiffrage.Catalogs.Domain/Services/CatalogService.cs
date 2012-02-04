@@ -211,6 +211,7 @@ namespace Chiffrage.Catalogs.Domain.Services
             var hardwareSupply = hardware.Components.Where(x => x.Id == eventObject.HardwareSupplyId).First();
 
             hardwareSupply.Quantity = eventObject.Quantity;
+            hardwareSupply.Comment = eventObject.Comment;
 
             this.repository.Save(catalog);
 

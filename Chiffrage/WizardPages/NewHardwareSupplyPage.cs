@@ -28,7 +28,7 @@ namespace Chiffrage.WizardPages
         {
             base.OnLoad(e);
 
-            this.catalogSupplyViewModelBindingSource.DataSource = this.supplies; ;
+            this.catalogSupplyViewModelBindingSource.DataSource = new SortableBindingList<CatalogSupplyViewModel>(this.supplies);
             this.catalogSupplyViewModelBindingSource.ResetBindings(false);
         }
 
@@ -260,6 +260,26 @@ namespace Chiffrage.WizardPages
             this.catalogSupplyViewModelBindingSource.DataSource = this.supplies.Where(x => searchRegex.IsMatch(x.Name) || searchRegex.IsMatch(x.Reference)).ToList();
             this.catalogSupplyViewModelBindingSource.ResetBindings(false);
             this.timerFilter.Enabled = false;
+        }
+
+        private void dataGridView_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            /*var col = dataGridView.Columns[e.ColumnIndex];
+            if (this.dataGridView.SortedColumn == col)
+            {
+                if (this.dataGridView.SortOrder == SortOrder.Ascending)
+                {
+                    this.dataGridView.Sort(col, ListSortDirection.Descending);
+                }
+                else
+                {
+                    this.dataGridView.Sort(col, ListSortDirection.Ascending);
+                }
+            }
+            else
+            {
+                this.dataGridView.Sort(col, ListSortDirection.Ascending);
+            }*/
         }
     }
 }

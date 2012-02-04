@@ -338,10 +338,16 @@ namespace Chiffrage.App.Controllers
             result.CatalogId = catalogId;
             result.ModuleSize = result.Components.Sum(x => x.SupplyModuleSize * x.Quantity);
             result.CatalogPrice = result.Components.Sum(x => x.SupplyCatalogPrice * x.Quantity);
+
+            // no better way...
+            System.Windows.Forms.RichTextBox rtBox = new System.Windows.Forms.RichTextBox();
+
             foreach (var subItem in result.Components)
             {
                 subItem.CatalogId = catalogId;
                 subItem.HardwareId = result.Id;
+                rtBox.Rtf = subItem.Comment;
+                subItem.Comment = rtBox.Text;
             }
 
             return result;
@@ -363,7 +369,17 @@ namespace Chiffrage.App.Controllers
 
         public void ProcessAction(RequestEditHardwareSupplyEvent eventObject)
         {
-            this.editHardwareSupplyView.HardwareSupply = eventObject.HardwareSupply;
+            var catalog = this.repository.FindById(eventObject.CatalogId);
+            var hardware = catalog.Hardwares.Where(x => x.Id == eventObject.HardwareId).First();
+            var hardwareSupply = hardware.Components.Where(x => x.Id == eventObject.HardwareSupplyId).First();
+
+            Mapper.CreateMap<HardwareSupply, CatalogHardwareSupplyViewModel>();
+            
+            var viewModel = Mapper.Map<HardwareSupply, CatalogHardwareSupplyViewModel>(hardwareSupply);
+            viewModel.CatalogId = eventObject.CatalogId;
+            viewModel.HardwareId = eventObject.HardwareId;
+
+            this.editHardwareSupplyView.HardwareSupply = viewModel;
             this.editHardwareSupplyView.ShowView();
         }
     }

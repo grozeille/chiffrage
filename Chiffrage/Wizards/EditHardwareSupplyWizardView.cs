@@ -11,7 +11,7 @@ using Chiffrage.Mvc.Views;
 using Chiffrage.WizardPages;
 using Chiffrage.Catalogs.Domain.Commands;
 
-namespace Chiffrage
+namespace Chiffrage.Wizards
 {
     public class EditHardwareSupplyWizardView : WizardView, IEditHardwareSupplyView
     {

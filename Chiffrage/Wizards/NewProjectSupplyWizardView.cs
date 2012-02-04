@@ -11,25 +11,25 @@ using Chiffrage.App.Events;
 using Chiffrage.Projects.Domain.Commands;
 using Chiffrage.App.ViewModel;
 
-namespace Chiffrage
+namespace Chiffrage.Wizards
 {
-    public class NewProjectHardwareWizardView : WizardView, INewProjectHardwareView
+    public class NewProjectSupplyWizardView : WizardView, INewProjectSupplyView
     {
-        private GenericWizardSetting<NewProjectHardwarePage> newProjectSupplyPage;
+        private GenericWizardSetting<NewProjectSupplyPage> newProjectSupplyPage;
 
         private int projectId;
 
-        private IList<CatalogHardwareViewModel> hardwares;
+        private IList<CatalogSupplyViewModel> supplies;
 
-        public NewProjectHardwareWizardView(IEventBroker eventBroker)
+        public NewProjectSupplyWizardView(IEventBroker eventBroker)
             : base(eventBroker)
         {
         }
 
         protected override IWizardSettingIterator BuildWizardPages()
         {
-            this.newProjectSupplyPage = new GenericWizardSetting<NewProjectHardwarePage>("Ajout d'un composant", "Ajouter un composant au project", true);
-            this.newProjectSupplyPage.TypedPage.Hardwares = this.hardwares;
+            this.newProjectSupplyPage = new GenericWizardSetting<NewProjectSupplyPage>("Ajout d'un composant", "Ajouter un composant au project", true);
+            this.newProjectSupplyPage.TypedPage.Supplies = this.supplies;
 
             return new WizardSettingListIterator(this.newProjectSupplyPage);
         }
@@ -38,10 +38,10 @@ namespace Chiffrage
         {
             if (result == DialogResult.OK)
             {
-                var command = new CreateNewProjectHardwareCommand(
+                var command = new CreateNewProjectSupplyCommand(
                     projectId,
-                    newProjectSupplyPage.TypedPage.CatalogHardwareViewModel.CatalogId,
-                    newProjectSupplyPage.TypedPage.CatalogHardwareViewModel.Id,
+                    newProjectSupplyPage.TypedPage.CatalogSupplyViewModel.CatalogId,
+                    newProjectSupplyPage.TypedPage.CatalogSupplyViewModel.Id,
                     newProjectSupplyPage.TypedPage.Quantity);
 
                 this.EventBroker.Publish(command);
@@ -54,14 +54,14 @@ namespace Chiffrage
             set { this.projectId = value; }
         }
 
-        public IList<CatalogHardwareViewModel> Hardwares
+        public IList<CatalogSupplyViewModel> Supplies
         {
-            set { this.hardwares = value; }
+            set { this.supplies = value; }
         }
 
         public override string Name
         {
-            get { return "Ajout de matériel"; }
+            get { return "Ajout de fourniture"; }
         }
     }
 }

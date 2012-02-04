@@ -11,7 +11,7 @@ using Chiffrage.App.Events;
 using Chiffrage.App.ViewModel;
 using Chiffrage.Catalogs.Domain.Commands;
 
-namespace Chiffrage
+namespace Chiffrage.Wizards
 {
     public class NewHardwareSupplyWizardView : WizardView, INewHardwareSupplyView
     {

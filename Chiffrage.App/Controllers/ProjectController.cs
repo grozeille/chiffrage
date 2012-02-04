@@ -28,6 +28,7 @@ namespace Chiffrage.App.Controllers
         IGenericEventHandler<ProjectSupplyCreatedEvent>,
         IGenericEventHandler<ProjectSupplyDeletedEvent>,
         IGenericEventHandler<RequestEditProjectSupplyEvent>,
+        IGenericEventHandler<RequestEditProjectHardwareEvent>,
         IGenericEventHandler<RequestNewProjectHardwareEvent>,
         IGenericEventHandler<ProjectHardwareCreatedEvent>,
         IGenericEventHandler<ProjectHardwareDeletedEvent>
@@ -48,6 +49,10 @@ namespace Chiffrage.App.Controllers
 
         private readonly INewProjectHardwareView newProjectHardwareView;
 
+        private readonly IEditProjectSupplyView editProjectSupplyView;
+
+        private readonly IEditProjectHardwareView editProjectHardwareView;
+
         public ProjectController(
             IEventBroker eventBroker, 
             IProjectView projectView, 
@@ -56,6 +61,8 @@ namespace Chiffrage.App.Controllers
             IDealRepository dealRepository,
             INewProjectSupplyView newProjectSupplyView,
             INewProjectHardwareView newProjectHardwareView,
+            IEditProjectSupplyView editProjectSupplyView,
+            IEditProjectHardwareView editProjectHardwareView,
             ICatalogRepository catalogRepository)
         {
             this.projectView = projectView;
@@ -65,6 +72,8 @@ namespace Chiffrage.App.Controllers
             this.dealRepository = dealRepository;
             this.newProjectSupplyView = newProjectSupplyView;
             this.newProjectHardwareView = newProjectHardwareView;
+            this.editProjectHardwareView = editProjectHardwareView;
+            this.editProjectSupplyView = editProjectSupplyView;
             this.catalogRepository = catalogRepository;
         }
 
@@ -166,7 +175,8 @@ namespace Chiffrage.App.Controllers
 
         public void ProcessAction(RequestEditProjectSupplyEvent eventObject)
         {
-            throw new NotImplementedException();
+            this.editProjectSupplyView.Supply = eventObject.Supply;
+            this.editProjectSupplyView.ShowView();
         }
 
         public void ProcessAction(RequestNewProjectHardwareEvent eventObject)
@@ -249,6 +259,12 @@ namespace Chiffrage.App.Controllers
             this.projectView.RemoveHardware(hardware);
 
             this.projectView.ShowView();
+        }
+
+        public void ProcessAction(RequestEditProjectHardwareEvent eventObject)
+        {
+            this.editProjectHardwareView.Hardware = eventObject.Hardware;
+            this.editProjectHardwareView.ShowView();
         }
     }
 }

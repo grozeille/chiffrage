@@ -517,5 +517,14 @@ namespace Chiffrage
                 this.hardwares.Remove(item);
             });
         }
+
+        private void dataGridViewHardware_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            var hardware = this.projectHardwareViewModelBindingSource[e.RowIndex] as ProjectHardwareViewModel;
+            if (hardware != null)
+            {
+                this.eventBroker.Publish(new RequestEditProjectHardwareEvent(hardware));
+            }
+        }
     }
 }

@@ -21,9 +21,9 @@ namespace Chiffrage
 
         private int? catalogId;
 
-        private readonly BindingList<CatalogSupplyViewModel> supplies = new BindingList<CatalogSupplyViewModel>();
+        private readonly SortableBindingList<CatalogSupplyViewModel> supplies = new SortableBindingList<CatalogSupplyViewModel>();
 
-        private readonly BindingList<CatalogHardwareViewModel> hardwares = new BindingList<CatalogHardwareViewModel>();
+        private readonly SortableBindingList<CatalogHardwareViewModel> hardwares = new SortableBindingList<CatalogHardwareViewModel>();
 
         public CatalogUserControl(IEventBroker eventBroker)
             : this()
@@ -275,6 +275,11 @@ namespace Chiffrage
 
         private void dataGridViewSupplies_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+            if (e.RowIndex == -1)
+            {
+                return;
+            }
+
             var supply = this.suppliesBindingSource[e.RowIndex] as CatalogSupplyViewModel;
             if (supply != null)
             {
@@ -284,6 +289,11 @@ namespace Chiffrage
 
         private void dataGridViewHardwares_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+            if (e.RowIndex == -1)
+            {
+                return;
+            }
+
             var hardware = this.hardwaresBindingSource[e.RowIndex] as CatalogHardwareViewModel;
             if (hardware != null)
             {
@@ -293,11 +303,37 @@ namespace Chiffrage
 
         private void dataGridViewHardwareSupplies_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+            if (e.RowIndex == -1)
+            {
+                return;
+            }
+
             var hardwareSupply = this.componentsBindingSource[e.RowIndex] as CatalogHardwareSupplyViewModel;
             if (hardwareSupply != null)
             {
-                this.eventBroker.Publish(new RequestEditHardwareSupplyEvent(hardwareSupply));
+                this.eventBroker.Publish(new RequestEditHardwareSupplyEvent(hardwareSupply.CatalogId, hardwareSupply.HardwareId, hardwareSupply.Id));
             }
+        }
+
+        private void columnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            /*DataGridView grid = (DataGridView)sender;
+            var col = grid.Columns[e.ColumnIndex];
+            if (grid.SortedColumn == col)
+            {
+                if (grid.SortOrder == SortOrder.Ascending)
+                {
+                    grid.Sort(col, ListSortDirection.Descending);
+                }
+                else
+                {
+                    grid.Sort(col, ListSortDirection.Ascending);
+                }
+            }
+            else
+            {
+                grid.Sort(col, ListSortDirection.Ascending);
+            }*/
         }
     }
 }

@@ -9,8 +9,6 @@ namespace Chiffrage
 {
     public partial class ApplicationForm : FormView, IApplicationView
     {
-        private IEventBroker eventBroker;
-
         public ApplicationForm(
             IEventBroker eventBroker, 
             INavigationView applicationView, 
@@ -37,18 +35,6 @@ namespace Chiffrage
         public ApplicationForm()
         {
             this.InitializeComponent();
-        }
-
-        private void newToolStripSplitButton_ButtonClick(object sender, EventArgs e)
-        {
-            var wizard = new NewWizardWizardView(eventBroker);
-            wizard.Wizards = new WizardView[] 
-            {
-                new NewProjectWizardView(eventBroker),
-                new NewDealWizardView(eventBroker),
-                new NewCatalogWizardView(eventBroker)
-            };
-            wizard.ShowView();
         }
     }
 }

@@ -9,16 +9,32 @@ namespace Chiffrage.App.Events
 {
     public class RequestEditHardwareSupplyEvent : IEvent
     {
-        private readonly CatalogHardwareSupplyViewModel hardwareSupply;
+        private readonly int catalogId;
 
-        public RequestEditHardwareSupplyEvent(CatalogHardwareSupplyViewModel hardwareSupply)
+        private readonly int hardwareId;
+
+        private readonly int hardwareSupplyId;
+
+        public RequestEditHardwareSupplyEvent(int catalogId, int hardwareId, int hardwareSupplyId)
         {
-            this.hardwareSupply = hardwareSupply;
+            this.catalogId = catalogId;
+            this.hardwareId = hardwareId;
+            this.hardwareSupplyId = hardwareSupplyId;
         }
 
-        public CatalogHardwareSupplyViewModel HardwareSupply
+        public int CatalogId
         {
-            get { return this.hardwareSupply; }
+            get { return this.catalogId; }
+        }
+
+        public int HardwareId
+        {
+            get { return this.hardwareId; }
+        }
+
+        public int HardwareSupplyId
+        {
+            get { return this.hardwareSupplyId; }
         }
     }
 }

@@ -132,17 +132,33 @@
     <Compile Include="ApplicationForm.Designer.cs">
       <DependentUpon>ApplicationForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="NewWizardWizardView.cs" />
-    <Compile Include="NewProjectHardwareWizardView.cs" />
-    <Compile Include="EditHardwareSupplyWizardView.cs" />
-    <Compile Include="NewProjectSupplyWizardView.cs" />
-    <Compile Include="NewHardwareSupplyWizardView.cs" />
-    <Compile Include="EditHardwareWizardView.cs" />
-    <Compile Include="NewHardwareWizardView.cs" />
-    <Compile Include="NewProjectWizardView.cs" />
-    <Compile Include="EditSupplyWizardView.cs" />
+    <Compile Include="PropertyComparer.cs" />
+    <Compile Include="SortableBindingList.cs" />
+    <Compile Include="WizardPages\EditProjectHardwarePage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WizardPages\EditProjectHardwarePage.Designer.cs">
+      <DependentUpon>EditProjectHardwarePage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WizardPages\EditProjectSupplyPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WizardPages\EditProjectSupplyPage.Designer.cs">
+      <DependentUpon>EditProjectSupplyPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Wizards\EditProjectHardwareWizardView.cs" />
+    <Compile Include="Wizards\EditProjectSupplyWizardView.cs" />
+    <Compile Include="Wizards\NewWizardWizardView.cs" />
+    <Compile Include="Wizards\NewProjectHardwareWizardView.cs" />
+    <Compile Include="Wizards\EditHardwareSupplyWizardView.cs" />
+    <Compile Include="Wizards\NewProjectSupplyWizardView.cs" />
+    <Compile Include="Wizards\NewHardwareSupplyWizardView.cs" />
+    <Compile Include="Wizards\EditHardwareWizardView.cs" />
+    <Compile Include="Wizards\NewHardwareWizardView.cs" />
+    <Compile Include="Wizards\NewProjectWizardView.cs" />
+    <Compile Include="Wizards\EditSupplyWizardView.cs" />
     <Compile Include="Ioc\ByTypeWiringContainer.cs" />
-    <Compile Include="NewCatalogWizardView.cs" />
+    <Compile Include="Wizards\NewCatalogWizardView.cs" />
     <Compile Include="ErrorLogView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -184,9 +200,9 @@
       <DependentUpon>LoadingForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Ioc\MvcContainer.cs" />
-    <Compile Include="NewDealWizardView.cs">
+    <Compile Include="Wizards\NewDealWizardView.cs">
     </Compile>
-    <Compile Include="NewSupplyWizardView.cs" />
+    <Compile Include="Wizards\NewSupplyWizardView.cs" />
     <Compile Include="Properties\Resources1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -277,6 +293,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="WizardPages\CommentPage.resx">
       <DependentUpon>CommentPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WizardPages\EditProjectSupplyPage.resx">
+      <DependentUpon>EditProjectSupplyPage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WizardPages\NewProjectHardwarePage.resx">
       <DependentUpon>NewProjectHardwarePage.cs</DependentUpon>
