@@ -16,62 +16,52 @@ namespace Chiffrage
 
         #region IDealView Members
 
-        public void Display(DealViewModel viewModel)
-        {
-            this.InvokeIfRequired(() =>
-            {
-                if (viewModel.Comment == null || !(viewModel.Comment.StartsWith("{\\rtf") && viewModel.Comment.EndsWith("}")))
-                    viewModel.Comment = "{\\rtf" + viewModel.Comment + "}";
-
-                this.dealId = viewModel.Id;
-                this.textBoxDealName.Text = viewModel.Name;
-                this.textBoxReference.Text = viewModel.Reference;
-
-                if (viewModel.StartDate == DateTime.MinValue)
-                {
-                    viewModel.StartDate = DateTime.Now;
-                }
-
-                this.dateTimePickerDealBegin.Value = viewModel.StartDate;
-
-                if (viewModel.EndDate == DateTime.MinValue)
-                {
-                    viewModel.EndDate = DateTime.Now;
-                }
-
-                this.dateTimePickerDealEnd.Value = viewModel.EndDate;
-                this.commentUserControl.Rtf = viewModel.Comment;
-            });
-        }
-
-        public DealViewModel GetViewModel()
+        public DealViewModel GetDealViewModel()
         {
             return this.InvokeIfRequired(() =>
             {
-                if(!this.dealId.HasValue)
+                if(!dealId.HasValue)
                 {
                     return null;
                 }
 
-                var viewModel = new DealViewModel();
+                var dealViewModel = new DealViewModel();
+                dealViewModel.Id = dealId.Value;
+                dealViewModel.Name = this.textBoxDealName.Text;
+                dealViewModel.Reference = this.textBoxReference.Text;
+                dealViewModel.StartDate = this.dateTimePickerDealBegin.Value;
+                dealViewModel.EndDate = this.dateTimePickerDealEnd.Value;
+                dealViewModel.Comment = this.commentUserControl.Rtf;
+                
+                return dealViewModel;
+            });
+        }
 
-                viewModel.Id = this.dealId.Value;
-                viewModel.Name = this.textBoxDealName.Text;
-                viewModel.Reference = this.textBoxReference.Text;
-                viewModel.StartDate = this.dateTimePickerDealBegin.Value;
-                viewModel.EndDate = this.dateTimePickerDealEnd.Value;
-                viewModel.Comment = this.commentUserControl.Rtf;
-
-                return viewModel;
+        public void SetDealViewModel(DealViewModel viewModel)
+        {
+            this.InvokeIfRequired(() =>
+            {
+                if (viewModel != null)
+                {
+                    this.dealId = viewModel.Id;
+                    this.textBoxDealName.Text = viewModel.Name;
+                    this.textBoxReference.Text = viewModel.Reference;
+                    this.dateTimePickerDealBegin.Value = viewModel.StartDate;
+                    this.dateTimePickerDealEnd.Value = viewModel.EndDate;
+                    this.commentUserControl.Rtf = viewModel.Comment;
+                }
+                else
+                {
+                    this.dealId = null;
+                    this.textBoxDealName.Text = string.Empty;
+                    this.textBoxReference.Text = string.Empty;
+                    this.dateTimePickerDealBegin.Value = DateTime.Now;
+                    this.dateTimePickerDealEnd.Value = DateTime.Now;
+                    this.commentUserControl.Rtf = string.Empty;
+                }
             });
         }
 
         #endregion
-
-        public override void HideView()
-        {
-            this.dealId = null;
-            base.HideView();
-        }
     }
 }

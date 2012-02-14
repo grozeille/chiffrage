@@ -12,6 +12,7 @@ using Chiffrage.WizardPages;
 using Chiffrage.Mvc.Events;
 using Chiffrage.Catalogs.Domain.Commands;
 using System.Collections.Generic;
+using Chiffrage.Mvc;
 
 namespace Chiffrage
 {

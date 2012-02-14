@@ -14,6 +14,9 @@ using Chiffrage.Projects.Domain.Commands;
 using Chiffrage.Catalogs.Domain.Repositories;
 using Chiffrage.Catalogs.Domain;
 using Chiffrage.Projects.Domain.Events;
+using System.Reactive;
+using System.Reactive.Concurrency;
+using Chiffrage.Mvc;
 
 namespace Chiffrage.App.Controllers
 {
@@ -86,8 +89,7 @@ namespace Chiffrage.App.Controllers
         {
             var project = this.projectRepository.FindById(eventObject.Id);
 
-            Mapper.CreateMap<Project, ProjectViewModel>();
-            var viewModel = Mapper.Map<Project, ProjectViewModel>(project);
+            var viewModel = Map(project);
             
             var supplies = new List<ProjectSupplyViewModel>();
             foreach (var item in project.Supplies)
@@ -100,7 +102,9 @@ namespace Chiffrage.App.Controllers
                 hardwares.Add(Map(item, project.Id));
             }
 
-            this.projectView.Display(viewModel, supplies, hardwares);
+            this.projectView.SetProjectViewModel(viewModel);
+            this.projectView.SetSupplies(supplies);
+            this.projectView.SetHardwares(hardwares);
 
             this.projectView.ShowView();
         }
@@ -108,11 +112,15 @@ namespace Chiffrage.App.Controllers
         public void ProcessAction(ProjectUnselectedEvent eventObject)
         {
             this.projectView.HideView();
+
+            this.projectView.SetProjectViewModel(null);
+            this.projectView.SetSupplies(null);
+            this.projectView.SetHardwares(null);
         }
 
         public void ProcessAction(SaveEvent eventObject)
         {
-            var viewModel = this.projectView.GetViewModel();
+            var viewModel = this.projectView.GetProjectViewModel();
 
             if (viewModel == null)
             {
@@ -160,7 +168,6 @@ namespace Chiffrage.App.Controllers
         public void ProcessAction(ProjectSupplyCreatedEvent eventObject)
         {
             var viewModel = Map(eventObject.ProjectSupply, eventObject.ProjectId);
-
             this.projectView.AddSupply(viewModel);
         }
 
@@ -169,8 +176,6 @@ namespace Chiffrage.App.Controllers
             var supply = Map(eventObject.Supply, eventObject.ProjectId);
 
             this.projectView.RemoveSupply(supply);
-
-            this.projectView.ShowView();
         }
 
         public void ProcessAction(RequestEditProjectSupplyEvent eventObject)
@@ -255,10 +260,8 @@ namespace Chiffrage.App.Controllers
         public void ProcessAction(ProjectHardwareDeletedEvent eventObject)
         {
             var hardware = Map(eventObject.Hardware, eventObject.ProjectId);
-            
-            this.projectView.RemoveHardware(hardware);
 
-            this.projectView.ShowView();
+            this.projectView.RemoveHardware(hardware);
         }
 
         public void ProcessAction(RequestEditProjectHardwareEvent eventObject)
@@ -266,5 +269,26 @@ namespace Chiffrage.App.Controllers
             this.editProjectHardwareView.Hardware = eventObject.Hardware;
             this.editProjectHardwareView.ShowView();
         }
+
+        private ProjectViewModel Map(Project project)
+        {
+            Mapper.CreateMap<Project, ProjectViewModel>();
+            var viewModel = Mapper.Map<Project, ProjectViewModel>(project);
+
+            if (viewModel.StartDate == DateTime.MinValue)
+            {
+                viewModel.StartDate = DateTime.Now;
+            }
+
+            if (viewModel.EndDate == DateTime.MinValue)
+            {
+                viewModel.EndDate = DateTime.Now;
+            }
+
+            if (viewModel.Comment == null || !(viewModel.Comment.StartsWith("{\\rtf") && viewModel.Comment.EndsWith("}")))
+                viewModel.Comment = "{\\rtf" + viewModel.Comment + "}";
+            return viewModel;
+        }
+
     }
 }

@@ -14,6 +14,7 @@ using Chiffrage.Mvc.Events;
 using Chiffrage.App.Events;
 using System.Collections.Generic;
 using Chiffrage.Projects.Domain.Commands;
+using Chiffrage.Mvc;
 
 namespace Chiffrage
 {
@@ -21,9 +22,9 @@ namespace Chiffrage
     {
         private int? id;
 
-        private readonly BindingList<ProjectSupplyViewModel> supplies = new BindingList<ProjectSupplyViewModel>();
+        private readonly SortableBindingList<ProjectSupplyViewModel> supplies = new SortableBindingList<ProjectSupplyViewModel>();
 
-        private readonly BindingList<ProjectHardwareViewModel> hardwares = new BindingList<ProjectHardwareViewModel>();
+        private readonly SortableBindingList<ProjectHardwareViewModel> hardwares = new SortableBindingList<ProjectHardwareViewModel>();
 
         private Font defaultFont = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Regular,
                                             GraphicsUnit.Point, ((byte) (0)));
@@ -449,10 +450,26 @@ namespace Chiffrage
 
         public override void HideView()
         {
-            this.id = null;
             base.HideView();
         }
 
+        private void dataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            var supply = this.projectSupplyViewModelBindingSource[e.RowIndex] as ProjectSupplyViewModel;
+            if (supply != null)
+            {
+                this.eventBroker.Publish(new RequestEditProjectSupplyEvent(supply));
+            }
+        }
+
+        private void dataGridViewHardware_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            var hardware = this.projectHardwareViewModelBindingSource[e.RowIndex] as ProjectHardwareViewModel;
+            if (hardware != null)
+            {
+                this.eventBroker.Publish(new RequestEditProjectHardwareEvent(hardware));
+            }
+        }
 
         public void AddSupply(ProjectSupplyViewModel viewModel)
         {
@@ -463,11 +480,11 @@ namespace Chiffrage
         public void RemoveAllSupplies()
         {
             this.InvokeIfRequired(() =>
-                {
-                    this.projectSupplyViewModelBindingSource.SuspendBinding();
-                    this.supplies.Clear();
-                    this.projectSupplyViewModelBindingSource.ResumeBinding();
-                });
+            {
+                this.projectSupplyViewModelBindingSource.SuspendBinding();
+                this.supplies.Clear();
+                this.projectSupplyViewModelBindingSource.ResumeBinding();
+            });
         }
 
         public void AddSupplies(IList<ProjectSupplyViewModel> supplies)
@@ -493,38 +510,126 @@ namespace Chiffrage
             });
         }
 
-        private void dataGridView_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        public void SetProjectViewModel(ProjectViewModel viewModel)
         {
-            var supply = this.projectSupplyViewModelBindingSource[e.RowIndex] as ProjectSupplyViewModel;
-            if (supply != null)
+            this.InvokeIfRequired(() =>
             {
-                this.eventBroker.Publish(new RequestEditProjectSupplyEvent(supply));
-            }
+                if (viewModel == null)
+                {
+                    this.id = null;
+
+                    this.textBoxProjectName.Text = string.Empty;
+                    this.textBoxReference.Text = string.Empty;
+                    this.dateTimePickerProjectBegin.Value = DateTime.Now;
+                    this.dateTimePickerProjectEnd.Value = DateTime.Now;
+                    this.textBoxReferenceRate.Text = string.Empty;
+                    this.textBoxStudyRate.Text = string.Empty;
+                    this.textBoxWorkDayRate.Text = string.Empty;
+                    this.textBoxWorkShortNightsRate.Text = string.Empty;
+                    this.textBoxWorkLongNightsRate.Text = string.Empty;
+                    this.textBoxTestDayRate.Text = string.Empty;
+                    this.textBoxTestNightRate.Text = string.Empty;
+                    this.textBoxTotalDays.Text = string.Empty;
+                    this.textBoxTotalPrice.Text = string.Empty;
+                }
+                else
+                {
+                    this.id = viewModel.Id;
+                    this.textBoxProjectName.Text = viewModel.Name;
+                    this.textBoxReference.Text = viewModel.Reference;
+                    this.dateTimePickerProjectBegin.Value = viewModel.StartDate;
+                    this.dateTimePickerProjectEnd.Value = viewModel.EndDate;
+                    this.textBoxReferenceRate.Text = viewModel.ReferenceRate;
+                    this.textBoxStudyRate.Text = viewModel.StudyRate;
+                    this.textBoxWorkDayRate.Text = viewModel.WorkDayRate;
+                    this.textBoxWorkShortNightsRate.Text = viewModel.WorkShortNightsRate;
+                    this.textBoxWorkLongNightsRate.Text = viewModel.WorkLongNightsRate;
+                    this.textBoxTestDayRate.Text = viewModel.TestDayRate;
+                    this.textBoxTestNightRate.Text = viewModel.TestNightRate;
+                    this.textBoxTotalDays.Text = viewModel.TotalDays;
+                    this.textBoxTotalPrice.Text = viewModel.TotalPrice;
+                }
+            });
         }
 
+        public void SetSupplies(IList<ProjectSupplyViewModel> supplies)
+        {
+            this.InvokeIfRequired(() =>
+                {
+                    this.projectSupplyViewModelBindingSource.SuspendBinding();
+                    this.supplies.Clear();
+                    if (supplies != null)
+                    {
+                        foreach (var item in supplies)
+                        {
+                            this.supplies.Add(item);
+                        }
+                    }
+                    projectSupplyViewModelBindingSource.ResumeBinding();
+                });
+        }
+
+        public void SetHardwares(IList<ProjectHardwareViewModel> hardwares)
+        {
+            this.InvokeIfRequired(() =>
+                {
+                    this.projectHardwareViewModelBindingSource.SuspendBinding();
+                    this.hardwares.Clear();
+                    if (hardwares != null)
+                    {
+                        foreach (var item in hardwares)
+                        {
+                            this.hardwares.Add(item);
+                        }
+                    }
+                    projectHardwareViewModelBindingSource.ResumeBinding();
+                });
+        }
+
+        public ProjectViewModel GetProjectViewModel()
+        {
+            return this.InvokeIfRequired(() =>
+            {
+                if (!this.id.HasValue)
+                {
+                    return null;
+                }
+
+                return new ProjectViewModel
+                {
+                    Id = this.id.Value,
+                    Name = this.textBoxProjectName.Text,
+                    Reference = this.textBoxReference.Text,
+                    StartDate = this.dateTimePickerProjectBegin.Value,
+                    EndDate = this.dateTimePickerProjectEnd.Value,
+                    ReferenceRate = this.textBoxReferenceRate.Text,
+                    StudyRate = this.textBoxStudyRate.Text,
+                    WorkDayRate = this.textBoxWorkDayRate.Text,
+                    WorkShortNightsRate = this.textBoxWorkShortNightsRate.Text,
+                    WorkLongNightsRate = this.textBoxWorkLongNightsRate.Text,
+                    TestDayRate = this.textBoxTestDayRate.Text,
+                    TestNightRate = this.textBoxTestNightRate.Text,
+                    TotalDays = this.textBoxTotalDays.Text,
+                    TotalPrice = this.textBoxTotalPrice.Text
+                };
+            });
+        }
 
         public void AddHardware(ProjectHardwareViewModel viewModel)
         {
-            this.InvokeIfRequired(() => hardwares.Add(viewModel));
+            this.InvokeIfRequired(() =>
+                {
+                    hardwares.Add(viewModel);
+                });
         }
-
 
         public void RemoveHardware(ProjectHardwareViewModel hardware)
         {
             this.InvokeIfRequired(() =>
-            {
-                var item = this.hardwares.Where(x => x.Id == hardware.Id).First();
-                this.hardwares.Remove(item);
-            });
-        }
-
-        private void dataGridViewHardware_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            var hardware = this.projectHardwareViewModelBindingSource[e.RowIndex] as ProjectHardwareViewModel;
-            if (hardware != null)
-            {
-                this.eventBroker.Publish(new RequestEditProjectHardwareEvent(hardware));
-            }
+                {
+                    var item = this.hardwares.Where(x => x.Id == hardware.Id).First();
+                    this.hardwares.Remove(item);
+                });
         }
     }
 }

@@ -36,5 +36,9 @@ namespace Chiffrage.App.ViewModel
         public virtual string TotalDays { get; set; }
 
         public virtual string TotalPrice { get; set; }
+
+        public virtual int TotalModules { get; set; }
+
+        public virtual int ModulesNotInFrame { get; set; }
     }
 }

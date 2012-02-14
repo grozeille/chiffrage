@@ -34,15 +34,15 @@
             System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Catalogues");
             this.contextMenuStripDealsRoot = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItemNewDeal = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuStripCatalogsRoot = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolStripMenuItemNewCatalog = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripDeal = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItemNewProject = new System.Windows.Forms.ToolStripMenuItem();
             this.imageList = new System.Windows.Forms.ImageList(this.components);
             this.treeView = new System.Windows.Forms.TreeView();
-            this.contextMenuStripCatalogsRoot = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.toolStripMenuItemNewCatalog = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripDealsRoot.SuspendLayout();
-            this.contextMenuStripDeal.SuspendLayout();
             this.contextMenuStripCatalogsRoot.SuspendLayout();
+            this.contextMenuStripDeal.SuspendLayout();
             this.SuspendLayout();
             // 
             // contextMenuStripDealsRoot
@@ -58,6 +58,20 @@
             this.toolStripMenuItemNewDeal.Name = "toolStripMenuItemNewDeal";
             this.toolStripMenuItemNewDeal.Size = new System.Drawing.Size(159, 22);
             this.toolStripMenuItemNewDeal.Text = "Nouvelle Affaire";
+            // 
+            // contextMenuStripCatalogsRoot
+            // 
+            this.contextMenuStripCatalogsRoot.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItemNewCatalog});
+            this.contextMenuStripCatalogsRoot.Name = "contextMenuStripCatalogsRoot";
+            this.contextMenuStripCatalogsRoot.Size = new System.Drawing.Size(180, 26);
+            // 
+            // toolStripMenuItemNewCatalog
+            // 
+            this.toolStripMenuItemNewCatalog.Image = global::Chiffrage.Properties.Resources.book_open;
+            this.toolStripMenuItemNewCatalog.Name = "toolStripMenuItemNewCatalog";
+            this.toolStripMenuItemNewCatalog.Size = new System.Drawing.Size(179, 22);
+            this.toolStripMenuItemNewCatalog.Text = "Nouveau Catalogue";
             // 
             // contextMenuStripDeal
             // 
@@ -87,12 +101,12 @@
             // 
             // treeView
             // 
-            this.treeView.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.treeView.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.treeView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.treeView.HideSelection = false;
             this.treeView.ImageIndex = 0;
             this.treeView.ImageList = this.imageList;
-            this.treeView.Location = new System.Drawing.Point(0, 0);
+            this.treeView.Location = new System.Drawing.Point(1, 1);
             this.treeView.Name = "treeView";
             treeNode1.ContextMenuStrip = this.contextMenuStripDealsRoot;
             treeNode1.ImageKey = "folder_user.png";
@@ -109,33 +123,21 @@
             treeNode2});
             this.treeView.SelectedImageIndex = 0;
             this.treeView.ShowRootLines = false;
-            this.treeView.Size = new System.Drawing.Size(205, 371);
+            this.treeView.Size = new System.Drawing.Size(203, 369);
             this.treeView.TabIndex = 4;
             // 
-            // contextMenuStripCatalogsRoot
-            // 
-            this.contextMenuStripCatalogsRoot.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItemNewCatalog});
-            this.contextMenuStripCatalogsRoot.Name = "contextMenuStripCatalogsRoot";
-            this.contextMenuStripCatalogsRoot.Size = new System.Drawing.Size(180, 26);
-            // 
-            // toolStripMenuItemNewCatalog
-            // 
-            this.toolStripMenuItemNewCatalog.Image = global::Chiffrage.Properties.Resources.book_open;
-            this.toolStripMenuItemNewCatalog.Name = "toolStripMenuItemNewCatalog";
-            this.toolStripMenuItemNewCatalog.Size = new System.Drawing.Size(179, 22);
-            this.toolStripMenuItemNewCatalog.Text = "Nouveau Catalogue";
-            // 
-            // ApplicationItemUserControl
+            // NavigationUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.ControlDark;
             this.Controls.Add(this.treeView);
-            this.Name = "ApplicationItemUserControl";
+            this.Name = "NavigationUserControl";
+            this.Padding = new System.Windows.Forms.Padding(1);
             this.Size = new System.Drawing.Size(205, 371);
             this.contextMenuStripDealsRoot.ResumeLayout(false);
-            this.contextMenuStripDeal.ResumeLayout(false);
             this.contextMenuStripCatalogsRoot.ResumeLayout(false);
+            this.contextMenuStripDeal.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

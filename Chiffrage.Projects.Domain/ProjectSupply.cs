@@ -27,5 +27,7 @@ namespace Chiffrage.Projects.Domain
         public virtual int Cap { get; set; }
 
         public virtual double CatalogPrice { get; set; }
+
+        public virtual double Price { get; set; }
     }
 }

@@ -1,68 +1,50 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using System.ComponentModel;
 
 namespace Chiffrage
 {
-    public partial class CommentUserControl : UserControl
+    public partial class CommentUserControl : UserControl, INotifyPropertyChanged
     {
         private bool updateToolbar = false;
 
         public CommentUserControl()
         {
             this.InitializeComponent();
+            this.richTextBoxComment.DataBindings.Add("Text", this, "Text", false, DataSourceUpdateMode.OnPropertyChanged);
+            // not possible to bind Rtf property!
         }
+
+        private string text;
+
+        private string rtf;
 
         public override string Text
         {
-            get { return this.richTextBoxComment.Text; }
+            get 
+            {
+                return this.text; 
+            }
             set
             {
-                this.SetText(value);
+                this.text = value;
+                FirePropertyChanged("Text");
+                this.Rtf = this.richTextBoxComment.Rtf;
             }
         }
 
         public string Rtf
         {
-            get { return this.richTextBoxComment.Rtf; }
+            get 
+            {
+                return this.rtf; 
+            }
             set
             {
-                this.SetRtf(value);                
+                this.rtf = value;
+                FirePropertyChanged("Rtf");
             }
-        }  
-
-        private void SetText(string value)
-        {
-            if(this.InvokeRequired)
-            {
-                this.BeginInvoke(new Action<string>(this.SetText), value);
-                return;
-            }
-
-            if (this.richTextBoxComment.InvokeRequired)
-            {
-                this.richTextBoxComment.BeginInvoke(new Action<string>(this.SetText), value);
-                return;
-            }
-
-            this.richTextBoxComment.Text = value;
-        }                
-
-        private void SetRtf(string value)
-        {
-            if(this.InvokeRequired)
-            {
-                this.BeginInvoke(new Action<string>(this.SetRtf), value);
-                return;
-            }
-
-            if (this.richTextBoxComment.InvokeRequired)
-            {
-                this.richTextBoxComment.BeginInvoke(new Action<string>(this.SetRtf), value);
-                return;
-            }
-
-            this.richTextBoxComment.Rtf = value;
         }
 
         private void richTextBoxComment_SelectionChanged(object sender, EventArgs e)
@@ -104,5 +86,15 @@ namespace Chiffrage
             }
             base.SetVisibleCore(value);
         }
+
+        private void FirePropertyChanged(string propertyName)
+        {
+            if (this.PropertyChanged != null)
+            {
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

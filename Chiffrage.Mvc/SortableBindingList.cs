@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.ComponentModel;
 
-namespace Chiffrage
+namespace Chiffrage.Mvc
 {
     public class SortableBindingList<T> : BindingList<T>
     {

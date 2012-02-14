@@ -5,7 +5,7 @@ using Chiffrage.Mvc.Events;
 using Spring.Context;
 using Spring.Objects.Factory;
 
-namespace Chiffrage
+namespace Chiffrage.Ioc
 {
     public class EventHandlersFactory : IFactoryObject, IApplicationContextAware
     {

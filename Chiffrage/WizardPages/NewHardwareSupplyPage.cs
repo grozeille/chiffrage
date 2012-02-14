@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using Chiffrage.App.ViewModel;
 using Chiffrage.Catalogs.Domain;
 using Chiffrage.Core;
+using Chiffrage.Mvc;
 
 namespace Chiffrage.WizardPages
 {

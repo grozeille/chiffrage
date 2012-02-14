@@ -21,7 +21,7 @@ namespace Chiffrage.Projects.Dal.Mappings
             Map(x => x.WorkLongNightsRate);
             Map(x => x.TestDayRate);
             Map(x => x.TestNightRate);
-
+            
             HasMany(x => x.Supplies)
                 .Cascade.All()
                 .Not.LazyLoad()
@@ -34,6 +34,10 @@ namespace Chiffrage.Projects.Dal.Mappings
                 .Cascade.All()
                 .Not.LazyLoad()
                 .AsBag();
+            HasMany(x => x.Frames)
+                .Cascade.All()
+                .Not.LazyLoad()
+                .AsBag();            
         }
     }
 }

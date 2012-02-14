@@ -6,7 +6,7 @@ using System.Collections;
 using System.ComponentModel;
 using System.Reflection;
 
-namespace Chiffrage
+namespace Chiffrage.Mvc
 {
     public class PropertyComparer<T> : IComparer<T>
     {

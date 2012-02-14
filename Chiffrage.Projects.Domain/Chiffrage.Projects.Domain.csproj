@@ -70,6 +70,7 @@
     <Compile Include="Events\ProjectCreatedEvent.cs" />
     <Compile Include="Events\ProjectSupplyCreatedEvent.cs" />
     <Compile Include="Events\ProjectUpdatedEvent.cs" />
+    <Compile Include="ProjectFrame.cs" />
     <Compile Include="ProjectHardwareSupply.cs" />
     <Compile Include="OtherBenefit.cs" />
     <Compile Include="Project.cs" />

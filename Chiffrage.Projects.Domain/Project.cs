@@ -24,6 +24,8 @@ namespace Chiffrage.Projects.Domain
 
         public virtual IList<OtherBenefit> OtherBenefits { get; set; }
 
+        public virtual IList<ProjectFrame> Frames { get; set; }
+
         public virtual double StudyRate { get; set; }
 
         public virtual double ReferenceRate { get; set; }
