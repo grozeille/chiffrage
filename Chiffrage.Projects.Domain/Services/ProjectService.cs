@@ -130,18 +130,23 @@ namespace Chiffrage.Projects.Domain.Services
 
             Mapper.CreateMap<Supply, ProjectSupply>()
                 .ForMember(x => x.SupplyId, y => y.MapFrom(z => z.Id))
-                .ForMember(x => x.Id, y => y.Ignore())
-                .ForMember(x => x.CatalogId, y => y.UseValue(catalog.Id));
+                .ForMember(x => x.Id, y => y.Ignore());
             Mapper.CreateMap<HardwareSupply, ProjectHardwareSupply>()
                 .ForMember(x => x.HardwareSupplyId, y => y.MapFrom(z => z.Id))
                 .ForMember(x => x.Id, y => y.Ignore());
             Mapper.CreateMap<Hardware, ProjectHardware>()
                 .ForMember(x => x.HardwareId, y => y.MapFrom(z => z.Id))
-                .ForMember(x => x.Id, y => y.Ignore())
-                .ForMember(x => x.CatalogId, y => y.UseValue(catalog.Id));
+                .ForMember(x => x.Id, y => y.Ignore());
 
             var projectHardware = Mapper.Map<Hardware, ProjectHardware>(hardware);
             projectHardware.Quantity = eventObject.Quantity;
+            projectHardware.CatalogId = catalog.Id;
+
+            foreach (var item in projectHardware.Components)
+            {
+                item.Supply.CatalogId = catalog.Id;
+            }
+
             project.Hardwares.Add(projectHardware);
 
             this.projectRepository.Save(project);

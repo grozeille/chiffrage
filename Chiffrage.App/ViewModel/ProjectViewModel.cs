@@ -19,23 +19,23 @@ namespace Chiffrage.App.ViewModel
 
         public virtual DateTime EndDate { get; set; }
 
-        public virtual string StudyRate { get; set; }
+        public virtual double StudyRate { get; set; }
 
-        public virtual string ReferenceRate { get; set; }
+        public virtual double ReferenceRate { get; set; }
 
-        public virtual string WorkDayRate { get; set; }
+        public virtual double WorkDayRate { get; set; }
 
-        public virtual string WorkShortNightsRate { get; set; }
+        public virtual double WorkShortNightsRate { get; set; }
 
-        public virtual string WorkLongNightsRate { get; set; }
+        public virtual double WorkLongNightsRate { get; set; }
 
-        public virtual string TestDayRate { get; set; }
+        public virtual double TestDayRate { get; set; }
 
-        public virtual string TestNightRate { get; set; }
+        public virtual double TestNightRate { get; set; }
 
-        public virtual string TotalDays { get; set; }
+        public virtual int TotalDays { get; set; }
 
-        public virtual string TotalPrice { get; set; }
+        public virtual double TotalPrice { get; set; }
 
         public virtual int TotalModules { get; set; }
 

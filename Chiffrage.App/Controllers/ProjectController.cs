@@ -133,7 +133,14 @@ namespace Chiffrage.App.Controllers
                 viewModel.Comment,
                 viewModel.Reference,
                 viewModel.StartDate,
-                viewModel.EndDate);
+                viewModel.EndDate,
+                viewModel.StudyRate,
+                viewModel.ReferenceRate,
+                viewModel.WorkDayRate,
+                viewModel.WorkShortNightsRate,
+                viewModel.WorkLongNightsRate,
+                viewModel.TestDayRate,
+                viewModel.TestNightRate);
 
             this.eventBroker.Publish(command);
         }
@@ -222,10 +229,10 @@ namespace Chiffrage.App.Controllers
 
         private ProjectHardwareViewModel Map(ProjectHardware hardware, int projectId)
         {
-            Mapper.CreateMap<ProjectHardware, ProjectHardwareViewModel>()
-                .ForMember(x => x.ProjectId, y => y.UseValue(projectId));
+            Mapper.CreateMap<ProjectHardware, ProjectHardwareViewModel>();
             Mapper.CreateMap<ProjectHardwareSupply, ProjectHardwareSupplyViewModel>();
             var viewModel = Mapper.Map<ProjectHardware, ProjectHardwareViewModel>(hardware);
+            viewModel.ProjectId = projectId;
 
             viewModel.ModuleSize = hardware.Components.Sum(x => x.Supply.ModuleSize * x.Quantity);
             viewModel.CatalogPrice = hardware.Components.Sum(x => x.Supply.CatalogPrice * x.Quantity);
@@ -243,10 +250,10 @@ namespace Chiffrage.App.Controllers
 
         private ProjectSupplyViewModel Map(ProjectSupply supply, int projectId)
         {
-            Mapper.CreateMap<ProjectSupply, ProjectSupplyViewModel>()
-                .ForMember(x => x.ProjectId, y => y.UseValue(projectId));
+            Mapper.CreateMap<ProjectSupply, ProjectSupplyViewModel>();
 
             var viewModel = Mapper.Map<ProjectSupply, ProjectSupplyViewModel>(supply);
+            viewModel.ProjectId = projectId;
 
             viewModel.TotalModuleSize = viewModel.ModuleSize * viewModel.Quantity;
             viewModel.TotalCatalogPrice = viewModel.CatalogPrice * viewModel.Quantity;

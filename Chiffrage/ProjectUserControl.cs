@@ -15,6 +15,7 @@ using Chiffrage.App.Events;
 using System.Collections.Generic;
 using Chiffrage.Projects.Domain.Commands;
 using Chiffrage.Mvc;
+using System.Globalization;
 
 namespace Chiffrage
 {
@@ -37,12 +38,53 @@ namespace Chiffrage
 
             this.projectSupplyViewModelBindingSource.DataSource = supplies;
             this.projectHardwareViewModelBindingSource.DataSource = hardwares;
+
+            this.textBoxStudyRate.Validating += this.ValidateIsDoubleTextBox;
+            this.textBoxProjectName.Validating += this.ValidateIsRequiredTextBox;
+            this.textBoxReferenceRate.Validating += this.ValidateIsDoubleTextBox;
+            this.textBoxWorkDayRate.Validating += this.ValidateIsDoubleTextBox;
+            this.textBoxWorkShortNightsRate.Validating += this.ValidateIsDoubleTextBox;
+            this.textBoxWorkLongNightsRate.Validating += this.ValidateIsDoubleTextBox;
+            this.textBoxTestDayRate.Validating += this.ValidateIsDoubleTextBox;
+            this.textBoxTestNightRate.Validating += this.ValidateIsDoubleTextBox;
+        }
+
+        private void ValidateIsRequiredTextBox(object sender, CancelEventArgs args)
+        {
+            args.Cancel = !ValidateIsRequired((TextBox)sender);
+        }
+
+        private void ValidateIsDoubleTextBox(object sender, CancelEventArgs args)
+        {
+            args.Cancel = !ValidateIsDouble((TextBox)sender);
+        }
+
+        private bool ValidateIsRequired(Control control)
+        {
+            if (string.IsNullOrEmpty(control.Text))
+            {
+                this.errorProvider.SetError(control, "Obligatoire");
+                return false;
+            }
+            return true;
+        }
+
+        private bool ValidateIsDouble(Control control)
+        {
+            double doubleTemp;
+            if (!double.TryParse(control.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out doubleTemp))
+            {
+                this.errorProvider.SetError(control, "Doit être un nombre");
+                return false;
+            }
+            return true;
         }
 
         public ProjectUserControl(IEventBroker eventBroker)
             :this()
         {
             this.eventBroker = eventBroker;
+            this.CausesValidation = true;
 
             this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonAdd, () =>
                 this.id.HasValue ? new RequestNewProjectSupplyEvent(this.id.Value) : null);
@@ -127,7 +169,7 @@ namespace Chiffrage
                 this.BuildBigTotalRow(Resources.coins, "Total", this.project.TotalDays, this.project.TotalPrice);
             }
             this.dataGridViewSummary.ResumeLayout(true);
-        }*/
+        }
 
         private void BuildBigTotalRow(Bitmap icon, string name, double? days, double cost)
         {
@@ -179,177 +221,14 @@ namespace Chiffrage
                     cell.ReadOnly = true;
             }
         }
-
+        */
         #endregion
-
-        
-
-        /*private void LoadProject()
-        {
-            if (this.project == null)
-                return;
-
-            this.projectSupplyDtoBindingSource.SuspendBinding();
-            var source = new BindingList<ProjectSupplyViewModel>();
-            foreach (ProjectSupply item in this.project.Supplies)
-            {
-                var dto = new ProjectSupplyViewModel();
-                dto.Item = item;
-                source.Add(dto);
-            }
-            this.projectSupplyDtoBindingSource.DataSource = source;
-            this.projectSupplyDtoBindingSource.ResumeBinding();
-            this.toolStripButtonRemove.Enabled = source.Count > 0;
-
-            this.projectHarwareDtoBindingSource.SuspendBinding();
-            var sourceHardware = new BindingList<ProjectHardwareViewModel>();
-            foreach (ProjectHardware item in this.project.Hardwares)
-            {
-                var dto = new ProjectHardwareViewModel();
-                dto.Item = item;
-                sourceHardware.Add(dto);
-            }
-            this.projectHarwareDtoBindingSource.DataSource = sourceHardware;
-            this.projectHarwareDtoBindingSource.ResumeBinding();
-            this.toolStripButtonRemoveHardware.Enabled = source.Count > 0;
-
-            this.BuildSummary();
-
-            if (this.project.Comment == null)
-                this.project.Comment = string.Empty;
-            if (!(this.project.Comment.StartsWith("{\\rtf") && this.project.Comment.EndsWith("}")))
-                this.project.Comment = "{\\rtf" + this.project.Comment + "}";
-            if (this.project.StartDate == DateTime.MinValue)
-                this.project.StartDate = DateTime.Now;
-            if (this.project.EndDate == DateTime.MinValue)
-                this.project.EndDate = DateTime.Now;
-
-            this.projectBindingSource.DataSource = this.project;
-            this.projectBindingSource.ResetBindings(false);
-
-            this.otherBenefitBindingSource.SuspendBinding();
-            this.otherBenefitBindingSource.DataSource = new BindingList<OtherBenefit>(this.project.OtherBenefits);
-            this.otherBenefitBindingSource.ResumeBinding();
-        }*/
-
-
-        private void toolStripButtonAdd_Click(object sender, EventArgs e)
-        {
-            /*var page = new AddCatalogItemPage();
-            page.Catalog = this.Catalog;
-            page.DisplayItemType = AddCatalogItemPage.ItemType.Supply;
-            var setting = new WizardSetting(page, "Ajouter un matériel", "Ajout d'un matériel au projet", true);
-            if (new WizardForm().ShowDialog(setting) == DialogResult.OK)
-            {
-                foreach (Supply item in page.SelectedItems)
-                {
-                    this.project.Supplies.Add(new ProjectSupply(item)
-                    {
-                        Quantity = 1,
-                        TestsDays = item.CatalogTestsDays,
-                        TestsNights = 0,
-                        WorkDays = item.CatalogWorkDays,
-                        WorkLongNights = 0,
-                        WorkShortNights = 0,
-                        ExecutiveWorkDays = item.CatalogExecutiveWorkDays,
-                        ExecutiveWorkLongNights = 0,
-                        ExecutiveWorkShortNights = 0
-                    });
-                }
-                this.LoadProject();
-                if (this.ProjectChanged != null)
-                    this.ProjectChanged(this, new EventArgs());
-            }*/
-        }
-
-        private void tabControl_Selected(object sender, TabControlEventArgs e)
-        {
-            /*if (e.TabPage == this.tabPageSummary)
-                this.BuildSummary();*/
-        }
-
-        private void toolStripButtonRemove_Click(object sender, EventArgs e)
-        {
-            /*var current = (this.projectSupplyDtoBindingSource.Current as ProjectSupplyViewModel);
-            if (current != null)
-            {
-                var result = MessageBox.Show("Êtes-vous sûr de vouloir supprimer cet item?", "Supprimer",
-                                             MessageBoxButtons.OKCancel,
-                                             MessageBoxIcon.Question);
-                if (result == DialogResult.OK)
-                {
-                    this.project.Supplies.Remove(current.Item);
-                    this.LoadProject();
-                    if (this.ProjectChanged != null)
-                        this.ProjectChanged(this, new EventArgs());
-                }
-            }*/
-        }
-
-       
 
         private void textBox_Enter(object sender, EventArgs e)
         {
             (sender as TextBox).SelectAll();
         }
-
-
-        private void tabPageWork_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void dataGridViewWork_Scroll(object sender, ScrollEventArgs e)
-        {
-            //dataGridViewWorkExecutive.
-        }
-
-        private void toolStripButtonAddHardware_Click(object sender, EventArgs e)
-        {
-            /*var page = new AddCatalogItemPage();
-            page.Catalog = this.Catalog;
-            page.DisplayItemType = AddCatalogItemPage.ItemType.Hardware;
-            var setting = new WizardSetting(page, "Ajouter un matériel", "Ajout d'un matériel au projet", true);
-            if (new WizardForm().ShowDialog(setting) == DialogResult.OK)
-            {
-                foreach (Hardware item in page.SelectedItems)
-                {
-                    this.project.Hardwares.Add(new ProjectHardware(item)
-                    {
-                        Quantity = 1,
-                        TestsDays = item.CatalogTestsDays,
-                        TestsNights = 0,
-                        WorkDays = item.CatalogWorkDays,
-                        WorkLongNights = 0,
-                        WorkShortNights = 0,
-                        ExecutiveWorkDays = item.CatalogExecutiveWorkDays,
-                        ExecutiveWorkLongNights = 0,
-                        ExecutiveWorkShortNights = 0
-                    });
-                }
-                this.LoadProject();
-                if (this.ProjectChanged != null)
-                    this.ProjectChanged(this, new EventArgs());
-            }*/
-        }
-
-        private void toolStripButtonRemoveHardware_Click(object sender, EventArgs e)
-        {
-            /*var current = (this.projectHarwareDtoBindingSource.Current as ProjectHardwareViewModel);
-            if (current != null)
-            {
-                var result = MessageBox.Show("Êtes-vous sûr de vouloir supprimer cet item?", "Supprimer",
-                                             MessageBoxButtons.OKCancel,
-                                             MessageBoxIcon.Question);
-                if (result == DialogResult.OK)
-                {
-                    this.project.Hardwares.Remove(current.Item);
-                    this.LoadProject();
-                    if (this.ProjectChanged != null)
-                        this.ProjectChanged(this, new EventArgs());
-                }
-            }*/
-        }
-
+        
         private void tabControl_DrawItem(object sender, DrawItemEventArgs e)
         {
             //e.DrawBackground();
@@ -367,61 +246,19 @@ namespace Chiffrage
         }
 
         #region IProjectView Members
-
-        public void Display(ProjectViewModel viewModel, IList<ProjectSupplyViewModel> supplies, IList<ProjectHardwareViewModel> hardwares)
-        {
-            this.InvokeIfRequired(() =>
-            {
-                this.id = viewModel.Id;
-                this.textBoxProjectName.Text = viewModel.Name;
-                this.textBoxReference.Text = viewModel.Reference;
-                
-                if (viewModel.StartDate == DateTime.MinValue)
-                {
-                    viewModel.StartDate = DateTime.Now;
-                }
-
-                this.dateTimePickerProjectBegin.Value = viewModel.StartDate;
-
-                if (viewModel.EndDate == DateTime.MinValue)
-                {
-                    viewModel.EndDate = DateTime.Now;
-                }
-
-                this.dateTimePickerProjectEnd.Value = viewModel.EndDate;
-                this.textBoxReferenceRate.Text = viewModel.ReferenceRate;
-                this.textBoxStudyRate.Text = viewModel.StudyRate;
-                this.textBoxWorkDayRate.Text = viewModel.WorkDayRate;
-                this.textBoxWorkShortNightsRate.Text = viewModel.WorkShortNightsRate;
-                this.textBoxWorkLongNightsRate.Text = viewModel.WorkLongNightsRate;
-                this.textBoxTestDayRate.Text = viewModel.TestDayRate;
-                this.textBoxTestNightRate.Text = viewModel.TestNightRate;
-                this.textBoxTotalDays.Text = viewModel.TotalDays;
-                this.textBoxTotalPrice.Text = viewModel.TotalPrice;
-
-                this.projectSupplyViewModelBindingSource.SuspendBinding();
-                this.supplies.Clear();
-                foreach(var item in supplies)
-                {
-                    this.supplies.Add(item);
-                }
-                this.projectSupplyViewModelBindingSource.ResumeBinding();
-
-                this.projectHardwareViewModelBindingSource.SuspendBinding();
-                this.hardwares.Clear();
-                foreach (var item in hardwares)
-                {
-                    this.hardwares.Add(item);
-                }
-                this.projectHardwareViewModelBindingSource.ResumeBinding();
-            });
-        }
-
-        public ProjectViewModel GetViewModel()
+        
+        public ProjectViewModel GetProjectViewModel()
         {
             return this.InvokeIfRequired(() =>
             {
                 if (!this.id.HasValue)
+                {
+                    return null;
+                }
+
+
+                this.errorProvider.Clear();
+                if (!this.Validate())
                 {
                     return null;
                 }
@@ -433,15 +270,15 @@ namespace Chiffrage
                     Reference = this.textBoxReference.Text,
                     StartDate = this.dateTimePickerProjectBegin.Value,
                     EndDate = this.dateTimePickerProjectEnd.Value,
-                    ReferenceRate = this.textBoxReferenceRate.Text,
-                    StudyRate = this.textBoxStudyRate.Text,
-                    WorkDayRate = this.textBoxWorkDayRate.Text,
-                    WorkShortNightsRate = this.textBoxWorkShortNightsRate.Text,
-                    WorkLongNightsRate = this.textBoxWorkLongNightsRate.Text,
-                    TestDayRate = this.textBoxTestDayRate.Text,
-                    TestNightRate = this.textBoxTestNightRate.Text,
-                    TotalDays = this.textBoxTotalDays.Text,
-                    TotalPrice = this.textBoxTotalPrice.Text
+                    ReferenceRate = double.Parse(this.textBoxReferenceRate.Text, NumberStyles.Float, CultureInfo.InvariantCulture),
+                    StudyRate = double.Parse(this.textBoxStudyRate.Text, NumberStyles.Float, CultureInfo.InvariantCulture),
+                    WorkDayRate = double.Parse(this.textBoxWorkDayRate.Text, NumberStyles.Float, CultureInfo.InvariantCulture),
+                    WorkShortNightsRate = double.Parse(this.textBoxWorkShortNightsRate.Text, NumberStyles.Float, CultureInfo.InvariantCulture),
+                    WorkLongNightsRate = double.Parse(this.textBoxWorkLongNightsRate.Text, NumberStyles.Float, CultureInfo.InvariantCulture),
+                    TestDayRate = double.Parse(this.textBoxTestDayRate.Text, NumberStyles.Float, CultureInfo.InvariantCulture),
+                    TestNightRate = double.Parse(this.textBoxTestNightRate.Text, NumberStyles.Float, CultureInfo.InvariantCulture),
+                    TotalDays = int.Parse(this.textBoxTotalDays.Text, NumberStyles.Integer, CultureInfo.InvariantCulture),
+                    TotalPrice = double.Parse(this.textBoxTotalPrice.Text, NumberStyles.Float, CultureInfo.InvariantCulture)
                 };
             });
         }
@@ -539,15 +376,17 @@ namespace Chiffrage
                     this.textBoxReference.Text = viewModel.Reference;
                     this.dateTimePickerProjectBegin.Value = viewModel.StartDate;
                     this.dateTimePickerProjectEnd.Value = viewModel.EndDate;
-                    this.textBoxReferenceRate.Text = viewModel.ReferenceRate;
-                    this.textBoxStudyRate.Text = viewModel.StudyRate;
-                    this.textBoxWorkDayRate.Text = viewModel.WorkDayRate;
-                    this.textBoxWorkShortNightsRate.Text = viewModel.WorkShortNightsRate;
-                    this.textBoxWorkLongNightsRate.Text = viewModel.WorkLongNightsRate;
-                    this.textBoxTestDayRate.Text = viewModel.TestDayRate;
-                    this.textBoxTestNightRate.Text = viewModel.TestNightRate;
-                    this.textBoxTotalDays.Text = viewModel.TotalDays;
-                    this.textBoxTotalPrice.Text = viewModel.TotalPrice;
+                    this.dateTimePickerProjectEnd.Value = viewModel.EndDate;
+                    
+                    this.textBoxReferenceRate.Text = viewModel.ReferenceRate.ToString(CultureInfo.InvariantCulture);
+                    this.textBoxStudyRate.Text = viewModel.StudyRate.ToString(CultureInfo.InvariantCulture);
+                    this.textBoxWorkDayRate.Text = viewModel.WorkDayRate.ToString(CultureInfo.InvariantCulture);
+                    this.textBoxWorkShortNightsRate.Text = viewModel.WorkShortNightsRate.ToString(CultureInfo.InvariantCulture);
+                    this.textBoxWorkLongNightsRate.Text = viewModel.WorkLongNightsRate.ToString(CultureInfo.InvariantCulture);
+                    this.textBoxTestDayRate.Text = viewModel.TestDayRate.ToString(CultureInfo.InvariantCulture);
+                    this.textBoxTestNightRate.Text = viewModel.TestNightRate.ToString(CultureInfo.InvariantCulture);
+                    this.textBoxTotalDays.Text = viewModel.TotalDays.ToString(CultureInfo.InvariantCulture);
+                    this.textBoxTotalPrice.Text = viewModel.TotalPrice.ToString(CultureInfo.InvariantCulture);
                 }
             });
         }
@@ -585,36 +424,7 @@ namespace Chiffrage
                     projectHardwareViewModelBindingSource.ResumeBinding();
                 });
         }
-
-        public ProjectViewModel GetProjectViewModel()
-        {
-            return this.InvokeIfRequired(() =>
-            {
-                if (!this.id.HasValue)
-                {
-                    return null;
-                }
-
-                return new ProjectViewModel
-                {
-                    Id = this.id.Value,
-                    Name = this.textBoxProjectName.Text,
-                    Reference = this.textBoxReference.Text,
-                    StartDate = this.dateTimePickerProjectBegin.Value,
-                    EndDate = this.dateTimePickerProjectEnd.Value,
-                    ReferenceRate = this.textBoxReferenceRate.Text,
-                    StudyRate = this.textBoxStudyRate.Text,
-                    WorkDayRate = this.textBoxWorkDayRate.Text,
-                    WorkShortNightsRate = this.textBoxWorkShortNightsRate.Text,
-                    WorkLongNightsRate = this.textBoxWorkLongNightsRate.Text,
-                    TestDayRate = this.textBoxTestDayRate.Text,
-                    TestNightRate = this.textBoxTestNightRate.Text,
-                    TotalDays = this.textBoxTotalDays.Text,
-                    TotalPrice = this.textBoxTotalPrice.Text
-                };
-            });
-        }
-
+        
         public void AddHardware(ProjectHardwareViewModel viewModel)
         {
             this.InvokeIfRequired(() =>
