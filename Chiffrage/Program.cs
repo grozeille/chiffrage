@@ -6,16 +6,24 @@ using Chiffrage.Catalogs.Domain;
 using Chiffrage.Ioc;
 using Chiffrage.Mvc.Events;
 using Common.Logging;
-using FluentNHibernate.Cfg;
-using FluentNHibernate.Cfg.Db;
 using NHibernate;
-using NHibernate.ByteCode.Spring;
 using NHibernate.Cfg;
 using Spring.Context;
 using Spring.Context.Support;
-using Strongshell.Recoil.Core.Integration;
-using Settings=Chiffrage.Properties.Settings;
+using Settings = Chiffrage.Properties.Settings;
 using System.Threading;
+using System.Linq;
+using Chiffrage.Mvc.Views;
+using Chiffrage.Mvc.Controllers;
+using Chiffrage.Mvc.Services;
+using Spring.Objects.Factory.Config;
+using NHibernate.Dialect;
+using NHibernate.Mapping.ByCode;
+using Chiffrage.Projects.Dal.Repositories;
+using NHibernate.Cfg.MappingSchema;
+using System.IO;
+using System.Reflection;
+using Strongshell.Recoil.Core.Integration;
 
 namespace Chiffrage
 {
@@ -23,9 +31,9 @@ namespace Chiffrage
     {
         public static T GetObject<T>(this IApplicationContext applicationContext)
         {
-            foreach (DictionaryEntry item in  applicationContext.GetObjectsOfType(typeof (T)))
+            foreach (DictionaryEntry item in applicationContext.GetObjectsOfType(typeof(T)))
             {
-                return (T) item.Value;
+                return (T)item.Value;
             }
 
             return default(T);
@@ -34,7 +42,7 @@ namespace Chiffrage
 
     internal class Program : IGenericEventHandler<ApplicationEndEvent>
     {
-        private static ILog logger = LogManager.GetLogger(typeof (Program));
+        private static ILog logger = LogManager.GetLogger(typeof(Program));
 
 
         /// <summary>
@@ -75,7 +83,8 @@ namespace Chiffrage
 
                 loadingForm.Stop();
 
-                Application.Run(myContext.GetObject<ApplicationForm>());
+                var applicationForm = myContext.GetObject<ApplicationForm>();
+                Application.Run(applicationForm);
                 this.eventBroker.Stop();
             }
             catch (Exception ex)

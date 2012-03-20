@@ -1,22 +1,29 @@
 ﻿using Chiffrage.Projects.Domain;
-using FluentNHibernate.Mapping;
+using NHibernate.Mapping.ByCode.Conformist;
+using NHibernate.Mapping.ByCode;
 
 namespace Chiffrage.Projects.Dal.Mappings
 {
-    public class DealMap : ClassMap<Deal>
+    public class DealMap : ClassMapping<Deal>
     {
         public DealMap()
         {
-            Id(x => x.Id);
-            Map(x => x.Name);
-            Map(x => x.Reference);
-            Map(x => x.Comment);
-            Map(x => x.StartDate);
-            Map(x => x.EndDate);
-            HasMany(x => x.Projects)
-                .Cascade.All()
-                .Not.LazyLoad()
-                .AsBag();
+            Id(x => x.Id, y =>
+            {
+                y.Generator(Generators.Identity);
+            });
+            Property(x => x.Name);
+            Property(x => x.Reference);
+            Property(x => x.Comment);
+            Property(x => x.StartDate);
+            Property(x => x.EndDate);
+            this.Bag(x => x.Projects, y =>
+            {
+                y.Fetch(CollectionFetchMode.Join);
+                y.Lazy(CollectionLazy.NoLazy);
+                y.Cascade(Cascade.All);
+            },
+            action => action.OneToMany());
         }
     }
 }

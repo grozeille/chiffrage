@@ -37,22 +37,14 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AutoMapper, Version=1.1.0.188, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\AutoMapper.dll</HintPath>
+      <HintPath>..\packages\AutoMapper.1.1.0.118\lib\AutoMapper.dll</HintPath>
     </Reference>
     <Reference Include="Common.Logging, Version=2.0.0.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Libs\Common.Logging.dll</HintPath>
+      <HintPath>..\packages\Common.Logging.2.0.0\lib\2.0\Common.Logging.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Reactive, Version=1.0.10621.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\Libs\System.Reactive.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Reactive.Windows.Forms, Version=1.0.10621.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\Libs\System.Reactive.Windows.Forms.dll</HintPath>
     </Reference>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq">
@@ -78,6 +70,7 @@
     <Compile Include="Events\RequestNewHardwareSupplyEvent.cs" />
     <Compile Include="Events\RequestEditHardwareEvent.cs" />
     <Compile Include="Events\RequestNewHardwareEvent.cs" />
+    <Compile Include="Events\RequestNewProjectFrameEvent.cs" />
     <Compile Include="Events\RequestNewProjectHardwareEvent.cs" />
     <Compile Include="Events\RequestNewProjectSupplyEvent.cs" />
     <Compile Include="Events\RequestNewSupplyEvent.cs" />
@@ -97,6 +90,7 @@
     <Compile Include="ViewModel\CatalogHardwareViewModel.cs" />
     <Compile Include="ViewModel\CatalogSupplyViewModel.cs" />
     <Compile Include="ViewModel\CatalogHardwareSupplyViewModel.cs" />
+    <Compile Include="ViewModel\ProjectFrameViewModel.cs" />
     <Compile Include="ViewModel\ProjectHardwareSupplyViewModel.cs" />
     <Compile Include="ViewModel\NavigationItemViewModel.cs">
       <SubType>Code</SubType>
@@ -129,6 +123,7 @@
     </Compile>
     <Compile Include="Views\IEditProjectHardwareView.cs" />
     <Compile Include="Views\IEditProjectSupplyView.cs" />
+    <Compile Include="Views\INewProjectFrameView.cs" />
     <Compile Include="Views\INewProjectHardwareView.cs" />
     <Compile Include="Views\IEditHardwareSupplyView.cs" />
     <Compile Include="Views\INewHardwareSupplyView.cs" />
@@ -160,6 +155,9 @@
       <Project>{28B2F9CD-626A-425C-8D41-CAB32F21134F}</Project>
       <Name>Chiffrage.Projects.Domain</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

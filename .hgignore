@@ -8,4 +8,5 @@ bin
 .user
 .pidb
 .resources
+.sonar
 packages

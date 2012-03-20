@@ -1,8 +1,11 @@
 ﻿using Chiffrage.Projects.Dal.Repositories;
 using Chiffrage.Properties;
-using FluentNHibernate.Cfg;
-using FluentNHibernate.Cfg.Db;
-using NHibernate.ByteCode.Spring;
+using NHibernate.Cfg;
+using NHibernate.Cfg.MappingSchema;
+using NHibernate.Dialect;
+using NHibernate.Mapping.ByCode;
+using NHibernate;
+using Chiffrage.Projects.Dal.Mappings;
 using Strongshell.Recoil.Core.Composition;
 
 namespace Chiffrage.Ioc
@@ -11,27 +14,33 @@ namespace Chiffrage.Ioc
     {
         public override void SetupContainer()
         {
+            // register nhibernate
             var file = "deal.cat";
-            if (Settings.Default.DealsRecentPath != null && Settings.Default.DealsRecentPath.Count > 0)
+            if (Chiffrage.Properties.Settings.Default.DealsRecentPath != null && Chiffrage.Properties.Settings.Default.DealsRecentPath.Count > 0)
             {
-                file = Settings.Default.DealsRecentPath[Settings.Default.DealsRecentPath.Count - 1];
+                file = Chiffrage.Properties.Settings.Default.DealsRecentPath[Chiffrage.Properties.Settings.Default.DealsRecentPath.Count - 1];
             }
 
-            var configurationDeals = Fluently.Configure()
-                .Database(SQLiteConfiguration.Standard
-                              .UsingFile(file)
-                              .ProxyFactoryFactory(typeof (ProxyFactoryFactory)))
-                .Mappings(m => m.FluentMappings.AddFromAssembly(typeof (DealRepository).Assembly))
-                .BuildConfiguration();
+            var dealConfiguration = new Configuration()
+            .Proxy(p => p.ProxyFactoryFactory<NHibernate.Bytecode.DefaultProxyFactoryFactory>())
+            .DataBaseIntegration(d =>
+            {
+                d.ConnectionString = string.Format("Data Source={0};Version=3;", file);
+                d.Dialect<SQLiteDialect>();
+                d.SchemaAction = SchemaAutoAction.Update;
+            });
+            var dealMapper = new ModelMapper();
+            dealMapper.AddMappings(typeof(DealRepository).Assembly.GetTypes());
+            
+            HbmMapping dealMapping = dealMapper.CompileMappingForAllExplicitlyAddedEntities();
+            dealConfiguration.AddMapping(dealMapping);
 
-            configurationDeals.Properties["hbm2ddl.auto"] = "update";
+            var dealSessionFactory = dealConfiguration.BuildSessionFactory();
 
-            var sessionFactory = configurationDeals.BuildSessionFactory();
-
-            Define(() => new DealRepository(sessionFactory))
+            Define(() => new DealRepository(dealSessionFactory))
                 .AsSingleton();
 
-            Define(() => new ProjectRepository(sessionFactory))
+            Define(() => new ProjectRepository(dealSessionFactory))
                 .AsSingleton();
         }
     }

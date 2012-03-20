@@ -1,24 +1,28 @@
 ﻿using Chiffrage.Catalogs.Domain;
-using FluentNHibernate.Mapping;
+using NHibernate.Mapping.ByCode.Conformist;
+using NHibernate.Mapping.ByCode;
 
-namespace Chiffrage.Catalogs.Dal.Mappings
+namespace Chiffrage.Catalogs.Dal.Propertypings
 {
-    public class CableMap : ClassMap<Cable>
+    public class CableProperty : ClassMapping<Cable>
     {
-        public CableMap()
+        public CableProperty()
         {
-            Id(x => x.Id);
-            Map(x => x.Name);
-            Map(x => x.Reference);
-            Map(x => x.Category);
-            Map(x => x.ModuleSize);
-            Map(x => x.PricePerMeter);
-            Map(x => x.Length);
-            Map(x => x.StudyDays);
-            Map(x => x.ReferenceDays);
-            Map(x => x.CatalogWorkDays);
-            Map(x => x.CatalogExecutiveWorkDays);
-            Map(x => x.CatalogTestsDays);
+            Id(x => x.Id, y =>
+            {
+                y.Generator(Generators.Identity);
+            });
+            Property(x => x.Name);
+            Property(x => x.Reference);
+            Property(x => x.Category);
+            Property(x => x.ModuleSize);
+            Property(x => x.PricePerMeter);
+            Property(x => x.Length);
+            Property(x => x.StudyDays);
+            Property(x => x.ReferenceDays);
+            Property(x => x.CatalogWorkDays);
+            Property(x => x.CatalogExecutiveWorkDays);
+            Property(x => x.CatalogTestsDays);
         }
     }
 }

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Threading;
 using Common.Logging;
 using System.Windows.Forms;
-using System.Reactive.Concurrency;
 using System.Linq;
 
 namespace Chiffrage.Mvc.Events

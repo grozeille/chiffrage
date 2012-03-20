@@ -3,17 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Chiffrage.Projects.Domain;
-using FluentNHibernate.Mapping;
+using NHibernate.Mapping.ByCode.Conformist;
+using NHibernate.Mapping.ByCode;
 
 namespace Chiffrage.Projects.Dal.Mappings
 {
-    public class ProjectFrameMap : ClassMap<ProjectFrame>
+    public class ProjectFrameMap : ClassMapping<ProjectFrame>
     {
         public ProjectFrameMap()
         {
-            this.Id(x => x.Id);
-            this.Map(x => x.Count);
-            this.Map(x => x.Size);
+            this.Id(x => x.Id, y =>
+            {
+                y.Generator(Generators.Identity);
+            });
+            this.Property(x => x.Count);
+            this.Property(x => x.Size);
         }
     }
 }

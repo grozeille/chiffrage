@@ -9,58 +9,22 @@ using System.Windows.Forms;
 using Chiffrage.App.ViewModel;
 using AutoMapper;
 using System.Globalization;
+using Chiffrage.Mvc.Views;
 
 namespace Chiffrage.WizardPages
 {
-    public partial class NewSupplyPage : UserControl
+    public partial class NewSupplyPage : WithValidationUserControl
     {
         public NewSupplyPage()
         {
             InitializeComponent();
-        }
 
-        protected override void OnValidating(CancelEventArgs e)
-        {
-            base.OnValidating(e);
-
-            int temp;
-            double tempDouble;
-
-            if (string.IsNullOrEmpty(this.textBoxName.Text))
-            {
-                e.Cancel = true;
-                this.errorProvider.SetError(this.textBoxName, "Obligatoire");
-            }
-
-            if (!int.TryParse(this.textBoxModuleSize.Text, out temp))
-            {
-                e.Cancel = true;
-                this.errorProvider.SetError(this.textBoxModuleSize, "Doit être un nombre");
-            }
-
-            if (!double.TryParse(this.textBoxCatalogPrice.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out tempDouble))
-            {
-                e.Cancel = true;
-                this.errorProvider.SetError(this.textBoxCatalogPrice, "Doit être un nombre");
-            }
-
-            if (!int.TryParse(this.textBoxPFC0.Text, out temp))
-            {
-                e.Cancel = true;
-                this.errorProvider.SetError(this.textBoxPFC0, "Doit être un nombre");
-            }
-
-            if (!int.TryParse(this.textBoxPFC12.Text, out temp))
-            {
-                e.Cancel = true;
-                this.errorProvider.SetError(this.textBoxPFC12, "Doit être un nombre");
-            }
-
-            if (!int.TryParse(this.textBoxCap.Text, out temp))
-            {
-                e.Cancel = true;
-                this.errorProvider.SetError(this.textBoxCap, "Doit être un nombre");
-            }
+            this.textBoxName.Validating += this.ValidateIsRequiredTextBox;
+            this.textBoxModuleSize.Validating += this.ValidateIsIntegerTextBox;
+            this.textBoxCatalogPrice.Validating += this.ValidateIsDoubleTextBox;
+            this.textBoxPFC0.Validating += this.ValidateIsIntegerTextBox;
+            this.textBoxPFC12.Validating += this.ValidateIsIntegerTextBox;
+            this.textBoxCap.Validating += this.ValidateIsIntegerTextBox;
         }
 
         public string SupplyName

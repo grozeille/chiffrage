@@ -1,28 +1,43 @@
 ﻿using Chiffrage.Catalogs.Domain;
-using FluentNHibernate.Mapping;
+using NHibernate.Mapping.ByCode.Conformist;
+using NHibernate.Mapping.ByCode;
 
 namespace Chiffrage.Catalogs.Dal.Mappings
 {
-    public class SupplierCatalogMap : ClassMap<SupplierCatalog>
+    public class SupplierCatalogMap : ClassMapping<SupplierCatalog>
     {
         public SupplierCatalogMap()
         {
-            Id(x => x.Id);
-            Map(x => x.Comment);
-            Map(x => x.SupplierName);
+            Id(x => x.Id, y =>
+            {
+                y.Generator(Generators.Identity);
+            });
+            Property(x => x.Comment);
+            Property(x => x.SupplierName);
 
-            HasMany(x => x.Supplies)
-                .Not.LazyLoad()
-                .Cascade.All()
-                .AsBag();
-            HasMany(x => x.Hardwares)
-                .Not.LazyLoad()
-                .Cascade.All()
-                .AsBag();
-            HasMany(x => x.Cables)
-                .Not.LazyLoad()
-                .Cascade.All()
-                .AsBag();
+            this.Bag(x => x.Supplies, y =>
+            {
+                y.Fetch(CollectionFetchMode.Join);
+                y.Lazy(CollectionLazy.NoLazy);
+                y.Cascade(Cascade.All);
+            },
+            action => action.OneToMany());
+
+            this.Bag(x => x.Hardwares, y =>
+            {
+                y.Fetch(CollectionFetchMode.Join);
+                y.Lazy(CollectionLazy.NoLazy);
+                y.Cascade(Cascade.All);
+            },
+            action => action.OneToMany());
+
+            this.Bag(x => x.Cables, y =>
+            {
+                y.Fetch(CollectionFetchMode.Join);
+                y.Lazy(CollectionLazy.NoLazy);
+                y.Cascade(Cascade.All);
+            },
+            action => action.OneToMany());
         }
     }
 }

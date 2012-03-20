@@ -4,7 +4,7 @@ using Chiffrage.Mvc.Exceptions;
 
 namespace Chiffrage.Mvc.Views
 {
-    public class UserControlView : UserControl, IView
+    public class UserControlView : WithValidationUserControl, IView
     {
         #region IView Members
 

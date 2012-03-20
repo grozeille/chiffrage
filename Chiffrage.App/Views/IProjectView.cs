@@ -15,6 +15,8 @@ namespace Chiffrage.App.Views
 
         void SetHardwares(IList<ProjectHardwareViewModel> hardwares);
 
+        void SetFrames(IList<ProjectFrameViewModel> frames);
+
         ProjectViewModel GetProjectViewModel();
 
         void AddSupply(ProjectSupplyViewModel viewModel);
@@ -28,5 +30,9 @@ namespace Chiffrage.App.Views
         void AddHardware(ProjectHardwareViewModel viewModel);
 
         void RemoveHardware(ProjectHardwareViewModel hardware);
+        
+        void AddFrame(ProjectFrameViewModel frame);
+
+        void AddFrames(IList<ProjectFrameViewModel> frames);
     }
 }

@@ -10,8 +10,6 @@ using System.Linq;
 using Chiffrage.Mvc.Controllers;
 using Chiffrage.Projects.Domain.Events;
 using Chiffrage.Projects.Domain.Commands;
-using System.Reactive;
-using System.Reactive.Concurrency;
 
 namespace Chiffrage.App.Controllers
 {

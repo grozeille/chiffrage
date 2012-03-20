@@ -27,6 +27,8 @@ namespace Chiffrage
 
         private readonly SortableBindingList<ProjectHardwareViewModel> hardwares = new SortableBindingList<ProjectHardwareViewModel>();
 
+        private readonly SortableBindingList<ProjectFrameViewModel> frames = new SortableBindingList<ProjectFrameViewModel>();
+
         private Font defaultFont = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Regular,
                                             GraphicsUnit.Point, ((byte) (0)));
         
@@ -38,6 +40,7 @@ namespace Chiffrage
 
             this.projectSupplyViewModelBindingSource.DataSource = supplies;
             this.projectHardwareViewModelBindingSource.DataSource = hardwares;
+            this.projectFrameViewModelBindingSource.DataSource = frames;
 
             this.textBoxStudyRate.Validating += this.ValidateIsDoubleTextBox;
             this.textBoxProjectName.Validating += this.ValidateIsRequiredTextBox;
@@ -48,38 +51,7 @@ namespace Chiffrage
             this.textBoxTestDayRate.Validating += this.ValidateIsDoubleTextBox;
             this.textBoxTestNightRate.Validating += this.ValidateIsDoubleTextBox;
         }
-
-        private void ValidateIsRequiredTextBox(object sender, CancelEventArgs args)
-        {
-            args.Cancel = !ValidateIsRequired((TextBox)sender);
-        }
-
-        private void ValidateIsDoubleTextBox(object sender, CancelEventArgs args)
-        {
-            args.Cancel = !ValidateIsDouble((TextBox)sender);
-        }
-
-        private bool ValidateIsRequired(Control control)
-        {
-            if (string.IsNullOrEmpty(control.Text))
-            {
-                this.errorProvider.SetError(control, "Obligatoire");
-                return false;
-            }
-            return true;
-        }
-
-        private bool ValidateIsDouble(Control control)
-        {
-            double doubleTemp;
-            if (!double.TryParse(control.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out doubleTemp))
-            {
-                this.errorProvider.SetError(control, "Doit être un nombre");
-                return false;
-            }
-            return true;
-        }
-
+        
         public ProjectUserControl(IEventBroker eventBroker)
             :this()
         {
@@ -127,6 +99,11 @@ namespace Chiffrage
 
                 return null;
             });
+
+            this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonAddFrame, () =>
+                this.id.HasValue ? new RequestNewProjectFrameEvent(this.id.Value) : null);
+
+            
         }
 
         #region Summary
@@ -404,7 +381,7 @@ namespace Chiffrage
                             this.supplies.Add(item);
                         }
                     }
-                    projectSupplyViewModelBindingSource.ResumeBinding();
+                    this.projectSupplyViewModelBindingSource.ResumeBinding();
                 });
         }
 
@@ -421,7 +398,7 @@ namespace Chiffrage
                             this.hardwares.Add(item);
                         }
                     }
-                    projectHardwareViewModelBindingSource.ResumeBinding();
+                    this.projectHardwareViewModelBindingSource.ResumeBinding();
                 });
         }
         
@@ -440,6 +417,45 @@ namespace Chiffrage
                     var item = this.hardwares.Where(x => x.Id == hardware.Id).First();
                     this.hardwares.Remove(item);
                 });
+        }
+
+
+        public void SetFrames(IList<ProjectFrameViewModel> frames)
+        {
+            this.InvokeIfRequired(() =>
+            {
+                this.projectFrameViewModelBindingSource.SuspendBinding();
+                this.frames.Clear();
+                if (frames != null)
+                {
+                    foreach (var item in frames)
+                    {
+                        this.frames.Add(item);
+                    }
+                }
+                this.projectFrameViewModelBindingSource.ResumeBinding();
+            });
+        }
+
+        public void AddFrame(ProjectFrameViewModel frame)
+        {
+            this.InvokeIfRequired(() =>
+               {
+                   frames.Add(frame);
+               });
+        }
+
+        public void AddFrames(IList<ProjectFrameViewModel> frames)
+        {
+            this.InvokeIfRequired(() =>
+            {
+                this.projectFrameViewModelBindingSource.SuspendBinding();
+                foreach (var item in frames)
+                {
+                    this.frames.Add(item);
+                }
+                this.projectFrameViewModelBindingSource.ResumeBinding();
+            });
         }
     }
 }

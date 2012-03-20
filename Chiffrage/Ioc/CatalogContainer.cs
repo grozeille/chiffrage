@@ -1,11 +1,12 @@
-﻿using Chiffrage.Catalogs.Dal.Repositories;
-using Chiffrage.Properties;
-using FluentNHibernate.Cfg;
-using FluentNHibernate.Cfg.Db;
-using NHibernate.ByteCode.Spring;
-using Strongshell.Recoil.Core.Composition;
-using System;
+﻿using System;
 using System.IO;
+using Chiffrage.Catalogs.Dal.Repositories;
+using NHibernate;
+using NHibernate.Cfg;
+using NHibernate.Cfg.MappingSchema;
+using NHibernate.Dialect;
+using NHibernate.Mapping.ByCode;
+using Strongshell.Recoil.Core.Composition;
 
 namespace Chiffrage.Ioc
 {
@@ -13,24 +14,28 @@ namespace Chiffrage.Ioc
     {
         public override void SetupContainer()
         {
-            var catalogPath = Settings.Default.CatalogPath;
+            var catalogPath = Chiffrage.Properties.Settings.Default.CatalogPath;
             if (string.IsNullOrEmpty(catalogPath))
             {
                 catalogPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "catalog.cat");
             }
 
-            var configurationCatalog = Fluently.Configure()
-                .Database(SQLiteConfiguration.Standard
-                              .UsingFile(catalogPath)
-                              .ProxyFactoryFactory(typeof (ProxyFactoryFactory)))
-                .Mappings(m => m.FluentMappings.AddFromAssembly(typeof (CatalogRepository).Assembly))
-                .BuildConfiguration();
+            var catalogConfiguration = new Configuration()
+            .Proxy(p => p.ProxyFactoryFactory<NHibernate.Bytecode.DefaultProxyFactoryFactory>())
+            .DataBaseIntegration(d =>
+            {
+                d.ConnectionString = string.Format("Data Source={0};Version=3;", catalogPath);
+                d.Dialect<SQLiteDialect>();
+                d.SchemaAction = SchemaAutoAction.Update;
+            });
+            var catalogMapper = new ModelMapper();
+            catalogMapper.AddMappings(typeof(CatalogRepository).Assembly.GetTypes());
+            HbmMapping catalogMapping = catalogMapper.CompileMappingForAllExplicitlyAddedEntities();
+            catalogConfiguration.AddMapping(catalogMapping);
 
-            configurationCatalog.Properties["hbm2ddl.auto"] = "update";
-
-            var sessionFactory = configurationCatalog.BuildSessionFactory();
-
-            Define(() => new CatalogRepository(sessionFactory))
+            var catalogSessionFactory = catalogConfiguration.BuildSessionFactory();
+            
+            Define(() => new CatalogRepository(catalogSessionFactory))
                 .AsSingleton();
         }
     }

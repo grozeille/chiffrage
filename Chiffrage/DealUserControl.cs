@@ -12,6 +12,8 @@ namespace Chiffrage
         public DealUserControl()
         {
             this.InitializeComponent();
+
+            this.textBoxDealName.Validating += this.ValidateIsRequiredTextBox;
         }
 
         #region IDealView Members

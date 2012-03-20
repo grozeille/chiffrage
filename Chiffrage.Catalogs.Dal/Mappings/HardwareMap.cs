@@ -1,25 +1,32 @@
 ﻿using Chiffrage.Catalogs.Domain;
-using FluentNHibernate.Mapping;
+using NHibernate.Mapping.ByCode.Conformist;
+using NHibernate.Mapping.ByCode;
 
 namespace Chiffrage.Catalogs.Dal.Mappings
 {
-    public class HardwareMap : ClassMap<Hardware>
+    public class HardwareMap : ClassMapping<Hardware>
     {
         public HardwareMap()
         {
-            Id(x => x.Id);
-            Map(x => x.Name);
-            Map(x => x.Reference);
-            Map(x => x.Category);
-            Map(x => x.StudyDays);
-            Map(x => x.ReferenceDays);
-            Map(x => x.CatalogWorkDays);
-            Map(x => x.CatalogExecutiveWorkDays);
-            Map(x => x.CatalogTestsDays);
-            HasMany(x => x.Components)
-                .Not.LazyLoad()
-                .Cascade.SaveUpdate()
-                .AsBag();
+            Id(x => x.Id, y =>
+            {
+                y.Generator(Generators.Identity);
+            });
+            Property(x => x.Name);
+            Property(x => x.Reference);
+            Property(x => x.Category);
+            Property(x => x.StudyDays);
+            Property(x => x.ReferenceDays);
+            Property(x => x.CatalogWorkDays);
+            Property(x => x.CatalogExecutiveWorkDays);
+            Property(x => x.CatalogTestsDays);
+            this.Bag(x => x.Components, y =>
+            {
+                y.Fetch(CollectionFetchMode.Join);
+                y.Lazy(CollectionLazy.NoLazy);
+                y.Cascade(Cascade.All);
+            },
+            action => action.OneToMany());
         }
     }
 }

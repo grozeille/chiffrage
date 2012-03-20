@@ -1,18 +1,24 @@
 ﻿using Chiffrage.Projects.Domain;
-using FluentNHibernate.Mapping;
+using NHibernate.Mapping.ByCode.Conformist;
+using NHibernate.Mapping.ByCode;
 
 namespace Chiffrage.Projects.Dal.Mappings
 {
-    public class ProjectHardwareSupplyMap : ClassMap<ProjectHardwareSupply>
+    public class ProjectHardwareSupplyMap : ClassMapping<ProjectHardwareSupply>
     {
         public ProjectHardwareSupplyMap()
         {
-            Id(x => x.Id);
-            Map(x => x.Quantity);
-            Map(x => x.Comment);
-            References(x => x.Supply)
-                .Not.LazyLoad()
-                .Cascade.SaveUpdate();
+            Id(x => x.Id, y =>
+            {
+                y.Generator(Generators.Identity);
+            });
+            Property(x => x.Quantity);
+            Property(x => x.Comment);
+            this.ManyToOne(x => x.Supply, y =>
+                {
+                    y.Lazy(LazyRelation.NoLazy);
+                    y.Cascade(Cascade.All);
+                });
         }
     }
 }

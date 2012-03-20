@@ -1,43 +1,62 @@
 ﻿using Chiffrage.Projects.Domain;
-using FluentNHibernate.Mapping;
+using NHibernate.Mapping.ByCode.Conformist;
+using NHibernate.Mapping.ByCode;
 
 namespace Chiffrage.Projects.Dal.Mappings
 {
-    public class ProjectMap : ClassMap<Project>
+    public class ProjectMap : ClassMapping<Project>
     {
         public ProjectMap()
         {
-            Id(x => x.Id);
-            Map(x => x.Name);
-            Map(x => x.Reference);
-            Map(x => x.Comment);
-            Map(x => x.StartDate);
-            Map(x => x.EndDate);
+            Id(x => x.Id, y =>
+            {
+                y.Generator(Generators.Identity);
+            });
+            Property(x => x.Name);
+            Property(x => x.Reference);
+            Property(x => x.Comment);
+            Property(x => x.StartDate);
+            Property(x => x.EndDate);
 
-            Map(x => x.StudyRate);
-            Map(x => x.ReferenceRate);
-            Map(x => x.WorkDayRate);
-            Map(x => x.WorkShortNightsRate);
-            Map(x => x.WorkLongNightsRate);
-            Map(x => x.TestDayRate);
-            Map(x => x.TestNightRate);
-            
-            HasMany(x => x.Supplies)
-                .Cascade.All()
-                .Not.LazyLoad()
-                .AsBag();
-            HasMany(x => x.Hardwares)
-                .Cascade.All()
-                .Not.LazyLoad()
-                .AsBag();
-            HasMany(x => x.OtherBenefits)
-                .Cascade.All()
-                .Not.LazyLoad()
-                .AsBag();
-            HasMany(x => x.Frames)
-                .Cascade.All()
-                .Not.LazyLoad()
-                .AsBag();            
+            Property(x => x.StudyRate);
+            Property(x => x.ReferenceRate);
+            Property(x => x.WorkDayRate);
+            Property(x => x.WorkShortNightsRate);
+            Property(x => x.WorkLongNightsRate);
+            Property(x => x.TestDayRate);
+            Property(x => x.TestNightRate);
+
+            this.Bag(x => x.Supplies, y =>
+            {
+                y.Fetch(CollectionFetchMode.Join);
+                y.Lazy(CollectionLazy.NoLazy);
+                y.Cascade(Cascade.All);
+            },
+            action => action.OneToMany());
+
+            this.Bag(x => x.Hardwares, y =>
+            {
+                y.Fetch(CollectionFetchMode.Join);
+                y.Lazy(CollectionLazy.NoLazy);
+                y.Cascade(Cascade.All);
+            },
+            action => action.OneToMany());
+
+            this.Bag(x => x.OtherBenefits, y =>
+            {
+                y.Fetch(CollectionFetchMode.Join);
+                y.Lazy(CollectionLazy.NoLazy);
+                y.Cascade(Cascade.All);
+            },
+            action => action.OneToMany());
+
+            this.Bag(x => x.Frames, y =>
+            {
+                y.Fetch(CollectionFetchMode.Join);
+                y.Lazy(CollectionLazy.NoLazy);
+                y.Cascade(Cascade.All);
+            },
+            action => action.OneToMany());       
         }
     }
 }

@@ -47,9 +47,9 @@
             this.textBoxPFC12 = new System.Windows.Forms.TextBox();
             this.textBoxCap = new System.Windows.Forms.TextBox();
             this.comboBoxCategory = new System.Windows.Forms.ComboBox();
-            this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            
             this.tableLayoutPanel.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
+            
             this.SuspendLayout();
             // 
             // textBoxName
@@ -244,12 +244,6 @@
             this.comboBoxCategory.Size = new System.Drawing.Size(194, 21);
             this.comboBoxCategory.TabIndex = 8;
             // 
-            // errorProvider
-            // 
-            this.errorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
-            this.errorProvider.ContainerControl = this;
-            this.errorProvider.Icon = ((System.Drawing.Icon)(resources.GetObject("errorProvider.Icon")));
-            // 
             // NewSupplyPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -259,7 +253,7 @@
             this.Size = new System.Drawing.Size(353, 330);
             this.tableLayoutPanel.ResumeLayout(false);
             this.tableLayoutPanel.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
+            
             this.ResumeLayout(false);
 
         }
@@ -283,6 +277,5 @@
         private System.Windows.Forms.TextBox textBoxPFC12;
         private System.Windows.Forms.TextBox textBoxCap;
         private System.Windows.Forms.ComboBox comboBoxCategory;
-        private System.Windows.Forms.ErrorProvider errorProvider;
     }
 }

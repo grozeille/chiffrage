@@ -14,8 +14,6 @@ using Chiffrage.Projects.Domain.Commands;
 using Chiffrage.Catalogs.Domain.Repositories;
 using Chiffrage.Catalogs.Domain;
 using Chiffrage.Projects.Domain.Events;
-using System.Reactive;
-using System.Reactive.Concurrency;
 using Chiffrage.Mvc;
 
 namespace Chiffrage.App.Controllers
@@ -34,7 +32,8 @@ namespace Chiffrage.App.Controllers
         IGenericEventHandler<RequestEditProjectHardwareEvent>,
         IGenericEventHandler<RequestNewProjectHardwareEvent>,
         IGenericEventHandler<ProjectHardwareCreatedEvent>,
-        IGenericEventHandler<ProjectHardwareDeletedEvent>
+        IGenericEventHandler<ProjectHardwareDeletedEvent>,
+        IGenericEventHandler<RequestNewProjectFrameEvent>
     {
         private readonly IProjectView projectView;
 
@@ -56,6 +55,8 @@ namespace Chiffrage.App.Controllers
 
         private readonly IEditProjectHardwareView editProjectHardwareView;
 
+        private readonly INewProjectFrameView newProjectFrameView;
+
         public ProjectController(
             IEventBroker eventBroker, 
             IProjectView projectView, 
@@ -66,6 +67,7 @@ namespace Chiffrage.App.Controllers
             INewProjectHardwareView newProjectHardwareView,
             IEditProjectSupplyView editProjectSupplyView,
             IEditProjectHardwareView editProjectHardwareView,
+            INewProjectFrameView newProjectFrameView,
             ICatalogRepository catalogRepository)
         {
             this.projectView = projectView;
@@ -77,6 +79,7 @@ namespace Chiffrage.App.Controllers
             this.newProjectHardwareView = newProjectHardwareView;
             this.editProjectHardwareView = editProjectHardwareView;
             this.editProjectSupplyView = editProjectSupplyView;
+            this.newProjectFrameView = newProjectFrameView;
             this.catalogRepository = catalogRepository;
         }
 
@@ -297,5 +300,11 @@ namespace Chiffrage.App.Controllers
             return viewModel;
         }
 
+
+        public void ProcessAction(RequestNewProjectFrameEvent eventObject)
+        {
+            this.newProjectFrameView.ProjectId = eventObject.ProjectId;
+            this.newProjectFrameView.ShowView();            
+        }
     }
 }
