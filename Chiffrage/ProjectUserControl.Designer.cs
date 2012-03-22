@@ -82,6 +82,7 @@ namespace Chiffrage
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle40 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPageMain = new System.Windows.Forms.TabPage();
+            this.commentUserControl = new Chiffrage.CommentUserControl();
             this.panelMain = new System.Windows.Forms.Panel();
             this.labelProject = new System.Windows.Forms.Label();
             this.textBoxProjectName = new System.Windows.Forms.TextBox();
@@ -152,7 +153,6 @@ namespace Chiffrage
             this.ColumnSumaryDays = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnSumaryRate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnSumaryCost = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.commentUserControl = new Chiffrage.CommentUserControl();
             this.projectBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.catalogIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -220,6 +220,7 @@ namespace Chiffrage
             this.projectFrameViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.toolStripButtonAddFrame = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonRemoveFrame = new System.Windows.Forms.ToolStripButton();
+            this.pictureBoxWarningFrame = new System.Windows.Forms.PictureBox();
             this.dataGridViewTextBoxColumn30 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn31 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn32 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -248,6 +249,7 @@ namespace Chiffrage
             this.otherBenefitBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.bindingNavigatorAddNewItem = new System.Windows.Forms.ToolStripButton();
             this.bindingNavigatorDeleteItem = new System.Windows.Forms.ToolStripButton();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.tabControl.SuspendLayout();
             this.tabPageMain.SuspendLayout();
             this.panelMain.SuspendLayout();
@@ -288,6 +290,7 @@ namespace Chiffrage
             ((System.ComponentModel.ISupportInitialize)(this.projectHardwareViewModelBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.componentsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.projectFrameViewModelBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxWarningFrame)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.otherBenefitBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -322,6 +325,17 @@ namespace Chiffrage
             this.tabPageMain.TabIndex = 6;
             this.tabPageMain.Text = "Projet";
             this.tabPageMain.UseVisualStyleBackColor = true;
+            // 
+            // commentUserControl
+            // 
+            this.commentUserControl.DataBindings.Add(new System.Windows.Forms.Binding("Rtf", this.projectBindingSource, "Comment", true));
+            this.commentUserControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.commentUserControl.Location = new System.Drawing.Point(3, 181);
+            this.commentUserControl.Name = "commentUserControl";
+            this.commentUserControl.Rtf = "{\\rtf1\\ansi\\ansicpg1252\\deff0\\deflang1036{\\fonttbl{\\f0\\fnil\\fcharset0 Microsoft S" +
+                "ans Serif;}}\r\n\\viewkind4\\uc1\\pard\\f0\\fs17 trertre\\par\r\ntreterert\\par\r\n}\r\n";
+            this.commentUserControl.Size = new System.Drawing.Size(1052, 347);
+            this.commentUserControl.TabIndex = 14;
             // 
             // panelMain
             // 
@@ -913,6 +927,7 @@ namespace Chiffrage
             // 
             // panelTotalModules
             // 
+            this.panelTotalModules.Controls.Add(this.pictureBoxWarningFrame);
             this.panelTotalModules.Controls.Add(this.textBoxModulesNotInFrame);
             this.panelTotalModules.Controls.Add(this.label3);
             this.panelTotalModules.Controls.Add(this.textBoxTotalModules);
@@ -1500,17 +1515,6 @@ namespace Chiffrage
             this.ColumnSumaryCost.HeaderText = "Coût";
             this.ColumnSumaryCost.Name = "ColumnSumaryCost";
             // 
-            // commentUserControl
-            // 
-            this.commentUserControl.DataBindings.Add(new System.Windows.Forms.Binding("Rtf", this.projectBindingSource, "Comment", true));
-            this.commentUserControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.commentUserControl.Location = new System.Drawing.Point(3, 181);
-            this.commentUserControl.Name = "commentUserControl";
-            this.commentUserControl.Rtf = "{\\rtf1\\ansi\\ansicpg1252\\deff0\\deflang1036{\\fonttbl{\\f0\\fnil\\fcharset0 Microsoft S" +
-                "ans Serif;}}\r\n\\viewkind4\\uc1\\pard\\f0\\fs17 trertre\\par\r\ntreterert\\par\r\n}\r\n";
-            this.commentUserControl.Size = new System.Drawing.Size(1052, 347);
-            this.commentUserControl.TabIndex = 14;
-            // 
             // projectBindingSource
             // 
             this.projectBindingSource.DataSource = typeof(Chiffrage.App.ViewModel.ProjectViewModel);
@@ -1987,6 +1991,17 @@ namespace Chiffrage
             this.toolStripButtonRemoveFrame.Size = new System.Drawing.Size(82, 22);
             this.toolStripButtonRemoveFrame.Text = "Supprimer";
             // 
+            // pictureBoxWarningFrame
+            // 
+            this.pictureBoxWarningFrame.Image = global::Chiffrage.Properties.Resources.error;
+            this.pictureBoxWarningFrame.InitialImage = null;
+            this.pictureBoxWarningFrame.Location = new System.Drawing.Point(424, 14);
+            this.pictureBoxWarningFrame.Name = "pictureBoxWarningFrame";
+            this.pictureBoxWarningFrame.Size = new System.Drawing.Size(16, 16);
+            this.pictureBoxWarningFrame.TabIndex = 4;
+            this.pictureBoxWarningFrame.TabStop = false;
+            this.pictureBoxWarningFrame.Visible = false;
+            // 
             // dataGridViewTextBoxColumn30
             // 
             this.dataGridViewTextBoxColumn30.DataPropertyName = "Id";
@@ -2193,6 +2208,7 @@ namespace Chiffrage
             this.Controls.Add(this.tabControl);
             this.Name = "ProjectUserControl";
             this.Size = new System.Drawing.Size(1066, 557);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.tabControl.ResumeLayout(false);
             this.tabPageMain.ResumeLayout(false);
             this.panelMain.ResumeLayout(false);
@@ -2243,6 +2259,7 @@ namespace Chiffrage
             ((System.ComponentModel.ISupportInitialize)(this.projectHardwareViewModelBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.componentsBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.projectFrameViewModelBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxWarningFrame)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.otherBenefitBindingSource)).EndInit();
             this.ResumeLayout(false);
 
@@ -2460,5 +2477,6 @@ namespace Chiffrage
         private System.Windows.Forms.DataGridViewTextBoxColumn sizeDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn countDataGridViewTextBoxColumn;
         private System.Windows.Forms.BindingSource projectFrameViewModelBindingSource;
+        private System.Windows.Forms.PictureBox pictureBoxWarningFrame;
     }
 }

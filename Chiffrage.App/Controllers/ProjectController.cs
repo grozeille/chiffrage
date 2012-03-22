@@ -15,6 +15,7 @@ using Chiffrage.Catalogs.Domain.Repositories;
 using Chiffrage.Catalogs.Domain;
 using Chiffrage.Projects.Domain.Events;
 using Chiffrage.Mvc;
+using Chiffrage.Mvc.Views;
 
 namespace Chiffrage.App.Controllers
 {
@@ -33,7 +34,9 @@ namespace Chiffrage.App.Controllers
         IGenericEventHandler<RequestNewProjectHardwareEvent>,
         IGenericEventHandler<ProjectHardwareCreatedEvent>,
         IGenericEventHandler<ProjectHardwareDeletedEvent>,
-        IGenericEventHandler<RequestNewProjectFrameEvent>
+        IGenericEventHandler<RequestNewProjectFrameEvent>,
+        IGenericEventHandler<ProjectFrameCreatedEvent>,
+        IGenericEventHandler<ProjectFrameDeletedEvent>
     {
         private readonly IProjectView projectView;
 
@@ -57,6 +60,18 @@ namespace Chiffrage.App.Controllers
 
         private readonly INewProjectFrameView newProjectFrameView;
 
+        public static bbv.Common.EventBroker.EventBroker eventBrokerStatic = new bbv.Common.EventBroker.EventBroker();
+
+        [bbv.Common.EventBroker.EventPublication("topic://SomethingInteresting2", bbv.Common.EventBroker.HandlerRestriction.Asynchronous)]
+        public event EventHandler Test;
+
+        [bbv.Common.EventBroker.EventSubscription("topic://SomethingInteresting", typeof(bbv.Common.EventBroker.Handlers.Background))]
+        public void HandleSomethingInteresting(object sender, EventArgs e)
+        {
+            // Do something here
+            Test(this, EventArgs.Empty);
+        }
+        
         public ProjectController(
             IEventBroker eventBroker, 
             IProjectView projectView, 
@@ -81,6 +96,86 @@ namespace Chiffrage.App.Controllers
             this.editProjectSupplyView = editProjectSupplyView;
             this.newProjectFrameView = newProjectFrameView;
             this.catalogRepository = catalogRepository;
+
+            eventBrokerStatic.Register(this);
+        }
+
+
+        private ProjectHardwareViewModel Map(ProjectHardware hardware, int projectId)
+        {
+            Mapper.CreateMap<ProjectHardware, ProjectHardwareViewModel>();
+            Mapper.CreateMap<ProjectHardwareSupply, ProjectHardwareSupplyViewModel>();
+            var viewModel = Mapper.Map<ProjectHardware, ProjectHardwareViewModel>(hardware);
+            viewModel.ProjectId = projectId;
+
+            viewModel.ModuleSize = hardware.Components.Sum(x => x.Supply.ModuleSize * x.Quantity);
+            viewModel.CatalogPrice = hardware.Components.Sum(x => x.Supply.CatalogPrice * x.Quantity);
+
+            viewModel.TotalModuleSize = viewModel.ModuleSize * viewModel.Quantity;
+            viewModel.TotalCatalogExecutiveWorkDays = viewModel.CatalogExecutiveWorkDays * viewModel.Quantity;
+            viewModel.TotalCatalogPrice = viewModel.CatalogPrice * viewModel.Quantity;
+            viewModel.TotalCatalogTestsDays = viewModel.CatalogTestsDays * viewModel.Quantity;
+            viewModel.TotalCatalogWorkDays = viewModel.CatalogWorkDays * viewModel.Quantity;
+            viewModel.TotalReferenceDays = viewModel.ReferenceDays * viewModel.Quantity;
+            viewModel.TotalStudyDays = viewModel.StudyDays * viewModel.Quantity;
+
+            return viewModel;
+        }
+
+        private ProjectSupplyViewModel Map(ProjectSupply supply, int projectId)
+        {
+            Mapper.CreateMap<ProjectSupply, ProjectSupplyViewModel>();
+
+            var viewModel = Mapper.Map<ProjectSupply, ProjectSupplyViewModel>(supply);
+            viewModel.ProjectId = projectId;
+
+            viewModel.TotalModuleSize = viewModel.ModuleSize * viewModel.Quantity;
+            viewModel.TotalCatalogPrice = viewModel.CatalogPrice * viewModel.Quantity;
+            viewModel.TotalPFC12 = viewModel.PFC12 * viewModel.Quantity;
+            viewModel.TotalPFC0 = viewModel.PFC0 * viewModel.Quantity;
+            viewModel.TotalCap = viewModel.Cap * viewModel.Quantity;
+
+            return viewModel;
+        }
+
+        private ProjectFrameViewModel Map(ProjectFrame frame, int projectId)
+        {
+            Mapper.CreateMap<ProjectFrame, ProjectFrameViewModel>();
+
+            var viewModel = Mapper.Map<ProjectFrame, ProjectFrameViewModel>(frame);
+            viewModel.ProjectId = projectId;
+
+            return viewModel;
+        }
+
+        private ProjectViewModel Map(Project project)
+        {
+            Mapper.CreateMap<Project, ProjectViewModel>();
+            var viewModel = Mapper.Map<Project, ProjectViewModel>(project);
+
+            if (viewModel.StartDate == DateTime.MinValue)
+            {
+                viewModel.StartDate = DateTime.Now;
+            }
+
+            if (viewModel.EndDate == DateTime.MinValue)
+            {
+                viewModel.EndDate = DateTime.Now;
+            }
+
+            if (viewModel.Comment == null || !(viewModel.Comment.StartsWith("{\\rtf") && viewModel.Comment.EndsWith("}")))
+                viewModel.Comment = "{\\rtf" + viewModel.Comment + "}";
+
+            viewModel.TotalModules = project.Hardwares.Sum(x => x.Quantity * x.Components.Sum(y => y.Quantity * y.Supply.ModuleSize)) +
+                project.Supplies.Sum(x => x.Quantity * x.ModuleSize);
+
+            viewModel.ModulesNotInFrame = viewModel.TotalModules - project.Frames.Sum(x => x.Count * x.Size);
+            if (viewModel.ModulesNotInFrame < 0)
+            {
+                viewModel.ModulesNotInFrame = 0;
+            }
+
+            return viewModel;
         }
 
         public void ProcessAction(ApplicationStartEvent eventObject)
@@ -104,10 +199,16 @@ namespace Chiffrage.App.Controllers
             {
                 hardwares.Add(Map(item, project.Id));
             }
+            var frames = new List<ProjectFrameViewModel>();
+            foreach (var item in project.Frames)
+            {
+                frames.Add(Map(item, project.Id));
+            }
 
             this.projectView.SetProjectViewModel(viewModel);
             this.projectView.SetSupplies(supplies);
             this.projectView.SetHardwares(hardwares);
+            this.projectView.SetFrames(frames);
 
             this.projectView.ShowView();
         }
@@ -119,6 +220,7 @@ namespace Chiffrage.App.Controllers
             this.projectView.SetProjectViewModel(null);
             this.projectView.SetSupplies(null);
             this.projectView.SetHardwares(null);
+            this.projectView.SetFrames(null);
         }
 
         public void ProcessAction(SaveEvent eventObject)
@@ -179,13 +281,16 @@ namespace Chiffrage.App.Controllers
         {
             var viewModel = Map(eventObject.ProjectSupply, eventObject.ProjectId);
             this.projectView.AddSupply(viewModel);
+
+            this.RefreshProject(eventObject.ProjectId);
         }
 
         public void ProcessAction(ProjectSupplyDeletedEvent eventObject)
         {
             var supply = Map(eventObject.Supply, eventObject.ProjectId);
-
             this.projectView.RemoveSupply(supply);
+
+            this.RefreshProject(eventObject.ProjectId);
         }
 
         public void ProcessAction(RequestEditProjectSupplyEvent eventObject)
@@ -226,52 +331,17 @@ namespace Chiffrage.App.Controllers
         public void ProcessAction(ProjectHardwareCreatedEvent eventObject)
         {
             var viewModel = Map(eventObject.ProjectHardware, eventObject.ProjectId);
-
             this.projectView.AddHardware(viewModel);
-        }
 
-        private ProjectHardwareViewModel Map(ProjectHardware hardware, int projectId)
-        {
-            Mapper.CreateMap<ProjectHardware, ProjectHardwareViewModel>();
-            Mapper.CreateMap<ProjectHardwareSupply, ProjectHardwareSupplyViewModel>();
-            var viewModel = Mapper.Map<ProjectHardware, ProjectHardwareViewModel>(hardware);
-            viewModel.ProjectId = projectId;
-
-            viewModel.ModuleSize = hardware.Components.Sum(x => x.Supply.ModuleSize * x.Quantity);
-            viewModel.CatalogPrice = hardware.Components.Sum(x => x.Supply.CatalogPrice * x.Quantity);
-            
-            viewModel.TotalModuleSize = viewModel.ModuleSize * viewModel.Quantity;
-            viewModel.TotalCatalogExecutiveWorkDays = viewModel.CatalogExecutiveWorkDays * viewModel.Quantity;
-            viewModel.TotalCatalogPrice = viewModel.CatalogPrice * viewModel.Quantity;
-            viewModel.TotalCatalogTestsDays = viewModel.CatalogTestsDays * viewModel.Quantity;
-            viewModel.TotalCatalogWorkDays = viewModel.CatalogWorkDays * viewModel.Quantity;
-            viewModel.TotalReferenceDays = viewModel.ReferenceDays * viewModel.Quantity;
-            viewModel.TotalStudyDays = viewModel.StudyDays * viewModel.Quantity;
-
-            return viewModel;
-        }
-
-        private ProjectSupplyViewModel Map(ProjectSupply supply, int projectId)
-        {
-            Mapper.CreateMap<ProjectSupply, ProjectSupplyViewModel>();
-
-            var viewModel = Mapper.Map<ProjectSupply, ProjectSupplyViewModel>(supply);
-            viewModel.ProjectId = projectId;
-
-            viewModel.TotalModuleSize = viewModel.ModuleSize * viewModel.Quantity;
-            viewModel.TotalCatalogPrice = viewModel.CatalogPrice * viewModel.Quantity;
-            viewModel.TotalPFC12 = viewModel.PFC12 * viewModel.Quantity;
-            viewModel.TotalPFC0 = viewModel.PFC0 * viewModel.Quantity;
-            viewModel.TotalCap = viewModel.Cap * viewModel.Quantity;
-            
-            return viewModel;
+            this.RefreshProject(eventObject.ProjectId);
         }
 
         public void ProcessAction(ProjectHardwareDeletedEvent eventObject)
         {
             var hardware = Map(eventObject.Hardware, eventObject.ProjectId);
-
             this.projectView.RemoveHardware(hardware);
+
+            this.RefreshProject(eventObject.ProjectId);
         }
 
         public void ProcessAction(RequestEditProjectHardwareEvent eventObject)
@@ -280,31 +350,34 @@ namespace Chiffrage.App.Controllers
             this.editProjectHardwareView.ShowView();
         }
 
-        private ProjectViewModel Map(Project project)
-        {
-            Mapper.CreateMap<Project, ProjectViewModel>();
-            var viewModel = Mapper.Map<Project, ProjectViewModel>(project);
-
-            if (viewModel.StartDate == DateTime.MinValue)
-            {
-                viewModel.StartDate = DateTime.Now;
-            }
-
-            if (viewModel.EndDate == DateTime.MinValue)
-            {
-                viewModel.EndDate = DateTime.Now;
-            }
-
-            if (viewModel.Comment == null || !(viewModel.Comment.StartsWith("{\\rtf") && viewModel.Comment.EndsWith("}")))
-                viewModel.Comment = "{\\rtf" + viewModel.Comment + "}";
-            return viewModel;
-        }
-
 
         public void ProcessAction(RequestNewProjectFrameEvent eventObject)
         {
             this.newProjectFrameView.ProjectId = eventObject.ProjectId;
             this.newProjectFrameView.ShowView();            
+        }
+
+        public void ProcessAction(ProjectFrameCreatedEvent eventObject)
+        {
+            this.RefreshProject(eventObject.ProjectId);
+            
+            var projectFrameViewModel = Map(eventObject.ProjectFrame, eventObject.ProjectId);
+            this.projectView.AddFrame(projectFrameViewModel);
+        }
+
+        private void RefreshProject(int projectId)
+        {
+            var project = this.projectRepository.FindById(projectId);
+            var projectViewModel = Map(project);
+            this.projectView.SetProjectViewModel(projectViewModel);
+        }
+
+        public void ProcessAction(ProjectFrameDeletedEvent eventObject)
+        {
+            var frame = Map(eventObject.Frame, eventObject.ProjectId);
+            this.projectView.RemoveFrame(frame);
+
+            this.RefreshProject(eventObject.ProjectId);
         }
     }
 }

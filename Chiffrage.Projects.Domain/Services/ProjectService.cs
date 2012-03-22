@@ -21,7 +21,9 @@ namespace Chiffrage.Projects.Domain.Services
         IGenericEventHandler<CreateNewProjectSupplyCommand>,
         IGenericEventHandler<DeleteProjectSupplyCommand>,
         IGenericEventHandler<CreateNewProjectHardwareCommand>,
-        IGenericEventHandler<DeleteProjectHardwareCommand>
+        IGenericEventHandler<DeleteProjectHardwareCommand>,
+        IGenericEventHandler<CreateNewProjectFrameCommand>,
+        IGenericEventHandler<DeleteProjectFrameCommand>
     {
         private readonly IEventBroker eventBroker;
         private readonly ICatalogRepository catalogRepository;
@@ -164,6 +166,32 @@ namespace Chiffrage.Projects.Domain.Services
             this.projectRepository.Save(project);
 
             this.eventBroker.Publish(new ProjectHardwareDeletedEvent(project.Id, hardware));
+        }
+
+        public void ProcessAction(CreateNewProjectFrameCommand eventObject)
+        {
+            var project = this.projectRepository.FindById(eventObject.ProjectId);
+
+            Mapper.CreateMap<CreateNewProjectFrameCommand, ProjectFrame>();
+            var projectFrame = Mapper.Map<CreateNewProjectFrameCommand, ProjectFrame>(eventObject);
+
+            project.Frames.Add(projectFrame);
+
+            this.projectRepository.Save(project);
+
+            this.eventBroker.Publish(new ProjectFrameCreatedEvent(project.Id, projectFrame));
+        }
+
+        public void ProcessAction(DeleteProjectFrameCommand eventObject)
+        {
+            var project = this.projectRepository.FindById(eventObject.ProjectId);
+            var frame = project.Frames.Where(x => x.Id == eventObject.ProjectFrameId).First();
+
+            project.Frames.Remove(frame);
+
+            this.projectRepository.Save(project);
+
+            this.eventBroker.Publish(new ProjectFrameDeletedEvent(project.Id, frame));
         }
     }
 }

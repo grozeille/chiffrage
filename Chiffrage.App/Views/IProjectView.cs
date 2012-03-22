@@ -34,5 +34,7 @@ namespace Chiffrage.App.Views
         void AddFrame(ProjectFrameViewModel frame);
 
         void AddFrames(IList<ProjectFrameViewModel> frames);
+
+        void RemoveFrame(ProjectFrameViewModel frame);
     }
 }

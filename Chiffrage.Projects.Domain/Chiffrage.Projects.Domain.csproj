@@ -53,6 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\DeleteProjectFrameCommand.cs" />
     <Compile Include="Commands\CreateNewProjectFrameCommand.cs" />
     <Compile Include="Commands\CreateNewProjectHardwareCommand.cs" />
     <Compile Include="Commands\DeleteProjectHardwareCommand.cs" />
@@ -63,6 +64,8 @@
     <Compile Include="Commands\CreateNewDealCommand.cs" />
     <Compile Include="Commands\CreateNewProjectCommand.cs" />
     <Compile Include="Deal.cs" />
+    <Compile Include="Events\ProjectFrameDeletedEvent.cs" />
+    <Compile Include="Events\ProjectFrameCreatedEvent.cs" />
     <Compile Include="Events\ProjectHardwareCreatedEvent.cs" />
     <Compile Include="Events\ProjectSupplyDeletedEvent.cs" />
     <Compile Include="Events\DealCreatedEvent.cs" />

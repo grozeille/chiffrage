@@ -42,6 +42,8 @@ namespace Chiffrage
 
     internal class Program : IGenericEventHandler<ApplicationEndEvent>
     {
+        
+
         private static ILog logger = LogManager.GetLogger(typeof(Program));
 
 

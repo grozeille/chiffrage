@@ -34,6 +34,15 @@ namespace Chiffrage
         
         private readonly IEventBroker eventBroker;
 
+        [bbv.Common.EventBroker.EventPublication("topic://SomethingInteresting", bbv.Common.EventBroker.HandlerRestriction.Asynchronous)]
+        public event EventHandler OnSelect;
+
+        [bbv.Common.EventBroker.EventSubscription("topic://SomethingInteresting2", typeof(bbv.Common.EventBroker.Handlers.UserInterfaceAsync))]
+        public void HandleSomethingInteresting2(object sender, EventArgs e)
+        {
+            this.textBoxProjectName.Text = "HAHAHAHAHA";
+        }
+
         public ProjectUserControl()
         {
             this.InitializeComponent();
@@ -58,6 +67,8 @@ namespace Chiffrage
             this.eventBroker = eventBroker;
             this.CausesValidation = true;
 
+            Chiffrage.App.Controllers.ProjectController.eventBrokerStatic.Register(this);
+            //this.toolStripButtonAdd.Click += OnSelect;
             this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonAdd, () =>
                 this.id.HasValue ? new RequestNewProjectSupplyEvent(this.id.Value) : null);
 
@@ -103,7 +114,23 @@ namespace Chiffrage
             this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonAddFrame, () =>
                 this.id.HasValue ? new RequestNewProjectFrameEvent(this.id.Value) : null);
 
-            
+            this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonRemoveFrame,() =>
+            {
+                if (this.id.HasValue)
+                {
+                    var projectFrame = this.projectFrameViewModelBindingSource.Current as ProjectFrameViewModel;
+                    if (projectFrame != null)
+                    {
+                        var result = MessageBox.Show("Êtes-vous sûr de vouloir supprimer ce chassis ?", "Supprimer?", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                        if (result == DialogResult.OK)
+                        {
+                            return new DeleteProjectFrameCommand(this.id.Value, projectFrame.Id);
+                        }
+                    }
+                }
+
+                return null;
+            });
         }
 
         #region Summary
@@ -345,6 +372,8 @@ namespace Chiffrage
                     this.textBoxTestNightRate.Text = string.Empty;
                     this.textBoxTotalDays.Text = string.Empty;
                     this.textBoxTotalPrice.Text = string.Empty;
+                    this.textBoxTotalModules.Text = string.Empty;
+                    this.textBoxModulesNotInFrame.Text = string.Empty;
                 }
                 else
                 {
@@ -364,6 +393,9 @@ namespace Chiffrage
                     this.textBoxTestNightRate.Text = viewModel.TestNightRate.ToString(CultureInfo.InvariantCulture);
                     this.textBoxTotalDays.Text = viewModel.TotalDays.ToString(CultureInfo.InvariantCulture);
                     this.textBoxTotalPrice.Text = viewModel.TotalPrice.ToString(CultureInfo.InvariantCulture);
+                    this.textBoxTotalModules.Text = viewModel.TotalModules.ToString(CultureInfo.InvariantCulture);
+                    this.textBoxModulesNotInFrame.Text = viewModel.ModulesNotInFrame.ToString(CultureInfo.InvariantCulture);
+                    this.pictureBoxWarningFrame.Visible = viewModel.ModulesNotInFrame > 0;
                 }
             });
         }
@@ -419,7 +451,6 @@ namespace Chiffrage
                 });
         }
 
-
         public void SetFrames(IList<ProjectFrameViewModel> frames)
         {
             this.InvokeIfRequired(() =>
@@ -455,6 +486,15 @@ namespace Chiffrage
                     this.frames.Add(item);
                 }
                 this.projectFrameViewModelBindingSource.ResumeBinding();
+            });
+        }
+
+        public void RemoveFrame(ProjectFrameViewModel frame)
+        {
+            this.InvokeIfRequired(() =>
+            {
+                var item = this.frames.Where(x => x.Id == frame.Id).First();
+                this.frames.Remove(item);
             });
         }
     }
