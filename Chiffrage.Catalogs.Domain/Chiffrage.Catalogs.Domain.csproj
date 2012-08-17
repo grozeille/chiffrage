@@ -39,6 +39,18 @@
     <Reference Include="AutoMapper, Version=1.1.0.188, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <HintPath>..\packages\AutoMapper.1.1.0.118\lib\AutoMapper.dll</HintPath>
     </Reference>
+    <Reference Include="CsvHelper">
+      <HintPath>..\packages\CsvHelper.1.7.0\lib\net35-client\CsvHelper.dll</HintPath>
+    </Reference>
+    <Reference Include="EPPlus">
+      <HintPath>..\packages\EPPlus.3.0.0.2\lib\net20\EPPlus.dll</HintPath>
+    </Reference>
+    <Reference Include="Ionic.Zip">
+      <HintPath>..\packages\NPOI.1.2.5\lib\net20\Ionic.Zip.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI">
+      <HintPath>..\packages\NPOI.1.2.5\lib\net20\NPOI.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -58,6 +70,7 @@
     <Compile Include="Commands\CreateNewHardwareSupplyCommand.cs" />
     <Compile Include="Commands\DeleteHardwareCommand.cs" />
     <Compile Include="Commands\DeleteHardwareSupplyCommand.cs" />
+    <Compile Include="Commands\ImportHardwareCommand.cs" />
     <Compile Include="Commands\UpdateHardwareCommand.cs" />
     <Compile Include="Commands\CreateNewHardwareCommand.cs" />
     <Compile Include="Commands\DeleteSupplyCommand.cs" />
@@ -66,6 +79,8 @@
     <Compile Include="Commands\CreateNewCatalogCommand.cs" />
     <Compile Include="Commands\CreateNewSupplyCommand.cs" />
     <Compile Include="Commands\UpdateCatalogCommand.cs" />
+    <Compile Include="CsvLine.cs" />
+    <Compile Include="EmptyInt32TypeConverter.cs" />
     <Compile Include="Events\CatalogCreatedEvent.cs" />
     <Compile Include="Events\CatalogUpdatedEvent.cs" />
     <Compile Include="Events\HardwareCreatedEvent.cs" />

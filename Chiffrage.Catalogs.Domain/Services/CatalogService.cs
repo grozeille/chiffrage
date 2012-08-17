@@ -8,6 +8,10 @@ using Chiffrage.Catalogs.Domain.Commands;
 using Chiffrage.Catalogs.Domain.Events;
 using Chiffrage.Mvc.Services;
 using AutoMapper;
+using System.IO;
+using CsvHelper;
+using NPOI.HSSF.UserModel;
+using OfficeOpenXml;
 
 namespace Chiffrage.Catalogs.Domain.Services
 {
@@ -22,7 +26,8 @@ namespace Chiffrage.Catalogs.Domain.Services
         IGenericEventHandler<DeleteHardwareCommand>,
         IGenericEventHandler<CreateNewHardwareSupplyCommand>,
         IGenericEventHandler<DeleteHardwareSupplyCommand>,
-        IGenericEventHandler<UpdateHardwareSupplyCommand>
+        IGenericEventHandler<UpdateHardwareSupplyCommand>,
+        IGenericEventHandler<ImportHardwareCommand>
     {
         private readonly IEventBroker eventBroker;
         private readonly ICatalogRepository repository;
@@ -216,6 +221,172 @@ namespace Chiffrage.Catalogs.Domain.Services
             this.repository.Save(catalog);
 
             this.eventBroker.Publish(new HardwareSupplyUpdatedEvent(catalog.Id, hardware, hardwareSupply));
+        }
+
+        public void ProcessAction(ImportHardwareCommand eventObject)
+        {
+            var catalog = this.repository.FindById(eventObject.CatalogId);
+
+            var extension = Path.GetExtension(eventObject.FilePath);
+
+            IEnumerable<CsvLine> lines = null;
+
+            if (extension.Equals(".txt", StringComparison.OrdinalIgnoreCase) || extension.Equals(".csv", StringComparison.OrdinalIgnoreCase))
+            {
+                using (var stream = File.Open(eventObject.FilePath, FileMode.Open, FileAccess.Read))
+                {
+                    using(var reader = new StreamReader(stream, Encoding.Default))
+                    {
+                        var csvReader = new CsvReader(reader);
+                        csvReader.Configuration.Delimiter = ';';
+                        
+                        lines = csvReader.GetRecords<CsvLine>();
+                    }
+                }
+            }
+            else if (extension.Equals(".xls", StringComparison.OrdinalIgnoreCase))
+            {
+                using (var stream = File.Open(eventObject.FilePath, FileMode.Open, FileAccess.Read))
+                {
+                    var hssfwb = new HSSFWorkbook(stream);
+                    
+                    var sheet = hssfwb.GetSheetAt(0);
+
+                    var extractedLines = new List<CsvLine>();
+                    var emptyInt32TypeConverter = new EmptyInt32TypeConverter();
+                    // skip the first row, it's the header
+                    for (int rowIndex = 1; rowIndex <= sheet.LastRowNum; rowIndex++)
+                    {
+                        var row = sheet.GetRow(rowIndex);
+                        if (row != null)
+                        {
+                            var line = new CsvLine
+                            {
+                                Hardware = row.GetCell(0) == null ? string.Empty : row.GetCell(0).ToString(),
+                                Supply = row.GetCell(1) == null ? string.Empty : row.GetCell(1).ToString(),
+                                Reference = row.GetCell(2) == null ? string.Empty : row.GetCell(2).ToString(),
+                                Module = (int)emptyInt32TypeConverter.ConvertFromString(row.GetCell(3) == null ? string.Empty : row.GetCell(3).ToString()),
+                                Quantity = (int)emptyInt32TypeConverter.ConvertFromString(row.GetCell(4) == null ? string.Empty : row.GetCell(4).ToString()),
+                                Comment = row.GetCell(5) == null ? string.Empty : row.GetCell(5).ToString()
+                            };
+
+                            extractedLines.Add(line);
+                        }
+                    }
+
+                    lines = extractedLines;
+                }
+            }
+            else if (extension.Equals(".xlsx", StringComparison.OrdinalIgnoreCase))
+            {
+                using (var stream = File.Open(eventObject.FilePath, FileMode.Open, FileAccess.Read))
+                {
+                    using (var excelPackage = new ExcelPackage(stream))
+                    {
+                        var sheet = excelPackage.Workbook.Worksheets[1];
+
+                        var extractedLines = new List<CsvLine>();
+                        var emptyInt32TypeConverter = new EmptyInt32TypeConverter();
+                        // skip the first row, it's the header
+                        for (int rowIndex = 2; rowIndex <= sheet.Dimension.End.Row; rowIndex++)
+                        {
+                            var line = new CsvLine
+                            {
+                                Hardware = sheet.Cells[rowIndex, 1].Text,
+                                Supply = sheet.Cells[rowIndex, 2].Text,
+                                Reference = sheet.Cells[rowIndex, 3].Text,
+                                Module = (int)emptyInt32TypeConverter.ConvertFromString(sheet.Cells[rowIndex, 4].Text),
+                                Quantity = (int)emptyInt32TypeConverter.ConvertFromString(sheet.Cells[rowIndex, 5].Text),
+                                Comment = sheet.Cells[rowIndex, 6].Text
+                            };
+
+                            extractedLines.Add(line);
+                        }
+
+                        lines = extractedLines;
+                    }
+                }
+            }
+
+            var newSupplies = new List<Supply>();
+            var newHardwares = new List<Hardware>();
+
+            Hardware currentHardware = null;
+            foreach (var line in lines)
+            {
+                if (string.IsNullOrEmpty(line.Hardware))
+                {
+                    if (!string.IsNullOrEmpty(line.Supply))
+                    {
+                        FindOrCreateSupply(line, catalog.Supplies.Union(newSupplies), newSupplies);
+                    }
+                }
+                else
+                {
+                    if (currentHardware == null || !currentHardware.Name.Equals(line.Hardware, StringComparison.OrdinalIgnoreCase))
+                    {
+                        currentHardware = new Hardware
+                        {
+                            Name = line.Hardware
+                        };
+
+                        newHardwares.Add(currentHardware);
+                    }
+
+                    var supply = FindOrCreateSupply(line, catalog.Supplies.Union(newSupplies), newSupplies);
+                    currentHardware.Components.Add(new HardwareSupply
+                    {
+                        Comment = line.Comment,
+                        Quantity = line.Quantity,
+                        Supply = supply
+                    });
+                }
+            }
+
+            foreach (var item in newSupplies)
+            {
+                catalog.Supplies.Add(item);
+            }
+
+            foreach (var item in newHardwares)
+            {
+                catalog.Hardwares.Add(item);
+            }
+
+            this.repository.Save(catalog);
+
+            foreach (var item in newSupplies)
+            {
+                this.eventBroker.Publish(new SupplyCreatedEvent(catalog.Id, item));
+            }
+
+            foreach (var item in newHardwares)
+            {
+                this.eventBroker.Publish(new HardwareCreatedEvent(catalog.Id, item));
+            }
+        }
+
+        private Supply FindOrCreateSupply(CsvLine line, IEnumerable<Supply> suppliesToFind, IList<Supply> suppliesToAdd)
+        {
+            var supply = new Supply
+            {
+                Name = line.Supply,
+                Reference = line.Reference,
+                ModuleSize = line.Module
+            };
+
+            // search for it in the current catalog
+            var foundSupply = suppliesToFind.Where(x => x.Name.Equals(supply.Name, StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
+
+            if (foundSupply == null)
+            {
+                suppliesToAdd.Add(supply);
+                return supply;
+            }
+            else
+            {
+                return foundSupply;
+            }
         }
     }
 }

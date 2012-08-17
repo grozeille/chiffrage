@@ -145,6 +145,12 @@
     <Compile Include="WizardPages\EditProjectSupplyPage.Designer.cs">
       <DependentUpon>EditProjectSupplyPage.cs</DependentUpon>
     </Compile>
+    <Compile Include="WizardPages\ImportHardwareWizardPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WizardPages\ImportHardwareWizardPage.Designer.cs">
+      <DependentUpon>ImportHardwareWizardPage.cs</DependentUpon>
+    </Compile>
     <Compile Include="WizardPages\ProjectFramePage.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -153,6 +159,7 @@
     </Compile>
     <Compile Include="Wizards\EditProjectHardwareWizardView.cs" />
     <Compile Include="Wizards\EditProjectSupplyWizardView.cs" />
+    <Compile Include="Wizards\ImportHardwareWizardView.cs" />
     <Compile Include="Wizards\NewProjectFrameWizardView.cs" />
     <Compile Include="Wizards\NewWizardWizardView.cs" />
     <Compile Include="Wizards\NewProjectHardwareWizardView.cs" />
@@ -301,6 +308,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="WizardPages\EditProjectSupplyPage.resx">
       <DependentUpon>EditProjectSupplyPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WizardPages\ImportHardwareWizardPage.resx">
+      <DependentUpon>ImportHardwareWizardPage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WizardPages\NewProjectHardwarePage.resx">
       <DependentUpon>NewProjectHardwarePage.cs</DependentUpon>
@@ -465,6 +475,7 @@
   <ItemGroup>
     <Content Include="app.ico" />
     <Content Include="CodeAnalysis\CodeAnalysisConfiguration.xml" />
+    <None Include="Resources\page_excel.png" />
     <None Include="Resources\error.png" />
   </ItemGroup>
   <ItemGroup>

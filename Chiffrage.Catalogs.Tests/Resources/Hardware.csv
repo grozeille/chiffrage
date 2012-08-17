@@ -1,0 +1,6 @@
+Matériel;Composant;Réf;Module;Quantité;Commentaire
+CDV Siemens;NS1_24_12.0.8 L;270;2;1;1 par CDV Siemens
+CDV Siemens;Fusible Alimentation extérieure;;;1;1 par armoire
+Aiguille simple;NS1_24_4.16.4;202;3;1;Commande d'aiguille
+Aiguille simple;Fusible Alimentation extérieure;;;1;1 par armoire
+;Disjoncteur C4N;;;1;Signal + boucle

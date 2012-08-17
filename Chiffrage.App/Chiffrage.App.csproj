@@ -70,6 +70,7 @@
     <Compile Include="Events\ApplicationLoadedEvent.cs" />
     <Compile Include="Events\CatalogSelectedEvent.cs" />
     <Compile Include="Events\CatalogUnselectedEvent.cs" />
+    <Compile Include="Events\ImportHardwareEvent.cs" />
     <Compile Include="Events\RequestEditProjectHardwareEvent.cs" />
     <Compile Include="Events\RequestEditProjectSupplyEvent.cs" />
     <Compile Include="Events\RequestEditHardwareSupplyEvent.cs" />
@@ -129,6 +130,7 @@
     </Compile>
     <Compile Include="Views\IEditProjectHardwareView.cs" />
     <Compile Include="Views\IEditProjectSupplyView.cs" />
+    <Compile Include="Views\IImportHardwareView.cs" />
     <Compile Include="Views\INewProjectFrameView.cs" />
     <Compile Include="Views\INewProjectHardwareView.cs" />
     <Compile Include="Views\IEditHardwareSupplyView.cs" />

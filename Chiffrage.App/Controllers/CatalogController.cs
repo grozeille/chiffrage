@@ -36,7 +36,8 @@ namespace Chiffrage.App.Controllers
         IGenericEventHandler<HardwareSupplyCreatedEvent>,
         IGenericEventHandler<HardwareSupplyDeletedEvent>,
         IGenericEventHandler<RequestEditHardwareSupplyEvent>,
-        IGenericEventHandler<HardwareSupplyUpdatedEvent>
+        IGenericEventHandler<HardwareSupplyUpdatedEvent>,
+        IGenericEventHandler<ImportHardwareEvent>
     {
         private readonly ICatalogView catalogView;
         private readonly IEventBroker eventBroker;
@@ -48,6 +49,7 @@ namespace Chiffrage.App.Controllers
         private readonly ICatalogRepository repository;
         private readonly INewHardwareSupplyView newHardwareSupplyView;
         private readonly IEditHardwareSupplyView editHardwareSupplyView;
+        private readonly IImportHardwareView importHardwareView;
 
         public CatalogController(
             IEventBroker eventBroker,
@@ -59,7 +61,8 @@ namespace Chiffrage.App.Controllers
             IEditHardwareView editHardwareView,
             INewHardwareSupplyView newHardwareSupplyView,
             IEditHardwareSupplyView editHardwareSupplyView,
-            ICatalogRepository repository)
+            ICatalogRepository repository,
+            IImportHardwareView importHardwareView)
         {
             this.catalogView = catalogView;
             this.newCatalogView = newCatalogView;
@@ -69,6 +72,7 @@ namespace Chiffrage.App.Controllers
             this.editHardwareView = editHardwareView;
             this.newHardwareSupplyView = newHardwareSupplyView;
             this.editHardwareSupplyView = editHardwareSupplyView;
+            this.importHardwareView = importHardwareView;
             this.repository = repository;
             this.eventBroker = eventBroker;
         }
@@ -381,6 +385,12 @@ namespace Chiffrage.App.Controllers
 
             this.editHardwareSupplyView.HardwareSupply = viewModel;
             this.editHardwareSupplyView.ShowView();
+        }
+
+        public void ProcessAction(ImportHardwareEvent eventObject)
+        {
+            this.importHardwareView.CatalogId = eventObject.CatalogId;
+            this.importHardwareView.ShowView();
         }
     }
 }

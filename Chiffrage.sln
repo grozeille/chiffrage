@@ -21,6 +21,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{A64F2F
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChiffrageWPF", "ChiffrageWPF\ChiffrageWPF.csproj", "{DF6BA302-1DB3-4986-B6E3-2069F640ADA3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chiffrage.Catalogs.Tests", "Chiffrage.Catalogs.Tests\Chiffrage.Catalogs.Tests.csproj", "{9F3911FC-4CF5-4839-A340-C3F630BBBCEF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -121,6 +123,16 @@ Global
 		{DF6BA302-1DB3-4986-B6E3-2069F640ADA3}.Release|Mixed Platforms.Build.0 = Release|x86
 		{DF6BA302-1DB3-4986-B6E3-2069F640ADA3}.Release|x86.ActiveCfg = Release|x86
 		{DF6BA302-1DB3-4986-B6E3-2069F640ADA3}.Release|x86.Build.0 = Release|x86
+		{9F3911FC-4CF5-4839-A340-C3F630BBBCEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F3911FC-4CF5-4839-A340-C3F630BBBCEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F3911FC-4CF5-4839-A340-C3F630BBBCEF}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{9F3911FC-4CF5-4839-A340-C3F630BBBCEF}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{9F3911FC-4CF5-4839-A340-C3F630BBBCEF}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{9F3911FC-4CF5-4839-A340-C3F630BBBCEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F3911FC-4CF5-4839-A340-C3F630BBBCEF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F3911FC-4CF5-4839-A340-C3F630BBBCEF}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{9F3911FC-4CF5-4839-A340-C3F630BBBCEF}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{9F3911FC-4CF5-4839-A340-C3F630BBBCEF}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -130,6 +142,7 @@ Global
 		{BB8D0D2C-CF88-4B85-A001-14C234FCF0FD} = {A64F2F83-714E-43FA-98C2-889941269A25}
 		{E0FD926A-6B66-459F-A667-D5EFEF605129} = {A64F2F83-714E-43FA-98C2-889941269A25}
 		{BD6DAC1A-3B56-4E12-84DE-E7BD79316FF6} = {A64F2F83-714E-43FA-98C2-889941269A25}
+		{9F3911FC-4CF5-4839-A340-C3F630BBBCEF} = {A64F2F83-714E-43FA-98C2-889941269A25}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Chiffrage\Chiffrage.csproj

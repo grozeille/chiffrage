@@ -105,6 +105,16 @@ namespace Chiffrage
 
                     return null;
                 });
+
+            this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonImport, () =>
+                {
+                    if (this.catalogId.HasValue)
+                    {
+                        return new ImportHardwareEvent(this.catalogId.Value);
+                    }
+                    
+                    return null;
+                });
         }
 
         public CatalogUserControl()
