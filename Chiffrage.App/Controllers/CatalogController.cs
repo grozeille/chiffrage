@@ -350,8 +350,11 @@ namespace Chiffrage.App.Controllers
             {
                 subItem.CatalogId = catalogId;
                 subItem.HardwareId = result.Id;
-                rtBox.Rtf = subItem.Comment;
-                subItem.Comment = rtBox.Text;
+                if (subItem.Comment.StartsWith("{\rtf"))
+                {
+                    rtBox.Rtf = string.IsNullOrEmpty(subItem.Comment) ? "{\rtf}" : subItem.Comment;
+                    subItem.Comment = rtBox.Text;
+                }
             }
 
             return result;
