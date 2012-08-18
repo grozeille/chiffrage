@@ -237,5 +237,10 @@ namespace Chiffrage
                 this.eventBroker.RegisterTreeNodeUnselectEventSource(nodeProject, new ProjectUnselectedEvent(viewModel.Id));
             });
         }
+
+        private void NavigationUserControl_Load(object sender, System.EventArgs e)
+        {
+            this.SetDoubleBuffered();
+        }
     }
 }

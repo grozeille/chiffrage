@@ -346,5 +346,18 @@ namespace Chiffrage
                 grid.Sort(col, ListSortDirection.Ascending);
             }*/
         }
+
+        private void CatalogUserControl_Load(object sender, EventArgs e)
+        {
+            this.tabControl.SetDoubleBuffered();
+
+            this.toolStripHardware.SetDoubleBuffered();
+            this.toolStripHardwareSupplies.SetDoubleBuffered();
+            this.toolStripSupplies.SetDoubleBuffered();
+
+            this.dataGridViewSupplies.SetDoubleBuffered();
+            this.dataGridViewHardwares.SetDoubleBuffered();
+            this.dataGridViewHardwareSupplies.SetDoubleBuffered();
+        }
     }
 }

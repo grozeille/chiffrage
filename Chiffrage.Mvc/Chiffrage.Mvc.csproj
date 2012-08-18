@@ -85,6 +85,7 @@
     <Compile Include="PropertyComparer.cs" />
     <Compile Include="Services\IService.cs" />
     <Compile Include="SortableBindingList.cs" />
+    <Compile Include="Views\Extensions.cs" />
     <Compile Include="Views\GenericWizardSetting.cs" />
     <Compile Include="Views\FormView.cs">
       <SubType>Form</SubType>

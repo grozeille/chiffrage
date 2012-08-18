@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Windows.Forms;
 using System.ComponentModel;
+using Chiffrage.Mvc.Views;
 
 namespace Chiffrage
 {
@@ -15,6 +16,8 @@ namespace Chiffrage
             //this.richTextBoxComment.DataBindings.Add("Text", this, "Text", false, DataSourceUpdateMode.OnPropertyChanged);
             this.richTextBoxComment.DataBindings.Add("Rtf", this, "Rtf", false, DataSourceUpdateMode.OnPropertyChanged);
             // not possible to bind Rtf and Text in the same time!
+            this.richTextBoxComment.SetDoubleBuffered();
+            this.toolStripText.SetDoubleBuffered();
         }
 
         private readonly RichTextBox fake = new RichTextBox();

@@ -497,5 +497,24 @@ namespace Chiffrage
                 this.frames.Remove(item);
             });
         }
+
+        private void ProjectUserControl_Load(object sender, EventArgs e)
+        {
+            this.tabControl.SetDoubleBuffered();
+
+            this.dataGridView.SetDoubleBuffered();
+            this.dataGridViewHardware.SetDoubleBuffered();
+            this.dataGridViewHardwareSupplies.SetDoubleBuffered();
+            this.dataGridViewModules.SetDoubleBuffered();
+            this.dataGridViewAllHardware.SetDoubleBuffered();
+
+            this.dataGridViewWork.SetDoubleBuffered();
+            this.dataGridViewWorkExecutive.SetDoubleBuffered();
+            this.dataGridViewStudy.SetDoubleBuffered();
+            this.dataGridViewTests.SetDoubleBuffered();
+            this.dataGridViewOther.SetDoubleBuffered();
+
+            this.dataGridViewSummary.SetDoubleBuffered();
+        }
     }
 }

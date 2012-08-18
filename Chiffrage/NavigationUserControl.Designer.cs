@@ -40,6 +40,7 @@
             this.toolStripMenuItemNewProject = new System.Windows.Forms.ToolStripMenuItem();
             this.imageList = new System.Windows.Forms.ImageList(this.components);
             this.treeView = new System.Windows.Forms.TreeView();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.contextMenuStripDealsRoot.SuspendLayout();
             this.contextMenuStripCatalogsRoot.SuspendLayout();
             this.contextMenuStripDeal.SuspendLayout();
@@ -135,6 +136,8 @@
             this.Name = "NavigationUserControl";
             this.Padding = new System.Windows.Forms.Padding(1);
             this.Size = new System.Drawing.Size(205, 371);
+            this.Load += new System.EventHandler(this.NavigationUserControl_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.contextMenuStripDealsRoot.ResumeLayout(false);
             this.contextMenuStripCatalogsRoot.ResumeLayout(false);
             this.contextMenuStripDeal.ResumeLayout(false);
