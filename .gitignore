@@ -29,3 +29,5 @@ _ReSharper*/
 [Tt]est[Rr]esult*
 .DS_Store
 *.userprefs
+.nuget
+packages

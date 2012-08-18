@@ -51,6 +51,9 @@ namespace Chiffrage.App.Controllers
         private readonly IEditHardwareSupplyView editHardwareSupplyView;
         private readonly IImportHardwareView importHardwareView;
 
+        // no better way...
+        private readonly System.Windows.Forms.RichTextBox rtBox = new System.Windows.Forms.RichTextBox();
+
         public CatalogController(
             IEventBroker eventBroker,
             ICatalogView catalogView,
@@ -318,9 +321,7 @@ namespace Chiffrage.App.Controllers
 
         public void ProcessAction(HardwareCreatedEvent eventObject)
         {
-            Mapper.CreateMap<Supply, CatalogHardwareViewModel>();
-
-            var result = Mapper.Map<Hardware, CatalogHardwareViewModel>(eventObject.Hardware);
+            var result = Map(eventObject.CatalogId, eventObject.Hardware);
             result.CatalogId = eventObject.CatalogId;
 
             this.catalogView.AddHardware(result);
@@ -343,16 +344,13 @@ namespace Chiffrage.App.Controllers
             result.ModuleSize = result.Components.Sum(x => x.SupplyModuleSize * x.Quantity);
             result.CatalogPrice = result.Components.Sum(x => x.SupplyCatalogPrice * x.Quantity);
 
-            // no better way...
-            System.Windows.Forms.RichTextBox rtBox = new System.Windows.Forms.RichTextBox();
-
             foreach (var subItem in result.Components)
             {
                 subItem.CatalogId = catalogId;
                 subItem.HardwareId = result.Id;
-                if (subItem.Comment.StartsWith("{\rtf"))
+                if (subItem.Comment.StartsWith("{\\rtf"))
                 {
-                    rtBox.Rtf = string.IsNullOrEmpty(subItem.Comment) ? "{\rtf}" : subItem.Comment;
+                    rtBox.Rtf = string.IsNullOrEmpty(subItem.Comment) ? "{\\rtf}" : subItem.Comment;
                     subItem.Comment = rtBox.Text;
                 }
             }
@@ -385,6 +383,11 @@ namespace Chiffrage.App.Controllers
             var viewModel = Mapper.Map<HardwareSupply, CatalogHardwareSupplyViewModel>(hardwareSupply);
             viewModel.CatalogId = eventObject.CatalogId;
             viewModel.HardwareId = eventObject.HardwareId;
+            /*if (viewModel.Comment.StartsWith("{\\rtf"))
+            {
+                rtBox.Rtf = string.IsNullOrEmpty(viewModel.Comment) ? "{\\rtf}" : viewModel.Comment;
+                viewModel.Comment = rtBox.Text;
+            }*/
 
             this.editHardwareSupplyView.HardwareSupply = viewModel;
             this.editHardwareSupplyView.ShowView();
