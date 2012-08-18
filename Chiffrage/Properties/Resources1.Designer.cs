@@ -60,13 +60,6 @@ namespace Chiffrage.Properties {
             }
         }
         
-        internal static System.Drawing.Bitmap add {
-            get {
-                object obj = ResourceManager.GetObject("add", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
         internal static System.Drawing.Bitmap arrow_refresh {
             get {
                 object obj = ResourceManager.GetObject("arrow_refresh", resourceCulture);
@@ -102,13 +95,6 @@ namespace Chiffrage.Properties {
             }
         }
         
-        internal static System.Drawing.Bitmap cross {
-            get {
-                object obj = ResourceManager.GetObject("cross", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
         internal static System.Drawing.Bitmap disk {
             get {
                 object obj = ResourceManager.GetObject("disk", resourceCulture);
@@ -119,13 +105,6 @@ namespace Chiffrage.Properties {
         internal static System.Drawing.Bitmap door_out {
             get {
                 object obj = ResourceManager.GetObject("door_out", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap error {
-            get {
-                object obj = ResourceManager.GetObject("error", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -154,13 +133,6 @@ namespace Chiffrage.Properties {
         internal static System.Drawing.Bitmap package {
             get {
                 object obj = ResourceManager.GetObject("package", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap page_excel {
-            get {
-                object obj = ResourceManager.GetObject("page_excel", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -210,104 +182,6 @@ namespace Chiffrage.Properties {
         internal static System.Drawing.Bitmap rosette {
             get {
                 object obj = ResourceManager.GetObject("rosette", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap text_align_center {
-            get {
-                object obj = ResourceManager.GetObject("text_align_center", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap text_align_justify {
-            get {
-                object obj = ResourceManager.GetObject("text_align_justify", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap text_align_left {
-            get {
-                object obj = ResourceManager.GetObject("text_align_left", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap text_align_right {
-            get {
-                object obj = ResourceManager.GetObject("text_align_right", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap text_bold {
-            get {
-                object obj = ResourceManager.GetObject("text_bold", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap text_indent {
-            get {
-                object obj = ResourceManager.GetObject("text_indent", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap text_indent_remove {
-            get {
-                object obj = ResourceManager.GetObject("text_indent_remove", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap text_italic {
-            get {
-                object obj = ResourceManager.GetObject("text_italic", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap text_list_bullets {
-            get {
-                object obj = ResourceManager.GetObject("text_list_bullets", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap text_list_numbers {
-            get {
-                object obj = ResourceManager.GetObject("text_list_numbers", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap text_lowercase {
-            get {
-                object obj = ResourceManager.GetObject("text_lowercase", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap text_strikethrough {
-            get {
-                object obj = ResourceManager.GetObject("text_strikethrough", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap text_underline {
-            get {
-                object obj = ResourceManager.GetObject("text_underline", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        internal static System.Drawing.Bitmap text_uppercase {
-            get {
-                object obj = ResourceManager.GetObject("text_uppercase", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

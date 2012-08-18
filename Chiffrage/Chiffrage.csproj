@@ -62,12 +62,6 @@
     <Reference Include="AutoMapper, Version=1.1.0.188, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <HintPath>..\packages\AutoMapper.1.1.0.118\lib\AutoMapper.dll</HintPath>
     </Reference>
-    <Reference Include="bbv.Common">
-      <HintPath>..\Libs\bbv.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="bbv.Common.EventBroker">
-      <HintPath>..\Libs\bbv.Common.EventBroker.dll</HintPath>
-    </Reference>
     <Reference Include="Common.Logging, Version=2.0.0.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
       <HintPath>..\packages\Common.Logging.2.0.0\lib\2.0\Common.Logging.dll</HintPath>
     </Reference>
@@ -127,84 +121,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApplicationForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ApplicationForm.Designer.cs">
-      <DependentUpon>ApplicationForm.cs</DependentUpon>
-    </Compile>
+    <Compile Include="Controllers\ApplicationController.cs" />
+    <Compile Include="Controllers\ErrorLogController.cs" />
+    <Compile Include="Controllers\NavigationController.cs" />
+    <Compile Include="Events\ApplicationLoadedEvent.cs" />
     <Compile Include="Ioc\ByTypeWiringContainer.cs" />
-    <Compile Include="Ioc\MvcContainer.cs" />
-    <Compile Include="WizardPages\EditProjectHardwarePage.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="WizardPages\EditProjectHardwarePage.Designer.cs">
-      <DependentUpon>EditProjectHardwarePage.cs</DependentUpon>
-    </Compile>
-    <Compile Include="WizardPages\EditProjectSupplyPage.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="WizardPages\EditProjectSupplyPage.Designer.cs">
-      <DependentUpon>EditProjectSupplyPage.cs</DependentUpon>
-    </Compile>
-    <Compile Include="WizardPages\ImportHardwareWizardPage.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="WizardPages\ImportHardwareWizardPage.Designer.cs">
-      <DependentUpon>ImportHardwareWizardPage.cs</DependentUpon>
-    </Compile>
-    <Compile Include="WizardPages\ProjectFramePage.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="WizardPages\ProjectFramePage.Designer.cs">
-      <DependentUpon>ProjectFramePage.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Wizards\EditProjectHardwareWizardView.cs" />
-    <Compile Include="Wizards\EditProjectSupplyWizardView.cs" />
-    <Compile Include="Wizards\ImportHardwareWizardView.cs" />
-    <Compile Include="Wizards\NewProjectFrameWizardView.cs" />
-    <Compile Include="Wizards\NewWizardWizardView.cs" />
-    <Compile Include="Wizards\NewProjectHardwareWizardView.cs" />
-    <Compile Include="Wizards\EditHardwareSupplyWizardView.cs" />
-    <Compile Include="Wizards\NewProjectSupplyWizardView.cs" />
-    <Compile Include="Wizards\NewHardwareSupplyWizardView.cs" />
-    <Compile Include="Wizards\EditHardwareWizardView.cs" />
-    <Compile Include="Wizards\NewHardwareWizardView.cs" />
-    <Compile Include="Wizards\NewProjectWizardView.cs" />
-    <Compile Include="Wizards\EditSupplyWizardView.cs" />
-    <Compile Include="Wizards\NewCatalogWizardView.cs" />
-    <Compile Include="ErrorLogView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="ErrorLogView.Designer.cs">
-      <DependentUpon>ErrorLogView.cs</DependentUpon>
-    </Compile>
     <Compile Include="Ioc\CatalogContainer.cs" />
-    <Compile Include="NavigationUserControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="NavigationUserControl.Designer.cs">
-      <DependentUpon>NavigationUserControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="CatalogUserControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="CatalogUserControl.Designer.cs">
-      <DependentUpon>CatalogUserControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="CommentUserControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="CommentUserControl.Designer.cs">
-      <DependentUpon>CommentUserControl.cs</DependentUpon>
-    </Compile>
     <Compile Include="Ioc\DealContainer.cs" />
-    <Compile Include="DealUserControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="DealUserControl.Designer.cs">
-      <DependentUpon>DealUserControl.cs</DependentUpon>
-    </Compile>
+    <Compile Include="Ioc\MvcContainer.cs" />
     <Compile Include="Ioc\EventHandlersFactory.cs" />
     <Compile Include="LoadingEventArgs.cs" />
     <Compile Include="LoadingForm.cs">
@@ -213,9 +137,6 @@
     <Compile Include="LoadingForm.Designer.cs">
       <DependentUpon>LoadingForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Wizards\NewDealWizardView.cs">
-    </Compile>
-    <Compile Include="Wizards\NewSupplyWizardView.cs" />
     <Compile Include="Properties\Resources1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -226,122 +147,51 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="WizardPages\CommentPage.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="WizardPages\CommentPage.Designer.cs">
-      <DependentUpon>CommentPage.cs</DependentUpon>
-    </Compile>
-    <Compile Include="WizardPages\NewProjectHardwarePage.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="WizardPages\NewProjectHardwarePage.Designer.cs">
-      <DependentUpon>NewProjectHardwarePage.cs</DependentUpon>
-    </Compile>
-    <Compile Include="WizardPages\EditHardwareSupplyPage.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="WizardPages\EditHardwareSupplyPage.Designer.cs">
-      <DependentUpon>EditHardwareSupplyPage.cs</DependentUpon>
-    </Compile>
-    <Compile Include="WizardPages\NewProjectSupplyPage.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="WizardPages\NewProjectSupplyPage.Designer.cs">
-      <DependentUpon>NewProjectSupplyPage.cs</DependentUpon>
-    </Compile>
-    <Compile Include="WizardPages\EditHardwarePage.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="WizardPages\EditHardwarePage.Designer.cs">
-      <DependentUpon>EditHardwarePage.cs</DependentUpon>
-    </Compile>
-    <Compile Include="WizardPages\EditSupplyPage.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="WizardPages\EditSupplyPage.Designer.cs">
-      <DependentUpon>EditSupplyPage.cs</DependentUpon>
-    </Compile>
-    <Compile Include="WizardPages\NewCatalogPage.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="WizardPages\NewCatalogPage.Designer.cs">
-      <DependentUpon>NewCatalogPage.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
-    <Compile Include="ProjectUserControl.cs">
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModel\LogItemViewModel.cs" />
+    <Compile Include="ViewModel\NavigationItemViewModel.cs" />
+    <Compile Include="ViewModel\SeverityType.cs" />
+    <Compile Include="Views\IApplicationView.cs" />
+    <Compile Include="Views\IErrorLogView.cs" />
+    <Compile Include="Views\Impl\ApplicationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Impl\ApplicationForm.Designer.cs">
+      <DependentUpon>ApplicationForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Impl\ErrorLogView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ProjectUserControl.Designer.cs">
-      <DependentUpon>ProjectUserControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="ApplicationForm.resx">
-      <DependentUpon>ApplicationForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="NavigationUserControl.resx">
-      <DependentUpon>NavigationUserControl.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="CatalogUserControl.resx">
-      <DependentUpon>CatalogUserControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DealUserControl.resx">
-      <DependentUpon>DealUserControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ErrorLogView.resx">
+    <Compile Include="Views\Impl\ErrorLogView.Designer.cs">
       <DependentUpon>ErrorLogView.cs</DependentUpon>
-    </EmbeddedResource>
+    </Compile>
+    <Compile Include="Views\Impl\NavigationUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Impl\NavigationUserControl.Designer.cs">
+      <DependentUpon>NavigationUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\INavigationView.cs" />
     <EmbeddedResource Include="LoadingForm.resx">
       <DependentUpon>LoadingForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ProjectUserControl.resx">
-      <DependentUpon>ProjectUserControl.cs</DependentUpon>
-      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <SubType>Designer</SubType>
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources1.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="WizardPages\CommentPage.resx">
-      <DependentUpon>CommentPage.cs</DependentUpon>
+    <EmbeddedResource Include="Views\Impl\ApplicationForm.resx">
+      <DependentUpon>ApplicationForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="WizardPages\EditProjectSupplyPage.resx">
-      <DependentUpon>EditProjectSupplyPage.cs</DependentUpon>
+    <EmbeddedResource Include="Views\Impl\ErrorLogView.resx">
+      <DependentUpon>ErrorLogView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="WizardPages\ImportHardwareWizardPage.resx">
-      <DependentUpon>ImportHardwareWizardPage.cs</DependentUpon>
+    <EmbeddedResource Include="Views\Impl\NavigationUserControl.resx">
+      <DependentUpon>NavigationUserControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="WizardPages\NewProjectHardwarePage.resx">
-      <DependentUpon>NewProjectHardwarePage.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="WizardPages\EditHardwareSupplyPage.resx">
-      <DependentUpon>EditHardwareSupplyPage.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="WizardPages\NewProjectSupplyPage.resx">
-      <DependentUpon>NewProjectSupplyPage.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="WizardPages\EditHardwarePage.resx">
-      <DependentUpon>EditHardwarePage.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="WizardPages\EditSupplyPage.resx">
-      <DependentUpon>EditSupplyPage.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="WizardPages\NewCatalogPage.resx">
-      <DependentUpon>NewCatalogPage.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="WizardPages\NewHardwareSupplyPage.resx">
-      <DependentUpon>NewHardwareSupplyPage.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="WizardPages\NewDealPage.resx">
-      <DependentUpon>NewDealPage.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="WizardPages\NewProjectPage.resx">
-      <DependentUpon>NewProjectPage.cs</DependentUpon>
-    </EmbeddedResource>
-    <None Include="CodeAnalysis\AllRules.ruleset" />
     <None Include="packages.config" />
     <None Include="Properties\DataSources\Chiffrage.App.ViewModel.CatalogHardwareViewModel.datasource" />
     <None Include="Properties\DataSources\Chiffrage.App.ViewModel.CatalogSupplyViewModel.datasource" />
@@ -355,42 +205,6 @@
     <None Include="Properties\DataSources\Chiffrage.ViewModel.CatalogSupplyViewModel.datasource" />
     <None Include="Properties\DataSources\Chiffrage.ViewModel.CatalogViewModel.datasource" />
     <None Include="Properties\DataSources\Chiffrage.ViewModel.DealViewModel.datasource" />
-    <Compile Include="WizardPages\NewHardwareSupplyPage.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="WizardPages\NewHardwareSupplyPage.Designer.cs">
-      <DependentUpon>NewHardwareSupplyPage.cs</DependentUpon>
-    </Compile>
-    <Compile Include="WizardPages\NewDealPage.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="WizardPages\NewDealPage.Designer.cs">
-      <DependentUpon>NewDealPage.cs</DependentUpon>
-    </Compile>
-    <Compile Include="WizardPages\NewHardwarePage.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="WizardPages\NewHardwarePage.Designer.cs">
-      <DependentUpon>NewHardwarePage.cs</DependentUpon>
-    </Compile>
-    <Compile Include="WizardPages\NewProjectPage.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="WizardPages\NewProjectPage.Designer.cs">
-      <DependentUpon>NewProjectPage.cs</DependentUpon>
-    </Compile>
-    <Compile Include="WizardPages\NewSupplyPage.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="WizardPages\NewSupplyPage.Designer.cs">
-      <DependentUpon>NewSupplyPage.cs</DependentUpon>
-    </Compile>
-    <Compile Include="WizardPages\WizardPage.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="WizardPages\WizardPage.Designer.cs">
-      <DependentUpon>WizardPage.cs</DependentUpon>
-    </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings1.Designer.cs</LastGenOutput>
@@ -417,9 +231,6 @@
     <None Include="Resources\resultset_next.png" />
     <None Include="app.config" />
     <None Include="Resources\resultset_last.png" />
-    <EmbeddedResource Include="CommentUserControl.resx">
-      <DependentUpon>CommentUserControl.cs</DependentUpon>
-    </EmbeddedResource>
     <None Include="Resources\text_align_center.png" />
     <None Include="Resources\text_align_justify.png" />
     <None Include="Resources\text_align_left.png" />
@@ -435,24 +246,8 @@
     <None Include="Resources\text_underline.png" />
     <None Include="Resources\text_uppercase.png" />
     <None Include="Resources\arrow_refresh.png" />
-    <EmbeddedResource Include="WizardPages\NewHardwarePage.resx">
-      <DependentUpon>NewHardwarePage.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="WizardPages\NewSupplyPage.resx">
-      <DependentUpon>NewSupplyPage.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="WizardPages\ProjectFramePage.resx">
-      <DependentUpon>ProjectFramePage.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="WizardPages\WizardPage.resx">
-      <DependentUpon>WizardPage.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Chiffrage.App\Chiffrage.App.csproj">
-      <Project>{97DC56B8-7346-41B9-A632-69EBF064F3B7}</Project>
-      <Name>Chiffrage.App</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Chiffrage.Catalogs.Dal\Chiffrage.Catalogs.Dal.csproj">
       <Project>{BB8D0D2C-CF88-4B85-A001-14C234FCF0FD}</Project>
       <Name>Chiffrage.Catalogs.Dal</Name>
@@ -460,6 +255,14 @@
     <ProjectReference Include="..\Chiffrage.Catalogs.Domain\Chiffrage.Catalogs.Domain.csproj">
       <Project>{BD6DAC1A-3B56-4E12-84DE-E7BD79316FF6}</Project>
       <Name>Chiffrage.Catalogs.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Chiffrage.Catalogs.Module\Chiffrage.Catalogs.Module.csproj">
+      <Project>{03B5C7F7-1B9D-44E3-BEC1-5718BFEE621F}</Project>
+      <Name>Chiffrage.Catalogs.Module</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Chiffrage.Common.Module\Chiffrage.Common.Module.csproj">
+      <Project>{226D518E-B1BB-4B77-8031-2F704FADDC83}</Project>
+      <Name>Chiffrage.Common.Module</Name>
     </ProjectReference>
     <ProjectReference Include="..\Chiffrage.Mvc\Chiffrage.Mvc.csproj">
       <Project>{771D2DDA-D611-4E74-8857-6E60C08536EE}</Project>
@@ -473,16 +276,17 @@
       <Project>{28B2F9CD-626A-425C-8D41-CAB32F21134F}</Project>
       <Name>Chiffrage.Projects.Domain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Chiffrage.Projects.Module\Chiffrage.Projects.Module.csproj">
+      <Project>{F705B70C-DC92-467F-A229-B175E6DA8195}</Project>
+      <Name>Chiffrage.Projects.Module</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="app.ico" />
-    <Content Include="CodeAnalysis\CodeAnalysisConfiguration.xml" />
     <None Include="Resources\page_excel.png" />
     <None Include="Resources\error.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Model\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
       <Visible>False</Visible>

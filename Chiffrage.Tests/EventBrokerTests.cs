@@ -1,7 +1,7 @@
 ﻿using System.Threading;
 using Chiffrage.Mvc.Events;
 using NUnit.Framework;
-using Rhino.Mocks;
+using Moq;
 
 namespace Chiffrage.Tests
 {
@@ -36,9 +36,9 @@ namespace Chiffrage.Tests
         {
             var eventBroker = new EventBroker();
 
-            var eventHandler = MockRepository.GenerateStub<IGenericEventHandler<MyEvent>>();
+            var eventHandler = new Mock<IGenericEventHandler<MyEvent>>();
 
-            eventBroker.Subscribers = new IEventHandler[] {eventHandler};
+            eventBroker.Subscribers = new IEventHandler[] {eventHandler.Object};
 
             eventBroker.Start();
 
@@ -46,7 +46,7 @@ namespace Chiffrage.Tests
 
             Thread.Sleep(3*1000);
 
-            eventHandler.AssertWasCalled(x => x.ProcessAction(Arg<MyEvent>.Is.Anything));
+            eventHandler.Verify(x => x.ProcessAction(It.IsAny<MyEvent>()));
         }
 
         [Test]
@@ -54,9 +54,9 @@ namespace Chiffrage.Tests
         {
             var eventBroker = new EventBroker();
 
-            var eventHandler = MockRepository.GenerateStub<MyEventHandler>();
+            var eventHandler = new Mock<MyEventHandler>();
 
-            eventBroker.Subscribers = new IEventHandler[] {eventHandler};
+            eventBroker.Subscribers = new IEventHandler[] {eventHandler.Object};
 
             eventBroker.Start();
 
@@ -64,9 +64,9 @@ namespace Chiffrage.Tests
 
             Thread.Sleep(3*1000);
 
-            eventHandler.AssertWasCalled(x => x.ProcessAction(Arg<MyEvent>.Is.Anything));
+            eventHandler.Verify(x => x.ProcessAction(It.IsAny<MyEvent>()));
 
-            eventHandler.AssertWasCalled(x => x.ProcessAction(Arg<MySubEvent>.Is.Anything));
+            eventHandler.Verify(x => x.ProcessAction(It.IsAny<MySubEvent>()));            
         }
 
         [Test]
@@ -74,9 +74,9 @@ namespace Chiffrage.Tests
         {
             var eventBroker = new EventBroker();
 
-            var eventHandler = MockRepository.GenerateStub<IGenericEventHandler<MyEvent>>();
+            var eventHandler = new Mock<IGenericEventHandler<MyEvent>>();
 
-            eventBroker.Subscribers = new IEventHandler[] {eventHandler};
+            eventBroker.Subscribers = new IEventHandler[] { eventHandler.Object };
 
             eventBroker.Start();
 
@@ -84,7 +84,7 @@ namespace Chiffrage.Tests
 
             Thread.Sleep(3*1000);
 
-            eventHandler.AssertWasCalled(x => x.ProcessAction(Arg<MyEvent>.Is.Anything));
+            eventHandler.Verify(x => x.ProcessAction(It.IsAny<MyEvent>()));
         }
     }
 }

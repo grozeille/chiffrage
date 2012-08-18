@@ -38,12 +38,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Moq">
+      <HintPath>..\packages\Moq.4.0.10827\lib\NET35\Moq.dll</HintPath>
+    </Reference>
     <Reference Include="nunit.framework, Version=2.6.0.12051, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\NUnit.2.6.0.12054\lib\nunit.framework.dll</HintPath>
-    </Reference>
-    <Reference Include="Rhino.Mocks, Version=3.6.0.0, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL">
-      <HintPath>..\packages\RhinoMocks.3.6\lib\Rhino.Mocks.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -59,27 +59,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ApplicationControllerTests.cs" />
     <Compile Include="EventBrokerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="CatalogControllerTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Chiffrage.App\Chiffrage.App.csproj">
-      <Project>{97DC56B8-7346-41B9-A632-69EBF064F3B7}</Project>
-      <Name>Chiffrage.App</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Chiffrage.Catalogs.Domain\Chiffrage.Catalogs.Domain.csproj">
-      <Project>{BD6DAC1A-3B56-4E12-84DE-E7BD79316FF6}</Project>
-      <Name>Chiffrage.Catalogs.Domain</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Chiffrage.Mvc\Chiffrage.Mvc.csproj">
       <Project>{771D2DDA-D611-4E74-8857-6E60C08536EE}</Project>
       <Name>Chiffrage.Mvc</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Chiffrage.Projects.Domain\Chiffrage.Projects.Domain.csproj">
-      <Project>{28B2F9CD-626A-425C-8D41-CAB32F21134F}</Project>
-      <Name>Chiffrage.Projects.Domain</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -17,6 +17,8 @@ namespace Chiffrage.Ioc
 {
     public class MvcContainer : ByTypeWiringContainer
     {
+        private IEnumerable<Assembly> assemblies;
+
         public override void SetupContainer()
         {
             Define<EventBroker>()
@@ -31,30 +33,33 @@ namespace Chiffrage.Ioc
 
         private IEnumerable<Type> GetViews()
         {
-            return AppDomain.CurrentDomain.GetAssemblies()
-                .Where(a => a.FullName.StartsWith("Chiffrage"))
-                .SelectMany(a => a.GetTypes())
+
+            return this.assemblies.SelectMany(a => a.GetTypes())
                 .Where(t => t.GetInterface(typeof(IView).Name) != null && !t.IsAbstract && t.IsPublic);
         }
 
         private IEnumerable<Type> GetControllers()
         {
-            return AppDomain.CurrentDomain.GetAssemblies()
-                .Where(a => a.FullName.StartsWith("Chiffrage"))
-                .SelectMany(a => a.GetTypes())
+            return this.assemblies.SelectMany(a => a.GetTypes())
                 .Where(t => t.GetInterface(typeof(IController).Name) != null && !t.IsAbstract && t.IsPublic);
         }
 
         private IEnumerable<Type> GetServices()
         {
-            return AppDomain.CurrentDomain.GetAssemblies()
-                .Where(a => a.FullName.StartsWith("Chiffrage"))
-                .SelectMany(a => a.GetTypes())
+            return this.assemblies.SelectMany(a => a.GetTypes())
                 .Where(t => t.GetInterface(typeof(IService).Name) != null && !t.IsAbstract && t.IsPublic);
         }
 
         protected override IEnumerable<Type> GetTypesToRegister()
         {
+            // force load referenced assemblies
+            this.assemblies = Assembly.GetExecutingAssembly()
+                .GetReferencedAssemblies()
+                .Where(x => x.FullName.StartsWith("Chiffrage"))
+                .Select(x => Assembly.Load(x))
+                .Union(new Assembly[] { Assembly.GetExecutingAssembly() })
+                .ToArray();
+
             return this.GetViews()
                 .Concat(this.GetControllers())
                 .Concat(this.GetServices());

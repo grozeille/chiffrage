@@ -1,0 +1,231 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{F705B70C-DC92-467F-A229-B175E6DA8195}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Chiffrage.Projects.Module</RootNamespace>
+    <AssemblyName>Chiffrage.Projects.Module</AssemblyName>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <ResGenToolArchitecture>Managed32Bit</ResGenToolArchitecture>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoMapper">
+      <HintPath>..\packages\AutoMapper.1.1.0.118\lib\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controllers\DealController.cs" />
+    <Compile Include="Controllers\ProjectController.cs" />
+    <Compile Include="Events\DealSelectedEvent.cs" />
+    <Compile Include="Events\DealUnselectedEvent.cs" />
+    <Compile Include="Events\ProjectSelectedEvent.cs" />
+    <Compile Include="Events\ProjectUnselectedEvent.cs" />
+    <Compile Include="Events\RequestEditProjectHardwareEvent.cs" />
+    <Compile Include="Events\RequestEditProjectSupplyEvent.cs" />
+    <Compile Include="Events\RequestNewDealEvent.cs" />
+    <Compile Include="Events\RequestNewProjectEvent.cs" />
+    <Compile Include="Events\RequestNewProjectFrameEvent.cs" />
+    <Compile Include="Events\RequestNewProjectHardwareEvent.cs" />
+    <Compile Include="Events\RequestNewProjectSupplyEvent.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\DealItemViewModel.cs" />
+    <Compile Include="ViewModel\DealViewModel.cs" />
+    <Compile Include="ViewModel\ProjectFrameViewModel.cs" />
+    <Compile Include="ViewModel\ProjectHardwareSupplyViewModel.cs" />
+    <Compile Include="ViewModel\ProjectHardwareViewModel.cs" />
+    <Compile Include="ViewModel\ProjectItemViewModel.cs" />
+    <Compile Include="ViewModel\ProjectSupplyViewModel.cs" />
+    <Compile Include="ViewModel\ProjectViewModel.cs" />
+    <Compile Include="Views\IDealView.cs" />
+    <Compile Include="Views\IEditProjectHardwareView.cs" />
+    <Compile Include="Views\IEditProjectSupplyView.cs" />
+    <Compile Include="Views\Impl\DealUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Impl\DealUserControl.Designer.cs">
+      <DependentUpon>DealUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Impl\EditProjectHardwareWizardView.cs" />
+    <Compile Include="Views\Impl\EditProjectSupplyWizardView.cs" />
+    <Compile Include="Views\Impl\NewDealWizardView.cs" />
+    <Compile Include="Views\Impl\NewProjectFrameWizardView.cs" />
+    <Compile Include="Views\Impl\NewProjectHardwareWizardView.cs" />
+    <Compile Include="Views\Impl\NewProjectSupplyWizardView.cs" />
+    <Compile Include="Views\Impl\NewProjectWizardView.cs" />
+    <Compile Include="Views\Impl\ProjectUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Impl\ProjectUserControl.Designer.cs">
+      <DependentUpon>ProjectUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Impl\WizardPages\EditProjectHardwarePage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Impl\WizardPages\EditProjectHardwarePage.Designer.cs">
+      <DependentUpon>EditProjectHardwarePage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Impl\WizardPages\EditProjectSupplyPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Impl\WizardPages\EditProjectSupplyPage.Designer.cs">
+      <DependentUpon>EditProjectSupplyPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Impl\WizardPages\NewDealPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Impl\WizardPages\NewDealPage.Designer.cs">
+      <DependentUpon>NewDealPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Impl\WizardPages\NewProjectHardwarePage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Impl\WizardPages\NewProjectHardwarePage.Designer.cs">
+      <DependentUpon>NewProjectHardwarePage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Impl\WizardPages\NewProjectPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Impl\WizardPages\NewProjectPage.Designer.cs">
+      <DependentUpon>NewProjectPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Impl\WizardPages\NewProjectSupplyPage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Impl\WizardPages\NewProjectSupplyPage.Designer.cs">
+      <DependentUpon>NewProjectSupplyPage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Impl\WizardPages\ProjectFramePage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Impl\WizardPages\ProjectFramePage.Designer.cs">
+      <DependentUpon>ProjectFramePage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\INewDealView.cs" />
+    <Compile Include="Views\INewProjectFrameView.cs" />
+    <Compile Include="Views\INewProjectHardwareView.cs" />
+    <Compile Include="Views\INewProjectSupplyView.cs" />
+    <Compile Include="Views\INewProjectView.cs" />
+    <Compile Include="Views\IProjectView.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Impl\DealUserControl.resx">
+      <DependentUpon>DealUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Impl\ProjectUserControl.resx">
+      <DependentUpon>ProjectUserControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Impl\WizardPages\EditProjectSupplyPage.resx">
+      <DependentUpon>EditProjectSupplyPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Impl\WizardPages\NewDealPage.resx">
+      <DependentUpon>NewDealPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Impl\WizardPages\NewProjectHardwarePage.resx">
+      <DependentUpon>NewProjectHardwarePage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Impl\WizardPages\NewProjectPage.resx">
+      <DependentUpon>NewProjectPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Impl\WizardPages\NewProjectSupplyPage.resx">
+      <DependentUpon>NewProjectSupplyPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Impl\WizardPages\ProjectFramePage.resx">
+      <DependentUpon>ProjectFramePage.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Chiffrage.Catalogs.Dal\Chiffrage.Catalogs.Dal.csproj">
+      <Project>{BB8D0D2C-CF88-4B85-A001-14C234FCF0FD}</Project>
+      <Name>Chiffrage.Catalogs.Dal</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Chiffrage.Catalogs.Domain\Chiffrage.Catalogs.Domain.csproj">
+      <Project>{BD6DAC1A-3B56-4E12-84DE-E7BD79316FF6}</Project>
+      <Name>Chiffrage.Catalogs.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Chiffrage.Catalogs.Module\Chiffrage.Catalogs.Module.csproj">
+      <Project>{03B5C7F7-1B9D-44E3-BEC1-5718BFEE621F}</Project>
+      <Name>Chiffrage.Catalogs.Module</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Chiffrage.Common.Module\Chiffrage.Common.Module.csproj">
+      <Project>{226D518E-B1BB-4B77-8031-2F704FADDC83}</Project>
+      <Name>Chiffrage.Common.Module</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Chiffrage.Mvc\Chiffrage.Mvc.csproj">
+      <Project>{771D2DDA-D611-4E74-8857-6E60C08536EE}</Project>
+      <Name>Chiffrage.Mvc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Chiffrage.Projects.Dal\Chiffrage.Projects.Dal.csproj">
+      <Project>{E0FD926A-6B66-459F-A667-D5EFEF605129}</Project>
+      <Name>Chiffrage.Projects.Dal</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Chiffrage.Projects.Domain\Chiffrage.Projects.Domain.csproj">
+      <Project>{28B2F9CD-626A-425C-8D41-CAB32F21134F}</Project>
+      <Name>Chiffrage.Projects.Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cross.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\error.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
