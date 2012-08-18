@@ -12,11 +12,12 @@ namespace Chiffrage
         public CommentUserControl()
         {
             this.InitializeComponent();
-            this.richTextBoxComment.DataBindings.Add("Text", this, "Text", false, DataSourceUpdateMode.OnPropertyChanged);
-            // not possible to bind Rtf property!
+            //this.richTextBoxComment.DataBindings.Add("Text", this, "Text", false, DataSourceUpdateMode.OnPropertyChanged);
+            this.richTextBoxComment.DataBindings.Add("Rtf", this, "Rtf", false, DataSourceUpdateMode.OnPropertyChanged);
+            // not possible to bind Rtf and Text in the same time!
         }
 
-        private string text;
+        private readonly RichTextBox fake = new RichTextBox();
 
         private string rtf;
 
@@ -24,13 +25,13 @@ namespace Chiffrage
         {
             get 
             {
-                return this.text; 
+                fake.Rtf = this.rtf;
+                return fake.Text;
             }
             set
             {
-                this.text = value;
-                FirePropertyChanged("Text");
-                this.Rtf = this.richTextBoxComment.Rtf;
+                fake.Text = value;
+                this.Rtf = fake.Rtf;
             }
         }
 

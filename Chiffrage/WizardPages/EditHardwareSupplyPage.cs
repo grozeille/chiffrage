@@ -27,9 +27,14 @@ namespace Chiffrage.WizardPages
             get { return this.commentUserContrl.Rtf; }
             set
             {
-                if (value == null || !(value.StartsWith("{\\rtf") && value.EndsWith("}")))
-                    value = "{\\rtf" + value + "}";
-                this.commentUserContrl.Rtf = value;
+                if (value == null || !(value.StartsWith(@"{\rtf")))
+                {
+                    this.commentUserContrl.Text = value;
+                }
+                else
+                {
+                    this.commentUserContrl.Rtf = value;
+                }
             }
         }
 
