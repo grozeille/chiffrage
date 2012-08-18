@@ -505,5 +505,16 @@ namespace Chiffrage.Projects.Module.Views.Impl
 
             this.dataGridViewSummary.SetDoubleBuffered();
         }
+
+
+        public void UpdateSupply(ProjectSupplyViewModel supply)
+        {
+            this.InvokeIfRequired(() =>
+            {
+                var s = this.supplies.Where(x => x.Id == supply.Id).First();
+                var index = this.supplies.IndexOf(s);
+                this.supplies[index] = supply;
+            });
+        }
     }
 }

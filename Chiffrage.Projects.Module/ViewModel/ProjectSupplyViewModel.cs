@@ -20,6 +20,8 @@ namespace Chiffrage.Projects.Module.ViewModel
 
         public virtual int ModuleSize { get; set; }
 
+        public virtual double Price { get; set; }
+
         public virtual double CatalogPrice { get; set; }
 
         public virtual int PFC0 { get; set; }
@@ -40,5 +42,6 @@ namespace Chiffrage.Projects.Module.ViewModel
 
         public virtual double TotalCap { get; set; }
 
+        public virtual double TotalPrice { get; set; }
     }
 }

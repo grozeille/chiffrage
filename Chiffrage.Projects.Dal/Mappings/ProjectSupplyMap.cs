@@ -13,7 +13,6 @@ namespace Chiffrage.Projects.Dal.Mappings
                     y.Generator(Generators.Identity);
                 });
             Property(x => x.Quantity);
-            //Property(x => x.Price);
             //Property(x => x.WorkDays);
             //Property(x => x.WorkShortNights);
             //Property(x => x.WorkLongNights);
@@ -29,6 +28,7 @@ namespace Chiffrage.Projects.Dal.Mappings
             Property(x => x.Category);
             Property(x => x.ModuleSize);
             Property(x => x.CatalogPrice);
+            Property(x => x.Price);
             Property(x => x.PFC0);
             Property(x => x.PFC12);
             Property(x => x.Cap);

@@ -21,6 +21,6 @@ namespace Chiffrage.Projects.Domain.Events
 
         public int ProjectId { get { return this.projectId; } }
 
-        public ProjectSupply Supply { get { return this.supply; } }
+        public ProjectSupply ProjectSupply { get { return this.supply; } }
     }
 }

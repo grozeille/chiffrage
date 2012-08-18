@@ -38,7 +38,8 @@ namespace Chiffrage.Projects.Module.Controllers
         IGenericEventHandler<ProjectHardwareDeletedEvent>,
         IGenericEventHandler<RequestNewProjectFrameEvent>,
         IGenericEventHandler<ProjectFrameCreatedEvent>,
-        IGenericEventHandler<ProjectFrameDeletedEvent>
+        IGenericEventHandler<ProjectFrameDeletedEvent>,
+        IGenericEventHandler<ProjectSupplyUpdatedEvent>
     {
         private readonly IProjectView projectView;
 
@@ -132,6 +133,7 @@ namespace Chiffrage.Projects.Module.Controllers
             viewModel.ProjectId = projectId;
 
             viewModel.TotalModuleSize = viewModel.ModuleSize * viewModel.Quantity;
+            viewModel.TotalPrice = viewModel.Price * viewModel.Quantity;
             viewModel.TotalCatalogPrice = viewModel.CatalogPrice * viewModel.Quantity;
             viewModel.TotalPFC12 = viewModel.PFC12 * viewModel.Quantity;
             viewModel.TotalPFC0 = viewModel.PFC0 * viewModel.Quantity;
@@ -289,7 +291,7 @@ namespace Chiffrage.Projects.Module.Controllers
 
         public void ProcessAction(ProjectSupplyDeletedEvent eventObject)
         {
-            var supply = Map(eventObject.Supply, eventObject.ProjectId);
+            var supply = Map(eventObject.ProjectSupply, eventObject.ProjectId);
             this.projectView.RemoveSupply(supply);
 
             this.RefreshProject(eventObject.ProjectId);
@@ -383,6 +385,14 @@ namespace Chiffrage.Projects.Module.Controllers
         {
             var frame = Map(eventObject.Frame, eventObject.ProjectId);
             this.projectView.RemoveFrame(frame);
+
+            this.RefreshProject(eventObject.ProjectId);
+        }
+
+        public void ProcessAction(ProjectSupplyUpdatedEvent eventObject)
+        {
+            var viewModel = Map(eventObject.ProjectSupply, eventObject.ProjectId);
+            this.projectView.UpdateSupply(viewModel);
 
             this.RefreshProject(eventObject.ProjectId);
         }

@@ -36,5 +36,7 @@ namespace Chiffrage.Projects.Module.Views
         void AddFrames(IList<ProjectFrameViewModel> frames);
 
         void RemoveFrame(ProjectFrameViewModel frame);
+
+        void UpdateSupply(ProjectSupplyViewModel supply);
     }
 }

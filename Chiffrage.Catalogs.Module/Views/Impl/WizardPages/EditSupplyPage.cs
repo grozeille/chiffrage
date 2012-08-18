@@ -13,10 +13,6 @@ namespace Chiffrage.Catalogs.Module.Views.Impl.WizardPages
 {
     public partial class EditSupplyPage : UserControl
     {
-        private int catalogId;
-
-        private int supplyId;
-
         public EditSupplyPage()
         {
             InitializeComponent();

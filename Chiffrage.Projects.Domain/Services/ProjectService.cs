@@ -23,7 +23,8 @@ namespace Chiffrage.Projects.Domain.Services
         IGenericEventHandler<CreateNewProjectHardwareCommand>,
         IGenericEventHandler<DeleteProjectHardwareCommand>,
         IGenericEventHandler<CreateNewProjectFrameCommand>,
-        IGenericEventHandler<DeleteProjectFrameCommand>
+        IGenericEventHandler<DeleteProjectFrameCommand>,
+        IGenericEventHandler<UpdateProjectSupplyCommand>
     {
         private readonly IEventBroker eventBroker;
         private readonly ICatalogRepository catalogRepository;
@@ -105,6 +106,7 @@ namespace Chiffrage.Projects.Domain.Services
             var projectSupply = Mapper.Map<Supply, ProjectSupply>(supply);
             projectSupply.CatalogId = catalog.Id;
             projectSupply.Quantity = eventObject.Quantity;
+            projectSupply.Price = supply.CatalogPrice;
             project.Supplies.Add(projectSupply);
 
             this.projectRepository.Save(project);
@@ -192,6 +194,20 @@ namespace Chiffrage.Projects.Domain.Services
             this.projectRepository.Save(project);
 
             this.eventBroker.Publish(new ProjectFrameDeletedEvent(project.Id, frame));
+        }
+
+        public void ProcessAction(UpdateProjectSupplyCommand eventObject)
+        {
+            var project = this.projectRepository.FindById(eventObject.ProjectId);
+            var projectSupply = project.Supplies.Where(x => x.Id == eventObject.Id).First();
+
+            Mapper.CreateMap<UpdateProjectSupplyCommand, ProjectSupply>();
+
+            Mapper.Map(eventObject, projectSupply);
+
+            this.projectRepository.Save(project);
+
+            this.eventBroker.Publish(new ProjectSupplyUpdatedEvent(project.Id, projectSupply));
         }
     }
 }
