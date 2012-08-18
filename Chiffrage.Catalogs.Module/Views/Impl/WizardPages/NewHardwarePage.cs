@@ -1,9 +1,9 @@
 ﻿using System.Windows.Forms;
 using System.ComponentModel;
-using Chiffrage.App.ViewModel;
+using Chiffrage.Catalogs.Module.ViewModel;
 using System.Globalization;
 
-namespace Chiffrage.WizardPages
+namespace Chiffrage.Catalogs.Module.Views.Impl.WizardPages
 {
     public partial class NewHardwarePage : UserControl
     {

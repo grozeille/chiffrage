@@ -4,6 +4,10 @@ using Chiffrage.App.ViewModel;
 using Chiffrage.App.Views;
 using Chiffrage.Mvc.Events;
 using Chiffrage.Mvc.Views;
+using Chiffrage.Projects.Module.ViewModel;
+using Chiffrage.Projects.Module.Events;
+using Chiffrage.Catalogs.Module.Events;
+using Chiffrage.Catalogs.Module.ViewModel;
 
 namespace Chiffrage
 {

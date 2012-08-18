@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Chiffrage.App.ViewModel;
+using Chiffrage.Projects.Module.ViewModel;
 using Chiffrage.Mvc.Events;
 
-namespace Chiffrage.App.Events
+namespace Chiffrage.Projects.Module.Events
 {
     public class RequestEditProjectHardwareEvent : IEvent
     {

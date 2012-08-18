@@ -1,10 +1,10 @@
-﻿using Chiffrage.App.ViewModel;
+﻿using Chiffrage.Catalogs.Module.ViewModel;
 using Chiffrage.Catalogs.Domain;
 using Chiffrage.Mvc.Views;
 using System;
 using System.Collections.Generic;
 
-namespace Chiffrage.App.Views
+namespace Chiffrage.Catalogs.Module.Views
 {
     public interface ICatalogView : IView
     {

@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace Chiffrage.WizardPages
+namespace Chiffrage.Catalogs.Module.Views.Impl.WizardPages
 {
     public partial class EditHardwareSupplyPage : UserControl
     {

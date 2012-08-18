@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Chiffrage.App.ViewModel;
+using Chiffrage.Projects.Module.ViewModel;
 using Chiffrage.Mvc.Views;
 
-namespace Chiffrage.App.Views
+namespace Chiffrage.Projects.Module.Views
 {
     public interface IProjectView : IView
     {

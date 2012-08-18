@@ -1,6 +1,6 @@
-﻿using Chiffrage.App.ViewModel;
+﻿using Chiffrage.Projects.Module.ViewModel;
 
-namespace Chiffrage.WizardPages
+namespace Chiffrage.Projects.Module.Views.Impl.WizardPages
 {
     partial class NewProjectHardwarePage
     {
@@ -107,7 +107,7 @@ namespace Chiffrage.WizardPages
             // 
             // catalogHardwareViewModelBindingSource
             // 
-            this.catalogHardwareViewModelBindingSource.DataSource = typeof(Chiffrage.App.ViewModel.CatalogHardwareViewModel);
+            this.catalogHardwareViewModelBindingSource.DataSource = typeof(Chiffrage.Catalogs.Module.ViewModel.CatalogHardwareViewModel);
             // 
             // textBoxSearch
             // 

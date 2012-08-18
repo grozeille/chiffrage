@@ -8,7 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using Chiffrage.Mvc.Views;
 
-namespace Chiffrage.WizardPages
+namespace Chiffrage.Projects.Module.Views.Impl.WizardPages
 {
     public partial class ProjectFramePage : WithValidationUserControl
     {

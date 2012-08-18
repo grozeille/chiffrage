@@ -1,4 +1,4 @@
-﻿namespace Chiffrage.App.ViewModel
+﻿namespace Chiffrage.Catalogs.Module.ViewModel
 {
     public class CatalogSupplyViewModel
     {

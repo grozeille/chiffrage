@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Chiffrage.App.ViewModel
+namespace Chiffrage.Projects.Module.ViewModel
 {
     public class ProjectFrameViewModel
     {

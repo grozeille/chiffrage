@@ -1,4 +1,4 @@
-﻿namespace Chiffrage.WizardPages
+﻿namespace Chiffrage.Projects.Module.Views.Impl.WizardPages
 {
     partial class NewDealPage
     {

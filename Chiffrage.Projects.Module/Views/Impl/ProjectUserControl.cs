@@ -3,20 +3,20 @@ using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
-using Chiffrage.App.ViewModel;
-using Chiffrage.App.Views;
+using Chiffrage.Projects.Module.ViewModel;
+using Chiffrage.Projects.Module.Views;
 using Chiffrage.Catalogs.Domain;
 using Chiffrage.Mvc.Views;
 using Chiffrage.Projects.Domain;
-using Chiffrage.WizardPages;
+using Chiffrage.Projects.Module.Views.Impl.WizardPages;
 using Chiffrage.Mvc.Events;
-using Chiffrage.App.Events;
+using Chiffrage.Projects.Module.Events;
 using System.Collections.Generic;
 using Chiffrage.Projects.Domain.Commands;
 using Chiffrage.Mvc;
 using System.Globalization;
 
-namespace Chiffrage
+namespace Chiffrage.Projects.Module.Views.Impl
 {
     public partial class ProjectUserControl : UserControlView, IProjectView
     {

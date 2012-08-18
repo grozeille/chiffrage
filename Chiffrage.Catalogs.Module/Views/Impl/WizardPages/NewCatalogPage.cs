@@ -1,6 +1,6 @@
 ﻿using System.Windows.Forms;
 
-namespace Chiffrage.WizardPages
+namespace Chiffrage.Catalogs.Module.Views.Impl.WizardPages
 {
     public partial class NewCatalogPage : UserControl
     {

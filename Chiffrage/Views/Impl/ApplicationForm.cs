@@ -5,6 +5,9 @@ using Chiffrage.App.Views;
 using Chiffrage.Mvc.Events;
 using Chiffrage.Mvc.Views;
 using Chiffrage.Common.Module.Events;
+using Chiffrage.Projects.Module.Views;
+using Chiffrage.Catalogs.Module.Views;
+using Chiffrage.Projects.Module.Events;
 
 namespace Chiffrage
 {

@@ -1,4 +1,4 @@
-﻿namespace Chiffrage.WizardPages
+﻿namespace Chiffrage.Catalogs.Module.Views.Impl.WizardPages
 {
     partial class EditHardwareSupplyPage
     {

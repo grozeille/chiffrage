@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Chiffrage.App.Views;
+using Chiffrage.Projects.Module.Views;
 using Chiffrage.Mvc.Views;
-using Chiffrage.WizardPages;
+using Chiffrage.Projects.Module.Views.Impl.WizardPages;
 using System.Windows.Forms;
 using Chiffrage.Projects.Domain.Commands;
 using Chiffrage.Mvc.Events;
 
-namespace Chiffrage.Wizards
+namespace Chiffrage.Projects.Module.Views.Impl
 {
     public class NewProjectFrameWizardView : WizardView, INewProjectFrameView
     {

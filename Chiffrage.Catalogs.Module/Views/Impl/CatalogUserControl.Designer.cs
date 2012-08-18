@@ -1,4 +1,4 @@
-﻿namespace Chiffrage
+﻿namespace Chiffrage.Catalogs.Module.Views.Impl
 {
     partial class CatalogUserControl
     {
@@ -291,7 +291,7 @@
             // 
             // suppliesBindingSource
             // 
-            this.suppliesBindingSource.DataSource = typeof(Chiffrage.App.ViewModel.CatalogSupplyViewModel);
+            this.suppliesBindingSource.DataSource = typeof(Chiffrage.Catalogs.Module.ViewModel.CatalogSupplyViewModel);
             // 
             // toolStripSupplies
             // 
@@ -501,7 +501,7 @@
             // 
             // hardwaresBindingSource
             // 
-            this.hardwaresBindingSource.DataSource = typeof(Chiffrage.App.ViewModel.CatalogHardwareViewModel);
+            this.hardwaresBindingSource.DataSource = typeof(Chiffrage.Catalogs.Module.ViewModel.CatalogHardwareViewModel);
             // 
             // toolStripHardware
             // 

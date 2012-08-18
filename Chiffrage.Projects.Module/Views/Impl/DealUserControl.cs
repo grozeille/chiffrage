@@ -1,9 +1,9 @@
 ﻿using System;
-using Chiffrage.App.ViewModel;
-using Chiffrage.App.Views;
+using Chiffrage.Projects.Module.ViewModel;
+using Chiffrage.Projects.Module.Views;
 using Chiffrage.Mvc.Views;
 
-namespace Chiffrage
+namespace Chiffrage.Projects.Module.Views.Impl
 {
     public partial class DealUserControl : UserControlView, IDealView
     {

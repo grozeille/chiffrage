@@ -1,6 +1,6 @@
 ﻿using Chiffrage.Mvc.Events;
 
-namespace Chiffrage.App.Events
+namespace Chiffrage.Catalogs.Module.Events
 {
     public class CatalogUnselectedEvent : IEvent
     {

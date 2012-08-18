@@ -6,10 +6,10 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using Chiffrage.App.ViewModel;
+using Chiffrage.Catalogs.Module.ViewModel;
 using System.Globalization;
 
-namespace Chiffrage.WizardPages
+namespace Chiffrage.Catalogs.Module.Views.Impl.WizardPages
 {
     public partial class EditSupplyPage : UserControl
     {

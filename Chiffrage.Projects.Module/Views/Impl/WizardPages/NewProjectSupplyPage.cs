@@ -4,12 +4,13 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using Chiffrage.App.ViewModel;
+using Chiffrage.Projects.Module.ViewModel;
 using Chiffrage.Catalogs.Domain;
 using Chiffrage.Core;
 using Chiffrage.Mvc;
+using Chiffrage.Catalogs.Module.ViewModel;
 
-namespace Chiffrage.WizardPages
+namespace Chiffrage.Projects.Module.Views.Impl.WizardPages
 {
     public partial class NewProjectSupplyPage : UserControl
     {

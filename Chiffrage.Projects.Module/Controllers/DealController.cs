@@ -1,8 +1,8 @@
 ﻿using System;
 using AutoMapper;
-using Chiffrage.App.Events;
-using Chiffrage.App.ViewModel;
-using Chiffrage.App.Views;
+using Chiffrage.Projects.Module.Events;
+using Chiffrage.Projects.Module.ViewModel;
+using Chiffrage.Projects.Module.Views;
 using Chiffrage.Mvc.Events;
 using Chiffrage.Projects.Domain;
 using Chiffrage.Projects.Domain.Repositories;
@@ -12,7 +12,7 @@ using Chiffrage.Projects.Domain.Events;
 using Chiffrage.Projects.Domain.Commands;
 using Chiffrage.Common.Module.Events;
 
-namespace Chiffrage.App.Controllers
+namespace Chiffrage.Projects.Module.Controllers
 {
     public class DealController :
         IController,

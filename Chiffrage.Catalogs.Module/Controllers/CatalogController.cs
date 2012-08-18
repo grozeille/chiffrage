@@ -1,8 +1,8 @@
 ﻿using System.Linq;
 using AutoMapper;
-using Chiffrage.App.Events;
-using Chiffrage.App.ViewModel;
-using Chiffrage.App.Views;
+using Chiffrage.Catalogs.Module.Events;
+using Chiffrage.Catalogs.Module.ViewModel;
+using Chiffrage.Catalogs.Module.Views;
 using Chiffrage.Catalogs.Domain;
 using Chiffrage.Catalogs.Domain.Repositories;
 using Chiffrage.Mvc.Events;
@@ -13,7 +13,7 @@ using Chiffrage.Catalogs.Domain.Events;
 using System.ComponentModel;
 using Chiffrage.Common.Module.Events;
 
-namespace Chiffrage.App.Controllers
+namespace Chiffrage.Catalogs.Module.Controllers
 {
     public class CatalogController :
         IController,

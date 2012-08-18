@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using Chiffrage.App.Events;
-using Chiffrage.App.ViewModel;
-using Chiffrage.App.Views;
+using Chiffrage.Projects.Module.Events;
+using Chiffrage.Projects.Module.ViewModel;
+using Chiffrage.Projects.Module.Views;
 using Chiffrage.Mvc.Events;
 using Chiffrage.Mvc.Views;
-using Chiffrage.WizardPages;
+using Chiffrage.Projects.Module.Views.Impl.WizardPages;
 using Chiffrage.Catalogs.Domain.Commands;
 
-namespace Chiffrage.Wizards
+namespace Chiffrage.Projects.Module.Views.Impl
 {
     public class EditProjectHardwareWizardView : WizardView, IEditProjectHardwareView
     {

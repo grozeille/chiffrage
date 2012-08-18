@@ -1,6 +1,6 @@
-﻿using Chiffrage.App.ViewModel;
+﻿using Chiffrage.Projects.Module.ViewModel;
 
-namespace Chiffrage
+namespace Chiffrage.Projects.Module.Views.Impl
 {
     partial class ProjectUserControl
     {
@@ -339,7 +339,7 @@ namespace Chiffrage
             // 
             // projectBindingSource
             // 
-            this.projectBindingSource.DataSource = typeof(Chiffrage.App.ViewModel.ProjectViewModel);
+            this.projectBindingSource.DataSource = typeof(Chiffrage.Projects.Module.ViewModel.ProjectViewModel);
             // 
             // panelMain
             // 
@@ -826,7 +826,7 @@ namespace Chiffrage
             // 
             // projectSupplyViewModelBindingSource
             // 
-            this.projectSupplyViewModelBindingSource.DataSource = typeof(Chiffrage.App.ViewModel.ProjectSupplyViewModel);
+            this.projectSupplyViewModelBindingSource.DataSource = typeof(Chiffrage.Projects.Module.ViewModel.ProjectSupplyViewModel);
             // 
             // toolStripProject
             // 
@@ -1109,7 +1109,7 @@ namespace Chiffrage
             // 
             // projectHardwareViewModelBindingSource
             // 
-            this.projectHardwareViewModelBindingSource.DataSource = typeof(Chiffrage.App.ViewModel.ProjectHardwareViewModel);
+            this.projectHardwareViewModelBindingSource.DataSource = typeof(Chiffrage.Projects.Module.ViewModel.ProjectHardwareViewModel);
             // 
             // toolStripHardware
             // 
@@ -1371,7 +1371,7 @@ namespace Chiffrage
             // 
             // projectFrameViewModelBindingSource
             // 
-            this.projectFrameViewModelBindingSource.DataSource = typeof(Chiffrage.App.ViewModel.ProjectFrameViewModel);
+            this.projectFrameViewModelBindingSource.DataSource = typeof(Chiffrage.Projects.Module.ViewModel.ProjectFrameViewModel);
             // 
             // toolStripFrames
             // 

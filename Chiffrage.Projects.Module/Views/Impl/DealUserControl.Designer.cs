@@ -1,4 +1,4 @@
-﻿namespace Chiffrage
+﻿namespace Chiffrage.Projects.Module.Views.Impl
 {
     partial class DealUserControl
     {
@@ -54,7 +54,7 @@
             // 
             // bindingSourceDeal
             // 
-            this.bindingSourceDeal.DataSource = typeof(Chiffrage.App.ViewModel.DealViewModel);
+            this.bindingSourceDeal.DataSource = typeof(Chiffrage.Projects.Module.ViewModel.DealViewModel);
             // 
             // labelEnd
             // 

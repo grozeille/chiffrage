@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Chiffrage.App.ViewModel;
+using Chiffrage.Catalogs.Module.ViewModel;
 using Chiffrage.Mvc.Events;
 
-namespace Chiffrage.App.Events
+namespace Chiffrage.Catalogs.Module.Events
 {
     public class RequestEditSupplyEvent : IEvent
     {

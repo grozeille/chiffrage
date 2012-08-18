@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Chiffrage.Mvc.Views;
 
-namespace Chiffrage.App.Views
+namespace Chiffrage.Catalogs.Module.Views
 {
     public interface INewHardwareView : IView
     {

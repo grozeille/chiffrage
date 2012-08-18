@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using AutoMapper;
-using Chiffrage.App.Events;
-using Chiffrage.App.ViewModel;
-using Chiffrage.App.Views;
+using Chiffrage.Projects.Module.Events;
+using Chiffrage.Projects.Module.ViewModel;
+using Chiffrage.Projects.Module.Views;
 using Chiffrage.Mvc.Events;
 using Chiffrage.Projects.Domain;
 using Chiffrage.Projects.Domain.Repositories;
@@ -17,8 +17,9 @@ using Chiffrage.Projects.Domain.Events;
 using Chiffrage.Mvc;
 using Chiffrage.Mvc.Views;
 using Chiffrage.Common.Module.Events;
+using Chiffrage.Catalogs.Module.ViewModel;
 
-namespace Chiffrage.App.Controllers
+namespace Chiffrage.Projects.Module.Controllers
 {
     public class ProjectController :
         IController,

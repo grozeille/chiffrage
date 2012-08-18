@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Chiffrage.App.ViewModel
+namespace Chiffrage.Projects.Module.ViewModel
 {
     public class ProjectHardwareSupplyViewModel
     {

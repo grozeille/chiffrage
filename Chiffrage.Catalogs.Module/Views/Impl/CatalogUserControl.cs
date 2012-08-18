@@ -3,18 +3,18 @@ using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows.Forms;
-using Chiffrage.App.Events;
-using Chiffrage.App.ViewModel;
-using Chiffrage.App.Views;
+using Chiffrage.Catalogs.Module.Events;
+using Chiffrage.Catalogs.Module.ViewModel;
+using Chiffrage.Catalogs.Module.Views;
 using Chiffrage.Catalogs.Domain;
 using Chiffrage.Mvc.Views;
-using Chiffrage.WizardPages;
+using Chiffrage.Catalogs.Module.Views.Impl.WizardPages;
 using Chiffrage.Mvc.Events;
 using Chiffrage.Catalogs.Domain.Commands;
 using System.Collections.Generic;
 using Chiffrage.Mvc;
 
-namespace Chiffrage
+namespace Chiffrage.Catalogs.Module.Views.Impl
 {
     public partial class CatalogUserControl : UserControlView, ICatalogView
     {

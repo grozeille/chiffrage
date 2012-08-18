@@ -1,5 +1,7 @@
 ﻿using Chiffrage.App.ViewModel;
 using Chiffrage.Mvc.Views;
+using Chiffrage.Projects.Module.ViewModel;
+using Chiffrage.Catalogs.Module.ViewModel;
 
 namespace Chiffrage.App.Views
 {

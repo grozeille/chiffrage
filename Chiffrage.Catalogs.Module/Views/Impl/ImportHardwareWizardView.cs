@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Chiffrage.Mvc.Views;
-using Chiffrage.App.Views;
-using Chiffrage.WizardPages;
+using Chiffrage.Catalogs.Module.Views;
+using Chiffrage.Catalogs.Module.Views.Impl.WizardPages;
 using Chiffrage.Mvc.Events;
 using System.Windows.Forms;
 using Chiffrage.Catalogs.Domain.Commands;
 
-namespace Chiffrage.Wizards
+namespace Chiffrage.Catalogs.Module.Views.Impl
 {
     public class ImportHardwareWizardView : WizardView, IImportHardwareView
     {

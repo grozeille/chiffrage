@@ -1,6 +1,6 @@
 ﻿using System.Windows.Forms;
 
-namespace Chiffrage.WizardPages
+namespace Chiffrage.Projects.Module.Views.Impl.WizardPages
 {
     public partial class NewDealPage : UserControl
     {

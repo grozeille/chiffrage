@@ -12,6 +12,8 @@ using Chiffrage.Projects.Domain.Repositories;
 using Chiffrage.Mvc.Controllers;
 using Chiffrage.Catalogs.Domain.Events;
 using Chiffrage.Projects.Domain.Events;
+using Chiffrage.Projects.Module.ViewModel;
+using Chiffrage.Catalogs.Module.ViewModel;
 
 namespace Chiffrage.App.Controllers
 {

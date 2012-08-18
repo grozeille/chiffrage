@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Chiffrage.Mvc.Events;
 
-namespace Chiffrage.App.Events
+namespace Chiffrage.Projects.Module.Events
 {
     public class RequestNewDealEvent : IEvent
     {
