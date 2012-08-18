@@ -383,11 +383,6 @@ namespace Chiffrage.App.Controllers
             var viewModel = Mapper.Map<HardwareSupply, CatalogHardwareSupplyViewModel>(hardwareSupply);
             viewModel.CatalogId = eventObject.CatalogId;
             viewModel.HardwareId = eventObject.HardwareId;
-            /*if (viewModel.Comment.StartsWith("{\\rtf"))
-            {
-                rtBox.Rtf = string.IsNullOrEmpty(viewModel.Comment) ? "{\\rtf}" : viewModel.Comment;
-                viewModel.Comment = rtBox.Text;
-            }*/
 
             this.editHardwareSupplyView.HardwareSupply = viewModel;
             this.editHardwareSupplyView.ShowView();

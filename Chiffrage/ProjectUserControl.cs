@@ -67,7 +67,6 @@ namespace Chiffrage
             this.eventBroker = eventBroker;
             this.CausesValidation = true;
 
-            Chiffrage.App.Controllers.ProjectController.eventBrokerStatic.Register(this);
             //this.toolStripButtonAdd.Click += OnSelect;
             this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonAdd, () =>
                 this.id.HasValue ? new RequestNewProjectSupplyEvent(this.id.Value) : null);

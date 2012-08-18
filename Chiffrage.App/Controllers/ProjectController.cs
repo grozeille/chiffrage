@@ -60,18 +60,9 @@ namespace Chiffrage.App.Controllers
 
         private readonly INewProjectFrameView newProjectFrameView;
 
-        public static bbv.Common.EventBroker.EventBroker eventBrokerStatic = new bbv.Common.EventBroker.EventBroker();
+        // no better way...
+        private readonly System.Windows.Forms.RichTextBox rtBox = new System.Windows.Forms.RichTextBox();
 
-        [bbv.Common.EventBroker.EventPublication("topic://SomethingInteresting2", bbv.Common.EventBroker.HandlerRestriction.Asynchronous)]
-        public event EventHandler Test;
-
-        [bbv.Common.EventBroker.EventSubscription("topic://SomethingInteresting", typeof(bbv.Common.EventBroker.Handlers.Background))]
-        public void HandleSomethingInteresting(object sender, EventArgs e)
-        {
-            // Do something here
-            Test(this, EventArgs.Empty);
-        }
-        
         public ProjectController(
             IEventBroker eventBroker, 
             IProjectView projectView, 
@@ -96,8 +87,6 @@ namespace Chiffrage.App.Controllers
             this.editProjectSupplyView = editProjectSupplyView;
             this.newProjectFrameView = newProjectFrameView;
             this.catalogRepository = catalogRepository;
-
-            eventBrokerStatic.Register(this);
         }
 
 
@@ -107,6 +96,17 @@ namespace Chiffrage.App.Controllers
             Mapper.CreateMap<ProjectHardwareSupply, ProjectHardwareSupplyViewModel>();
             var viewModel = Mapper.Map<ProjectHardware, ProjectHardwareViewModel>(hardware);
             viewModel.ProjectId = projectId;
+
+            foreach (var subItem in viewModel.Components)
+            {
+                subItem.HardwareId = viewModel.Id;
+                subItem.CatalogId = viewModel.CatalogId;
+                if (subItem.Comment.StartsWith("{\\rtf"))
+                {
+                    rtBox.Rtf = string.IsNullOrEmpty(subItem.Comment) ? "{\\rtf}" : subItem.Comment;
+                    subItem.Comment = rtBox.Text;
+                }
+            }
 
             viewModel.ModuleSize = hardware.Components.Sum(x => x.Supply.ModuleSize * x.Quantity);
             viewModel.CatalogPrice = hardware.Components.Sum(x => x.Supply.CatalogPrice * x.Quantity);
@@ -318,6 +318,11 @@ namespace Chiffrage.App.Controllers
                     {
                         subItem.HardwareId = item.Id;
                         subItem.CatalogId = catalog.Id;
+                        if (subItem.Comment.StartsWith("{\\rtf"))
+                        {
+                            rtBox.Rtf = string.IsNullOrEmpty(subItem.Comment) ? "{\\rtf}" : subItem.Comment;
+                            subItem.Comment = rtBox.Text;
+                        }
                     }
                 }
                 hardwaresViewModel.AddRange(hardwares);
