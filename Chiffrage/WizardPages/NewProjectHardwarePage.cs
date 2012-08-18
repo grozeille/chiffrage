@@ -72,8 +72,12 @@ namespace Chiffrage.WizardPages
 
         private void timerFilter_Tick(object sender, EventArgs e)
         {
-            var searchRegex = new Regex(string.Format(".*{0}.*", this.textBoxSearch.Text), RegexOptions.IgnoreCase);
-            this.catalogHardwareViewModelBindingSource.DataSource = this.hardwares.Where(x => searchRegex.IsMatch(x.Name) || searchRegex.IsMatch(x.Reference)).ToList();
+            var searchRegex = new Regex(string.Format(".*{0}.*", Regex.Escape(this.textBoxSearch.Text)), RegexOptions.IgnoreCase);
+            this.catalogHardwareViewModelBindingSource.DataSource = this.hardwares.Where(x =>
+                {
+                    return (x.Name != null && searchRegex.IsMatch(x.Name)) ||
+                        (x.Reference != null && searchRegex.IsMatch(x.Reference));
+                }).ToList();
             this.catalogHardwareViewModelBindingSource.ResetBindings(false);
             this.timerFilter.Enabled = false;
         }
