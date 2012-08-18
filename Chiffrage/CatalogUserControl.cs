@@ -218,12 +218,10 @@ namespace Chiffrage
         {
             this.InvokeIfRequired(() =>
             {
-                this.suppliesBindingSource.SuspendBinding();
                 foreach (var item in result)
                 {
                     this.supplies.Add(item);
                 }
-                this.suppliesBindingSource.ResumeBinding();
             });
         }
 
@@ -231,12 +229,10 @@ namespace Chiffrage
         {
             this.InvokeIfRequired(() => 
             {
-                this.hardwaresBindingSource.SuspendBinding();
                 foreach(var item in result)
                 {
                     this.hardwares.Add(item);
                 }
-                this.hardwaresBindingSource.ResumeBinding();
             });
         }
 
@@ -244,9 +240,7 @@ namespace Chiffrage
         {
             this.InvokeIfRequired(() =>
             {
-                this.suppliesBindingSource.SuspendBinding();
                 this.supplies.Clear();
-                this.suppliesBindingSource.ResumeBinding();
             });
         }
 
@@ -254,9 +248,7 @@ namespace Chiffrage
         {
             this.InvokeIfRequired(() =>
             {
-                this.hardwaresBindingSource.SuspendBinding();
                 this.hardwares.Clear();
-                this.hardwaresBindingSource.ResumeBinding();
             });
         }
 
@@ -265,14 +257,12 @@ namespace Chiffrage
         {
             this.InvokeIfRequired(() =>
             {
-                this.hardwaresBindingSource.SuspendBinding();
                 foreach (var item in result)
                 {
                     var hardware = this.hardwares.Where(s => s.Id == item.Id).First();
                     var index = this.hardwares.IndexOf(hardware);
                     this.hardwares[index] = item;
                 }
-                this.hardwaresBindingSource.ResumeBinding();
             });
         }
 
