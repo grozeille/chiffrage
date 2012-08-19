@@ -152,6 +152,7 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
 
                 viewModel.SupplierName = this.textBoxCatalogName.Text;
                 viewModel.Id = this.catalogId.Value;
+                this.commentUserControl.Validate();
                 viewModel.Comment = this.commentUserControl.Rtf;
 
                 return viewModel;
