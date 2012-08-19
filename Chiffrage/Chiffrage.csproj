@@ -113,6 +113,7 @@
     <Compile Include="Controllers\ErrorLogController.cs" />
     <Compile Include="Controllers\NavigationController.cs" />
     <Compile Include="Events\ApplicationLoadedEvent.cs" />
+    <Compile Include="Ioc\ModuleBootstrap.cs" />
     <Compile Include="Ioc\ChiffrageModule.cs" />
     <Compile Include="Ioc\NHibernateModule.cs" />
     <Compile Include="LoadingEventArgs.cs" />

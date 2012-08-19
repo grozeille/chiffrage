@@ -14,34 +14,29 @@ using Chiffrage.Common.Module.Actions;
 
 namespace Chiffrage.Projects.Module.Controllers
 {
-    public class DealController :
-        IController,
-        IGenericEventHandler<DealSelectedAction>,
-        IGenericEventHandler<DealUnselectedAction>,
-        IGenericEventHandler<ApplicationStartAction>,
-        IGenericEventHandler<SaveAction>,
-        IGenericEventHandler<DealUpdatedEvent>,
-        IGenericEventHandler<RequestNewDealAction>
+    public class DealController : IController
     {
-        private readonly IEventBroker eventBroker;
-
         private readonly IDealRepository dealRepository;
         private readonly IDealView dealView;
         private readonly INewDealView newDealView;
 
-        public DealController(IEventBroker eventBroker, IDealRepository dealRepository, IDealView dealView, INewDealView newDealView)
+        [Publish]
+        public event Action<UpdateDealCommand> OnUpdateDealCommand;
+
+        public DealController(IDealRepository dealRepository, IDealView dealView, INewDealView newDealView)
         {
-            this.eventBroker = eventBroker;
             this.dealView = dealView;
             this.newDealView = newDealView;
             this.dealRepository = dealRepository;
         }
 
+        [Subscribe]
         public void ProcessAction(ApplicationStartAction eventObject)
         {
             this.dealView.HideView();
         }
 
+        [Subscribe]
         public void ProcessAction(DealSelectedAction eventObject)
         {
             var deal = this.dealRepository.FindById(eventObject.Id);
@@ -52,12 +47,14 @@ namespace Chiffrage.Projects.Module.Controllers
             this.dealView.ShowView();
         }
 
+        [Subscribe]
         public void ProcessAction(DealUnselectedAction eventObject)
         {
             this.dealView.HideView();
             this.dealView.SetDealViewModel(null);
         }
 
+        [Subscribe]
         public void ProcessAction(SaveAction eventObject)
         {
             var viewModel = this.dealView.GetDealViewModel();
@@ -73,9 +70,10 @@ namespace Chiffrage.Projects.Module.Controllers
                 viewModel.StartDate,
                 viewModel.EndDate);
 
-            this.eventBroker.Publish(command);
+            this.OnUpdateDealCommand(command);
         }
 
+        [Subscribe]
         public void ProcessAction(DealUpdatedEvent eventObject)
         {
             var result = this.Map(eventObject.NewDeal);
@@ -87,6 +85,7 @@ namespace Chiffrage.Projects.Module.Controllers
             }
         }
 
+        [Subscribe]
         public void ProcessAction(RequestNewDealAction eventObject)
         {
             this.newDealView.ShowView();

@@ -15,7 +15,7 @@ namespace Chiffrage.Mvc.Events
         private Thread dispatchingThread;
         private readonly IList<EventSubscriptionItem> subscribers = new List<EventSubscriptionItem>();
 
-        private ReaderWriterLock subscribersLock = new ReaderWriterLock();
+        private ReaderWriterLockSlim subscribersLock = new ReaderWriterLockSlim();
 
         public SynchronizationContext UISynchronizationContext { get; set; }
 
@@ -23,7 +23,7 @@ namespace Chiffrage.Mvc.Events
         {
             set
             {
-                subscribersLock.AcquireWriterLock(-1);
+                subscribersLock.EnterWriteLock();
                 
                 this.subscribers.Clear();
 
@@ -31,15 +31,15 @@ namespace Chiffrage.Mvc.Events
                 {
                     SubscribeInternal(item);
                 }
-                subscribersLock.ReleaseWriterLock();
+                subscribersLock.ExitWriteLock();
             }
         }
 
         public void Subscribe(object subscriber)
         {
-            subscribersLock.AcquireWriterLock(-1);
+            subscribersLock.EnterWriteLock();
             SubscribeInternal(subscriber);
-            subscribersLock.ReleaseWriterLock();
+            subscribersLock.ExitWriteLock();
         }
 
         private void SubscribeInternal(object subscriber)
@@ -116,8 +116,11 @@ namespace Chiffrage.Mvc.Events
         public void Start()
         {
             if (this.dispatchingThread == null)
+            {
                 this.dispatchingThread = new Thread(this.DispatchEvents);
-            this.dispatchingThread.Start();
+                this.dispatchingThread.IsBackground = true;
+                this.dispatchingThread.Start();
+            }
         }
 
         public void Stop()
@@ -143,7 +146,7 @@ namespace Chiffrage.Mvc.Events
                 object eventObject = null;
                 if (this.eventQueue.TryDequeue(out eventObject))
                 {
-                    subscribersLock.AcquireReaderLock(-1);
+                    subscribersLock.EnterReadLock();
                     
                     foreach (var subscriber in this.subscribers)
                     {
@@ -179,7 +182,9 @@ namespace Chiffrage.Mvc.Events
                                     }
                                 //}));                            
                         }
-                    }                    
+                    }
+
+                    subscribersLock.ExitReadLock();
                 }
             } while (true);
         }

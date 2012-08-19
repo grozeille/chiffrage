@@ -59,13 +59,17 @@ namespace Chiffrage
 
                 var container = builder.Build();
 
+
                 this.eventBroker = container.Resolve<IEventBroker>();
                 this.eventBroker.Start();
-                this.eventBroker.Publish(new ApplicationStartAction());
+                
 
                 loadingForm.Stop();
 
                 var applicationForm = container.Resolve<IApplicationView>();
+
+                this.eventBroker.Publish(new ApplicationStartAction());
+
                 Application.Run((ApplicationForm)applicationForm);
                 this.eventBroker.Stop();
             }

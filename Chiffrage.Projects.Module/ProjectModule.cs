@@ -14,6 +14,7 @@ using Chiffrage.Mvc.Controllers;
 using Chiffrage.Mvc.Services;
 using NHibernate;
 using Chiffrage.Projects.Domain.Services;
+using Chiffrage.Mvc.Events;
 
 namespace Chiffrage.Projects.Module
 {
@@ -27,17 +28,29 @@ namespace Chiffrage.Projects.Module
             builder.RegisterAssemblyTypes(this.ThisAssembly)
                .Where(t => t.GetInterface(typeof(IView).Name) != null && !t.IsAbstract && t.IsPublic)
                .AsImplementedInterfaces()
-               .SingleInstance();
+               .SingleInstance()
+               .OnActivated(x =>
+               {
+                   x.Context.Resolve<IEventBroker>().Subscribe(x.Instance);
+               });
 
             builder.RegisterAssemblyTypes(this.ThisAssembly)
                 .Where(t => t.GetInterface(typeof(IController).Name) != null && !t.IsAbstract && t.IsPublic)
                 .AsImplementedInterfaces()
-                .SingleInstance();
+                .SingleInstance()
+                .OnActivated(x =>
+                {
+                    x.Context.Resolve<IEventBroker>().Subscribe(x.Instance);
+                });
 
             builder.RegisterAssemblyTypes(typeof(ProjectService).Assembly)
                 .Where(t => t.GetInterface(typeof(IService).Name) != null && !t.IsAbstract && t.IsPublic)
                 .AsImplementedInterfaces()
-                .SingleInstance();
+                .SingleInstance()
+                .OnActivated(x =>
+                {
+                    x.Context.Resolve<IEventBroker>().Subscribe(x.Instance);
+                });
 
             base.Load(builder);
         }

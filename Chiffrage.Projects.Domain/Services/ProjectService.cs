@@ -13,18 +13,7 @@ using Chiffrage.Catalogs.Domain;
 
 namespace Chiffrage.Projects.Domain.Services
 {
-    public class ProjectService : IService,
-        IGenericEventHandler<CreateNewDealCommand>,
-        IGenericEventHandler<CreateNewProjectCommand>,
-        IGenericEventHandler<UpdateProjectCommand>,
-        IGenericEventHandler<UpdateDealCommand>,
-        IGenericEventHandler<CreateNewProjectSupplyCommand>,
-        IGenericEventHandler<DeleteProjectSupplyCommand>,
-        IGenericEventHandler<CreateNewProjectHardwareCommand>,
-        IGenericEventHandler<DeleteProjectHardwareCommand>,
-        IGenericEventHandler<CreateNewProjectFrameCommand>,
-        IGenericEventHandler<DeleteProjectFrameCommand>,
-        IGenericEventHandler<UpdateProjectSupplyCommand>
+    public class ProjectService : IService
     {
         private readonly IEventBroker eventBroker;
         private readonly ICatalogRepository catalogRepository;
@@ -43,6 +32,7 @@ namespace Chiffrage.Projects.Domain.Services
             this.eventBroker = eventBroker;
         }
 
+        [Subscribe]
         public void ProcessAction(CreateNewDealCommand eventObject)
         {
             var newDeal = new Deal();
@@ -53,6 +43,7 @@ namespace Chiffrage.Projects.Domain.Services
             this.eventBroker.Publish(new DealCreatedEvent(newDeal));
         }
 
+        [Subscribe]
         public void ProcessAction(UpdateDealCommand eventObject)
         {
             var deal = this.dealRepository.FindById(eventObject.DealId);
@@ -66,6 +57,7 @@ namespace Chiffrage.Projects.Domain.Services
             this.eventBroker.Publish(new DealUpdatedEvent(deal));
         }
 
+        [Subscribe]
         public void ProcessAction(UpdateProjectCommand eventObject)
         {
             var project = this.projectRepository.FindById(eventObject.ProjectId);
@@ -79,6 +71,7 @@ namespace Chiffrage.Projects.Domain.Services
             this.eventBroker.Publish(new ProjectUpdatedEvent(project));
         }
 
+        [Subscribe]
         public void ProcessAction(CreateNewProjectCommand eventObject)
         {
             var deal = this.dealRepository.FindById(eventObject.DealId);
@@ -93,6 +86,7 @@ namespace Chiffrage.Projects.Domain.Services
             this.eventBroker.Publish(new ProjectCreatedEvent(deal, newProject));
         }
 
+        [Subscribe]
         public void ProcessAction(CreateNewProjectSupplyCommand eventObject)
         {
             var catalog = this.catalogRepository.FindById(eventObject.CatalogId);
@@ -114,6 +108,7 @@ namespace Chiffrage.Projects.Domain.Services
             this.eventBroker.Publish(new ProjectSupplyCreatedEvent(project.Id, projectSupply));
         }
 
+        [Subscribe]
         public void ProcessAction(DeleteProjectSupplyCommand eventObject)
         {
             var project = this.projectRepository.FindById(eventObject.ProjectId);
@@ -125,7 +120,8 @@ namespace Chiffrage.Projects.Domain.Services
 
             this.eventBroker.Publish(new ProjectSupplyDeletedEvent(project.Id, supply));
         }
-
+        
+        [Subscribe]
         public void ProcessAction(CreateNewProjectHardwareCommand eventObject)
         {
             var catalog = this.catalogRepository.FindById(eventObject.CatalogId);
@@ -158,6 +154,7 @@ namespace Chiffrage.Projects.Domain.Services
             this.eventBroker.Publish(new ProjectHardwareCreatedEvent(project.Id, projectHardware));
         }
 
+        [Subscribe]
         public void ProcessAction(DeleteProjectHardwareCommand eventObject)
         {
             var project = this.projectRepository.FindById(eventObject.ProjectId);
@@ -170,6 +167,7 @@ namespace Chiffrage.Projects.Domain.Services
             this.eventBroker.Publish(new ProjectHardwareDeletedEvent(project.Id, hardware));
         }
 
+        [Subscribe]
         public void ProcessAction(CreateNewProjectFrameCommand eventObject)
         {
             var project = this.projectRepository.FindById(eventObject.ProjectId);
@@ -184,6 +182,7 @@ namespace Chiffrage.Projects.Domain.Services
             this.eventBroker.Publish(new ProjectFrameCreatedEvent(project.Id, projectFrame));
         }
 
+        [Subscribe]
         public void ProcessAction(DeleteProjectFrameCommand eventObject)
         {
             var project = this.projectRepository.FindById(eventObject.ProjectId);
@@ -196,6 +195,7 @@ namespace Chiffrage.Projects.Domain.Services
             this.eventBroker.Publish(new ProjectFrameDeletedEvent(project.Id, frame));
         }
 
+        [Subscribe]
         public void ProcessAction(UpdateProjectSupplyCommand eventObject)
         {
             var project = this.projectRepository.FindById(eventObject.ProjectId);

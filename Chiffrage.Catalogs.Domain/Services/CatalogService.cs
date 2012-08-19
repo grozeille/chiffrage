@@ -15,19 +15,7 @@ using OfficeOpenXml;
 
 namespace Chiffrage.Catalogs.Domain.Services
 {
-    public class CatalogService : IService, 
-        IGenericEventHandler<CreateNewCatalogCommand>,
-        IGenericEventHandler<UpdateCatalogCommand>,
-        IGenericEventHandler<CreateNewSupplyCommand>,
-        IGenericEventHandler<UpdateSupplyCommand>,
-        IGenericEventHandler<DeleteSupplyCommand>,
-        IGenericEventHandler<CreateNewHardwareCommand>,
-        IGenericEventHandler<UpdateHardwareCommand>,
-        IGenericEventHandler<DeleteHardwareCommand>,
-        IGenericEventHandler<CreateNewHardwareSupplyCommand>,
-        IGenericEventHandler<DeleteHardwareSupplyCommand>,
-        IGenericEventHandler<UpdateHardwareSupplyCommand>,
-        IGenericEventHandler<ImportHardwareCommand>
+    public class CatalogService : IService
     {
         private readonly IEventBroker eventBroker;
         private readonly ICatalogRepository repository;
@@ -40,6 +28,7 @@ namespace Chiffrage.Catalogs.Domain.Services
             this.eventBroker = eventBroker;
         }
 
+        [Subscribe]
         public void ProcessAction(CreateNewCatalogCommand eventObject)
         {
             var catalog = new SupplierCatalog();
@@ -50,6 +39,7 @@ namespace Chiffrage.Catalogs.Domain.Services
             this.eventBroker.Publish(new CatalogCreatedEvent(catalog));
         }
 
+        [Subscribe]
         public void ProcessAction(UpdateCatalogCommand eventObject)
         {
             var catalog = this.repository.FindById(eventObject.CatalogId);
@@ -61,6 +51,7 @@ namespace Chiffrage.Catalogs.Domain.Services
             this.eventBroker.Publish(new CatalogUpdatedEvent(catalog));
         }
 
+        [Subscribe]
         public void ProcessAction(CreateNewSupplyCommand eventObject)
         {
             var catalog = this.repository.FindById(eventObject.CatalogId);
@@ -84,6 +75,7 @@ namespace Chiffrage.Catalogs.Domain.Services
             }
         }
 
+        [Subscribe]
         public void ProcessAction(UpdateSupplyCommand eventObject)
         {
             var catalog = this.repository.FindById(eventObject.CatalogId);
@@ -99,6 +91,7 @@ namespace Chiffrage.Catalogs.Domain.Services
             this.eventBroker.Publish(new SupplyUpdatedEvent(catalog.Id, supply));
         }
 
+        [Subscribe]
         public void ProcessAction(DeleteSupplyCommand eventObject)
         {
             var catalog = this.repository.FindById(eventObject.CatalogId);
@@ -115,6 +108,7 @@ namespace Chiffrage.Catalogs.Domain.Services
             }
         }
 
+        [Subscribe]
         public void ProcessAction(CreateNewHardwareCommand eventObject)
         {
             var catalog = this.repository.FindById(eventObject.CatalogId);
@@ -138,6 +132,7 @@ namespace Chiffrage.Catalogs.Domain.Services
             }
         }
 
+        [Subscribe]
         public void ProcessAction(UpdateHardwareCommand eventObject)
         {
             var catalog = this.repository.FindById(eventObject.CatalogId);
@@ -153,6 +148,7 @@ namespace Chiffrage.Catalogs.Domain.Services
             this.eventBroker.Publish(new HardwareUpdatedEvent(catalog.Id, hardware));
         }
 
+        [Subscribe]
         public void ProcessAction(DeleteHardwareCommand eventObject)
         {
             var catalog = this.repository.FindById(eventObject.CatalogId);
@@ -168,6 +164,8 @@ namespace Chiffrage.Catalogs.Domain.Services
                 this.eventBroker.Publish(new HardwareDeletedEvent(catalog.Id, hardware));
             }
         }
+
+        [Subscribe]
         public void ProcessAction(CreateNewHardwareSupplyCommand eventObject)
         {
             var catalog = this.repository.FindById(eventObject.CatalogId);
@@ -196,6 +194,7 @@ namespace Chiffrage.Catalogs.Domain.Services
             }
         }
 
+        [Subscribe]
         public void ProcessAction(DeleteHardwareSupplyCommand eventObject)
         {
             var catalog = this.repository.FindById(eventObject.CatalogId);
@@ -209,6 +208,7 @@ namespace Chiffrage.Catalogs.Domain.Services
             this.eventBroker.Publish(new HardwareSupplyDeletedEvent(catalog.Id, hardware, hardwareSupply));
         }
 
+        [Subscribe]
         public void ProcessAction(UpdateHardwareSupplyCommand eventObject)
         {
             var catalog = this.repository.FindById(eventObject.CatalogId);
@@ -223,6 +223,7 @@ namespace Chiffrage.Catalogs.Domain.Services
             this.eventBroker.Publish(new HardwareSupplyUpdatedEvent(catalog.Id, hardware, hardwareSupply));
         }
 
+        [Subscribe]
         public void ProcessAction(ImportHardwareCommand eventObject)
         {
             var catalog = this.repository.FindById(eventObject.CatalogId);

@@ -7,5 +7,7 @@ namespace Chiffrage.Mvc.Events
         void Start();
 
         void Stop();
+
+        void Subscribe(object subscriber);
     }
 }

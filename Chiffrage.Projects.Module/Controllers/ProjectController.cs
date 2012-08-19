@@ -21,25 +21,7 @@ using Chiffrage.Catalogs.Module.ViewModel;
 
 namespace Chiffrage.Projects.Module.Controllers
 {
-    public class ProjectController :
-        IController,
-        IGenericEventHandler<ApplicationStartAction>,
-        IGenericEventHandler<ProjectSelectedAction>,
-        IGenericEventHandler<ProjectUnselectedAction>,
-        IGenericEventHandler<SaveAction>,
-        IGenericEventHandler<RequestNewProjectAction>,
-        IGenericEventHandler<RequestNewProjectSupplyAction>,
-        IGenericEventHandler<ProjectSupplyCreatedEvent>,
-        IGenericEventHandler<ProjectSupplyDeletedEvent>,
-        IGenericEventHandler<RequestEditProjectSupplyAction>,
-        IGenericEventHandler<RequestEditProjectHardwareAction>,
-        IGenericEventHandler<RequestNewProjectHardwareAction>,
-        IGenericEventHandler<ProjectHardwareCreatedEvent>,
-        IGenericEventHandler<ProjectHardwareDeletedEvent>,
-        IGenericEventHandler<RequestNewProjectFrameAction>,
-        IGenericEventHandler<ProjectFrameCreatedEvent>,
-        IGenericEventHandler<ProjectFrameDeletedEvent>,
-        IGenericEventHandler<ProjectSupplyUpdatedEvent>
+    public class ProjectController : IController
     {
         private readonly IProjectView projectView;
 
@@ -50,8 +32,6 @@ namespace Chiffrage.Projects.Module.Controllers
         private readonly IDealRepository dealRepository;
 
         private readonly ICatalogRepository catalogRepository;
-
-        private readonly IEventBroker eventBroker;
 
         private readonly INewProjectSupplyView newProjectSupplyView;
 
@@ -66,8 +46,10 @@ namespace Chiffrage.Projects.Module.Controllers
         // no better way...
         private readonly System.Windows.Forms.RichTextBox rtBox = new System.Windows.Forms.RichTextBox();
 
+        [Publish]
+        public event Action<UpdateProjectCommand> OnUpdateProjectCommand;
+
         public ProjectController(
-            IEventBroker eventBroker, 
             IProjectView projectView, 
             INewProjectView newProjectView, 
             IProjectRepository projectRepository, 
@@ -81,7 +63,6 @@ namespace Chiffrage.Projects.Module.Controllers
         {
             this.projectView = projectView;
             this.newProjectView = newProjectView;
-            this.eventBroker = eventBroker;
             this.projectRepository = projectRepository;
             this.dealRepository = dealRepository;
             this.newProjectSupplyView = newProjectSupplyView;
@@ -182,11 +163,13 @@ namespace Chiffrage.Projects.Module.Controllers
             return viewModel;
         }
 
+        [Subscribe]
         public void ProcessAction(ApplicationStartAction eventObject)
         {
             this.projectView.HideView();
         }
 
+        [Subscribe]
         public void ProcessAction(ProjectSelectedAction eventObject)
         {
             var project = this.projectRepository.FindById(eventObject.Id);
@@ -217,6 +200,7 @@ namespace Chiffrage.Projects.Module.Controllers
             this.projectView.ShowView();
         }
 
+        [Subscribe]
         public void ProcessAction(ProjectUnselectedAction eventObject)
         {
             this.projectView.HideView();
@@ -227,6 +211,7 @@ namespace Chiffrage.Projects.Module.Controllers
             this.projectView.SetFrames(null);
         }
 
+        [Subscribe]
         public void ProcessAction(SaveAction eventObject)
         {
             var viewModel = this.projectView.GetProjectViewModel();
@@ -251,15 +236,17 @@ namespace Chiffrage.Projects.Module.Controllers
                 viewModel.TestDayRate,
                 viewModel.TestNightRate);
 
-            this.eventBroker.Publish(command);
+            this.OnUpdateProjectCommand(command);
         }
 
+        [Subscribe]
         public void ProcessAction(RequestNewProjectAction eventObject)
         {
             this.newProjectView.ParentDealId = eventObject.DealId;
             this.newProjectView.ShowView();
         }
 
+        [Subscribe]
         public void ProcessAction(RequestNewProjectSupplyAction eventObject)
         {
             var catalogs = this.catalogRepository.FindAll();
@@ -281,6 +268,7 @@ namespace Chiffrage.Projects.Module.Controllers
             this.newProjectSupplyView.ShowView();
         }
 
+        [Subscribe]
         public void ProcessAction(ProjectSupplyCreatedEvent eventObject)
         {
             var viewModel = Map(eventObject.ProjectSupply, eventObject.ProjectId);
@@ -289,6 +277,7 @@ namespace Chiffrage.Projects.Module.Controllers
             this.RefreshProject(eventObject.ProjectId);
         }
 
+        [Subscribe]
         public void ProcessAction(ProjectSupplyDeletedEvent eventObject)
         {
             var supply = Map(eventObject.ProjectSupply, eventObject.ProjectId);
@@ -297,12 +286,14 @@ namespace Chiffrage.Projects.Module.Controllers
             this.RefreshProject(eventObject.ProjectId);
         }
 
+        [Subscribe]
         public void ProcessAction(RequestEditProjectSupplyAction eventObject)
         {
             this.editProjectSupplyView.Supply = eventObject.Supply;
             this.editProjectSupplyView.ShowView();
         }
 
+        [Subscribe]
         public void ProcessAction(RequestNewProjectHardwareAction eventObject)
         {
             var catalogs = this.catalogRepository.FindAll();
@@ -337,6 +328,7 @@ namespace Chiffrage.Projects.Module.Controllers
             this.newProjectHardwareView.ShowView();
         }
 
+        [Subscribe]
         public void ProcessAction(ProjectHardwareCreatedEvent eventObject)
         {
             var viewModel = Map(eventObject.ProjectHardware, eventObject.ProjectId);
@@ -345,6 +337,7 @@ namespace Chiffrage.Projects.Module.Controllers
             this.RefreshProject(eventObject.ProjectId);
         }
 
+        [Subscribe]
         public void ProcessAction(ProjectHardwareDeletedEvent eventObject)
         {
             var hardware = Map(eventObject.Hardware, eventObject.ProjectId);
@@ -353,19 +346,21 @@ namespace Chiffrage.Projects.Module.Controllers
             this.RefreshProject(eventObject.ProjectId);
         }
 
+        [Subscribe]
         public void ProcessAction(RequestEditProjectHardwareAction eventObject)
         {
             this.editProjectHardwareView.Hardware = eventObject.Hardware;
             this.editProjectHardwareView.ShowView();
         }
 
-
+        [Subscribe]
         public void ProcessAction(RequestNewProjectFrameAction eventObject)
         {
             this.newProjectFrameView.ProjectId = eventObject.ProjectId;
             this.newProjectFrameView.ShowView();            
         }
 
+        [Subscribe]
         public void ProcessAction(ProjectFrameCreatedEvent eventObject)
         {
             this.RefreshProject(eventObject.ProjectId);
@@ -381,6 +376,7 @@ namespace Chiffrage.Projects.Module.Controllers
             this.projectView.SetProjectViewModel(projectViewModel);
         }
 
+        [Subscribe]
         public void ProcessAction(ProjectFrameDeletedEvent eventObject)
         {
             var frame = Map(eventObject.Frame, eventObject.ProjectId);
@@ -389,6 +385,7 @@ namespace Chiffrage.Projects.Module.Controllers
             this.RefreshProject(eventObject.ProjectId);
         }
 
+        [Subscribe]
         public void ProcessAction(ProjectSupplyUpdatedEvent eventObject)
         {
             var viewModel = Map(eventObject.ProjectSupply, eventObject.ProjectId);

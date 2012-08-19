@@ -25,26 +25,48 @@ namespace Chiffrage.Ioc
             builder.RegisterAssemblyTypes(this.ThisAssembly)
                 .Where(t => t.GetInterface(typeof(IView).Name) != null && !t.IsAbstract && t.IsPublic)
                 .AsImplementedInterfaces()
-                .SingleInstance();
+                .SingleInstance()
+                .OnActivated(x =>
+                {
+                    x.Context.Resolve<IEventBroker>().Subscribe(x.Instance);
+                });
 
             builder.RegisterAssemblyTypes(this.ThisAssembly)
                 .Where(t => t.GetInterface(typeof(IController).Name) != null && !t.IsAbstract && t.IsPublic)
                 .AsImplementedInterfaces()
-                .SingleInstance();
+                .SingleInstance()
+                .OnActivated(x =>
+                {
+                    x.Context.Resolve<IEventBroker>().Subscribe(x.Instance);
+                });
 
             builder.RegisterAssemblyTypes(this.ThisAssembly)
                 .Where(t => t.GetInterface(typeof(IService).Name) != null && !t.IsAbstract && t.IsPublic)
                 .AsImplementedInterfaces()
-                .SingleInstance();
+                .SingleInstance()
+                .OnActivated(x =>
+                {
+                    x.Context.Resolve<IEventBroker>().Subscribe(x.Instance);
+                });
 
             // the eventBroker
             builder.RegisterType<EventBroker>()
                 .As<IEventBroker>()
                 .SingleInstance()
-                .OnActivated(x =>
-                {
-                    x.Instance.Subscribers = x.Context.Resolve<IEnumerable<IEventHandler>>().ToArray();
-                });
+                .OnActivated(x => x.Instance.Start());
+
+            
+                //.OnActivated(x =>
+                //{
+                //    x.Instance.Subscribers = x.Context.Resolve<IEnumerable<Object>>().ToArray();
+                //});
+
+
+            // force creation of all services/view/controllers
+            builder.RegisterType<ModuleBootstrap>()
+                .As<IStartable>()
+                .PropertiesAutowired(PropertyWiringFlags.Default)
+                .SingleInstance();
 
             base.Load(builder);
         }
