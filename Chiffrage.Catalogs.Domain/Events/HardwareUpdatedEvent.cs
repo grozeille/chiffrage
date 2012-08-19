@@ -7,7 +7,7 @@ using Chiffrage.Mvc.Events;
 
 namespace Chiffrage.Catalogs.Domain.Events
 {
-    public class HardwareUpdatedEvent : IEvent
+    public class HardwareUpdatedEvent
     {
         private readonly int catalogId;
         private readonly Hardware hardware;

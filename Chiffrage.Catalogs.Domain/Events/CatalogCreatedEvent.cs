@@ -7,7 +7,7 @@ using Chiffrage.Mvc.Events;
 
 namespace Chiffrage.Catalogs.Domain.Events
 {
-    public class CatalogCreatedEvent : IEvent
+    public class CatalogCreatedEvent
     {
         private readonly SupplierCatalog catalog;
 

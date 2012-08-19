@@ -6,7 +6,7 @@ using Chiffrage.Mvc.Events;
 
 namespace Chiffrage.Mvc.Sample.Events
 {
-    public class MessageReceivedEvent : IEvent
+    public class MessageReceivedEvent
     {
         public DateTime Date { get; set; }
 

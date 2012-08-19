@@ -7,7 +7,7 @@ using Chiffrage.Projects.Domain;
 
 namespace Chiffrage.Projects.Domain.Events
 {
-    public class ProjectSupplyDeletedEvent : IEvent
+    public class ProjectSupplyDeletedEvent
     {
         private readonly int projectId;
 

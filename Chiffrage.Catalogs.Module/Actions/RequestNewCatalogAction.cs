@@ -6,7 +6,7 @@ using Chiffrage.Mvc.Events;
 
 namespace Chiffrage.Catalogs.Module.Actions
 {
-    public class RequestNewCatalogAction : IEvent
+    public class RequestNewCatalogAction
     {
     }
 }

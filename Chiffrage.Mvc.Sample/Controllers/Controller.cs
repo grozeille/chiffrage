@@ -10,7 +10,7 @@ using Chiffrage.Mvc.Sample.Commands;
 namespace Chiffrage.Mvc.Sample.Controllers
 {
     public class Controller:
-        IGenericEventHandlerUI<MessageReceivedEvent>
+        IEventHandlerOnUI<MessageReceivedEvent>
     {
         public EventBroker EventBroker { get; set; }
 

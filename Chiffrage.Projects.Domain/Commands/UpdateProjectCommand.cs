@@ -6,7 +6,7 @@ using Chiffrage.Mvc.Events;
 
 namespace Chiffrage.Projects.Domain.Commands
 {
-    public class UpdateProjectCommand : IEvent
+    public class UpdateProjectCommand
     {
         private readonly int projectId;
 

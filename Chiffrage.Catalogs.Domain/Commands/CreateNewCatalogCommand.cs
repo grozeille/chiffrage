@@ -6,7 +6,7 @@ using Chiffrage.Mvc.Events;
 
 namespace Chiffrage.Catalogs.Domain.Commands
 {
-    public class CreateNewCatalogCommand : IEvent
+    public class CreateNewCatalogCommand
     {
         private readonly string name;
 

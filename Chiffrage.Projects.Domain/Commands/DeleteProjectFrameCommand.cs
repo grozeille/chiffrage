@@ -6,7 +6,7 @@ using Chiffrage.Mvc.Events;
 
 namespace Chiffrage.Projects.Domain.Commands
 {
-    public class DeleteProjectFrameCommand : IEvent
+    public class DeleteProjectFrameCommand
     {
         private readonly int projectId;
 

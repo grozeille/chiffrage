@@ -23,7 +23,7 @@ using Chiffrage.Projects.Module;
 
 namespace Chiffrage
 {
-    internal class Program : IGenericEventHandler<ApplicationEndAction>
+    internal class Program
     {
         private static ILog logger = LogManager.GetLogger(typeof(Program));
 
@@ -84,6 +84,7 @@ namespace Chiffrage
             }
         }
 
+        [Subscribe]
         public void ProcessAction(ApplicationEndAction eventObject)
         {
             this.eventBroker.Stop();

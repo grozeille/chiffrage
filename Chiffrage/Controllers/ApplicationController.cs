@@ -9,9 +9,7 @@ using Chiffrage.Mvc.Controllers;
 
 namespace Chiffrage.App.Controllers
 {
-    public class ApplicationController:
-        IController,
-        IGenericEventHandler<ApplicationLoadedEvent>
+    public class ApplicationController: IController
     {
         private readonly IApplicationView applicationView;
 
@@ -20,6 +18,7 @@ namespace Chiffrage.App.Controllers
             this.applicationView = applicationView;
         }
 
+        [Subscribe]
         public void ProcessAction(ApplicationLoadedEvent eventObject)
         {
             if (eventObject.Position == eventObject.Max)

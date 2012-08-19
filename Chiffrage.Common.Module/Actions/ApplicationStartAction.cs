@@ -2,7 +2,7 @@
 
 namespace Chiffrage.Common.Module.Actions
 {
-    public class ApplicationStartAction : IEvent
+    public class ApplicationStartAction
     {
     }
 }

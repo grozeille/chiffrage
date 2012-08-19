@@ -7,7 +7,7 @@ using Chiffrage.Mvc.Events;
 
 namespace Chiffrage.Projects.Module.Actions
 {
-    public class RequestEditProjectSupplyAction : IEvent
+    public class RequestEditProjectSupplyAction
     {
         private readonly ProjectSupplyViewModel supply;
 

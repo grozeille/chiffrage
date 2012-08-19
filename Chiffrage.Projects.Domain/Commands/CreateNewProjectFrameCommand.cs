@@ -6,7 +6,7 @@ using Chiffrage.Mvc.Events;
 
 namespace Chiffrage.Projects.Domain.Commands
 {
-	public class CreateNewProjectFrameCommand : IEvent
+	public class CreateNewProjectFrameCommand
 	{
 		private readonly int projectId;
 

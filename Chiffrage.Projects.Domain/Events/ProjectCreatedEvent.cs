@@ -7,7 +7,7 @@ using Chiffrage.Projects.Domain;
 
 namespace Chiffrage.Projects.Domain.Events
 {
-    public class ProjectCreatedEvent : IEvent
+    public class ProjectCreatedEvent
     {
         private readonly Project newProject;
 

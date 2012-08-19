@@ -6,7 +6,7 @@ using Chiffrage.Mvc.Events;
 
 namespace Chiffrage.Projects.Module.Actions
 {
-    public class RequestNewDealAction : IEvent
+    public class RequestNewDealAction
     {
     }
 }

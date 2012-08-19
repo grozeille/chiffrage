@@ -7,7 +7,7 @@ using Chiffrage.Mvc.Events;
 
 namespace Chiffrage.Catalogs.Module.Actions
 {
-    public class RequestEditHardwareAction : IEvent
+    public class RequestEditHardwareAction
     {
         private readonly CatalogHardwareViewModel hardware;
 

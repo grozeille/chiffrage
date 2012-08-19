@@ -65,11 +65,9 @@
     <Compile Include="Events\EventBroker.cs" />
     <Compile Include="Events\EventPublisher.cs" />
     <Compile Include="Events\EventSubscriptionItem.cs" />
-    <Compile Include="Events\IEvent.cs" />
     <Compile Include="Events\IEventBroker.cs" />
     <Compile Include="Events\IEventHandler.cs" />
-    <Compile Include="Events\IGenericEventHandler.cs" />
-    <Compile Include="Events\IGenericEventHandlerUI.cs" />
+    <Compile Include="Events\IEventHandlerOnUI.cs" />
     <Compile Include="Events\PublishAttribute.cs" />
     <Compile Include="Events\SubscribeAttribute.cs" />
     <Compile Include="Events\WinformEventSource.cs" />

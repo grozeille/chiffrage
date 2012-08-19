@@ -36,7 +36,7 @@ namespace Chiffrage.Mvc.Sample
 
 
             eventBroker.UISynchronizationContext = WindowsFormsSynchronizationContext.Current;
-            eventBroker.Subscribers = new IEventHandler[] { controller1, controller2, service };
+            eventBroker.Subscribers = new object[] { controller1, controller2, service };
             eventBroker.Start();
 
             Application.Run(form);

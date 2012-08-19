@@ -5,8 +5,7 @@ using System.Text;
 
 namespace Chiffrage.Mvc.Events
 {
-    public interface IGenericEventHandlerUI<T> : IEventHandler
-        where T : IEvent
+    public interface IEventHandlerOnUI<T>
     {
         void ProcessAction(T eventObject);
     }

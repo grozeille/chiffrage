@@ -2,7 +2,7 @@
 
 namespace Chiffrage.Catalogs.Module.Actions
 {
-    public class CatalogUnselectedAction : IEvent
+    public class CatalogUnselectedAction
     {
         public CatalogUnselectedAction(int id)
         {

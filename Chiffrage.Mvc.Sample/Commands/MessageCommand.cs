@@ -6,7 +6,7 @@ using Chiffrage.Mvc.Events;
 
 namespace Chiffrage.Mvc.Sample.Commands
 {
-    public class MessageCommand : IEvent
+    public class MessageCommand
     {
         public string Value { get; set; }
     }

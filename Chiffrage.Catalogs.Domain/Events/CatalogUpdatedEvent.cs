@@ -7,7 +7,7 @@ using Chiffrage.Catalogs.Domain;
 
 namespace Chiffrage.Catalogs.Domain.Events
 {
-    public class CatalogUpdatedEvent : IEvent
+    public class CatalogUpdatedEvent
     {
         private readonly SupplierCatalog catalog;
 

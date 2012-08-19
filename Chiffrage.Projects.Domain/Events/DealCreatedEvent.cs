@@ -7,7 +7,7 @@ using Chiffrage.Mvc.Events;
 
 namespace Chiffrage.Projects.Domain.Events
 {
-    public class DealCreatedEvent : IEvent
+    public class DealCreatedEvent
     {
         private readonly Deal newDeal;
 

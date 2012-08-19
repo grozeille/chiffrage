@@ -8,7 +8,7 @@ using System.Reflection;
 
 namespace Chiffrage.Mvc.Events
 {
-    public class EventBroker : IEventBroker, IDisposable
+    public class EventBroker: IEventBroker, IDisposable
     {
         private readonly BlockingQueue<object> eventQueue = new BlockingQueue<object>(Int32.MaxValue);
 

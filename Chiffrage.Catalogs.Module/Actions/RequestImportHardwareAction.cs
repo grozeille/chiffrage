@@ -6,7 +6,7 @@ using Chiffrage.Mvc.Events;
 
 namespace Chiffrage.Catalogs.Module.Actions
 {
-    public class RequestImportHardwareAction : IEvent
+    public class RequestImportHardwareAction
     {
         private int catalogId;
 

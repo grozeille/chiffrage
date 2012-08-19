@@ -9,7 +9,7 @@ using Chiffrage.Mvc.Sample.Events;
 namespace Chiffrage.Mvc.Sample.Services
 {
     public class Service :
-        IGenericEventHandler<MessageCommand>
+        IEventHandler<MessageCommand>
     {
         public EventBroker EventBroker { get; set; }
 

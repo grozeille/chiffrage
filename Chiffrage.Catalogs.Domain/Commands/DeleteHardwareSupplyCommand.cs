@@ -6,7 +6,7 @@ using Chiffrage.Mvc.Events;
 
 namespace Chiffrage.Catalogs.Domain.Commands
 {
-    public class DeleteHardwareSupplyCommand : IEvent
+    public class DeleteHardwareSupplyCommand
     {
         private readonly int catalogId;
 

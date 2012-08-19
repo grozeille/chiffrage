@@ -6,7 +6,7 @@ using Chiffrage.Mvc.Events;
 
 namespace Chiffrage.Projects.Module.Actions
 {
-    public class RequestNewProjectHardwareAction : IEvent
+    public class RequestNewProjectHardwareAction
     {
         private readonly int projectId;
 

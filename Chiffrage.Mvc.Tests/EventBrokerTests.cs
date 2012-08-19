@@ -8,7 +8,7 @@ namespace Chiffrage.Mvc.Tests
     [TestFixture]
     public class EventBrokerTests
     {
-        public class MyEvent : IEvent
+        public class MyEvent
         {
         }
 
@@ -16,7 +16,7 @@ namespace Chiffrage.Mvc.Tests
         {
         }
 
-        public abstract class MyEventHandler : IGenericEventHandler<MyEvent>, IGenericEventHandler<MySubEvent>
+        public abstract class MyEventHandler: IEventHandler<MyEvent>, IEventHandler<MySubEvent>
         {
             #region IGenericEventHandler<MyEvent> Members
 
@@ -36,9 +36,9 @@ namespace Chiffrage.Mvc.Tests
         {
             var eventBroker = new EventBroker();
 
-            var eventHandler = new Mock<IGenericEventHandler<MyEvent>>();
+            var eventHandler = new Mock<IEventHandler<MyEvent>>();
 
-            eventBroker.Subscribers = new IEventHandler[] {eventHandler.Object};
+            eventBroker.Subscribers = new object[] {eventHandler.Object};
 
             eventBroker.Start();
 
@@ -56,7 +56,7 @@ namespace Chiffrage.Mvc.Tests
 
             var eventHandler = new Mock<MyEventHandler>();
 
-            eventBroker.Subscribers = new IEventHandler[] {eventHandler.Object};
+            eventBroker.Subscribers = new object[] {eventHandler.Object};
 
             eventBroker.Start();
 
@@ -74,9 +74,9 @@ namespace Chiffrage.Mvc.Tests
         {
             var eventBroker = new EventBroker();
 
-            var eventHandler = new Mock<IGenericEventHandler<MyEvent>>();
+            var eventHandler = new Mock<IEventHandler<MyEvent>>();
 
-            eventBroker.Subscribers = new IEventHandler[] { eventHandler.Object };
+            eventBroker.Subscribers = new object[] { eventHandler.Object };
 
             eventBroker.Start();
 

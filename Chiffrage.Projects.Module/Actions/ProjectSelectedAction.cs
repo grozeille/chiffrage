@@ -2,7 +2,7 @@
 
 namespace Chiffrage.Projects.Module.Actions
 {
-    public class ProjectSelectedAction : IEvent
+    public class ProjectSelectedAction
     {
         public ProjectSelectedAction(int id)
         {

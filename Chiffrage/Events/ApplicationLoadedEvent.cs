@@ -6,7 +6,7 @@ using Chiffrage.Mvc.Events;
 
 namespace Chiffrage.App.Events
 {
-    public class ApplicationLoadedEvent : IEvent
+    public class ApplicationLoadedEvent
     {
         public int Position { get; private set; }
         public int Max { get; private set; }

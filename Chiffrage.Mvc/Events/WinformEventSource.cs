@@ -6,7 +6,7 @@ namespace Chiffrage.Mvc.Events
     public static class WinformEventSource
     {
         public static void RegisterTreeNodeSelectEventSource(this IEventBroker eventBroker, TreeNode treeNode,
-                                                             IEvent myEvent)
+                                                             object myEvent)
         {
             treeNode.TreeView.AfterSelect += (sender, e) =>
                                              {
@@ -16,7 +16,7 @@ namespace Chiffrage.Mvc.Events
         }
 
         public static void RegisterTreeNodeUnselectEventSource(this IEventBroker eventBroker, TreeNode treeNode,
-                                                               IEvent myEvent)
+                                                               object myEvent)
         {
             treeNode.TreeView.BeforeSelect += (sender, e) =>
                                               {
@@ -25,17 +25,17 @@ namespace Chiffrage.Mvc.Events
                                               };
         }
 
-        public static void RegisterBouttonClickEventSource(this IEventBroker eventBroker, Button button, IEvent myEvent)
+        public static void RegisterBouttonClickEventSource(this IEventBroker eventBroker, Button button, object myEvent)
         {
             button.Click += (sender, e) => eventBroker.Publish(myEvent);
         }
 
-        public static void RegisterToolStripBouttonClickEventSource(this IEventBroker eventBroker, ToolStripButton button, IEvent myEvent)
+        public static void RegisterToolStripBouttonClickEventSource(this IEventBroker eventBroker, ToolStripButton button, object myEvent)
         {
             button.Click += (sender, e) => eventBroker.Publish(myEvent);
         }
 
-        public static void RegisterToolStripBouttonClickEventSource(this IEventBroker eventBroker, ToolStripButton button, Func<IEvent> eventFunction)
+        public static void RegisterToolStripBouttonClickEventSource(this IEventBroker eventBroker, ToolStripButton button, Func<object> eventFunction)
         {
             button.Click += (sender, e) =>
             {
@@ -47,12 +47,12 @@ namespace Chiffrage.Mvc.Events
             };
         }
 
-        public static void RegisterToolStripMenuItemClickEventSource(this IEventBroker eventBroker, ToolStripMenuItem item, IEvent myEvent)
+        public static void RegisterToolStripMenuItemClickEventSource(this IEventBroker eventBroker, ToolStripMenuItem item, object myEvent)
         {
             item.Click += (sender, e) => eventBroker.Publish(myEvent);
         }
 
-        public static void RegisterToolStripMenuItemClickEventSource(this IEventBroker eventBroker, ToolStripMenuItem item, Func<IEvent> eventFunction)
+        public static void RegisterToolStripMenuItemClickEventSource(this IEventBroker eventBroker, ToolStripMenuItem item, Func<object> eventFunction)
         {
             item.Click += (sender, e) =>
             {

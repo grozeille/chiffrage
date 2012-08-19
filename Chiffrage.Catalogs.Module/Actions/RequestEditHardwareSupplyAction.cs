@@ -7,7 +7,7 @@ using Chiffrage.Mvc.Events;
 
 namespace Chiffrage.Catalogs.Module.Actions
 {
-    public class RequestEditHardwareSupplyAction : IEvent
+    public class RequestEditHardwareSupplyAction
     {
         private readonly int catalogId;
 

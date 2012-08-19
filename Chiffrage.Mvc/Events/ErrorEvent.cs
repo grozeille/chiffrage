@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Chiffrage.Mvc.Events
 {
-    public class ErrorEvent : IEvent
+    public class ErrorEvent
     {
         public Exception Exception { get; private set; }
 

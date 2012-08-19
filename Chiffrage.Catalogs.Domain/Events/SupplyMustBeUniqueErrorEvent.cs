@@ -7,7 +7,7 @@ using Chiffrage.Catalogs.Domain;
 
 namespace Chiffrage.Catalogs.Domain.Events
 {
-    public class SupplyMustBeUniqueErrorEvent : IEvent
+    public class SupplyMustBeUniqueErrorEvent
     {
         private int catalogId;
         private Supply supply;
