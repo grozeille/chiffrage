@@ -8,15 +8,12 @@ using Chiffrage.Mvc.Events;
 using Common.Logging;
 using NHibernate;
 using NHibernate.Cfg;
-using Spring.Context;
-using Spring.Context.Support;
 using Settings = Chiffrage.Properties.Settings;
 using System.Threading;
 using System.Linq;
 using Chiffrage.Mvc.Views;
 using Chiffrage.Mvc.Controllers;
 using Chiffrage.Mvc.Services;
-using Spring.Objects.Factory.Config;
 using NHibernate.Dialect;
 using NHibernate.Mapping.ByCode;
 using Chiffrage.Projects.Dal.Repositories;
@@ -25,26 +22,13 @@ using System.IO;
 using System.Reflection;
 using Strongshell.Recoil.Core.Integration;
 using Chiffrage.Common.Module.Actions;
+using Autofac;
+using Chiffrage.App.Views;
 
 namespace Chiffrage
 {
-    public static class AplicationContextExtension
-    {
-        public static T GetObject<T>(this IApplicationContext applicationContext)
-        {
-            foreach (DictionaryEntry item in applicationContext.GetObjectsOfType(typeof(T)))
-            {
-                return (T)item.Value;
-            }
-
-            return default(T);
-        }
-    }
-
     internal class Program : IGenericEventHandler<ApplicationEndAction>
     {
-        
-
         private static ILog logger = LogManager.GetLogger(typeof(Program));
 
 
@@ -71,23 +55,21 @@ namespace Chiffrage
                 var loadingForm = new LoadingForm();
                 loadingForm.Start();
 
-                var myContext = new GenericApplicationContext();
-                myContext.Configure()
-                    .With<CatalogContainer>()
-                    .With<DealContainer>()
-                    .With<MvcContainer>();
+                var builder = new ContainerBuilder();
+                builder.RegisterModule(new DealModule());
+                builder.RegisterModule(new CatalogModule());
+                builder.RegisterModule(new MvcModule());
 
+                var container = builder.Build();
 
-                myContext.Refresh();
-
-                this.eventBroker = myContext.GetObject<IEventBroker>();
+                this.eventBroker = container.Resolve<IEventBroker>();
                 this.eventBroker.Start();
                 this.eventBroker.Publish(new ApplicationStartAction());
 
                 loadingForm.Stop();
 
-                var applicationForm = myContext.GetObject<ApplicationForm>();
-                Application.Run(applicationForm);
+                var applicationForm = container.Resolve<IApplicationView>();
+                Application.Run((ApplicationForm)applicationForm);
                 this.eventBroker.Stop();
             }
             catch (Exception ex)

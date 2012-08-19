@@ -22,9 +22,11 @@ namespace Chiffrage.Mvc.Views
         {
             InvokeIfRequired(() =>
             {
+                
                 this.Show();
                 this.BringToFront();
-            });           
+                
+            });
         }
 
         public virtual void HideView()
