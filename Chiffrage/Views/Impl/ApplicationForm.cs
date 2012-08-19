@@ -15,16 +15,19 @@ namespace Chiffrage
     {
         public ApplicationForm(
             IEventBroker eventBroker, 
-            INavigationView applicationView, 
+            INavigationView navigationView, 
             ICatalogView catalogView,
             IDealView dealView,
             IErrorLogView errorLogView,
             IProjectView projectView)
             : this()
         {
-            applicationView.SetParent(this.splitContainer.Panel1);
+            navigationView.SetParent(this.splitContainer.Panel1);
+            catalogView.HideView();
             catalogView.SetParent(this.splitContainer.Panel2);
+            dealView.HideView();
             dealView.SetParent(this.splitContainer.Panel2);
+            projectView.HideView();
             projectView.SetParent(this.splitContainer.Panel2);
             errorLogView.SetParent(this.splitContainerMain.Panel2);
             
