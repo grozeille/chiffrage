@@ -5,9 +5,9 @@ using Chiffrage.App.Views;
 using Chiffrage.Mvc.Events;
 using Chiffrage.Mvc.Views;
 using Chiffrage.Projects.Module.ViewModel;
-using Chiffrage.Projects.Module.Events;
-using Chiffrage.Catalogs.Module.Events;
 using Chiffrage.Catalogs.Module.ViewModel;
+using Chiffrage.Projects.Module.Actions;
+using Chiffrage.Catalogs.Module.Actions;
 
 namespace Chiffrage
 {
@@ -21,8 +21,8 @@ namespace Chiffrage
             : this()
         {
             this.eventBroker = eventBroker;
-            this.eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemNewCatalog, new RequestNewCatalogEvent());
-            this.eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemNewDeal, new RequestNewDealEvent());
+            this.eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemNewCatalog, new RequestNewCatalogAction());
+            this.eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemNewDeal, new RequestNewDealAction());
             this.eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemNewProject, () =>
             {
                 if (this.treeView.SelectedNode != null)
@@ -30,7 +30,7 @@ namespace Chiffrage
                     var deal = this.treeView.SelectedNode.Tag as DealItemViewModel;
                     if (deal != null)
                     {
-                        return new RequestNewProjectEvent(deal.Id);
+                        return new RequestNewProjectAction(deal.Id);
                     }
                 }
 
@@ -122,8 +122,8 @@ namespace Chiffrage
                 nodeDeal.Tag = viewModel;
                 nodeDeal.ContextMenuStrip = this.contextMenuStripDeal;
 
-                this.eventBroker.RegisterTreeNodeSelectEventSource(nodeDeal, new DealSelectedEvent(viewModel.Id));
-                this.eventBroker.RegisterTreeNodeUnselectEventSource(nodeDeal, new DealUnselectedEvent(viewModel.Id));
+                this.eventBroker.RegisterTreeNodeSelectEventSource(nodeDeal, new DealSelectedAction(viewModel.Id));
+                this.eventBroker.RegisterTreeNodeUnselectEventSource(nodeDeal, new DealUnselectedAction(viewModel.Id));
 
                 foreach (var project in viewModel.Projects)
                 {
@@ -140,8 +140,8 @@ namespace Chiffrage
                                                                   "book_open.png", "book_open.png");
                 nodeCatalog.Tag = viewModel;
 
-                this.eventBroker.RegisterTreeNodeSelectEventSource(nodeCatalog, new CatalogSelectedEvent(viewModel.Id));
-                this.eventBroker.RegisterTreeNodeUnselectEventSource(nodeCatalog, new CatalogUnselectedEvent(viewModel.Id));
+                this.eventBroker.RegisterTreeNodeSelectEventSource(nodeCatalog, new CatalogSelectedAction(viewModel.Id));
+                this.eventBroker.RegisterTreeNodeUnselectEventSource(nodeCatalog, new CatalogUnselectedAction(viewModel.Id));
             });
         }
 
@@ -237,8 +237,8 @@ namespace Chiffrage
                                                      "report.png");
                 nodeProject.Tag = viewModel;
 
-                this.eventBroker.RegisterTreeNodeSelectEventSource(nodeProject, new ProjectSelectedEvent(viewModel.Id));
-                this.eventBroker.RegisterTreeNodeUnselectEventSource(nodeProject, new ProjectUnselectedEvent(viewModel.Id));
+                this.eventBroker.RegisterTreeNodeSelectEventSource(nodeProject, new ProjectSelectedAction(viewModel.Id));
+                this.eventBroker.RegisterTreeNodeUnselectEventSource(nodeProject, new ProjectUnselectedAction(viewModel.Id));
             });
         }
 

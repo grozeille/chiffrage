@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using AutoMapper;
-using Chiffrage.Catalogs.Module.Events;
+using Chiffrage.Catalogs.Module.Actions;
 using Chiffrage.Catalogs.Module.ViewModel;
 using Chiffrage.Catalogs.Module.Views;
 using Chiffrage.Catalogs.Domain;
@@ -11,23 +11,23 @@ using System.Collections.Generic;
 using Chiffrage.Catalogs.Domain.Commands;
 using Chiffrage.Catalogs.Domain.Events;
 using System.ComponentModel;
-using Chiffrage.Common.Module.Events;
+using Chiffrage.Common.Module.Actions;
 
 namespace Chiffrage.Catalogs.Module.Controllers
 {
     public class CatalogController :
         IController,
-        IGenericEventHandler<CatalogSelectedEvent>,
-        IGenericEventHandler<CatalogUnselectedEvent>,
-        IGenericEventHandler<ApplicationStartEvent>,
+        IGenericEventHandler<CatalogSelectedAction>,
+        IGenericEventHandler<CatalogUnselectedAction>,
+        IGenericEventHandler<ApplicationStartAction>,
         IGenericEventHandler<CatalogUpdatedEvent>,
-        IGenericEventHandler<SaveEvent>,
-        IGenericEventHandler<RequestNewCatalogEvent>,
-        IGenericEventHandler<RequestNewSupplyEvent>,
-        IGenericEventHandler<RequestNewHardwareEvent>,
-        IGenericEventHandler<RequestNewHardwareSupplyEvent>,
-        IGenericEventHandler<RequestEditSupplyEvent>,
-        IGenericEventHandler<RequestEditHardwareEvent>,
+        IGenericEventHandler<SaveAction>,
+        IGenericEventHandler<RequestNewCatalogAction>,
+        IGenericEventHandler<RequestNewSupplyAction>,
+        IGenericEventHandler<RequestNewHardwareAction>,
+        IGenericEventHandler<RequestNewHardwareSupplyAction>,
+        IGenericEventHandler<RequestEditSupplyAction>,
+        IGenericEventHandler<RequestEditHardwareAction>,
         IGenericEventHandler<SupplyCreatedEvent>,
         IGenericEventHandler<SupplyUpdatedEvent>,        
         IGenericEventHandler<SupplyDeletedEvent>,
@@ -36,9 +36,9 @@ namespace Chiffrage.Catalogs.Module.Controllers
         IGenericEventHandler<HardwareDeletedEvent>,
         IGenericEventHandler<HardwareSupplyCreatedEvent>,
         IGenericEventHandler<HardwareSupplyDeletedEvent>,
-        IGenericEventHandler<RequestEditHardwareSupplyEvent>,
+        IGenericEventHandler<RequestEditHardwareSupplyAction>,
         IGenericEventHandler<HardwareSupplyUpdatedEvent>,
-        IGenericEventHandler<ImportHardwareEvent>
+        IGenericEventHandler<RequestImportHardwareAction>
     {
         private readonly ICatalogView catalogView;
         private readonly IEventBroker eventBroker;
@@ -81,18 +81,18 @@ namespace Chiffrage.Catalogs.Module.Controllers
             this.eventBroker = eventBroker;
         }
 
-        public void ProcessAction(ApplicationStartEvent eventObject)
+        public void ProcessAction(ApplicationStartAction eventObject)
         {
             this.catalogView.HideView();
         }
 
-        public void ProcessAction(CatalogSelectedEvent eventObject)
+        public void ProcessAction(CatalogSelectedAction eventObject)
         {
             this.catalogView.ShowView();
             this.DisplayCatalog(eventObject.Id);
         }
 
-        public void ProcessAction(CatalogUnselectedEvent eventObject)
+        public void ProcessAction(CatalogUnselectedAction eventObject)
         {
             this.catalogView.HideView();
         }
@@ -168,18 +168,18 @@ namespace Chiffrage.Catalogs.Module.Controllers
             this.catalogView.Display(result);
         }
 
-        public void ProcessAction(RequestNewSupplyEvent eventObject)
+        public void ProcessAction(RequestNewSupplyAction eventObject)
         {
             this.newSupplyView.CatalogId = eventObject.CatalogId;
             this.newSupplyView.ShowView();
         }
 
-        public void ProcessAction(RequestNewCatalogEvent eventObject)
+        public void ProcessAction(RequestNewCatalogAction eventObject)
         {
             this.newCatalogView.ShowView();
         }
 
-        public void ProcessAction(SaveEvent eventObject)
+        public void ProcessAction(SaveAction eventObject)
         {
             var viewModel = this.catalogView.GetViewModel();
             if (viewModel == null)
@@ -243,14 +243,14 @@ namespace Chiffrage.Catalogs.Module.Controllers
             this.catalogView.AddSupply(result);
         }
 
-        public void ProcessAction(RequestEditSupplyEvent eventObject)
+        public void ProcessAction(RequestEditSupplyAction eventObject)
         {
             this.editSupplyView.Supply = eventObject.Supply;
 
             this.editSupplyView.ShowView();
         }
 
-        public void ProcessAction(RequestEditHardwareEvent eventObject)
+        public void ProcessAction(RequestEditHardwareAction eventObject)
         {
             this.editHardwareView.Hardware = eventObject.Hardware;
 
@@ -301,13 +301,13 @@ namespace Chiffrage.Catalogs.Module.Controllers
             this.catalogView.RemoveSupply(result);
         }
 
-        public void ProcessAction(RequestNewHardwareEvent eventObject)
+        public void ProcessAction(RequestNewHardwareAction eventObject)
         {
             this.newHardwareView.CatalogId = eventObject.CatalogId;
             this.newHardwareView.ShowView();
         }
 
-        public void ProcessAction(RequestNewHardwareSupplyEvent eventObject)
+        public void ProcessAction(RequestNewHardwareSupplyAction eventObject)
         {
             var catalog = this.repository.FindById(eventObject.CatalogId);
             Mapper.CreateMap<Supply, CatalogSupplyViewModel>();
@@ -373,7 +373,7 @@ namespace Chiffrage.Catalogs.Module.Controllers
             this.catalogView.UpdateHardware(result);
         }
 
-        public void ProcessAction(RequestEditHardwareSupplyEvent eventObject)
+        public void ProcessAction(RequestEditHardwareSupplyAction eventObject)
         {
             var catalog = this.repository.FindById(eventObject.CatalogId);
             var hardware = catalog.Hardwares.Where(x => x.Id == eventObject.HardwareId).First();
@@ -389,7 +389,7 @@ namespace Chiffrage.Catalogs.Module.Controllers
             this.editHardwareSupplyView.ShowView();
         }
 
-        public void ProcessAction(ImportHardwareEvent eventObject)
+        public void ProcessAction(RequestImportHardwareAction eventObject)
         {
             this.importHardwareView.CatalogId = eventObject.CatalogId;
             this.importHardwareView.ShowView();

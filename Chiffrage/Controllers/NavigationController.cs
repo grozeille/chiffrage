@@ -14,12 +14,13 @@ using Chiffrage.Catalogs.Domain.Events;
 using Chiffrage.Projects.Domain.Events;
 using Chiffrage.Projects.Module.ViewModel;
 using Chiffrage.Catalogs.Module.ViewModel;
+using Chiffrage.Common.Module.Actions;
 
 namespace Chiffrage.App.Controllers
 {
     public class NavigationController : 
         IController,
-        IGenericEventHandler<ApplicationStartEvent>,
+        IGenericEventHandler<ApplicationStartAction>,
         IGenericEventHandler<CatalogUpdatedEvent>,
         IGenericEventHandler<CatalogCreatedEvent>,
         IGenericEventHandler<DealUpdatedEvent>,
@@ -47,7 +48,7 @@ namespace Chiffrage.App.Controllers
             this.navigationView = navigationView;
         }
 
-        public void ProcessAction(ApplicationStartEvent eventObject)
+        public void ProcessAction(ApplicationStartAction eventObject)
         {
             var result = new NavigationItemViewModel();
 

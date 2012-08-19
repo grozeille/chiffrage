@@ -7,7 +7,7 @@ using Chiffrage.Catalogs.Module.Views;
 using Chiffrage.Mvc.Views;
 using Chiffrage.Catalogs.Module.Views.Impl.WizardPages;
 using Chiffrage.Mvc.Events;
-using Chiffrage.Catalogs.Module.Events;
+using Chiffrage.Catalogs.Module.Actions;
 using Chiffrage.Catalogs.Module.ViewModel;
 using Chiffrage.Catalogs.Domain.Commands;
 using Chiffrage.Common.Module.Views.WizardPages;

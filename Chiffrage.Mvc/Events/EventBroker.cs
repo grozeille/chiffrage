@@ -4,6 +4,7 @@ using System.Threading;
 using Common.Logging;
 using System.Windows.Forms;
 using System.Linq;
+using System.Reflection;
 
 namespace Chiffrage.Mvc.Events
 {
@@ -11,47 +12,51 @@ namespace Chiffrage.Mvc.Events
     {
         private readonly BlockingQueue<IEvent> eventQueue = new BlockingQueue<IEvent>(Int32.MaxValue);
 
-        private readonly IList<IEventHandler> subscribers = new List<IEventHandler>();
         private Thread dispatchingThread;
-        private readonly IDictionary<Type, IList<EventSubscriptionItem>> subscribersCache = new Dictionary<Type, IList<EventSubscriptionItem>>();
+        private readonly IList<EventSubscriptionItem> subscribers = new List<EventSubscriptionItem>();
+
+        private ReaderWriterLock subscribersLock = new ReaderWriterLock();
+
+        public SynchronizationContext UISynchronizationContext { get; set; }
 
         public IEventHandler[] Subscribers
         {
             set
             {
-                lock (this.subscribers)
+                subscribersLock.AcquireWriterLock(-1);
+                
+                this.subscribers.Clear();
+
+                foreach (var item in value)
                 {
-                    this.subscribersCache.Clear();
+                    SubscribeInternal(item);
+                }
+                subscribersLock.ReleaseWriterLock();
+            }
+        }
 
-                    this.subscribers.Clear();
-                    foreach (var item in value)
-                    {
-                        this.subscribers.Add(item);
+        public void Subscribe(IEventHandler subscriber)
+        {
+            subscribersLock.AcquireWriterLock(-1);
+            SubscribeInternal(subscriber);
+            subscribersLock.ReleaseWriterLock();
+        }
 
-                        foreach (var subscriber in this.subscribers)
-                        {
-                            var interfaceTypes = subscriber.GetType().GetInterfaces();
+        private void SubscribeInternal(IEventHandler subscriber)
+        {
+            var interfaceTypes = subscriber.GetType().GetInterfaces();
 
-                            foreach (var interfaceType in interfaceTypes)
-                            {
-                                if (interfaceType.Name.Equals("IGenericEventHandler`1"))
-                                {
-                                    var eventType = interfaceType.GetGenericArguments()[0];
-                                    if (!this.subscribersCache.ContainsKey(eventType))
-                                    {
-                                        this.subscribersCache.Add(eventType, new List<EventSubscriptionItem>());
-                                    }
+            foreach (var interfaceType in interfaceTypes)
+            {
+                if (interfaceType.Name.Equals("IGenericEventHandler`1") || interfaceType.Name.Equals("IGenericEventHandlerUI`1"))
+                {
+                    var eventType = interfaceType.GetGenericArguments()[0];
 
-                                    var subscriptionItem = new EventSubscriptionItem(subscriber, interfaceType.GetMethod("ProcessAction", new[] { eventType }));                                    
+                    var threadUI = interfaceType.Name.Equals("IGenericEventHandlerUI`1");
 
-                                    if (!this.subscribersCache[eventType].Where(x => x.EventHandler == subscriber).Any())
-                                    {
-                                        this.subscribersCache[eventType].Add(subscriptionItem);
-                                    }
-                                }
-                            }
-                        }
-                    }
+                    var subscriptionItem = new EventSubscriptionItem(eventType, subscriber, interfaceType.GetMethod("ProcessAction", new[] { eventType }), threadUI);
+
+                    subscribers.Add(subscriptionItem);
                 }
             }
         }
@@ -88,32 +93,43 @@ namespace Chiffrage.Mvc.Events
                 IEvent eventObject = null;
                 if (this.eventQueue.TryDequeue(out eventObject))
                 {
-                    lock (this.subscribers)
+                    subscribersLock.AcquireReaderLock(-1);
+                    
+                    foreach (var subscriber in this.subscribers)
                     {
-                        foreach (var type in this.subscribersCache.Keys)
+                        if (subscriber.EventType.IsInstanceOfType(eventObject))
                         {
-                            if (type.IsInstanceOfType(eventObject))
-                            {
-                                foreach (var subscriber in this.subscribersCache[type])
-                                {
-                                    //ThreadPool.QueueUserWorkItem(new WaitCallback((o) =>
-                                    //    {
-                                            try
-                                            {
-                                                subscriber.Method.Invoke(subscriber.EventHandler, new[] { eventObject });
-                                                //subscriber.Dispatch(eventObject);
-                                            }
-                                            catch (Exception ex)
-                                            {
-                                                LogManager.GetLogger<EventBroker>().ErrorFormat("Unable to dispatch event", ex);
+                            //ThreadPool.QueueUserWorkItem(new WaitCallback((o) =>
+                            //    {
+                                    try
+                                    {
+                                        if (subscriber.ThreadUI)
+                                        {
+                                            this.UISynchronizationContext.Post((o) => 
+                                                {
+                                                    var args = (object[])o;
+                                                    var s = (EventSubscriptionItem)args[0];
+                                                    var e = (IEvent)args[1];
 
-                                                this.Publish(new ErrorEvent(ex));
-                                            }
-                                        //}));
-                                }
-                            }
+                                                    s.Method.Invoke(s.EventHandler, new[] { e });
+
+                                                }, new object[]{ subscriber, eventObject});
+                                        }
+                                        else
+                                        {
+                                            subscriber.Method.Invoke(subscriber.EventHandler, new[] { eventObject });
+                                        }
+                                        //subscriber.Dispatch(eventObject);
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        LogManager.GetLogger<EventBroker>().ErrorFormat("Unable to dispatch event", ex);
+
+                                        this.Publish(new ErrorEvent(ex));
+                                    }
+                                //}));                            
                         }
-                    }
+                    }                    
                 }
             } while (true);
         }
@@ -122,6 +138,11 @@ namespace Chiffrage.Mvc.Events
         {
             if (this.dispatchingThread != null)
                 this.Stop();
+        }
+
+        public EventBroker()
+        {
+            this.UISynchronizationContext = WindowsFormsSynchronizationContext.Current;
         }
     }
 }

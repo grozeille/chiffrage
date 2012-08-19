@@ -3,7 +3,6 @@ using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows.Forms;
-using Chiffrage.Catalogs.Module.Events;
 using Chiffrage.Catalogs.Module.ViewModel;
 using Chiffrage.Catalogs.Module.Views;
 using Chiffrage.Catalogs.Domain;
@@ -13,6 +12,7 @@ using Chiffrage.Mvc.Events;
 using Chiffrage.Catalogs.Domain.Commands;
 using System.Collections.Generic;
 using Chiffrage.Mvc;
+using Chiffrage.Catalogs.Module.Actions;
 
 namespace Chiffrage.Catalogs.Module.Views.Impl
 {
@@ -32,7 +32,7 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
             this.eventBroker = eventBroker;
 
             this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonAddSupply, () =>
-                this.catalogId.HasValue ? new RequestNewSupplyEvent(this.catalogId.Value) : null);
+                this.catalogId.HasValue ? new RequestNewSupplyAction(this.catalogId.Value) : null);
 
             this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonRemoveSupply, () =>
                 {
@@ -53,7 +53,7 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
                 });
 
             this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonAddHardware, () =>
-               this.catalogId.HasValue ? new RequestNewHardwareEvent(this.catalogId.Value) : null);
+               this.catalogId.HasValue ? new RequestNewHardwareAction(this.catalogId.Value) : null);
 
             this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonRemoveHardware, () =>
             {
@@ -80,7 +80,7 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
                         var hardware = this.hardwaresBindingSource.Current as CatalogHardwareViewModel;
                         if (hardware != null)
                         {
-                            return new RequestNewHardwareSupplyEvent(this.catalogId.Value, hardware.Id);
+                            return new RequestNewHardwareSupplyAction(this.catalogId.Value, hardware.Id);
                         }
                     }
 
@@ -110,7 +110,7 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
                 {
                     if (this.catalogId.HasValue)
                     {
-                        return new ImportHardwareEvent(this.catalogId.Value);
+                        return new RequestImportHardwareAction(this.catalogId.Value);
                     }
                     
                     return null;
@@ -284,7 +284,7 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
             var supply = this.suppliesBindingSource[e.RowIndex] as CatalogSupplyViewModel;
             if (supply != null)
             {
-                this.eventBroker.Publish(new RequestEditSupplyEvent(supply));
+                this.eventBroker.Publish(new RequestEditSupplyAction(supply));
             }
         }
 
@@ -298,7 +298,7 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
             var hardware = this.hardwaresBindingSource[e.RowIndex] as CatalogHardwareViewModel;
             if (hardware != null)
             {
-                this.eventBroker.Publish(new RequestEditHardwareEvent(hardware));
+                this.eventBroker.Publish(new RequestEditHardwareAction(hardware));
             }
         }
 
@@ -312,7 +312,7 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
             var hardwareSupply = this.componentsBindingSource[e.RowIndex] as CatalogHardwareSupplyViewModel;
             if (hardwareSupply != null)
             {
-                this.eventBroker.Publish(new RequestEditHardwareSupplyEvent(hardwareSupply.CatalogId, hardwareSupply.HardwareId, hardwareSupply.Id));
+                this.eventBroker.Publish(new RequestEditHardwareSupplyAction(hardwareSupply.CatalogId, hardwareSupply.HardwareId, hardwareSupply.Id));
             }
         }
 

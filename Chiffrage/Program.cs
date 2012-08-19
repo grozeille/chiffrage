@@ -24,6 +24,7 @@ using NHibernate.Cfg.MappingSchema;
 using System.IO;
 using System.Reflection;
 using Strongshell.Recoil.Core.Integration;
+using Chiffrage.Common.Module.Actions;
 
 namespace Chiffrage
 {
@@ -40,7 +41,7 @@ namespace Chiffrage
         }
     }
 
-    internal class Program : IGenericEventHandler<ApplicationEndEvent>
+    internal class Program : IGenericEventHandler<ApplicationEndAction>
     {
         
 
@@ -81,7 +82,7 @@ namespace Chiffrage
 
                 this.eventBroker = myContext.GetObject<IEventBroker>();
                 this.eventBroker.Start();
-                this.eventBroker.Publish(new ApplicationStartEvent());
+                this.eventBroker.Publish(new ApplicationStartAction());
 
                 loadingForm.Stop();
 
@@ -100,7 +101,7 @@ namespace Chiffrage
             }
         }
 
-        public void ProcessAction(ApplicationEndEvent eventObject)
+        public void ProcessAction(ApplicationEndAction eventObject)
         {
             this.eventBroker.Stop();
         }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using Chiffrage.Projects.Module.Events;
+using Chiffrage.Projects.Module.Actions;
 using Chiffrage.Projects.Module.ViewModel;
 using Chiffrage.Projects.Module.Views;
 using Chiffrage.Mvc.Events;

@@ -7,7 +7,7 @@ using Chiffrage.Projects.Module.Views;
 using Chiffrage.Mvc.Views;
 using Chiffrage.Projects.Module.Views.Impl.WizardPages;
 using Chiffrage.Mvc.Events;
-using Chiffrage.Projects.Module.Events;
+using Chiffrage.Projects.Module.Actions;
 using Chiffrage.Projects.Domain.Commands;
 
 namespace Chiffrage.Projects.Module.Views.Impl

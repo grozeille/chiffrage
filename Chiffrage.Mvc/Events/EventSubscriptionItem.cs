@@ -10,16 +10,20 @@ namespace Chiffrage.Mvc.Events
 {
     public class EventSubscriptionItem
     {
-        private readonly BlockingQueue<IEvent> eventQueue = new BlockingQueue<IEvent>(Int32.MaxValue);
-
-        public EventSubscriptionItem(IEventHandler eventHandler, MethodInfo method)
+        public EventSubscriptionItem(Type eventType, IEventHandler eventHandler, MethodInfo method, bool threadUI)
         {
             this.EventHandler = eventHandler;
             this.Method = method;
+            this.ThreadUI = threadUI;
+            this.EventType = eventType;
         }
 
         public IEventHandler EventHandler { get; private set; }
 
         public MethodInfo Method { get; private set; }
+
+        public Type EventType { get; private set; }
+
+        public bool ThreadUI { get; private set; }
     }
 }

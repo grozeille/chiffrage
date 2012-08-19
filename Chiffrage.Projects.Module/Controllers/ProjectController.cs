@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using AutoMapper;
-using Chiffrage.Projects.Module.Events;
+using Chiffrage.Projects.Module.Actions;
 using Chiffrage.Projects.Module.ViewModel;
 using Chiffrage.Projects.Module.Views;
 using Chiffrage.Mvc.Events;
@@ -16,27 +16,27 @@ using Chiffrage.Catalogs.Domain;
 using Chiffrage.Projects.Domain.Events;
 using Chiffrage.Mvc;
 using Chiffrage.Mvc.Views;
-using Chiffrage.Common.Module.Events;
+using Chiffrage.Common.Module.Actions;
 using Chiffrage.Catalogs.Module.ViewModel;
 
 namespace Chiffrage.Projects.Module.Controllers
 {
     public class ProjectController :
         IController,
-        IGenericEventHandler<ApplicationStartEvent>,
-        IGenericEventHandler<ProjectSelectedEvent>,
-        IGenericEventHandler<ProjectUnselectedEvent>,
-        IGenericEventHandler<SaveEvent>,
-        IGenericEventHandler<RequestNewProjectEvent>,
-        IGenericEventHandler<RequestNewProjectSupplyEvent>,
+        IGenericEventHandler<ApplicationStartAction>,
+        IGenericEventHandler<ProjectSelectedAction>,
+        IGenericEventHandler<ProjectUnselectedAction>,
+        IGenericEventHandler<SaveAction>,
+        IGenericEventHandler<RequestNewProjectAction>,
+        IGenericEventHandler<RequestNewProjectSupplyAction>,
         IGenericEventHandler<ProjectSupplyCreatedEvent>,
         IGenericEventHandler<ProjectSupplyDeletedEvent>,
-        IGenericEventHandler<RequestEditProjectSupplyEvent>,
-        IGenericEventHandler<RequestEditProjectHardwareEvent>,
-        IGenericEventHandler<RequestNewProjectHardwareEvent>,
+        IGenericEventHandler<RequestEditProjectSupplyAction>,
+        IGenericEventHandler<RequestEditProjectHardwareAction>,
+        IGenericEventHandler<RequestNewProjectHardwareAction>,
         IGenericEventHandler<ProjectHardwareCreatedEvent>,
         IGenericEventHandler<ProjectHardwareDeletedEvent>,
-        IGenericEventHandler<RequestNewProjectFrameEvent>,
+        IGenericEventHandler<RequestNewProjectFrameAction>,
         IGenericEventHandler<ProjectFrameCreatedEvent>,
         IGenericEventHandler<ProjectFrameDeletedEvent>,
         IGenericEventHandler<ProjectSupplyUpdatedEvent>
@@ -182,12 +182,12 @@ namespace Chiffrage.Projects.Module.Controllers
             return viewModel;
         }
 
-        public void ProcessAction(ApplicationStartEvent eventObject)
+        public void ProcessAction(ApplicationStartAction eventObject)
         {
             this.projectView.HideView();
         }
 
-        public void ProcessAction(ProjectSelectedEvent eventObject)
+        public void ProcessAction(ProjectSelectedAction eventObject)
         {
             var project = this.projectRepository.FindById(eventObject.Id);
 
@@ -217,7 +217,7 @@ namespace Chiffrage.Projects.Module.Controllers
             this.projectView.ShowView();
         }
 
-        public void ProcessAction(ProjectUnselectedEvent eventObject)
+        public void ProcessAction(ProjectUnselectedAction eventObject)
         {
             this.projectView.HideView();
 
@@ -227,7 +227,7 @@ namespace Chiffrage.Projects.Module.Controllers
             this.projectView.SetFrames(null);
         }
 
-        public void ProcessAction(SaveEvent eventObject)
+        public void ProcessAction(SaveAction eventObject)
         {
             var viewModel = this.projectView.GetProjectViewModel();
 
@@ -254,13 +254,13 @@ namespace Chiffrage.Projects.Module.Controllers
             this.eventBroker.Publish(command);
         }
 
-        public void ProcessAction(RequestNewProjectEvent eventObject)
+        public void ProcessAction(RequestNewProjectAction eventObject)
         {
             this.newProjectView.ParentDealId = eventObject.DealId;
             this.newProjectView.ShowView();
         }
 
-        public void ProcessAction(RequestNewProjectSupplyEvent eventObject)
+        public void ProcessAction(RequestNewProjectSupplyAction eventObject)
         {
             var catalogs = this.catalogRepository.FindAll();
             List<CatalogSupplyViewModel> suppliesViewModel = new List<CatalogSupplyViewModel>();
@@ -297,13 +297,13 @@ namespace Chiffrage.Projects.Module.Controllers
             this.RefreshProject(eventObject.ProjectId);
         }
 
-        public void ProcessAction(RequestEditProjectSupplyEvent eventObject)
+        public void ProcessAction(RequestEditProjectSupplyAction eventObject)
         {
             this.editProjectSupplyView.Supply = eventObject.Supply;
             this.editProjectSupplyView.ShowView();
         }
 
-        public void ProcessAction(RequestNewProjectHardwareEvent eventObject)
+        public void ProcessAction(RequestNewProjectHardwareAction eventObject)
         {
             var catalogs = this.catalogRepository.FindAll();
             List<CatalogHardwareViewModel> hardwaresViewModel = new List<CatalogHardwareViewModel>();
@@ -353,14 +353,14 @@ namespace Chiffrage.Projects.Module.Controllers
             this.RefreshProject(eventObject.ProjectId);
         }
 
-        public void ProcessAction(RequestEditProjectHardwareEvent eventObject)
+        public void ProcessAction(RequestEditProjectHardwareAction eventObject)
         {
             this.editProjectHardwareView.Hardware = eventObject.Hardware;
             this.editProjectHardwareView.ShowView();
         }
 
 
-        public void ProcessAction(RequestNewProjectFrameEvent eventObject)
+        public void ProcessAction(RequestNewProjectFrameAction eventObject)
         {
             this.newProjectFrameView.ProjectId = eventObject.ProjectId;
             this.newProjectFrameView.ShowView();            

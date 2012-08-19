@@ -10,11 +10,11 @@ using Chiffrage.Mvc.Views;
 using Chiffrage.Projects.Domain;
 using Chiffrage.Projects.Module.Views.Impl.WizardPages;
 using Chiffrage.Mvc.Events;
-using Chiffrage.Projects.Module.Events;
 using System.Collections.Generic;
 using Chiffrage.Projects.Domain.Commands;
 using Chiffrage.Mvc;
 using System.Globalization;
+using Chiffrage.Projects.Module.Actions;
 
 namespace Chiffrage.Projects.Module.Views.Impl
 {
@@ -59,7 +59,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
 
             //this.toolStripButtonAdd.Click += OnSelect;
             this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonAdd, () =>
-                this.id.HasValue ? new RequestNewProjectSupplyEvent(this.id.Value) : null);
+                this.id.HasValue ? new RequestNewProjectSupplyAction(this.id.Value) : null);
 
             this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonRemove, () =>
             {
@@ -80,7 +80,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
             });
 
             this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonAddHardware, () =>
-                this.id.HasValue ? new RequestNewProjectHardwareEvent(this.id.Value) : null);
+                this.id.HasValue ? new RequestNewProjectHardwareAction(this.id.Value) : null);
 
             this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonRemoveHardware, () =>
             {
@@ -101,7 +101,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
             });
 
             this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonAddFrame, () =>
-                this.id.HasValue ? new RequestNewProjectFrameEvent(this.id.Value) : null);
+                this.id.HasValue ? new RequestNewProjectFrameAction(this.id.Value) : null);
 
             this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonRemoveFrame,() =>
             {
@@ -288,7 +288,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
             var supply = this.projectSupplyViewModelBindingSource[e.RowIndex] as ProjectSupplyViewModel;
             if (supply != null)
             {
-                this.eventBroker.Publish(new RequestEditProjectSupplyEvent(supply));
+                this.eventBroker.Publish(new RequestEditProjectSupplyAction(supply));
             }
         }
 
@@ -297,7 +297,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
             var hardware = this.projectHardwareViewModelBindingSource[e.RowIndex] as ProjectHardwareViewModel;
             if (hardware != null)
             {
-                this.eventBroker.Publish(new RequestEditProjectHardwareEvent(hardware));
+                this.eventBroker.Publish(new RequestEditProjectHardwareAction(hardware));
             }
         }
 

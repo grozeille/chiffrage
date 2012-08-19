@@ -4,10 +4,10 @@ using Chiffrage.App.Events;
 using Chiffrage.App.Views;
 using Chiffrage.Mvc.Events;
 using Chiffrage.Mvc.Views;
-using Chiffrage.Common.Module.Events;
 using Chiffrage.Projects.Module.Views;
 using Chiffrage.Catalogs.Module.Views;
-using Chiffrage.Projects.Module.Events;
+using Chiffrage.Common.Module.Actions;
+using Chiffrage.Projects.Module.Actions;
 
 namespace Chiffrage
 {
@@ -28,8 +28,8 @@ namespace Chiffrage
             projectView.SetParent(this.splitContainer.Panel2);
             errorLogView.SetParent(this.splitContainerMain.Panel2);
             
-            eventBroker.RegisterToolStripBouttonClickEventSource(this.saveToolStripButton, new SaveEvent());
-            eventBroker.RegisterToolStripMenuItemClickEventSource(this.affaireToolStripMenuItem2, new RequestNewDealEvent());
+            eventBroker.RegisterToolStripBouttonClickEventSource(this.saveToolStripButton, new SaveAction());
+            eventBroker.RegisterToolStripMenuItemClickEventSource(this.affaireToolStripMenuItem2, new RequestNewDealAction());
             //eventBroker.RegisterToolStripMenuItemClickEventSource(this.projetToolStripMenuItem2, ()=>
             //    {
             //        new RequestNewProjectEvent(this.)

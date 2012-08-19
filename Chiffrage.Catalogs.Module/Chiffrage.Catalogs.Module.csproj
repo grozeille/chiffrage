@@ -50,16 +50,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\CatalogController.cs" />
-    <Compile Include="Events\CatalogSelectedEvent.cs" />
-    <Compile Include="Events\CatalogUnselectedEvent.cs" />
-    <Compile Include="Events\ImportHardwareEvent.cs" />
-    <Compile Include="Events\RequestEditHardwareEvent.cs" />
-    <Compile Include="Events\RequestEditHardwareSupplyEvent.cs" />
-    <Compile Include="Events\RequestEditSupplyEvent.cs" />
-    <Compile Include="Events\RequestNewCatalogEvent.cs" />
-    <Compile Include="Events\RequestNewHardwareEvent.cs" />
-    <Compile Include="Events\RequestNewHardwareSupplyEvent.cs" />
-    <Compile Include="Events\RequestNewSupplyEvent.cs" />
+    <Compile Include="Actions\CatalogSelectedAction.cs" />
+    <Compile Include="Actions\CatalogUnselectedAction.cs" />
+    <Compile Include="Actions\RequestImportHardwareAction.cs" />
+    <Compile Include="Actions\RequestEditHardwareAction.cs" />
+    <Compile Include="Actions\RequestEditHardwareSupplyAction.cs" />
+    <Compile Include="Actions\RequestEditSupplyAction.cs" />
+    <Compile Include="Actions\RequestNewCatalogAction.cs" />
+    <Compile Include="Actions\RequestNewHardwareAction.cs" />
+    <Compile Include="Actions\RequestNewHardwareSupplyAction.cs" />
+    <Compile Include="Actions\RequestNewSupplyAction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
