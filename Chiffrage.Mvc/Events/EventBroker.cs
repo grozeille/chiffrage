@@ -10,7 +10,7 @@ namespace Chiffrage.Mvc.Events
 {
     public class EventBroker : IEventBroker, IDisposable
     {
-        private readonly BlockingQueue<IEvent> eventQueue = new BlockingQueue<IEvent>(Int32.MaxValue);
+        private readonly BlockingQueue<object> eventQueue = new BlockingQueue<object>(Int32.MaxValue);
 
         private Thread dispatchingThread;
         private readonly IList<EventSubscriptionItem> subscribers = new List<EventSubscriptionItem>();
@@ -19,7 +19,7 @@ namespace Chiffrage.Mvc.Events
 
         public SynchronizationContext UISynchronizationContext { get; set; }
 
-        public IEventHandler[] Subscribers
+        public object[] Subscribers
         {
             set
             {
@@ -35,14 +35,14 @@ namespace Chiffrage.Mvc.Events
             }
         }
 
-        public void Subscribe(IEventHandler subscriber)
+        public void Subscribe(object subscriber)
         {
             subscribersLock.AcquireWriterLock(-1);
             SubscribeInternal(subscriber);
             subscribersLock.ReleaseWriterLock();
         }
 
-        private void SubscribeInternal(IEventHandler subscriber)
+        private void SubscribeInternal(object subscriber)
         {
             var interfaceTypes = subscriber.GetType().GetInterfaces();
 
@@ -57,6 +57,56 @@ namespace Chiffrage.Mvc.Events
                     var subscriptionItem = new EventSubscriptionItem(eventType, subscriber, interfaceType.GetMethod("ProcessAction", new[] { eventType }), threadUI);
 
                     subscribers.Add(subscriptionItem);
+                }                
+            }
+
+            // parse each methods with "subscribe" attribute
+            foreach(var method in subscriber.GetType().GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.FlattenHierarchy))
+            {
+                var subscribreAttribute = method.GetCustomAttributes(typeof(SubscribeAttribute), false).FirstOrDefault() as SubscribeAttribute;
+                if(subscribreAttribute != null)
+                {
+                    // check if the method is an Action<T>
+                    if(method.ReturnType != typeof(void) || method.GetParameters().Length != 1)
+                    {
+                        throw new InvalidOperationException("To subscribe to an event, the method should be an Action<T> (1 parameter, return void): "+method.ToString());
+                    }
+
+
+                    var eventType = method.GetParameters()[0].ParameterType;
+
+                    var threadUI = subscribreAttribute.ThreadUI;
+
+                    var subscriptionItem = new EventSubscriptionItem(eventType, subscriber, method, threadUI);
+
+                    subscribers.Add(subscriptionItem);
+                }
+            }
+
+            // parse each events to "publish"
+            foreach(var eventObject in subscriber.GetType().GetEvents(BindingFlags.Public | BindingFlags.Instance | BindingFlags.FlattenHierarchy))
+            {
+                var publishAttribute = eventObject.GetCustomAttributes(typeof(PublishAttribute), false).FirstOrDefault() as PublishAttribute;
+                if(publishAttribute != null)
+                {
+                    // check if the event is an Action<T>
+                    var method = eventObject.EventHandlerType.GetMethod("Invoke");
+
+                    if (method.ReturnType != typeof(void) || method.GetParameters().Length != 1)
+                    {
+                        throw new InvalidOperationException("To publish an event, the method should be an Action<T> (1 parameter, return void): " + method.ToString());
+                    }
+
+
+                    var eventType = method.GetParameters()[0].ParameterType;
+
+                    var eventPublisherType = typeof(EventPublisher<>).MakeGenericType(new Type[] { method.GetParameters()[0].ParameterType });
+                    object eventPublisher = Activator.CreateInstance(eventPublisherType, this);
+
+                    var eventPublisherMethod = eventPublisher.GetType().GetMethod("Publish");
+                    var eventPublisherDelegate = Delegate.CreateDelegate(eventObject.EventHandlerType, eventPublisher, eventPublisherMethod);
+
+                    eventObject.AddEventHandler(subscriber, eventPublisherDelegate);
                 }
             }
         }
@@ -76,7 +126,7 @@ namespace Chiffrage.Mvc.Events
             this.dispatchingThread = null;
         }
 
-        public void Publish<T>(T eventObject) where T : IEvent
+        public void Publish(object eventObject)
         {
             this.eventQueue.Enqueue(eventObject);
 
@@ -90,7 +140,7 @@ namespace Chiffrage.Mvc.Events
         {
             do
             {
-                IEvent eventObject = null;
+                object eventObject = null;
                 if (this.eventQueue.TryDequeue(out eventObject))
                 {
                     subscribersLock.AcquireReaderLock(-1);
@@ -109,7 +159,7 @@ namespace Chiffrage.Mvc.Events
                                                 {
                                                     var args = (object[])o;
                                                     var s = (EventSubscriptionItem)args[0];
-                                                    var e = (IEvent)args[1];
+                                                    var e = (object)args[1];
 
                                                     s.Method.Invoke(s.EventHandler, new[] { e });
 

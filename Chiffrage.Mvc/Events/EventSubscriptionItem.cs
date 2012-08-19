@@ -10,7 +10,7 @@ namespace Chiffrage.Mvc.Events
 {
     public class EventSubscriptionItem
     {
-        public EventSubscriptionItem(Type eventType, IEventHandler eventHandler, MethodInfo method, bool threadUI)
+        public EventSubscriptionItem(Type eventType, object eventHandler, MethodInfo method, bool threadUI)
         {
             this.EventHandler = eventHandler;
             this.Method = method;
@@ -18,7 +18,7 @@ namespace Chiffrage.Mvc.Events
             this.EventType = eventType;
         }
 
-        public IEventHandler EventHandler { get; private set; }
+        public object EventHandler { get; private set; }
 
         public MethodInfo Method { get; private set; }
 

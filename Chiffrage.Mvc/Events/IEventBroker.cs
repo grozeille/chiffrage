@@ -2,7 +2,7 @@ namespace Chiffrage.Mvc.Events
 {
     public interface IEventBroker
     {
-        void Publish<T>(T eventObject) where T : IEvent;
+        void Publish(object eventObject);
 
         void Start();
 

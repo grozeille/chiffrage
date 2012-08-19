@@ -12,6 +12,7 @@ using Chiffrage.Catalogs.Domain.Commands;
 using Chiffrage.Catalogs.Domain.Events;
 using System.ComponentModel;
 using Chiffrage.Common.Module.Actions;
+using System;
 
 namespace Chiffrage.Catalogs.Module.Controllers
 {
@@ -37,7 +38,7 @@ namespace Chiffrage.Catalogs.Module.Controllers
         IGenericEventHandler<HardwareSupplyCreatedEvent>,
         IGenericEventHandler<HardwareSupplyDeletedEvent>,
         IGenericEventHandler<RequestEditHardwareSupplyAction>,
-        IGenericEventHandler<HardwareSupplyUpdatedEvent>,
+        //IGenericEventHandler<HardwareSupplyUpdatedEvent>,
         IGenericEventHandler<RequestImportHardwareAction>
     {
         private readonly ICatalogView catalogView;
@@ -187,7 +188,8 @@ namespace Chiffrage.Catalogs.Module.Controllers
                 return;
             }
 
-            this.eventBroker.Publish(new UpdateCatalogCommand(viewModel.Id, viewModel.SupplierName, viewModel.Comment));
+            //this.eventBroker.Publish(new UpdateCatalogCommand(viewModel.Id, viewModel.SupplierName, viewModel.Comment));
+            OnCatalogUpdateCommand(new UpdateCatalogCommand(viewModel.Id, viewModel.SupplierName, viewModel.Comment));
         }
 
         public void DisplayCatalog(int id)
@@ -220,18 +222,8 @@ namespace Chiffrage.Catalogs.Module.Controllers
             this.catalogView.AddHardwares(hardwaresViewModel);
         }
 
-        public void SaveCatalog(CatalogViewModel model)
-        {
-            Mapper.CreateMap<CatalogViewModel, SupplierCatalog>();
-
-            var catalog = this.repository.FindById(model.Id);
-
-            Mapper.Map(model, catalog);
-
-            this.repository.Save(catalog);
-
-            this.eventBroker.Publish(new CatalogUpdatedEvent(catalog));
-        }
+        [Publish]
+        public event Action<UpdateCatalogCommand> OnCatalogUpdateCommand;
 
         public void ProcessAction(SupplyCreatedEvent eventObject)
         {
@@ -366,6 +358,7 @@ namespace Chiffrage.Catalogs.Module.Controllers
             this.catalogView.UpdateHardware(result);
         }
 
+        [Subscribe(ThreadUI=false)]
         public void ProcessAction(HardwareSupplyUpdatedEvent eventObject)
         {
             var result = Map(eventObject.CatalogId, eventObject.Hardware);
