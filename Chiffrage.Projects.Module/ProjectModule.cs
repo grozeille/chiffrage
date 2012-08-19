@@ -13,6 +13,7 @@ using Chiffrage.Mvc.Views;
 using Chiffrage.Mvc.Controllers;
 using Chiffrage.Mvc.Services;
 using NHibernate;
+using Chiffrage.Projects.Domain.Services;
 
 namespace Chiffrage.Projects.Module
 {
@@ -33,7 +34,7 @@ namespace Chiffrage.Projects.Module
                 .AsImplementedInterfaces()
                 .SingleInstance();
 
-            builder.RegisterAssemblyTypes(this.ThisAssembly)
+            builder.RegisterAssemblyTypes(typeof(ProjectService).Assembly)
                 .Where(t => t.GetInterface(typeof(IService).Name) != null && !t.IsAbstract && t.IsPublic)
                 .AsImplementedInterfaces()
                 .SingleInstance();

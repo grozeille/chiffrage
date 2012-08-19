@@ -14,6 +14,7 @@ using Chiffrage.Mvc.Views;
 using Chiffrage.Mvc.Controllers;
 using Chiffrage.Mvc.Services;
 using NHibernate;
+using Chiffrage.Catalogs.Domain.Services;
 
 namespace Chiffrage.Catalogs.Module
 {
@@ -33,7 +34,7 @@ namespace Chiffrage.Catalogs.Module
                 .AsImplementedInterfaces()
                 .SingleInstance();
 
-            builder.RegisterAssemblyTypes(this.ThisAssembly)
+            builder.RegisterAssemblyTypes(typeof(CatalogService).Assembly)
                 .Where(t => t.GetInterface(typeof(IService).Name) != null && !t.IsAbstract && t.IsPublic)
                 .AsImplementedInterfaces()
                 .SingleInstance();
