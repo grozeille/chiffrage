@@ -6,24 +6,20 @@ using Chiffrage.Catalogs.Domain;
 using Chiffrage.Ioc;
 using Chiffrage.Mvc.Events;
 using Common.Logging;
-using NHibernate;
-using NHibernate.Cfg;
 using Settings = Chiffrage.Properties.Settings;
 using System.Threading;
 using System.Linq;
 using Chiffrage.Mvc.Views;
 using Chiffrage.Mvc.Controllers;
 using Chiffrage.Mvc.Services;
-using NHibernate.Dialect;
-using NHibernate.Mapping.ByCode;
 using Chiffrage.Projects.Dal.Repositories;
-using NHibernate.Cfg.MappingSchema;
 using System.IO;
 using System.Reflection;
-using Strongshell.Recoil.Core.Integration;
 using Chiffrage.Common.Module.Actions;
 using Autofac;
 using Chiffrage.App.Views;
+using Chiffrage.Catalogs.Module;
+using Chiffrage.Projects.Module;
 
 namespace Chiffrage
 {
@@ -56,9 +52,10 @@ namespace Chiffrage
                 loadingForm.Start();
 
                 var builder = new ContainerBuilder();
-                builder.RegisterModule(new DealModule());
+                builder.RegisterModule(new NHibernateModule());
+                builder.RegisterModule(new ProjectModule());
                 builder.RegisterModule(new CatalogModule());
-                builder.RegisterModule(new MvcModule());
+                builder.RegisterModule(new ChiffrageModule());
 
                 var container = builder.Build();
 
