@@ -179,6 +179,9 @@
       <DependentUpon>ProjectUserControl.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\Impl\WizardPages\EditProjectHardwarePage.resx">
+      <DependentUpon>EditProjectHardwarePage.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Impl\WizardPages\EditProjectSupplyPage.resx">
       <DependentUpon>EditProjectSupplyPage.cs</DependentUpon>
     </EmbeddedResource>

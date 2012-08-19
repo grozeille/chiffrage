@@ -96,12 +96,19 @@ namespace Chiffrage.Projects.Module.Controllers
             viewModel.CatalogPrice = hardware.Components.Sum(x => x.Supply.CatalogPrice * x.Quantity);
 
             viewModel.TotalModuleSize = viewModel.ModuleSize * viewModel.Quantity;
-            viewModel.TotalCatalogExecutiveWorkDays = viewModel.CatalogExecutiveWorkDays * viewModel.Quantity;
             viewModel.TotalCatalogPrice = viewModel.CatalogPrice * viewModel.Quantity;
+
+            viewModel.TotalCatalogStudyDays = viewModel.CatalogStudyDays * viewModel.Quantity;
+            viewModel.TotalCatalogReferenceDays = viewModel.CatalogReferenceDays * viewModel.Quantity;
+            viewModel.TotalCatalogWorkDays = viewModel.CatalogWorkDays * viewModel.Quantity; 
+            viewModel.TotalCatalogExecutiveWorkDays = viewModel.CatalogExecutiveWorkDays * viewModel.Quantity;
             viewModel.TotalCatalogTestsDays = viewModel.CatalogTestsDays * viewModel.Quantity;
-            viewModel.TotalCatalogWorkDays = viewModel.CatalogWorkDays * viewModel.Quantity;
-            viewModel.TotalReferenceDays = viewModel.ReferenceDays * viewModel.Quantity;
+
             viewModel.TotalStudyDays = viewModel.StudyDays * viewModel.Quantity;
+            viewModel.TotalReferenceDays = viewModel.ReferenceDays * viewModel.Quantity;
+            viewModel.TotalWorkDays = viewModel.WorkDays * viewModel.Quantity;
+            viewModel.TotalExecutiveWorkDays = viewModel.ExecutiveWorkDays * viewModel.Quantity;
+            viewModel.TotalTestsDays = viewModel.TestsDays * viewModel.Quantity;
 
             return viewModel;
         }
@@ -390,6 +397,15 @@ namespace Chiffrage.Projects.Module.Controllers
         {
             var viewModel = Map(eventObject.ProjectSupply, eventObject.ProjectId);
             this.projectView.UpdateSupply(viewModel);
+
+            this.RefreshProject(eventObject.ProjectId);
+        }
+
+        [Subscribe]
+        public void ProcessAction(ProjectHardwareUpdatedEvent eventObject)
+        {
+            var viewModel = Map(eventObject.ProjectHardware, eventObject.ProjectId);
+            this.projectView.UpdateHardware(viewModel);
 
             this.RefreshProject(eventObject.ProjectId);
         }

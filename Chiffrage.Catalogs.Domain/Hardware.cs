@@ -27,9 +27,9 @@ namespace Chiffrage.Catalogs.Domain
 
         public virtual string Category { get; set; }
 
-        public virtual double StudyDays { get; set; }
+        public virtual double CatalogStudyDays { get; set; }
 
-        public virtual double ReferenceDays { get; set; }
+        public virtual double CatalogReferenceDays { get; set; }
 
         public virtual double CatalogWorkDays { get; set; }
 

@@ -38,5 +38,7 @@ namespace Chiffrage.Projects.Module.Views
         void RemoveFrame(ProjectFrameViewModel frame);
 
         void UpdateSupply(ProjectSupplyViewModel supply);
+
+        void UpdateHardware(ProjectHardwareViewModel hardware);
     }
 }

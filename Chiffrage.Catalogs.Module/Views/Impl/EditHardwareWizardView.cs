@@ -30,8 +30,8 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
             this.editHardwarePage = new GenericWizardSetting<EditHardwarePage>("Edition d'un matériel",
                                                                          "Vous pouvez ici éditer un matériel", true);
             this.editHardwarePage.TypedPage.HardwareName = this.hardware.Name;
-            this.editHardwarePage.TypedPage.ReferenceDays = this.hardware.ReferenceDays;
-            this.editHardwarePage.TypedPage.StudyDays = this.hardware.StudyDays;
+            this.editHardwarePage.TypedPage.ReferenceDays = this.hardware.CatalogReferenceDays;
+            this.editHardwarePage.TypedPage.StudyDays = this.hardware.CatalogStudyDays;
             this.editHardwarePage.TypedPage.CatalogExecutiveWorkDays = this.hardware.CatalogExecutiveWorkDays;
             this.editHardwarePage.TypedPage.CatalogTestDays = this.hardware.CatalogTestsDays;
             this.editHardwarePage.TypedPage.CatalogWorkDays = this.hardware.CatalogWorkDays;

@@ -15,8 +15,8 @@ namespace Chiffrage.Catalogs.Dal.Mappings
             Property(x => x.Name);
             Property(x => x.Reference);
             Property(x => x.Category);
-            Property(x => x.StudyDays);
-            Property(x => x.ReferenceDays);
+            Property(x => x.CatalogStudyDays);
+            Property(x => x.CatalogReferenceDays);
             Property(x => x.CatalogWorkDays);
             Property(x => x.CatalogExecutiveWorkDays);
             Property(x => x.CatalogTestsDays);

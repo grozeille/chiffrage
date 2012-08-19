@@ -29,16 +29,36 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPageMainInfo = new System.Windows.Forms.TabPage();
+            this.commentUserControl = new Chiffrage.Common.Module.Views.CommentUserControl();
             this.panelMain = new System.Windows.Forms.Panel();
             this.textBoxCatalogName = new System.Windows.Forms.TextBox();
             this.labelCatalogue = new System.Windows.Forms.Label();
             this.tabPageSupplies = new System.Windows.Forms.TabPage();
             this.dataGridViewSupplies = new System.Windows.Forms.DataGridView();
+            this.toolStripSupplies = new System.Windows.Forms.ToolStrip();
+            this.toolStripButtonAddSupply = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonRemoveSupply = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripComboBox1 = new System.Windows.Forms.ToolStripComboBox();
+            this.tabPageHardware = new System.Windows.Forms.TabPage();
+            this.splitContainerHardware = new System.Windows.Forms.SplitContainer();
+            this.dataGridViewHardwares = new System.Windows.Forms.DataGridView();
+            this.toolStripHardware = new System.Windows.Forms.ToolStrip();
+            this.toolStripButtonAddHardware = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonRemoveHardware = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonImport = new System.Windows.Forms.ToolStripButton();
+            this.dataGridViewHardwareSupplies = new System.Windows.Forms.DataGridView();
+            this.componentsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.toolStripHardwareSupplies = new System.Windows.Forms.ToolStrip();
+            this.toolStripButtonAddHardwareSupply = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButtonRemoveHardwareSupply = new System.Windows.Forms.ToolStripButton();
+            this.dataGridView = new System.Windows.Forms.DataGridView();
             this.idDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.catalogIdDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -50,33 +70,7 @@
             this.pFC12DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.capDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.suppliesBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.toolStripSupplies = new System.Windows.Forms.ToolStrip();
-            this.toolStripButtonAddSupply = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButtonRemoveSupply = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
-            this.toolStripComboBox1 = new System.Windows.Forms.ToolStripComboBox();
-            this.tabPageHardware = new System.Windows.Forms.TabPage();
-            this.splitContainerHardware = new System.Windows.Forms.SplitContainer();
-            this.dataGridViewHardwares = new System.Windows.Forms.DataGridView();
-            this.idDataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.catalogIdDataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nameDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.referenceDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.categoryDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.moduleSizeDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.catalogPriceDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.studyDaysDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.referenceDaysDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.catalogWorkDaysDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.catalogExecutiveWorkDaysDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.catalogTestsDaysDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.hardwaresBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.toolStripHardware = new System.Windows.Forms.ToolStrip();
-            this.toolStripButtonAddHardware = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButtonRemoveHardware = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButtonImport = new System.Windows.Forms.ToolStripButton();
-            this.dataGridViewHardwareSupplies = new System.Windows.Forms.DataGridView();
             this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.catalogIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.hardwareIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -91,31 +85,37 @@
             this.supplyPFC12DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.supplyCapDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.commentDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.componentsBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.toolStripHardwareSupplies = new System.Windows.Forms.ToolStrip();
-            this.toolStripButtonAddHardwareSupply = new System.Windows.Forms.ToolStripButton();
-            this.toolStripButtonRemoveHardwareSupply = new System.Windows.Forms.ToolStripButton();
-            this.dataGridView = new System.Windows.Forms.DataGridView();
-            this.commentUserControl = new Chiffrage.Common.Module.Views.CommentUserControl();
+            this.idDataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.catalogIdDataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nameDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.referenceDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.categoryDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.moduleSizeDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.catalogPriceDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnCatalogReferenceDays = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnCatalogStudyDays = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.catalogWorkDaysDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.catalogExecutiveWorkDaysDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.catalogTestsDaysDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.tabControl.SuspendLayout();
             this.tabPageMainInfo.SuspendLayout();
             this.panelMain.SuspendLayout();
             this.tabPageSupplies.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSupplies)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.suppliesBindingSource)).BeginInit();
             this.toolStripSupplies.SuspendLayout();
             this.tabPageHardware.SuspendLayout();
             this.splitContainerHardware.Panel1.SuspendLayout();
             this.splitContainerHardware.Panel2.SuspendLayout();
             this.splitContainerHardware.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewHardwares)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.hardwaresBindingSource)).BeginInit();
             this.toolStripHardware.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewHardwareSupplies)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.componentsBindingSource)).BeginInit();
             this.toolStripHardwareSupplies.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.suppliesBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.hardwaresBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl
@@ -141,6 +141,16 @@
             this.tabPageMainInfo.TabIndex = 1;
             this.tabPageMainInfo.Text = "Catalogue";
             this.tabPageMainInfo.UseVisualStyleBackColor = true;
+            // 
+            // commentUserControl
+            // 
+            this.commentUserControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.commentUserControl.Location = new System.Drawing.Point(3, 35);
+            this.commentUserControl.Name = "commentUserControl";
+            this.commentUserControl.Rtf = "{\\rtf1\\ansi\\ansicpg1252\\deff0\\deflang1036{\\fonttbl{\\f0\\fnil\\fcharset0 Microsoft S" +
+    "ans Serif;}}\r\n\\viewkind4\\uc1\\pard\\f0\\fs17 trertre\\par\r\ntreterert\\par\r\n}\r\n";
+            this.commentUserControl.Size = new System.Drawing.Size(964, 487);
+            this.commentUserControl.TabIndex = 20;
             // 
             // panelMain
             // 
@@ -186,8 +196,8 @@
             this.dataGridViewSupplies.AllowUserToDeleteRows = false;
             this.dataGridViewSupplies.AllowUserToOrderColumns = true;
             this.dataGridViewSupplies.AllowUserToResizeRows = false;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.AliceBlue;
-            this.dataGridViewSupplies.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.AliceBlue;
+            this.dataGridViewSupplies.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridViewSupplies.AutoGenerateColumns = false;
             this.dataGridViewSupplies.BackgroundColor = System.Drawing.SystemColors.Window;
             this.dataGridViewSupplies.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
@@ -215,83 +225,6 @@
             this.dataGridViewSupplies.TabIndex = 7;
             this.dataGridViewSupplies.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewSupplies_CellDoubleClick);
             this.dataGridViewSupplies.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.columnHeaderMouseClick);
-            // 
-            // idDataGridViewTextBoxColumn1
-            // 
-            this.idDataGridViewTextBoxColumn1.DataPropertyName = "Id";
-            this.idDataGridViewTextBoxColumn1.HeaderText = "Id";
-            this.idDataGridViewTextBoxColumn1.Name = "idDataGridViewTextBoxColumn1";
-            this.idDataGridViewTextBoxColumn1.ReadOnly = true;
-            this.idDataGridViewTextBoxColumn1.Visible = false;
-            // 
-            // catalogIdDataGridViewTextBoxColumn1
-            // 
-            this.catalogIdDataGridViewTextBoxColumn1.DataPropertyName = "CatalogId";
-            this.catalogIdDataGridViewTextBoxColumn1.HeaderText = "CatalogId";
-            this.catalogIdDataGridViewTextBoxColumn1.Name = "catalogIdDataGridViewTextBoxColumn1";
-            this.catalogIdDataGridViewTextBoxColumn1.ReadOnly = true;
-            this.catalogIdDataGridViewTextBoxColumn1.Visible = false;
-            // 
-            // nameDataGridViewTextBoxColumn
-            // 
-            this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
-            this.nameDataGridViewTextBoxColumn.HeaderText = "Nom";
-            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
-            this.nameDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // referenceDataGridViewTextBoxColumn
-            // 
-            this.referenceDataGridViewTextBoxColumn.DataPropertyName = "Reference";
-            this.referenceDataGridViewTextBoxColumn.HeaderText = "Reference";
-            this.referenceDataGridViewTextBoxColumn.Name = "referenceDataGridViewTextBoxColumn";
-            this.referenceDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // categoryDataGridViewTextBoxColumn
-            // 
-            this.categoryDataGridViewTextBoxColumn.DataPropertyName = "Category";
-            this.categoryDataGridViewTextBoxColumn.HeaderText = "Categorie";
-            this.categoryDataGridViewTextBoxColumn.Name = "categoryDataGridViewTextBoxColumn";
-            this.categoryDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // moduleSizeDataGridViewTextBoxColumn
-            // 
-            this.moduleSizeDataGridViewTextBoxColumn.DataPropertyName = "ModuleSize";
-            this.moduleSizeDataGridViewTextBoxColumn.HeaderText = "Modules";
-            this.moduleSizeDataGridViewTextBoxColumn.Name = "moduleSizeDataGridViewTextBoxColumn";
-            this.moduleSizeDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // catalogPriceDataGridViewTextBoxColumn
-            // 
-            this.catalogPriceDataGridViewTextBoxColumn.DataPropertyName = "CatalogPrice";
-            this.catalogPriceDataGridViewTextBoxColumn.HeaderText = "Prix";
-            this.catalogPriceDataGridViewTextBoxColumn.Name = "catalogPriceDataGridViewTextBoxColumn";
-            this.catalogPriceDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // pFC0DataGridViewTextBoxColumn
-            // 
-            this.pFC0DataGridViewTextBoxColumn.DataPropertyName = "PFC0";
-            this.pFC0DataGridViewTextBoxColumn.HeaderText = "PFC0";
-            this.pFC0DataGridViewTextBoxColumn.Name = "pFC0DataGridViewTextBoxColumn";
-            this.pFC0DataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // pFC12DataGridViewTextBoxColumn
-            // 
-            this.pFC12DataGridViewTextBoxColumn.DataPropertyName = "PFC12";
-            this.pFC12DataGridViewTextBoxColumn.HeaderText = "PFC12";
-            this.pFC12DataGridViewTextBoxColumn.Name = "pFC12DataGridViewTextBoxColumn";
-            this.pFC12DataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // capDataGridViewTextBoxColumn
-            // 
-            this.capDataGridViewTextBoxColumn.DataPropertyName = "Cap";
-            this.capDataGridViewTextBoxColumn.HeaderText = "Bouchons de codage";
-            this.capDataGridViewTextBoxColumn.Name = "capDataGridViewTextBoxColumn";
-            this.capDataGridViewTextBoxColumn.ReadOnly = true;
-            this.capDataGridViewTextBoxColumn.Width = 150;
-            // 
-            // suppliesBindingSource
-            // 
-            this.suppliesBindingSource.DataSource = typeof(Chiffrage.Catalogs.Module.ViewModel.CatalogSupplyViewModel);
             // 
             // toolStripSupplies
             // 
@@ -379,8 +312,8 @@
             this.dataGridViewHardwares.AllowUserToAddRows = false;
             this.dataGridViewHardwares.AllowUserToOrderColumns = true;
             this.dataGridViewHardwares.AllowUserToResizeRows = false;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.AliceBlue;
-            this.dataGridViewHardwares.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.AliceBlue;
+            this.dataGridViewHardwares.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridViewHardwares.AutoGenerateColumns = false;
             this.dataGridViewHardwares.BackgroundColor = System.Drawing.SystemColors.Window;
             this.dataGridViewHardwares.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
@@ -394,8 +327,8 @@
             this.categoryDataGridViewTextBoxColumn1,
             this.moduleSizeDataGridViewTextBoxColumn1,
             this.catalogPriceDataGridViewTextBoxColumn1,
-            this.studyDaysDataGridViewTextBoxColumn,
-            this.referenceDaysDataGridViewTextBoxColumn,
+            this.ColumnCatalogReferenceDays,
+            this.ColumnCatalogStudyDays,
             this.catalogWorkDaysDataGridViewTextBoxColumn,
             this.catalogExecutiveWorkDaysDataGridViewTextBoxColumn,
             this.catalogTestsDaysDataGridViewTextBoxColumn});
@@ -410,98 +343,6 @@
             this.dataGridViewHardwares.TabIndex = 8;
             this.dataGridViewHardwares.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewHardwares_CellDoubleClick);
             this.dataGridViewHardwares.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.columnHeaderMouseClick);
-            // 
-            // idDataGridViewTextBoxColumn2
-            // 
-            this.idDataGridViewTextBoxColumn2.DataPropertyName = "Id";
-            this.idDataGridViewTextBoxColumn2.HeaderText = "Id";
-            this.idDataGridViewTextBoxColumn2.Name = "idDataGridViewTextBoxColumn2";
-            this.idDataGridViewTextBoxColumn2.ReadOnly = true;
-            this.idDataGridViewTextBoxColumn2.Visible = false;
-            // 
-            // catalogIdDataGridViewTextBoxColumn2
-            // 
-            this.catalogIdDataGridViewTextBoxColumn2.DataPropertyName = "CatalogId";
-            this.catalogIdDataGridViewTextBoxColumn2.HeaderText = "CatalogId";
-            this.catalogIdDataGridViewTextBoxColumn2.Name = "catalogIdDataGridViewTextBoxColumn2";
-            this.catalogIdDataGridViewTextBoxColumn2.ReadOnly = true;
-            this.catalogIdDataGridViewTextBoxColumn2.Visible = false;
-            // 
-            // nameDataGridViewTextBoxColumn1
-            // 
-            this.nameDataGridViewTextBoxColumn1.DataPropertyName = "Name";
-            this.nameDataGridViewTextBoxColumn1.HeaderText = "Nom";
-            this.nameDataGridViewTextBoxColumn1.Name = "nameDataGridViewTextBoxColumn1";
-            this.nameDataGridViewTextBoxColumn1.ReadOnly = true;
-            // 
-            // referenceDataGridViewTextBoxColumn1
-            // 
-            this.referenceDataGridViewTextBoxColumn1.DataPropertyName = "Reference";
-            this.referenceDataGridViewTextBoxColumn1.HeaderText = "Reference";
-            this.referenceDataGridViewTextBoxColumn1.Name = "referenceDataGridViewTextBoxColumn1";
-            this.referenceDataGridViewTextBoxColumn1.ReadOnly = true;
-            // 
-            // categoryDataGridViewTextBoxColumn1
-            // 
-            this.categoryDataGridViewTextBoxColumn1.DataPropertyName = "Category";
-            this.categoryDataGridViewTextBoxColumn1.HeaderText = "Categorie";
-            this.categoryDataGridViewTextBoxColumn1.Name = "categoryDataGridViewTextBoxColumn1";
-            this.categoryDataGridViewTextBoxColumn1.ReadOnly = true;
-            // 
-            // moduleSizeDataGridViewTextBoxColumn1
-            // 
-            this.moduleSizeDataGridViewTextBoxColumn1.DataPropertyName = "ModuleSize";
-            this.moduleSizeDataGridViewTextBoxColumn1.HeaderText = "Modules";
-            this.moduleSizeDataGridViewTextBoxColumn1.Name = "moduleSizeDataGridViewTextBoxColumn1";
-            this.moduleSizeDataGridViewTextBoxColumn1.ReadOnly = true;
-            // 
-            // catalogPriceDataGridViewTextBoxColumn1
-            // 
-            this.catalogPriceDataGridViewTextBoxColumn1.DataPropertyName = "CatalogPrice";
-            this.catalogPriceDataGridViewTextBoxColumn1.HeaderText = "Prix";
-            this.catalogPriceDataGridViewTextBoxColumn1.Name = "catalogPriceDataGridViewTextBoxColumn1";
-            this.catalogPriceDataGridViewTextBoxColumn1.ReadOnly = true;
-            // 
-            // studyDaysDataGridViewTextBoxColumn
-            // 
-            this.studyDaysDataGridViewTextBoxColumn.DataPropertyName = "StudyDays";
-            this.studyDaysDataGridViewTextBoxColumn.HeaderText = "Etudes";
-            this.studyDaysDataGridViewTextBoxColumn.Name = "studyDaysDataGridViewTextBoxColumn";
-            this.studyDaysDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // referenceDaysDataGridViewTextBoxColumn
-            // 
-            this.referenceDaysDataGridViewTextBoxColumn.DataPropertyName = "ReferenceDays";
-            this.referenceDaysDataGridViewTextBoxColumn.HeaderText = "Saisies";
-            this.referenceDaysDataGridViewTextBoxColumn.Name = "referenceDaysDataGridViewTextBoxColumn";
-            this.referenceDaysDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // catalogWorkDaysDataGridViewTextBoxColumn
-            // 
-            this.catalogWorkDaysDataGridViewTextBoxColumn.DataPropertyName = "CatalogWorkDays";
-            this.catalogWorkDaysDataGridViewTextBoxColumn.HeaderText = "Travaux (ETAM)";
-            this.catalogWorkDaysDataGridViewTextBoxColumn.Name = "catalogWorkDaysDataGridViewTextBoxColumn";
-            this.catalogWorkDaysDataGridViewTextBoxColumn.ReadOnly = true;
-            this.catalogWorkDaysDataGridViewTextBoxColumn.Width = 150;
-            // 
-            // catalogExecutiveWorkDaysDataGridViewTextBoxColumn
-            // 
-            this.catalogExecutiveWorkDaysDataGridViewTextBoxColumn.DataPropertyName = "CatalogExecutiveWorkDays";
-            this.catalogExecutiveWorkDaysDataGridViewTextBoxColumn.HeaderText = "Travaux (CNRO)";
-            this.catalogExecutiveWorkDaysDataGridViewTextBoxColumn.Name = "catalogExecutiveWorkDaysDataGridViewTextBoxColumn";
-            this.catalogExecutiveWorkDaysDataGridViewTextBoxColumn.ReadOnly = true;
-            this.catalogExecutiveWorkDaysDataGridViewTextBoxColumn.Width = 150;
-            // 
-            // catalogTestsDaysDataGridViewTextBoxColumn
-            // 
-            this.catalogTestsDaysDataGridViewTextBoxColumn.DataPropertyName = "CatalogTestsDays";
-            this.catalogTestsDaysDataGridViewTextBoxColumn.HeaderText = "Tests";
-            this.catalogTestsDaysDataGridViewTextBoxColumn.Name = "catalogTestsDaysDataGridViewTextBoxColumn";
-            this.catalogTestsDaysDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // hardwaresBindingSource
-            // 
-            this.hardwaresBindingSource.DataSource = typeof(Chiffrage.Catalogs.Module.ViewModel.CatalogHardwareViewModel);
             // 
             // toolStripHardware
             // 
@@ -545,8 +386,8 @@
             this.dataGridViewHardwareSupplies.AllowUserToAddRows = false;
             this.dataGridViewHardwareSupplies.AllowUserToOrderColumns = true;
             this.dataGridViewHardwareSupplies.AllowUserToResizeRows = false;
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.AliceBlue;
-            this.dataGridViewHardwareSupplies.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.AliceBlue;
+            this.dataGridViewHardwareSupplies.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridViewHardwareSupplies.AutoGenerateColumns = false;
             this.dataGridViewHardwareSupplies.BackgroundColor = System.Drawing.SystemColors.Window;
             this.dataGridViewHardwareSupplies.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
@@ -578,6 +419,138 @@
             this.dataGridViewHardwareSupplies.TabIndex = 8;
             this.dataGridViewHardwareSupplies.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewHardwareSupplies_CellDoubleClick);
             this.dataGridViewHardwareSupplies.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.columnHeaderMouseClick);
+            // 
+            // componentsBindingSource
+            // 
+            this.componentsBindingSource.DataMember = "Components";
+            this.componentsBindingSource.DataSource = this.hardwaresBindingSource;
+            // 
+            // toolStripHardwareSupplies
+            // 
+            this.toolStripHardwareSupplies.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+            this.toolStripHardwareSupplies.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripButtonAddHardwareSupply,
+            this.toolStripButtonRemoveHardwareSupply});
+            this.toolStripHardwareSupplies.Location = new System.Drawing.Point(0, 0);
+            this.toolStripHardwareSupplies.Name = "toolStripHardwareSupplies";
+            this.toolStripHardwareSupplies.Size = new System.Drawing.Size(964, 25);
+            this.toolStripHardwareSupplies.TabIndex = 5;
+            this.toolStripHardwareSupplies.Text = "Projet";
+            // 
+            // toolStripButtonAddHardwareSupply
+            // 
+            this.toolStripButtonAddHardwareSupply.Image = global::Chiffrage.Catalogs.Module.Properties.Resources.add;
+            this.toolStripButtonAddHardwareSupply.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonAddHardwareSupply.Name = "toolStripButtonAddHardwareSupply";
+            this.toolStripButtonAddHardwareSupply.Size = new System.Drawing.Size(66, 22);
+            this.toolStripButtonAddHardwareSupply.Text = "Ajouter";
+            // 
+            // toolStripButtonRemoveHardwareSupply
+            // 
+            this.toolStripButtonRemoveHardwareSupply.Image = global::Chiffrage.Catalogs.Module.Properties.Resources.cross;
+            this.toolStripButtonRemoveHardwareSupply.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButtonRemoveHardwareSupply.Name = "toolStripButtonRemoveHardwareSupply";
+            this.toolStripButtonRemoveHardwareSupply.Size = new System.Drawing.Size(82, 22);
+            this.toolStripButtonRemoveHardwareSupply.Text = "Supprimer";
+            // 
+            // dataGridView
+            // 
+            this.dataGridView.AllowUserToAddRows = false;
+            this.dataGridView.AllowUserToDeleteRows = false;
+            this.dataGridView.AutoGenerateColumns = false;
+            this.dataGridView.BackgroundColor = System.Drawing.SystemColors.Window;
+            this.dataGridView.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.dataGridView.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView.GridColor = System.Drawing.SystemColors.ControlLight;
+            this.dataGridView.Location = new System.Drawing.Point(3, 3);
+            this.dataGridView.Name = "dataGridView";
+            this.dataGridView.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            this.dataGridView.RowHeadersVisible = false;
+            this.dataGridView.Size = new System.Drawing.Size(670, 433);
+            this.dataGridView.TabIndex = 0;
+            // 
+            // idDataGridViewTextBoxColumn1
+            // 
+            this.idDataGridViewTextBoxColumn1.DataPropertyName = "Id";
+            this.idDataGridViewTextBoxColumn1.HeaderText = "Id";
+            this.idDataGridViewTextBoxColumn1.Name = "idDataGridViewTextBoxColumn1";
+            this.idDataGridViewTextBoxColumn1.ReadOnly = true;
+            this.idDataGridViewTextBoxColumn1.Visible = false;
+            // 
+            // catalogIdDataGridViewTextBoxColumn1
+            // 
+            this.catalogIdDataGridViewTextBoxColumn1.DataPropertyName = "CatalogId";
+            this.catalogIdDataGridViewTextBoxColumn1.HeaderText = "CatalogId";
+            this.catalogIdDataGridViewTextBoxColumn1.Name = "catalogIdDataGridViewTextBoxColumn1";
+            this.catalogIdDataGridViewTextBoxColumn1.ReadOnly = true;
+            this.catalogIdDataGridViewTextBoxColumn1.Visible = false;
+            // 
+            // nameDataGridViewTextBoxColumn
+            // 
+            this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
+            this.nameDataGridViewTextBoxColumn.HeaderText = "Nom";
+            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
+            this.nameDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // referenceDataGridViewTextBoxColumn
+            // 
+            this.referenceDataGridViewTextBoxColumn.DataPropertyName = "Reference";
+            this.referenceDataGridViewTextBoxColumn.HeaderText = "Reference";
+            this.referenceDataGridViewTextBoxColumn.Name = "referenceDataGridViewTextBoxColumn";
+            this.referenceDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // categoryDataGridViewTextBoxColumn
+            // 
+            this.categoryDataGridViewTextBoxColumn.DataPropertyName = "Category";
+            this.categoryDataGridViewTextBoxColumn.HeaderText = "Categorie";
+            this.categoryDataGridViewTextBoxColumn.Name = "categoryDataGridViewTextBoxColumn";
+            this.categoryDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // moduleSizeDataGridViewTextBoxColumn
+            // 
+            this.moduleSizeDataGridViewTextBoxColumn.DataPropertyName = "ModuleSize";
+            this.moduleSizeDataGridViewTextBoxColumn.HeaderText = "Modules";
+            this.moduleSizeDataGridViewTextBoxColumn.Name = "moduleSizeDataGridViewTextBoxColumn";
+            this.moduleSizeDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // catalogPriceDataGridViewTextBoxColumn
+            // 
+            this.catalogPriceDataGridViewTextBoxColumn.DataPropertyName = "CatalogPrice";
+            this.catalogPriceDataGridViewTextBoxColumn.HeaderText = "Prix";
+            this.catalogPriceDataGridViewTextBoxColumn.Name = "catalogPriceDataGridViewTextBoxColumn";
+            this.catalogPriceDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // pFC0DataGridViewTextBoxColumn
+            // 
+            this.pFC0DataGridViewTextBoxColumn.DataPropertyName = "PFC0";
+            this.pFC0DataGridViewTextBoxColumn.HeaderText = "PFC0";
+            this.pFC0DataGridViewTextBoxColumn.Name = "pFC0DataGridViewTextBoxColumn";
+            this.pFC0DataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // pFC12DataGridViewTextBoxColumn
+            // 
+            this.pFC12DataGridViewTextBoxColumn.DataPropertyName = "PFC12";
+            this.pFC12DataGridViewTextBoxColumn.HeaderText = "PFC12";
+            this.pFC12DataGridViewTextBoxColumn.Name = "pFC12DataGridViewTextBoxColumn";
+            this.pFC12DataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // capDataGridViewTextBoxColumn
+            // 
+            this.capDataGridViewTextBoxColumn.DataPropertyName = "Cap";
+            this.capDataGridViewTextBoxColumn.HeaderText = "Bouchons de codage";
+            this.capDataGridViewTextBoxColumn.Name = "capDataGridViewTextBoxColumn";
+            this.capDataGridViewTextBoxColumn.ReadOnly = true;
+            this.capDataGridViewTextBoxColumn.Width = 150;
+            // 
+            // suppliesBindingSource
+            // 
+            this.suppliesBindingSource.DataSource = typeof(Chiffrage.Catalogs.Module.ViewModel.CatalogSupplyViewModel);
+            // 
+            // hardwaresBindingSource
+            // 
+            this.hardwaresBindingSource.DataSource = typeof(Chiffrage.Catalogs.Module.ViewModel.CatalogHardwareViewModel);
             // 
             // idDataGridViewTextBoxColumn
             // 
@@ -683,66 +656,93 @@
             this.commentDataGridViewTextBoxColumn.ReadOnly = true;
             this.commentDataGridViewTextBoxColumn.Width = 200;
             // 
-            // componentsBindingSource
+            // idDataGridViewTextBoxColumn2
             // 
-            this.componentsBindingSource.DataMember = "Components";
-            this.componentsBindingSource.DataSource = this.hardwaresBindingSource;
+            this.idDataGridViewTextBoxColumn2.DataPropertyName = "Id";
+            this.idDataGridViewTextBoxColumn2.HeaderText = "Id";
+            this.idDataGridViewTextBoxColumn2.Name = "idDataGridViewTextBoxColumn2";
+            this.idDataGridViewTextBoxColumn2.ReadOnly = true;
+            this.idDataGridViewTextBoxColumn2.Visible = false;
             // 
-            // toolStripHardwareSupplies
+            // catalogIdDataGridViewTextBoxColumn2
             // 
-            this.toolStripHardwareSupplies.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
-            this.toolStripHardwareSupplies.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripButtonAddHardwareSupply,
-            this.toolStripButtonRemoveHardwareSupply});
-            this.toolStripHardwareSupplies.Location = new System.Drawing.Point(0, 0);
-            this.toolStripHardwareSupplies.Name = "toolStripHardwareSupplies";
-            this.toolStripHardwareSupplies.Size = new System.Drawing.Size(964, 25);
-            this.toolStripHardwareSupplies.TabIndex = 5;
-            this.toolStripHardwareSupplies.Text = "Projet";
+            this.catalogIdDataGridViewTextBoxColumn2.DataPropertyName = "CatalogId";
+            this.catalogIdDataGridViewTextBoxColumn2.HeaderText = "CatalogId";
+            this.catalogIdDataGridViewTextBoxColumn2.Name = "catalogIdDataGridViewTextBoxColumn2";
+            this.catalogIdDataGridViewTextBoxColumn2.ReadOnly = true;
+            this.catalogIdDataGridViewTextBoxColumn2.Visible = false;
             // 
-            // toolStripButtonAddHardwareSupply
+            // nameDataGridViewTextBoxColumn1
             // 
-            this.toolStripButtonAddHardwareSupply.Image = global::Chiffrage.Catalogs.Module.Properties.Resources.add;
-            this.toolStripButtonAddHardwareSupply.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonAddHardwareSupply.Name = "toolStripButtonAddHardwareSupply";
-            this.toolStripButtonAddHardwareSupply.Size = new System.Drawing.Size(66, 22);
-            this.toolStripButtonAddHardwareSupply.Text = "Ajouter";
+            this.nameDataGridViewTextBoxColumn1.DataPropertyName = "Name";
+            this.nameDataGridViewTextBoxColumn1.HeaderText = "Nom";
+            this.nameDataGridViewTextBoxColumn1.Name = "nameDataGridViewTextBoxColumn1";
+            this.nameDataGridViewTextBoxColumn1.ReadOnly = true;
             // 
-            // toolStripButtonRemoveHardwareSupply
+            // referenceDataGridViewTextBoxColumn1
             // 
-            this.toolStripButtonRemoveHardwareSupply.Image = global::Chiffrage.Catalogs.Module.Properties.Resources.cross;
-            this.toolStripButtonRemoveHardwareSupply.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonRemoveHardwareSupply.Name = "toolStripButtonRemoveHardwareSupply";
-            this.toolStripButtonRemoveHardwareSupply.Size = new System.Drawing.Size(82, 22);
-            this.toolStripButtonRemoveHardwareSupply.Text = "Supprimer";
+            this.referenceDataGridViewTextBoxColumn1.DataPropertyName = "Reference";
+            this.referenceDataGridViewTextBoxColumn1.HeaderText = "Reference";
+            this.referenceDataGridViewTextBoxColumn1.Name = "referenceDataGridViewTextBoxColumn1";
+            this.referenceDataGridViewTextBoxColumn1.ReadOnly = true;
             // 
-            // dataGridView
+            // categoryDataGridViewTextBoxColumn1
             // 
-            this.dataGridView.AllowUserToAddRows = false;
-            this.dataGridView.AllowUserToDeleteRows = false;
-            this.dataGridView.AutoGenerateColumns = false;
-            this.dataGridView.BackgroundColor = System.Drawing.SystemColors.Window;
-            this.dataGridView.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.dataGridView.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView.GridColor = System.Drawing.SystemColors.ControlLight;
-            this.dataGridView.Location = new System.Drawing.Point(3, 3);
-            this.dataGridView.Name = "dataGridView";
-            this.dataGridView.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-            this.dataGridView.RowHeadersVisible = false;
-            this.dataGridView.Size = new System.Drawing.Size(670, 433);
-            this.dataGridView.TabIndex = 0;
+            this.categoryDataGridViewTextBoxColumn1.DataPropertyName = "Category";
+            this.categoryDataGridViewTextBoxColumn1.HeaderText = "Categorie";
+            this.categoryDataGridViewTextBoxColumn1.Name = "categoryDataGridViewTextBoxColumn1";
+            this.categoryDataGridViewTextBoxColumn1.ReadOnly = true;
             // 
-            // commentUserControl
+            // moduleSizeDataGridViewTextBoxColumn1
             // 
-            this.commentUserControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.commentUserControl.Location = new System.Drawing.Point(3, 35);
-            this.commentUserControl.Name = "commentUserControl";
-            this.commentUserControl.Rtf = "{\\rtf1\\ansi\\ansicpg1252\\deff0\\deflang1036{\\fonttbl{\\f0\\fnil\\fcharset0 Microsoft S" +
-    "ans Serif;}}\r\n\\viewkind4\\uc1\\pard\\f0\\fs17 trertre\\par\r\ntreterert\\par\r\n}\r\n";
-            this.commentUserControl.Size = new System.Drawing.Size(964, 487);
-            this.commentUserControl.TabIndex = 20;
+            this.moduleSizeDataGridViewTextBoxColumn1.DataPropertyName = "ModuleSize";
+            this.moduleSizeDataGridViewTextBoxColumn1.HeaderText = "Modules";
+            this.moduleSizeDataGridViewTextBoxColumn1.Name = "moduleSizeDataGridViewTextBoxColumn1";
+            this.moduleSizeDataGridViewTextBoxColumn1.ReadOnly = true;
+            // 
+            // catalogPriceDataGridViewTextBoxColumn1
+            // 
+            this.catalogPriceDataGridViewTextBoxColumn1.DataPropertyName = "CatalogPrice";
+            this.catalogPriceDataGridViewTextBoxColumn1.HeaderText = "Prix";
+            this.catalogPriceDataGridViewTextBoxColumn1.Name = "catalogPriceDataGridViewTextBoxColumn1";
+            this.catalogPriceDataGridViewTextBoxColumn1.ReadOnly = true;
+            // 
+            // ColumnCatalogReferenceDays
+            // 
+            this.ColumnCatalogReferenceDays.DataPropertyName = "CatalogReferenceDays";
+            this.ColumnCatalogReferenceDays.HeaderText = "Sasie";
+            this.ColumnCatalogReferenceDays.Name = "ColumnCatalogReferenceDays";
+            this.ColumnCatalogReferenceDays.ReadOnly = true;
+            // 
+            // ColumnCatalogStudyDays
+            // 
+            this.ColumnCatalogStudyDays.DataPropertyName = "CatalogStudyDays";
+            this.ColumnCatalogStudyDays.HeaderText = "Etudes";
+            this.ColumnCatalogStudyDays.Name = "ColumnCatalogStudyDays";
+            this.ColumnCatalogStudyDays.ReadOnly = true;
+            // 
+            // catalogWorkDaysDataGridViewTextBoxColumn
+            // 
+            this.catalogWorkDaysDataGridViewTextBoxColumn.DataPropertyName = "CatalogWorkDays";
+            this.catalogWorkDaysDataGridViewTextBoxColumn.HeaderText = "Travaux (ETAM)";
+            this.catalogWorkDaysDataGridViewTextBoxColumn.Name = "catalogWorkDaysDataGridViewTextBoxColumn";
+            this.catalogWorkDaysDataGridViewTextBoxColumn.ReadOnly = true;
+            this.catalogWorkDaysDataGridViewTextBoxColumn.Width = 150;
+            // 
+            // catalogExecutiveWorkDaysDataGridViewTextBoxColumn
+            // 
+            this.catalogExecutiveWorkDaysDataGridViewTextBoxColumn.DataPropertyName = "CatalogExecutiveWorkDays";
+            this.catalogExecutiveWorkDaysDataGridViewTextBoxColumn.HeaderText = "Travaux (CNRO)";
+            this.catalogExecutiveWorkDaysDataGridViewTextBoxColumn.Name = "catalogExecutiveWorkDaysDataGridViewTextBoxColumn";
+            this.catalogExecutiveWorkDaysDataGridViewTextBoxColumn.ReadOnly = true;
+            this.catalogExecutiveWorkDaysDataGridViewTextBoxColumn.Width = 150;
+            // 
+            // catalogTestsDaysDataGridViewTextBoxColumn
+            // 
+            this.catalogTestsDaysDataGridViewTextBoxColumn.DataPropertyName = "CatalogTestsDays";
+            this.catalogTestsDaysDataGridViewTextBoxColumn.HeaderText = "Tests";
+            this.catalogTestsDaysDataGridViewTextBoxColumn.Name = "catalogTestsDaysDataGridViewTextBoxColumn";
+            this.catalogTestsDaysDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // CatalogUserControl
             // 
@@ -760,7 +760,6 @@
             this.tabPageSupplies.ResumeLayout(false);
             this.tabPageSupplies.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSupplies)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.suppliesBindingSource)).EndInit();
             this.toolStripSupplies.ResumeLayout(false);
             this.toolStripSupplies.PerformLayout();
             this.tabPageHardware.ResumeLayout(false);
@@ -770,7 +769,6 @@
             this.splitContainerHardware.Panel2.PerformLayout();
             this.splitContainerHardware.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewHardwares)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.hardwaresBindingSource)).EndInit();
             this.toolStripHardware.ResumeLayout(false);
             this.toolStripHardware.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewHardwareSupplies)).EndInit();
@@ -778,6 +776,8 @@
             this.toolStripHardwareSupplies.ResumeLayout(false);
             this.toolStripHardwareSupplies.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.suppliesBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.hardwaresBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -885,18 +885,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn pFC0DataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn pFC12DataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn capDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn idDataGridViewTextBoxColumn2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn catalogIdDataGridViewTextBoxColumn2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn referenceDataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn categoryDataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn moduleSizeDataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn catalogPriceDataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn studyDaysDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn referenceDaysDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn catalogWorkDaysDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn catalogExecutiveWorkDaysDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn catalogTestsDaysDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn catalogIdDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn hardwareIdDataGridViewTextBoxColumn;
@@ -912,5 +900,17 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn supplyCapDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn commentDataGridViewTextBoxColumn;
         private System.Windows.Forms.ToolStripButton toolStripButtonImport;
+        private System.Windows.Forms.DataGridViewTextBoxColumn idDataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn catalogIdDataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn referenceDataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn categoryDataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn moduleSizeDataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn catalogPriceDataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCatalogReferenceDays;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCatalogStudyDays;
+        private System.Windows.Forms.DataGridViewTextBoxColumn catalogWorkDaysDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn catalogExecutiveWorkDaysDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn catalogTestsDaysDataGridViewTextBoxColumn;
     }
 }

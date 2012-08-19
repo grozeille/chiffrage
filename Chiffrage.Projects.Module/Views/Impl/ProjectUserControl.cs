@@ -519,5 +519,16 @@ namespace Chiffrage.Projects.Module.Views.Impl
                 this.supplies[index] = supply;
             });
         }
+
+
+        public void UpdateHardware(ProjectHardwareViewModel hardware)
+        {
+            this.InvokeIfRequired(() =>
+            {
+                var h = this.hardwares.Where(x => x.Id == hardware.Id).First();
+                var index = this.hardwares.IndexOf(h);
+                this.hardwares[index] = hardware;
+            });
+        }
     }
 }

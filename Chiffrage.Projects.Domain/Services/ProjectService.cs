@@ -142,6 +142,12 @@ namespace Chiffrage.Projects.Domain.Services
             projectHardware.Quantity = eventObject.Quantity;
             projectHardware.CatalogId = catalog.Id;
 
+            projectHardware.StudyDays = hardware.CatalogStudyDays;
+            projectHardware.ReferenceDays = hardware.CatalogReferenceDays;
+            projectHardware.WorkDays = hardware.CatalogWorkDays;
+            projectHardware.ExecutiveWorkDays = hardware.CatalogExecutiveWorkDays;
+            projectHardware.TestsDays = hardware.CatalogTestsDays;
+
             foreach (var item in projectHardware.Components)
             {
                 item.Supply.CatalogId = catalog.Id;
@@ -208,6 +214,21 @@ namespace Chiffrage.Projects.Domain.Services
             this.projectRepository.Save(project);
 
             this.eventBroker.Publish(new ProjectSupplyUpdatedEvent(project.Id, projectSupply));
+        }
+
+        [Subscribe]
+        public void ProcessAction(UpdateProjectHardwareCommand eventObject)
+        {
+            var project = this.projectRepository.FindById(eventObject.ProjectId);
+            var projectHardware = project.Hardwares.Where(x => x.Id == eventObject.Id).First();
+
+            Mapper.CreateMap<UpdateProjectHardwareCommand, ProjectHardware>();
+
+            Mapper.Map(eventObject, projectHardware);
+
+            this.projectRepository.Save(project);
+
+            this.eventBroker.Publish(new ProjectHardwareUpdatedEvent(project.Id, projectHardware));
         }
     }
 }

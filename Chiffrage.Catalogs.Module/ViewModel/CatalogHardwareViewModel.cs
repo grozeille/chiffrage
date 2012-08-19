@@ -23,9 +23,9 @@ namespace Chiffrage.Catalogs.Module.ViewModel
 
         public double CatalogPrice { get; set; }
 
-        public double StudyDays { get; set; }
+        public double CatalogStudyDays { get; set; }
 
-        public double ReferenceDays { get; set; }
+        public double CatalogReferenceDays { get; set; }
 
         public double CatalogWorkDays { get; set; }
 
