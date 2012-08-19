@@ -256,6 +256,8 @@ namespace Chiffrage.Projects.Module.Views.Impl
                     return null;
                 }
 
+                this.commentUserControl.Validate();
+
                 return new ProjectViewModel
                 {
                     Id = this.id.Value,
@@ -271,7 +273,8 @@ namespace Chiffrage.Projects.Module.Views.Impl
                     TestDayRate = double.Parse(this.textBoxTestDayRate.Text, NumberStyles.Float, CultureInfo.InvariantCulture),
                     TestNightRate = double.Parse(this.textBoxTestNightRate.Text, NumberStyles.Float, CultureInfo.InvariantCulture),
                     TotalDays = int.Parse(this.textBoxTotalDays.Text, NumberStyles.Integer, CultureInfo.InvariantCulture),
-                    TotalPrice = double.Parse(this.textBoxTotalPrice.Text, NumberStyles.Float, CultureInfo.InvariantCulture)
+                    TotalPrice = double.Parse(this.textBoxTotalPrice.Text, NumberStyles.Float, CultureInfo.InvariantCulture),
+                    Comment = this.commentUserControl.Rtf
                 };
             });
         }

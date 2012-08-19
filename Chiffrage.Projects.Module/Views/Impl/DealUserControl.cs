@@ -33,6 +33,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
                 dealViewModel.Reference = this.textBoxReference.Text;
                 dealViewModel.StartDate = this.dateTimePickerDealBegin.Value;
                 dealViewModel.EndDate = this.dateTimePickerDealEnd.Value;
+                this.commentUserControl.Validate();
                 dealViewModel.Comment = this.commentUserControl.Rtf;
                 
                 return dealViewModel;
