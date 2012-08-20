@@ -122,7 +122,6 @@ namespace Chiffrage.Projects.Module.Controllers
             summaryItems.Add(new ProjectSummaryItemViewModel
             {
                 ProjectId = projectId,
-                Id = hardware.Id,
                 ItemType = ProjectSummaryItemType.Hardware,
                 Name = hardware.Name,
                 Quantity = hardware.Quantity
@@ -132,7 +131,6 @@ namespace Chiffrage.Projects.Module.Controllers
                 summaryItems.Add(new ProjectSummaryItemViewModel
                 {
                     ProjectId = projectId,
-                    Id = component.Id,
                     ItemType = ProjectSummaryItemType.Supply,
                     Name = component.Supply.Name,
                     Quantity = component.Quantity
@@ -147,10 +145,20 @@ namespace Chiffrage.Projects.Module.Controllers
             return new ProjectSummaryItemViewModel
             {
                 ProjectId = projectId,
-                Id = supply.Id,
                 ItemType = ProjectSummaryItemType.Supply,
                 Name = supply.Name,
                 Quantity = supply.Quantity
+            };
+        }
+
+        private ProjectSummaryItemViewModel MapSummaryItem(ProjectFrame frame, int projectId)
+        {
+            return new ProjectSummaryItemViewModel
+            {
+                ProjectId = projectId,
+                ItemType = ProjectSummaryItemType.Frame,
+                Name = string.Format("Chassis {0} modules", frame.Size),
+                Quantity = frame.Count
             };
         }
 
@@ -218,6 +226,42 @@ namespace Chiffrage.Projects.Module.Controllers
             this.projectView.SetProjectViewModel(projectViewModel);
         }
 
+        private void RefreshSummary(int projectId)
+        {
+            var project = this.projectRepository.FindById(projectId);
+
+            var summaryItems = new List<ProjectSummaryItemViewModel>();
+
+            foreach (var item in project.Supplies)
+            {
+                summaryItems.Add(MapSummaryItem(item, project.Id));
+            }
+
+            foreach (var item in project.Hardwares)
+            {
+                summaryItems.AddRange(MapSummaryItem(item, project.Id));
+            }
+
+            foreach (var item in project.Frames)
+            {
+                summaryItems.Add(MapSummaryItem(item, project.Id));
+            }
+
+            // now do a "groupby"
+            summaryItems = summaryItems
+                .GroupBy(x => string.Format("{0}#{1}", x.ItemType, x.Name))
+                .Select(x => new ProjectSummaryItemViewModel
+                {
+                    Name = x.First().Name,
+                    ItemType = x.First().ItemType,
+                    ProjectId = x.First().ProjectId,
+                    Quantity = x.Sum(y => y.Quantity)
+                })
+                .ToList();
+
+            this.projectView.SetSummaryItems(summaryItems);
+        }
+
         [Subscribe]
         public void ProcessAction(ApplicationStartAction eventObject)
         {
@@ -247,21 +291,12 @@ namespace Chiffrage.Projects.Module.Controllers
                 frames.Add(Map(item, project.Id));
             }
 
-            var summaryItems = new List<ProjectSummaryItemViewModel>();
-            foreach (var item in project.Supplies)
-            {
-                summaryItems.Add(MapSummaryItem(item, project.Id));
-            }
-            foreach (var item in project.Hardwares)
-            {
-                summaryItems.AddRange(MapSummaryItem(item, project.Id));
-            }
-
             this.projectView.SetProjectViewModel(viewModel);
             this.projectView.SetSupplies(supplies);
             this.projectView.SetHardwares(hardwares);
             this.projectView.SetFrames(frames);
-            this.projectView.SetSummaryItems(summaryItems);
+
+            this.RefreshSummary(project.Id);
 
             this.projectView.ShowView();
         }
@@ -341,9 +376,7 @@ namespace Chiffrage.Projects.Module.Controllers
             var viewModel = Map(eventObject.ProjectSupply, eventObject.ProjectId);
             this.projectView.AddSupply(viewModel);
 
-            var summaryItem = MapSummaryItem(eventObject.ProjectSupply, eventObject.ProjectId);
-
-            this.projectView.AddSummaryItems(summaryItem);
+            this.RefreshSummary(eventObject.ProjectId);
 
             this.RefreshProject(eventObject.ProjectId);
         }
@@ -354,9 +387,7 @@ namespace Chiffrage.Projects.Module.Controllers
             var supply = Map(eventObject.ProjectSupply, eventObject.ProjectId);
             this.projectView.RemoveSupply(supply);
 
-            var summaryItems = MapSummaryItem(eventObject.ProjectSupply, eventObject.ProjectId);
-
-            this.projectView.RemoveSummaryItems(summaryItems);
+            this.RefreshSummary(eventObject.ProjectId);
 
             this.RefreshProject(eventObject.ProjectId);
         }
@@ -409,8 +440,7 @@ namespace Chiffrage.Projects.Module.Controllers
             var viewModel = Map(eventObject.ProjectHardware, eventObject.ProjectId);
             this.projectView.AddHardware(viewModel);
 
-            var summaryItems = MapSummaryItem(eventObject.ProjectHardware, eventObject.ProjectId);
-            this.projectView.AddSummaryItems(summaryItems.ToArray());
+            this.RefreshSummary(eventObject.ProjectId);
 
             this.RefreshProject(eventObject.ProjectId);
         }
@@ -421,9 +451,7 @@ namespace Chiffrage.Projects.Module.Controllers
             var hardware = Map(eventObject.Hardware, eventObject.ProjectId);
             this.projectView.RemoveHardware(hardware);
 
-            var summaryItems = MapSummaryItem(eventObject.Hardware, eventObject.ProjectId);
-
-            this.projectView.RemoveSummaryItems(summaryItems.ToArray());
+            this.RefreshSummary(eventObject.ProjectId);
 
             this.RefreshProject(eventObject.ProjectId);
         }

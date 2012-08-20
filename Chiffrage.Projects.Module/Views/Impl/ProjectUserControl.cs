@@ -519,41 +519,6 @@ namespace Chiffrage.Projects.Module.Views.Impl
             });
         }
 
-        public void AddSummaryItems(params ProjectSummaryItemViewModel[] summaryItems)
-        {
-            this.InvokeIfRequired(() =>
-            {
-                if (summaryItems != null)
-                {
-                    foreach (var item in summaryItems)
-                    {
-                        this.summaryItems.Add(item);
-                    }
-                }
-            });
-        }
-
-        public void RemoveSummaryItems(params ProjectSummaryItemViewModel[] summaryItems)
-        {
-            this.InvokeIfRequired(() =>
-            {
-                if (summaryItems != null)
-                {
-                    var toRemove = new List<ProjectSummaryItemViewModel>();
-                    foreach (var item in summaryItems)
-                    {
-                        var found = this.summaryItems.Where(x => x.Id == item.Id && x.ItemType == item.ItemType).First();
-                        toRemove.Add(found);                        
-                    }
-
-                    foreach (var item in toRemove)
-                    {
-                        this.summaryItems.Remove(item);
-                    }
-                }
-            });
-        }
-
         private void ProjectUserControl_Load(object sender, EventArgs e)
         {
             this.tabControl.SetDoubleBuffered();

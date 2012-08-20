@@ -8,6 +8,7 @@ namespace Chiffrage.Projects.Module.ViewModel
     public enum ProjectSummaryItemType
     {
         Supply,
-        Hardware
+        Hardware,
+        Frame
     }
 }

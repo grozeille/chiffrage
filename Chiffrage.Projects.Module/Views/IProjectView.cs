@@ -42,9 +42,5 @@ namespace Chiffrage.Projects.Module.Views
         void AddFrames(IList<ProjectFrameViewModel> frames);
 
         void RemoveFrame(ProjectFrameViewModel frame);
-
-        void AddSummaryItems(params ProjectSummaryItemViewModel[] summaryItems);
-
-        void RemoveSummaryItems(params ProjectSummaryItemViewModel[] summaryItems);
     }
 }
