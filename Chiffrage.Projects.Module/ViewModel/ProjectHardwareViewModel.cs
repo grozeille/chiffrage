@@ -22,10 +22,6 @@ namespace Chiffrage.Projects.Module.ViewModel
 
         public string Category { get; set; }
 
-        public int ModuleSize { get; set; }
-
-        public double CatalogPrice { get; set; }
-
         public double CatalogStudyDays { get; set; }
 
         public double CatalogReferenceDays { get; set; }
@@ -51,6 +47,8 @@ namespace Chiffrage.Projects.Module.ViewModel
         public virtual int TotalModuleSize { get; set; }
 
         public virtual double TotalCatalogPrice { get; set; }
+
+        public virtual double TotalPrice { get; set; }
 
         public virtual double TotalCatalogStudyDays { get; set; }
 

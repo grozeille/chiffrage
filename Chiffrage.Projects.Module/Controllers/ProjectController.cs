@@ -97,11 +97,9 @@ namespace Chiffrage.Projects.Module.Controllers
                 }
             }
 
-            viewModel.ModuleSize = hardware.Components.Sum(x => x.Supply.ModuleSize * x.Quantity);
-            viewModel.CatalogPrice = hardware.Components.Sum(x => x.Supply.CatalogPrice * x.Quantity);
-
-            viewModel.TotalModuleSize = viewModel.ModuleSize * viewModel.Quantity;
-            viewModel.TotalCatalogPrice = viewModel.CatalogPrice * viewModel.Quantity;
+            viewModel.TotalModuleSize = hardware.Components.Sum(x => x.Supply.ModuleSize * x.Quantity);
+            viewModel.TotalCatalogPrice = hardware.Components.Sum(x => x.Supply.CatalogPrice * x.Quantity);
+            viewModel.TotalPrice = hardware.Components.Sum(x => x.Supply.Price * x.Quantity);
 
             viewModel.TotalCatalogStudyDays = viewModel.CatalogStudyDays * viewModel.Quantity;
             viewModel.TotalCatalogReferenceDays = viewModel.CatalogReferenceDays * viewModel.Quantity;

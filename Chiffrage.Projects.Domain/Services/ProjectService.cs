@@ -238,9 +238,9 @@ namespace Chiffrage.Projects.Domain.Services
             var projectHardware = project.Hardwares.Where(x => x.Id == eventObject.HardwareId).First();
             var projectHardwareSupply = projectHardware.Components.Where(x => x.Id == eventObject.HardwareSupplyId).First();
 
-            Mapper.CreateMap<UpdateProjectHardwareSupplyCommand, ProjectHardwareSupply>();
+            // because it doesn't unflatten, do it manually
+            projectHardwareSupply.Supply.Price = eventObject.SupplyPrice;
 
-            Mapper.Map(eventObject, projectHardwareSupply);
 
             this.projectRepository.Save(project);
 
