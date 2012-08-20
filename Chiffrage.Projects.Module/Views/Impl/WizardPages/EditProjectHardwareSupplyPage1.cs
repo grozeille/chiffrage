@@ -10,9 +10,9 @@ using System.Globalization;
 
 namespace Chiffrage.Projects.Module.Views.Impl.WizardPages
 {
-    public partial class EditProjectSupplyPage : UserControl
+    public partial class EditProjectHardwareSupplyPage1 : UserControl
     {
-        public EditProjectSupplyPage()
+        public EditProjectHardwareSupplyPage1()
         {
             InitializeComponent();
         }
@@ -23,13 +23,7 @@ namespace Chiffrage.Projects.Module.Views.Impl.WizardPages
 
             int temp;
             double tempDouble;
-
-            if (!int.TryParse(this.textBoxQuantity.Text, out temp))
-            {
-                e.Cancel = true;
-                this.errorProvider.SetError(this.textBoxQuantity, "Doit être un nombre");
-            }
-
+            
             if (!double.TryParse(this.textBoxPrice.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out tempDouble))
             {
                 e.Cancel = true;
@@ -54,7 +48,6 @@ namespace Chiffrage.Projects.Module.Views.Impl.WizardPages
 
         public int Quantity
         {
-            get { return int.Parse(this.textBoxQuantity.Text); }
             set { this.textBoxQuantity.Text = value.ToString(); }
         }
 

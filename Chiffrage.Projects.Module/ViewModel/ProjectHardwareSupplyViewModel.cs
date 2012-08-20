@@ -8,6 +8,8 @@ namespace Chiffrage.Projects.Module.ViewModel
 
         public int CatalogId { get; set; }
 
+        public int ProjectId { get; set; }
+
         public int HardwareId { get; set; }
 
         public int SupplyId { get; set; }
@@ -21,6 +23,8 @@ namespace Chiffrage.Projects.Module.ViewModel
         public int SupplyModuleSize { get; set; }
 
         public double SupplyCatalogPrice { get; set; }
+
+        public double SupplyPrice { get; set; }
 
         public virtual int SupplyPFC0 { get; set; }
 

@@ -68,6 +68,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Actions\RequestEditProjectHardwareSupplyAction.cs" />
     <Compile Include="Controllers\DealController.cs" />
     <Compile Include="Controllers\ProjectController.cs" />
     <Compile Include="Actions\DealSelectedAction.cs" />
@@ -99,6 +100,7 @@
     <Compile Include="ViewModel\ProjectSummaryItemType.cs" />
     <Compile Include="ViewModel\ProjectSummaryItemViewModel.cs" />
     <Compile Include="Views\IDealView.cs" />
+    <Compile Include="Views\IEditProjectHardwareSupplyView.cs" />
     <Compile Include="Views\IEditProjectHardwareView.cs" />
     <Compile Include="Views\IEditProjectSupplyView.cs" />
     <Compile Include="Views\Impl\DealUserControl.cs">
@@ -107,6 +109,7 @@
     <Compile Include="Views\Impl\DealUserControl.Designer.cs">
       <DependentUpon>DealUserControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\Impl\EditProjectHardwareSupplyWizardView.cs" />
     <Compile Include="Views\Impl\EditProjectHardwareWizardView.cs" />
     <Compile Include="Views\Impl\EditProjectSupplyWizardView.cs" />
     <Compile Include="Views\Impl\NewDealWizardView.cs" />
@@ -119,6 +122,18 @@
     </Compile>
     <Compile Include="Views\Impl\ProjectUserControl.Designer.cs">
       <DependentUpon>ProjectUserControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Impl\WizardPages\EditProjectHardwareSupplyPage2.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Impl\WizardPages\EditProjectHardwareSupplyPage2.Designer.cs">
+      <DependentUpon>EditProjectHardwareSupplyPage2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Impl\WizardPages\EditProjectHardwareSupplyPage1.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Impl\WizardPages\EditProjectHardwareSupplyPage1.Designer.cs">
+      <DependentUpon>EditProjectHardwareSupplyPage1.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\Impl\WizardPages\EditProjectHardwarePage.cs">
       <SubType>UserControl</SubType>
@@ -180,6 +195,12 @@
     <EmbeddedResource Include="Views\Impl\ProjectUserControl.resx">
       <DependentUpon>ProjectUserControl.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Impl\WizardPages\EditProjectHardwareSupplyPage2.resx">
+      <DependentUpon>EditProjectHardwareSupplyPage2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Impl\WizardPages\EditProjectHardwareSupplyPage1.resx">
+      <DependentUpon>EditProjectHardwareSupplyPage1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Impl\WizardPages\EditProjectHardwarePage.resx">
       <DependentUpon>EditProjectHardwarePage.cs</DependentUpon>

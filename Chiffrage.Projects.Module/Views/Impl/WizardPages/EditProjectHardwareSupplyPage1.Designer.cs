@@ -1,6 +1,6 @@
 ﻿namespace Chiffrage.Projects.Module.Views.Impl.WizardPages
 {
-    partial class EditProjectSupplyPage
+    partial class EditProjectHardwareSupplyPage1
     {
         /// <summary> 
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditProjectSupplyPage));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditProjectHardwareSupplyPage1));
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -50,8 +50,8 @@
             this.textBoxQuantity = new System.Windows.Forms.TextBox();
             this.labelPrice = new System.Windows.Forms.Label();
             this.textBoxPrice = new System.Windows.Forms.TextBox();
-            this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.textBoxCategory = new System.Windows.Forms.TextBox();
+            this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.tableLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
@@ -101,6 +101,7 @@
             this.tableLayoutPanel.Controls.Add(this.label5, 0, 8);
             this.tableLayoutPanel.Controls.Add(this.label6, 0, 9);
             this.tableLayoutPanel.Controls.Add(this.label7, 0, 10);
+            this.tableLayoutPanel.Controls.Add(this.textBoxReference, 1, 2);
             this.tableLayoutPanel.Controls.Add(this.textBoxModuleSize, 1, 4);
             this.tableLayoutPanel.Controls.Add(this.textBoxCatalogPrice, 1, 5);
             this.tableLayoutPanel.Controls.Add(this.textBoxPFC0, 1, 8);
@@ -110,7 +111,6 @@
             this.tableLayoutPanel.Controls.Add(this.textBoxQuantity, 1, 0);
             this.tableLayoutPanel.Controls.Add(this.labelPrice, 0, 6);
             this.tableLayoutPanel.Controls.Add(this.textBoxPrice, 1, 6);
-            this.tableLayoutPanel.Controls.Add(this.textBoxReference, 1, 2);
             this.tableLayoutPanel.Controls.Add(this.textBoxCategory, 1, 3);
             this.tableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel.Location = new System.Drawing.Point(0, 0);
@@ -260,6 +260,7 @@
             this.textBoxQuantity.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxQuantity.Location = new System.Drawing.Point(126, 13);
             this.textBoxQuantity.Name = "textBoxQuantity";
+            this.textBoxQuantity.ReadOnly = true;
             this.textBoxQuantity.Size = new System.Drawing.Size(194, 20);
             this.textBoxQuantity.TabIndex = 10;
             this.textBoxQuantity.Text = "1";
@@ -282,12 +283,6 @@
             this.textBoxPrice.Size = new System.Drawing.Size(194, 20);
             this.textBoxPrice.TabIndex = 12;
             // 
-            // errorProvider
-            // 
-            this.errorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
-            this.errorProvider.ContainerControl = this;
-            this.errorProvider.Icon = ((System.Drawing.Icon)(resources.GetObject("errorProvider.Icon")));
-            // 
             // textBoxCategory
             // 
             this.textBoxCategory.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
@@ -297,12 +292,18 @@
             this.textBoxCategory.Size = new System.Drawing.Size(194, 20);
             this.textBoxCategory.TabIndex = 13;
             // 
-            // EditProjectSupplyPage
+            // errorProvider
+            // 
+            this.errorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            this.errorProvider.ContainerControl = this;
+            this.errorProvider.Icon = ((System.Drawing.Icon)(resources.GetObject("errorProvider.Icon")));
+            // 
+            // EditProjectHardwareSupplyPage1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.tableLayoutPanel);
-            this.Name = "EditProjectSupplyPage";
+            this.Name = "EditProjectHardwareSupplyPage1";
             this.Size = new System.Drawing.Size(438, 350);
             this.tableLayoutPanel.ResumeLayout(false);
             this.tableLayoutPanel.PerformLayout();

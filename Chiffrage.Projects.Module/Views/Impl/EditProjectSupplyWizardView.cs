@@ -52,14 +52,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
                     this.supply.ProjectId,
                     this.supply.Id,
                     editSupplyPage.TypedPage.Quantity,
-                    editSupplyPage.TypedPage.SupplyName,
-                    editSupplyPage.TypedPage.Reference,
-                    editSupplyPage.TypedPage.Category,
-                    editSupplyPage.TypedPage.ModuleSize,
-                    editSupplyPage.TypedPage.Price,
-                    editSupplyPage.TypedPage.PFC12,
-                    editSupplyPage.TypedPage.PFC0,
-                    editSupplyPage.TypedPage.Cap);
+                    editSupplyPage.TypedPage.Price);
                 this.EventBroker.Publish(command);
             }
         }

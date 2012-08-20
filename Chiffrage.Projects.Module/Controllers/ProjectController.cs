@@ -43,6 +43,8 @@ namespace Chiffrage.Projects.Module.Controllers
 
         private readonly INewProjectFrameView newProjectFrameView;
 
+        private readonly IEditProjectHardwareSupplyView editProjectHardwareSupplyView;
+
         // no better way...
         private readonly System.Windows.Forms.RichTextBox rtBox = new System.Windows.Forms.RichTextBox();
 
@@ -59,6 +61,7 @@ namespace Chiffrage.Projects.Module.Controllers
             IEditProjectSupplyView editProjectSupplyView,
             IEditProjectHardwareView editProjectHardwareView,
             INewProjectFrameView newProjectFrameView,
+            IEditProjectHardwareSupplyView editProjectHardwareSupplyView,
             ICatalogRepository catalogRepository)
         {
             this.projectView = projectView;
@@ -70,6 +73,7 @@ namespace Chiffrage.Projects.Module.Controllers
             this.editProjectHardwareView = editProjectHardwareView;
             this.editProjectSupplyView = editProjectSupplyView;
             this.newProjectFrameView = newProjectFrameView;
+            this.editProjectHardwareSupplyView = editProjectHardwareSupplyView;
             this.catalogRepository = catalogRepository;
         }
 
@@ -83,6 +87,7 @@ namespace Chiffrage.Projects.Module.Controllers
 
             foreach (var subItem in viewModel.Components)
             {
+                subItem.ProjectId = projectId;
                 subItem.HardwareId = viewModel.Id;
                 subItem.CatalogId = viewModel.CatalogId;
                 if (subItem.Comment.StartsWith("{\\rtf"))
@@ -206,6 +211,13 @@ namespace Chiffrage.Projects.Module.Controllers
             }
 
             return viewModel;
+        }
+
+        private void RefreshProject(int projectId)
+        {
+            var project = this.projectRepository.FindById(projectId);
+            var projectViewModel = Map(project);
+            this.projectView.SetProjectViewModel(projectViewModel);
         }
 
         [Subscribe]
@@ -441,13 +453,6 @@ namespace Chiffrage.Projects.Module.Controllers
             this.projectView.AddFrame(projectFrameViewModel);
         }
 
-        private void RefreshProject(int projectId)
-        {
-            var project = this.projectRepository.FindById(projectId);
-            var projectViewModel = Map(project);
-            this.projectView.SetProjectViewModel(projectViewModel);
-        }
-
         [Subscribe]
         public void ProcessAction(ProjectFrameDeletedEvent eventObject)
         {
@@ -468,6 +473,22 @@ namespace Chiffrage.Projects.Module.Controllers
 
         [Subscribe]
         public void ProcessAction(ProjectHardwareUpdatedEvent eventObject)
+        {
+            var viewModel = Map(eventObject.ProjectHardware, eventObject.ProjectId);
+            this.projectView.UpdateHardware(viewModel);
+
+            this.RefreshProject(eventObject.ProjectId);
+        }
+
+        [Subscribe]
+        public void ProcessAction(RequestEditProjectHardwareSupplyAction eventObject)
+        {
+            this.editProjectHardwareSupplyView.HardwareSupply = eventObject.HardwareSupply;
+            this.editProjectHardwareSupplyView.ShowView();
+        }
+
+        [Subscribe]
+        public void ProcessAction(ProjectHardwareSupplyUpdatedEvent eventObject)
         {
             var viewModel = Map(eventObject.ProjectHardware, eventObject.ProjectId);
             this.projectView.UpdateHardware(viewModel);

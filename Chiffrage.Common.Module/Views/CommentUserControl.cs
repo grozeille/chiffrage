@@ -20,6 +20,18 @@ namespace Chiffrage.Common.Module.Views
             this.toolStripText.SetDoubleBuffered();
         }
 
+        public bool ReadOnly
+        {
+            get
+            {
+                return this.richTextBoxComment.ReadOnly;
+            }
+            set
+            {
+                this.richTextBoxComment.ReadOnly = value;
+            }
+        }
+
         private readonly RichTextBox fake = new RichTextBox();
 
         private string rtf;

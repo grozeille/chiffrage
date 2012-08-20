@@ -230,5 +230,21 @@ namespace Chiffrage.Projects.Domain.Services
 
             this.eventBroker.Publish(new ProjectHardwareUpdatedEvent(project.Id, projectHardware));
         }
+
+        [Subscribe]
+        public void ProcessAction(UpdateProjectHardwareSupplyCommand eventObject)
+        {
+            var project = this.projectRepository.FindById(eventObject.ProjectId);
+            var projectHardware = project.Hardwares.Where(x => x.Id == eventObject.HardwareId).First();
+            var projectHardwareSupply = projectHardware.Components.Where(x => x.Id == eventObject.HardwareSupplyId).First();
+
+            Mapper.CreateMap<UpdateProjectHardwareSupplyCommand, ProjectHardwareSupply>();
+
+            Mapper.Map(eventObject, projectHardwareSupply);
+
+            this.projectRepository.Save(project);
+
+            this.eventBroker.Publish(new ProjectHardwareSupplyUpdatedEvent(project.Id, projectHardware, projectHardwareSupply));
+        }
     }
 }

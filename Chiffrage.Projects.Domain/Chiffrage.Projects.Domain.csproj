@@ -66,8 +66,10 @@
     <Compile Include="Commands\CreateNewDealCommand.cs" />
     <Compile Include="Commands\CreateNewProjectCommand.cs" />
     <Compile Include="Commands\UpdateProjectHardwareCommand.cs" />
+    <Compile Include="Commands\UpdateProjectHardwareSupplyCommand.cs" />
     <Compile Include="Commands\UpdateProjectSupplyCommand.cs" />
     <Compile Include="Deal.cs" />
+    <Compile Include="Events\ProjectHardwareSupplyUpdatedEvent.cs" />
     <Compile Include="Events\ProjectHardwareUpdatedEvent.cs" />
     <Compile Include="Events\ProjectFrameDeletedEvent.cs" />
     <Compile Include="Events\ProjectFrameCreatedEvent.cs" />

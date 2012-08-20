@@ -572,5 +572,14 @@ namespace Chiffrage.Projects.Module.Views.Impl
 
             this.dataGridViewSummary.SetDoubleBuffered();
         }
+
+        private void dataGridViewHardwareSupplies_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            var hardwareSupply = this.componentsBindingSource[e.RowIndex] as ProjectHardwareSupplyViewModel;
+            if (hardwareSupply != null)
+            {
+                this.eventBroker.Publish(new RequestEditProjectHardwareSupplyAction(hardwareSupply));
+            }
+        }
     }
 }
