@@ -96,6 +96,8 @@
     <Compile Include="ViewModel\ProjectItemViewModel.cs" />
     <Compile Include="ViewModel\ProjectSupplyViewModel.cs" />
     <Compile Include="ViewModel\ProjectViewModel.cs" />
+    <Compile Include="ViewModel\ProjectSummaryItemType.cs" />
+    <Compile Include="ViewModel\ProjectSummaryItemViewModel.cs" />
     <Compile Include="Views\IDealView.cs" />
     <Compile Include="Views\IEditProjectHardwareView.cs" />
     <Compile Include="Views\IEditProjectSupplyView.cs" />
@@ -236,6 +238,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Properties\DataSources\Chiffrage.Projects.Module.ViewModel.ProjectSummaryItemViewModel.datasource" />
+    <None Include="Properties\DataSources\Chiffrage.Projects.Module.ViewModel.SummaryItemViewModel.datasource" />
     <None Include="Resources\add.png" />
   </ItemGroup>
   <ItemGroup>

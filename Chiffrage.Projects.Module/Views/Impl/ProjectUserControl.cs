@@ -26,6 +26,8 @@ namespace Chiffrage.Projects.Module.Views.Impl
 
         private readonly SortableBindingList<ProjectHardwareViewModel> hardwares = new SortableBindingList<ProjectHardwareViewModel>();
 
+        private readonly SortableBindingList<ProjectSummaryItemViewModel> summaryItems = new SortableBindingList<ProjectSummaryItemViewModel>();
+
         private readonly SortableBindingList<ProjectFrameViewModel> frames = new SortableBindingList<ProjectFrameViewModel>();
 
         private Font defaultFont = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Regular,
@@ -40,6 +42,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
             this.projectSupplyViewModelBindingSource.DataSource = supplies;
             this.projectHardwareViewModelBindingSource.DataSource = hardwares;
             this.projectFrameViewModelBindingSource.DataSource = frames;
+            this.projectSummaryItemViewModelBindingSource.DataSource = summaryItems;
 
             this.textBoxStudyRate.Validating += this.ValidateIsDoubleTextBox;
             this.textBoxProjectName.Validating += this.ValidateIsRequiredTextBox;
@@ -304,45 +307,6 @@ namespace Chiffrage.Projects.Module.Views.Impl
             }
         }
 
-        public void AddSupply(ProjectSupplyViewModel viewModel)
-        {
-            this.InvokeIfRequired(() => supplies.Add(viewModel));
-        }
-
-
-        public void RemoveAllSupplies()
-        {
-            this.InvokeIfRequired(() =>
-            {
-                this.projectSupplyViewModelBindingSource.SuspendBinding();
-                this.supplies.Clear();
-                this.projectSupplyViewModelBindingSource.ResumeBinding();
-            });
-        }
-
-        public void AddSupplies(IList<ProjectSupplyViewModel> supplies)
-        {
-            this.InvokeIfRequired(() =>
-            {
-                this.projectSupplyViewModelBindingSource.SuspendBinding();
-                foreach (var item in supplies)
-                {
-                    this.supplies.Add(item);
-                }
-                this.projectSupplyViewModelBindingSource.ResumeBinding();
-            });
-        }
-
-
-        public void RemoveSupply(ProjectSupplyViewModel supply)
-        {
-            this.InvokeIfRequired(() =>
-            {
-                var item = this.supplies.Where(x => x.Id == supply.Id).First();
-                this.supplies.Remove(item);
-            });
-        }
-
         public void SetProjectViewModel(ProjectViewModel viewModel)
         {
             this.InvokeIfRequired(() =>
@@ -392,11 +356,48 @@ namespace Chiffrage.Projects.Module.Views.Impl
             });
         }
 
+        public void AddSupply(ProjectSupplyViewModel viewModel)
+        {
+            this.InvokeIfRequired(() => supplies.Add(viewModel));
+        }
+
+
+        public void RemoveAllSupplies()
+        {
+            this.InvokeIfRequired(() =>
+            {
+                this.projectSupplyViewModelBindingSource.SuspendBinding();
+                this.supplies.Clear();
+                this.projectSupplyViewModelBindingSource.ResumeBinding();
+            });
+        }
+
+        public void AddSupplies(IList<ProjectSupplyViewModel> supplies)
+        {
+            this.InvokeIfRequired(() =>
+            {
+                this.projectSupplyViewModelBindingSource.SuspendBinding();
+                foreach (var item in supplies)
+                {
+                    this.supplies.Add(item);
+                }
+                this.projectSupplyViewModelBindingSource.ResumeBinding();
+            });
+        }
+
+
+        public void RemoveSupply(ProjectSupplyViewModel supply)
+        {
+            this.InvokeIfRequired(() =>
+            {
+                var item = this.supplies.Where(x => x.Id == supply.Id).First();
+                this.supplies.Remove(item);
+            });
+        }
         public void SetSupplies(IList<ProjectSupplyViewModel> supplies)
         {
             this.InvokeIfRequired(() =>
                 {
-                    this.projectSupplyViewModelBindingSource.SuspendBinding();
                     this.supplies.Clear();
                     if (supplies != null)
                     {
@@ -405,15 +406,23 @@ namespace Chiffrage.Projects.Module.Views.Impl
                             this.supplies.Add(item);
                         }
                     }
-                    this.projectSupplyViewModelBindingSource.ResumeBinding();
                 });
+        }
+
+        public void UpdateSupply(ProjectSupplyViewModel supply)
+        {
+            this.InvokeIfRequired(() =>
+            {
+                var s = this.supplies.Where(x => x.Id == supply.Id).First();
+                var index = this.supplies.IndexOf(s);
+                this.supplies[index] = supply;
+            });
         }
 
         public void SetHardwares(IList<ProjectHardwareViewModel> hardwares)
         {
             this.InvokeIfRequired(() =>
                 {
-                    this.projectHardwareViewModelBindingSource.SuspendBinding();
                     this.hardwares.Clear();
                     if (hardwares != null)
                     {
@@ -422,7 +431,6 @@ namespace Chiffrage.Projects.Module.Views.Impl
                             this.hardwares.Add(item);
                         }
                     }
-                    this.projectHardwareViewModelBindingSource.ResumeBinding();
                 });
         }
         
@@ -443,11 +451,20 @@ namespace Chiffrage.Projects.Module.Views.Impl
                 });
         }
 
+        public void UpdateHardware(ProjectHardwareViewModel hardware)
+        {
+            this.InvokeIfRequired(() =>
+            {
+                var h = this.hardwares.Where(x => x.Id == hardware.Id).First();
+                var index = this.hardwares.IndexOf(h);
+                this.hardwares[index] = hardware;
+            });
+        }
+
         public void SetFrames(IList<ProjectFrameViewModel> frames)
         {
             this.InvokeIfRequired(() =>
             {
-                this.projectFrameViewModelBindingSource.SuspendBinding();
                 this.frames.Clear();
                 if (frames != null)
                 {
@@ -456,7 +473,6 @@ namespace Chiffrage.Projects.Module.Views.Impl
                         this.frames.Add(item);
                     }
                 }
-                this.projectFrameViewModelBindingSource.ResumeBinding();
             });
         }
 
@@ -472,12 +488,10 @@ namespace Chiffrage.Projects.Module.Views.Impl
         {
             this.InvokeIfRequired(() =>
             {
-                this.projectFrameViewModelBindingSource.SuspendBinding();
                 foreach (var item in frames)
                 {
                     this.frames.Add(item);
                 }
-                this.projectFrameViewModelBindingSource.ResumeBinding();
             });
         }
 
@@ -487,6 +501,56 @@ namespace Chiffrage.Projects.Module.Views.Impl
             {
                 var item = this.frames.Where(x => x.Id == frame.Id).First();
                 this.frames.Remove(item);
+            });
+        }
+
+        public void SetSummaryItems(IList<ProjectSummaryItemViewModel> summaryItems)
+        {
+            this.InvokeIfRequired(() =>
+            {
+                this.summaryItems.Clear();
+                if (summaryItems != null)
+                {
+                    foreach (var item in summaryItems)
+                    {
+                        this.summaryItems.Add(item);
+                    }
+                }
+            });
+        }
+
+        public void AddSummaryItems(params ProjectSummaryItemViewModel[] summaryItems)
+        {
+            this.InvokeIfRequired(() =>
+            {
+                if (summaryItems != null)
+                {
+                    foreach (var item in summaryItems)
+                    {
+                        this.summaryItems.Add(item);
+                    }
+                }
+            });
+        }
+
+        public void RemoveSummaryItems(params ProjectSummaryItemViewModel[] summaryItems)
+        {
+            this.InvokeIfRequired(() =>
+            {
+                if (summaryItems != null)
+                {
+                    var toRemove = new List<ProjectSummaryItemViewModel>();
+                    foreach (var item in summaryItems)
+                    {
+                        var found = this.summaryItems.Where(x => x.Id == item.Id && x.ItemType == item.ItemType).First();
+                        toRemove.Add(found);                        
+                    }
+
+                    foreach (var item in toRemove)
+                    {
+                        this.summaryItems.Remove(item);
+                    }
+                }
             });
         }
 
@@ -507,28 +571,6 @@ namespace Chiffrage.Projects.Module.Views.Impl
             this.dataGridViewOther.SetDoubleBuffered();
 
             this.dataGridViewSummary.SetDoubleBuffered();
-        }
-
-
-        public void UpdateSupply(ProjectSupplyViewModel supply)
-        {
-            this.InvokeIfRequired(() =>
-            {
-                var s = this.supplies.Where(x => x.Id == supply.Id).First();
-                var index = this.supplies.IndexOf(s);
-                this.supplies[index] = supply;
-            });
-        }
-
-
-        public void UpdateHardware(ProjectHardwareViewModel hardware)
-        {
-            this.InvokeIfRequired(() =>
-            {
-                var h = this.hardwares.Where(x => x.Id == hardware.Id).First();
-                var index = this.hardwares.IndexOf(h);
-                this.hardwares[index] = hardware;
-            });
         }
     }
 }

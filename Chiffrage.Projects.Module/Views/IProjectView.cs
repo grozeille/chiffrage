@@ -17,19 +17,25 @@ namespace Chiffrage.Projects.Module.Views
 
         void SetFrames(IList<ProjectFrameViewModel> frames);
 
+        void SetSummaryItems(IList<ProjectSummaryItemViewModel> summaryItems);
+
         ProjectViewModel GetProjectViewModel();
 
         void AddSupply(ProjectSupplyViewModel viewModel);
 
-        void RemoveAllSupplies();
-
         void AddSupplies(IList<ProjectSupplyViewModel> supplies);
 
+        void RemoveAllSupplies();
+
         void RemoveSupply(ProjectSupplyViewModel supply);
+
+        void UpdateSupply(ProjectSupplyViewModel supply);
 
         void AddHardware(ProjectHardwareViewModel viewModel);
 
         void RemoveHardware(ProjectHardwareViewModel hardware);
+
+        void UpdateHardware(ProjectHardwareViewModel hardware);
         
         void AddFrame(ProjectFrameViewModel frame);
 
@@ -37,8 +43,8 @@ namespace Chiffrage.Projects.Module.Views
 
         void RemoveFrame(ProjectFrameViewModel frame);
 
-        void UpdateSupply(ProjectSupplyViewModel supply);
+        void AddSummaryItems(params ProjectSummaryItemViewModel[] summaryItems);
 
-        void UpdateHardware(ProjectHardwareViewModel hardware);
+        void RemoveSummaryItems(params ProjectSummaryItemViewModel[] summaryItems);
     }
 }
