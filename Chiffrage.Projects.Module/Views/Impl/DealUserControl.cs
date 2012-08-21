@@ -103,6 +103,9 @@ namespace Chiffrage.Projects.Module.Views.Impl
         {
             this.InvokeIfRequired(() =>
             {
+                this.comboBoxProjects.Items.Clear();
+                this.comboBoxProjects.Items.Add(string.Empty);
+
                 DateTime minDate = DateTime.Now;
                 int colorCpt = 0;
                 foreach (var item in calendarItems)
@@ -121,7 +124,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
                     calendarItem.Tag = item.ProjectId;
                     calendarItem.ApplyColor(this.calendarColors[colorCpt]);
                     this.calendarItems.Add(calendarItem);
-
+                    this.comboBoxProjects.Items.Add(item.Name);
 
                     colorCpt = (colorCpt + 1) % this.calendarColors.Length;
                 }
@@ -142,6 +145,17 @@ namespace Chiffrage.Projects.Module.Views.Impl
                 this.monthView.SelectionStart = begin;
             }
             this.calendarProjects.SetViewRange(begin, end);
+            this.comboBoxProjects.Text = string.Empty;
+        }
+
+        private void comboBoxProjects_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (this.comboBoxProjects.SelectedIndex > 0)
+            {
+                var selectedProject = this.calendarItems[this.comboBoxProjects.SelectedIndex - 1];
+                this.calendarProjects.SetViewRange(selectedProject.StartDate, selectedProject.StartDate.AddMonths(1));
+                this.monthView.ViewStart = selectedProject.StartDate;
+            }
         }
     }
 }
