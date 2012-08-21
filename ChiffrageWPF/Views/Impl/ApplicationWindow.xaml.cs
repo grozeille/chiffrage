@@ -10,6 +10,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Chiffrage.Projects.Module.Views;
+using Chiffrage.Catalogs.Module.Views;
 
 namespace ChiffrageWPF.Views.Impl
 {
@@ -21,6 +23,34 @@ namespace ChiffrageWPF.Views.Impl
         public ApplicationWindow()
         {
             InitializeComponent();
+        }
+
+        public ApplicationWindow(INavigationView navigationView, IDealView dealView, IProjectView projectView, ICatalogView catalogView, IErrorLogView errorLogView)
+            : this()
+        {
+            this.LeftPanel.Children.Add(navigationView as UserControl);
+            (navigationView as UserControl).Margin = new Thickness(0, 0, 0, 0);
+            (navigationView as UserControl).BorderBrush = Brushes.LightGray;
+            (navigationView as UserControl).BorderThickness = new Thickness(0, 0, 0, 0);
+
+            this.CenterPanel.Children.Add(dealView as UserControl);
+            (dealView as UserControl).Margin = new Thickness(0, 0, 0, 0);
+            (dealView as UserControl).BorderThickness = new Thickness(0, 0, 0, 0);
+            dealView.HideView();
+
+            this.CenterPanel.Children.Add(projectView as UserControl);
+            (projectView as UserControl).Margin = new Thickness(0, 0, 0, 0);
+            (projectView as UserControl).BorderThickness = new Thickness(0, 0, 0, 0);
+            projectView.HideView();
+
+            this.CenterPanel.Children.Add(catalogView as UserControl);
+            (catalogView as UserControl).Margin = new Thickness(0, 0, 0, 0);
+            (catalogView as UserControl).BorderThickness = new Thickness(0, 0, 0, 0);
+            catalogView.HideView();
+            
+            this.FooterPanel.Children.Add(errorLogView as UserControl);
+            (errorLogView as UserControl).Margin = new Thickness(0, 0, 0, 0);
+            (errorLogView as UserControl).BorderThickness = new Thickness(0, 0, 0, 0);
         }
 
         public void SetParent(System.Windows.Forms.Control parent)

@@ -28,7 +28,61 @@ namespace ChiffrageWPF.Views.Impl
 
         public void Display(NavigationItemViewModel viewModel)
         {
+            var dealImage = new Image
+                {
+                    Width=16,
+                    Height=16,
+                    Stretch = Stretch.Fill,
+                    Source = new BitmapImage(new Uri(@"/ChiffrageWPF;component/Resources/user_suit.png"))
+                };
+
+            var projectImage = new Image
+            {
+                Width=16,
+                Height=16,
+                Stretch = Stretch.Fill,
+                Source = new BitmapImage(new Uri(@"/ChiffrageWPF;component/Resources/report.png"))
+            };
+
             
+            foreach (var item in viewModel.Catalogs)
+            {/*
+                var catalogImage = new Image
+                {
+                    Width=16,
+                    Height=16,
+                    Stretch = Stretch.Fill,
+                    Source = new BitmapImage(new Uri(@"/ChiffrageWPF;component/Resources/book_open.png"))
+                };
+                var imageAndText = new System.Windows.Controls.StackPanel
+                {
+                    Orientation = Orientation.Horizontal
+                };
+                imageAndText.Children.Add(dealImage);
+                imageAndText.Children.Add(new TextBlock
+                    {
+                        Text = item.SupplierName,
+                        Margin = new Thickness(5,0,0,0)
+                    });
+
+                var dataTemplate = new DataTemplate();
+                dataTemplate.VisualTree = new FrameworkElementFactory(typeof(StackPanel));
+                dataTemplate.VisualTree.AppendChild(imageAndText;
+            
+
+                var catalogNodeStyle = new Style(typeof(TreeViewItem));
+                catalogNodeStyle.Setters.Add(new Setter
+                {
+                    Property = "HeaderTemplate",
+                    Value = dataTemplate
+                });*/
+
+                catalogsNode.Items.Add(new TreeViewItem
+                {
+                    //Style = catalogNodeStyle
+                    Header = item.SupplierName
+                });
+            }
         }
 
         public void UpdateCatalog(CatalogItemViewModel viewModel)
