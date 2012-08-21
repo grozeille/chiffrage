@@ -11,7 +11,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Chiffrage.App.Views;
+using Chiffrage.Projects.Module.Views;
+using Chiffrage.Projects.Module.ViewModel;
 
 namespace ChiffrageWPF
 {
@@ -25,61 +26,6 @@ namespace ChiffrageWPF
             InitializeComponent();
         }
 
-        public void SetProjectViewModel(Chiffrage.App.ViewModel.ProjectViewModel viewModel)
-        {
-           
-        }
-
-        public void SetSupplies(IList<Chiffrage.App.ViewModel.ProjectSupplyViewModel> supplies)
-        {
-           
-        }
-
-        public void SetHardwares(IList<Chiffrage.App.ViewModel.ProjectHardwareViewModel> hardwares)
-        {
-           
-        }
-
-        public Chiffrage.App.ViewModel.ProjectViewModel GetProjectViewModel()
-        {
-            return null;
-        }
-
-        public void AddSupply(Chiffrage.App.ViewModel.ProjectSupplyViewModel viewModel)
-        {
-           
-        }
-
-        public void RemoveAllSupplies()
-        {
-           
-        }
-
-        public void AddSupplies(IList<Chiffrage.App.ViewModel.ProjectSupplyViewModel> supplies)
-        {
-           
-        }
-
-        public void RemoveSupply(Chiffrage.App.ViewModel.ProjectSupplyViewModel supply)
-        {
-           
-        }
-
-        public void AddHardware(Chiffrage.App.ViewModel.ProjectHardwareViewModel viewModel)
-        {
-           
-        }
-
-        public void RemoveHardware(Chiffrage.App.ViewModel.ProjectHardwareViewModel hardware)
-        {
-           
-        }
-
-        public void SetParent(System.Windows.Forms.Control parent)
-        {
-           
-        }
-
         public void ShowView()
         {
             this.Visibility = System.Windows.Visibility.Visible;
@@ -88,6 +34,96 @@ namespace ChiffrageWPF
         public void HideView()
         {
             this.Visibility = System.Windows.Visibility.Hidden;
+        }
+
+        public void SetProjectViewModel(ProjectViewModel viewModel)
+        {
+            
+        }
+
+        public void SetSupplies(IList<ProjectSupplyViewModel> supplies)
+        {
+            
+        }
+
+        public void SetHardwares(IList<ProjectHardwareViewModel> hardwares)
+        {
+            
+        }
+
+        public void SetFrames(IList<ProjectFrameViewModel> frames)
+        {
+            
+        }
+
+        public void SetSummaryItems(IList<ProjectSummaryItemViewModel> summaryItems)
+        {
+            
+        }
+
+        public ProjectViewModel GetProjectViewModel()
+        {
+            return null;
+        }
+
+        public void AddSupply(ProjectSupplyViewModel viewModel)
+        {
+            
+        }
+
+        public void AddSupplies(IList<ProjectSupplyViewModel> supplies)
+        {
+            
+        }
+
+        public void RemoveAllSupplies()
+        {
+            
+        }
+
+        public void RemoveSupply(ProjectSupplyViewModel supply)
+        {
+            
+        }
+
+        public void UpdateSupply(ProjectSupplyViewModel supply)
+        {
+            
+        }
+
+        public void AddHardware(ProjectHardwareViewModel viewModel)
+        {
+            
+        }
+
+        public void RemoveHardware(ProjectHardwareViewModel hardware)
+        {
+            
+        }
+
+        public void UpdateHardware(ProjectHardwareViewModel hardware)
+        {
+            
+        }
+
+        public void AddFrame(ProjectFrameViewModel frame)
+        {
+            
+        }
+
+        public void AddFrames(IList<ProjectFrameViewModel> frames)
+        {
+            
+        }
+
+        public void RemoveFrame(ProjectFrameViewModel frame)
+        {
+            
+        }
+
+        public void SetParent(System.Windows.Forms.Control parent)
+        {
+            
         }
     }
 }

@@ -138,12 +138,13 @@ namespace Chiffrage.Projects.Module.Views.Impl
         private void monthView_SelectionChanged(object sender, EventArgs e)
         {
             var begin = this.monthView.SelectionStart;
-            var end = this.monthView.SelectionEnd;
+            var end = begin.AddDays(this.calendarProjects.MaximumViewDays).AddDays(-1);
+            /*var end = this.monthView.SelectionEnd;
             if (begin.AddDays(this.calendarProjects.MaximumViewDays) < end)
             {
                 begin = end.AddDays(-this.calendarProjects.MaximumViewDays).AddDays(1);
                 this.monthView.SelectionStart = begin;
-            }
+            }*/
             this.calendarProjects.SetViewRange(begin, end);
             this.comboBoxProjects.Text = string.Empty;
         }
