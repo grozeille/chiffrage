@@ -477,6 +477,8 @@ namespace Chiffrage.Projects.Module.Controllers
             
             var projectFrameViewModel = Map(eventObject.ProjectFrame, eventObject.ProjectId);
             this.projectView.AddFrame(projectFrameViewModel);
+
+            this.RefreshSummary(eventObject.ProjectId);
         }
 
         [Subscribe]
@@ -486,6 +488,8 @@ namespace Chiffrage.Projects.Module.Controllers
             this.projectView.RemoveFrame(frame);
 
             this.RefreshProject(eventObject.ProjectId);
+
+            this.RefreshSummary(eventObject.ProjectId);
         }
 
         [Subscribe]

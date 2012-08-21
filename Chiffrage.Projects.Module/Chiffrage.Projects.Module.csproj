@@ -62,6 +62,9 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Forms.Calendar">
+      <HintPath>..\Libs\System.Windows.Forms.Calendar.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
@@ -90,6 +93,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\DealItemViewModel.cs" />
+    <Compile Include="ViewModel\DealProjectCalendarItemViewModel.cs" />
     <Compile Include="ViewModel\DealViewModel.cs" />
     <Compile Include="ViewModel\ProjectFrameViewModel.cs" />
     <Compile Include="ViewModel\ProjectHardwareSupplyViewModel.cs" />

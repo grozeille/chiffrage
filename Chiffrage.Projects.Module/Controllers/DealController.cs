@@ -11,6 +11,7 @@ using Chiffrage.Mvc.Controllers;
 using Chiffrage.Projects.Domain.Events;
 using Chiffrage.Projects.Domain.Commands;
 using Chiffrage.Common.Module.Actions;
+using System.Collections.Generic;
 
 namespace Chiffrage.Projects.Module.Controllers
 {
@@ -43,7 +44,13 @@ namespace Chiffrage.Projects.Module.Controllers
 
             var dealViewModel = this.Map(deal);
 
+            Mapper.CreateMap<Project, DealProjectCalendarItemViewModel>()
+                .ForMember(x => x.ProjectId, y => y.MapFrom(z => z.Id));
+
+            var calendarItems = Mapper.Map<IList<Project>, List<DealProjectCalendarItemViewModel>>(deal.Projects);
+            
             this.dealView.SetDealViewModel(dealViewModel);
+            this.dealView.SetCalendarItems(calendarItems);
             this.dealView.ShowView();
         }
 

@@ -527,7 +527,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
             this.dataGridViewHardware.SetDoubleBuffered();
             this.dataGridViewHardwareSupplies.SetDoubleBuffered();
             this.dataGridViewModules.SetDoubleBuffered();
-            this.dataGridViewAllHardware.SetDoubleBuffered();
+            this.dataGridViewItemSummary.SetDoubleBuffered();
 
             this.dataGridViewWork.SetDoubleBuffered();
             this.dataGridViewWorkExecutive.SetDoubleBuffered();
