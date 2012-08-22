@@ -16,37 +16,37 @@ namespace Chiffrage.Catalogs.Module.Views.Impl.WizardPages
         {
             base.OnValidating(e);
 
-            int temp;
+            double tempDouble;
 
             if (string.IsNullOrEmpty(this.textBoxHardwareName.Text))
             {
                 e.Cancel = true; this.errorProvider.SetError(this.textBoxHardwareName, "Obligatoire");
             }
 
-            if (!int.TryParse(this.textBoxStudyDays.Text, out temp))
+            if (!double.TryParse(this.textBoxStudyDays.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out tempDouble))
             {
                 e.Cancel = true; this.errorProvider.SetError(this.textBoxStudyDays, "Doit être un nombre");
             }
 
-            if (!int.TryParse(this.textBoxReferenceDays.Text, out temp))
+            if (!double.TryParse(this.textBoxReferenceDays.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out tempDouble))
             {
                 e.Cancel = true;
                 this.errorProvider.SetError(this.textBoxReferenceDays, "Doit être un nombre");
             }
 
-            if (!int.TryParse(this.textBoxCatalogWorkDays.Text, out temp))
+            if (!double.TryParse(this.textBoxCatalogWorkDays.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out tempDouble))
             {
                 e.Cancel = true;
                 this.errorProvider.SetError(this.textBoxCatalogWorkDays, "Doit être un nombre");
             }
 
-            if (!int.TryParse(this.textBoxCatalogExecutiveWorkDays.Text, out temp))
+            if (!double.TryParse(this.textBoxCatalogExecutiveWorkDays.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out tempDouble))
             {
                 e.Cancel = true;
                 this.errorProvider.SetError(this.textBoxCatalogExecutiveWorkDays, "Doit être un nombre");
             }
 
-            if (!int.TryParse(this.textBoxTestsDays.Text, out temp))
+            if (!double.TryParse(this.textBoxTestsDays.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out tempDouble))
             {
                 e.Cancel = true;
                 this.errorProvider.SetError(this.textBoxTestsDays, "Doit être un nombre");

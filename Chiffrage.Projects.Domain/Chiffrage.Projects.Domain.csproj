@@ -55,6 +55,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\UpdateProjectHardwareWorkCommand.cs" />
     <Compile Include="Commands\DeleteProjectFrameCommand.cs" />
     <Compile Include="Commands\CreateNewProjectFrameCommand.cs" />
     <Compile Include="Commands\CreateNewProjectHardwareCommand.cs" />

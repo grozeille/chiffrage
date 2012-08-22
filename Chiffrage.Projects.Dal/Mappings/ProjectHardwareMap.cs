@@ -34,9 +34,11 @@ namespace Chiffrage.Projects.Dal.Mappings
             Property(x => x.CatalogTestsDays);
             Property(x => x.StudyDays);
             Property(x => x.ReferenceDays);
-            Property(x => x.WorkDays);
-            Property(x => x.ExecutiveWorkDays);
             Property(x => x.TestsDays);
+            Property(x => x.WorkDays);
+            Property(x => x.WorkShortNights);
+            Property(x => x.WorkLongNights);
+            Property(x => x.ExecutiveWorkDays);
 
             this.Bag(x => x.Components, y =>
             {

@@ -481,10 +481,10 @@ namespace Chiffrage.Projects.Module.Views.Impl
         public void RemoveHardware(ProjectHardwareViewModel hardware)
         {
             this.InvokeIfRequired(() =>
-                {
-                    var item = this.hardwares.Where(x => x.Id == hardware.Id).First();
-                    this.hardwares.Remove(item);
-                });
+            {
+                var item = this.hardwares.Where(x => x.Id == hardware.Id).First();
+                this.hardwares.Remove(item);
+            });
         }
 
         public void UpdateHardware(ProjectHardwareViewModel hardware)
@@ -649,6 +649,64 @@ namespace Chiffrage.Projects.Module.Views.Impl
                         this.studyReferenceTests.Add(item);
                     }
                 }
+            });
+        }
+
+
+        public void UpdateHardwareStudyReferenceTest(ProjectHardwareStudyReferenceTestViewModel hardware)
+        {
+            this.InvokeIfRequired(() =>
+            {
+                var h = this.studyReferenceTests.Where(x => x.Id == hardware.Id).First();
+                var index = this.studyReferenceTests.IndexOf(h);
+                this.studyReferenceTests[index] = hardware;
+            });
+        }
+
+        public void UpdateHardwareExecutiveWork(ProjectHardwareExecutiveWorkViewModel hardware)
+        {
+            this.InvokeIfRequired(() =>
+            {
+                var h = this.executiveWorks.Where(x => x.Id == hardware.Id).First();
+                var index = this.executiveWorks.IndexOf(h);
+                this.executiveWorks[index] = hardware;
+            });
+        }
+
+        public void UpdateHardwareWork(ProjectHardwareWorkViewModel hardware)
+        {
+            this.InvokeIfRequired(() =>
+            {
+                var h = this.works.Where(x => x.Id == hardware.Id).First();
+                var index = this.works.IndexOf(h);
+                this.works[index] = hardware;
+            });
+        }
+
+        public void RemoveHardwareWork(ProjectHardwareWorkViewModel hardware)
+        {
+            this.InvokeIfRequired(() =>
+            {
+                var item = this.works.Where(x => x.Id == hardware.Id).First();
+                this.works.Remove(item);
+            });
+        }
+
+        public void RemoveHardwareExecutiveWork(ProjectHardwareExecutiveWorkViewModel hardware)
+        {
+            this.InvokeIfRequired(() =>
+            {
+                var item = this.executiveWorks.Where(x => x.Id == hardware.Id).First();
+                this.executiveWorks.Remove(item);
+            });
+        }
+
+        public void RemoveHardwareStudyReferenceTest(ProjectHardwareStudyReferenceTestViewModel hardware)
+        {
+            this.InvokeIfRequired(() =>
+            {
+                var item = this.studyReferenceTests.Where(x => x.Id == hardware.Id).First();
+                this.studyReferenceTests.Remove(item);
             });
         }
     }

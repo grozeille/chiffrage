@@ -45,6 +45,8 @@ namespace Chiffrage.Projects.Module.Controllers
 
         private readonly IEditProjectHardwareSupplyView editProjectHardwareSupplyView;
 
+        private readonly IEditProjectHardwareWorkView editProjectHardwareWorkView;
+
         // no better way...
         private readonly System.Windows.Forms.RichTextBox rtBox = new System.Windows.Forms.RichTextBox();
 
@@ -62,6 +64,7 @@ namespace Chiffrage.Projects.Module.Controllers
             IEditProjectHardwareView editProjectHardwareView,
             INewProjectFrameView newProjectFrameView,
             IEditProjectHardwareSupplyView editProjectHardwareSupplyView,
+            IEditProjectHardwareWorkView editProjectHardwareWorkView,
             ICatalogRepository catalogRepository)
         {
             this.projectView = projectView;
@@ -74,6 +77,7 @@ namespace Chiffrage.Projects.Module.Controllers
             this.editProjectSupplyView = editProjectSupplyView;
             this.newProjectFrameView = newProjectFrameView;
             this.editProjectHardwareSupplyView = editProjectHardwareSupplyView;
+            this.editProjectHardwareWorkView = editProjectHardwareWorkView;
             this.catalogRepository = catalogRepository;
         }
 
@@ -508,6 +512,16 @@ namespace Chiffrage.Projects.Module.Controllers
             var hardware = MapToHardwareViewModel(eventObject.Hardware, eventObject.ProjectId);
             this.projectView.RemoveHardware(hardware);
 
+            var workViewModel = MapToHardwareWorkViewModel(eventObject.Hardware, eventObject.ProjectId);
+            this.projectView.RemoveHardwareWork(workViewModel);
+
+            var executiveWorkViewModel = MapToHardwareExecutiveWorkViewModel(eventObject.Hardware, eventObject.ProjectId);
+            this.projectView.RemoveHardwareExecutiveWork(executiveWorkViewModel);
+
+            var studyReferenceTestViewModel = MapToHardwareStudyReferenceTestViewModel(eventObject.Hardware, eventObject.ProjectId);
+            this.projectView.RemoveHardwareStudyReferenceTest(studyReferenceTestViewModel);
+
+
             this.RefreshSummary(eventObject.ProjectId);
 
             this.RefreshProject(eventObject.ProjectId);
@@ -564,6 +578,15 @@ namespace Chiffrage.Projects.Module.Controllers
             var viewModel = MapToHardwareViewModel(eventObject.ProjectHardware, eventObject.ProjectId);
             this.projectView.UpdateHardware(viewModel);
 
+            var workViewModel = MapToHardwareWorkViewModel(eventObject.ProjectHardware, eventObject.ProjectId);
+            this.projectView.UpdateHardwareWork(workViewModel);
+
+            var executiveWorkViewModel = MapToHardwareExecutiveWorkViewModel(eventObject.ProjectHardware, eventObject.ProjectId);
+            this.projectView.UpdateHardwareExecutiveWork(executiveWorkViewModel);
+
+            var studyReferenceTestViewModel = MapToHardwareStudyReferenceTestViewModel(eventObject.ProjectHardware, eventObject.ProjectId);
+            this.projectView.UpdateHardwareStudyReferenceTest(studyReferenceTestViewModel);
+
             this.RefreshProject(eventObject.ProjectId);
         }
 
@@ -586,6 +609,8 @@ namespace Chiffrage.Projects.Module.Controllers
         [Subscribe]
         public void ProcessAction(RequestEditProjectHardwareWorkAction eventObject)
         {
+            this.editProjectHardwareWorkView.Hardware = eventObject.Hardware;
+            this.editProjectHardwareWorkView.ShowView();
         }
 
         [Subscribe]

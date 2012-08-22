@@ -54,5 +54,17 @@ namespace Chiffrage.Projects.Module.Views
         void SetHardwareExecutiveWorks(List<ProjectHardwareExecutiveWorkViewModel> executiveWorks);
 
         void SetHardwareStudyReferenceTests(List<ProjectHardwareStudyReferenceTestViewModel> studyReferenceTests);
+
+        void UpdateHardwareStudyReferenceTest(ProjectHardwareStudyReferenceTestViewModel studyReferenceTestViewModel);
+
+        void UpdateHardwareExecutiveWork(ProjectHardwareExecutiveWorkViewModel executiveWorkViewModel);
+
+        void UpdateHardwareWork(ProjectHardwareWorkViewModel workViewModel);
+
+        void RemoveHardwareWork(ProjectHardwareWorkViewModel workViewModel);
+
+        void RemoveHardwareExecutiveWork(ProjectHardwareExecutiveWorkViewModel executiveWorkViewModel);
+
+        void RemoveHardwareStudyReferenceTest(ProjectHardwareStudyReferenceTestViewModel studyReferenceTestViewModel);
     }
 }

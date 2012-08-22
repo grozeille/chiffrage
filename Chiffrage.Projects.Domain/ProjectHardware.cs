@@ -36,20 +36,29 @@ namespace Chiffrage.Projects.Domain
 
         public virtual double CatalogReferenceDays { get; set; }
 
+        public virtual double CatalogTestsDays { get; set; }
+
         public virtual double CatalogWorkDays { get; set; }
 
         public virtual double CatalogExecutiveWorkDays { get; set; }
-
-        public virtual double CatalogTestsDays { get; set; }
 
         public virtual double StudyDays { get; set; }
 
         public virtual double ReferenceDays { get; set; }
 
+        public virtual double TestsDays { get; set; }
+
         public virtual double WorkDays { get; set; }
+
+        public virtual double WorkShortNights { get; set; }
+
+        public virtual double WorkLongNights { get; set; }
 
         public virtual double ExecutiveWorkDays { get; set; }
 
-        public virtual double TestsDays { get; set; }
+        public virtual double ExecutiveWorkShortNights { get; set; }
+
+        public virtual double ExecutiveWorkLongNights { get; set; }
+
     }
 }
