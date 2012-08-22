@@ -78,7 +78,7 @@ namespace Chiffrage.Projects.Module.Controllers
         }
 
 
-        private ProjectHardwareViewModel Map(ProjectHardware hardware, int projectId)
+        private ProjectHardwareViewModel MapToHardwareViewModel(ProjectHardware hardware, int projectId)
         {
             Mapper.CreateMap<ProjectHardware, ProjectHardwareViewModel>();
             Mapper.CreateMap<ProjectHardwareSupply, ProjectHardwareSupplyViewModel>();
@@ -101,17 +101,50 @@ namespace Chiffrage.Projects.Module.Controllers
             viewModel.TotalCatalogPrice = hardware.Components.Sum(x => x.Supply.CatalogPrice * x.Quantity);
             viewModel.TotalPrice = hardware.Components.Sum(x => x.Supply.Price * x.Quantity);
 
+            return viewModel;
+        }
+
+        private ProjectHardwareStudyReferenceTestViewModel MapToHardwareStudyReferenceTestViewModel(ProjectHardware hardware, int projectId)
+        {
+            Mapper.CreateMap<ProjectHardware, ProjectHardwareStudyReferenceTestViewModel>();
+            var viewModel = Mapper.Map<ProjectHardware, ProjectHardwareStudyReferenceTestViewModel>(hardware);
+            viewModel.ProjectId = projectId;
+            
             viewModel.TotalCatalogStudyDays = viewModel.CatalogStudyDays * viewModel.Quantity;
             viewModel.TotalCatalogReferenceDays = viewModel.CatalogReferenceDays * viewModel.Quantity;
-            viewModel.TotalCatalogWorkDays = viewModel.CatalogWorkDays * viewModel.Quantity; 
-            viewModel.TotalCatalogExecutiveWorkDays = viewModel.CatalogExecutiveWorkDays * viewModel.Quantity;
             viewModel.TotalCatalogTestsDays = viewModel.CatalogTestsDays * viewModel.Quantity;
 
             viewModel.TotalStudyDays = viewModel.StudyDays * viewModel.Quantity;
             viewModel.TotalReferenceDays = viewModel.ReferenceDays * viewModel.Quantity;
-            viewModel.TotalWorkDays = viewModel.WorkDays * viewModel.Quantity;
-            viewModel.TotalExecutiveWorkDays = viewModel.ExecutiveWorkDays * viewModel.Quantity;
             viewModel.TotalTestsDays = viewModel.TestsDays * viewModel.Quantity;
+            
+            return viewModel;
+        }
+
+        private ProjectHardwareExecutiveWorkViewModel MapToHardwareExecutiveWorkViewModel(ProjectHardware hardware, int projectId)
+        {
+            Mapper.CreateMap<ProjectHardware, ProjectHardwareExecutiveWorkViewModel>();
+            var viewModel = Mapper.Map<ProjectHardware, ProjectHardwareExecutiveWorkViewModel>(hardware);
+            viewModel.ProjectId = projectId;
+
+            viewModel.TotalCatalogExecutiveWorkDays = viewModel.CatalogExecutiveWorkDays * viewModel.Quantity;
+            viewModel.TotalExecutiveWorkDays = viewModel.ExecutiveWorkDays * viewModel.Quantity;
+            viewModel.TotalExecutiveWorkShortNights = viewModel.ExecutiveWorkShortNights * viewModel.Quantity;
+            viewModel.TotalExecutiveWorkLongNights = viewModel.ExecutiveWorkLongNights * viewModel.Quantity;
+            
+            return viewModel;
+        }
+
+        private ProjectHardwareWorkViewModel MapToHardwareWorkViewModel(ProjectHardware hardware, int projectId)
+        {
+            Mapper.CreateMap<ProjectHardware, ProjectHardwareWorkViewModel>();
+            var viewModel = Mapper.Map<ProjectHardware, ProjectHardwareWorkViewModel>(hardware);
+            viewModel.ProjectId = projectId;
+
+            viewModel.TotalCatalogWorkDays = viewModel.CatalogWorkDays * viewModel.Quantity;
+            viewModel.TotalWorkDays = viewModel.WorkDays * viewModel.Quantity;
+            viewModel.TotalWorkShortNights = viewModel.WorkShortNights * viewModel.Quantity;
+            viewModel.TotalWorkLongNights = viewModel.WorkLongNights * viewModel.Quantity;
 
             return viewModel;
         }
@@ -280,11 +313,19 @@ namespace Chiffrage.Projects.Module.Controllers
             {
                 supplies.Add(Map(item, project.Id));
             }
+
+            var works = new List<ProjectHardwareWorkViewModel>();
+            var executiveWorks = new List<ProjectHardwareExecutiveWorkViewModel>();
+            var studyReferenceTests = new List<ProjectHardwareStudyReferenceTestViewModel>();
             var hardwares = new List<ProjectHardwareViewModel>();
             foreach (var item in project.Hardwares)
             {
-                hardwares.Add(Map(item, project.Id));
+                hardwares.Add(MapToHardwareViewModel(item, project.Id));
+                works.Add(MapToHardwareWorkViewModel(item, project.Id));
+                executiveWorks.Add(MapToHardwareExecutiveWorkViewModel(item, project.Id));
+                studyReferenceTests.Add(MapToHardwareStudyReferenceTestViewModel(item, project.Id));
             }
+
             var frames = new List<ProjectFrameViewModel>();
             foreach (var item in project.Frames)
             {
@@ -295,6 +336,9 @@ namespace Chiffrage.Projects.Module.Controllers
             this.projectView.SetSupplies(supplies);
             this.projectView.SetHardwares(hardwares);
             this.projectView.SetFrames(frames);
+            this.projectView.SetHardwareWorks(works);
+            this.projectView.SetHardwareExecutiveWorks(executiveWorks);
+            this.projectView.SetHardwareStudyReferenceTests(studyReferenceTests);
 
             this.RefreshSummary(project.Id);
 
@@ -437,8 +481,21 @@ namespace Chiffrage.Projects.Module.Controllers
         [Subscribe]
         public void ProcessAction(ProjectHardwareCreatedEvent eventObject)
         {
-            var viewModel = Map(eventObject.ProjectHardware, eventObject.ProjectId);
+            var viewModel = MapToHardwareViewModel(eventObject.ProjectHardware, eventObject.ProjectId);
+            
             this.projectView.AddHardware(viewModel);
+
+            var workViewModel = MapToHardwareWorkViewModel(eventObject.ProjectHardware, eventObject.ProjectId);
+
+            this.projectView.AddHardwareWork(workViewModel);
+
+            var executiveWorkViewModel = MapToHardwareExecutiveWorkViewModel(eventObject.ProjectHardware, eventObject.ProjectId);
+
+            this.projectView.AddHardwareExecutiveWork(executiveWorkViewModel);
+
+            var studyReferenceTestViewModel = MapToHardwareStudyReferenceTestViewModel(eventObject.ProjectHardware, eventObject.ProjectId);
+
+            this.projectView.AddHardwareStudyReferenceTest(studyReferenceTestViewModel);
 
             this.RefreshSummary(eventObject.ProjectId);
 
@@ -448,7 +505,7 @@ namespace Chiffrage.Projects.Module.Controllers
         [Subscribe]
         public void ProcessAction(ProjectHardwareDeletedEvent eventObject)
         {
-            var hardware = Map(eventObject.Hardware, eventObject.ProjectId);
+            var hardware = MapToHardwareViewModel(eventObject.Hardware, eventObject.ProjectId);
             this.projectView.RemoveHardware(hardware);
 
             this.RefreshSummary(eventObject.ProjectId);
@@ -504,7 +561,7 @@ namespace Chiffrage.Projects.Module.Controllers
         [Subscribe]
         public void ProcessAction(ProjectHardwareUpdatedEvent eventObject)
         {
-            var viewModel = Map(eventObject.ProjectHardware, eventObject.ProjectId);
+            var viewModel = MapToHardwareViewModel(eventObject.ProjectHardware, eventObject.ProjectId);
             this.projectView.UpdateHardware(viewModel);
 
             this.RefreshProject(eventObject.ProjectId);
@@ -520,10 +577,25 @@ namespace Chiffrage.Projects.Module.Controllers
         [Subscribe]
         public void ProcessAction(ProjectHardwareSupplyUpdatedEvent eventObject)
         {
-            var viewModel = Map(eventObject.ProjectHardware, eventObject.ProjectId);
+            var viewModel = MapToHardwareViewModel(eventObject.ProjectHardware, eventObject.ProjectId);
             this.projectView.UpdateHardware(viewModel);
 
             this.RefreshProject(eventObject.ProjectId);
+        }
+
+        [Subscribe]
+        public void ProcessAction(RequestEditProjectHardwareWorkAction eventObject)
+        {
+        }
+
+        [Subscribe]
+        public void ProcessAction(RequestEditProjectHardwareExecutiveWorkAction eventObject)
+        {
+        }
+
+        [Subscribe]
+        public void ProcessAction(RequestEditProjectHardwareStudyReferenceTestAction eventObject)
+        {
         }
     }
 }

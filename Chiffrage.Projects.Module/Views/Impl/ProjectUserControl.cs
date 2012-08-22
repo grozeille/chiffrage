@@ -30,6 +30,12 @@ namespace Chiffrage.Projects.Module.Views.Impl
 
         private readonly SortableBindingList<ProjectFrameViewModel> frames = new SortableBindingList<ProjectFrameViewModel>();
 
+        private readonly SortableBindingList<ProjectHardwareWorkViewModel> works = new SortableBindingList<ProjectHardwareWorkViewModel>();
+
+        private readonly SortableBindingList<ProjectHardwareExecutiveWorkViewModel> executiveWorks = new SortableBindingList<ProjectHardwareExecutiveWorkViewModel>();
+
+        private readonly SortableBindingList<ProjectHardwareStudyReferenceTestViewModel> studyReferenceTests = new SortableBindingList<ProjectHardwareStudyReferenceTestViewModel>();
+
         private Font defaultFont = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Regular,
                                             GraphicsUnit.Point, ((byte) (0)));
         
@@ -43,6 +49,9 @@ namespace Chiffrage.Projects.Module.Views.Impl
             this.projectHardwareViewModelBindingSource.DataSource = hardwares;
             this.projectFrameViewModelBindingSource.DataSource = frames;
             this.projectSummaryItemViewModelBindingSource.DataSource = summaryItems;
+            this.projectHardwareWorkViewModelBindingSource.DataSource = works;
+            this.projectHardwareExecutiveWorkViewModelBindingSource.DataSource = executiveWorks;
+            this.projectHardwareStudyReferenceTestViewModelBindingSource.DataSource = studyReferenceTests;
 
             this.textBoxStudyRate.Validating += this.ValidateIsDoubleTextBox;
             this.textBoxProjectName.Validating += this.ValidateIsRequiredTextBox;
@@ -307,6 +316,33 @@ namespace Chiffrage.Projects.Module.Views.Impl
             }
         }
 
+        private void dataGridViewStudyReferenceTest_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            var hardware = this.projectHardwareStudyReferenceTestViewModelBindingSource[e.RowIndex] as ProjectHardwareStudyReferenceTestViewModel;
+            if (hardware != null)
+            {
+                this.eventBroker.Publish(new RequestEditProjectHardwareStudyReferenceTestAction(hardware));
+            }
+        }
+
+        private void dataGridViewWork_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            var hardware = this.projectHardwareWorkViewModelBindingSource[e.RowIndex] as ProjectHardwareWorkViewModel;
+            if (hardware != null)
+            {
+                this.eventBroker.Publish(new RequestEditProjectHardwareWorkAction(hardware));
+            }
+        }
+
+        private void dataGridViewExecutiveWork_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            var hardware = this.projectHardwareExecutiveWorkViewModelBindingSource[e.RowIndex] as ProjectHardwareExecutiveWorkViewModel;
+            if (hardware != null)
+            {
+                this.eventBroker.Publish(new RequestEditProjectHardwareExecutiveWorkAction(hardware));
+            }
+        }
+
         public void SetProjectViewModel(ProjectViewModel viewModel)
         {
             this.InvokeIfRequired(() =>
@@ -397,16 +433,16 @@ namespace Chiffrage.Projects.Module.Views.Impl
         public void SetSupplies(IList<ProjectSupplyViewModel> supplies)
         {
             this.InvokeIfRequired(() =>
+            {
+                this.supplies.Clear();
+                if (supplies != null)
                 {
-                    this.supplies.Clear();
-                    if (supplies != null)
+                    foreach (var item in supplies)
                     {
-                        foreach (var item in supplies)
-                        {
-                            this.supplies.Add(item);
-                        }
+                        this.supplies.Add(item);
                     }
-                });
+                }
+            });
         }
 
         public void UpdateSupply(ProjectSupplyViewModel supply)
@@ -530,9 +566,8 @@ namespace Chiffrage.Projects.Module.Views.Impl
             this.dataGridViewItemSummary.SetDoubleBuffered();
 
             this.dataGridViewWork.SetDoubleBuffered();
-            this.dataGridViewWorkExecutive.SetDoubleBuffered();
-            this.dataGridViewStudy.SetDoubleBuffered();
-            this.dataGridViewTests.SetDoubleBuffered();
+            this.dataGridViewExecutiveWork.SetDoubleBuffered();
+            this.dataGridViewStudyReferenceTest.SetDoubleBuffered();
             this.dataGridViewOther.SetDoubleBuffered();
 
             this.dataGridViewSummary.SetDoubleBuffered();
@@ -545,6 +580,76 @@ namespace Chiffrage.Projects.Module.Views.Impl
             {
                 this.eventBroker.Publish(new RequestEditProjectHardwareSupplyAction(hardwareSupply));
             }
+        }
+
+        public void AddHardwareWork(ProjectHardwareWorkViewModel workViewModel)
+        {
+            this.InvokeIfRequired(() =>
+            {
+                this.works.Add(workViewModel);
+            });
+        }
+
+        public void AddHardwareExecutiveWork(ProjectHardwareExecutiveWorkViewModel executiveWorkViewModel)
+        {
+            this.InvokeIfRequired(() =>
+            {
+                this.executiveWorks.Add(executiveWorkViewModel);
+            });
+        }
+
+        public void AddHardwareStudyReferenceTest(ProjectHardwareStudyReferenceTestViewModel studyReferenceTestViewModel)
+        {
+            this.InvokeIfRequired(() =>
+            {
+                this.studyReferenceTests.Add(studyReferenceTestViewModel);
+            });
+        }
+
+
+        public void SetHardwareWorks(List<ProjectHardwareWorkViewModel> works)
+        {
+            this.InvokeIfRequired(() =>
+            {
+                this.works.Clear();
+                if (works != null)
+                {
+                    foreach (var item in works)
+                    {
+                        this.works.Add(item);
+                    }
+                }
+            });
+        }
+
+        public void SetHardwareExecutiveWorks(List<ProjectHardwareExecutiveWorkViewModel> executiveWorks)
+        {
+            this.InvokeIfRequired(() =>
+            {
+                this.executiveWorks.Clear();
+                if (executiveWorks != null)
+                {
+                    foreach (var item in executiveWorks)
+                    {
+                        this.executiveWorks.Add(item);
+                    }
+                }
+            });
+        }
+
+        public void SetHardwareStudyReferenceTests(List<ProjectHardwareStudyReferenceTestViewModel> studyReferenceTests)
+        {
+            this.InvokeIfRequired(() =>
+            {
+                this.studyReferenceTests.Clear();
+                if (studyReferenceTests != null)
+                {
+                    foreach (var item in studyReferenceTests)
+                    {
+                        this.studyReferenceTests.Add(item);
+                    }
+                }
+            });
         }
     }
 }

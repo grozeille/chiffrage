@@ -29,12 +29,16 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.Calendar.CalendarHighlightRange calendarHighlightRange6 = new System.Windows.Forms.Calendar.CalendarHighlightRange();
-            System.Windows.Forms.Calendar.CalendarHighlightRange calendarHighlightRange7 = new System.Windows.Forms.Calendar.CalendarHighlightRange();
-            System.Windows.Forms.Calendar.CalendarHighlightRange calendarHighlightRange8 = new System.Windows.Forms.Calendar.CalendarHighlightRange();
-            System.Windows.Forms.Calendar.CalendarHighlightRange calendarHighlightRange9 = new System.Windows.Forms.Calendar.CalendarHighlightRange();
-            System.Windows.Forms.Calendar.CalendarHighlightRange calendarHighlightRange10 = new System.Windows.Forms.Calendar.CalendarHighlightRange();
+            System.Windows.Forms.Calendar.CalendarHighlightRange calendarHighlightRange1 = new System.Windows.Forms.Calendar.CalendarHighlightRange();
+            System.Windows.Forms.Calendar.CalendarHighlightRange calendarHighlightRange2 = new System.Windows.Forms.Calendar.CalendarHighlightRange();
+            System.Windows.Forms.Calendar.CalendarHighlightRange calendarHighlightRange3 = new System.Windows.Forms.Calendar.CalendarHighlightRange();
+            System.Windows.Forms.Calendar.CalendarHighlightRange calendarHighlightRange4 = new System.Windows.Forms.Calendar.CalendarHighlightRange();
+            System.Windows.Forms.Calendar.CalendarHighlightRange calendarHighlightRange5 = new System.Windows.Forms.Calendar.CalendarHighlightRange();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.dateTimePickerDealEnd = new System.Windows.Forms.DateTimePicker();
+            this.bindingSourceDeal = new System.Windows.Forms.BindingSource(this.components);
             this.labelEnd = new System.Windows.Forms.Label();
             this.dateTimePickerDealBegin = new System.Windows.Forms.DateTimePicker();
             this.labelDealDate = new System.Windows.Forms.Label();
@@ -49,17 +53,20 @@
             this.tabPageSummary = new System.Windows.Forms.TabPage();
             this.tabPageScheduling = new System.Windows.Forms.TabPage();
             this.calendarProjects = new System.Windows.Forms.Calendar.Calendar();
-            this.monthView = new System.Windows.Forms.Calendar.MonthView();
             this.panelSelectDate = new System.Windows.Forms.Panel();
-            this.bindingSourceDeal = new System.Windows.Forms.BindingSource(this.components);
+            this.monthView = new System.Windows.Forms.Calendar.MonthView();
             this.comboBoxProjects = new System.Windows.Forms.ComboBox();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceDeal)).BeginInit();
             this.panelMain.SuspendLayout();
             this.tabControlDeal.SuspendLayout();
             this.tabPageDeal.SuspendLayout();
             this.tabPageScheduling.SuspendLayout();
             this.panelSelectDate.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceDeal)).BeginInit();
+            this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.SuspendLayout();
             // 
             // dateTimePickerDealEnd
@@ -69,6 +76,10 @@
             this.dateTimePickerDealEnd.Name = "dateTimePickerDealEnd";
             this.dateTimePickerDealEnd.Size = new System.Drawing.Size(200, 20);
             this.dateTimePickerDealEnd.TabIndex = 3;
+            // 
+            // bindingSourceDeal
+            // 
+            this.bindingSourceDeal.DataSource = typeof(Chiffrage.Projects.Module.ViewModel.DealViewModel);
             // 
             // labelEnd
             // 
@@ -163,6 +174,7 @@
             this.tabControlDeal.Controls.Add(this.tabPageDeal);
             this.tabControlDeal.Controls.Add(this.tabPageSummary);
             this.tabControlDeal.Controls.Add(this.tabPageScheduling);
+            this.tabControlDeal.Controls.Add(this.tabPage1);
             this.tabControlDeal.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControlDeal.Location = new System.Drawing.Point(0, 0);
             this.tabControlDeal.Name = "tabControlDeal";
@@ -212,33 +224,43 @@
             this.calendarProjects.Dock = System.Windows.Forms.DockStyle.Fill;
             this.calendarProjects.FirstDayOfWeek = System.DayOfWeek.Monday;
             this.calendarProjects.Font = new System.Drawing.Font("Segoe UI", 9F);
-            calendarHighlightRange6.DayOfWeek = System.DayOfWeek.Monday;
-            calendarHighlightRange6.EndTime = System.TimeSpan.Parse("17:00:00");
-            calendarHighlightRange6.StartTime = System.TimeSpan.Parse("08:00:00");
-            calendarHighlightRange7.DayOfWeek = System.DayOfWeek.Tuesday;
-            calendarHighlightRange7.EndTime = System.TimeSpan.Parse("17:00:00");
-            calendarHighlightRange7.StartTime = System.TimeSpan.Parse("08:00:00");
-            calendarHighlightRange8.DayOfWeek = System.DayOfWeek.Wednesday;
-            calendarHighlightRange8.EndTime = System.TimeSpan.Parse("17:00:00");
-            calendarHighlightRange8.StartTime = System.TimeSpan.Parse("08:00:00");
-            calendarHighlightRange9.DayOfWeek = System.DayOfWeek.Thursday;
-            calendarHighlightRange9.EndTime = System.TimeSpan.Parse("17:00:00");
-            calendarHighlightRange9.StartTime = System.TimeSpan.Parse("08:00:00");
-            calendarHighlightRange10.DayOfWeek = System.DayOfWeek.Friday;
-            calendarHighlightRange10.EndTime = System.TimeSpan.Parse("17:00:00");
-            calendarHighlightRange10.StartTime = System.TimeSpan.Parse("08:00:00");
+            calendarHighlightRange1.DayOfWeek = System.DayOfWeek.Monday;
+            calendarHighlightRange1.EndTime = System.TimeSpan.Parse("17:00:00");
+            calendarHighlightRange1.StartTime = System.TimeSpan.Parse("08:00:00");
+            calendarHighlightRange2.DayOfWeek = System.DayOfWeek.Tuesday;
+            calendarHighlightRange2.EndTime = System.TimeSpan.Parse("17:00:00");
+            calendarHighlightRange2.StartTime = System.TimeSpan.Parse("08:00:00");
+            calendarHighlightRange3.DayOfWeek = System.DayOfWeek.Wednesday;
+            calendarHighlightRange3.EndTime = System.TimeSpan.Parse("17:00:00");
+            calendarHighlightRange3.StartTime = System.TimeSpan.Parse("08:00:00");
+            calendarHighlightRange4.DayOfWeek = System.DayOfWeek.Thursday;
+            calendarHighlightRange4.EndTime = System.TimeSpan.Parse("17:00:00");
+            calendarHighlightRange4.StartTime = System.TimeSpan.Parse("08:00:00");
+            calendarHighlightRange5.DayOfWeek = System.DayOfWeek.Friday;
+            calendarHighlightRange5.EndTime = System.TimeSpan.Parse("17:00:00");
+            calendarHighlightRange5.StartTime = System.TimeSpan.Parse("08:00:00");
             this.calendarProjects.HighlightRanges = new System.Windows.Forms.Calendar.CalendarHighlightRange[] {
-        calendarHighlightRange6,
-        calendarHighlightRange7,
-        calendarHighlightRange8,
-        calendarHighlightRange9,
-        calendarHighlightRange10};
+        calendarHighlightRange1,
+        calendarHighlightRange2,
+        calendarHighlightRange3,
+        calendarHighlightRange4,
+        calendarHighlightRange5};
             this.calendarProjects.Location = new System.Drawing.Point(218, 3);
             this.calendarProjects.Name = "calendarProjects";
             this.calendarProjects.Size = new System.Drawing.Size(595, 437);
             this.calendarProjects.TabIndex = 0;
             this.calendarProjects.Text = "calendar1";
             this.calendarProjects.LoadItems += new System.Windows.Forms.Calendar.Calendar.CalendarLoadEventHandler(this.calendar1_LoadItems);
+            // 
+            // panelSelectDate
+            // 
+            this.panelSelectDate.Controls.Add(this.monthView);
+            this.panelSelectDate.Controls.Add(this.comboBoxProjects);
+            this.panelSelectDate.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panelSelectDate.Location = new System.Drawing.Point(3, 3);
+            this.panelSelectDate.Name = "panelSelectDate";
+            this.panelSelectDate.Size = new System.Drawing.Size(215, 437);
+            this.panelSelectDate.TabIndex = 1;
             // 
             // monthView
             // 
@@ -263,20 +285,6 @@
             this.monthView.TodayBorderColor = System.Drawing.Color.Maroon;
             this.monthView.SelectionChanged += new System.EventHandler(this.monthView_SelectionChanged);
             // 
-            // panelSelectDate
-            // 
-            this.panelSelectDate.Controls.Add(this.monthView);
-            this.panelSelectDate.Controls.Add(this.comboBoxProjects);
-            this.panelSelectDate.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panelSelectDate.Location = new System.Drawing.Point(3, 3);
-            this.panelSelectDate.Name = "panelSelectDate";
-            this.panelSelectDate.Size = new System.Drawing.Size(215, 437);
-            this.panelSelectDate.TabIndex = 1;
-            // 
-            // bindingSourceDeal
-            // 
-            this.bindingSourceDeal.DataSource = typeof(Chiffrage.Projects.Module.ViewModel.DealViewModel);
-            // 
             // comboBoxProjects
             // 
             this.comboBoxProjects.Dock = System.Windows.Forms.DockStyle.Top;
@@ -288,6 +296,34 @@
             this.comboBoxProjects.TabIndex = 0;
             this.comboBoxProjects.SelectedIndexChanged += new System.EventHandler(this.comboBoxProjects_SelectedIndexChanged);
             // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.chart1);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(816, 443);
+            this.tabPage1.TabIndex = 3;
+            this.tabPage1.Text = "tabPage1";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // chart1
+            // 
+            chartArea1.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chart1.Legends.Add(legend1);
+            this.chart1.Location = new System.Drawing.Point(29, 27);
+            this.chart1.Name = "chart1";
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.chart1.Series.Add(series1);
+            this.chart1.Size = new System.Drawing.Size(408, 308);
+            this.chart1.TabIndex = 0;
+            this.chart1.Text = "chart1";
+            // 
             // DealUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -296,13 +332,15 @@
             this.Name = "DealUserControl";
             this.Size = new System.Drawing.Size(824, 469);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceDeal)).EndInit();
             this.panelMain.ResumeLayout(false);
             this.panelMain.PerformLayout();
             this.tabControlDeal.ResumeLayout(false);
             this.tabPageDeal.ResumeLayout(false);
             this.tabPageScheduling.ResumeLayout(false);
             this.panelSelectDate.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceDeal)).EndInit();
+            this.tabPage1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -328,5 +366,7 @@
         private System.Windows.Forms.Panel panelSelectDate;
         private System.Windows.Forms.Calendar.MonthView monthView;
         private System.Windows.Forms.ComboBox comboBoxProjects;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
     }
 }

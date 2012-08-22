@@ -42,5 +42,17 @@ namespace Chiffrage.Projects.Module.Views
         void AddFrames(IList<ProjectFrameViewModel> frames);
 
         void RemoveFrame(ProjectFrameViewModel frame);
+
+        void AddHardwareWork(ProjectHardwareWorkViewModel workViewModel);
+
+        void AddHardwareExecutiveWork(ProjectHardwareExecutiveWorkViewModel executiveWorkViewModel);
+
+        void AddHardwareStudyReferenceTest(ProjectHardwareStudyReferenceTestViewModel studyReferenceTestViewModel);
+
+        void SetHardwareWorks(List<ProjectHardwareWorkViewModel> works);
+
+        void SetHardwareExecutiveWorks(List<ProjectHardwareExecutiveWorkViewModel> executiveWorks);
+
+        void SetHardwareStudyReferenceTests(List<ProjectHardwareStudyReferenceTestViewModel> studyReferenceTests);
     }
 }

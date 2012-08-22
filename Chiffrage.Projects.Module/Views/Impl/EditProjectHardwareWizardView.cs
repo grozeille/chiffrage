@@ -35,17 +35,6 @@ namespace Chiffrage.Projects.Module.Views.Impl
             this.editHardwarePage.TypedPage.Quantity = this.hardware.Quantity;
 
             this.editHardwarePage.TypedPage.HardwareName = this.hardware.Name;
-            this.editHardwarePage.TypedPage.ReferenceDays = this.hardware.ReferenceDays;
-            this.editHardwarePage.TypedPage.StudyDays = this.hardware.StudyDays;
-            this.editHardwarePage.TypedPage.ExecutiveWorkDays = this.hardware.ExecutiveWorkDays;
-            this.editHardwarePage.TypedPage.TestDays = this.hardware.TestsDays;
-            this.editHardwarePage.TypedPage.WorkDays = this.hardware.WorkDays;
-
-            this.editHardwarePage.TypedPage.CatalogReferenceDays = this.hardware.CatalogReferenceDays;
-            this.editHardwarePage.TypedPage.CatalogStudyDays = this.hardware.CatalogStudyDays;
-            this.editHardwarePage.TypedPage.CatalogExecutiveWorkDays = this.hardware.CatalogExecutiveWorkDays;
-            this.editHardwarePage.TypedPage.CatalogTestDays = this.hardware.CatalogTestsDays;
-            this.editHardwarePage.TypedPage.CatalogWorkDays = this.hardware.CatalogWorkDays;
 
             return new WizardSettingListIterator(this.editHardwarePage);
         }
@@ -58,12 +47,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
                     hardware.ProjectId,
                     hardware.Id,
                     hardware.Quantity,
-                    this.editHardwarePage.TypedPage.HardwareName,
-                    this.editHardwarePage.TypedPage.StudyDays,
-                    this.editHardwarePage.TypedPage.ReferenceDays,
-                    this.editHardwarePage.TypedPage.WorkDays,
-                    this.editHardwarePage.TypedPage.ExecutiveWorkDays,
-                    this.editHardwarePage.TypedPage.TestDays);
+                    this.editHardwarePage.TypedPage.HardwareName);
                 this.EventBroker.Publish(command);
             }
         }

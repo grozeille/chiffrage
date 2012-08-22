@@ -105,6 +105,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
             {
                 this.comboBoxProjects.Items.Clear();
                 this.comboBoxProjects.Items.Add(string.Empty);
+                this.calendarItems.Clear();
 
                 DateTime minDate = DateTime.Now;
                 int colorCpt = 0;
