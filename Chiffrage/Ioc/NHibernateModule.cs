@@ -29,9 +29,9 @@ namespace Chiffrage.Ioc
         {
             // register nhibernate
             var file = "deal.cat";
-            if (Chiffrage.Properties.Settings.Default.DealsRecentPath != null && Chiffrage.Properties.Settings.Default.DealsRecentPath.Count > 0)
+            if (Chiffrage.App.Properties.Settings.Default.DealsRecentPath != null && Chiffrage.App.Properties.Settings.Default.DealsRecentPath.Count > 0)
             {
-                file = Chiffrage.Properties.Settings.Default.DealsRecentPath[Chiffrage.Properties.Settings.Default.DealsRecentPath.Count - 1];
+                file = Chiffrage.App.Properties.Settings.Default.DealsRecentPath[Chiffrage.App.Properties.Settings.Default.DealsRecentPath.Count - 1];
             }
 
             var dealConfiguration = new Configuration()
@@ -54,7 +54,7 @@ namespace Chiffrage.Ioc
 
         private ISessionFactory BuildCatalogSessionFactory()
         {
-            var catalogPath = Chiffrage.Properties.Settings.Default.CatalogPath;
+            var catalogPath = Chiffrage.App.Properties.Settings.Default.CatalogPath;
             if (string.IsNullOrEmpty(catalogPath))
             {
                 catalogPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "catalog.cat");

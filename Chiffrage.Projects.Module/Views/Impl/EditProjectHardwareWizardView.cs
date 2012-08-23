@@ -31,9 +31,6 @@ namespace Chiffrage.Projects.Module.Views.Impl
             this.editHardwarePage = new GenericWizardSetting<EditProjectHardwarePage>("Edition d'un matériel",
                                                                          "Vous pouvez ici éditer un matériel", true);
 
-
-            this.editHardwarePage.TypedPage.Quantity = this.hardware.Quantity;
-
             this.editHardwarePage.TypedPage.HardwareName = this.hardware.Name;
 
             return new WizardSettingListIterator(this.editHardwarePage);
@@ -46,7 +43,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
                 var command = new UpdateProjectHardwareCommand(
                     hardware.ProjectId,
                     hardware.Id,
-                    hardware.Quantity);
+                    this.editHardwarePage.TypedPage.Milestone);
                 this.EventBroker.Publish(command);
             }
         }

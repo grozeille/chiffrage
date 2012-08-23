@@ -6,7 +6,7 @@ using Chiffrage.Catalogs.Domain;
 using Chiffrage.Ioc;
 using Chiffrage.Mvc.Events;
 using Common.Logging;
-using Settings = Chiffrage.Properties.Settings;
+using Settings = Chiffrage.App.Properties.Settings;
 using System.Threading;
 using System.Linq;
 using Chiffrage.Mvc.Views;
@@ -21,7 +21,7 @@ using Chiffrage.App.Views;
 using Chiffrage.Catalogs.Module;
 using Chiffrage.Projects.Module;
 
-namespace Chiffrage
+namespace Chiffrage.App
 {
     internal class Program
     {

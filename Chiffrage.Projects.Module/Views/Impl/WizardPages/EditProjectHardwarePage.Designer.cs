@@ -34,7 +34,7 @@
             this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.textBoxHardwareName = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
-            this.textBoxQuantity = new System.Windows.Forms.TextBox();
+            this.textBoxMilestone = new System.Windows.Forms.TextBox();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.tableLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
@@ -44,9 +44,9 @@
             // 
             this.labelHardware.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.labelHardware.AutoSize = true;
-            this.labelHardware.Location = new System.Drawing.Point(3, 32);
+            this.labelHardware.Location = new System.Drawing.Point(3, 6);
             this.labelHardware.Name = "labelHardware";
-            this.labelHardware.Size = new System.Drawing.Size(50, 13);
+            this.labelHardware.Size = new System.Drawing.Size(120, 13);
             this.labelHardware.TabIndex = 4;
             this.labelHardware.Text = "Matériel:";
             // 
@@ -56,35 +56,25 @@
             this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200F));
             this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel.Controls.Add(this.labelHardware, 0, 1);
-            this.tableLayoutPanel.Controls.Add(this.textBoxHardwareName, 1, 1);
-            this.tableLayoutPanel.Controls.Add(this.label11, 0, 0);
-            this.tableLayoutPanel.Controls.Add(this.textBoxQuantity, 1, 0);
+            this.tableLayoutPanel.Controls.Add(this.label11, 0, 2);
+            this.tableLayoutPanel.Controls.Add(this.textBoxMilestone, 1, 2);
+            this.tableLayoutPanel.Controls.Add(this.labelHardware, 0, 0);
+            this.tableLayoutPanel.Controls.Add(this.textBoxHardwareName, 1, 0);
             this.tableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel.Name = "tableLayoutPanel";
-            this.tableLayoutPanel.RowCount = 3;
+            this.tableLayoutPanel.RowCount = 4;
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel.Size = new System.Drawing.Size(389, 364);
             this.tableLayoutPanel.TabIndex = 8;
             // 
             // textBoxHardwareName
             // 
             this.textBoxHardwareName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxHardwareName.Location = new System.Drawing.Point(59, 29);
+            this.textBoxHardwareName.Location = new System.Drawing.Point(129, 3);
             this.textBoxHardwareName.Name = "textBoxHardwareName";
             this.textBoxHardwareName.ReadOnly = true;
             this.textBoxHardwareName.Size = new System.Drawing.Size(194, 20);
@@ -94,20 +84,20 @@
             // 
             this.label11.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(3, 6);
+            this.label11.Location = new System.Drawing.Point(3, 52);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(50, 13);
+            this.label11.Size = new System.Drawing.Size(120, 13);
             this.label11.TabIndex = 11;
-            this.label11.Text = "Quantité:";
+            this.label11.Text = "P.K. (Point Kilométrique)";
             // 
-            // textBoxQuantity
+            // textBoxMilestone
             // 
-            this.textBoxQuantity.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxQuantity.Location = new System.Drawing.Point(59, 3);
-            this.textBoxQuantity.Name = "textBoxQuantity";
-            this.textBoxQuantity.Size = new System.Drawing.Size(194, 20);
-            this.textBoxQuantity.TabIndex = 16;
-            this.textBoxQuantity.Text = "0";
+            this.textBoxMilestone.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxMilestone.Location = new System.Drawing.Point(129, 49);
+            this.textBoxMilestone.Name = "textBoxMilestone";
+            this.textBoxMilestone.Size = new System.Drawing.Size(194, 20);
+            this.textBoxMilestone.TabIndex = 16;
+            this.textBoxMilestone.Text = "0";
             // 
             // errorProvider
             // 
@@ -136,6 +126,6 @@
         private System.Windows.Forms.TextBox textBoxHardwareName;
         private System.Windows.Forms.ErrorProvider errorProvider;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.TextBox textBoxQuantity;
+        private System.Windows.Forms.TextBox textBoxMilestone;
     }
 }

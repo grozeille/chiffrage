@@ -42,8 +42,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
                 var command = new CreateNewProjectHardwareCommand(
                     projectId,
                     newProjectSupplyPage.TypedPage.CatalogHardwareViewModel.CatalogId,
-                    newProjectSupplyPage.TypedPage.CatalogHardwareViewModel.Id,
-                    newProjectSupplyPage.TypedPage.Quantity);
+                    newProjectSupplyPage.TypedPage.CatalogHardwareViewModel.Id);
 
                 this.EventBroker.Publish(command);
             }

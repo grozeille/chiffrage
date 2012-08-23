@@ -1,4 +1,4 @@
-﻿namespace Chiffrage.Projects.Module.ViewModel
+﻿namespace Chiffrage.App.ViewModel
 {
     public class ProjectItemViewModel
     {

@@ -21,24 +21,24 @@ namespace Chiffrage.Projects.Module.Views.Impl.WizardPages
         {
             base.OnValidating(e);
 
-            int temp;
+            double tempDouble;
 
-            if (!int.TryParse(this.textBoxQuantity.Text, out temp))
+            if (!double.TryParse(this.textBoxMilestone.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out tempDouble))
             {
                 e.Cancel = true;
-                this.errorProvider.SetError(this.textBoxQuantity, "Doit être un nombre");
+                this.errorProvider.SetError(this.textBoxMilestone, "Doit être un nombre");
             }
         }
-
-        public int Quantity
-        {
-            get { return int.Parse(this.textBoxQuantity.Text); }
-            set { this.textBoxQuantity.Text = value.ToString(); }
-        }
-
+        
         public string HardwareName
         {
             set { this.textBoxHardwareName.Text = value; }
+        }
+
+        public double Milestone
+        {
+            get { return double.Parse(this.textBoxMilestone.Text, NumberStyles.Float, CultureInfo.InvariantCulture); }
+            set { this.textBoxMilestone.Text = value.ToString(CultureInfo.InvariantCulture); }
         }
     }
 }

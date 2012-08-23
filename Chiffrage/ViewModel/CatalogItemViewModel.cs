@@ -1,4 +1,4 @@
-﻿namespace Chiffrage.Catalogs.Module.ViewModel
+﻿namespace Chiffrage.App.ViewModel
 {
     public class CatalogItemViewModel
     {

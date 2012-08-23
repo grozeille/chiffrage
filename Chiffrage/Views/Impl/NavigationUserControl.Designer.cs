@@ -55,7 +55,7 @@
             // 
             // toolStripMenuItemNewDeal
             // 
-            this.toolStripMenuItemNewDeal.Image = global::Chiffrage.Properties.Resources.user_suit;
+            this.toolStripMenuItemNewDeal.Image = global::Chiffrage.App.Properties.Resources.user_suit;
             this.toolStripMenuItemNewDeal.Name = "toolStripMenuItemNewDeal";
             this.toolStripMenuItemNewDeal.Size = new System.Drawing.Size(159, 22);
             this.toolStripMenuItemNewDeal.Text = "Nouvelle Affaire";
@@ -69,7 +69,7 @@
             // 
             // toolStripMenuItemNewCatalog
             // 
-            this.toolStripMenuItemNewCatalog.Image = global::Chiffrage.Properties.Resources.book_open;
+            this.toolStripMenuItemNewCatalog.Image = global::Chiffrage.App.Properties.Resources.book_open;
             this.toolStripMenuItemNewCatalog.Name = "toolStripMenuItemNewCatalog";
             this.toolStripMenuItemNewCatalog.Size = new System.Drawing.Size(179, 22);
             this.toolStripMenuItemNewCatalog.Text = "Nouveau Catalogue";
@@ -83,7 +83,7 @@
             // 
             // toolStripMenuItemNewProject
             // 
-            this.toolStripMenuItemNewProject.Image = global::Chiffrage.Properties.Resources.report;
+            this.toolStripMenuItemNewProject.Image = global::Chiffrage.App.Properties.Resources.report;
             this.toolStripMenuItemNewProject.Name = "toolStripMenuItemNewProject";
             this.toolStripMenuItemNewProject.Size = new System.Drawing.Size(156, 22);
             this.toolStripMenuItemNewProject.Text = "Nouveau Projet";

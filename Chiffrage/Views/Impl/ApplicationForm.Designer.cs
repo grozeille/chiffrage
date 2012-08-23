@@ -90,7 +90,7 @@
             // 
             // aideToolStripMenuItem
             // 
-            this.aideToolStripMenuItem.Image = global::Chiffrage.Properties.Resources.help;
+            this.aideToolStripMenuItem.Image = global::Chiffrage.App.Properties.Resources.help;
             this.aideToolStripMenuItem.Name = "aideToolStripMenuItem";
             this.aideToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.aideToolStripMenuItem.Text = "Aide";
@@ -136,7 +136,7 @@
             // 
             // quitterToolStripMenuItem
             // 
-            this.quitterToolStripMenuItem.Image = global::Chiffrage.Properties.Resources.door_out;
+            this.quitterToolStripMenuItem.Image = global::Chiffrage.App.Properties.Resources.door_out;
             this.quitterToolStripMenuItem.Name = "quitterToolStripMenuItem";
             this.quitterToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
             this.quitterToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
@@ -163,7 +163,7 @@
             // 
             // saveToolStripButton
             // 
-            this.saveToolStripButton.Image = global::Chiffrage.Properties.Resources.disk;
+            this.saveToolStripButton.Image = global::Chiffrage.App.Properties.Resources.disk;
             this.saveToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.saveToolStripButton.Name = "saveToolStripButton";
             this.saveToolStripButton.Size = new System.Drawing.Size(92, 22);
@@ -172,7 +172,7 @@
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Enabled = false;
-            this.saveToolStripMenuItem.Image = global::Chiffrage.Properties.Resources.disk;
+            this.saveToolStripMenuItem.Image = global::Chiffrage.App.Properties.Resources.disk;
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
             this.saveToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
@@ -180,7 +180,7 @@
             // 
             // toolStripButtonRefresh
             // 
-            this.toolStripButtonRefresh.Image = global::Chiffrage.Properties.Resources.arrow_refresh;
+            this.toolStripButtonRefresh.Image = global::Chiffrage.App.Properties.Resources.arrow_refresh;
             this.toolStripButtonRefresh.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButtonRefresh.Name = "toolStripButtonRefresh";
             this.toolStripButtonRefresh.Size = new System.Drawing.Size(77, 22);
@@ -189,7 +189,7 @@
             // 
             // catalogueToolStripMenuItem1
             // 
-            this.catalogueToolStripMenuItem1.Image = global::Chiffrage.Properties.Resources.book_open;
+            this.catalogueToolStripMenuItem1.Image = global::Chiffrage.App.Properties.Resources.book_open;
             this.catalogueToolStripMenuItem1.Name = "catalogueToolStripMenuItem1";
             this.catalogueToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
             this.catalogueToolStripMenuItem1.Text = "Catalogue";
@@ -219,7 +219,7 @@
             this.affaireToolStripMenuItem2,
             this.projetToolStripMenuItem2,
             this.catalogueToolStripMenuItem1});
-            this.newToolStripSplitButton.Image = global::Chiffrage.Properties.Resources.page_white_add;
+            this.newToolStripSplitButton.Image = global::Chiffrage.App.Properties.Resources.page_white_add;
             this.newToolStripSplitButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.newToolStripSplitButton.Name = "newToolStripSplitButton";
             this.newToolStripSplitButton.Size = new System.Drawing.Size(87, 22);
@@ -227,14 +227,14 @@
             // 
             // affaireToolStripMenuItem2
             // 
-            this.affaireToolStripMenuItem2.Image = global::Chiffrage.Properties.Resources.user_suit;
+            this.affaireToolStripMenuItem2.Image = global::Chiffrage.App.Properties.Resources.user_suit;
             this.affaireToolStripMenuItem2.Name = "affaireToolStripMenuItem2";
             this.affaireToolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
             this.affaireToolStripMenuItem2.Text = "Affaire";
             // 
             // projetToolStripMenuItem2
             // 
-            this.projetToolStripMenuItem2.Image = global::Chiffrage.Properties.Resources.report;
+            this.projetToolStripMenuItem2.Image = global::Chiffrage.App.Properties.Resources.report;
             this.projetToolStripMenuItem2.Name = "projetToolStripMenuItem2";
             this.projetToolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
             this.projetToolStripMenuItem2.Text = "Projet";
@@ -242,7 +242,7 @@
             // 
             // helpToolStripButton
             // 
-            this.helpToolStripButton.Image = global::Chiffrage.Properties.Resources.help;
+            this.helpToolStripButton.Image = global::Chiffrage.App.Properties.Resources.help;
             this.helpToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.helpToolStripButton.Name = "helpToolStripButton";
             this.helpToolStripButton.Size = new System.Drawing.Size(51, 22);
@@ -288,28 +288,28 @@
             this.affaireToolStripMenuItem,
             this.projetToolStripMenuItem,
             this.catalogueToolStripMenuItem});
-            this.nouveauToolStripMenuItem.Image = global::Chiffrage.Properties.Resources.page_white_add;
+            this.nouveauToolStripMenuItem.Image = global::Chiffrage.App.Properties.Resources.page_white_add;
             this.nouveauToolStripMenuItem.Name = "nouveauToolStripMenuItem";
             this.nouveauToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
             this.nouveauToolStripMenuItem.Text = "Nouveau";
             // 
             // affaireToolStripMenuItem
             // 
-            this.affaireToolStripMenuItem.Image = global::Chiffrage.Properties.Resources.user_suit;
+            this.affaireToolStripMenuItem.Image = global::Chiffrage.App.Properties.Resources.user_suit;
             this.affaireToolStripMenuItem.Name = "affaireToolStripMenuItem";
             this.affaireToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
             this.affaireToolStripMenuItem.Text = "Affaire...";
             // 
             // projetToolStripMenuItem
             // 
-            this.projetToolStripMenuItem.Image = global::Chiffrage.Properties.Resources.report;
+            this.projetToolStripMenuItem.Image = global::Chiffrage.App.Properties.Resources.report;
             this.projetToolStripMenuItem.Name = "projetToolStripMenuItem";
             this.projetToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
             this.projetToolStripMenuItem.Text = "Projet...";
             // 
             // catalogueToolStripMenuItem
             // 
-            this.catalogueToolStripMenuItem.Image = global::Chiffrage.Properties.Resources.lorry;
+            this.catalogueToolStripMenuItem.Image = global::Chiffrage.App.Properties.Resources.lorry;
             this.catalogueToolStripMenuItem.Name = "catalogueToolStripMenuItem";
             this.catalogueToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
             this.catalogueToolStripMenuItem.Text = "Catalogue...";

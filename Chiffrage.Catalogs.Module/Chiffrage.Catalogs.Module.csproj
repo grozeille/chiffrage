@@ -89,7 +89,6 @@
     </Compile>
     <Compile Include="ViewModel\CatalogHardwareSupplyViewModel.cs" />
     <Compile Include="ViewModel\CatalogHardwareViewModel.cs" />
-    <Compile Include="ViewModel\CatalogItemViewModel.cs" />
     <Compile Include="ViewModel\CatalogSupplyViewModel.cs" />
     <Compile Include="ViewModel\CatalogViewModel.cs" />
     <Compile Include="Views\ICatalogView.cs" />

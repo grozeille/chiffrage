@@ -139,7 +139,6 @@ namespace Chiffrage.Projects.Domain.Services
                 .ForMember(x => x.Id, y => y.Ignore());
 
             var projectHardware = Mapper.Map<Hardware, ProjectHardware>(hardware);
-            projectHardware.Quantity = eventObject.Quantity;
             projectHardware.CatalogId = catalog.Id;
 
             projectHardware.StudyDays = hardware.CatalogStudyDays;

@@ -8,7 +8,7 @@
     <ProjectGuid>{B41F3EBF-5486-411C-AE38-0F97327F89E1}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Chiffrage</RootNamespace>
+    <RootNamespace>Chiffrage.App</RootNamespace>
     <AssemblyName>Chiffrage</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -139,8 +139,11 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModel\CatalogItemViewModel.cs" />
+    <Compile Include="ViewModel\DealItemViewModel.cs" />
     <Compile Include="ViewModel\LogItemViewModel.cs" />
     <Compile Include="ViewModel\NavigationItemViewModel.cs" />
+    <Compile Include="ViewModel\ProjectItemViewModel.cs" />
     <Compile Include="ViewModel\SeverityType.cs" />
     <Compile Include="Views\IApplicationView.cs" />
     <Compile Include="Views\IErrorLogView.cs" />

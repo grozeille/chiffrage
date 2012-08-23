@@ -13,7 +13,6 @@ namespace Chiffrage.Catalogs.Dal.Mappings
                 y.Generator(Generators.Identity);
             });
             Property(x => x.Name);
-            Property(x => x.Reference);
             Property(x => x.Category);
             Property(x => x.CatalogStudyDays);
             Property(x => x.CatalogReferenceDays);

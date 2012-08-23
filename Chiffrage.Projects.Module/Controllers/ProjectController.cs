@@ -118,14 +118,6 @@ namespace Chiffrage.Projects.Module.Controllers
             var viewModel = Mapper.Map<ProjectHardware, ProjectHardwareStudyReferenceTestViewModel>(hardware);
             viewModel.ProjectId = projectId;
             
-            viewModel.TotalCatalogStudyDays = viewModel.CatalogStudyDays * viewModel.Quantity;
-            viewModel.TotalCatalogReferenceDays = viewModel.CatalogReferenceDays * viewModel.Quantity;
-            viewModel.TotalCatalogTestsDays = viewModel.CatalogTestsDays * viewModel.Quantity;
-
-            viewModel.TotalStudyDays = viewModel.StudyDays * viewModel.Quantity;
-            viewModel.TotalReferenceDays = viewModel.ReferenceDays * viewModel.Quantity;
-            viewModel.TotalTestsDays = viewModel.TestsDays * viewModel.Quantity;
-            
             return viewModel;
         }
 
@@ -134,11 +126,6 @@ namespace Chiffrage.Projects.Module.Controllers
             Mapper.CreateMap<ProjectHardware, ProjectHardwareExecutiveWorkViewModel>();
             var viewModel = Mapper.Map<ProjectHardware, ProjectHardwareExecutiveWorkViewModel>(hardware);
             viewModel.ProjectId = projectId;
-
-            viewModel.TotalCatalogExecutiveWorkDays = viewModel.CatalogExecutiveWorkDays * viewModel.Quantity;
-            viewModel.TotalExecutiveWorkDays = viewModel.ExecutiveWorkDays * viewModel.Quantity;
-            viewModel.TotalExecutiveWorkShortNights = viewModel.ExecutiveWorkShortNights * viewModel.Quantity;
-            viewModel.TotalExecutiveWorkLongNights = viewModel.ExecutiveWorkLongNights * viewModel.Quantity;
             
             return viewModel;
         }
@@ -148,11 +135,6 @@ namespace Chiffrage.Projects.Module.Controllers
             Mapper.CreateMap<ProjectHardware, ProjectHardwareWorkViewModel>();
             var viewModel = Mapper.Map<ProjectHardware, ProjectHardwareWorkViewModel>(hardware);
             viewModel.ProjectId = projectId;
-
-            viewModel.TotalCatalogWorkDays = viewModel.CatalogWorkDays * viewModel.Quantity;
-            viewModel.TotalWorkDays = viewModel.WorkDays * viewModel.Quantity;
-            viewModel.TotalWorkShortNights = viewModel.WorkShortNights * viewModel.Quantity;
-            viewModel.TotalWorkLongNights = viewModel.WorkLongNights * viewModel.Quantity;
 
             return viewModel;
         }
@@ -164,8 +146,7 @@ namespace Chiffrage.Projects.Module.Controllers
             {
                 ProjectId = projectId,
                 ItemType = ProjectSummaryItemType.Hardware,
-                Name = hardware.Name,
-                Quantity = hardware.Quantity
+                Name = hardware.Name
             });
             foreach (var component in hardware.Components)
             {
@@ -248,7 +229,7 @@ namespace Chiffrage.Projects.Module.Controllers
             if (viewModel.Comment == null || !(viewModel.Comment.StartsWith("{\\rtf") && viewModel.Comment.EndsWith("}")))
                 viewModel.Comment = "{\\rtf" + viewModel.Comment + "}";
 
-            viewModel.TotalModules = project.Hardwares.Sum(x => x.Quantity * x.Components.Sum(y => y.Quantity * y.Supply.ModuleSize)) +
+            viewModel.TotalModules = project.Hardwares.Sum(x => x.Components.Sum(y => y.Quantity * y.Supply.ModuleSize)) +
                 project.Supplies.Sum(x => x.Quantity * x.ModuleSize);
 
             viewModel.ModulesNotInFrame = viewModel.TotalModules - project.Frames.Sum(x => x.Count * x.Size);

@@ -89,6 +89,8 @@ namespace Chiffrage.Mvc.Views
             this.CurrentSetting.Page.Dock = DockStyle.Fill;
             this.panelContent.Controls.Add(this.CurrentSetting.Page);
             this.CurrentSetting.Page.Focus();
+            this.CurrentSetting.Page.Select();
+            this.ActiveControl = this.CurrentSetting.Page;
             this.labelTitle.Text = this.CurrentSetting.Title;
             this.labelDescription.Text = this.CurrentSetting.Description;
 

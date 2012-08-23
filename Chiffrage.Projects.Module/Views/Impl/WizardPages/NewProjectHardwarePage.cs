@@ -23,15 +23,7 @@ namespace Chiffrage.Projects.Module.Views.Impl.WizardPages
                 return this.catalogHardwareViewModelBindingSource.Current as CatalogHardwareViewModel;
             }
         }
-
-        public int Quantity
-        {
-            get
-            {
-                return int.Parse(this.textBoxQuantity.Text);
-            }
-        }
-
+        
         public IList<CatalogHardwareViewModel> Hardwares
         {
             set { this.hardwares = value; }
@@ -56,18 +48,12 @@ namespace Chiffrage.Projects.Module.Views.Impl.WizardPages
 
             int temp;
 
-            if (!int.TryParse(this.textBoxQuantity.Text, out temp))
-            {
-                e.Cancel = true;
-                this.errorProvider.SetError(this.textBoxQuantity, "Doit être un nombre");
-            }
-
             var selected = this.catalogHardwareViewModelBindingSource.Current as CatalogHardwareViewModel;
 
             if (selected == null)
             {
                 e.Cancel = true;
-                this.errorProvider.SetError(this.labelSupply, "Obligatoire");
+                this.errorProvider.SetError(this.labelInvisible, "Obligatoire");
             }
         }
 
@@ -87,26 +73,6 @@ namespace Chiffrage.Projects.Module.Views.Impl.WizardPages
         {
             this.timerFilter.Enabled = false;
             this.timerFilter.Enabled = true;
-        }
-
-        private void dataGridView_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
-        {
-            /*var col = dataGridView.Columns[e.ColumnIndex];
-            if (this.dataGridView.SortedColumn == col)
-            {
-                if (this.dataGridView.SortOrder == SortOrder.Ascending)
-                {
-                    this.dataGridView.Sort(col, ListSortDirection.Descending);
-                }
-                else
-                {
-                    this.dataGridView.Sort(col, ListSortDirection.Ascending);
-                }
-            }
-            else
-            {
-                this.dataGridView.Sort(col, ListSortDirection.Ascending);
-            }*/
         }
     }
 }

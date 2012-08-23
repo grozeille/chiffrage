@@ -11,20 +11,22 @@ namespace Chiffrage.Projects.Domain.Commands
 
         private readonly int id;
 
-        private readonly int quantity;
+        private readonly double milestone;
 
         public UpdateProjectHardwareCommand(
             int projectId,
             int id,
-            int quantity)
+            double milestone)
         {
             this.projectId = projectId;
             this.id = id;
-            this.quantity = quantity;
+            this.milestone = milestone;
         }
 
         public int ProjectId { get { return this.projectId; } }
 
         public int Id { get { return this.id; } }
+
+        public double Milestone { get { return this.milestone; } }
     }
 }

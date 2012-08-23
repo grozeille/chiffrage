@@ -27,18 +27,6 @@ namespace Chiffrage.Projects.Module.ViewModel
 
         public double TestsDays { get; set; }
 
-        public int Quantity { get; set; }
-
-        public double TotalCatalogStudyDays { get; set; }
-
-        public double TotalCatalogReferenceDays { get; set; }
-
-        public double TotalCatalogTestsDays { get; set; }
-
-        public double TotalStudyDays { get; set; }
-
-        public double TotalReferenceDays { get; set; }
-
-        public double TotalTestsDays { get; set; }
+        public double TestsNights { get; set; }
     }
 }

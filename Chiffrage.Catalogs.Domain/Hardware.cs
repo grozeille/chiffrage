@@ -23,8 +23,6 @@ namespace Chiffrage.Catalogs.Domain
 
         public virtual string Name { get; set; }
 
-        public virtual string Reference { get; set; }
-
         public virtual string Category { get; set; }
 
         public virtual double CatalogStudyDays { get; set; }

@@ -97,7 +97,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\ProjectHardwareExecutiveWorkViewModel.cs" />
-    <Compile Include="ViewModel\DealItemViewModel.cs" />
     <Compile Include="ViewModel\DealProjectCalendarItemViewModel.cs" />
     <Compile Include="ViewModel\DealViewModel.cs" />
     <Compile Include="ViewModel\ProjectFrameViewModel.cs" />
@@ -105,7 +104,6 @@
     <Compile Include="ViewModel\ProjectHardwareSupplyViewModel.cs" />
     <Compile Include="ViewModel\ProjectHardwareViewModel.cs" />
     <Compile Include="ViewModel\ProjectHardwareWorkViewModel.cs" />
-    <Compile Include="ViewModel\ProjectItemViewModel.cs" />
     <Compile Include="ViewModel\ProjectSupplyViewModel.cs" />
     <Compile Include="ViewModel\ProjectViewModel.cs" />
     <Compile Include="ViewModel\ProjectSummaryItemType.cs" />

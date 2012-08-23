@@ -22,15 +22,5 @@ namespace Chiffrage.Projects.Module.ViewModel
         public double ExecutiveWorkShortNights { get; set; }
 
         public double ExecutiveWorkLongNights { get; set; }
-
-        public int Quantity { get; set; }
-
-        public double TotalCatalogExecutiveWorkDays { get; set; }
-
-        public double TotalExecutiveWorkDays { get; set; }
-
-        public double TotalExecutiveWorkShortNights { get; set; }
-
-        public double TotalExecutiveWorkLongNights { get; set; }
     }
 }

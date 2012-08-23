@@ -24,11 +24,7 @@ namespace Chiffrage.Projects.Domain
 
         public virtual int HardwareId { get; set; }
 
-        public virtual int Quantity { get; set; }
-
         public virtual string Name { get; set; }
-
-        public virtual string Reference { get; set; }
 
         public virtual string Category { get; set; }
 
@@ -62,5 +58,6 @@ namespace Chiffrage.Projects.Domain
 
         public virtual double ExecutiveWorkLongNights { get; set; }
 
+        public virtual double Milestone { get; set; }
     }
 }

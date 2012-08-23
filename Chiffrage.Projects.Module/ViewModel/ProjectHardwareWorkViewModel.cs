@@ -22,15 +22,5 @@ namespace Chiffrage.Projects.Module.ViewModel
         public double WorkShortNights { get; set; }
 
         public double WorkLongNights { get; set; }
-
-        public int Quantity { get; set; }
-
-        public double TotalCatalogWorkDays { get; set; }
-
-        public double TotalWorkDays { get; set; }
-
-        public double TotalWorkShortNights { get; set; }
-
-        public double TotalWorkLongNights { get; set; }
     }
 }

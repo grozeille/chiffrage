@@ -67,7 +67,7 @@ namespace Chiffrage.Projects.Module.Views.Impl.WizardPages
             if (selected == null)
             {
                 e.Cancel = true;
-                this.errorProvider.SetError(this.labelSupply, "Obligatoire");
+                this.errorProvider.SetError(this.labelnvisible, "Obligatoire");
             }
         }
 
