@@ -14,13 +14,13 @@ using Chiffrage.Projects.Domain.Commands;
 
 namespace Chiffrage.Projects.Module.Views.Impl
 {
-    public class EditProjectHardwareWizardView : WizardView, IEditProjectHardwareView
+    public class EditProjectHardwareExecutiveWorkWizardView : WizardView, IEditProjectHardwareEecutiveWorkView
     {
-        private GenericWizardSetting<EditProjectHardwarePage> editHardwarePage;
+        private GenericWizardSetting<EditProjectHardwareExecutiveWorkPage> editHardwarePage;
 
-        private ProjectHardwareViewModel hardware;
+        private ProjectHardwareExecutiveWorkViewModel hardware;
 
-        public EditProjectHardwareWizardView(IEventBroker eventBroker)
+        public EditProjectHardwareExecutiveWorkWizardView(IEventBroker eventBroker)
             : base(eventBroker)
         {
         }
@@ -28,13 +28,15 @@ namespace Chiffrage.Projects.Module.Views.Impl
         protected override IWizardSettingIterator BuildWizardPages()
         {
 
-            this.editHardwarePage = new GenericWizardSetting<EditProjectHardwarePage>("Edition d'un matériel",
+            this.editHardwarePage = new GenericWizardSetting<EditProjectHardwareExecutiveWorkPage>("Edition d'un matériel",
                                                                          "Vous pouvez ici éditer un matériel", true);
 
 
-            this.editHardwarePage.TypedPage.Quantity = this.hardware.Quantity;
-
             this.editHardwarePage.TypedPage.HardwareName = this.hardware.Name;
+            this.editHardwarePage.TypedPage.CatalogExecutiveWorkDays = this.hardware.CatalogExecutiveWorkDays;
+            this.editHardwarePage.TypedPage.ExecutiveWorkDays = this.hardware.ExecutiveWorkDays;
+            this.editHardwarePage.TypedPage.ExecutiveWorkShortNights = this.hardware.ExecutiveWorkShortNights;
+            this.editHardwarePage.TypedPage.ExecutiveWorkLongNights = this.hardware.ExecutiveWorkLongNights;
 
             return new WizardSettingListIterator(this.editHardwarePage);
         }
@@ -43,15 +45,17 @@ namespace Chiffrage.Projects.Module.Views.Impl
         {
             if(result == DialogResult.OK)
             {
-                var command = new UpdateProjectHardwareCommand(
+                var command = new UpdateProjectHardwareExecutiveWorkCommand(
                     hardware.ProjectId,
                     hardware.Id,
-                    hardware.Quantity);
+                    this.editHardwarePage.TypedPage.ExecutiveWorkDays,
+                    this.editHardwarePage.TypedPage.ExecutiveWorkShortNights,
+                    this.editHardwarePage.TypedPage.ExecutiveWorkLongNights);
                 this.EventBroker.Publish(command);
             }
         }
 
-        public ProjectHardwareViewModel Hardware
+        public ProjectHardwareExecutiveWorkViewModel Hardware
         {
             set { this.hardware = value; }
         }

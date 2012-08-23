@@ -111,11 +111,13 @@
     <Compile Include="ViewModel\ProjectSummaryItemType.cs" />
     <Compile Include="ViewModel\ProjectSummaryItemViewModel.cs" />
     <Compile Include="ViewModel\ProjectWorkItemViewModel.cs" />
+    <Compile Include="Views\IEditProjectHardwareExecutiveWorkView.cs" />
     <Compile Include="Views\IEditProjectHardwareWorkView.cs" />
     <Compile Include="Views\IDealView.cs" />
     <Compile Include="Views\IEditProjectHardwareSupplyView.cs" />
     <Compile Include="Views\IEditProjectHardwareView.cs" />
     <Compile Include="Views\IEditProjectSupplyView.cs" />
+    <Compile Include="Views\Impl\EditProjectHardwareExecutiveWorkWizardView.cs" />
     <Compile Include="Views\Impl\EditProjectHardwareWorkWizardView.cs" />
     <Compile Include="Views\Impl\DealUserControl.cs">
       <SubType>UserControl</SubType>

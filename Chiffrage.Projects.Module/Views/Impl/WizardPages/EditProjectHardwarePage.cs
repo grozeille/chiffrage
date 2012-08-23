@@ -28,11 +28,6 @@ namespace Chiffrage.Projects.Module.Views.Impl.WizardPages
                 e.Cancel = true;
                 this.errorProvider.SetError(this.textBoxQuantity, "Doit être un nombre");
             }
-
-            if (string.IsNullOrEmpty(this.textBoxHardwareName.Text))
-            {
-                e.Cancel = true; this.errorProvider.SetError(this.textBoxHardwareName, "Obligatoire");
-            }
         }
 
         public int Quantity
@@ -43,7 +38,6 @@ namespace Chiffrage.Projects.Module.Views.Impl.WizardPages
 
         public string HardwareName
         {
-            get { return this.textBoxHardwareName.Text; }
             set { this.textBoxHardwareName.Text = value; }
         }
     }

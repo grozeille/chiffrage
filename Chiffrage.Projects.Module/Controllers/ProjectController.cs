@@ -47,6 +47,8 @@ namespace Chiffrage.Projects.Module.Controllers
 
         private readonly IEditProjectHardwareWorkView editProjectHardwareWorkView;
 
+        private readonly IEditProjectHardwareEecutiveWorkView editProjectHardwareExecutiveWorkView;
+
         // no better way...
         private readonly System.Windows.Forms.RichTextBox rtBox = new System.Windows.Forms.RichTextBox();
 
@@ -65,6 +67,7 @@ namespace Chiffrage.Projects.Module.Controllers
             INewProjectFrameView newProjectFrameView,
             IEditProjectHardwareSupplyView editProjectHardwareSupplyView,
             IEditProjectHardwareWorkView editProjectHardwareWorkView,
+            IEditProjectHardwareEecutiveWorkView editProjectHardwareExecutiveWorkView,
             ICatalogRepository catalogRepository)
         {
             this.projectView = projectView;
@@ -78,6 +81,7 @@ namespace Chiffrage.Projects.Module.Controllers
             this.newProjectFrameView = newProjectFrameView;
             this.editProjectHardwareSupplyView = editProjectHardwareSupplyView;
             this.editProjectHardwareWorkView = editProjectHardwareWorkView;
+            this.editProjectHardwareExecutiveWorkView = editProjectHardwareExecutiveWorkView;
             this.catalogRepository = catalogRepository;
         }
 
@@ -616,6 +620,8 @@ namespace Chiffrage.Projects.Module.Controllers
         [Subscribe]
         public void ProcessAction(RequestEditProjectHardwareExecutiveWorkAction eventObject)
         {
+            this.editProjectHardwareExecutiveWorkView.Hardware = eventObject.Hardware;
+            this.editProjectHardwareExecutiveWorkView.ShowView();
         }
 
         [Subscribe]

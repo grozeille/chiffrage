@@ -86,6 +86,7 @@
             this.textBoxHardwareName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxHardwareName.Location = new System.Drawing.Point(59, 29);
             this.textBoxHardwareName.Name = "textBoxHardwareName";
+            this.textBoxHardwareName.ReadOnly = true;
             this.textBoxHardwareName.Size = new System.Drawing.Size(194, 20);
             this.textBoxHardwareName.TabIndex = 5;
             // 
