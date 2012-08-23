@@ -66,5 +66,7 @@ namespace Chiffrage.Projects.Module.Views
         void RemoveHardwareExecutiveWork(ProjectHardwareExecutiveWorkViewModel executiveWorkViewModel);
 
         void RemoveHardwareStudyReferenceTest(ProjectHardwareStudyReferenceTestViewModel studyReferenceTestViewModel);
+
+        void SetCostSummaryItems(IEnumerable<ProjectCostSummaryViewModel> summaryItems);
     }
 }

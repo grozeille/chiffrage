@@ -15,6 +15,7 @@ using Chiffrage.Projects.Domain.Commands;
 using Chiffrage.Mvc;
 using System.Globalization;
 using Chiffrage.Projects.Module.Actions;
+using Chiffrage.Projects.Module.Properties;
 
 namespace Chiffrage.Projects.Module.Views.Impl
 {
@@ -176,6 +177,9 @@ namespace Chiffrage.Projects.Module.Views.Impl
             this.dataGridViewSummary.ResumeLayout(true);
         }
 
+        
+        */
+
         private void BuildBigTotalRow(Bitmap icon, string name, double? days, double cost)
         {
             int index = this.dataGridViewSummary.Rows.Add(
@@ -226,7 +230,6 @@ namespace Chiffrage.Projects.Module.Views.Impl
                     cell.ReadOnly = true;
             }
         }
-        */
         #endregion
 
         private void textBox_Enter(object sender, EventArgs e)
@@ -707,6 +710,49 @@ namespace Chiffrage.Projects.Module.Views.Impl
             {
                 var item = this.studyReferenceTests.Where(x => x.Id == hardware.Id).First();
                 this.studyReferenceTests.Remove(item);
+            });
+        }
+
+
+        public void SetCostSummaryItems(IEnumerable<ProjectCostSummaryViewModel> summaryItems)
+        {
+            this.InvokeIfRequired(() =>
+            {
+                this.dataGridViewSummary.Rows.Clear();
+                if (summaryItems != null)
+                {
+                    foreach (var item in summaryItems)
+                    {
+                        if (item.ProjectCostSummaryType == ProjectCostSummaryType.Simple)
+                        {
+                            this.BuildRow(item.Name, item.TotalTime, item.Rate, item.TotalCost);
+                        }
+                        else if (item.ProjectCostSummaryType == ProjectCostSummaryType.TotalSupply)
+                        {
+                            this.BuildTotalRow(Resources.package, item.Name, null, item.TotalCost);
+                        }
+                        else if (item.ProjectCostSummaryType == ProjectCostSummaryType.TotalStudyReference)
+                        {
+                            this.BuildTotalRow(Resources.map_edit, item.Name, item.TotalTime, item.TotalCost);
+                        }
+                        else if (item.ProjectCostSummaryType == ProjectCostSummaryType.TotalWork)
+                        {
+                            this.BuildTotalRow(Resources.wrench, item.Name, item.TotalTime, item.TotalCost);
+                        }
+                        else if (item.ProjectCostSummaryType == ProjectCostSummaryType.TotalTests)
+                        {
+                            this.BuildTotalRow(Resources.rosette, item.Name, item.TotalTime, item.TotalCost);
+                        }
+                        else if (item.ProjectCostSummaryType == ProjectCostSummaryType.TotalOther)
+                        {
+                            this.BuildTotalRow(Resources.user_suit, item.Name, item.TotalTime, item.TotalCost);
+                        }
+                        else if (item.ProjectCostSummaryType == ProjectCostSummaryType.BigTotal)
+                        {
+                            this.BuildBigTotalRow(Resources.coins, item.Name, item.TotalTime, item.TotalCost);
+                        }
+                    }
+                }
             });
         }
     }

@@ -67,15 +67,12 @@ namespace Chiffrage.Projects.Module.Views.Impl
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle32 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle33 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle36 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle41 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle42 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle37 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle38 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle39 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle40 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPageMain = new System.Windows.Forms.TabPage();
             this.commentUserControl = new Chiffrage.Common.Module.Views.CommentUserControl();
+            this.projectBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.panelMain = new System.Windows.Forms.Panel();
             this.labelProject = new System.Windows.Forms.Label();
             this.textBoxProjectName = new System.Windows.Forms.TextBox();
@@ -105,22 +102,69 @@ namespace Chiffrage.Projects.Module.Views.Impl
             this.textBoxWorkShortNightsRate = new System.Windows.Forms.TextBox();
             this.tabPageOtherSupply = new System.Windows.Forms.TabPage();
             this.dataGridView = new System.Windows.Forms.DataGridView();
+            this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.catalogIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.supplyIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.referenceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.categoryDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnSupplyPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.catalogPriceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.pFC0DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.pFC12DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.capDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.projectIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.totalModuleSizeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnTotalPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.totalCatalogPriceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.totalPFC0DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.totalPFC12DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.totalCapDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.projectSupplyViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.toolStripProject = new System.Windows.Forms.ToolStrip();
             this.toolStripButtonAdd = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonRemove = new System.Windows.Forms.ToolStripButton();
             this.tabPageSupply = new System.Windows.Forms.TabPage();
             this.splitContainerHardware = new System.Windows.Forms.SplitContainer();
             this.dataGridViewHardware = new System.Windows.Forms.DataGridView();
+            this.idDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.projectIdDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.catalogIdDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.categoryDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnHardwareMilestone = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.totalModuleSizeDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.totalCatalogPriceDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnHardwareTotalPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.projectHardwareViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.toolStripHardware = new System.Windows.Forms.ToolStrip();
             this.toolStripButtonAddHardware = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonRemoveHardware = new System.Windows.Forms.ToolStripButton();
             this.dataGridViewHardwareSupplies = new System.Windows.Forms.DataGridView();
+            this.idDataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.catalogIdDataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.hardwareIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.supplyIdDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn51 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.supplyNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.supplyReferenceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.supplyCategoryDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.supplyModuleSizeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ColumnHardwareSupplyPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.supplyCatalogPriceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.supplyPFC0DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.supplyPFC12DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.supplyCapDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.commentDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.componentsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tabPageFrame = new System.Windows.Forms.TabPage();
             this.dataGridViewModules = new System.Windows.Forms.DataGridView();
+            this.idDataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.sizeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.countDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.projectFrameViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.toolStripFrames = new System.Windows.Forms.ToolStrip();
             this.toolStripButtonAddFrame = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonRemoveFrame = new System.Windows.Forms.ToolStripButton();
@@ -132,12 +176,46 @@ namespace Chiffrage.Projects.Module.Views.Impl
             this.label2 = new System.Windows.Forms.Label();
             this.tabPageItemSummary = new System.Windows.Forms.TabPage();
             this.dataGridViewItemSummary = new System.Windows.Forms.DataGridView();
+            this.itemTypeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn30 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn31 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.projectSummaryItemViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tabPageWork = new System.Windows.Forms.TabPage();
             this.splitContainerWork = new System.Windows.Forms.SplitContainer();
             this.dataGridViewWork = new System.Windows.Forms.DataGridView();
+            this.idDataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.projectIdDataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.catalogIdDataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn19 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn32 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.workDaysDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.workShortNightsDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.workLongNightsDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.projectHardwareWorkViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.dataGridViewExecutiveWork = new System.Windows.Forms.DataGridView();
+            this.idDataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.projectIdDataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.catalogIdDataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn35 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.catalogExecutiveWorkDaysDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.executiveWorkDaysDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.executiveWorkShortNightsDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.executiveWorkLongNightsDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.projectHardwareExecutiveWorkViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tabPageStudyTestReference = new System.Windows.Forms.TabPage();
             this.dataGridViewStudyReferenceTest = new System.Windows.Forms.DataGridView();
+            this.idDataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.projectIdDataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.catalogIdDataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn38 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.catalogStudyDaysDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.catalogReferenceDaysDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn39 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn40 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn41 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn42 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnTestsNights = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.projectHardwareStudyReferenceTestViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tabPageOther = new System.Windows.Forms.TabPage();
             this.dataGridViewOther = new System.Windows.Forms.DataGridView();
             this.nameDataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -150,123 +228,49 @@ namespace Chiffrage.Projects.Module.Views.Impl
             this.bindingNavigatorDeleteItem = new System.Windows.Forms.ToolStripButton();
             this.tabPageSummary = new System.Windows.Forms.TabPage();
             this.dataGridViewSummary = new System.Windows.Forms.DataGridView();
-            this.ColumnSumaryIcon = new System.Windows.Forms.DataGridViewImageColumn();
-            this.ColumnSumaryType = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnSumaryDays = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnSumaryRate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnSumaryCost = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnHardwareMilestone = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnHardwareTotalPrice = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.projectBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.catalogIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.supplyIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.referenceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.categoryDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.catalogPriceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.pFC0DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.pFC12DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.capDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.projectIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.totalModuleSizeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.totalCatalogPriceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.totalPFC0DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.totalPFC12DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.totalCapDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.projectSupplyViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.idDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.projectIdDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.catalogIdDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.categoryDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.totalModuleSizeDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.totalCatalogPriceDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.projectHardwareViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.idDataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.catalogIdDataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.hardwareIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.supplyIdDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn51 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.supplyNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.supplyReferenceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.supplyCategoryDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.supplyModuleSizeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.supplyCatalogPriceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.supplyPFC0DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.supplyPFC12DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.supplyCapDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.commentDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.idDataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.sizeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.countDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.projectFrameViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.itemTypeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn30 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn31 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.projectSummaryItemViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.idDataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.projectIdDataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.catalogIdDataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn19 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn32 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.workDaysDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.workShortNightsDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.workLongNightsDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.projectHardwareWorkViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.idDataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.projectIdDataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.catalogIdDataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn35 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.catalogExecutiveWorkDaysDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.executiveWorkDaysDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.executiveWorkShortNightsDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.executiveWorkLongNightsDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.projectHardwareExecutiveWorkViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.projectHardwareStudyReferenceTestViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.idDataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.projectIdDataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.catalogIdDataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn38 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.catalogStudyDaysDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.catalogReferenceDaysDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn39 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn40 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn41 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn42 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ColumnTestsNights = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnCostImg = new System.Windows.Forms.DataGridViewImageColumn();
+            this.ColumnCostType = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnCostTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnCostRate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ColumnCostTotal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.tabControl.SuspendLayout();
             this.tabPageMain.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.projectBindingSource)).BeginInit();
             this.panelMain.SuspendLayout();
             this.tabPageOtherSupply.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.projectSupplyViewModelBindingSource)).BeginInit();
             this.toolStripProject.SuspendLayout();
             this.tabPageSupply.SuspendLayout();
             this.splitContainerHardware.Panel1.SuspendLayout();
             this.splitContainerHardware.Panel2.SuspendLayout();
             this.splitContainerHardware.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewHardware)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.projectHardwareViewModelBindingSource)).BeginInit();
             this.toolStripHardware.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewHardwareSupplies)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.componentsBindingSource)).BeginInit();
             this.tabPageFrame.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewModules)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.projectFrameViewModelBindingSource)).BeginInit();
             this.toolStripFrames.SuspendLayout();
             this.panelTotalModules.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxWarningFrame)).BeginInit();
             this.tabPageItemSummary.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewItemSummary)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.projectSummaryItemViewModelBindingSource)).BeginInit();
             this.tabPageWork.SuspendLayout();
             this.splitContainerWork.Panel1.SuspendLayout();
             this.splitContainerWork.Panel2.SuspendLayout();
             this.splitContainerWork.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewWork)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.projectHardwareWorkViewModelBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewExecutiveWork)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.projectHardwareExecutiveWorkViewModelBindingSource)).BeginInit();
             this.tabPageStudyTestReference.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStudyReferenceTest)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.projectHardwareStudyReferenceTestViewModelBindingSource)).BeginInit();
             this.tabPageOther.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewOther)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.otherBenefitBindingSource)).BeginInit();
@@ -274,14 +278,6 @@ namespace Chiffrage.Projects.Module.Views.Impl
             this.bindingNavigatorOthers.SuspendLayout();
             this.tabPageSummary.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSummary)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.projectBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.projectSupplyViewModelBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.projectHardwareViewModelBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.projectFrameViewModelBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.projectSummaryItemViewModelBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.projectHardwareWorkViewModelBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.projectHardwareExecutiveWorkViewModelBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.projectHardwareStudyReferenceTestViewModelBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl
@@ -326,6 +322,10 @@ namespace Chiffrage.Projects.Module.Views.Impl
     "ans Serif;}}\r\n\\viewkind4\\uc1\\pard\\f0\\fs17 trertre\\par\r\ntreterert\\par\r\n}\r\n";
             this.commentUserControl.Size = new System.Drawing.Size(1052, 347);
             this.commentUserControl.TabIndex = 14;
+            // 
+            // projectBindingSource
+            // 
+            this.projectBindingSource.DataSource = typeof(Chiffrage.Projects.Module.ViewModel.ProjectViewModel);
             // 
             // panelMain
             // 
@@ -679,6 +679,65 @@ namespace Chiffrage.Projects.Module.Views.Impl
             this.dataGridView.TabIndex = 0;
             this.dataGridView.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_CellDoubleClick);
             // 
+            // idDataGridViewTextBoxColumn
+            // 
+            this.idDataGridViewTextBoxColumn.DataPropertyName = "Id";
+            this.idDataGridViewTextBoxColumn.HeaderText = "Id";
+            this.idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
+            this.idDataGridViewTextBoxColumn.ReadOnly = true;
+            this.idDataGridViewTextBoxColumn.Visible = false;
+            // 
+            // catalogIdDataGridViewTextBoxColumn
+            // 
+            this.catalogIdDataGridViewTextBoxColumn.DataPropertyName = "CatalogId";
+            this.catalogIdDataGridViewTextBoxColumn.HeaderText = "CatalogId";
+            this.catalogIdDataGridViewTextBoxColumn.Name = "catalogIdDataGridViewTextBoxColumn";
+            this.catalogIdDataGridViewTextBoxColumn.ReadOnly = true;
+            this.catalogIdDataGridViewTextBoxColumn.Visible = false;
+            // 
+            // supplyIdDataGridViewTextBoxColumn
+            // 
+            this.supplyIdDataGridViewTextBoxColumn.DataPropertyName = "SupplyId";
+            this.supplyIdDataGridViewTextBoxColumn.HeaderText = "SupplyId";
+            this.supplyIdDataGridViewTextBoxColumn.Name = "supplyIdDataGridViewTextBoxColumn";
+            this.supplyIdDataGridViewTextBoxColumn.ReadOnly = true;
+            this.supplyIdDataGridViewTextBoxColumn.Visible = false;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.DataPropertyName = "Quantity";
+            this.dataGridViewTextBoxColumn2.HeaderText = "Quantité";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            this.dataGridViewTextBoxColumn3.DataPropertyName = "Name";
+            this.dataGridViewTextBoxColumn3.HeaderText = "Name";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.ReadOnly = true;
+            // 
+            // referenceDataGridViewTextBoxColumn
+            // 
+            this.referenceDataGridViewTextBoxColumn.DataPropertyName = "Reference";
+            this.referenceDataGridViewTextBoxColumn.HeaderText = "Reference";
+            this.referenceDataGridViewTextBoxColumn.Name = "referenceDataGridViewTextBoxColumn";
+            this.referenceDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // categoryDataGridViewTextBoxColumn
+            // 
+            this.categoryDataGridViewTextBoxColumn.DataPropertyName = "Category";
+            this.categoryDataGridViewTextBoxColumn.HeaderText = "Categorie";
+            this.categoryDataGridViewTextBoxColumn.Name = "categoryDataGridViewTextBoxColumn";
+            this.categoryDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.DataPropertyName = "ModuleSize";
+            this.dataGridViewTextBoxColumn4.HeaderText = "Modules";
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.ReadOnly = true;
+            // 
             // ColumnSupplyPrice
             // 
             this.ColumnSupplyPrice.DataPropertyName = "Price";
@@ -686,12 +745,90 @@ namespace Chiffrage.Projects.Module.Views.Impl
             this.ColumnSupplyPrice.Name = "ColumnSupplyPrice";
             this.ColumnSupplyPrice.ReadOnly = true;
             // 
+            // catalogPriceDataGridViewTextBoxColumn
+            // 
+            this.catalogPriceDataGridViewTextBoxColumn.DataPropertyName = "CatalogPrice";
+            this.catalogPriceDataGridViewTextBoxColumn.HeaderText = "Pix Catalogue";
+            this.catalogPriceDataGridViewTextBoxColumn.Name = "catalogPriceDataGridViewTextBoxColumn";
+            this.catalogPriceDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // pFC0DataGridViewTextBoxColumn
+            // 
+            this.pFC0DataGridViewTextBoxColumn.DataPropertyName = "PFC0";
+            this.pFC0DataGridViewTextBoxColumn.HeaderText = "PFC0";
+            this.pFC0DataGridViewTextBoxColumn.Name = "pFC0DataGridViewTextBoxColumn";
+            this.pFC0DataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // pFC12DataGridViewTextBoxColumn
+            // 
+            this.pFC12DataGridViewTextBoxColumn.DataPropertyName = "PFC12";
+            this.pFC12DataGridViewTextBoxColumn.HeaderText = "PFC12";
+            this.pFC12DataGridViewTextBoxColumn.Name = "pFC12DataGridViewTextBoxColumn";
+            this.pFC12DataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // capDataGridViewTextBoxColumn
+            // 
+            this.capDataGridViewTextBoxColumn.DataPropertyName = "Cap";
+            this.capDataGridViewTextBoxColumn.HeaderText = "Bouchon de codage";
+            this.capDataGridViewTextBoxColumn.Name = "capDataGridViewTextBoxColumn";
+            this.capDataGridViewTextBoxColumn.ReadOnly = true;
+            this.capDataGridViewTextBoxColumn.Width = 150;
+            // 
+            // projectIdDataGridViewTextBoxColumn
+            // 
+            this.projectIdDataGridViewTextBoxColumn.DataPropertyName = "ProjectId";
+            this.projectIdDataGridViewTextBoxColumn.HeaderText = "ProjectId";
+            this.projectIdDataGridViewTextBoxColumn.Name = "projectIdDataGridViewTextBoxColumn";
+            this.projectIdDataGridViewTextBoxColumn.ReadOnly = true;
+            this.projectIdDataGridViewTextBoxColumn.Visible = false;
+            // 
+            // totalModuleSizeDataGridViewTextBoxColumn
+            // 
+            this.totalModuleSizeDataGridViewTextBoxColumn.DataPropertyName = "TotalModuleSize";
+            this.totalModuleSizeDataGridViewTextBoxColumn.HeaderText = "Total Modules";
+            this.totalModuleSizeDataGridViewTextBoxColumn.Name = "totalModuleSizeDataGridViewTextBoxColumn";
+            this.totalModuleSizeDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
             // ColumnTotalPrice
             // 
             this.ColumnTotalPrice.DataPropertyName = "TotalPrice";
             this.ColumnTotalPrice.HeaderText = "Total Prix";
             this.ColumnTotalPrice.Name = "ColumnTotalPrice";
             this.ColumnTotalPrice.ReadOnly = true;
+            // 
+            // totalCatalogPriceDataGridViewTextBoxColumn
+            // 
+            this.totalCatalogPriceDataGridViewTextBoxColumn.DataPropertyName = "TotalCatalogPrice";
+            this.totalCatalogPriceDataGridViewTextBoxColumn.HeaderText = "Total Prix Catalogue";
+            this.totalCatalogPriceDataGridViewTextBoxColumn.Name = "totalCatalogPriceDataGridViewTextBoxColumn";
+            this.totalCatalogPriceDataGridViewTextBoxColumn.ReadOnly = true;
+            this.totalCatalogPriceDataGridViewTextBoxColumn.Width = 150;
+            // 
+            // totalPFC0DataGridViewTextBoxColumn
+            // 
+            this.totalPFC0DataGridViewTextBoxColumn.DataPropertyName = "TotalPFC0";
+            this.totalPFC0DataGridViewTextBoxColumn.HeaderText = "Total PFC0";
+            this.totalPFC0DataGridViewTextBoxColumn.Name = "totalPFC0DataGridViewTextBoxColumn";
+            this.totalPFC0DataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // totalPFC12DataGridViewTextBoxColumn
+            // 
+            this.totalPFC12DataGridViewTextBoxColumn.DataPropertyName = "TotalPFC12";
+            this.totalPFC12DataGridViewTextBoxColumn.HeaderText = "Total PFC12";
+            this.totalPFC12DataGridViewTextBoxColumn.Name = "totalPFC12DataGridViewTextBoxColumn";
+            this.totalPFC12DataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // totalCapDataGridViewTextBoxColumn
+            // 
+            this.totalCapDataGridViewTextBoxColumn.DataPropertyName = "TotalCap";
+            this.totalCapDataGridViewTextBoxColumn.HeaderText = "Total Bouchon de codage";
+            this.totalCapDataGridViewTextBoxColumn.Name = "totalCapDataGridViewTextBoxColumn";
+            this.totalCapDataGridViewTextBoxColumn.ReadOnly = true;
+            this.totalCapDataGridViewTextBoxColumn.Width = 180;
+            // 
+            // projectSupplyViewModelBindingSource
+            // 
+            this.projectSupplyViewModelBindingSource.DataSource = typeof(Chiffrage.Projects.Module.ViewModel.ProjectSupplyViewModel);
             // 
             // toolStripProject
             // 
@@ -810,6 +947,76 @@ namespace Chiffrage.Projects.Module.Views.Impl
             this.dataGridViewHardware.TabIndex = 1;
             this.dataGridViewHardware.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewHardware_CellDoubleClick);
             // 
+            // idDataGridViewTextBoxColumn1
+            // 
+            this.idDataGridViewTextBoxColumn1.DataPropertyName = "Id";
+            this.idDataGridViewTextBoxColumn1.HeaderText = "Id";
+            this.idDataGridViewTextBoxColumn1.Name = "idDataGridViewTextBoxColumn1";
+            this.idDataGridViewTextBoxColumn1.ReadOnly = true;
+            this.idDataGridViewTextBoxColumn1.Visible = false;
+            // 
+            // projectIdDataGridViewTextBoxColumn1
+            // 
+            this.projectIdDataGridViewTextBoxColumn1.DataPropertyName = "ProjectId";
+            this.projectIdDataGridViewTextBoxColumn1.HeaderText = "ProjectId";
+            this.projectIdDataGridViewTextBoxColumn1.Name = "projectIdDataGridViewTextBoxColumn1";
+            this.projectIdDataGridViewTextBoxColumn1.ReadOnly = true;
+            this.projectIdDataGridViewTextBoxColumn1.Visible = false;
+            // 
+            // catalogIdDataGridViewTextBoxColumn1
+            // 
+            this.catalogIdDataGridViewTextBoxColumn1.DataPropertyName = "CatalogId";
+            this.catalogIdDataGridViewTextBoxColumn1.HeaderText = "CatalogId";
+            this.catalogIdDataGridViewTextBoxColumn1.Name = "catalogIdDataGridViewTextBoxColumn1";
+            this.catalogIdDataGridViewTextBoxColumn1.ReadOnly = true;
+            this.catalogIdDataGridViewTextBoxColumn1.Visible = false;
+            // 
+            // dataGridViewTextBoxColumn5
+            // 
+            this.dataGridViewTextBoxColumn5.DataPropertyName = "Name";
+            this.dataGridViewTextBoxColumn5.HeaderText = "Name";
+            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            this.dataGridViewTextBoxColumn5.ReadOnly = true;
+            // 
+            // categoryDataGridViewTextBoxColumn1
+            // 
+            this.categoryDataGridViewTextBoxColumn1.DataPropertyName = "Category";
+            this.categoryDataGridViewTextBoxColumn1.HeaderText = "Category";
+            this.categoryDataGridViewTextBoxColumn1.Name = "categoryDataGridViewTextBoxColumn1";
+            this.categoryDataGridViewTextBoxColumn1.ReadOnly = true;
+            // 
+            // ColumnHardwareMilestone
+            // 
+            this.ColumnHardwareMilestone.DataPropertyName = "Milestone";
+            this.ColumnHardwareMilestone.HeaderText = "Milestone";
+            this.ColumnHardwareMilestone.Name = "ColumnHardwareMilestone";
+            this.ColumnHardwareMilestone.ReadOnly = true;
+            // 
+            // totalModuleSizeDataGridViewTextBoxColumn1
+            // 
+            this.totalModuleSizeDataGridViewTextBoxColumn1.DataPropertyName = "TotalModuleSize";
+            this.totalModuleSizeDataGridViewTextBoxColumn1.HeaderText = "TotalModuleSize";
+            this.totalModuleSizeDataGridViewTextBoxColumn1.Name = "totalModuleSizeDataGridViewTextBoxColumn1";
+            this.totalModuleSizeDataGridViewTextBoxColumn1.ReadOnly = true;
+            // 
+            // totalCatalogPriceDataGridViewTextBoxColumn1
+            // 
+            this.totalCatalogPriceDataGridViewTextBoxColumn1.DataPropertyName = "TotalCatalogPrice";
+            this.totalCatalogPriceDataGridViewTextBoxColumn1.HeaderText = "TotalCatalogPrice";
+            this.totalCatalogPriceDataGridViewTextBoxColumn1.Name = "totalCatalogPriceDataGridViewTextBoxColumn1";
+            this.totalCatalogPriceDataGridViewTextBoxColumn1.ReadOnly = true;
+            // 
+            // ColumnHardwareTotalPrice
+            // 
+            this.ColumnHardwareTotalPrice.DataPropertyName = "TotalPrice";
+            this.ColumnHardwareTotalPrice.HeaderText = "TotalPrice";
+            this.ColumnHardwareTotalPrice.Name = "ColumnHardwareTotalPrice";
+            this.ColumnHardwareTotalPrice.ReadOnly = true;
+            // 
+            // projectHardwareViewModelBindingSource
+            // 
+            this.projectHardwareViewModelBindingSource.DataSource = typeof(Chiffrage.Projects.Module.ViewModel.ProjectHardwareViewModel);
+            // 
             // toolStripHardware
             // 
             this.toolStripHardware.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
@@ -877,12 +1084,114 @@ namespace Chiffrage.Projects.Module.Views.Impl
             this.dataGridViewHardwareSupplies.TabIndex = 9;
             this.dataGridViewHardwareSupplies.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewHardwareSupplies_CellDoubleClick);
             // 
+            // idDataGridViewTextBoxColumn2
+            // 
+            this.idDataGridViewTextBoxColumn2.DataPropertyName = "Id";
+            this.idDataGridViewTextBoxColumn2.HeaderText = "Id";
+            this.idDataGridViewTextBoxColumn2.Name = "idDataGridViewTextBoxColumn2";
+            this.idDataGridViewTextBoxColumn2.ReadOnly = true;
+            this.idDataGridViewTextBoxColumn2.Visible = false;
+            // 
+            // catalogIdDataGridViewTextBoxColumn2
+            // 
+            this.catalogIdDataGridViewTextBoxColumn2.DataPropertyName = "CatalogId";
+            this.catalogIdDataGridViewTextBoxColumn2.HeaderText = "CatalogId";
+            this.catalogIdDataGridViewTextBoxColumn2.Name = "catalogIdDataGridViewTextBoxColumn2";
+            this.catalogIdDataGridViewTextBoxColumn2.ReadOnly = true;
+            this.catalogIdDataGridViewTextBoxColumn2.Visible = false;
+            // 
+            // hardwareIdDataGridViewTextBoxColumn
+            // 
+            this.hardwareIdDataGridViewTextBoxColumn.DataPropertyName = "HardwareId";
+            this.hardwareIdDataGridViewTextBoxColumn.HeaderText = "HardwareId";
+            this.hardwareIdDataGridViewTextBoxColumn.Name = "hardwareIdDataGridViewTextBoxColumn";
+            this.hardwareIdDataGridViewTextBoxColumn.ReadOnly = true;
+            this.hardwareIdDataGridViewTextBoxColumn.Visible = false;
+            // 
+            // supplyIdDataGridViewTextBoxColumn1
+            // 
+            this.supplyIdDataGridViewTextBoxColumn1.DataPropertyName = "SupplyId";
+            this.supplyIdDataGridViewTextBoxColumn1.HeaderText = "SupplyId";
+            this.supplyIdDataGridViewTextBoxColumn1.Name = "supplyIdDataGridViewTextBoxColumn1";
+            this.supplyIdDataGridViewTextBoxColumn1.ReadOnly = true;
+            this.supplyIdDataGridViewTextBoxColumn1.Visible = false;
+            // 
+            // dataGridViewTextBoxColumn51
+            // 
+            this.dataGridViewTextBoxColumn51.DataPropertyName = "Quantity";
+            this.dataGridViewTextBoxColumn51.HeaderText = "Quantity";
+            this.dataGridViewTextBoxColumn51.Name = "dataGridViewTextBoxColumn51";
+            this.dataGridViewTextBoxColumn51.ReadOnly = true;
+            // 
+            // supplyNameDataGridViewTextBoxColumn
+            // 
+            this.supplyNameDataGridViewTextBoxColumn.DataPropertyName = "SupplyName";
+            this.supplyNameDataGridViewTextBoxColumn.HeaderText = "SupplyName";
+            this.supplyNameDataGridViewTextBoxColumn.Name = "supplyNameDataGridViewTextBoxColumn";
+            this.supplyNameDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // supplyReferenceDataGridViewTextBoxColumn
+            // 
+            this.supplyReferenceDataGridViewTextBoxColumn.DataPropertyName = "SupplyReference";
+            this.supplyReferenceDataGridViewTextBoxColumn.HeaderText = "SupplyReference";
+            this.supplyReferenceDataGridViewTextBoxColumn.Name = "supplyReferenceDataGridViewTextBoxColumn";
+            this.supplyReferenceDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // supplyCategoryDataGridViewTextBoxColumn
+            // 
+            this.supplyCategoryDataGridViewTextBoxColumn.DataPropertyName = "SupplyCategory";
+            this.supplyCategoryDataGridViewTextBoxColumn.HeaderText = "SupplyCategory";
+            this.supplyCategoryDataGridViewTextBoxColumn.Name = "supplyCategoryDataGridViewTextBoxColumn";
+            this.supplyCategoryDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // supplyModuleSizeDataGridViewTextBoxColumn
+            // 
+            this.supplyModuleSizeDataGridViewTextBoxColumn.DataPropertyName = "SupplyModuleSize";
+            this.supplyModuleSizeDataGridViewTextBoxColumn.HeaderText = "SupplyModuleSize";
+            this.supplyModuleSizeDataGridViewTextBoxColumn.Name = "supplyModuleSizeDataGridViewTextBoxColumn";
+            this.supplyModuleSizeDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
             // ColumnHardwareSupplyPrice
             // 
             this.ColumnHardwareSupplyPrice.DataPropertyName = "SupplyPrice";
             this.ColumnHardwareSupplyPrice.HeaderText = "SupplyPrice";
             this.ColumnHardwareSupplyPrice.Name = "ColumnHardwareSupplyPrice";
             this.ColumnHardwareSupplyPrice.ReadOnly = true;
+            // 
+            // supplyCatalogPriceDataGridViewTextBoxColumn
+            // 
+            this.supplyCatalogPriceDataGridViewTextBoxColumn.DataPropertyName = "SupplyCatalogPrice";
+            this.supplyCatalogPriceDataGridViewTextBoxColumn.HeaderText = "SupplyCatalogPrice";
+            this.supplyCatalogPriceDataGridViewTextBoxColumn.Name = "supplyCatalogPriceDataGridViewTextBoxColumn";
+            this.supplyCatalogPriceDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // supplyPFC0DataGridViewTextBoxColumn
+            // 
+            this.supplyPFC0DataGridViewTextBoxColumn.DataPropertyName = "SupplyPFC0";
+            this.supplyPFC0DataGridViewTextBoxColumn.HeaderText = "SupplyPFC0";
+            this.supplyPFC0DataGridViewTextBoxColumn.Name = "supplyPFC0DataGridViewTextBoxColumn";
+            this.supplyPFC0DataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // supplyPFC12DataGridViewTextBoxColumn
+            // 
+            this.supplyPFC12DataGridViewTextBoxColumn.DataPropertyName = "SupplyPFC12";
+            this.supplyPFC12DataGridViewTextBoxColumn.HeaderText = "SupplyPFC12";
+            this.supplyPFC12DataGridViewTextBoxColumn.Name = "supplyPFC12DataGridViewTextBoxColumn";
+            this.supplyPFC12DataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // supplyCapDataGridViewTextBoxColumn
+            // 
+            this.supplyCapDataGridViewTextBoxColumn.DataPropertyName = "SupplyCap";
+            this.supplyCapDataGridViewTextBoxColumn.HeaderText = "SupplyCap";
+            this.supplyCapDataGridViewTextBoxColumn.Name = "supplyCapDataGridViewTextBoxColumn";
+            this.supplyCapDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // commentDataGridViewTextBoxColumn
+            // 
+            this.commentDataGridViewTextBoxColumn.DataPropertyName = "Comment";
+            this.commentDataGridViewTextBoxColumn.HeaderText = "Comment";
+            this.commentDataGridViewTextBoxColumn.Name = "commentDataGridViewTextBoxColumn";
+            this.commentDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // componentsBindingSource
             // 
@@ -952,6 +1261,32 @@ namespace Chiffrage.Projects.Module.Views.Impl
             this.dataGridViewModules.RowHeadersVisible = false;
             this.dataGridViewModules.Size = new System.Drawing.Size(1052, 455);
             this.dataGridViewModules.TabIndex = 2;
+            // 
+            // idDataGridViewTextBoxColumn3
+            // 
+            this.idDataGridViewTextBoxColumn3.DataPropertyName = "Id";
+            this.idDataGridViewTextBoxColumn3.HeaderText = "Id";
+            this.idDataGridViewTextBoxColumn3.Name = "idDataGridViewTextBoxColumn3";
+            this.idDataGridViewTextBoxColumn3.ReadOnly = true;
+            this.idDataGridViewTextBoxColumn3.Visible = false;
+            // 
+            // sizeDataGridViewTextBoxColumn
+            // 
+            this.sizeDataGridViewTextBoxColumn.DataPropertyName = "Size";
+            this.sizeDataGridViewTextBoxColumn.HeaderText = "Size";
+            this.sizeDataGridViewTextBoxColumn.Name = "sizeDataGridViewTextBoxColumn";
+            this.sizeDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // countDataGridViewTextBoxColumn
+            // 
+            this.countDataGridViewTextBoxColumn.DataPropertyName = "Count";
+            this.countDataGridViewTextBoxColumn.HeaderText = "Count";
+            this.countDataGridViewTextBoxColumn.Name = "countDataGridViewTextBoxColumn";
+            this.countDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // projectFrameViewModelBindingSource
+            // 
+            this.projectFrameViewModelBindingSource.DataSource = typeof(Chiffrage.Projects.Module.ViewModel.ProjectFrameViewModel);
             // 
             // toolStripFrames
             // 
@@ -1097,6 +1432,32 @@ namespace Chiffrage.Projects.Module.Views.Impl
             this.dataGridViewItemSummary.Size = new System.Drawing.Size(1058, 531);
             this.dataGridViewItemSummary.TabIndex = 2;
             // 
+            // itemTypeDataGridViewTextBoxColumn
+            // 
+            this.itemTypeDataGridViewTextBoxColumn.DataPropertyName = "ItemType";
+            this.itemTypeDataGridViewTextBoxColumn.HeaderText = "ItemType";
+            this.itemTypeDataGridViewTextBoxColumn.Name = "itemTypeDataGridViewTextBoxColumn";
+            this.itemTypeDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn30
+            // 
+            this.dataGridViewTextBoxColumn30.DataPropertyName = "Quantity";
+            this.dataGridViewTextBoxColumn30.HeaderText = "Quantity";
+            this.dataGridViewTextBoxColumn30.Name = "dataGridViewTextBoxColumn30";
+            this.dataGridViewTextBoxColumn30.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn31
+            // 
+            this.dataGridViewTextBoxColumn31.DataPropertyName = "Name";
+            this.dataGridViewTextBoxColumn31.HeaderText = "Name";
+            this.dataGridViewTextBoxColumn31.Name = "dataGridViewTextBoxColumn31";
+            this.dataGridViewTextBoxColumn31.ReadOnly = true;
+            this.dataGridViewTextBoxColumn31.Width = 300;
+            // 
+            // projectSummaryItemViewModelBindingSource
+            // 
+            this.projectSummaryItemViewModelBindingSource.DataSource = typeof(Chiffrage.Projects.Module.ViewModel.ProjectSummaryItemViewModel);
+            // 
             // tabPageWork
             // 
             this.tabPageWork.Controls.Add(this.splitContainerWork);
@@ -1182,6 +1543,69 @@ namespace Chiffrage.Projects.Module.Views.Impl
             this.dataGridViewWork.TabIndex = 3;
             this.dataGridViewWork.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewWork_CellDoubleClick);
             // 
+            // idDataGridViewTextBoxColumn5
+            // 
+            this.idDataGridViewTextBoxColumn5.DataPropertyName = "Id";
+            this.idDataGridViewTextBoxColumn5.HeaderText = "Id";
+            this.idDataGridViewTextBoxColumn5.Name = "idDataGridViewTextBoxColumn5";
+            this.idDataGridViewTextBoxColumn5.ReadOnly = true;
+            this.idDataGridViewTextBoxColumn5.Visible = false;
+            // 
+            // projectIdDataGridViewTextBoxColumn2
+            // 
+            this.projectIdDataGridViewTextBoxColumn2.DataPropertyName = "ProjectId";
+            this.projectIdDataGridViewTextBoxColumn2.HeaderText = "ProjectId";
+            this.projectIdDataGridViewTextBoxColumn2.Name = "projectIdDataGridViewTextBoxColumn2";
+            this.projectIdDataGridViewTextBoxColumn2.ReadOnly = true;
+            this.projectIdDataGridViewTextBoxColumn2.Visible = false;
+            // 
+            // catalogIdDataGridViewTextBoxColumn3
+            // 
+            this.catalogIdDataGridViewTextBoxColumn3.DataPropertyName = "CatalogId";
+            this.catalogIdDataGridViewTextBoxColumn3.HeaderText = "CatalogId";
+            this.catalogIdDataGridViewTextBoxColumn3.Name = "catalogIdDataGridViewTextBoxColumn3";
+            this.catalogIdDataGridViewTextBoxColumn3.ReadOnly = true;
+            this.catalogIdDataGridViewTextBoxColumn3.Visible = false;
+            // 
+            // dataGridViewTextBoxColumn19
+            // 
+            this.dataGridViewTextBoxColumn19.DataPropertyName = "Name";
+            this.dataGridViewTextBoxColumn19.HeaderText = "Name";
+            this.dataGridViewTextBoxColumn19.Name = "dataGridViewTextBoxColumn19";
+            this.dataGridViewTextBoxColumn19.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn32
+            // 
+            this.dataGridViewTextBoxColumn32.DataPropertyName = "CatalogWorkDays";
+            this.dataGridViewTextBoxColumn32.HeaderText = "CatalogWorkDays";
+            this.dataGridViewTextBoxColumn32.Name = "dataGridViewTextBoxColumn32";
+            this.dataGridViewTextBoxColumn32.ReadOnly = true;
+            // 
+            // workDaysDataGridViewTextBoxColumn
+            // 
+            this.workDaysDataGridViewTextBoxColumn.DataPropertyName = "WorkDays";
+            this.workDaysDataGridViewTextBoxColumn.HeaderText = "WorkDays";
+            this.workDaysDataGridViewTextBoxColumn.Name = "workDaysDataGridViewTextBoxColumn";
+            this.workDaysDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // workShortNightsDataGridViewTextBoxColumn
+            // 
+            this.workShortNightsDataGridViewTextBoxColumn.DataPropertyName = "WorkShortNights";
+            this.workShortNightsDataGridViewTextBoxColumn.HeaderText = "WorkShortNights";
+            this.workShortNightsDataGridViewTextBoxColumn.Name = "workShortNightsDataGridViewTextBoxColumn";
+            this.workShortNightsDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // workLongNightsDataGridViewTextBoxColumn
+            // 
+            this.workLongNightsDataGridViewTextBoxColumn.DataPropertyName = "WorkLongNights";
+            this.workLongNightsDataGridViewTextBoxColumn.HeaderText = "WorkLongNights";
+            this.workLongNightsDataGridViewTextBoxColumn.Name = "workLongNightsDataGridViewTextBoxColumn";
+            this.workLongNightsDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // projectHardwareWorkViewModelBindingSource
+            // 
+            this.projectHardwareWorkViewModelBindingSource.DataSource = typeof(Chiffrage.Projects.Module.ViewModel.ProjectHardwareWorkViewModel);
+            // 
             // dataGridViewExecutiveWork
             // 
             this.dataGridViewExecutiveWork.AllowUserToAddRows = false;
@@ -1237,6 +1661,69 @@ namespace Chiffrage.Projects.Module.Views.Impl
             this.dataGridViewExecutiveWork.Size = new System.Drawing.Size(1052, 266);
             this.dataGridViewExecutiveWork.TabIndex = 3;
             this.dataGridViewExecutiveWork.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewExecutiveWork_CellDoubleClick);
+            // 
+            // idDataGridViewTextBoxColumn6
+            // 
+            this.idDataGridViewTextBoxColumn6.DataPropertyName = "Id";
+            this.idDataGridViewTextBoxColumn6.HeaderText = "Id";
+            this.idDataGridViewTextBoxColumn6.Name = "idDataGridViewTextBoxColumn6";
+            this.idDataGridViewTextBoxColumn6.ReadOnly = true;
+            this.idDataGridViewTextBoxColumn6.Visible = false;
+            // 
+            // projectIdDataGridViewTextBoxColumn3
+            // 
+            this.projectIdDataGridViewTextBoxColumn3.DataPropertyName = "ProjectId";
+            this.projectIdDataGridViewTextBoxColumn3.HeaderText = "ProjectId";
+            this.projectIdDataGridViewTextBoxColumn3.Name = "projectIdDataGridViewTextBoxColumn3";
+            this.projectIdDataGridViewTextBoxColumn3.ReadOnly = true;
+            this.projectIdDataGridViewTextBoxColumn3.Visible = false;
+            // 
+            // catalogIdDataGridViewTextBoxColumn4
+            // 
+            this.catalogIdDataGridViewTextBoxColumn4.DataPropertyName = "CatalogId";
+            this.catalogIdDataGridViewTextBoxColumn4.HeaderText = "CatalogId";
+            this.catalogIdDataGridViewTextBoxColumn4.Name = "catalogIdDataGridViewTextBoxColumn4";
+            this.catalogIdDataGridViewTextBoxColumn4.ReadOnly = true;
+            this.catalogIdDataGridViewTextBoxColumn4.Visible = false;
+            // 
+            // dataGridViewTextBoxColumn35
+            // 
+            this.dataGridViewTextBoxColumn35.DataPropertyName = "Name";
+            this.dataGridViewTextBoxColumn35.HeaderText = "Name";
+            this.dataGridViewTextBoxColumn35.Name = "dataGridViewTextBoxColumn35";
+            this.dataGridViewTextBoxColumn35.ReadOnly = true;
+            // 
+            // catalogExecutiveWorkDaysDataGridViewTextBoxColumn
+            // 
+            this.catalogExecutiveWorkDaysDataGridViewTextBoxColumn.DataPropertyName = "CatalogExecutiveWorkDays";
+            this.catalogExecutiveWorkDaysDataGridViewTextBoxColumn.HeaderText = "CatalogExecutiveWorkDays";
+            this.catalogExecutiveWorkDaysDataGridViewTextBoxColumn.Name = "catalogExecutiveWorkDaysDataGridViewTextBoxColumn";
+            this.catalogExecutiveWorkDaysDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // executiveWorkDaysDataGridViewTextBoxColumn
+            // 
+            this.executiveWorkDaysDataGridViewTextBoxColumn.DataPropertyName = "ExecutiveWorkDays";
+            this.executiveWorkDaysDataGridViewTextBoxColumn.HeaderText = "ExecutiveWorkDays";
+            this.executiveWorkDaysDataGridViewTextBoxColumn.Name = "executiveWorkDaysDataGridViewTextBoxColumn";
+            this.executiveWorkDaysDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // executiveWorkShortNightsDataGridViewTextBoxColumn
+            // 
+            this.executiveWorkShortNightsDataGridViewTextBoxColumn.DataPropertyName = "ExecutiveWorkShortNights";
+            this.executiveWorkShortNightsDataGridViewTextBoxColumn.HeaderText = "ExecutiveWorkShortNights";
+            this.executiveWorkShortNightsDataGridViewTextBoxColumn.Name = "executiveWorkShortNightsDataGridViewTextBoxColumn";
+            this.executiveWorkShortNightsDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // executiveWorkLongNightsDataGridViewTextBoxColumn
+            // 
+            this.executiveWorkLongNightsDataGridViewTextBoxColumn.DataPropertyName = "ExecutiveWorkLongNights";
+            this.executiveWorkLongNightsDataGridViewTextBoxColumn.HeaderText = "ExecutiveWorkLongNights";
+            this.executiveWorkLongNightsDataGridViewTextBoxColumn.Name = "executiveWorkLongNightsDataGridViewTextBoxColumn";
+            this.executiveWorkLongNightsDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // projectHardwareExecutiveWorkViewModelBindingSource
+            // 
+            this.projectHardwareExecutiveWorkViewModelBindingSource.DataSource = typeof(Chiffrage.Projects.Module.ViewModel.ProjectHardwareExecutiveWorkViewModel);
             // 
             // tabPageStudyTestReference
             // 
@@ -1307,6 +1794,90 @@ namespace Chiffrage.Projects.Module.Views.Impl
             this.dataGridViewStudyReferenceTest.Size = new System.Drawing.Size(1052, 525);
             this.dataGridViewStudyReferenceTest.TabIndex = 4;
             this.dataGridViewStudyReferenceTest.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewStudyReferenceTest_CellDoubleClick);
+            // 
+            // idDataGridViewTextBoxColumn7
+            // 
+            this.idDataGridViewTextBoxColumn7.DataPropertyName = "Id";
+            this.idDataGridViewTextBoxColumn7.HeaderText = "Id";
+            this.idDataGridViewTextBoxColumn7.Name = "idDataGridViewTextBoxColumn7";
+            this.idDataGridViewTextBoxColumn7.ReadOnly = true;
+            this.idDataGridViewTextBoxColumn7.Visible = false;
+            // 
+            // projectIdDataGridViewTextBoxColumn4
+            // 
+            this.projectIdDataGridViewTextBoxColumn4.DataPropertyName = "ProjectId";
+            this.projectIdDataGridViewTextBoxColumn4.HeaderText = "ProjectId";
+            this.projectIdDataGridViewTextBoxColumn4.Name = "projectIdDataGridViewTextBoxColumn4";
+            this.projectIdDataGridViewTextBoxColumn4.ReadOnly = true;
+            this.projectIdDataGridViewTextBoxColumn4.Visible = false;
+            // 
+            // catalogIdDataGridViewTextBoxColumn5
+            // 
+            this.catalogIdDataGridViewTextBoxColumn5.DataPropertyName = "CatalogId";
+            this.catalogIdDataGridViewTextBoxColumn5.HeaderText = "CatalogId";
+            this.catalogIdDataGridViewTextBoxColumn5.Name = "catalogIdDataGridViewTextBoxColumn5";
+            this.catalogIdDataGridViewTextBoxColumn5.ReadOnly = true;
+            this.catalogIdDataGridViewTextBoxColumn5.Visible = false;
+            // 
+            // dataGridViewTextBoxColumn38
+            // 
+            this.dataGridViewTextBoxColumn38.DataPropertyName = "Name";
+            this.dataGridViewTextBoxColumn38.HeaderText = "Name";
+            this.dataGridViewTextBoxColumn38.Name = "dataGridViewTextBoxColumn38";
+            this.dataGridViewTextBoxColumn38.ReadOnly = true;
+            // 
+            // catalogStudyDaysDataGridViewTextBoxColumn
+            // 
+            this.catalogStudyDaysDataGridViewTextBoxColumn.DataPropertyName = "CatalogStudyDays";
+            this.catalogStudyDaysDataGridViewTextBoxColumn.HeaderText = "CatalogStudyDays";
+            this.catalogStudyDaysDataGridViewTextBoxColumn.Name = "catalogStudyDaysDataGridViewTextBoxColumn";
+            this.catalogStudyDaysDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // catalogReferenceDaysDataGridViewTextBoxColumn
+            // 
+            this.catalogReferenceDaysDataGridViewTextBoxColumn.DataPropertyName = "CatalogReferenceDays";
+            this.catalogReferenceDaysDataGridViewTextBoxColumn.HeaderText = "CatalogReferenceDays";
+            this.catalogReferenceDaysDataGridViewTextBoxColumn.Name = "catalogReferenceDaysDataGridViewTextBoxColumn";
+            this.catalogReferenceDaysDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn39
+            // 
+            this.dataGridViewTextBoxColumn39.DataPropertyName = "CatalogTestsDays";
+            this.dataGridViewTextBoxColumn39.HeaderText = "CatalogTestsDays";
+            this.dataGridViewTextBoxColumn39.Name = "dataGridViewTextBoxColumn39";
+            this.dataGridViewTextBoxColumn39.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn40
+            // 
+            this.dataGridViewTextBoxColumn40.DataPropertyName = "StudyDays";
+            this.dataGridViewTextBoxColumn40.HeaderText = "StudyDays";
+            this.dataGridViewTextBoxColumn40.Name = "dataGridViewTextBoxColumn40";
+            this.dataGridViewTextBoxColumn40.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn41
+            // 
+            this.dataGridViewTextBoxColumn41.DataPropertyName = "ReferenceDays";
+            this.dataGridViewTextBoxColumn41.HeaderText = "ReferenceDays";
+            this.dataGridViewTextBoxColumn41.Name = "dataGridViewTextBoxColumn41";
+            this.dataGridViewTextBoxColumn41.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn42
+            // 
+            this.dataGridViewTextBoxColumn42.DataPropertyName = "TestsDays";
+            this.dataGridViewTextBoxColumn42.HeaderText = "TestsDays";
+            this.dataGridViewTextBoxColumn42.Name = "dataGridViewTextBoxColumn42";
+            this.dataGridViewTextBoxColumn42.ReadOnly = true;
+            // 
+            // ColumnTestsNights
+            // 
+            this.ColumnTestsNights.DataPropertyName = "TestsNights";
+            this.ColumnTestsNights.HeaderText = "TestsNights";
+            this.ColumnTestsNights.Name = "ColumnTestsNights";
+            this.ColumnTestsNights.ReadOnly = true;
+            // 
+            // projectHardwareStudyReferenceTestViewModelBindingSource
+            // 
+            this.projectHardwareStudyReferenceTestViewModelBindingSource.DataSource = typeof(Chiffrage.Projects.Module.ViewModel.ProjectHardwareStudyReferenceTestViewModel);
             // 
             // tabPageOther
             // 
@@ -1467,647 +2038,63 @@ namespace Chiffrage.Projects.Module.Views.Impl
             this.dataGridViewSummary.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle36;
             this.dataGridViewSummary.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dataGridViewSummary.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.ColumnSumaryIcon,
-            this.ColumnSumaryType,
-            this.ColumnSumaryDays,
-            this.ColumnSumaryRate,
-            this.ColumnSumaryCost});
-            dataGridViewCellStyle41.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle41.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle41.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle41.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle41.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle41.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle41.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewSummary.DefaultCellStyle = dataGridViewCellStyle41;
+            this.ColumnCostImg,
+            this.ColumnCostType,
+            this.ColumnCostTime,
+            this.ColumnCostRate,
+            this.ColumnCostTotal});
+            dataGridViewCellStyle37.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle37.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle37.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle37.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle37.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle37.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle37.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewSummary.DefaultCellStyle = dataGridViewCellStyle37;
             this.dataGridViewSummary.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewSummary.GridColor = System.Drawing.SystemColors.ControlLight;
             this.dataGridViewSummary.Location = new System.Drawing.Point(3, 3);
             this.dataGridViewSummary.Name = "dataGridViewSummary";
-            dataGridViewCellStyle42.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle42.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle42.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle42.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle42.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle42.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle42.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewSummary.RowHeadersDefaultCellStyle = dataGridViewCellStyle42;
+            dataGridViewCellStyle38.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle38.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle38.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle38.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle38.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle38.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle38.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewSummary.RowHeadersDefaultCellStyle = dataGridViewCellStyle38;
             this.dataGridViewSummary.RowHeadersVisible = false;
+            this.dataGridViewSummary.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridViewSummary.Size = new System.Drawing.Size(1052, 525);
             this.dataGridViewSummary.TabIndex = 6;
             // 
-            // ColumnSumaryIcon
+            // ColumnCostImg
             // 
-            dataGridViewCellStyle37.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle37.NullValue = "System.Drawing.Bitmap";
-            this.ColumnSumaryIcon.DefaultCellStyle = dataGridViewCellStyle37;
-            this.ColumnSumaryIcon.HeaderText = "";
-            this.ColumnSumaryIcon.Name = "ColumnSumaryIcon";
-            this.ColumnSumaryIcon.Width = 20;
+            this.ColumnCostImg.HeaderText = "";
+            this.ColumnCostImg.Name = "ColumnCostImg";
+            this.ColumnCostImg.ReadOnly = true;
+            this.ColumnCostImg.Width = 30;
             // 
-            // ColumnSumaryType
+            // ColumnCostType
             // 
-            this.ColumnSumaryType.HeaderText = "Type";
-            this.ColumnSumaryType.Name = "ColumnSumaryType";
+            this.ColumnCostType.HeaderText = "Type";
+            this.ColumnCostType.Name = "ColumnCostType";
+            this.ColumnCostType.Width = 200;
             // 
-            // ColumnSumaryDays
+            // ColumnCostTime
             // 
-            dataGridViewCellStyle38.Format = "#.## j;#.## j;\\0 j";
-            dataGridViewCellStyle38.NullValue = null;
-            this.ColumnSumaryDays.DefaultCellStyle = dataGridViewCellStyle38;
-            this.ColumnSumaryDays.HeaderText = "Temps";
-            this.ColumnSumaryDays.Name = "ColumnSumaryDays";
+            this.ColumnCostTime.HeaderText = "Temps";
+            this.ColumnCostTime.Name = "ColumnCostTime";
             // 
-            // ColumnSumaryRate
+            // ColumnCostRate
             // 
-            dataGridViewCellStyle39.Format = "#.## €/j;#.## €/j;\\0 €/j";
-            dataGridViewCellStyle39.NullValue = null;
-            this.ColumnSumaryRate.DefaultCellStyle = dataGridViewCellStyle39;
-            this.ColumnSumaryRate.HeaderText = "Taux";
-            this.ColumnSumaryRate.Name = "ColumnSumaryRate";
+            this.ColumnCostRate.HeaderText = "Taux";
+            this.ColumnCostRate.Name = "ColumnCostRate";
             // 
-            // ColumnSumaryCost
+            // ColumnCostTotal
             // 
-            dataGridViewCellStyle40.Format = "C2";
-            dataGridViewCellStyle40.NullValue = null;
-            this.ColumnSumaryCost.DefaultCellStyle = dataGridViewCellStyle40;
-            this.ColumnSumaryCost.HeaderText = "Coût";
-            this.ColumnSumaryCost.Name = "ColumnSumaryCost";
-            // 
-            // ColumnHardwareMilestone
-            // 
-            this.ColumnHardwareMilestone.DataPropertyName = "Milestone";
-            this.ColumnHardwareMilestone.HeaderText = "Milestone";
-            this.ColumnHardwareMilestone.Name = "ColumnHardwareMilestone";
-            this.ColumnHardwareMilestone.ReadOnly = true;
-            // 
-            // ColumnHardwareTotalPrice
-            // 
-            this.ColumnHardwareTotalPrice.DataPropertyName = "TotalPrice";
-            this.ColumnHardwareTotalPrice.HeaderText = "TotalPrice";
-            this.ColumnHardwareTotalPrice.Name = "ColumnHardwareTotalPrice";
-            this.ColumnHardwareTotalPrice.ReadOnly = true;
-            // 
-            // projectBindingSource
-            // 
-            this.projectBindingSource.DataSource = typeof(Chiffrage.Projects.Module.ViewModel.ProjectViewModel);
-            // 
-            // idDataGridViewTextBoxColumn
-            // 
-            this.idDataGridViewTextBoxColumn.DataPropertyName = "Id";
-            this.idDataGridViewTextBoxColumn.HeaderText = "Id";
-            this.idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
-            this.idDataGridViewTextBoxColumn.ReadOnly = true;
-            this.idDataGridViewTextBoxColumn.Visible = false;
-            // 
-            // catalogIdDataGridViewTextBoxColumn
-            // 
-            this.catalogIdDataGridViewTextBoxColumn.DataPropertyName = "CatalogId";
-            this.catalogIdDataGridViewTextBoxColumn.HeaderText = "CatalogId";
-            this.catalogIdDataGridViewTextBoxColumn.Name = "catalogIdDataGridViewTextBoxColumn";
-            this.catalogIdDataGridViewTextBoxColumn.ReadOnly = true;
-            this.catalogIdDataGridViewTextBoxColumn.Visible = false;
-            // 
-            // supplyIdDataGridViewTextBoxColumn
-            // 
-            this.supplyIdDataGridViewTextBoxColumn.DataPropertyName = "SupplyId";
-            this.supplyIdDataGridViewTextBoxColumn.HeaderText = "SupplyId";
-            this.supplyIdDataGridViewTextBoxColumn.Name = "supplyIdDataGridViewTextBoxColumn";
-            this.supplyIdDataGridViewTextBoxColumn.ReadOnly = true;
-            this.supplyIdDataGridViewTextBoxColumn.Visible = false;
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.DataPropertyName = "Quantity";
-            this.dataGridViewTextBoxColumn2.HeaderText = "Quantité";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn3
-            // 
-            this.dataGridViewTextBoxColumn3.DataPropertyName = "Name";
-            this.dataGridViewTextBoxColumn3.HeaderText = "Name";
-            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
-            this.dataGridViewTextBoxColumn3.ReadOnly = true;
-            // 
-            // referenceDataGridViewTextBoxColumn
-            // 
-            this.referenceDataGridViewTextBoxColumn.DataPropertyName = "Reference";
-            this.referenceDataGridViewTextBoxColumn.HeaderText = "Reference";
-            this.referenceDataGridViewTextBoxColumn.Name = "referenceDataGridViewTextBoxColumn";
-            this.referenceDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // categoryDataGridViewTextBoxColumn
-            // 
-            this.categoryDataGridViewTextBoxColumn.DataPropertyName = "Category";
-            this.categoryDataGridViewTextBoxColumn.HeaderText = "Categorie";
-            this.categoryDataGridViewTextBoxColumn.Name = "categoryDataGridViewTextBoxColumn";
-            this.categoryDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn4
-            // 
-            this.dataGridViewTextBoxColumn4.DataPropertyName = "ModuleSize";
-            this.dataGridViewTextBoxColumn4.HeaderText = "Modules";
-            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
-            this.dataGridViewTextBoxColumn4.ReadOnly = true;
-            // 
-            // catalogPriceDataGridViewTextBoxColumn
-            // 
-            this.catalogPriceDataGridViewTextBoxColumn.DataPropertyName = "CatalogPrice";
-            this.catalogPriceDataGridViewTextBoxColumn.HeaderText = "Pix Catalogue";
-            this.catalogPriceDataGridViewTextBoxColumn.Name = "catalogPriceDataGridViewTextBoxColumn";
-            this.catalogPriceDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // pFC0DataGridViewTextBoxColumn
-            // 
-            this.pFC0DataGridViewTextBoxColumn.DataPropertyName = "PFC0";
-            this.pFC0DataGridViewTextBoxColumn.HeaderText = "PFC0";
-            this.pFC0DataGridViewTextBoxColumn.Name = "pFC0DataGridViewTextBoxColumn";
-            this.pFC0DataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // pFC12DataGridViewTextBoxColumn
-            // 
-            this.pFC12DataGridViewTextBoxColumn.DataPropertyName = "PFC12";
-            this.pFC12DataGridViewTextBoxColumn.HeaderText = "PFC12";
-            this.pFC12DataGridViewTextBoxColumn.Name = "pFC12DataGridViewTextBoxColumn";
-            this.pFC12DataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // capDataGridViewTextBoxColumn
-            // 
-            this.capDataGridViewTextBoxColumn.DataPropertyName = "Cap";
-            this.capDataGridViewTextBoxColumn.HeaderText = "Bouchon de codage";
-            this.capDataGridViewTextBoxColumn.Name = "capDataGridViewTextBoxColumn";
-            this.capDataGridViewTextBoxColumn.ReadOnly = true;
-            this.capDataGridViewTextBoxColumn.Width = 150;
-            // 
-            // projectIdDataGridViewTextBoxColumn
-            // 
-            this.projectIdDataGridViewTextBoxColumn.DataPropertyName = "ProjectId";
-            this.projectIdDataGridViewTextBoxColumn.HeaderText = "ProjectId";
-            this.projectIdDataGridViewTextBoxColumn.Name = "projectIdDataGridViewTextBoxColumn";
-            this.projectIdDataGridViewTextBoxColumn.ReadOnly = true;
-            this.projectIdDataGridViewTextBoxColumn.Visible = false;
-            // 
-            // totalModuleSizeDataGridViewTextBoxColumn
-            // 
-            this.totalModuleSizeDataGridViewTextBoxColumn.DataPropertyName = "TotalModuleSize";
-            this.totalModuleSizeDataGridViewTextBoxColumn.HeaderText = "Total Modules";
-            this.totalModuleSizeDataGridViewTextBoxColumn.Name = "totalModuleSizeDataGridViewTextBoxColumn";
-            this.totalModuleSizeDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // totalCatalogPriceDataGridViewTextBoxColumn
-            // 
-            this.totalCatalogPriceDataGridViewTextBoxColumn.DataPropertyName = "TotalCatalogPrice";
-            this.totalCatalogPriceDataGridViewTextBoxColumn.HeaderText = "Total Prix Catalogue";
-            this.totalCatalogPriceDataGridViewTextBoxColumn.Name = "totalCatalogPriceDataGridViewTextBoxColumn";
-            this.totalCatalogPriceDataGridViewTextBoxColumn.ReadOnly = true;
-            this.totalCatalogPriceDataGridViewTextBoxColumn.Width = 150;
-            // 
-            // totalPFC0DataGridViewTextBoxColumn
-            // 
-            this.totalPFC0DataGridViewTextBoxColumn.DataPropertyName = "TotalPFC0";
-            this.totalPFC0DataGridViewTextBoxColumn.HeaderText = "Total PFC0";
-            this.totalPFC0DataGridViewTextBoxColumn.Name = "totalPFC0DataGridViewTextBoxColumn";
-            this.totalPFC0DataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // totalPFC12DataGridViewTextBoxColumn
-            // 
-            this.totalPFC12DataGridViewTextBoxColumn.DataPropertyName = "TotalPFC12";
-            this.totalPFC12DataGridViewTextBoxColumn.HeaderText = "Total PFC12";
-            this.totalPFC12DataGridViewTextBoxColumn.Name = "totalPFC12DataGridViewTextBoxColumn";
-            this.totalPFC12DataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // totalCapDataGridViewTextBoxColumn
-            // 
-            this.totalCapDataGridViewTextBoxColumn.DataPropertyName = "TotalCap";
-            this.totalCapDataGridViewTextBoxColumn.HeaderText = "Total Bouchon de codage";
-            this.totalCapDataGridViewTextBoxColumn.Name = "totalCapDataGridViewTextBoxColumn";
-            this.totalCapDataGridViewTextBoxColumn.ReadOnly = true;
-            this.totalCapDataGridViewTextBoxColumn.Width = 180;
-            // 
-            // projectSupplyViewModelBindingSource
-            // 
-            this.projectSupplyViewModelBindingSource.DataSource = typeof(Chiffrage.Projects.Module.ViewModel.ProjectSupplyViewModel);
-            // 
-            // idDataGridViewTextBoxColumn1
-            // 
-            this.idDataGridViewTextBoxColumn1.DataPropertyName = "Id";
-            this.idDataGridViewTextBoxColumn1.HeaderText = "Id";
-            this.idDataGridViewTextBoxColumn1.Name = "idDataGridViewTextBoxColumn1";
-            this.idDataGridViewTextBoxColumn1.ReadOnly = true;
-            this.idDataGridViewTextBoxColumn1.Visible = false;
-            // 
-            // projectIdDataGridViewTextBoxColumn1
-            // 
-            this.projectIdDataGridViewTextBoxColumn1.DataPropertyName = "ProjectId";
-            this.projectIdDataGridViewTextBoxColumn1.HeaderText = "ProjectId";
-            this.projectIdDataGridViewTextBoxColumn1.Name = "projectIdDataGridViewTextBoxColumn1";
-            this.projectIdDataGridViewTextBoxColumn1.ReadOnly = true;
-            this.projectIdDataGridViewTextBoxColumn1.Visible = false;
-            // 
-            // catalogIdDataGridViewTextBoxColumn1
-            // 
-            this.catalogIdDataGridViewTextBoxColumn1.DataPropertyName = "CatalogId";
-            this.catalogIdDataGridViewTextBoxColumn1.HeaderText = "CatalogId";
-            this.catalogIdDataGridViewTextBoxColumn1.Name = "catalogIdDataGridViewTextBoxColumn1";
-            this.catalogIdDataGridViewTextBoxColumn1.ReadOnly = true;
-            this.catalogIdDataGridViewTextBoxColumn1.Visible = false;
-            // 
-            // dataGridViewTextBoxColumn5
-            // 
-            this.dataGridViewTextBoxColumn5.DataPropertyName = "Name";
-            this.dataGridViewTextBoxColumn5.HeaderText = "Name";
-            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
-            this.dataGridViewTextBoxColumn5.ReadOnly = true;
-            // 
-            // categoryDataGridViewTextBoxColumn1
-            // 
-            this.categoryDataGridViewTextBoxColumn1.DataPropertyName = "Category";
-            this.categoryDataGridViewTextBoxColumn1.HeaderText = "Category";
-            this.categoryDataGridViewTextBoxColumn1.Name = "categoryDataGridViewTextBoxColumn1";
-            this.categoryDataGridViewTextBoxColumn1.ReadOnly = true;
-            // 
-            // totalModuleSizeDataGridViewTextBoxColumn1
-            // 
-            this.totalModuleSizeDataGridViewTextBoxColumn1.DataPropertyName = "TotalModuleSize";
-            this.totalModuleSizeDataGridViewTextBoxColumn1.HeaderText = "TotalModuleSize";
-            this.totalModuleSizeDataGridViewTextBoxColumn1.Name = "totalModuleSizeDataGridViewTextBoxColumn1";
-            this.totalModuleSizeDataGridViewTextBoxColumn1.ReadOnly = true;
-            // 
-            // totalCatalogPriceDataGridViewTextBoxColumn1
-            // 
-            this.totalCatalogPriceDataGridViewTextBoxColumn1.DataPropertyName = "TotalCatalogPrice";
-            this.totalCatalogPriceDataGridViewTextBoxColumn1.HeaderText = "TotalCatalogPrice";
-            this.totalCatalogPriceDataGridViewTextBoxColumn1.Name = "totalCatalogPriceDataGridViewTextBoxColumn1";
-            this.totalCatalogPriceDataGridViewTextBoxColumn1.ReadOnly = true;
-            // 
-            // projectHardwareViewModelBindingSource
-            // 
-            this.projectHardwareViewModelBindingSource.DataSource = typeof(Chiffrage.Projects.Module.ViewModel.ProjectHardwareViewModel);
-            // 
-            // idDataGridViewTextBoxColumn2
-            // 
-            this.idDataGridViewTextBoxColumn2.DataPropertyName = "Id";
-            this.idDataGridViewTextBoxColumn2.HeaderText = "Id";
-            this.idDataGridViewTextBoxColumn2.Name = "idDataGridViewTextBoxColumn2";
-            this.idDataGridViewTextBoxColumn2.ReadOnly = true;
-            this.idDataGridViewTextBoxColumn2.Visible = false;
-            // 
-            // catalogIdDataGridViewTextBoxColumn2
-            // 
-            this.catalogIdDataGridViewTextBoxColumn2.DataPropertyName = "CatalogId";
-            this.catalogIdDataGridViewTextBoxColumn2.HeaderText = "CatalogId";
-            this.catalogIdDataGridViewTextBoxColumn2.Name = "catalogIdDataGridViewTextBoxColumn2";
-            this.catalogIdDataGridViewTextBoxColumn2.ReadOnly = true;
-            this.catalogIdDataGridViewTextBoxColumn2.Visible = false;
-            // 
-            // hardwareIdDataGridViewTextBoxColumn
-            // 
-            this.hardwareIdDataGridViewTextBoxColumn.DataPropertyName = "HardwareId";
-            this.hardwareIdDataGridViewTextBoxColumn.HeaderText = "HardwareId";
-            this.hardwareIdDataGridViewTextBoxColumn.Name = "hardwareIdDataGridViewTextBoxColumn";
-            this.hardwareIdDataGridViewTextBoxColumn.ReadOnly = true;
-            this.hardwareIdDataGridViewTextBoxColumn.Visible = false;
-            // 
-            // supplyIdDataGridViewTextBoxColumn1
-            // 
-            this.supplyIdDataGridViewTextBoxColumn1.DataPropertyName = "SupplyId";
-            this.supplyIdDataGridViewTextBoxColumn1.HeaderText = "SupplyId";
-            this.supplyIdDataGridViewTextBoxColumn1.Name = "supplyIdDataGridViewTextBoxColumn1";
-            this.supplyIdDataGridViewTextBoxColumn1.ReadOnly = true;
-            this.supplyIdDataGridViewTextBoxColumn1.Visible = false;
-            // 
-            // dataGridViewTextBoxColumn51
-            // 
-            this.dataGridViewTextBoxColumn51.DataPropertyName = "Quantity";
-            this.dataGridViewTextBoxColumn51.HeaderText = "Quantity";
-            this.dataGridViewTextBoxColumn51.Name = "dataGridViewTextBoxColumn51";
-            this.dataGridViewTextBoxColumn51.ReadOnly = true;
-            // 
-            // supplyNameDataGridViewTextBoxColumn
-            // 
-            this.supplyNameDataGridViewTextBoxColumn.DataPropertyName = "SupplyName";
-            this.supplyNameDataGridViewTextBoxColumn.HeaderText = "SupplyName";
-            this.supplyNameDataGridViewTextBoxColumn.Name = "supplyNameDataGridViewTextBoxColumn";
-            this.supplyNameDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // supplyReferenceDataGridViewTextBoxColumn
-            // 
-            this.supplyReferenceDataGridViewTextBoxColumn.DataPropertyName = "SupplyReference";
-            this.supplyReferenceDataGridViewTextBoxColumn.HeaderText = "SupplyReference";
-            this.supplyReferenceDataGridViewTextBoxColumn.Name = "supplyReferenceDataGridViewTextBoxColumn";
-            this.supplyReferenceDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // supplyCategoryDataGridViewTextBoxColumn
-            // 
-            this.supplyCategoryDataGridViewTextBoxColumn.DataPropertyName = "SupplyCategory";
-            this.supplyCategoryDataGridViewTextBoxColumn.HeaderText = "SupplyCategory";
-            this.supplyCategoryDataGridViewTextBoxColumn.Name = "supplyCategoryDataGridViewTextBoxColumn";
-            this.supplyCategoryDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // supplyModuleSizeDataGridViewTextBoxColumn
-            // 
-            this.supplyModuleSizeDataGridViewTextBoxColumn.DataPropertyName = "SupplyModuleSize";
-            this.supplyModuleSizeDataGridViewTextBoxColumn.HeaderText = "SupplyModuleSize";
-            this.supplyModuleSizeDataGridViewTextBoxColumn.Name = "supplyModuleSizeDataGridViewTextBoxColumn";
-            this.supplyModuleSizeDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // supplyCatalogPriceDataGridViewTextBoxColumn
-            // 
-            this.supplyCatalogPriceDataGridViewTextBoxColumn.DataPropertyName = "SupplyCatalogPrice";
-            this.supplyCatalogPriceDataGridViewTextBoxColumn.HeaderText = "SupplyCatalogPrice";
-            this.supplyCatalogPriceDataGridViewTextBoxColumn.Name = "supplyCatalogPriceDataGridViewTextBoxColumn";
-            this.supplyCatalogPriceDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // supplyPFC0DataGridViewTextBoxColumn
-            // 
-            this.supplyPFC0DataGridViewTextBoxColumn.DataPropertyName = "SupplyPFC0";
-            this.supplyPFC0DataGridViewTextBoxColumn.HeaderText = "SupplyPFC0";
-            this.supplyPFC0DataGridViewTextBoxColumn.Name = "supplyPFC0DataGridViewTextBoxColumn";
-            this.supplyPFC0DataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // supplyPFC12DataGridViewTextBoxColumn
-            // 
-            this.supplyPFC12DataGridViewTextBoxColumn.DataPropertyName = "SupplyPFC12";
-            this.supplyPFC12DataGridViewTextBoxColumn.HeaderText = "SupplyPFC12";
-            this.supplyPFC12DataGridViewTextBoxColumn.Name = "supplyPFC12DataGridViewTextBoxColumn";
-            this.supplyPFC12DataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // supplyCapDataGridViewTextBoxColumn
-            // 
-            this.supplyCapDataGridViewTextBoxColumn.DataPropertyName = "SupplyCap";
-            this.supplyCapDataGridViewTextBoxColumn.HeaderText = "SupplyCap";
-            this.supplyCapDataGridViewTextBoxColumn.Name = "supplyCapDataGridViewTextBoxColumn";
-            this.supplyCapDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // commentDataGridViewTextBoxColumn
-            // 
-            this.commentDataGridViewTextBoxColumn.DataPropertyName = "Comment";
-            this.commentDataGridViewTextBoxColumn.HeaderText = "Comment";
-            this.commentDataGridViewTextBoxColumn.Name = "commentDataGridViewTextBoxColumn";
-            this.commentDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // idDataGridViewTextBoxColumn3
-            // 
-            this.idDataGridViewTextBoxColumn3.DataPropertyName = "Id";
-            this.idDataGridViewTextBoxColumn3.HeaderText = "Id";
-            this.idDataGridViewTextBoxColumn3.Name = "idDataGridViewTextBoxColumn3";
-            this.idDataGridViewTextBoxColumn3.ReadOnly = true;
-            this.idDataGridViewTextBoxColumn3.Visible = false;
-            // 
-            // sizeDataGridViewTextBoxColumn
-            // 
-            this.sizeDataGridViewTextBoxColumn.DataPropertyName = "Size";
-            this.sizeDataGridViewTextBoxColumn.HeaderText = "Size";
-            this.sizeDataGridViewTextBoxColumn.Name = "sizeDataGridViewTextBoxColumn";
-            this.sizeDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // countDataGridViewTextBoxColumn
-            // 
-            this.countDataGridViewTextBoxColumn.DataPropertyName = "Count";
-            this.countDataGridViewTextBoxColumn.HeaderText = "Count";
-            this.countDataGridViewTextBoxColumn.Name = "countDataGridViewTextBoxColumn";
-            this.countDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // projectFrameViewModelBindingSource
-            // 
-            this.projectFrameViewModelBindingSource.DataSource = typeof(Chiffrage.Projects.Module.ViewModel.ProjectFrameViewModel);
-            // 
-            // itemTypeDataGridViewTextBoxColumn
-            // 
-            this.itemTypeDataGridViewTextBoxColumn.DataPropertyName = "ItemType";
-            this.itemTypeDataGridViewTextBoxColumn.HeaderText = "ItemType";
-            this.itemTypeDataGridViewTextBoxColumn.Name = "itemTypeDataGridViewTextBoxColumn";
-            this.itemTypeDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn30
-            // 
-            this.dataGridViewTextBoxColumn30.DataPropertyName = "Quantity";
-            this.dataGridViewTextBoxColumn30.HeaderText = "Quantity";
-            this.dataGridViewTextBoxColumn30.Name = "dataGridViewTextBoxColumn30";
-            this.dataGridViewTextBoxColumn30.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn31
-            // 
-            this.dataGridViewTextBoxColumn31.DataPropertyName = "Name";
-            this.dataGridViewTextBoxColumn31.HeaderText = "Name";
-            this.dataGridViewTextBoxColumn31.Name = "dataGridViewTextBoxColumn31";
-            this.dataGridViewTextBoxColumn31.ReadOnly = true;
-            this.dataGridViewTextBoxColumn31.Width = 300;
-            // 
-            // projectSummaryItemViewModelBindingSource
-            // 
-            this.projectSummaryItemViewModelBindingSource.DataSource = typeof(Chiffrage.Projects.Module.ViewModel.ProjectSummaryItemViewModel);
-            // 
-            // idDataGridViewTextBoxColumn5
-            // 
-            this.idDataGridViewTextBoxColumn5.DataPropertyName = "Id";
-            this.idDataGridViewTextBoxColumn5.HeaderText = "Id";
-            this.idDataGridViewTextBoxColumn5.Name = "idDataGridViewTextBoxColumn5";
-            this.idDataGridViewTextBoxColumn5.ReadOnly = true;
-            this.idDataGridViewTextBoxColumn5.Visible = false;
-            // 
-            // projectIdDataGridViewTextBoxColumn2
-            // 
-            this.projectIdDataGridViewTextBoxColumn2.DataPropertyName = "ProjectId";
-            this.projectIdDataGridViewTextBoxColumn2.HeaderText = "ProjectId";
-            this.projectIdDataGridViewTextBoxColumn2.Name = "projectIdDataGridViewTextBoxColumn2";
-            this.projectIdDataGridViewTextBoxColumn2.ReadOnly = true;
-            this.projectIdDataGridViewTextBoxColumn2.Visible = false;
-            // 
-            // catalogIdDataGridViewTextBoxColumn3
-            // 
-            this.catalogIdDataGridViewTextBoxColumn3.DataPropertyName = "CatalogId";
-            this.catalogIdDataGridViewTextBoxColumn3.HeaderText = "CatalogId";
-            this.catalogIdDataGridViewTextBoxColumn3.Name = "catalogIdDataGridViewTextBoxColumn3";
-            this.catalogIdDataGridViewTextBoxColumn3.ReadOnly = true;
-            this.catalogIdDataGridViewTextBoxColumn3.Visible = false;
-            // 
-            // dataGridViewTextBoxColumn19
-            // 
-            this.dataGridViewTextBoxColumn19.DataPropertyName = "Name";
-            this.dataGridViewTextBoxColumn19.HeaderText = "Name";
-            this.dataGridViewTextBoxColumn19.Name = "dataGridViewTextBoxColumn19";
-            this.dataGridViewTextBoxColumn19.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn32
-            // 
-            this.dataGridViewTextBoxColumn32.DataPropertyName = "CatalogWorkDays";
-            this.dataGridViewTextBoxColumn32.HeaderText = "CatalogWorkDays";
-            this.dataGridViewTextBoxColumn32.Name = "dataGridViewTextBoxColumn32";
-            this.dataGridViewTextBoxColumn32.ReadOnly = true;
-            // 
-            // workDaysDataGridViewTextBoxColumn
-            // 
-            this.workDaysDataGridViewTextBoxColumn.DataPropertyName = "WorkDays";
-            this.workDaysDataGridViewTextBoxColumn.HeaderText = "WorkDays";
-            this.workDaysDataGridViewTextBoxColumn.Name = "workDaysDataGridViewTextBoxColumn";
-            this.workDaysDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // workShortNightsDataGridViewTextBoxColumn
-            // 
-            this.workShortNightsDataGridViewTextBoxColumn.DataPropertyName = "WorkShortNights";
-            this.workShortNightsDataGridViewTextBoxColumn.HeaderText = "WorkShortNights";
-            this.workShortNightsDataGridViewTextBoxColumn.Name = "workShortNightsDataGridViewTextBoxColumn";
-            this.workShortNightsDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // workLongNightsDataGridViewTextBoxColumn
-            // 
-            this.workLongNightsDataGridViewTextBoxColumn.DataPropertyName = "WorkLongNights";
-            this.workLongNightsDataGridViewTextBoxColumn.HeaderText = "WorkLongNights";
-            this.workLongNightsDataGridViewTextBoxColumn.Name = "workLongNightsDataGridViewTextBoxColumn";
-            this.workLongNightsDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // projectHardwareWorkViewModelBindingSource
-            // 
-            this.projectHardwareWorkViewModelBindingSource.DataSource = typeof(Chiffrage.Projects.Module.ViewModel.ProjectHardwareWorkViewModel);
-            // 
-            // idDataGridViewTextBoxColumn6
-            // 
-            this.idDataGridViewTextBoxColumn6.DataPropertyName = "Id";
-            this.idDataGridViewTextBoxColumn6.HeaderText = "Id";
-            this.idDataGridViewTextBoxColumn6.Name = "idDataGridViewTextBoxColumn6";
-            this.idDataGridViewTextBoxColumn6.ReadOnly = true;
-            this.idDataGridViewTextBoxColumn6.Visible = false;
-            // 
-            // projectIdDataGridViewTextBoxColumn3
-            // 
-            this.projectIdDataGridViewTextBoxColumn3.DataPropertyName = "ProjectId";
-            this.projectIdDataGridViewTextBoxColumn3.HeaderText = "ProjectId";
-            this.projectIdDataGridViewTextBoxColumn3.Name = "projectIdDataGridViewTextBoxColumn3";
-            this.projectIdDataGridViewTextBoxColumn3.ReadOnly = true;
-            this.projectIdDataGridViewTextBoxColumn3.Visible = false;
-            // 
-            // catalogIdDataGridViewTextBoxColumn4
-            // 
-            this.catalogIdDataGridViewTextBoxColumn4.DataPropertyName = "CatalogId";
-            this.catalogIdDataGridViewTextBoxColumn4.HeaderText = "CatalogId";
-            this.catalogIdDataGridViewTextBoxColumn4.Name = "catalogIdDataGridViewTextBoxColumn4";
-            this.catalogIdDataGridViewTextBoxColumn4.ReadOnly = true;
-            this.catalogIdDataGridViewTextBoxColumn4.Visible = false;
-            // 
-            // dataGridViewTextBoxColumn35
-            // 
-            this.dataGridViewTextBoxColumn35.DataPropertyName = "Name";
-            this.dataGridViewTextBoxColumn35.HeaderText = "Name";
-            this.dataGridViewTextBoxColumn35.Name = "dataGridViewTextBoxColumn35";
-            this.dataGridViewTextBoxColumn35.ReadOnly = true;
-            // 
-            // catalogExecutiveWorkDaysDataGridViewTextBoxColumn
-            // 
-            this.catalogExecutiveWorkDaysDataGridViewTextBoxColumn.DataPropertyName = "CatalogExecutiveWorkDays";
-            this.catalogExecutiveWorkDaysDataGridViewTextBoxColumn.HeaderText = "CatalogExecutiveWorkDays";
-            this.catalogExecutiveWorkDaysDataGridViewTextBoxColumn.Name = "catalogExecutiveWorkDaysDataGridViewTextBoxColumn";
-            this.catalogExecutiveWorkDaysDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // executiveWorkDaysDataGridViewTextBoxColumn
-            // 
-            this.executiveWorkDaysDataGridViewTextBoxColumn.DataPropertyName = "ExecutiveWorkDays";
-            this.executiveWorkDaysDataGridViewTextBoxColumn.HeaderText = "ExecutiveWorkDays";
-            this.executiveWorkDaysDataGridViewTextBoxColumn.Name = "executiveWorkDaysDataGridViewTextBoxColumn";
-            this.executiveWorkDaysDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // executiveWorkShortNightsDataGridViewTextBoxColumn
-            // 
-            this.executiveWorkShortNightsDataGridViewTextBoxColumn.DataPropertyName = "ExecutiveWorkShortNights";
-            this.executiveWorkShortNightsDataGridViewTextBoxColumn.HeaderText = "ExecutiveWorkShortNights";
-            this.executiveWorkShortNightsDataGridViewTextBoxColumn.Name = "executiveWorkShortNightsDataGridViewTextBoxColumn";
-            this.executiveWorkShortNightsDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // executiveWorkLongNightsDataGridViewTextBoxColumn
-            // 
-            this.executiveWorkLongNightsDataGridViewTextBoxColumn.DataPropertyName = "ExecutiveWorkLongNights";
-            this.executiveWorkLongNightsDataGridViewTextBoxColumn.HeaderText = "ExecutiveWorkLongNights";
-            this.executiveWorkLongNightsDataGridViewTextBoxColumn.Name = "executiveWorkLongNightsDataGridViewTextBoxColumn";
-            this.executiveWorkLongNightsDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // projectHardwareExecutiveWorkViewModelBindingSource
-            // 
-            this.projectHardwareExecutiveWorkViewModelBindingSource.DataSource = typeof(Chiffrage.Projects.Module.ViewModel.ProjectHardwareExecutiveWorkViewModel);
-            // 
-            // projectHardwareStudyReferenceTestViewModelBindingSource
-            // 
-            this.projectHardwareStudyReferenceTestViewModelBindingSource.DataSource = typeof(Chiffrage.Projects.Module.ViewModel.ProjectHardwareStudyReferenceTestViewModel);
-            // 
-            // idDataGridViewTextBoxColumn7
-            // 
-            this.idDataGridViewTextBoxColumn7.DataPropertyName = "Id";
-            this.idDataGridViewTextBoxColumn7.HeaderText = "Id";
-            this.idDataGridViewTextBoxColumn7.Name = "idDataGridViewTextBoxColumn7";
-            this.idDataGridViewTextBoxColumn7.ReadOnly = true;
-            this.idDataGridViewTextBoxColumn7.Visible = false;
-            // 
-            // projectIdDataGridViewTextBoxColumn4
-            // 
-            this.projectIdDataGridViewTextBoxColumn4.DataPropertyName = "ProjectId";
-            this.projectIdDataGridViewTextBoxColumn4.HeaderText = "ProjectId";
-            this.projectIdDataGridViewTextBoxColumn4.Name = "projectIdDataGridViewTextBoxColumn4";
-            this.projectIdDataGridViewTextBoxColumn4.ReadOnly = true;
-            this.projectIdDataGridViewTextBoxColumn4.Visible = false;
-            // 
-            // catalogIdDataGridViewTextBoxColumn5
-            // 
-            this.catalogIdDataGridViewTextBoxColumn5.DataPropertyName = "CatalogId";
-            this.catalogIdDataGridViewTextBoxColumn5.HeaderText = "CatalogId";
-            this.catalogIdDataGridViewTextBoxColumn5.Name = "catalogIdDataGridViewTextBoxColumn5";
-            this.catalogIdDataGridViewTextBoxColumn5.ReadOnly = true;
-            this.catalogIdDataGridViewTextBoxColumn5.Visible = false;
-            // 
-            // dataGridViewTextBoxColumn38
-            // 
-            this.dataGridViewTextBoxColumn38.DataPropertyName = "Name";
-            this.dataGridViewTextBoxColumn38.HeaderText = "Name";
-            this.dataGridViewTextBoxColumn38.Name = "dataGridViewTextBoxColumn38";
-            this.dataGridViewTextBoxColumn38.ReadOnly = true;
-            // 
-            // catalogStudyDaysDataGridViewTextBoxColumn
-            // 
-            this.catalogStudyDaysDataGridViewTextBoxColumn.DataPropertyName = "CatalogStudyDays";
-            this.catalogStudyDaysDataGridViewTextBoxColumn.HeaderText = "CatalogStudyDays";
-            this.catalogStudyDaysDataGridViewTextBoxColumn.Name = "catalogStudyDaysDataGridViewTextBoxColumn";
-            this.catalogStudyDaysDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // catalogReferenceDaysDataGridViewTextBoxColumn
-            // 
-            this.catalogReferenceDaysDataGridViewTextBoxColumn.DataPropertyName = "CatalogReferenceDays";
-            this.catalogReferenceDaysDataGridViewTextBoxColumn.HeaderText = "CatalogReferenceDays";
-            this.catalogReferenceDaysDataGridViewTextBoxColumn.Name = "catalogReferenceDaysDataGridViewTextBoxColumn";
-            this.catalogReferenceDaysDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn39
-            // 
-            this.dataGridViewTextBoxColumn39.DataPropertyName = "CatalogTestsDays";
-            this.dataGridViewTextBoxColumn39.HeaderText = "CatalogTestsDays";
-            this.dataGridViewTextBoxColumn39.Name = "dataGridViewTextBoxColumn39";
-            this.dataGridViewTextBoxColumn39.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn40
-            // 
-            this.dataGridViewTextBoxColumn40.DataPropertyName = "StudyDays";
-            this.dataGridViewTextBoxColumn40.HeaderText = "StudyDays";
-            this.dataGridViewTextBoxColumn40.Name = "dataGridViewTextBoxColumn40";
-            this.dataGridViewTextBoxColumn40.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn41
-            // 
-            this.dataGridViewTextBoxColumn41.DataPropertyName = "ReferenceDays";
-            this.dataGridViewTextBoxColumn41.HeaderText = "ReferenceDays";
-            this.dataGridViewTextBoxColumn41.Name = "dataGridViewTextBoxColumn41";
-            this.dataGridViewTextBoxColumn41.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn42
-            // 
-            this.dataGridViewTextBoxColumn42.DataPropertyName = "TestsDays";
-            this.dataGridViewTextBoxColumn42.HeaderText = "TestsDays";
-            this.dataGridViewTextBoxColumn42.Name = "dataGridViewTextBoxColumn42";
-            this.dataGridViewTextBoxColumn42.ReadOnly = true;
-            // 
-            // ColumnTestsNights
-            // 
-            this.ColumnTestsNights.DataPropertyName = "TestsNights";
-            this.ColumnTestsNights.HeaderText = "TestsNights";
-            this.ColumnTestsNights.Name = "ColumnTestsNights";
-            this.ColumnTestsNights.ReadOnly = true;
+            this.ColumnCostTotal.HeaderText = "Coût";
+            this.ColumnCostTotal.Name = "ColumnCostTotal";
             // 
             // ProjectUserControl
             // 
@@ -2121,11 +2108,13 @@ namespace Chiffrage.Projects.Module.Views.Impl
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.tabControl.ResumeLayout(false);
             this.tabPageMain.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.projectBindingSource)).EndInit();
             this.panelMain.ResumeLayout(false);
             this.panelMain.PerformLayout();
             this.tabPageOtherSupply.ResumeLayout(false);
             this.tabPageOtherSupply.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.projectSupplyViewModelBindingSource)).EndInit();
             this.toolStripProject.ResumeLayout(false);
             this.toolStripProject.PerformLayout();
             this.tabPageSupply.ResumeLayout(false);
@@ -2134,6 +2123,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
             this.splitContainerHardware.Panel2.ResumeLayout(false);
             this.splitContainerHardware.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewHardware)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.projectHardwareViewModelBindingSource)).EndInit();
             this.toolStripHardware.ResumeLayout(false);
             this.toolStripHardware.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewHardwareSupplies)).EndInit();
@@ -2141,6 +2131,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
             this.tabPageFrame.ResumeLayout(false);
             this.tabPageFrame.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewModules)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.projectFrameViewModelBindingSource)).EndInit();
             this.toolStripFrames.ResumeLayout(false);
             this.toolStripFrames.PerformLayout();
             this.panelTotalModules.ResumeLayout(false);
@@ -2148,14 +2139,18 @@ namespace Chiffrage.Projects.Module.Views.Impl
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxWarningFrame)).EndInit();
             this.tabPageItemSummary.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewItemSummary)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.projectSummaryItemViewModelBindingSource)).EndInit();
             this.tabPageWork.ResumeLayout(false);
             this.splitContainerWork.Panel1.ResumeLayout(false);
             this.splitContainerWork.Panel2.ResumeLayout(false);
             this.splitContainerWork.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewWork)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.projectHardwareWorkViewModelBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewExecutiveWork)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.projectHardwareExecutiveWorkViewModelBindingSource)).EndInit();
             this.tabPageStudyTestReference.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStudyReferenceTest)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.projectHardwareStudyReferenceTestViewModelBindingSource)).EndInit();
             this.tabPageOther.ResumeLayout(false);
             this.tabPageOther.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewOther)).EndInit();
@@ -2165,14 +2160,6 @@ namespace Chiffrage.Projects.Module.Views.Impl
             this.bindingNavigatorOthers.PerformLayout();
             this.tabPageSummary.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewSummary)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.projectBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.projectSupplyViewModelBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.projectHardwareViewModelBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.projectFrameViewModelBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.projectSummaryItemViewModelBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.projectHardwareWorkViewModelBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.projectHardwareExecutiveWorkViewModelBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.projectHardwareStudyReferenceTestViewModelBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -2194,11 +2181,6 @@ namespace Chiffrage.Projects.Module.Views.Impl
         private System.Windows.Forms.ToolStripButton bindingNavigatorDeleteItem;
         private System.Windows.Forms.TabPage tabPageSummary;
         private System.Windows.Forms.DataGridView dataGridViewSummary;
-        private System.Windows.Forms.DataGridViewImageColumn ColumnSumaryIcon;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnSumaryType;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnSumaryDays;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnSumaryRate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnSumaryCost;
         private System.Windows.Forms.TabPage tabPageMain;
         private System.Windows.Forms.BindingSource projectBindingSource;
         private Chiffrage.Common.Module.Views.CommentUserControl commentUserControl;
@@ -2414,5 +2396,10 @@ namespace Chiffrage.Projects.Module.Views.Impl
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn41;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn42;
         private System.Windows.Forms.DataGridViewTextBoxColumn ColumnTestsNights;
+        private System.Windows.Forms.DataGridViewImageColumn ColumnCostImg;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCostType;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCostTime;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCostRate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ColumnCostTotal;
     }
 }

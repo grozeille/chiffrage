@@ -33,7 +33,7 @@ namespace Chiffrage.Projects.Module.ViewModel
 
         public virtual double TestNightRate { get; set; }
 
-        public virtual int TotalDays { get; set; }
+        public virtual double TotalDays { get; set; }
 
         public virtual double TotalPrice { get; set; }
 

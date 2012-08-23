@@ -36,6 +36,12 @@ namespace Chiffrage.Projects.Domain
 
         public virtual double WorkLongNightsRate { get; set; }
 
+        public virtual double ExecutiveWorkDayRate { get; set; }
+
+        public virtual double ExecutiveWorkShortNightsRate { get; set; }
+
+        public virtual double ExecutiveWorkLongNightsRate { get; set; }
+
         public virtual double TestDayRate { get; set; }
 
         public virtual double TestNightRate { get; set; }

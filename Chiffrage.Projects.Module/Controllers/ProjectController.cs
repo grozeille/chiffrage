@@ -242,6 +242,37 @@ namespace Chiffrage.Projects.Module.Controllers
                 viewModel.ModulesNotInFrame = 0;
             }
 
+            foreach (var item in project.Supplies)
+            {
+                viewModel.TotalPrice += item.Quantity * item.Price;
+            }
+
+            foreach (var item in project.Hardwares)
+            {
+                viewModel.TotalPrice += item.Components.Sum(x => x.Supply.Price * x.Quantity) +
+                    item.StudyDays * project.StudyRate +
+                    item.ReferenceDays * project.ReferenceRate +
+                    item.WorkDays * project.WorkDayRate +
+                    item.WorkShortNights * project.WorkShortNightsRate +
+                    item.WorkLongNights * project.WorkLongNightsRate +
+                    item.ExecutiveWorkDays * project.WorkDayRate +
+                    item.ExecutiveWorkShortNights * project.WorkShortNightsRate +
+                    item.ExecutiveWorkLongNights * project.WorkLongNightsRate +
+                    item.TestsDays * project.TestDayRate +
+                    item.TestsNights * project.TestNightRate;
+
+                viewModel.TotalDays += item.StudyDays +
+                    item.ReferenceDays +
+                    item.WorkDays +
+                    item.WorkShortNights +
+                    item.WorkLongNights +
+                    item.ExecutiveWorkDays +
+                    item.ExecutiveWorkShortNights +
+                    item.ExecutiveWorkLongNights +
+                    item.TestsDays +
+                    item.TestsNights;
+            }
+
             return viewModel;
         }
 
@@ -249,6 +280,7 @@ namespace Chiffrage.Projects.Module.Controllers
         {
             var project = this.projectRepository.FindById(projectId);
             var projectViewModel = Map(project);
+
             this.projectView.SetProjectViewModel(projectViewModel);
         }
 
@@ -286,6 +318,189 @@ namespace Chiffrage.Projects.Module.Controllers
                 .ToList();
 
             this.projectView.SetSummaryItems(summaryItems);
+        }
+
+        private void RefreshCostSummary(int projectId)
+        {
+            var project = this.projectRepository.FindById(projectId);
+
+            var summaryItems = new List<ProjectCostSummaryViewModel>();
+
+            var supplyCost = new ProjectCostSummaryViewModel
+            {
+                ProjectCostSummaryType = ProjectCostSummaryType.TotalSupply,
+                Name = "Fournitures/Matériels",
+            };
+            supplyCost.TotalCost = project.Supplies.Sum(x => x.Price * x.Quantity);
+            supplyCost.TotalCost += project.Hardwares.Sum(x => x.Components.Sum(y => y.Supply.Price * y.Supply.Quantity));
+            summaryItems.Add(supplyCost);
+
+            var studyCost = new ProjectCostSummaryViewModel
+            {
+                ProjectCostSummaryType = ProjectCostSummaryType.Simple,
+                Name = "Etudes",
+                Rate = project.StudyRate,
+            };
+            summaryItems.Add(studyCost);
+
+            var referenceCost = new ProjectCostSummaryViewModel
+            {
+                ProjectCostSummaryType = ProjectCostSummaryType.Simple,
+                Name = "Saisie",
+                Rate = project.ReferenceRate,
+            };
+            summaryItems.Add(referenceCost);
+
+            var totalStudyReferenceCost = new ProjectCostSummaryViewModel
+            {
+                ProjectCostSummaryType = ProjectCostSummaryType.TotalStudyReference,
+                Name = "Total Etude",
+            };
+            summaryItems.Add(totalStudyReferenceCost);
+
+            var workDaysCost = new ProjectCostSummaryViewModel
+            {
+                ProjectCostSummaryType = ProjectCostSummaryType.Simple,
+                Name = "Travaux jours (CNRO)",
+                Rate = project.WorkDayRate,
+            };
+            summaryItems.Add(workDaysCost);
+
+            var workShortNightsCost = new ProjectCostSummaryViewModel
+            {
+                ProjectCostSummaryType = ProjectCostSummaryType.Simple,
+                Name = "Travaux nuits courtes (CNRO)",
+                Rate = project.WorkShortNightsRate,
+            };
+            summaryItems.Add(workShortNightsCost);
+
+            var workLongNightsCost = new ProjectCostSummaryViewModel
+            {
+                ProjectCostSummaryType = ProjectCostSummaryType.Simple,
+                Name = "Travaux nuits longues (CNRO)",
+                Rate = project.WorkLongNightsRate,
+            };
+            summaryItems.Add(workLongNightsCost);
+
+            var executiveWorkDaysCost = new ProjectCostSummaryViewModel
+            {
+                ProjectCostSummaryType = ProjectCostSummaryType.Simple,
+                Name = "Travaux jours (ETAM)",
+                Rate = project.WorkDayRate,
+            };
+            summaryItems.Add(executiveWorkDaysCost);
+
+            var executiveWorkShortNightsCost = new ProjectCostSummaryViewModel
+            {
+                ProjectCostSummaryType = ProjectCostSummaryType.Simple,
+                Name = "Travaux nuits courtes (ETAM)",
+                Rate = project.WorkShortNightsRate,
+            };
+            summaryItems.Add(executiveWorkShortNightsCost);
+
+            var executiveWorkLongNightsCost = new ProjectCostSummaryViewModel
+            {
+                ProjectCostSummaryType = ProjectCostSummaryType.Simple,
+                Name = "Travaux nuits longues (ETAM)",
+                Rate = project.WorkLongNightsRate,
+            };
+            summaryItems.Add(executiveWorkLongNightsCost);
+
+            var totalWorkCost = new ProjectCostSummaryViewModel
+            {
+                ProjectCostSummaryType = ProjectCostSummaryType.TotalWork,
+                Name = "Total Travaux",
+            };
+            summaryItems.Add(totalWorkCost);
+
+            var testDaysCost = new ProjectCostSummaryViewModel
+            {
+                ProjectCostSummaryType = ProjectCostSummaryType.Simple,
+                Name = "Essais jours",
+                Rate = project.TestDayRate,
+            };
+            summaryItems.Add(testDaysCost);
+
+            var testNightsCost = new ProjectCostSummaryViewModel
+            {
+                ProjectCostSummaryType = ProjectCostSummaryType.Simple,
+                Name = "Essais nuits",
+                Rate = project.TestNightRate,
+            };
+            summaryItems.Add(testNightsCost);
+
+            var totalTestsCost = new ProjectCostSummaryViewModel
+            {
+                ProjectCostSummaryType = ProjectCostSummaryType.TotalTests,
+                Name = "Total Essais",
+            };
+            summaryItems.Add(totalTestsCost);
+
+            var totalOtherCost = new ProjectCostSummaryViewModel
+            {
+                ProjectCostSummaryType = ProjectCostSummaryType.TotalOther,
+                Name = "Total Divers",
+            };
+            summaryItems.Add(totalOtherCost);
+
+            var bigTotalCost = new ProjectCostSummaryViewModel
+            {
+                ProjectCostSummaryType = ProjectCostSummaryType.BigTotal,
+                Name = "Total",
+            };
+            summaryItems.Add(bigTotalCost);
+
+            foreach (var item in project.Hardwares)
+            {
+                studyCost.TotalTime += item.StudyDays;
+                studyCost.TotalCost += item.StudyDays * studyCost.Rate;
+
+                referenceCost.TotalTime += item.ReferenceDays;
+                referenceCost.TotalCost += item.ReferenceDays * referenceCost.Rate;
+
+                workDaysCost.TotalTime += item.WorkDays;
+                workDaysCost.TotalCost += item.WorkDays * workDaysCost.Rate;
+
+                workShortNightsCost.TotalTime += item.WorkShortNights;
+                workShortNightsCost.TotalCost += item.WorkShortNights * workShortNightsCost.Rate;
+
+                workLongNightsCost.TotalTime += item.WorkLongNights;
+                workLongNightsCost.TotalCost += item.WorkLongNights * workLongNightsCost.Rate;
+
+                executiveWorkDaysCost.TotalTime += item.ExecutiveWorkDays;
+                executiveWorkDaysCost.TotalCost += item.ExecutiveWorkDays * executiveWorkDaysCost.Rate;
+
+                executiveWorkShortNightsCost.TotalTime += item.ExecutiveWorkShortNights;
+                executiveWorkShortNightsCost.TotalCost += item.ExecutiveWorkShortNights * executiveWorkShortNightsCost.Rate;
+
+                executiveWorkLongNightsCost.TotalTime += item.ExecutiveWorkLongNights;
+                executiveWorkLongNightsCost.TotalCost += item.ExecutiveWorkLongNights * executiveWorkLongNightsCost.Rate;
+
+                testDaysCost.TotalTime += item.TestsDays;
+                testDaysCost.TotalCost += item.TestsDays * testDaysCost.Rate;
+
+                testNightsCost.TotalTime += item.TestsNights;
+                testNightsCost.TotalCost += item.TestsNights * testNightsCost.Rate;
+            }
+
+            totalStudyReferenceCost.TotalTime = studyCost.TotalTime + referenceCost.TotalTime;
+            totalStudyReferenceCost.TotalCost = studyCost.TotalCost + referenceCost.TotalCost;
+
+            totalWorkCost.TotalTime = workDaysCost.TotalTime + workShortNightsCost.TotalTime + workLongNightsCost.TotalTime +
+                executiveWorkDaysCost.TotalTime + executiveWorkShortNightsCost.TotalTime + executiveWorkLongNightsCost.TotalTime;
+            totalWorkCost.TotalCost = workDaysCost.TotalCost + workShortNightsCost.TotalCost + workLongNightsCost.TotalTime +
+                executiveWorkDaysCost.TotalCost + executiveWorkShortNightsCost.TotalCost + executiveWorkLongNightsCost.TotalCost;
+
+            totalTestsCost.TotalTime = testDaysCost.TotalTime + testNightsCost.TotalTime;
+            totalTestsCost.TotalCost = testDaysCost.TotalCost + testNightsCost.TotalCost;
+
+            bigTotalCost.TotalTime = totalStudyReferenceCost.TotalTime + totalWorkCost.TotalTime + totalTestsCost.TotalTime;
+            bigTotalCost.TotalCost = totalStudyReferenceCost.TotalCost + totalWorkCost.TotalCost + totalTestsCost.TotalCost;
+
+            // how costs the frames?
+
+
+            this.projectView.SetCostSummaryItems(summaryItems);
         }
 
         [Subscribe]
@@ -334,6 +549,7 @@ namespace Chiffrage.Projects.Module.Controllers
             this.projectView.SetHardwareStudyReferenceTests(studyReferenceTests);
 
             this.RefreshSummary(project.Id);
+            this.RefreshCostSummary(project.Id);
 
             this.projectView.ShowView();
         }
@@ -348,6 +564,13 @@ namespace Chiffrage.Projects.Module.Controllers
             this.projectView.SetHardwares(null);
             this.projectView.SetFrames(null);
             this.projectView.SetSummaryItems(null);
+        }
+
+        [Subscribe]
+        public void ProcessAction(ProjectUpdatedEvent eventObject)
+        {
+            this.RefreshProject(eventObject.NewProject.Id);
+            this.RefreshCostSummary(eventObject.NewProject.Id);
         }
 
         [Subscribe]
@@ -414,6 +637,7 @@ namespace Chiffrage.Projects.Module.Controllers
             this.projectView.AddSupply(viewModel);
 
             this.RefreshSummary(eventObject.ProjectId);
+            this.RefreshCostSummary(eventObject.ProjectId);
 
             this.RefreshProject(eventObject.ProjectId);
         }
@@ -425,6 +649,7 @@ namespace Chiffrage.Projects.Module.Controllers
             this.projectView.RemoveSupply(supply);
 
             this.RefreshSummary(eventObject.ProjectId);
+            this.RefreshCostSummary(eventObject.ProjectId);
 
             this.RefreshProject(eventObject.ProjectId);
         }
@@ -491,6 +716,7 @@ namespace Chiffrage.Projects.Module.Controllers
             this.projectView.AddHardwareStudyReferenceTest(studyReferenceTestViewModel);
 
             this.RefreshSummary(eventObject.ProjectId);
+            this.RefreshCostSummary(eventObject.ProjectId);
 
             this.RefreshProject(eventObject.ProjectId);
         }
@@ -512,6 +738,7 @@ namespace Chiffrage.Projects.Module.Controllers
 
 
             this.RefreshSummary(eventObject.ProjectId);
+            this.RefreshCostSummary(eventObject.ProjectId);
 
             this.RefreshProject(eventObject.ProjectId);
         }
@@ -539,6 +766,7 @@ namespace Chiffrage.Projects.Module.Controllers
             this.projectView.AddFrame(projectFrameViewModel);
 
             this.RefreshSummary(eventObject.ProjectId);
+            this.RefreshCostSummary(eventObject.ProjectId);
         }
 
         [Subscribe]
@@ -550,6 +778,7 @@ namespace Chiffrage.Projects.Module.Controllers
             this.RefreshProject(eventObject.ProjectId);
 
             this.RefreshSummary(eventObject.ProjectId);
+            this.RefreshCostSummary(eventObject.ProjectId);
         }
 
         [Subscribe]
