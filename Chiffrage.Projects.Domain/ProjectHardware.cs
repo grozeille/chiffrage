@@ -48,6 +48,8 @@ namespace Chiffrage.Projects.Domain
 
         public virtual double TestsDays { get; set; }
 
+        public virtual double TestsNights { get; set; }
+
         public virtual double WorkDays { get; set; }
 
         public virtual double WorkShortNights { get; set; }

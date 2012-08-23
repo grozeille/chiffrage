@@ -35,6 +35,7 @@ namespace Chiffrage.Projects.Dal.Mappings
             Property(x => x.StudyDays);
             Property(x => x.ReferenceDays);
             Property(x => x.TestsDays);
+            Property(x => x.TestsNights);
             Property(x => x.WorkDays);
             Property(x => x.WorkShortNights);
             Property(x => x.WorkLongNights);
