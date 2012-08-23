@@ -275,5 +275,20 @@ namespace Chiffrage.Projects.Domain.Services
 
             this.eventBroker.Publish(new ProjectHardwareUpdatedEvent(project.Id, projectHardware));
         }
+
+        [Subscribe]
+        public void ProcessAction(UpdateProjectHardwareStudyReferenceTestsCommand eventObject)
+        {
+            var project = this.projectRepository.FindById(eventObject.ProjectId);
+            var projectHardware = project.Hardwares.Where(x => x.Id == eventObject.Id).First();
+
+            Mapper.CreateMap<UpdateProjectHardwareStudyReferenceTestsCommand, ProjectHardware>();
+
+            Mapper.Map(eventObject, projectHardware);
+
+            this.projectRepository.Save(project);
+
+            this.eventBroker.Publish(new ProjectHardwareUpdatedEvent(project.Id, projectHardware));
+        }
     }
 }

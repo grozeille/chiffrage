@@ -49,6 +49,8 @@ namespace Chiffrage.Projects.Module.Controllers
 
         private readonly IEditProjectHardwareEecutiveWorkView editProjectHardwareExecutiveWorkView;
 
+        private readonly IEditProjectHardwareStudyReferenceTestsView editProjectHardwareStudyReferenceTestsView;
+
         // no better way...
         private readonly System.Windows.Forms.RichTextBox rtBox = new System.Windows.Forms.RichTextBox();
 
@@ -68,6 +70,7 @@ namespace Chiffrage.Projects.Module.Controllers
             IEditProjectHardwareSupplyView editProjectHardwareSupplyView,
             IEditProjectHardwareWorkView editProjectHardwareWorkView,
             IEditProjectHardwareEecutiveWorkView editProjectHardwareExecutiveWorkView,
+            IEditProjectHardwareStudyReferenceTestsView editProjectHardwareStudyReferenceTestsView,
             ICatalogRepository catalogRepository)
         {
             this.projectView = projectView;
@@ -82,6 +85,7 @@ namespace Chiffrage.Projects.Module.Controllers
             this.editProjectHardwareSupplyView = editProjectHardwareSupplyView;
             this.editProjectHardwareWorkView = editProjectHardwareWorkView;
             this.editProjectHardwareExecutiveWorkView = editProjectHardwareExecutiveWorkView;
+            this.editProjectHardwareStudyReferenceTestsView = editProjectHardwareStudyReferenceTestsView;
             this.catalogRepository = catalogRepository;
         }
 
@@ -608,6 +612,8 @@ namespace Chiffrage.Projects.Module.Controllers
         [Subscribe]
         public void ProcessAction(RequestEditProjectHardwareStudyReferenceTestAction eventObject)
         {
+            this.editProjectHardwareStudyReferenceTestsView.Hardware = eventObject.Hardware;
+            this.editProjectHardwareStudyReferenceTestsView.ShowView();
         }
     }
 }

@@ -35,19 +35,19 @@
             this.textBoxHardwareName = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.textBoxCatalogStudyDays = new System.Windows.Forms.TextBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.textBoxCatalogReferenceDays = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.textBoxCatalogTestsDays = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxStudyDays = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.textBoxCatalogReferenceDays = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.textBoxReferenceDays = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.textBoxCatalogTestsDays = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.textBoxTestsDays = new System.Windows.Forms.TextBox();
-            this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.label3 = new System.Windows.Forms.Label();
             this.textBoxTestsNights = new System.Windows.Forms.TextBox();
+            this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.tableLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
@@ -100,7 +100,7 @@
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel.Size = new System.Drawing.Size(397, 478);
+            this.tableLayoutPanel.Size = new System.Drawing.Size(364, 366);
             this.tableLayoutPanel.TabIndex = 9;
             // 
             // textBoxHardwareName
@@ -110,7 +110,7 @@
             this.textBoxHardwareName.Name = "textBoxHardwareName";
             this.textBoxHardwareName.ReadOnly = true;
             this.textBoxHardwareName.Size = new System.Drawing.Size(194, 20);
-            this.textBoxHardwareName.TabIndex = 5;
+            this.textBoxHardwareName.TabIndex = 0;
             // 
             // label5
             // 
@@ -129,8 +129,27 @@
             this.textBoxCatalogStudyDays.Name = "textBoxCatalogStudyDays";
             this.textBoxCatalogStudyDays.ReadOnly = true;
             this.textBoxCatalogStudyDays.Size = new System.Drawing.Size(194, 20);
-            this.textBoxCatalogStudyDays.TabIndex = 16;
+            this.textBoxCatalogStudyDays.TabIndex = 1;
             this.textBoxCatalogStudyDays.Text = "0";
+            // 
+            // label1
+            // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(3, 78);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(99, 13);
+            this.label1.TabIndex = 18;
+            this.label1.Text = "Etudes:";
+            // 
+            // textBoxStudyDays
+            // 
+            this.textBoxStudyDays.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxStudyDays.Location = new System.Drawing.Point(108, 75);
+            this.textBoxStudyDays.Name = "textBoxStudyDays";
+            this.textBoxStudyDays.Size = new System.Drawing.Size(194, 20);
+            this.textBoxStudyDays.TabIndex = 2;
+            this.textBoxStudyDays.Text = "0";
             // 
             // label6
             // 
@@ -149,8 +168,27 @@
             this.textBoxCatalogReferenceDays.Name = "textBoxCatalogReferenceDays";
             this.textBoxCatalogReferenceDays.ReadOnly = true;
             this.textBoxCatalogReferenceDays.Size = new System.Drawing.Size(194, 20);
-            this.textBoxCatalogReferenceDays.TabIndex = 17;
+            this.textBoxCatalogReferenceDays.TabIndex = 3;
             this.textBoxCatalogReferenceDays.Text = "0";
+            // 
+            // label2
+            // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(3, 150);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(99, 13);
+            this.label2.TabIndex = 12;
+            this.label2.Text = "Saisie:";
+            // 
+            // textBoxReferenceDays
+            // 
+            this.textBoxReferenceDays.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxReferenceDays.Location = new System.Drawing.Point(108, 147);
+            this.textBoxReferenceDays.Name = "textBoxReferenceDays";
+            this.textBoxReferenceDays.Size = new System.Drawing.Size(194, 20);
+            this.textBoxReferenceDays.TabIndex = 4;
+            this.textBoxReferenceDays.Text = "0";
             // 
             // label9
             // 
@@ -169,46 +207,8 @@
             this.textBoxCatalogTestsDays.Name = "textBoxCatalogTestsDays";
             this.textBoxCatalogTestsDays.ReadOnly = true;
             this.textBoxCatalogTestsDays.Size = new System.Drawing.Size(194, 20);
-            this.textBoxCatalogTestsDays.TabIndex = 14;
+            this.textBoxCatalogTestsDays.TabIndex = 5;
             this.textBoxCatalogTestsDays.Text = "0";
-            // 
-            // label1
-            // 
-            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(3, 78);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(99, 13);
-            this.label1.TabIndex = 18;
-            this.label1.Text = "Etudes:";
-            // 
-            // textBoxStudyDays
-            // 
-            this.textBoxStudyDays.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxStudyDays.Location = new System.Drawing.Point(108, 75);
-            this.textBoxStudyDays.Name = "textBoxStudyDays";
-            this.textBoxStudyDays.Size = new System.Drawing.Size(194, 20);
-            this.textBoxStudyDays.TabIndex = 16;
-            this.textBoxStudyDays.Text = "0";
-            // 
-            // label2
-            // 
-            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(3, 150);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(99, 13);
-            this.label2.TabIndex = 12;
-            this.label2.Text = "Saisie:";
-            // 
-            // textBoxReferenceDays
-            // 
-            this.textBoxReferenceDays.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxReferenceDays.Location = new System.Drawing.Point(108, 147);
-            this.textBoxReferenceDays.Name = "textBoxReferenceDays";
-            this.textBoxReferenceDays.Size = new System.Drawing.Size(194, 20);
-            this.textBoxReferenceDays.TabIndex = 17;
-            this.textBoxReferenceDays.Text = "0";
             // 
             // label10
             // 
@@ -226,14 +226,8 @@
             this.textBoxTestsDays.Location = new System.Drawing.Point(108, 219);
             this.textBoxTestsDays.Name = "textBoxTestsDays";
             this.textBoxTestsDays.Size = new System.Drawing.Size(194, 20);
-            this.textBoxTestsDays.TabIndex = 14;
+            this.textBoxTestsDays.TabIndex = 6;
             this.textBoxTestsDays.Text = "0";
-            // 
-            // errorProvider
-            // 
-            this.errorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
-            this.errorProvider.ContainerControl = this;
-            this.errorProvider.Icon = ((System.Drawing.Icon)(resources.GetObject("errorProvider.Icon")));
             // 
             // label3
             // 
@@ -251,8 +245,14 @@
             this.textBoxTestsNights.Location = new System.Drawing.Point(108, 245);
             this.textBoxTestsNights.Name = "textBoxTestsNights";
             this.textBoxTestsNights.Size = new System.Drawing.Size(194, 20);
-            this.textBoxTestsNights.TabIndex = 20;
+            this.textBoxTestsNights.TabIndex = 7;
             this.textBoxTestsNights.Text = "0";
+            // 
+            // errorProvider
+            // 
+            this.errorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            this.errorProvider.ContainerControl = this;
+            this.errorProvider.Icon = ((System.Drawing.Icon)(resources.GetObject("errorProvider.Icon")));
             // 
             // EditProjectHardwareStudyReferenceTestPage
             // 
@@ -260,7 +260,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.tableLayoutPanel);
             this.Name = "EditProjectHardwareStudyReferenceTestPage";
-            this.Size = new System.Drawing.Size(397, 478);
+            this.Size = new System.Drawing.Size(364, 366);
             this.tableLayoutPanel.ResumeLayout(false);
             this.tableLayoutPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
