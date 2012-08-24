@@ -32,6 +32,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
                                                                          "Vous pouvez ici éditer un matériel", true);
 
             this.editHardwarePage.TypedPage.HardwareName = this.hardware.Name;
+            this.editHardwarePage.TypedPage.Milestone = this.hardware.Milestone;
 
             return new WizardSettingListIterator(this.editHardwarePage);
         }
