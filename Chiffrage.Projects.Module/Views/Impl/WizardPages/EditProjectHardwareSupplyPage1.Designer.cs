@@ -149,7 +149,7 @@
             this.textBoxName.Name = "textBoxName";
             this.textBoxName.ReadOnly = true;
             this.textBoxName.Size = new System.Drawing.Size(194, 20);
-            this.textBoxName.TabIndex = 7;
+            this.textBoxName.TabIndex = 1;
             // 
             // labelCatalogPrice
             // 
@@ -198,7 +198,7 @@
             this.textBoxReference.Name = "textBoxReference";
             this.textBoxReference.ReadOnly = true;
             this.textBoxReference.Size = new System.Drawing.Size(194, 20);
-            this.textBoxReference.TabIndex = 7;
+            this.textBoxReference.TabIndex = 2;
             // 
             // textBoxModuleSize
             // 
@@ -207,7 +207,7 @@
             this.textBoxModuleSize.Name = "textBoxModuleSize";
             this.textBoxModuleSize.ReadOnly = true;
             this.textBoxModuleSize.Size = new System.Drawing.Size(194, 20);
-            this.textBoxModuleSize.TabIndex = 7;
+            this.textBoxModuleSize.TabIndex = 4;
             // 
             // textBoxCatalogPrice
             // 
@@ -216,7 +216,7 @@
             this.textBoxCatalogPrice.Name = "textBoxCatalogPrice";
             this.textBoxCatalogPrice.ReadOnly = true;
             this.textBoxCatalogPrice.Size = new System.Drawing.Size(194, 20);
-            this.textBoxCatalogPrice.TabIndex = 7;
+            this.textBoxCatalogPrice.TabIndex = 5;
             // 
             // textBoxPFC0
             // 
@@ -234,7 +234,7 @@
             this.textBoxPFC12.Name = "textBoxPFC12";
             this.textBoxPFC12.ReadOnly = true;
             this.textBoxPFC12.Size = new System.Drawing.Size(194, 20);
-            this.textBoxPFC12.TabIndex = 7;
+            this.textBoxPFC12.TabIndex = 8;
             // 
             // textBoxCap
             // 
@@ -243,7 +243,7 @@
             this.textBoxCap.Name = "textBoxCap";
             this.textBoxCap.ReadOnly = true;
             this.textBoxCap.Size = new System.Drawing.Size(194, 20);
-            this.textBoxCap.TabIndex = 7;
+            this.textBoxCap.TabIndex = 9;
             // 
             // labelQuantity
             // 
@@ -262,7 +262,7 @@
             this.textBoxQuantity.Name = "textBoxQuantity";
             this.textBoxQuantity.ReadOnly = true;
             this.textBoxQuantity.Size = new System.Drawing.Size(194, 20);
-            this.textBoxQuantity.TabIndex = 10;
+            this.textBoxQuantity.TabIndex = 0;
             this.textBoxQuantity.Text = "1";
             // 
             // labelPrice
@@ -281,7 +281,7 @@
             this.textBoxPrice.Location = new System.Drawing.Point(126, 169);
             this.textBoxPrice.Name = "textBoxPrice";
             this.textBoxPrice.Size = new System.Drawing.Size(194, 20);
-            this.textBoxPrice.TabIndex = 12;
+            this.textBoxPrice.TabIndex = 6;
             // 
             // textBoxCategory
             // 
@@ -290,7 +290,7 @@
             this.textBoxCategory.Name = "textBoxCategory";
             this.textBoxCategory.ReadOnly = true;
             this.textBoxCategory.Size = new System.Drawing.Size(194, 20);
-            this.textBoxCategory.TabIndex = 13;
+            this.textBoxCategory.TabIndex = 3;
             // 
             // errorProvider
             // 

@@ -2,6 +2,8 @@
 using Chiffrage.Mvc.Events;
 using NUnit.Framework;
 using Moq;
+using System.Collections.Generic;
+using System;
 
 namespace Chiffrage.Mvc.Tests
 {
