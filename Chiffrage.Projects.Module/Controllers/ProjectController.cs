@@ -556,6 +556,8 @@ namespace Chiffrage.Projects.Module.Controllers
             this.projectView.UpdateHardwareStudyReferenceTest(studyReferenceTestViewModel);
 
             this.RefreshProject(eventObject.ProjectId);
+
+            this.RefreshCostSummary(eventObject.ProjectId);
         }
 
         [Subscribe]
