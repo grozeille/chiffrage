@@ -11,19 +11,19 @@ namespace Chiffrage.Projects.Module.Views
     {
         void SetProjectViewModel(ProjectViewModel viewModel);
 
-        void SetSupplies(IList<ProjectSupplyViewModel> supplies);
+        void SetSupplies(IEnumerable<ProjectSupplyViewModel> supplies);
 
-        void SetHardwares(IList<ProjectHardwareViewModel> hardwares);
+        void SetHardwares(IEnumerable<ProjectHardwareViewModel> hardwares);
 
-        void SetFrames(IList<ProjectFrameViewModel> frames);
+        void SetFrames(IEnumerable<ProjectFrameViewModel> frames);
 
-        void SetSummaryItems(IList<ProjectSummaryItemViewModel> summaryItems);
+        void SetSummaryItems(IEnumerable<ProjectSummaryItemViewModel> summaryItems);
 
         ProjectViewModel GetProjectViewModel();
 
         void AddSupply(ProjectSupplyViewModel viewModel);
 
-        void AddSupplies(IList<ProjectSupplyViewModel> supplies);
+        void AddSupplies(IEnumerable<ProjectSupplyViewModel> supplies);
 
         void RemoveAllSupplies();
 
@@ -39,7 +39,7 @@ namespace Chiffrage.Projects.Module.Views
         
         void AddFrame(ProjectFrameViewModel frame);
 
-        void AddFrames(IList<ProjectFrameViewModel> frames);
+        void AddFrames(IEnumerable<ProjectFrameViewModel> frames);
 
         void RemoveFrame(ProjectFrameViewModel frame);
 
@@ -49,11 +49,11 @@ namespace Chiffrage.Projects.Module.Views
 
         void AddHardwareStudyReferenceTest(ProjectHardwareStudyReferenceTestViewModel studyReferenceTestViewModel);
 
-        void SetHardwareWorks(List<ProjectHardwareWorkViewModel> works);
+        void SetHardwareWorks(IEnumerable<ProjectHardwareWorkViewModel> works);
 
-        void SetHardwareExecutiveWorks(List<ProjectHardwareExecutiveWorkViewModel> executiveWorks);
+        void SetHardwareExecutiveWorks(IEnumerable<ProjectHardwareExecutiveWorkViewModel> executiveWorks);
 
-        void SetHardwareStudyReferenceTests(List<ProjectHardwareStudyReferenceTestViewModel> studyReferenceTests);
+        void SetHardwareStudyReferenceTests(IEnumerable<ProjectHardwareStudyReferenceTestViewModel> studyReferenceTests);
 
         void UpdateHardwareStudyReferenceTest(ProjectHardwareStudyReferenceTestViewModel studyReferenceTestViewModel);
 

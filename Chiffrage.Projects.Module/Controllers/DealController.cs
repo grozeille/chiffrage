@@ -51,6 +51,11 @@ namespace Chiffrage.Projects.Module.Controllers
             
             this.dealView.SetDealViewModel(dealViewModel);
             this.dealView.SetCalendarItems(calendarItems);
+
+            this.dealView.SetSummaryItems(deal.BuildSummaryItems());
+
+            this.dealView.SetProjectCostSummaryItems(deal.BuildDealProjectCostSummaryItems());
+
             this.dealView.ShowView();
         }
 

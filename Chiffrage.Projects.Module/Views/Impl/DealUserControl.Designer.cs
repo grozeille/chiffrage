@@ -29,6 +29,10 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.Calendar.CalendarHighlightRange calendarHighlightRange1 = new System.Windows.Forms.Calendar.CalendarHighlightRange();
             System.Windows.Forms.Calendar.CalendarHighlightRange calendarHighlightRange2 = new System.Windows.Forms.Calendar.CalendarHighlightRange();
             System.Windows.Forms.Calendar.CalendarHighlightRange calendarHighlightRange3 = new System.Windows.Forms.Calendar.CalendarHighlightRange();
@@ -38,7 +42,6 @@
             System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.dateTimePickerDealEnd = new System.Windows.Forms.DateTimePicker();
-            this.bindingSourceDeal = new System.Windows.Forms.BindingSource(this.components);
             this.labelEnd = new System.Windows.Forms.Label();
             this.dateTimePickerDealBegin = new System.Windows.Forms.DateTimePicker();
             this.labelDealDate = new System.Windows.Forms.Label();
@@ -51,22 +54,31 @@
             this.tabControlDeal = new System.Windows.Forms.TabControl();
             this.tabPageDeal = new System.Windows.Forms.TabPage();
             this.tabPageSummary = new System.Windows.Forms.TabPage();
+            this.dataGridViewItemSummary = new System.Windows.Forms.DataGridView();
             this.tabPageScheduling = new System.Windows.Forms.TabPage();
             this.calendarProjects = new System.Windows.Forms.Calendar.Calendar();
             this.panelSelectDate = new System.Windows.Forms.Panel();
             this.monthView = new System.Windows.Forms.Calendar.MonthView();
             this.comboBoxProjects = new System.Windows.Forms.ComboBox();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.tabPageCostSummary = new System.Windows.Forms.TabPage();
+            this.chartProjectCost = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.bindingSourceDeal = new System.Windows.Forms.BindingSource(this.components);
+            this.itemTypeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.quantityDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.projectSummaryItemViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceDeal)).BeginInit();
             this.panelMain.SuspendLayout();
             this.tabControlDeal.SuspendLayout();
             this.tabPageDeal.SuspendLayout();
+            this.tabPageSummary.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewItemSummary)).BeginInit();
             this.tabPageScheduling.SuspendLayout();
             this.panelSelectDate.SuspendLayout();
-            this.tabPage1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
+            this.tabPageCostSummary.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chartProjectCost)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceDeal)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.projectSummaryItemViewModelBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // dateTimePickerDealEnd
@@ -76,10 +88,6 @@
             this.dateTimePickerDealEnd.Name = "dateTimePickerDealEnd";
             this.dateTimePickerDealEnd.Size = new System.Drawing.Size(200, 20);
             this.dateTimePickerDealEnd.TabIndex = 3;
-            // 
-            // bindingSourceDeal
-            // 
-            this.bindingSourceDeal.DataSource = typeof(Chiffrage.Projects.Module.ViewModel.DealViewModel);
             // 
             // labelEnd
             // 
@@ -174,7 +182,7 @@
             this.tabControlDeal.Controls.Add(this.tabPageDeal);
             this.tabControlDeal.Controls.Add(this.tabPageSummary);
             this.tabControlDeal.Controls.Add(this.tabPageScheduling);
-            this.tabControlDeal.Controls.Add(this.tabPage1);
+            this.tabControlDeal.Controls.Add(this.tabPageCostSummary);
             this.tabControlDeal.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControlDeal.Location = new System.Drawing.Point(0, 0);
             this.tabControlDeal.Name = "tabControlDeal";
@@ -196,6 +204,7 @@
             // 
             // tabPageSummary
             // 
+            this.tabPageSummary.Controls.Add(this.dataGridViewItemSummary);
             this.tabPageSummary.Location = new System.Drawing.Point(4, 22);
             this.tabPageSummary.Name = "tabPageSummary";
             this.tabPageSummary.Padding = new System.Windows.Forms.Padding(3);
@@ -203,6 +212,56 @@
             this.tabPageSummary.TabIndex = 1;
             this.tabPageSummary.Text = "Récap matériels";
             this.tabPageSummary.UseVisualStyleBackColor = true;
+            // 
+            // dataGridViewItemSummary
+            // 
+            this.dataGridViewItemSummary.AllowUserToAddRows = false;
+            this.dataGridViewItemSummary.AllowUserToDeleteRows = false;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.AliceBlue;
+            this.dataGridViewItemSummary.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.dataGridViewItemSummary.AutoGenerateColumns = false;
+            this.dataGridViewItemSummary.BackgroundColor = System.Drawing.SystemColors.Window;
+            this.dataGridViewItemSummary.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.dataGridViewItemSummary.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewItemSummary.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            this.dataGridViewItemSummary.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.dataGridViewItemSummary.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.itemTypeDataGridViewTextBoxColumn,
+            this.quantityDataGridViewTextBoxColumn,
+            this.nameDataGridViewTextBoxColumn});
+            this.dataGridViewItemSummary.DataSource = this.projectSummaryItemViewModelBindingSource;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewItemSummary.DefaultCellStyle = dataGridViewCellStyle3;
+            this.dataGridViewItemSummary.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridViewItemSummary.GridColor = System.Drawing.SystemColors.ControlLight;
+            this.dataGridViewItemSummary.Location = new System.Drawing.Point(3, 3);
+            this.dataGridViewItemSummary.Name = "dataGridViewItemSummary";
+            this.dataGridViewItemSummary.ReadOnly = true;
+            this.dataGridViewItemSummary.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewItemSummary.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            this.dataGridViewItemSummary.RowHeadersVisible = false;
+            this.dataGridViewItemSummary.Size = new System.Drawing.Size(810, 437);
+            this.dataGridViewItemSummary.TabIndex = 3;
             // 
             // tabPageScheduling
             // 
@@ -296,33 +355,65 @@
             this.comboBoxProjects.TabIndex = 0;
             this.comboBoxProjects.SelectedIndexChanged += new System.EventHandler(this.comboBoxProjects_SelectedIndexChanged);
             // 
-            // tabPage1
+            // tabPageCostSummary
             // 
-            this.tabPage1.Controls.Add(this.chart1);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(816, 443);
-            this.tabPage1.TabIndex = 3;
-            this.tabPage1.Text = "tabPage1";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.tabPageCostSummary.Controls.Add(this.chartProjectCost);
+            this.tabPageCostSummary.Location = new System.Drawing.Point(4, 22);
+            this.tabPageCostSummary.Name = "tabPageCostSummary";
+            this.tabPageCostSummary.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageCostSummary.Size = new System.Drawing.Size(816, 443);
+            this.tabPageCostSummary.TabIndex = 3;
+            this.tabPageCostSummary.Text = "Coût par projet";
+            this.tabPageCostSummary.UseVisualStyleBackColor = true;
             // 
-            // chart1
+            // chartProjectCost
             // 
             chartArea1.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea1);
+            this.chartProjectCost.ChartAreas.Add(chartArea1);
+            this.chartProjectCost.Dock = System.Windows.Forms.DockStyle.Fill;
             legend1.Name = "Legend1";
-            this.chart1.Legends.Add(legend1);
-            this.chart1.Location = new System.Drawing.Point(29, 27);
-            this.chart1.Name = "chart1";
+            legend1.TextWrapThreshold = 70;
+            this.chartProjectCost.Legends.Add(legend1);
+            this.chartProjectCost.Location = new System.Drawing.Point(3, 3);
+            this.chartProjectCost.Name = "chartProjectCost";
             series1.ChartArea = "ChartArea1";
             series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
             series1.Legend = "Legend1";
             series1.Name = "Series1";
-            this.chart1.Series.Add(series1);
-            this.chart1.Size = new System.Drawing.Size(408, 308);
-            this.chart1.TabIndex = 0;
-            this.chart1.Text = "chart1";
+            this.chartProjectCost.Series.Add(series1);
+            this.chartProjectCost.Size = new System.Drawing.Size(810, 437);
+            this.chartProjectCost.TabIndex = 0;
+            this.chartProjectCost.Text = "chartProjectCost";
+            // 
+            // bindingSourceDeal
+            // 
+            this.bindingSourceDeal.DataSource = typeof(Chiffrage.Projects.Module.ViewModel.DealViewModel);
+            // 
+            // itemTypeDataGridViewTextBoxColumn
+            // 
+            this.itemTypeDataGridViewTextBoxColumn.DataPropertyName = "ItemType";
+            this.itemTypeDataGridViewTextBoxColumn.HeaderText = "ItemType";
+            this.itemTypeDataGridViewTextBoxColumn.Name = "itemTypeDataGridViewTextBoxColumn";
+            this.itemTypeDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // quantityDataGridViewTextBoxColumn
+            // 
+            this.quantityDataGridViewTextBoxColumn.DataPropertyName = "Quantity";
+            this.quantityDataGridViewTextBoxColumn.HeaderText = "Quantity";
+            this.quantityDataGridViewTextBoxColumn.Name = "quantityDataGridViewTextBoxColumn";
+            this.quantityDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // nameDataGridViewTextBoxColumn
+            // 
+            this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
+            this.nameDataGridViewTextBoxColumn.HeaderText = "Name";
+            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
+            this.nameDataGridViewTextBoxColumn.ReadOnly = true;
+            this.nameDataGridViewTextBoxColumn.Width = 300;
+            // 
+            // projectSummaryItemViewModelBindingSource
+            // 
+            this.projectSummaryItemViewModelBindingSource.DataSource = typeof(Chiffrage.Projects.Module.ViewModel.ProjectSummaryItemViewModel);
             // 
             // DealUserControl
             // 
@@ -332,15 +423,18 @@
             this.Name = "DealUserControl";
             this.Size = new System.Drawing.Size(824, 469);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceDeal)).EndInit();
             this.panelMain.ResumeLayout(false);
             this.panelMain.PerformLayout();
             this.tabControlDeal.ResumeLayout(false);
             this.tabPageDeal.ResumeLayout(false);
+            this.tabPageSummary.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewItemSummary)).EndInit();
             this.tabPageScheduling.ResumeLayout(false);
             this.panelSelectDate.ResumeLayout(false);
-            this.tabPage1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
+            this.tabPageCostSummary.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.chartProjectCost)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceDeal)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.projectSummaryItemViewModelBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -366,7 +460,14 @@
         private System.Windows.Forms.Panel panelSelectDate;
         private System.Windows.Forms.Calendar.MonthView monthView;
         private System.Windows.Forms.ComboBox comboBoxProjects;
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
+        private System.Windows.Forms.TabPage tabPageCostSummary;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chartProjectCost;
+        private System.Windows.Forms.DataGridView dataGridViewItemSummary;
+        private System.Windows.Forms.DataGridViewTextBoxColumn projectIdDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn projectNameDataGridViewTextBoxColumn;
+        private System.Windows.Forms.BindingSource projectSummaryItemViewModelBindingSource;
+        private System.Windows.Forms.DataGridViewTextBoxColumn itemTypeDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn quantityDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
     }
 }

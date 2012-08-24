@@ -96,6 +96,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\CostSummaryItemViewModelBuilder.cs" />
+    <Compile Include="ViewModel\ProjectSummaryItemViewModelBuilder.cs" />
+    <Compile Include="ViewModel\DealProjectCostViewModel.cs" />
     <Compile Include="ViewModel\ProjectCostSummaryType.cs" />
     <Compile Include="ViewModel\ProjectCostSummaryViewModel.cs" />
     <Compile Include="ViewModel\ProjectHardwareExecutiveWorkViewModel.cs" />

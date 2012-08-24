@@ -5,6 +5,7 @@ using Chiffrage.Mvc.Views;
 using System.Drawing;
 using System.Windows.Forms.Calendar;
 using System.Collections.Generic;
+using Chiffrage.Mvc;
 
 namespace Chiffrage.Projects.Module.Views.Impl
 {
@@ -14,11 +15,15 @@ namespace Chiffrage.Projects.Module.Views.Impl
 
         private Color[] calendarColors;
 
-        private IList<CalendarItem> calendarItems = new List<CalendarItem>();
+        private readonly IList<CalendarItem> calendarItems = new List<CalendarItem>();
+
+        private readonly SortableBindingList<ProjectSummaryItemViewModel> summaryItems = new SortableBindingList<ProjectSummaryItemViewModel>();
 
         public DealUserControl()
         {
             this.InitializeComponent();
+
+            this.projectSummaryItemViewModelBindingSource.DataSource = summaryItems;
 
             this.textBoxDealName.Validating += this.ValidateIsRequiredTextBox;
 
@@ -34,6 +39,13 @@ namespace Chiffrage.Projects.Module.Views.Impl
             this.calendarProjects.ViewStart = DateTime.Now;
             this.calendarProjects.ViewEnd = DateTime.Now.AddMonths(1);
             this.calendarProjects.Renderer = new System.Windows.Forms.Calendar.CalendarSystemRenderer(this.calendarProjects);
+
+            this.chartProjectCost.Series[0]["PieLabelStyle"] = "Outside";
+            this.chartProjectCost.Series[0]["PieLineColor"] = "Black";
+            //this.chartCostSummary.Series[0].Label = "#VALX (#PERCENT)";
+            this.chartProjectCost.Series[0].Label = "#VALX #VALY";
+            //this.chartCostSummary.Series[0].LegendText = "#PERCENT{P0}";
+            this.chartProjectCost.Series[0].LegendText = "#VALX (#PERCENT)";
         }
 
         #region IDealView Members
@@ -158,6 +170,37 @@ namespace Chiffrage.Projects.Module.Views.Impl
                 this.calendarProjects.SetViewRange(selectedProject.StartDate, selectedProject.StartDate.AddMonths(1));
                 this.monthView.ViewStart = selectedProject.StartDate;
             }
+        }
+
+
+        public void SetSummaryItems(IEnumerable<ProjectSummaryItemViewModel> summaryItems)
+        {
+            this.InvokeIfRequired(() =>
+            {
+                this.summaryItems.Clear();
+                if (summaryItems != null)
+                {
+                    foreach (var item in summaryItems)
+                    {
+                        this.summaryItems.Add(item);
+                    }
+                }
+            });
+        }
+
+        public void SetProjectCostSummaryItems(IEnumerable<DealProjectCostSummaryViewModel> costSummaryItems)
+        {
+            this.InvokeIfRequired(() =>
+            {
+                this.chartProjectCost.Series[0].Points.Clear();
+                if (costSummaryItems != null)
+                {
+                    foreach (var item in costSummaryItems)
+                    {
+                        this.chartProjectCost.Series[0].Points.AddXY(item.ProjectName, item.Cost);
+                    }
+                }
+            });
         }
     }
 }

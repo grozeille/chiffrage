@@ -11,5 +11,10 @@ namespace Chiffrage.Projects.Module.Views
         void SetDealViewModel(DealViewModel viewModel);
 
         void SetCalendarItems(IEnumerable<DealProjectCalendarItemViewModel> calendarItems);
+
+        void SetSummaryItems(IEnumerable<ProjectSummaryItemViewModel> summaryItems);
+
+        void SetProjectCostSummaryItems(IEnumerable<DealProjectCostSummaryViewModel> costSummaryItems);
+
     }
 }

@@ -9,6 +9,7 @@ namespace Chiffrage.Projects.Module.ViewModel
     {
         Supply,
         Hardware,
-        Frame
+        Frame,
+        PFC
     }
 }

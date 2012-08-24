@@ -413,7 +413,6 @@ namespace Chiffrage.Projects.Module.Views.Impl
             this.InvokeIfRequired(() => supplies.Add(viewModel));
         }
 
-
         public void RemoveAllSupplies()
         {
             this.InvokeIfRequired(() =>
@@ -424,7 +423,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
             });
         }
 
-        public void AddSupplies(IList<ProjectSupplyViewModel> supplies)
+        public void AddSupplies(IEnumerable<ProjectSupplyViewModel> supplies)
         {
             this.InvokeIfRequired(() =>
             {
@@ -437,7 +436,6 @@ namespace Chiffrage.Projects.Module.Views.Impl
             });
         }
 
-
         public void RemoveSupply(ProjectSupplyViewModel supply)
         {
             this.InvokeIfRequired(() =>
@@ -446,7 +444,8 @@ namespace Chiffrage.Projects.Module.Views.Impl
                 this.supplies.Remove(item);
             });
         }
-        public void SetSupplies(IList<ProjectSupplyViewModel> supplies)
+        
+        public void SetSupplies(IEnumerable<ProjectSupplyViewModel> supplies)
         {
             this.InvokeIfRequired(() =>
             {
@@ -471,7 +470,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
             });
         }
 
-        public void SetHardwares(IList<ProjectHardwareViewModel> hardwares)
+        public void SetHardwares(IEnumerable<ProjectHardwareViewModel> hardwares)
         {
             this.InvokeIfRequired(() =>
                 {
@@ -513,7 +512,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
             });
         }
 
-        public void SetFrames(IList<ProjectFrameViewModel> frames)
+        public void SetFrames(IEnumerable<ProjectFrameViewModel> frames)
         {
             this.InvokeIfRequired(() =>
             {
@@ -536,7 +535,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
                });
         }
 
-        public void AddFrames(IList<ProjectFrameViewModel> frames)
+        public void AddFrames(IEnumerable<ProjectFrameViewModel> frames)
         {
             this.InvokeIfRequired(() =>
             {
@@ -556,7 +555,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
             });
         }
 
-        public void SetSummaryItems(IList<ProjectSummaryItemViewModel> summaryItems)
+        public void SetSummaryItems(IEnumerable<ProjectSummaryItemViewModel> summaryItems)
         {
             this.InvokeIfRequired(() =>
             {
@@ -622,8 +621,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
             });
         }
 
-
-        public void SetHardwareWorks(List<ProjectHardwareWorkViewModel> works)
+        public void SetHardwareWorks(IEnumerable<ProjectHardwareWorkViewModel> works)
         {
             this.InvokeIfRequired(() =>
             {
@@ -638,7 +636,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
             });
         }
 
-        public void SetHardwareExecutiveWorks(List<ProjectHardwareExecutiveWorkViewModel> executiveWorks)
+        public void SetHardwareExecutiveWorks(IEnumerable<ProjectHardwareExecutiveWorkViewModel> executiveWorks)
         {
             this.InvokeIfRequired(() =>
             {
@@ -653,7 +651,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
             });
         }
 
-        public void SetHardwareStudyReferenceTests(List<ProjectHardwareStudyReferenceTestViewModel> studyReferenceTests)
+        public void SetHardwareStudyReferenceTests(IEnumerable<ProjectHardwareStudyReferenceTestViewModel> studyReferenceTests)
         {
             this.InvokeIfRequired(() =>
             {
@@ -667,7 +665,6 @@ namespace Chiffrage.Projects.Module.Views.Impl
                 }
             });
         }
-
 
         public void UpdateHardwareStudyReferenceTest(ProjectHardwareStudyReferenceTestViewModel hardware)
         {
@@ -725,7 +722,6 @@ namespace Chiffrage.Projects.Module.Views.Impl
                 this.studyReferenceTests.Remove(item);
             });
         }
-
 
         public void SetCostSummaryItems(IEnumerable<ProjectCostSummaryViewModel> summaryItems)
         {
