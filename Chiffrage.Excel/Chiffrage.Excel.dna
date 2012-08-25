@@ -1,0 +1,40 @@
+<DnaLibrary>
+  <ExternalLibrary Path="Chiffrage.Excel.dll" Pack="true"/>
+
+  <Image Name="book_open" Path="imgs\book_open.png" Pack="true" />
+
+  <CustomUI>
+    <customUI xmlns="http://schemas.microsoft.com/office/2006/01/customui" loadImage='LoadImage'>
+      <ribbon>
+        <tabs>
+          <tab id="TabAddIns" label="Chiffrage">
+            <group id="groupCatalog" label="Catalogue">
+              <button id="buttonImport" label="Importer un catalogue" image="book_open" onAction='OnRibbonImportCatalogWizardClick'/>
+            </group>
+            <group id="groupProjects" label="Projet/Affaire" />
+          </tab>
+        </tabs>
+      </ribbon>
+    </customUI>
+  </CustomUI>
+
+  <CustomUI>
+    <!-- CommandBars Fallback for Excel version pre-2007, interpreted by ExcelDna (I just made up the namespace for future versioning) -->
+    <commandBars xmlns='http://schemas.excel-dna.net/office/2003/01/commandbars' >
+      <commandBar name='Worksheet Menu Bar'>
+        <!-- Here we add a top-level menu to the main Excel Worksheet menu -->
+        <popup caption='My Excel-Dna Menu' height='19'  >
+          <button caption='Say Hello' onAction='ShowImportCatalogWizard' image='book_open' beginGroup='true'></button>
+          <button caption='Another Item...' enabled='false' tooltipText='In the tooltip?' />
+          <popup caption='My sub-menu' >
+            <button helpFile='xyz.hlp' faceId='123' helpContextId='134' caption='SubMenu Button' onAction='ShowImportCatalogWizard'/>
+          </popup>
+        </popup>
+      </commandBar>
+      <commandBar name='Cell'>
+        <!-- Here we add a menu to the Excel context menu -->
+        <button caption='New context item' enabled='false' shortcutText='CTRL+A'/>
+      </commandBar>
+    </commandBars>
+  </CustomUI>
+</DnaLibrary>
