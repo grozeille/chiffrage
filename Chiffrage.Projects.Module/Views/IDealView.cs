@@ -6,8 +6,6 @@ namespace Chiffrage.Projects.Module.Views
 {
     public interface IDealView : IView
     {
-        DealViewModel GetDealViewModel();
-
         void SetDealViewModel(DealViewModel viewModel);
 
         void SetCalendarItems(IEnumerable<DealProjectCalendarItemViewModel> calendarItems);
@@ -16,5 +14,6 @@ namespace Chiffrage.Projects.Module.Views
 
         void SetProjectCostSummaryItems(IEnumerable<DealProjectCostSummaryViewModel> costSummaryItems);
 
+        void Save();
     }
 }

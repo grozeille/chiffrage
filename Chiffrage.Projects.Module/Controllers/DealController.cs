@@ -21,9 +21,6 @@ namespace Chiffrage.Projects.Module.Controllers
         private readonly IDealView dealView;
         private readonly INewDealView newDealView;
 
-        [Publish]
-        public event Action<UpdateDealCommand> OnUpdateDealCommand;
-
         public DealController(IDealRepository dealRepository, IDealView dealView, INewDealView newDealView)
         {
             this.dealView = dealView;
@@ -69,20 +66,7 @@ namespace Chiffrage.Projects.Module.Controllers
         [Subscribe]
         public void ProcessAction(SaveAction eventObject)
         {
-            var viewModel = this.dealView.GetDealViewModel();
-            if (viewModel == null)
-            {
-                return;
-            }
-            var command = new UpdateDealCommand(
-                viewModel.Id,
-                viewModel.Name,
-                viewModel.Comment,
-                viewModel.Reference,
-                viewModel.StartDate,
-                viewModel.EndDate);
-
-            this.OnUpdateDealCommand(command);
+            this.dealView.Save();
         }
 
         [Subscribe]
@@ -90,11 +74,7 @@ namespace Chiffrage.Projects.Module.Controllers
         {
             var result = this.Map(eventObject.NewDeal);
 
-            var viewModel = this.dealView.GetDealViewModel();
-            if (viewModel != null && viewModel.Id == result.Id)
-            {
-                this.dealView.SetDealViewModel(result);
-            }
+            this.dealView.SetDealViewModel(result);
         }
 
         [Subscribe]

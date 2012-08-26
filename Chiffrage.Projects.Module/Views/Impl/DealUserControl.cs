@@ -6,6 +6,8 @@ using System.Drawing;
 using System.Windows.Forms.Calendar;
 using System.Collections.Generic;
 using Chiffrage.Mvc;
+using Chiffrage.Mvc.Events;
+using Chiffrage.Projects.Domain.Commands;
 
 namespace Chiffrage.Projects.Module.Views.Impl
 {
@@ -18,6 +20,8 @@ namespace Chiffrage.Projects.Module.Views.Impl
         private readonly IList<CalendarItem> calendarItems = new List<CalendarItem>();
 
         private readonly SortableBindingList<ProjectSummaryItemViewModel> summaryItems = new SortableBindingList<ProjectSummaryItemViewModel>();
+
+        private readonly IEventBroker eventBroker;
 
         public DealUserControl()
         {
@@ -48,27 +52,41 @@ namespace Chiffrage.Projects.Module.Views.Impl
             this.chartProjectCost.Series[0].LegendText = "#VALX (#PERCENT)";
         }
 
+        public DealUserControl(IEventBroker eventBroker)
+            :this()
+        {
+            this.eventBroker = eventBroker;
+            this.CausesValidation = true;
+        }
+
         #region IDealView Members
 
-        public DealViewModel GetDealViewModel()
+        public void Save()
         {
-            return this.InvokeIfRequired(() =>
+            this.InvokeIfRequired(() =>
             {
                 if(!dealId.HasValue)
                 {
-                    return null;
+                    return;
                 }
 
-                var dealViewModel = new DealViewModel();
-                dealViewModel.Id = dealId.Value;
-                dealViewModel.Name = this.textBoxDealName.Text;
-                dealViewModel.Reference = this.textBoxReference.Text;
-                dealViewModel.StartDate = this.dateTimePickerDealBegin.Value;
-                dealViewModel.EndDate = this.dateTimePickerDealEnd.Value;
+                this.errorProvider.Clear();
+                if (!this.Validate())
+                {
+                    return;
+                }
+
                 this.commentUserControl.Validate();
-                dealViewModel.Comment = this.commentUserControl.Rtf;
-                
-                return dealViewModel;
+
+                var command = new UpdateDealCommand(
+                    dealId.Value,
+                    this.textBoxDealName.Text,
+                    this.commentUserControl.Rtf,
+                    this.textBoxReference.Text,
+                    this.dateTimePickerDealBegin.Value,
+                    this.dateTimePickerDealEnd.Value);
+
+                this.eventBroker.Publish(command);
             });
         }
 
