@@ -16,6 +16,8 @@ using Chiffrage.Excel.Actions;
 using Chiffrage.Catalogs.Remoting.Contracts.Services;
 using Chiffrage.Excel.Views;
 using Chiffrage.Catalogs.Remoting.Contracts;
+using System.Threading;
+using System.Globalization;
 
 namespace Chiffrage.Excel
 {
@@ -65,10 +67,10 @@ namespace Chiffrage.Excel
             }
         }
 
-        [ExcelCommandAttribute(MenuName="Chiffrage", MenuText="Importer un catalogue")]
         public static void ShowImportWizardCommand()
         {
-            ChiffrageExcelAddin.EventBroker.Publish(new ShowImportCatalogWizard());
+            var wait = ChiffrageExcelAddin.EventBroker.PublishAndWait(new ShowImportCatalogWizard());
+            wait.AsyncWaitHandle.WaitOne();
         }
 
         public void AutoClose()
@@ -78,20 +80,20 @@ namespace Chiffrage.Excel
 
         public void AutoOpen()
         {
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+
             System.Windows.Forms.Application.EnableVisualStyles();
             ChiffrageExcelAddin.eventBroker = new EventBroker();
             ChiffrageExcelAddin.eventBroker.Subscribe(this);
 
-
             this.view = new ImportCatalogWizardView(ChiffrageExcelAddin.EventBroker);
-
-
+    
             AppDomain.CurrentDomain.UnhandledException += (sender, ex) => { logger.Error("UnhandledException", (Exception)ex.ExceptionObject); };
 
             logger.InfoFormat("Loaded");
         }
 
-        [Subscribe(SubscriptionMode=SubscriptionMode.UIThread)]
+        [Subscribe]
         public void OnShowImportCatalogWizard(ShowImportCatalogWizard eventObject)
         {
             try
@@ -107,20 +109,27 @@ namespace Chiffrage.Excel
             }
         }
 
-        [Subscribe]
+        [Subscribe(SubscriptionMode=SubscriptionMode.UIThread)]
         public void OnRequestImportCatalog(RequestImportCatalogAction action)
         {
             try
             {
+                Thread.CurrentThread.CurrentCulture = new CultureInfo("en-US");
+
                 var result = this.GetCatalogRemoteService().GetCatalogData(action.CatalogItem.Id);
+
 
                 int rows = result.GetLength(0);
                 int cols = result.GetLength(1);
 
                 var application = (Microsoft.Office.Interop.Excel.Application)ExcelDnaUtil.Application;
+
                 var cell = application.ActiveCell;
+
                 var range = cell.Resize[rows, cols];
+
                 range.Value = result;
+
 
                 Marshal.ReleaseComObject(range);
                 range = null;

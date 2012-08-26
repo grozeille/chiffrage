@@ -12,7 +12,7 @@ namespace Chiffrage.Mvc.Events
 {
     public class EventBroker: IEventBroker, IDisposable
     {
-        private readonly BlockingQueue<object> eventQueue = new BlockingQueue<object>(Int32.MaxValue);
+        private readonly BlockingQueue<Message> eventQueue = new BlockingQueue<Message>(Int32.MaxValue);
 
         private Thread dispatchingThread;
         private readonly IList<EventSubscriptionItem> subscribers = new List<EventSubscriptionItem>();
@@ -133,7 +133,30 @@ namespace Chiffrage.Mvc.Events
 
         public void Publish(object eventObject)
         {
-            this.eventQueue.Enqueue(eventObject);
+            this.InternalPublish(new Message { Body = eventObject });
+        }
+
+        public IAsyncResult PublishAndWait(object eventObject)
+        {
+            var result = new MessageAsyncResult();
+            var message = new Message { Body = eventObject, AsyncResult = result };
+
+            this.InternalPublish(message);
+
+            return result;
+        }
+
+        public void PublishAndExecute(object eventObject, AsyncCallback callback)
+        {
+            var result = new MessageAsyncResult();
+            var message = new Message { Body = eventObject, AsyncResult = result, AsyncCallback = callback };
+
+            this.InternalPublish(message);
+        }
+
+        private void InternalPublish(Message message)
+        {
+            this.eventQueue.Enqueue(message);
 
             if (this.dispatchingThread == null)
                 this.Start();
@@ -145,14 +168,15 @@ namespace Chiffrage.Mvc.Events
         {
             do
             {
-                object eventObject = null;
-                if (this.eventQueue.TryDequeue(out eventObject))
+                Message message = null;
+                
+                if (this.eventQueue.TryDequeue(out message))
                 {
                     subscribersLock.EnterReadLock();
                     
                     foreach (var subscriber in this.subscribers)
                     {
-                        if (subscriber.EventType.IsInstanceOfType(eventObject))
+                        if (subscriber.EventType.IsInstanceOfType(message.Body))
                         {
                             try
                             {
@@ -162,15 +186,34 @@ namespace Chiffrage.Mvc.Events
                                         {
                                             var args = (object[])o;
                                             var s = (EventSubscriptionItem)args[0];
-                                            var e = (object)args[1];
+                                            var m = (Message)args[1];
 
-                                            s.Method.Invoke(s.EventHandler, new[] { e });
+                                            s.Method.Invoke(s.EventHandler, new[] { m.Body });
 
-                                        }, new object[]{ subscriber, eventObject});
+                                            if (m.AsyncResult != null)
+                                            {
+                                                m.AsyncResult.ManualResetEvent.Set();
+
+                                                if (m.AsyncCallback != null)
+                                                {
+                                                    m.AsyncCallback(m.AsyncResult);
+                                                }
+                                            }
+
+                                        }, new object[]{ subscriber, message});
                                 }
                                 else if (subscriber.SubscriptionMode == SubscriptionMode.Default)
                                 {
-                                    subscriber.Method.Invoke(subscriber.EventHandler, new[] { eventObject });
+                                    subscriber.Method.Invoke(subscriber.EventHandler, new[] { message.Body });
+
+                                    if (message.AsyncResult != null)
+                                    {
+                                        message.AsyncResult.ManualResetEvent.Set();
+                                        if (message.AsyncCallback != null)
+                                        {
+                                            message.AsyncCallback(message.AsyncResult);
+                                        }
+                                    }
                                 }
                                 else if (subscriber.SubscriptionMode == SubscriptionMode.NewThread)
                                 {
@@ -178,11 +221,21 @@ namespace Chiffrage.Mvc.Events
                                         {
                                             var args = (object[])o;
                                             var s = (EventSubscriptionItem)args[0];
-                                            var e = (object)args[1];
+                                            var m = (Message)args[1];
 
-                                            s.Method.Invoke(s.EventHandler, new[] { e });
+                                            s.Method.Invoke(s.EventHandler, new[] { m.Body });
 
-                                        }, new object[] { subscriber, eventObject });
+                                            if (m.AsyncResult != null)
+                                            {
+                                                m.AsyncResult.ManualResetEvent.Set();
+
+                                                if (m.AsyncCallback != null)
+                                                {
+                                                    m.AsyncCallback(m.AsyncResult);
+                                                }
+                                            }
+
+                                        }, new object[] { subscriber, message });
                                 }
                             }
                             catch (Exception ex)

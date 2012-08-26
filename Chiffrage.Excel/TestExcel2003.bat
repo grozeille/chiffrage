@@ -1,0 +1,1 @@
+"%ProgramFiles%\Microsoft Office\OFFICE11\EXCEL.EXE" Chiffrage.Excel-packed.xll

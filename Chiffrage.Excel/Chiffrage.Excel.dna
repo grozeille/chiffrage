@@ -5,8 +5,15 @@
   <Reference AssemblyPath="Common.Logging.Log4Net.dll" Pack="true" />
   <Reference AssemblyPath="Common.Logging.dll" Pack="true" />
   <Reference AssemblyPath="log4net.dll" Pack="true" />
+  <Reference AssemblyPath="Microsoft.Office.Interop.Excel.dll" Pack="true" />
+  <Reference AssemblyPath="Office.dll" Pack="true" />
+  <Reference AssemblyPath="stdole.dll" Pack="true" />
+  <Reference AssemblyPath="Microsoft.Vbe.Interop.dll" Pack="true" />
 
-  <Image Name="book_open" Path="imgs\book_open.png" Pack="true" />
+  <Image Name="book_open_png" Path="imgs\book_open.png" Pack="true" />
+  <Image Name="book_open_gif" Path="imgs\book_open.gif" Pack="true" />
+  <Image Name="book_open_ico" Path="imgs\book_open.ico" Pack="true" />
+  <Image Name="book_open_2003_png" Path="imgs\book_open_2003.png" Pack="true" />
 
   <CustomUI>
     <customUI xmlns="http://schemas.microsoft.com/office/2006/01/customui" loadImage='LoadImage'>
@@ -14,7 +21,7 @@
         <tabs>
           <tab id="TabAddIns" label="Chiffrage">
             <group id="groupCatalog" label="Catalogue">
-              <button id="buttonImport" label="Importer un catalogue" image="book_open" onAction='OnRibbonImportCatalogWizardClick'/>
+              <button id="buttonImport" label="Importer un catalogue" image="book_open_png" onAction='OnRibbonImportCatalogWizardClick'/>
             </group>
             <group id="groupProjects" label="Projet/Affaire" />
           </tab>
@@ -28,17 +35,12 @@
     <commandBars xmlns='http://schemas.excel-dna.net/office/2003/01/commandbars' >
       <commandBar name='Worksheet Menu Bar'>
         <!-- Here we add a top-level menu to the main Excel Worksheet menu -->
-        <popup caption='My Excel-Dna Menu' height='19'  >
-          <button caption='Say Hello' onAction='ShowImportCatalogWizard' image='book_open' beginGroup='true'></button>
-          <button caption='Another Item...' enabled='false' tooltipText='In the tooltip?' />
-          <popup caption='My sub-menu' >
-            <button helpFile='xyz.hlp' faceId='123' helpContextId='134' caption='SubMenu Button' onAction='ShowImportCatalogWizard'/>
+        <popup caption='Chiffrage' height='19'  >
+          <popup caption='Catalogue' beginGroup='true'>
+            <button caption='Importer un catalogue' onAction='ShowImportWizardCommand' tooltipText='In the tooltip?' image='book_open_2003_png'  />
           </popup>
+          <button caption='Projet/Affaire' />
         </popup>
-      </commandBar>
-      <commandBar name='Cell'>
-        <!-- Here we add a menu to the Excel context menu -->
-        <button caption='New context item' enabled='false' shortcutText='CTRL+A'/>
       </commandBar>
     </commandBars>
   </CustomUI>

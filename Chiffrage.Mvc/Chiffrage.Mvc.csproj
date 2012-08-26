@@ -68,6 +68,8 @@
     <Compile Include="Events\IEventBroker.cs" />
     <Compile Include="Events\IEventHandler.cs" />
     <Compile Include="Events\IEventHandlerOnUI.cs" />
+    <Compile Include="Events\Message.cs" />
+    <Compile Include="Events\MessageAsyncResult.cs" />
     <Compile Include="Events\PublishAttribute.cs" />
     <Compile Include="Events\SubscribeAttribute.cs" />
     <Compile Include="Events\SubscriptionMode.cs" />

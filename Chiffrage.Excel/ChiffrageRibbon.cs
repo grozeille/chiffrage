@@ -26,7 +26,8 @@ namespace Chiffrage.Excel
 
         public void ShowImportCatalogWizard()
         {
-            ChiffrageExcelAddin.EventBroker.Publish(new ShowImportCatalogWizard());
+            var result = ChiffrageExcelAddin.EventBroker.PublishAndWait(new ShowImportCatalogWizard());
+            result.AsyncWaitHandle.WaitOne();
         }
 
         public void OnRibbonImportCatalogWizardClick(IRibbonControl ribbon)

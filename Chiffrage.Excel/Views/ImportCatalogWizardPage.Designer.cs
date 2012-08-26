@@ -30,34 +30,66 @@
         {
             this.comboBoxCatalog = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.checkedListBoxColumns = new System.Windows.Forms.CheckedListBox();
             this.SuspendLayout();
             // 
             // comboBoxCatalog
             // 
             this.comboBoxCatalog.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxCatalog.FormattingEnabled = true;
-            this.comboBoxCatalog.Location = new System.Drawing.Point(78, 17);
+            this.comboBoxCatalog.Location = new System.Drawing.Point(67, 3);
             this.comboBoxCatalog.Name = "comboBoxCatalog";
-            this.comboBoxCatalog.Size = new System.Drawing.Size(185, 21);
+            this.comboBoxCatalog.Size = new System.Drawing.Size(179, 21);
             this.comboBoxCatalog.TabIndex = 0;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(14, 20);
+            this.label1.Location = new System.Drawing.Point(3, 6);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(58, 13);
             this.label1.TabIndex = 1;
             this.label1.Text = "Catalogue:";
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(3, 52);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(54, 13);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "Colonnes:";
+            // 
+            // checkedListBoxColumns
+            // 
+            this.checkedListBoxColumns.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.checkedListBoxColumns.FormattingEnabled = true;
+            this.checkedListBoxColumns.Items.AddRange(new object[] {
+            "Nom du matériel",
+            "Nom du composant",
+            "Référence du composant",
+            "Quantité du composant",
+            "Prix du composant",
+            "Nb module du composant",
+            "Commentaire du composant"});
+            this.checkedListBoxColumns.Location = new System.Drawing.Point(19, 68);
+            this.checkedListBoxColumns.Name = "checkedListBoxColumns";
+            this.checkedListBoxColumns.Size = new System.Drawing.Size(368, 304);
+            this.checkedListBoxColumns.TabIndex = 3;
+            // 
             // ImportCatalogWizardPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.checkedListBoxColumns);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.comboBoxCatalog);
             this.Name = "ImportCatalogWizardPage";
-            this.Size = new System.Drawing.Size(346, 284);
+            this.Size = new System.Drawing.Size(402, 389);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -67,5 +99,7 @@
 
         private System.Windows.Forms.ComboBox comboBoxCatalog;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.CheckedListBox checkedListBoxColumns;
     }
 }

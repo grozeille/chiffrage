@@ -74,11 +74,18 @@ namespace Chiffrage.Mvc.Views
 
             this.UISynchronizationContext.Post(new SendOrPostCallback(new Action<object>((x) =>
             {
-                this.Form.Text = this.Name;
-                this.wizardSettingIterator = this.BuildWizardPages();
-                this.Form.WizardSettings = this.wizardSettingIterator;
-                var result = this.Form.ShowDialog(this.Parent);
-                this.OnWizardClosed(result);
+                if (this.Form.Visible)
+                {
+                    this.Form.Focus();
+                }
+                else
+                {
+                    this.Form.Text = this.Name;
+                    this.wizardSettingIterator = this.BuildWizardPages();
+                    this.Form.WizardSettings = this.wizardSettingIterator;
+                    var result = this.Form.ShowDialog(this.Parent);
+                    this.OnWizardClosed(result);
+                }
             })), null);
         }
 
