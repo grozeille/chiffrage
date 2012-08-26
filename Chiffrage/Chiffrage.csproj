@@ -100,6 +100,7 @@
     </Reference>
     <Reference Include="System.Design" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -252,6 +253,10 @@
     <ProjectReference Include="..\Chiffrage.Catalogs.Module\Chiffrage.Catalogs.Module.csproj">
       <Project>{03B5C7F7-1B9D-44E3-BEC1-5718BFEE621F}</Project>
       <Name>Chiffrage.Catalogs.Module</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Chiffrage.Catalogs.Remoting\Chiffrage.Catalogs.Remoting.csproj">
+      <Project>{5925947B-CAB7-48AE-BAEF-9D163C5F17FE}</Project>
+      <Name>Chiffrage.Catalogs.Remoting</Name>
     </ProjectReference>
     <ProjectReference Include="..\Chiffrage.Common.Module\Chiffrage.Common.Module.csproj">
       <Project>{226D518E-B1BB-4B77-8031-2F704FADDC83}</Project>

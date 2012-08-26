@@ -6,6 +6,8 @@ using System.Windows.Forms;
 using Chiffrage.Mvc.Events;
 using Chiffrage.Mvc.Exceptions;
 using System.Drawing;
+using System.Diagnostics;
+using System.Threading;
 
 namespace Chiffrage.Mvc.Views
 {
@@ -13,9 +15,11 @@ namespace Chiffrage.Mvc.Views
     {
         protected readonly IEventBroker EventBroker;
 
-        protected Control Parent;
+        protected IWin32Window Parent;
 
         protected readonly WizardForm Form;
+
+        protected readonly SynchronizationContext UISynchronizationContext;
 
         public virtual Icon Icon
         {
@@ -36,9 +40,10 @@ namespace Chiffrage.Mvc.Views
         {
             this.EventBroker = eventBroker;
             this.Form = new WizardForm();
+            this.UISynchronizationContext = WindowsFormsSynchronizationContext.Current;
         }
 
-        public void SetParent(Control parent)
+        public void SetParent(IWin32Window parent)
         {
             this.Parent = parent;
         }
@@ -50,28 +55,31 @@ namespace Chiffrage.Mvc.Views
                 this.Parent = Application.OpenForms[0];
             }
 
-            this.Parent.BeginInvoke(new Action(() =>
+            this.UISynchronizationContext.Post(new SendOrPostCallback(new Action<object>((x) =>
             {
                 this.wizardSettingIterator = this.BuildWizardPages();
-            }));
+            })), null);
         }
 
         public void ShowView()
         {
             if (this.Parent == null)
             {
-                this.Parent = Application.OpenForms[0];
+                IntPtr hdl = Process.GetCurrentProcess().MainWindowHandle;
+                var window = new NativeWindow();
+                window.AssignHandle(hdl);
+
+                this.Parent = window;
             }
 
-            
-            this.Parent.BeginInvoke(new Action(() =>
+            this.UISynchronizationContext.Post(new SendOrPostCallback(new Action<object>((x) =>
             {
                 this.Form.Text = this.Name;
                 this.wizardSettingIterator = this.BuildWizardPages();
                 this.Form.WizardSettings = this.wizardSettingIterator;
                 var result = this.Form.ShowDialog(this.Parent);
                 this.OnWizardClosed(result);
-            }));
+            })), null);
         }
 
         protected abstract IWizardSettingIterator BuildWizardPages();

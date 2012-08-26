@@ -180,7 +180,7 @@ namespace Chiffrage.Mvc.Events
 
                                         this.Publish(new ErrorEvent(ex));
                                     }
-                                //}));                            
+                                //}));
                         }
                     }
 

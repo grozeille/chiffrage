@@ -4,7 +4,7 @@ namespace Chiffrage.Mvc.Views
 {
     public interface IView
     {
-        void SetParent(Control parent);
+        void SetParent(IWin32Window parent);
 
         void ShowView();
 

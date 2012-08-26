@@ -15,6 +15,7 @@ using Chiffrage.Projects.Dal.Repositories;
 using NHibernate.Cfg.MappingSchema;
 using System.IO;
 using Chiffrage.Catalogs.Dal.Repositories;
+using Chiffrage.Catalogs.Remoting.Services;
 
 namespace Chiffrage.Ioc
 {
@@ -22,6 +23,12 @@ namespace Chiffrage.Ioc
     {
         protected override void Load(ContainerBuilder builder)
         {
+            // the eventBroker
+            builder.RegisterType<EventBroker>()
+                .As<IEventBroker>()
+                .SingleInstance()
+                .OnActivated(x => x.Instance.Start());
+
             builder.RegisterAssemblyTypes(this.ThisAssembly)
                 .Where(t => t.GetInterface(typeof(IView).Name) != null && !t.IsAbstract && t.IsPublic)
                 .AsImplementedInterfaces()
@@ -49,17 +56,16 @@ namespace Chiffrage.Ioc
                     x.Context.Resolve<IEventBroker>().Subscribe(x.Instance);
                 });
 
-            // the eventBroker
-            builder.RegisterType<EventBroker>()
-                .As<IEventBroker>()
-                .SingleInstance()
-                .OnActivated(x => x.Instance.Start());
-
             
                 //.OnActivated(x =>
                 //{
                 //    x.Instance.Subscribers = x.Context.Resolve<IEnumerable<Object>>().ToArray();
                 //});
+
+            builder.RegisterType<CatalogRemoteService>()
+                .As<IStartable>()
+                .PropertiesAutowired(PropertyWiringFlags.Default)
+                .SingleInstance();
 
 
             // force creation of all services/view/controllers

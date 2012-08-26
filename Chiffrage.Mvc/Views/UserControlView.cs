@@ -8,9 +8,9 @@ namespace Chiffrage.Mvc.Views
     {
         #region IView Members
 
-        public virtual void SetParent(Control parent)
+        public virtual void SetParent(IWin32Window parent)
         {
-            Parent = parent;
+            Parent = parent as Control;
             Dock = DockStyle.Fill;
         }
 

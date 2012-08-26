@@ -12,9 +12,9 @@ namespace Chiffrage.Mvc.Views
     {
         #region IView Members
 
-        public virtual void SetParent(Control parent)
+        public virtual void SetParent(IWin32Window parent)
         {
-            this.Parent = parent;
+            this.Parent = parent as Control;
             this.StartPosition = FormStartPosition.CenterParent;
         }
 
@@ -22,7 +22,7 @@ namespace Chiffrage.Mvc.Views
         {
             InvokeIfRequired(() =>
             {
-                
+
                 this.Show();
                 this.BringToFront();
                 
