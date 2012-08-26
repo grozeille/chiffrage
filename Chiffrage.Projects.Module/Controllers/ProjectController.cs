@@ -53,10 +53,7 @@ namespace Chiffrage.Projects.Module.Controllers
 
         // no better way...
         private readonly System.Windows.Forms.RichTextBox rtBox = new System.Windows.Forms.RichTextBox();
-
-        [Publish]
-        public event Action<UpdateProjectCommand> OnUpdateProjectCommand;
-
+        
         public ProjectController(
             IProjectView projectView, 
             INewProjectView newProjectView, 
@@ -326,29 +323,7 @@ namespace Chiffrage.Projects.Module.Controllers
         [Subscribe]
         public void ProcessAction(SaveAction eventObject)
         {
-            var viewModel = this.projectView.GetProjectViewModel();
-
-            if (viewModel == null)
-            {
-                return;
-            }
-
-            var command = new UpdateProjectCommand(
-                viewModel.Id,
-                viewModel.Name,
-                viewModel.Comment,
-                viewModel.Reference,
-                viewModel.StartDate,
-                viewModel.EndDate,
-                viewModel.StudyRate,
-                viewModel.ReferenceRate,
-                viewModel.WorkDayRate,
-                viewModel.WorkShortNightsRate,
-                viewModel.WorkLongNightsRate,
-                viewModel.TestDayRate,
-                viewModel.TestNightRate);
-
-            this.OnUpdateProjectCommand(command);
+            this.projectView.Save();
         }
 
         [Subscribe]

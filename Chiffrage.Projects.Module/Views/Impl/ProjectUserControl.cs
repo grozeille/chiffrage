@@ -17,6 +17,7 @@ using System.Globalization;
 using Chiffrage.Projects.Module.Actions;
 using Chiffrage.Projects.Module.Properties;
 using System.Windows.Forms.DataVisualization.Charting;
+using System.Text.RegularExpressions;
 
 namespace Chiffrage.Projects.Module.Views.Impl
 {
@@ -43,6 +44,8 @@ namespace Chiffrage.Projects.Module.Views.Impl
         
         private readonly IEventBroker eventBroker;
 
+        private readonly string rateRegex = @"(\d+\.?\d*)(?: +€/j)?";
+
         public ProjectUserControl()
         {
             this.InitializeComponent();
@@ -55,14 +58,15 @@ namespace Chiffrage.Projects.Module.Views.Impl
             this.projectHardwareExecutiveWorkViewModelBindingSource.DataSource = executiveWorks;
             this.projectHardwareStudyReferenceTestViewModelBindingSource.DataSource = studyReferenceTests;
 
-            this.textBoxStudyRate.Validating += this.ValidateIsDoubleTextBox;
             this.textBoxProjectName.Validating += this.ValidateIsRequiredTextBox;
-            this.textBoxReferenceRate.Validating += this.ValidateIsDoubleTextBox;
-            this.textBoxWorkDayRate.Validating += this.ValidateIsDoubleTextBox;
-            this.textBoxWorkShortNightsRate.Validating += this.ValidateIsDoubleTextBox;
-            this.textBoxWorkLongNightsRate.Validating += this.ValidateIsDoubleTextBox;
-            this.textBoxTestDayRate.Validating += this.ValidateIsDoubleTextBox;
-            this.textBoxTestNightRate.Validating += this.ValidateIsDoubleTextBox;
+
+            this.textBoxReferenceRate.Validating += this.ValidateIsRateTextBox;
+            this.textBoxStudyRate.Validating += this.ValidateIsRateTextBox;
+            this.textBoxWorkDayRate.Validating += this.ValidateIsRateTextBox;
+            this.textBoxWorkShortNightsRate.Validating += this.ValidateIsRateTextBox;
+            this.textBoxWorkLongNightsRate.Validating += this.ValidateIsRateTextBox;
+            this.textBoxTestDayRate.Validating += this.ValidateIsRateTextBox;
+            this.textBoxTestNightRate.Validating += this.ValidateIsRateTextBox;
 
             this.chartCostSummary.Series[0]["PieLabelStyle"] = "Outside";
             this.chartCostSummary.Series[0]["PieLineColor"] = "Black";
@@ -75,6 +79,21 @@ namespace Chiffrage.Projects.Module.Views.Impl
             //this.chartCostSummary.Legends[0].Docking = Docking.Bottom;
             //this.chartCostSummary.Legends[0].Alignment = System.Drawing.StringAlignment.Center;
             //this.chartCostSummary.Legends[0].ItemColumnSpacing = 30;
+        }
+
+        private void ValidateIsRateTextBox(object sender, CancelEventArgs args)
+        {
+            args.Cancel = !this.ValidateRegex((TextBox)sender, rateRegex, "Doit être un taux (ou un nombre)");
+        }
+
+        private double ParseRate(string stringValue)
+        {
+            return double.Parse(Regex.Match(stringValue, rateRegex).Groups[1].Value, NumberStyles.Float, CultureInfo.InvariantCulture);
+        }
+
+        private string ToRate(double value)
+        {
+            return value.ToString("#.## €/j;#.## €/j;\0 €/j", CultureInfo.InvariantCulture);
         }
         
         public ProjectUserControl(IEventBroker eventBroker)
@@ -268,42 +287,40 @@ namespace Chiffrage.Projects.Module.Views.Impl
 
         #region IProjectView Members
         
-        public ProjectViewModel GetProjectViewModel()
+        public void Save()
         {
-            return this.InvokeIfRequired(() =>
+            this.InvokeIfRequired(() =>
             {
                 if (!this.id.HasValue)
                 {
-                    return null;
+                    return;
                 }
 
 
                 this.errorProvider.Clear();
                 if (!this.Validate())
                 {
-                    return null;
+                    return;
                 }
 
                 this.commentUserControl.Validate();
+                
+                var command = new UpdateProjectCommand(
+                    this.id.Value,
+                    this.textBoxProjectName.Text,
+                    this.commentUserControl.Rtf,
+                    this.textBoxReference.Text,
+                    this.dateTimePickerProjectBegin.Value,
+                    this.dateTimePickerProjectEnd.Value,
+                    ParseRate(this.textBoxStudyRate.Text),
+                    ParseRate(this.textBoxReferenceRate.Text),
+                    ParseRate(this.textBoxWorkDayRate.Text),
+                    ParseRate(this.textBoxWorkShortNightsRate.Text),
+                    ParseRate(this.textBoxWorkLongNightsRate.Text),
+                    ParseRate(this.textBoxTestDayRate.Text),
+                    ParseRate(this.textBoxTestNightRate.Text));
 
-                return new ProjectViewModel
-                {
-                    Id = this.id.Value,
-                    Name = this.textBoxProjectName.Text,
-                    Reference = this.textBoxReference.Text,
-                    StartDate = this.dateTimePickerProjectBegin.Value,
-                    EndDate = this.dateTimePickerProjectEnd.Value,
-                    ReferenceRate = double.Parse(this.textBoxReferenceRate.Text, NumberStyles.Float, CultureInfo.InvariantCulture),
-                    StudyRate = double.Parse(this.textBoxStudyRate.Text, NumberStyles.Float, CultureInfo.InvariantCulture),
-                    WorkDayRate = double.Parse(this.textBoxWorkDayRate.Text, NumberStyles.Float, CultureInfo.InvariantCulture),
-                    WorkShortNightsRate = double.Parse(this.textBoxWorkShortNightsRate.Text, NumberStyles.Float, CultureInfo.InvariantCulture),
-                    WorkLongNightsRate = double.Parse(this.textBoxWorkLongNightsRate.Text, NumberStyles.Float, CultureInfo.InvariantCulture),
-                    TestDayRate = double.Parse(this.textBoxTestDayRate.Text, NumberStyles.Float, CultureInfo.InvariantCulture),
-                    TestNightRate = double.Parse(this.textBoxTestNightRate.Text, NumberStyles.Float, CultureInfo.InvariantCulture),
-                    TotalDays = int.Parse(this.textBoxTotalDays.Text, NumberStyles.Integer, CultureInfo.InvariantCulture),
-                    TotalPrice = double.Parse(this.textBoxTotalPrice.Text, NumberStyles.Float, CultureInfo.InvariantCulture),
-                    Comment = this.commentUserControl.Rtf
-                };
+                this.eventBroker.Publish(command);
             });
         }
 
@@ -380,27 +397,30 @@ namespace Chiffrage.Projects.Module.Views.Impl
                     this.textBoxTestNightRate.Text = string.Empty;
                     this.textBoxTotalDays.Text = string.Empty;
                     this.textBoxTotalPrice.Text = string.Empty;
+                    
                     this.textBoxTotalModules.Text = string.Empty;
                     this.textBoxModulesNotInFrame.Text = string.Empty;
                 }
                 else
                 {
                     this.id = viewModel.Id;
+
                     this.textBoxProjectName.Text = viewModel.Name;
                     this.textBoxReference.Text = viewModel.Reference;
                     this.dateTimePickerProjectBegin.Value = viewModel.StartDate;
                     this.dateTimePickerProjectEnd.Value = viewModel.EndDate;
                     this.dateTimePickerProjectEnd.Value = viewModel.EndDate;
+
+                    this.textBoxReferenceRate.Text = ToRate(viewModel.ReferenceRate);
+                    this.textBoxStudyRate.Text = ToRate(viewModel.StudyRate);
+                    this.textBoxWorkDayRate.Text = ToRate(viewModel.WorkDayRate);
+                    this.textBoxWorkShortNightsRate.Text = ToRate(viewModel.WorkShortNightsRate);
+                    this.textBoxWorkLongNightsRate.Text = ToRate(viewModel.WorkLongNightsRate);
+                    this.textBoxTestDayRate.Text = ToRate(viewModel.TestDayRate);
+                    this.textBoxTestNightRate.Text = ToRate(viewModel.TestNightRate);
+                    this.textBoxTotalDays.Text = string.Format("{0} j", viewModel.TotalDays.ToString(CultureInfo.InvariantCulture));
+                    this.textBoxTotalPrice.Text = string.Format("{0} €", viewModel.TotalPrice.ToString(CultureInfo.InvariantCulture));
                     
-                    this.textBoxReferenceRate.Text = viewModel.ReferenceRate.ToString(CultureInfo.InvariantCulture);
-                    this.textBoxStudyRate.Text = viewModel.StudyRate.ToString(CultureInfo.InvariantCulture);
-                    this.textBoxWorkDayRate.Text = viewModel.WorkDayRate.ToString(CultureInfo.InvariantCulture);
-                    this.textBoxWorkShortNightsRate.Text = viewModel.WorkShortNightsRate.ToString(CultureInfo.InvariantCulture);
-                    this.textBoxWorkLongNightsRate.Text = viewModel.WorkLongNightsRate.ToString(CultureInfo.InvariantCulture);
-                    this.textBoxTestDayRate.Text = viewModel.TestDayRate.ToString(CultureInfo.InvariantCulture);
-                    this.textBoxTestNightRate.Text = viewModel.TestNightRate.ToString(CultureInfo.InvariantCulture);
-                    this.textBoxTotalDays.Text = viewModel.TotalDays.ToString(CultureInfo.InvariantCulture);
-                    this.textBoxTotalPrice.Text = viewModel.TotalPrice.ToString(CultureInfo.InvariantCulture);
                     this.textBoxTotalModules.Text = viewModel.TotalModules.ToString(CultureInfo.InvariantCulture);
                     this.textBoxModulesNotInFrame.Text = viewModel.ModulesNotInFrame.ToString(CultureInfo.InvariantCulture);
                     this.pictureBoxWarningFrame.Visible = viewModel.ModulesNotInFrame > 0;

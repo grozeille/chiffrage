@@ -75,7 +75,6 @@ namespace Chiffrage.Projects.Module.Views.Impl
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPageMain = new System.Windows.Forms.TabPage();
             this.commentUserControl = new Chiffrage.Common.Module.Views.CommentUserControl();
-            this.projectBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.panelMain = new System.Windows.Forms.Panel();
             this.labelProject = new System.Windows.Forms.Label();
             this.textBoxProjectName = new System.Windows.Forms.TextBox();
@@ -241,7 +240,6 @@ namespace Chiffrage.Projects.Module.Views.Impl
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.tabControl.SuspendLayout();
             this.tabPageMain.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.projectBindingSource)).BeginInit();
             this.panelMain.SuspendLayout();
             this.tabPageOtherSupply.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
@@ -321,7 +319,6 @@ namespace Chiffrage.Projects.Module.Views.Impl
             // 
             // commentUserControl
             // 
-            this.commentUserControl.DataBindings.Add(new System.Windows.Forms.Binding("Rtf", this.projectBindingSource, "Comment", true));
             this.commentUserControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.commentUserControl.Location = new System.Drawing.Point(3, 181);
             this.commentUserControl.Name = "commentUserControl";
@@ -330,10 +327,6 @@ namespace Chiffrage.Projects.Module.Views.Impl
     "ans Serif;}}\r\n\\viewkind4\\uc1\\pard\\f0\\fs17 trertre\\par\r\ntreterert\\par\r\n}\r\n";
             this.commentUserControl.Size = new System.Drawing.Size(1052, 347);
             this.commentUserControl.TabIndex = 14;
-            // 
-            // projectBindingSource
-            // 
-            this.projectBindingSource.DataSource = typeof(Chiffrage.Projects.Module.ViewModel.ProjectViewModel);
             // 
             // panelMain
             // 
@@ -380,7 +373,6 @@ namespace Chiffrage.Projects.Module.Views.Impl
             // 
             // textBoxProjectName
             // 
-            this.textBoxProjectName.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.projectBindingSource, "Name", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.textBoxProjectName.Location = new System.Drawing.Point(79, 8);
             this.textBoxProjectName.Name = "textBoxProjectName";
             this.textBoxProjectName.Size = new System.Drawing.Size(200, 20);
@@ -397,7 +389,6 @@ namespace Chiffrage.Projects.Module.Views.Impl
             // 
             // dateTimePickerProjectEnd
             // 
-            this.dateTimePickerProjectEnd.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.projectBindingSource, "EndDate", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.dateTimePickerProjectEnd.Location = new System.Drawing.Point(79, 85);
             this.dateTimePickerProjectEnd.Name = "dateTimePickerProjectEnd";
             this.dateTimePickerProjectEnd.Size = new System.Drawing.Size(200, 20);
@@ -423,7 +414,6 @@ namespace Chiffrage.Projects.Module.Views.Impl
             // 
             // textBoxTotalDays
             // 
-            this.textBoxTotalDays.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.projectBindingSource, "TotalDays", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged, null, "#.## j;#.## j;\\0 j"));
             this.textBoxTotalDays.Location = new System.Drawing.Point(79, 120);
             this.textBoxTotalDays.Name = "textBoxTotalDays";
             this.textBoxTotalDays.ReadOnly = true;
@@ -432,7 +422,6 @@ namespace Chiffrage.Projects.Module.Views.Impl
             // 
             // dateTimePickerProjectBegin
             // 
-            this.dateTimePickerProjectBegin.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.projectBindingSource, "StartDate", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.dateTimePickerProjectBegin.Location = new System.Drawing.Point(79, 59);
             this.dateTimePickerProjectBegin.Name = "dateTimePickerProjectBegin";
             this.dateTimePickerProjectBegin.Size = new System.Drawing.Size(200, 20);
@@ -440,7 +429,6 @@ namespace Chiffrage.Projects.Module.Views.Impl
             // 
             // textBoxTotalPrice
             // 
-            this.textBoxTotalPrice.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.projectBindingSource, "TotalDays", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged, null, "C2"));
             this.textBoxTotalPrice.Location = new System.Drawing.Point(79, 146);
             this.textBoxTotalPrice.Name = "textBoxTotalPrice";
             this.textBoxTotalPrice.ReadOnly = true;
@@ -467,7 +455,6 @@ namespace Chiffrage.Projects.Module.Views.Impl
             // 
             // textBoxReference
             // 
-            this.textBoxReference.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.projectBindingSource, "Reference", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.textBoxReference.Location = new System.Drawing.Point(79, 34);
             this.textBoxReference.Name = "textBoxReference";
             this.textBoxReference.Size = new System.Drawing.Size(200, 20);
@@ -475,7 +462,6 @@ namespace Chiffrage.Projects.Module.Views.Impl
             // 
             // textBoxWorkDayRate
             // 
-            this.textBoxWorkDayRate.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.projectBindingSource, "WorkDayRate", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged, null, "#.## €/j;#.## €/j;\\0 €/j"));
             this.textBoxWorkDayRate.Location = new System.Drawing.Point(417, 59);
             this.textBoxWorkDayRate.Name = "textBoxWorkDayRate";
             this.textBoxWorkDayRate.Size = new System.Drawing.Size(88, 20);
@@ -503,7 +489,6 @@ namespace Chiffrage.Projects.Module.Views.Impl
             // 
             // textBoxTestNightRate
             // 
-            this.textBoxTestNightRate.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.projectBindingSource, "TestNightRate", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged, null, "#.## €/j;#.## €/j;\\0 €/j"));
             this.textBoxTestNightRate.Location = new System.Drawing.Point(637, 59);
             this.textBoxTestNightRate.Name = "textBoxTestNightRate";
             this.textBoxTestNightRate.Size = new System.Drawing.Size(88, 20);
@@ -522,7 +507,6 @@ namespace Chiffrage.Projects.Module.Views.Impl
             // 
             // textBoxTestDayRate
             // 
-            this.textBoxTestDayRate.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.projectBindingSource, "TestDayRate", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged, null, "#.## €/j;#.## €/j;\\0 €/j"));
             this.textBoxTestDayRate.Location = new System.Drawing.Point(637, 33);
             this.textBoxTestDayRate.Name = "textBoxTestDayRate";
             this.textBoxTestDayRate.Size = new System.Drawing.Size(88, 20);
@@ -541,7 +525,6 @@ namespace Chiffrage.Projects.Module.Views.Impl
             // 
             // textBoxReferenceRate
             // 
-            this.textBoxReferenceRate.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.projectBindingSource, "ReferenceRate", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged, null, "#.## €/j;#.## €/j;\\0 €/j"));
             this.textBoxReferenceRate.Location = new System.Drawing.Point(417, 33);
             this.textBoxReferenceRate.Name = "textBoxReferenceRate";
             this.textBoxReferenceRate.Size = new System.Drawing.Size(88, 20);
@@ -560,7 +543,6 @@ namespace Chiffrage.Projects.Module.Views.Impl
             // 
             // textBoxStudyRate
             // 
-            this.textBoxStudyRate.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.projectBindingSource, "StudyRate", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged, null, "#.## €/j;#.## €/j;\\0 €/j"));
             this.textBoxStudyRate.Location = new System.Drawing.Point(417, 7);
             this.textBoxStudyRate.Name = "textBoxStudyRate";
             this.textBoxStudyRate.Size = new System.Drawing.Size(88, 20);
@@ -579,7 +561,6 @@ namespace Chiffrage.Projects.Module.Views.Impl
             // 
             // textBoxWorkLongNightsRate
             // 
-            this.textBoxWorkLongNightsRate.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.projectBindingSource, "WorkLongNightsRate", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged, null, "#.## €/j;#.## €/j;\\0 €/j"));
             this.textBoxWorkLongNightsRate.Location = new System.Drawing.Point(637, 7);
             this.textBoxWorkLongNightsRate.Name = "textBoxWorkLongNightsRate";
             this.textBoxWorkLongNightsRate.Size = new System.Drawing.Size(88, 20);
@@ -598,7 +579,6 @@ namespace Chiffrage.Projects.Module.Views.Impl
             // 
             // textBoxWorkShortNightsRate
             // 
-            this.textBoxWorkShortNightsRate.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.projectBindingSource, "WorkShortNightsRate", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged, null, "#.## €/j;#.## €/j;\\0 €/j"));
             this.textBoxWorkShortNightsRate.Location = new System.Drawing.Point(417, 85);
             this.textBoxWorkShortNightsRate.Name = "textBoxWorkShortNightsRate";
             this.textBoxWorkShortNightsRate.Size = new System.Drawing.Size(88, 20);
@@ -2146,7 +2126,6 @@ namespace Chiffrage.Projects.Module.Views.Impl
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.tabControl.ResumeLayout(false);
             this.tabPageMain.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.projectBindingSource)).EndInit();
             this.panelMain.ResumeLayout(false);
             this.panelMain.PerformLayout();
             this.tabPageOtherSupply.ResumeLayout(false);
@@ -2222,7 +2201,6 @@ namespace Chiffrage.Projects.Module.Views.Impl
         private System.Windows.Forms.TabPage tabPageSummary;
         private System.Windows.Forms.DataGridView dataGridViewSummary;
         private System.Windows.Forms.TabPage tabPageMain;
-        private System.Windows.Forms.BindingSource projectBindingSource;
         private Chiffrage.Common.Module.Views.CommentUserControl commentUserControl;
         private System.Windows.Forms.DateTimePicker dateTimePickerProjectEnd;
         private System.Windows.Forms.Label label1;

@@ -18,9 +18,7 @@ namespace Chiffrage.Projects.Module.Views
         void SetFrames(IEnumerable<ProjectFrameViewModel> frames);
 
         void SetSummaryItems(IEnumerable<ProjectSummaryItemViewModel> summaryItems);
-
-        ProjectViewModel GetProjectViewModel();
-
+        
         void AddSupply(ProjectSupplyViewModel viewModel);
 
         void AddSupplies(IEnumerable<ProjectSupplyViewModel> supplies);
@@ -68,5 +66,7 @@ namespace Chiffrage.Projects.Module.Views
         void RemoveHardwareStudyReferenceTest(ProjectHardwareStudyReferenceTestViewModel studyReferenceTestViewModel);
 
         void SetCostSummaryItems(IEnumerable<ProjectCostSummaryViewModel> summaryItems);
+
+        void Save();
     }
 }

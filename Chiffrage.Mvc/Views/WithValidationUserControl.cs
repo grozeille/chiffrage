@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Globalization;
+using System.Text.RegularExpressions;
 
 namespace Chiffrage.Mvc.Views
 {
@@ -59,6 +60,16 @@ namespace Chiffrage.Mvc.Views
             if (!double.TryParse(control.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out temp))
             {
                 this.errorProvider.SetError(control, "Doit être un nombre");
+                return false;
+            }
+            return true;
+        }
+
+        protected bool ValidateRegex(Control control, string regexPattern, string errorMessage)
+        {
+            if (!Regex.Match(control.Text, regexPattern).Success)
+            {
+                this.errorProvider.SetError(control, errorMessage);
                 return false;
             }
             return true;
