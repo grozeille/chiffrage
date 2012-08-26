@@ -18,7 +18,7 @@ namespace Chiffrage.Projects.Module.ViewModel
                 Name = "Fournitures/Matériels",
             };
             supplyCost.TotalCost = project.Supplies.Sum(x => x.Price * x.Quantity);
-            supplyCost.TotalCost += project.Hardwares.Sum(x => x.Components.Sum(y => y.Supply.Price * y.Supply.Quantity));
+            supplyCost.TotalCost += project.Hardwares.Sum(x => x.Components.Sum(y => y.Supply.Price * y.Quantity));
             summaryItems.Add(supplyCost);
 
             var studyCost = new ProjectCostSummaryViewModel
@@ -174,14 +174,15 @@ namespace Chiffrage.Projects.Module.ViewModel
 
             totalWorkCost.TotalTime = workDaysCost.TotalTime + workShortNightsCost.TotalTime + workLongNightsCost.TotalTime +
                 executiveWorkDaysCost.TotalTime + executiveWorkShortNightsCost.TotalTime + executiveWorkLongNightsCost.TotalTime;
-            totalWorkCost.TotalCost = workDaysCost.TotalCost + workShortNightsCost.TotalCost + workLongNightsCost.TotalTime +
+
+            totalWorkCost.TotalCost = workDaysCost.TotalCost + workShortNightsCost.TotalCost + workLongNightsCost.TotalCost +
                 executiveWorkDaysCost.TotalCost + executiveWorkShortNightsCost.TotalCost + executiveWorkLongNightsCost.TotalCost;
 
             totalTestsCost.TotalTime = testDaysCost.TotalTime + testNightsCost.TotalTime;
             totalTestsCost.TotalCost = testDaysCost.TotalCost + testNightsCost.TotalCost;
 
             bigTotalCost.TotalTime = totalStudyReferenceCost.TotalTime + totalWorkCost.TotalTime + totalTestsCost.TotalTime;
-            bigTotalCost.TotalCost = totalStudyReferenceCost.TotalCost + totalWorkCost.TotalCost + totalTestsCost.TotalCost;
+            bigTotalCost.TotalCost = totalStudyReferenceCost.TotalCost + totalWorkCost.TotalCost + totalTestsCost.TotalCost + supplyCost.TotalCost;
 
             // how costs the frames?
 

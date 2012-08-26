@@ -194,6 +194,7 @@ namespace Chiffrage.Projects.Module.Controllers
                 viewModel.ModulesNotInFrame = 0;
             }
 
+            viewModel.TotalPrice = 0;
             foreach (var item in project.Supplies)
             {
                 viewModel.TotalPrice += item.Quantity * item.Price;
@@ -201,8 +202,11 @@ namespace Chiffrage.Projects.Module.Controllers
 
             foreach (var item in project.Hardwares)
             {
-                viewModel.TotalPrice += item.Components.Sum(x => x.Supply.Price * x.Quantity) +
-                    item.StudyDays * project.StudyRate +
+                // total price of components
+                viewModel.TotalPrice += item.Components.Sum(x => x.Supply.Price * x.Quantity);
+
+                // tota price of time*rate
+                viewModel.TotalPrice += item.StudyDays * project.StudyRate +
                     item.ReferenceDays * project.ReferenceRate +
                     item.WorkDays * project.WorkDayRate +
                     item.WorkShortNights * project.WorkShortNightsRate +
@@ -213,6 +217,7 @@ namespace Chiffrage.Projects.Module.Controllers
                     item.TestsDays * project.TestDayRate +
                     item.TestsNights * project.TestNightRate;
 
+                // total time
                 viewModel.TotalDays += item.StudyDays +
                     item.ReferenceDays +
                     item.WorkDays +

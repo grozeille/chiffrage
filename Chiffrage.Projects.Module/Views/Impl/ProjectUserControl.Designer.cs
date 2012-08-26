@@ -303,7 +303,6 @@ namespace Chiffrage.Projects.Module.Views.Impl
             this.tabControl.SelectedIndex = 0;
             this.tabControl.Size = new System.Drawing.Size(1066, 557);
             this.tabControl.TabIndex = 3;
-            this.tabControl.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.tabControl_DrawItem);
             // 
             // tabPageMain
             // 

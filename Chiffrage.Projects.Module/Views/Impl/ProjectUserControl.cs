@@ -71,7 +71,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
             this.chartCostSummary.Series[0]["PieLabelStyle"] = "Outside";
             this.chartCostSummary.Series[0]["PieLineColor"] = "Black";
             //this.chartCostSummary.Series[0].Label = "#VALX (#PERCENT)";
-            this.chartCostSummary.Series[0].Label = "#VALX";
+            this.chartCostSummary.Series[0].Label = "#VALX #VALY €";
             //this.chartCostSummary.Series[0].LegendText = "#PERCENT{P0}";
             this.chartCostSummary.Series[0].LegendText = "#VALX (#PERCENT)";
 
@@ -93,7 +93,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
 
         private string ToRate(double value)
         {
-            return value.ToString("#.## €/j;#.## €/j;\0 €/j", CultureInfo.InvariantCulture);
+            return value.ToString(@"#.## €/j;#.## €/j;\0 €/j", CultureInfo.InvariantCulture);
         }
         
         public ProjectUserControl(IEventBroker eventBroker)
@@ -168,58 +168,15 @@ namespace Chiffrage.Projects.Module.Views.Impl
         }
 
         #region Summary
-        /*
-        private void BuildSummary()
-        {
-            this.dataGridViewSummary.SuspendLayout();
-            this.dataGridViewSummary.Rows.Clear();
-            if (this.project != null)
-            {
-                this.BuildTotalRow(Resources.package, "Total matériel", null, this.project.TotalSuppliesCost);
-                this.BuildRow("Etude", this.project.TotalStudyDays, this.project.StudyRate,
-                              this.project.TotalStudyDaysPrice);
-                this.BuildRow("Saisie", this.project.TotalReferenceDays, this.project.ReferenceRate,
-                              this.project.TotalReferenceDaysPrice);
-                this.BuildTotalRow(Resources.map_edit, "Total Etude",
-                                   this.project.TotalStudyDays + this.project.TotalReferenceDays,
-                                   this.project.TotalStudyDaysPrice + this.project.TotalReferenceDaysPrice);
-                this.BuildRow("Traveaux jour", this.project.TotalWorkDays, this.project.WorkDayRate,
-                              this.project.TotalWorkDaysPrice);
-                this.BuildRow("Traveaux nuit courte", this.project.TotalWorkShortNights,
-                              this.project.WorkShortNightsRate,
-                              this.project.TotalWorkShortNightsPrice);
-                this.BuildRow("Traveaux nuit longue", this.project.TotalWorkLongNights, this.project.WorkLongNightsRate,
-                              this.project.TotalWorkLongNightsPrice);
-                this.BuildTotalRow(Resources.wrench, "Total Travaux",
-                                   this.project.TotalWorkDays + this.project.TotalWorkShortNights +
-                                   this.project.TotalWorkLongNights,
-                                   this.project.TotalWorkDaysPrice + this.project.TotalWorkShortNightsPrice +
-                                   this.project.TotalWorkLongNightsPrice);
-                this.BuildRow("Essais jour", this.project.TotalTestDays, this.project.TestDayRate,
-                              this.project.TotalTestDayPrice);
-                this.BuildRow("Essais nuit", this.project.TotalTestNights, this.project.TestNightRate,
-                              this.project.TotalTestNightPrice);
-                this.BuildTotalRow(Resources.rosette, "Total Essais",
-                                   this.project.TotalTestDays + this.project.TotalTestNights,
-                                   this.project.TotalTestDayPrice + this.project.TotalTestNightPrice);
-                this.BuildTotalRow(Resources.user_suit, "Total Divers", this.project.TotalOtherDays,
-                                   this.project.TotalOtherDaysPrice);
-                this.BuildBigTotalRow(Resources.coins, "Total", this.project.TotalDays, this.project.TotalPrice);
-            }
-            this.dataGridViewSummary.ResumeLayout(true);
-        }
-
-        
-        */
 
         private void BuildBigTotalRow(Bitmap icon, string name, double? days, double cost)
         {
             int index = this.dataGridViewSummary.Rows.Add(
                 icon,
                 name,
-                days,
+                string.Format("{0} j", days),
                 null,
-                cost
+                string.Format("{0} €", cost)
                 );
             foreach (DataGridViewCell cell in this.dataGridViewSummary.Rows[index].Cells)
             {
@@ -235,9 +192,9 @@ namespace Chiffrage.Projects.Module.Views.Impl
             int index = this.dataGridViewSummary.Rows.Add(
                 icon,
                 name,
-                days,
+                days.HasValue ? string.Format("{0} j", days) : string.Empty,
                 null,
-                cost
+                string.Format("{0} €", cost) 
                 );
             foreach (DataGridViewCell cell in this.dataGridViewSummary.Rows[index].Cells)
             {
@@ -247,14 +204,14 @@ namespace Chiffrage.Projects.Module.Views.Impl
             }
         }
 
-        private void BuildRow(string name, double time, double rate, double cost)
+        private void BuildRow(string name, double days, double rate, double cost)
         {
             int index = this.dataGridViewSummary.Rows.Add(
                 Resources.blank,
                 name,
-                time,
-                rate,
-                cost
+                string.Format("{0} j", days),
+                string.Format("{0} €/j", rate),
+                string.Format("{0} €", cost)
                 );
             foreach (DataGridViewCell cell in this.dataGridViewSummary.Rows[index].Cells)
             {
@@ -269,22 +226,6 @@ namespace Chiffrage.Projects.Module.Views.Impl
             (sender as TextBox).SelectAll();
         }
         
-        private void tabControl_DrawItem(object sender, DrawItemEventArgs e)
-        {
-            //e.DrawBackground();
-            /*var control = (TabControl) sender;
-            e.Bounds.Inflate(this.imageListProject.Images[0].Width + 4, 0);
-            e.Graphics.DrawImage(this.imageListProject.Images[0], e.Bounds.X + 2, e.Bounds.Y + 2);
-            var drawBrush = new SolidBrush(Color.Black);
-            e.Graphics.DrawString("toto", control.Font, drawBrush, 0, 0);
-            e.Graphics.DrawString(
-                control.TabPages[e.Index].Text,
-                control.Font,
-                drawBrush,
-                e.Bounds.X + 2 + this.imageListProject.Images[0].Size.Width + 2,
-                e.Bounds.Y + 2);*/
-        }
-
         #region IProjectView Members
         
         public void Save()

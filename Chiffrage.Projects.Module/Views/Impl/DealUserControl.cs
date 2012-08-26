@@ -43,7 +43,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
             this.chartProjectCost.Series[0]["PieLabelStyle"] = "Outside";
             this.chartProjectCost.Series[0]["PieLineColor"] = "Black";
             //this.chartCostSummary.Series[0].Label = "#VALX (#PERCENT)";
-            this.chartProjectCost.Series[0].Label = "#VALX #VALY";
+            this.chartProjectCost.Series[0].Label = "#VALX #VALY €";
             //this.chartCostSummary.Series[0].LegendText = "#PERCENT{P0}";
             this.chartProjectCost.Series[0].LegendText = "#VALX (#PERCENT)";
         }
@@ -105,7 +105,14 @@ namespace Chiffrage.Projects.Module.Views.Impl
             {
                 if (this.calendarProjects.ViewIntersects(item))
                 {
-                    this.calendarProjects.Items.Add(item);
+                    try
+                    {
+                        this.calendarProjects.Items.Add(item);
+                    }
+                    catch (NullReferenceException ex)
+                    {
+
+                    }
                 }
             }
         }
@@ -167,8 +174,15 @@ namespace Chiffrage.Projects.Module.Views.Impl
             if (this.comboBoxProjects.SelectedIndex > 0)
             {
                 var selectedProject = this.calendarItems[this.comboBoxProjects.SelectedIndex - 1];
-                this.calendarProjects.SetViewRange(selectedProject.StartDate, selectedProject.StartDate.AddMonths(1));
-                this.monthView.ViewStart = selectedProject.StartDate;
+
+                var startDate = selectedProject.StartDate;
+                if (selectedProject.StartDate.DayOfWeek == DayOfWeek.Sunday)
+                {
+                    startDate = startDate.AddDays(-1);
+                }
+
+                this.calendarProjects.SetViewRange(startDate, selectedProject.StartDate.AddMonths(1));
+                this.monthView.ViewStart = startDate;
             }
         }
 
