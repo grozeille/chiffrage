@@ -8,6 +8,7 @@ using Chiffrage.Projects.Module.ViewModel;
 using Chiffrage.Catalogs.Module.ViewModel;
 using Chiffrage.Projects.Module.Actions;
 using Chiffrage.Catalogs.Module.Actions;
+using System.Drawing;
 
 namespace Chiffrage
 {

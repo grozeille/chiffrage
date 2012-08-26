@@ -6,7 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using Chiffrage.Catalogs.Remoting.Model;
+using Chiffrage.Catalogs.Remoting.Contracts.Model;
 
 namespace Chiffrage.Excel.Views
 {

@@ -12,22 +12,33 @@ using Common.Logging;
 using log4net.Config;
 using System.Collections.Specialized;
 using Common.Logging.Log4Net;
+using Chiffrage.Excel.Actions;
+using Chiffrage.Catalogs.Remoting.Contracts.Services;
+using Chiffrage.Excel.Views;
+using Chiffrage.Catalogs.Remoting.Contracts;
 
 namespace Chiffrage.Excel
 {
     public class ChiffrageExcelAddin : IExcelAddIn
     {
-        private static Microsoft.Office.Interop.Excel.Application application;
+        private readonly ILog logger = LogManager.GetLogger<ChiffrageExcelAddin>();
+
+        private ICatalogRemoteService catalogRemoteService;
+
+        private ImportCatalogWizardView view;
+
+        private readonly object lockObject = new object();
+
+        //private static Microsoft.Office.Interop.Excel.Application application;
+        //public static Microsoft.Office.Interop.Excel.Application Application
+        //{
+        //    get
+        //    {
+        //        return ChiffrageExcelAddin.application;
+        //    }
+        //}
 
         private static EventBroker eventBroker;
-
-        public static Microsoft.Office.Interop.Excel.Application Application
-        {
-            get
-            {
-                return ChiffrageExcelAddin.application;
-            }
-        }
 
         public static EventBroker EventBroker
         {
@@ -37,43 +48,92 @@ namespace Chiffrage.Excel
             }
         }
 
+        private ICatalogRemoteService GetCatalogRemoteService()
+        {
+            lock (lockObject)
+            {
+                if (this.catalogRemoteService == null)
+                {
+                    this.catalogRemoteService = (ICatalogRemoteService)Activator.GetObject(
+                        typeof(ICatalogRemoteService),
+                        string.Format("tcp://localhost:{0}/{1}", Consts.Port, Consts.ServiceName));
+
+                    this.catalogRemoteService.Ping();
+                }
+
+                return this.catalogRemoteService;
+            }
+        }
+
         [ExcelCommandAttribute(MenuName="Chiffrage", MenuText="Importer un catalogue")]
         public static void ShowImportWizardCommand()
         {
-            var caller = (ExcelReference)XlCall.Excel(XlCall.xlfCaller);
-            
-            Debugger.Launch();
-            System.Windows.Forms.MessageBox.Show("Hello");
-            var data = new object[2,2];
-            data[0,0] = "Hello";
-            data[0,1] = "Mathias";
-            data[1,0] = "How";
-            data[1,1] = "Are you?";
-            var reference = new ExcelReference(1, 1, 2, 2);
-            reference.SetValue(data);
-            application.Range["C5"].Value = "Moi je suis C5 ;)";
+            ChiffrageExcelAddin.EventBroker.Publish(new ShowImportCatalogWizard());
         }
 
         public void AutoClose()
         {
-            Marshal.ReleaseComObject(application);
-            Marshal.FinalReleaseComObject(application);
-            application = null;
+            logger.InfoFormat("Closed");
         }
 
         public void AutoOpen()
         {
             System.Windows.Forms.Application.EnableVisualStyles();
-            ChiffrageExcelAddin.application = (Microsoft.Office.Interop.Excel.Application)ExcelDnaUtil.Application;
             ChiffrageExcelAddin.eventBroker = new EventBroker();
+            ChiffrageExcelAddin.eventBroker.Subscribe(this);
 
-            NameValueCollection properties = new NameValueCollection();
-            properties["configType"] = "EXTERNAL";
 
-            // set Adapter
-            Common.Logging.LogManager.Adapter = new Log4NetLoggerFactoryAdapter(properties);
+            this.view = new ImportCatalogWizardView(ChiffrageExcelAddin.EventBroker);
 
-            XmlConfigurator.Configure(this.GetType().Assembly.GetManifestResourceStream("Chiffrage.Excel.Config.log4net.config"));
+
+            AppDomain.CurrentDomain.UnhandledException += (sender, ex) => { logger.Error("UnhandledException", (Exception)ex.ExceptionObject); };
+
+            logger.InfoFormat("Loaded");
+        }
+
+        [Subscribe(SubscriptionMode=SubscriptionMode.UIThread)]
+        public void OnShowImportCatalogWizard(ShowImportCatalogWizard eventObject)
+        {
+            try
+            {
+                var catalogs = GetCatalogRemoteService().GetCatalogs();
+                view.CatalogItem = catalogs;
+                view.ShowView();
+            }
+            catch (Exception ex)
+            {
+                logger.Error("Unable to connect to Chiffrage", ex);
+
+            }
+        }
+
+        [Subscribe]
+        public void OnRequestImportCatalog(RequestImportCatalogAction action)
+        {
+            try
+            {
+                var result = this.GetCatalogRemoteService().GetCatalogData(action.CatalogItem.Id);
+
+                int rows = result.GetLength(0);
+                int cols = result.GetLength(1);
+
+                var application = (Microsoft.Office.Interop.Excel.Application)ExcelDnaUtil.Application;
+                var cell = application.ActiveCell;
+                var range = cell.Resize[rows, cols];
+                range.Value = result;
+
+                Marshal.ReleaseComObject(range);
+                range = null;
+                Marshal.ReleaseComObject(cell);
+                cell = null;
+                Marshal.ReleaseComObject(application);
+                application = null;
+            }
+            catch (Exception ex)
+            {
+                logger.Error("Unable to import catalog", ex);
+
+            }
         }
     }
 }

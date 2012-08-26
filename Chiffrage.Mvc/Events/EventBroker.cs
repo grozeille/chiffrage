@@ -5,6 +5,8 @@ using Common.Logging;
 using System.Windows.Forms;
 using System.Linq;
 using System.Reflection;
+using System.Diagnostics;
+using System.ComponentModel;
 
 namespace Chiffrage.Mvc.Events
 {
@@ -52,7 +54,7 @@ namespace Chiffrage.Mvc.Events
                 {
                     var eventType = interfaceType.GetGenericArguments()[0];
 
-                    var threadUI = interfaceType.Name.Equals("IGenericEventHandlerUI`1");
+                    var threadUI = interfaceType.Name.Equals("IGenericEventHandlerUI`1") ? SubscriptionMode.UIThread : SubscriptionMode.Default;
 
                     var subscriptionItem = new EventSubscriptionItem(eventType, subscriber, interfaceType.GetMethod("ProcessAction", new[] { eventType }), threadUI);
 
@@ -75,7 +77,7 @@ namespace Chiffrage.Mvc.Events
 
                     var eventType = method.GetParameters()[0].ParameterType;
 
-                    var threadUI = subscribreAttribute.ThreadUI;
+                    var threadUI = subscribreAttribute.SubscriptionMode;
 
                     var subscriptionItem = new EventSubscriptionItem(eventType, subscriber, method, threadUI);
 
@@ -152,35 +154,43 @@ namespace Chiffrage.Mvc.Events
                     {
                         if (subscriber.EventType.IsInstanceOfType(eventObject))
                         {
-                            //ThreadPool.QueueUserWorkItem(new WaitCallback((o) =>
-                            //    {
-                                    try
-                                    {
-                                        if (subscriber.ThreadUI)
+                            try
+                            {
+                                if (subscriber.SubscriptionMode == SubscriptionMode.UIThread)
+                                {
+                                    this.UISynchronizationContext.Post((o) => 
                                         {
-                                            this.UISynchronizationContext.Post((o) => 
-                                                {
-                                                    var args = (object[])o;
-                                                    var s = (EventSubscriptionItem)args[0];
-                                                    var e = (object)args[1];
+                                            var args = (object[])o;
+                                            var s = (EventSubscriptionItem)args[0];
+                                            var e = (object)args[1];
 
-                                                    s.Method.Invoke(s.EventHandler, new[] { e });
+                                            s.Method.Invoke(s.EventHandler, new[] { e });
 
-                                                }, new object[]{ subscriber, eventObject});
-                                        }
-                                        else
+                                        }, new object[]{ subscriber, eventObject});
+                                }
+                                else if (subscriber.SubscriptionMode == SubscriptionMode.Default)
+                                {
+                                    subscriber.Method.Invoke(subscriber.EventHandler, new[] { eventObject });
+                                }
+                                else if (subscriber.SubscriptionMode == SubscriptionMode.NewThread)
+                                {
+                                    ThreadPool.QueueUserWorkItem((o) =>
                                         {
-                                            subscriber.Method.Invoke(subscriber.EventHandler, new[] { eventObject });
-                                        }
-                                        //subscriber.Dispatch(eventObject);
-                                    }
-                                    catch (Exception ex)
-                                    {
-                                        LogManager.GetLogger<EventBroker>().ErrorFormat("Unable to dispatch event", ex);
+                                            var args = (object[])o;
+                                            var s = (EventSubscriptionItem)args[0];
+                                            var e = (object)args[1];
 
-                                        this.Publish(new ErrorEvent(ex));
-                                    }
-                                //}));
+                                            s.Method.Invoke(s.EventHandler, new[] { e });
+
+                                        }, new object[] { subscriber, eventObject });
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                LogManager.GetLogger<EventBroker>().ErrorFormat("Unable to dispatch event", ex);
+
+                                this.Publish(new ErrorEvent(ex));
+                            }
                         }
                     }
 
@@ -198,6 +208,11 @@ namespace Chiffrage.Mvc.Events
         public EventBroker()
         {
             this.UISynchronizationContext = WindowsFormsSynchronizationContext.Current;
+            if (this.UISynchronizationContext == null)
+            {
+                AsyncOperationManager.CreateOperation(null);
+                this.UISynchronizationContext = AsyncOperationManager.SynchronizationContext;
+            }
         }
     }
 }

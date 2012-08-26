@@ -33,13 +33,13 @@
             System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Affaires");
             System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Catalogues");
             this.contextMenuStripDealsRoot = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.toolStripMenuItemNewDeal = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripCatalogsRoot = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.toolStripMenuItemNewCatalog = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripDeal = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.toolStripMenuItemNewProject = new System.Windows.Forms.ToolStripMenuItem();
             this.imageList = new System.Windows.Forms.ImageList(this.components);
             this.treeView = new System.Windows.Forms.TreeView();
+            this.toolStripMenuItemNewDeal = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemNewCatalog = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemNewProject = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.contextMenuStripDealsRoot.SuspendLayout();
             this.contextMenuStripCatalogsRoot.SuspendLayout();
@@ -53,13 +53,6 @@
             this.contextMenuStripDealsRoot.Name = "contextMenuStripDealsRoot";
             this.contextMenuStripDealsRoot.Size = new System.Drawing.Size(160, 26);
             // 
-            // toolStripMenuItemNewDeal
-            // 
-            this.toolStripMenuItemNewDeal.Image = global::Chiffrage.App.Properties.Resources.user_suit;
-            this.toolStripMenuItemNewDeal.Name = "toolStripMenuItemNewDeal";
-            this.toolStripMenuItemNewDeal.Size = new System.Drawing.Size(159, 22);
-            this.toolStripMenuItemNewDeal.Text = "Nouvelle Affaire";
-            // 
             // contextMenuStripCatalogsRoot
             // 
             this.contextMenuStripCatalogsRoot.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -67,26 +60,12 @@
             this.contextMenuStripCatalogsRoot.Name = "contextMenuStripCatalogsRoot";
             this.contextMenuStripCatalogsRoot.Size = new System.Drawing.Size(180, 26);
             // 
-            // toolStripMenuItemNewCatalog
-            // 
-            this.toolStripMenuItemNewCatalog.Image = global::Chiffrage.App.Properties.Resources.book_open;
-            this.toolStripMenuItemNewCatalog.Name = "toolStripMenuItemNewCatalog";
-            this.toolStripMenuItemNewCatalog.Size = new System.Drawing.Size(179, 22);
-            this.toolStripMenuItemNewCatalog.Text = "Nouveau Catalogue";
-            // 
             // contextMenuStripDeal
             // 
             this.contextMenuStripDeal.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItemNewProject});
             this.contextMenuStripDeal.Name = "contextMenuStripDeal";
             this.contextMenuStripDeal.Size = new System.Drawing.Size(157, 26);
-            // 
-            // toolStripMenuItemNewProject
-            // 
-            this.toolStripMenuItemNewProject.Image = global::Chiffrage.App.Properties.Resources.report;
-            this.toolStripMenuItemNewProject.Name = "toolStripMenuItemNewProject";
-            this.toolStripMenuItemNewProject.Size = new System.Drawing.Size(156, 22);
-            this.toolStripMenuItemNewProject.Text = "Nouveau Projet";
             // 
             // imageList
             // 
@@ -126,6 +105,27 @@
             this.treeView.ShowRootLines = false;
             this.treeView.Size = new System.Drawing.Size(203, 369);
             this.treeView.TabIndex = 4;
+            // 
+            // toolStripMenuItemNewDeal
+            // 
+            this.toolStripMenuItemNewDeal.Image = global::Chiffrage.App.Properties.Resources.user_suit;
+            this.toolStripMenuItemNewDeal.Name = "toolStripMenuItemNewDeal";
+            this.toolStripMenuItemNewDeal.Size = new System.Drawing.Size(159, 22);
+            this.toolStripMenuItemNewDeal.Text = "Nouvelle Affaire";
+            // 
+            // toolStripMenuItemNewCatalog
+            // 
+            this.toolStripMenuItemNewCatalog.Image = global::Chiffrage.App.Properties.Resources.book_open;
+            this.toolStripMenuItemNewCatalog.Name = "toolStripMenuItemNewCatalog";
+            this.toolStripMenuItemNewCatalog.Size = new System.Drawing.Size(179, 22);
+            this.toolStripMenuItemNewCatalog.Text = "Nouveau Catalogue";
+            // 
+            // toolStripMenuItemNewProject
+            // 
+            this.toolStripMenuItemNewProject.Image = global::Chiffrage.App.Properties.Resources.report;
+            this.toolStripMenuItemNewProject.Name = "toolStripMenuItemNewProject";
+            this.toolStripMenuItemNewProject.Size = new System.Drawing.Size(156, 22);
+            this.toolStripMenuItemNewProject.Text = "Nouveau Projet";
             // 
             // NavigationUserControl
             // 

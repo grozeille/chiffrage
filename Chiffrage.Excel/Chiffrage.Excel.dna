@@ -1,5 +1,10 @@
 <DnaLibrary>
   <ExternalLibrary Path="Chiffrage.Excel.dll" Pack="true"/>
+  <Reference AssemblyPath="Chiffrage.Mvc.dll" Pack="true" />
+  <Reference AssemblyPath="Chiffrage.Catalogs.Remoting.Contracts.dll" Pack="true" />
+  <Reference AssemblyPath="Common.Logging.Log4Net.dll" Pack="true" />
+  <Reference AssemblyPath="Common.Logging.dll" Pack="true" />
+  <Reference AssemblyPath="log4net.dll" Pack="true" />
 
   <Image Name="book_open" Path="imgs\book_open.png" Pack="true" />
 

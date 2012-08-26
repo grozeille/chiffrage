@@ -5,8 +5,8 @@ using System.Text;
 using Chiffrage.Mvc.Views;
 using Chiffrage.Mvc.Events;
 using System.Windows.Forms;
-using Chiffrage.Catalogs.Remoting.Model;
 using Chiffrage.Excel.Actions;
+using Chiffrage.Catalogs.Remoting.Contracts.Model;
 
 namespace Chiffrage.Excel.Views
 {

@@ -11,8 +11,10 @@ using System.Runtime.Remoting.Channels.Tcp;
 using System.Runtime.Remoting.Channels;
 using System.Runtime.Remoting;
 using Chiffrage.Catalogs.Domain.Repositories;
-using Chiffrage.Catalogs.Remoting.Model;
 using System.Windows.Forms;
+using Chiffrage.Catalogs.Remoting.Contracts.Services;
+using Chiffrage.Catalogs.Remoting.Contracts;
+using Chiffrage.Catalogs.Remoting.Contracts.Model;
 
 namespace Chiffrage.Catalogs.Remoting.Services
 {

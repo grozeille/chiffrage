@@ -254,6 +254,10 @@
       <Project>{03B5C7F7-1B9D-44E3-BEC1-5718BFEE621F}</Project>
       <Name>Chiffrage.Catalogs.Module</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Chiffrage.Catalogs.Remoting.Contracts\Chiffrage.Catalogs.Remoting.Contracts.csproj">
+      <Project>{97273735-D86C-4AD0-AF65-22E99E5A7876}</Project>
+      <Name>Chiffrage.Catalogs.Remoting.Contracts</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Chiffrage.Catalogs.Remoting\Chiffrage.Catalogs.Remoting.csproj">
       <Project>{5925947B-CAB7-48AE-BAEF-9D163C5F17FE}</Project>
       <Name>Chiffrage.Catalogs.Remoting</Name>
@@ -281,6 +285,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app.ico" />
+    <None Include="Resources\transparent.png" />
+    <None Include="Resources\transparent1.png" />
     <Content Include="x64\SQLite.Interop.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

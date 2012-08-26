@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Chiffrage.Catalogs.Remoting.Model
+namespace Chiffrage.Catalogs.Remoting.Contracts.Model
 {
     [Serializable]
     public class CatalogItem

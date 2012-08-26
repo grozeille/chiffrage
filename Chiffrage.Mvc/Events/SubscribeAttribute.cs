@@ -10,11 +10,12 @@ namespace Chiffrage.Mvc.Events
     {
         public string Topic { get; set; }
 
-        public bool ThreadUI { get; set; }
+        public SubscriptionMode SubscriptionMode { get; set; }
 
         public SubscribeAttribute()
         {
             this.Topic = "topic://default";
+            this.SubscriptionMode = SubscriptionMode.Default;
         }
     }
 }

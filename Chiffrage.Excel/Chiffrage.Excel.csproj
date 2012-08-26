@@ -61,6 +61,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Actions\ShowImportCatalogWizard.cs" />
     <Compile Include="Actions\RequestImportCatalogAction.cs" />
     <Compile Include="Appender\ExcelDnaAppender.cs" />
     <Compile Include="ChiffrageExcelAddin.cs" />
@@ -75,7 +76,9 @@
     <Compile Include="Views\ImportCatalogWizardView.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
+    <None Include="Chiffrage.Excel.xll.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Chiffrage.Excel.dna">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -91,13 +94,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Chiffrage.Catalogs.Domain\Chiffrage.Catalogs.Domain.csproj">
-      <Project>{BD6DAC1A-3B56-4E12-84DE-E7BD79316FF6}</Project>
-      <Name>Chiffrage.Catalogs.Domain</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Chiffrage.Catalogs.Remoting\Chiffrage.Catalogs.Remoting.csproj">
-      <Project>{5925947B-CAB7-48AE-BAEF-9D163C5F17FE}</Project>
-      <Name>Chiffrage.Catalogs.Remoting</Name>
+    <ProjectReference Include="..\Chiffrage.Catalogs.Remoting.Contracts\Chiffrage.Catalogs.Remoting.Contracts.csproj">
+      <Project>{97273735-D86C-4AD0-AF65-22E99E5A7876}</Project>
+      <Name>Chiffrage.Catalogs.Remoting.Contracts</Name>
     </ProjectReference>
     <ProjectReference Include="..\Chiffrage.Mvc\Chiffrage.Mvc.csproj">
       <Project>{771D2DDA-D611-4E74-8857-6E60C08536EE}</Project>

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Chiffrage.Catalogs.Remoting.Model;
+using Chiffrage.Catalogs.Remoting.Contracts.Model;
 
-namespace Chiffrage.Catalogs.Remoting
+namespace Chiffrage.Catalogs.Remoting.Contracts.Services
 {
     public interface ICatalogRemoteService
     {

@@ -45,6 +45,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chiffrage.Excel", "Chiffrag
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chiffrage.Catalogs.Remoting", "Chiffrage.Catalogs.Remoting\Chiffrage.Catalogs.Remoting.csproj", "{5925947B-CAB7-48AE-BAEF-9D163C5F17FE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chiffrage.Catalogs.Remoting.Contracts", "Chiffrage.Catalogs.Remoting.Contracts\Chiffrage.Catalogs.Remoting.Contracts.csproj", "{97273735-D86C-4AD0-AF65-22E99E5A7876}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -205,6 +207,16 @@ Global
 		{5925947B-CAB7-48AE-BAEF-9D163C5F17FE}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{5925947B-CAB7-48AE-BAEF-9D163C5F17FE}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{5925947B-CAB7-48AE-BAEF-9D163C5F17FE}.Release|x86.ActiveCfg = Release|Any CPU
+		{97273735-D86C-4AD0-AF65-22E99E5A7876}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97273735-D86C-4AD0-AF65-22E99E5A7876}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97273735-D86C-4AD0-AF65-22E99E5A7876}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{97273735-D86C-4AD0-AF65-22E99E5A7876}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{97273735-D86C-4AD0-AF65-22E99E5A7876}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{97273735-D86C-4AD0-AF65-22E99E5A7876}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97273735-D86C-4AD0-AF65-22E99E5A7876}.Release|Any CPU.Build.0 = Release|Any CPU
+		{97273735-D86C-4AD0-AF65-22E99E5A7876}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{97273735-D86C-4AD0-AF65-22E99E5A7876}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{97273735-D86C-4AD0-AF65-22E99E5A7876}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -221,6 +233,7 @@ Global
 		{BB8D0D2C-CF88-4B85-A001-14C234FCF0FD} = {D050781E-33C4-43FC-B6FD-A1C344243C9B}
 		{03B5C7F7-1B9D-44E3-BEC1-5718BFEE621F} = {D050781E-33C4-43FC-B6FD-A1C344243C9B}
 		{5925947B-CAB7-48AE-BAEF-9D163C5F17FE} = {D050781E-33C4-43FC-B6FD-A1C344243C9B}
+		{97273735-D86C-4AD0-AF65-22E99E5A7876} = {D050781E-33C4-43FC-B6FD-A1C344243C9B}
 		{771D2DDA-D611-4E74-8857-6E60C08536EE} = {90667B7D-86F9-4877-B3D2-3AD7938113AC}
 		{58158197-6FF3-4554-B213-98001DF7FB22} = {90667B7D-86F9-4877-B3D2-3AD7938113AC}
 		{7D565764-955A-47B6-83A4-C167E4A8002E} = {90667B7D-86F9-4877-B3D2-3AD7938113AC}
