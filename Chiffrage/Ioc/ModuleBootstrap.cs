@@ -9,7 +9,7 @@ using Chiffrage.Mvc.Services;
 using Chiffrage.Mvc.Controllers;
 using Chiffrage.Mvc.Views;
 
-namespace Chiffrage.Ioc
+namespace Chiffrage.App.Ioc
 {
     public class ModuleBootstrap : IStartable
     {

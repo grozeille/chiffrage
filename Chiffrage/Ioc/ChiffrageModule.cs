@@ -17,7 +17,7 @@ using System.IO;
 using Chiffrage.Catalogs.Dal.Repositories;
 using Chiffrage.Catalogs.Remoting.Services;
 
-namespace Chiffrage.Ioc
+namespace Chiffrage.App.Ioc
 {
     public class ChiffrageModule : Module
     {

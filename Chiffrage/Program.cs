@@ -3,7 +3,7 @@ using System.Collections;
 using System.Windows.Forms;
 using Chiffrage.Catalogs.Dal.Repositories;
 using Chiffrage.Catalogs.Domain;
-using Chiffrage.Ioc;
+using Chiffrage.App.Ioc;
 using Chiffrage.Mvc.Events;
 using Common.Logging;
 using Settings = Chiffrage.App.Properties.Settings;

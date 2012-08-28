@@ -11,8 +11,9 @@ using Chiffrage.Projects.Dal.Repositories;
 using NHibernate.Cfg.MappingSchema;
 using System.IO;
 using Chiffrage.Catalogs.Dal.Repositories;
+using Chiffrage.App;
 
-namespace Chiffrage.Ioc
+namespace Chiffrage.App.Ioc
 {
     public class NHibernateModule : Module
     {
@@ -40,6 +41,10 @@ namespace Chiffrage.Ioc
             {
                 d.ConnectionString = string.Format("Data Source={0};Version=3;", file);
                 d.Dialect<SQLiteDialect>();
+                if(IsRunningOnMono())
+                {
+                    d.Driver<MonoSQLiteDriver>();
+                }
                 d.SchemaAction = SchemaAutoAction.Update;
             });
             var dealMapper = new ModelMapper();
@@ -66,6 +71,10 @@ namespace Chiffrage.Ioc
             {
                 d.ConnectionString = string.Format("Data Source={0};Version=3;", catalogPath);
                 d.Dialect<SQLiteDialect>();
+                if(IsRunningOnMono())
+                {
+                    d.Driver<MonoSQLiteDriver>();
+                }
                 d.SchemaAction = SchemaAutoAction.Update;
             }));
             var catalogMapper = new ModelMapper();
@@ -74,6 +83,11 @@ namespace Chiffrage.Ioc
             catalogConfiguration.AddMapping(catalogMapping);
 
             return catalogConfiguration.BuildSessionFactory();
+        }
+
+        public static bool IsRunningOnMono ()
+        {
+            return Type.GetType ("Mono.Runtime") != null;
         }
     }
 }
