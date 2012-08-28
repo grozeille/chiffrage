@@ -129,7 +129,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
                     }
                     catch (NullReferenceException ex)
                     {
-
+                        this.calendarProjects.Items.Remove(item);
                     }
                 }
             }
