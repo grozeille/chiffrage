@@ -7,6 +7,7 @@ using System.Linq;
 using System.Reflection;
 using System.Diagnostics;
 using System.ComponentModel;
+using System.Linq.Expressions;
 
 namespace Chiffrage.Mvc.Events
 {
@@ -56,7 +57,27 @@ namespace Chiffrage.Mvc.Events
 
                     var threadUI = interfaceType.Name.Equals("IGenericEventHandlerUI`1") ? SubscriptionMode.UIThread : SubscriptionMode.Default;
 
-                    var subscriptionItem = new EventSubscriptionItem(eventType, subscriber, interfaceType.GetMethod("ProcessAction", new[] { eventType }), threadUI);
+                    var method = interfaceType.GetMethod("ProcessAction", new[] { eventType });
+
+                    var dynamicMethod = new System.Reflection.Emit.DynamicMethod(
+                        method.Name,
+                        typeof(void),
+                        new Type[] { typeof(object), typeof(object) });
+
+                    var il = dynamicMethod.GetILGenerator();
+                    il.Emit(System.Reflection.Emit.OpCodes.Nop);
+                    il.Emit(System.Reflection.Emit.OpCodes.Ldarg_0);
+                    il.Emit(System.Reflection.Emit.OpCodes.Isinst, subscriber.GetType());
+                    il.Emit(System.Reflection.Emit.OpCodes.Ldarg_1);
+                    il.Emit(System.Reflection.Emit.OpCodes.Isinst, method.GetParameters()[0].ParameterType);
+                    il.Emit(System.Reflection.Emit.OpCodes.Callvirt, method);
+                    //il.Emit(System.Reflection.Emit.OpCodes.Call, method);
+                    il.Emit(System.Reflection.Emit.OpCodes.Nop);
+                    il.Emit(System.Reflection.Emit.OpCodes.Ret);
+
+                    var methodDelegate = (Action<object, object>)dynamicMethod.CreateDelegate(typeof(Action<object, object>));
+
+                    var subscriptionItem = new EventSubscriptionItem(eventType, subscriber, methodDelegate, threadUI);
 
                     subscribers.Add(subscriptionItem);
                 }                
@@ -74,12 +95,35 @@ namespace Chiffrage.Mvc.Events
                         throw new InvalidOperationException("To subscribe to an event, the method should be an Action<T> (1 parameter, return void): "+method.ToString());
                     }
 
+                    //var methodDelegateType = typeof(Action<>).MakeGenericType(new Type[] { method.GetParameters()[0].ParameterType });
+
+                    //var methodDelegateType = Expression.GetActionType(new Type[] { method.GetParameters()[0].ParameterType });
+
+                    //var methodDelegate = Delegate.CreateDelegate(methodDelegateType, subscriber, method);
+
+                    var dynamicMethod = new System.Reflection.Emit.DynamicMethod(
+                        method.Name, 
+                        typeof(void),
+                        new Type[] { typeof(object), typeof(object) });
+
+                    var il = dynamicMethod.GetILGenerator();
+                    il.Emit(System.Reflection.Emit.OpCodes.Nop);
+                    il.Emit(System.Reflection.Emit.OpCodes.Ldarg_0);
+                    il.Emit(System.Reflection.Emit.OpCodes.Isinst, subscriber.GetType());
+                    il.Emit(System.Reflection.Emit.OpCodes.Ldarg_1);
+                    il.Emit(System.Reflection.Emit.OpCodes.Isinst, method.GetParameters()[0].ParameterType);
+                    il.Emit(System.Reflection.Emit.OpCodes.Callvirt, method);
+                    //il.Emit(System.Reflection.Emit.OpCodes.Call, method);
+                    il.Emit(System.Reflection.Emit.OpCodes.Nop);
+                    il.Emit(System.Reflection.Emit.OpCodes.Ret);
+
+                    var methodDelegate = (Action<object, object>)dynamicMethod.CreateDelegate(typeof(Action<object, object>));
 
                     var eventType = method.GetParameters()[0].ParameterType;
 
                     var threadUI = subscribreAttribute.SubscriptionMode;
 
-                    var subscriptionItem = new EventSubscriptionItem(eventType, subscriber, method, threadUI);
+                    var subscriptionItem = new EventSubscriptionItem(eventType, subscriber, methodDelegate, threadUI);
 
                     subscribers.Add(subscriptionItem);
                 }
@@ -98,7 +142,6 @@ namespace Chiffrage.Mvc.Events
                     {
                         throw new InvalidOperationException("To publish an event, the method should be an Action<T> (1 parameter, return void): " + method.ToString());
                     }
-
 
                     var eventType = method.GetParameters()[0].ParameterType;
 
@@ -121,6 +164,7 @@ namespace Chiffrage.Mvc.Events
             {
                 this.dispatchingThread = new Thread(this.DispatchEvents);
                 this.dispatchingThread.IsBackground = true;
+                this.dispatchingThread.Priority = ThreadPriority.Highest;
                 this.dispatchingThread.Start();
             }
         }
@@ -188,7 +232,8 @@ namespace Chiffrage.Mvc.Events
                                             var s = (EventSubscriptionItem)args[0];
                                             var m = (Message)args[1];
 
-                                            s.Method.Invoke(s.EventHandler, new[] { m.Body });
+                                            //s.Method.Invoke(s.EventHandler, new[] { m.Body });
+                                            s.Method(s.EventHandler, m.Body);
 
                                             if (m.AsyncResult != null)
                                             {
@@ -204,7 +249,8 @@ namespace Chiffrage.Mvc.Events
                                 }
                                 else if (subscriber.SubscriptionMode == SubscriptionMode.Default)
                                 {
-                                    subscriber.Method.Invoke(subscriber.EventHandler, new[] { message.Body });
+                                    //subscriber.Method.Invoke(subscriber.EventHandler, new[] { message.Body });
+                                    subscriber.Method(subscriber.EventHandler, message.Body);
 
                                     if (message.AsyncResult != null)
                                     {
@@ -223,7 +269,8 @@ namespace Chiffrage.Mvc.Events
                                             var s = (EventSubscriptionItem)args[0];
                                             var m = (Message)args[1];
 
-                                            s.Method.Invoke(s.EventHandler, new[] { m.Body });
+                                            //s.Method.Invoke(s.EventHandler, new[] { m.Body });
+                                            s.Method(s.EventHandler, m.Body);
 
                                             if (m.AsyncResult != null)
                                             {
