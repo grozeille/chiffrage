@@ -208,12 +208,12 @@ namespace Chiffrage.Projects.Module.Controllers
                 // tota price of time*rate
                 viewModel.TotalPrice += item.StudyDays * project.StudyRate +
                     item.ReferenceDays * project.ReferenceRate +
-                    item.WorkDays * project.WorkDayRate +
-                    item.WorkShortNights * project.WorkShortNightsRate +
-                    item.WorkLongNights * project.WorkLongNightsRate +
-                    item.ExecutiveWorkDays * project.WorkDayRate +
-                    item.ExecutiveWorkShortNights * project.WorkShortNightsRate +
-                    item.ExecutiveWorkLongNights * project.WorkLongNightsRate +
+                    item.WorkDays * project.TechnicianWorkDayRate +
+                    item.WorkShortNights * project.TechnicianWorkShortNightsRate +
+                    item.WorkLongNights * project.TechnicianWorkLongNightsRate +
+                    item.ExecutiveWorkDays * project.WorkerWorkDayRate +
+                    item.ExecutiveWorkShortNights * project.WorkerWorkShortNightsRate +
+                    item.ExecutiveWorkLongNights * project.WorkerWorkLongNightsRate +
                     item.TestsDays * project.TestDayRate +
                     item.TestsNights * project.TestNightRate;
 

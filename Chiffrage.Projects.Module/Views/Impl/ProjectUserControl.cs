@@ -62,9 +62,15 @@ namespace Chiffrage.Projects.Module.Views.Impl
 
             this.textBoxReferenceRate.Validating += this.ValidateIsRateTextBox;
             this.textBoxStudyRate.Validating += this.ValidateIsRateTextBox;
-            this.textBoxWorkDayRate.Validating += this.ValidateIsRateTextBox;
-            this.textBoxWorkShortNightsRate.Validating += this.ValidateIsRateTextBox;
-            this.textBoxWorkLongNightsRate.Validating += this.ValidateIsRateTextBox;
+
+            this.textBoxWorkerWorkDayRate.Validating += this.ValidateIsRateTextBox;
+            this.textBoxWorkerWorkShortNightsRate.Validating += this.ValidateIsRateTextBox;
+            this.textBoxWorkerWorkLongNightsRate.Validating += this.ValidateIsRateTextBox;
+
+            this.textBoxTechnicianWorkDayRate.Validating += this.ValidateIsRateTextBox;
+            this.textBoxTechnicianWorkShortNightsRate.Validating += this.ValidateIsRateTextBox;
+            this.textBoxTechnicianWorkLongNightsRate.Validating += this.ValidateIsRateTextBox;
+
             this.textBoxTestDayRate.Validating += this.ValidateIsRateTextBox;
             this.textBoxTestNightRate.Validating += this.ValidateIsRateTextBox;
 
@@ -255,9 +261,12 @@ namespace Chiffrage.Projects.Module.Views.Impl
                     this.dateTimePickerProjectEnd.Value,
                     ParseRate(this.textBoxStudyRate.Text),
                     ParseRate(this.textBoxReferenceRate.Text),
-                    ParseRate(this.textBoxWorkDayRate.Text),
-                    ParseRate(this.textBoxWorkShortNightsRate.Text),
-                    ParseRate(this.textBoxWorkLongNightsRate.Text),
+                    ParseRate(this.textBoxWorkerWorkDayRate.Text),
+                    ParseRate(this.textBoxWorkerWorkShortNightsRate.Text),
+                    ParseRate(this.textBoxWorkerWorkLongNightsRate.Text),
+                    ParseRate(this.textBoxTechnicianWorkDayRate.Text),
+                    ParseRate(this.textBoxTechnicianWorkShortNightsRate.Text),
+                    ParseRate(this.textBoxTechnicianWorkLongNightsRate.Text),
                     ParseRate(this.textBoxTestDayRate.Text),
                     ParseRate(this.textBoxTestNightRate.Text));
 
@@ -331,9 +340,12 @@ namespace Chiffrage.Projects.Module.Views.Impl
                     this.dateTimePickerProjectEnd.Value = DateTime.Now;
                     this.textBoxReferenceRate.Text = string.Empty;
                     this.textBoxStudyRate.Text = string.Empty;
-                    this.textBoxWorkDayRate.Text = string.Empty;
-                    this.textBoxWorkShortNightsRate.Text = string.Empty;
-                    this.textBoxWorkLongNightsRate.Text = string.Empty;
+                    this.textBoxTechnicianWorkDayRate.Text = string.Empty;
+                    this.textBoxTechnicianWorkShortNightsRate.Text = string.Empty;
+                    this.textBoxTechnicianWorkLongNightsRate.Text = string.Empty;
+                    this.textBoxWorkerWorkDayRate.Text = string.Empty;
+                    this.textBoxWorkerWorkShortNightsRate.Text = string.Empty;
+                    this.textBoxWorkerWorkLongNightsRate.Text = string.Empty;
                     this.textBoxTestDayRate.Text = string.Empty;
                     this.textBoxTestNightRate.Text = string.Empty;
                     this.textBoxTotalDays.Text = string.Empty;
@@ -354,9 +366,12 @@ namespace Chiffrage.Projects.Module.Views.Impl
 
                     this.textBoxReferenceRate.Text = ToRate(viewModel.ReferenceRate);
                     this.textBoxStudyRate.Text = ToRate(viewModel.StudyRate);
-                    this.textBoxWorkDayRate.Text = ToRate(viewModel.WorkDayRate);
-                    this.textBoxWorkShortNightsRate.Text = ToRate(viewModel.WorkShortNightsRate);
-                    this.textBoxWorkLongNightsRate.Text = ToRate(viewModel.WorkLongNightsRate);
+                    this.textBoxWorkerWorkDayRate.Text = ToRate(viewModel.WorkerWorkDayRate);
+                    this.textBoxWorkerWorkShortNightsRate.Text = ToRate(viewModel.WorkerWorkShortNightsRate);
+                    this.textBoxWorkerWorkLongNightsRate.Text = ToRate(viewModel.WorkerWorkLongNightsRate);
+                    this.textBoxTechnicianWorkDayRate.Text = ToRate(viewModel.TechnicianWorkDayRate);
+                    this.textBoxTechnicianWorkShortNightsRate.Text = ToRate(viewModel.TechnicianWorkShortNightsRate);
+                    this.textBoxTechnicianWorkLongNightsRate.Text = ToRate(viewModel.TechnicianWorkLongNightsRate);
                     this.textBoxTestDayRate.Text = ToRate(viewModel.TestDayRate);
                     this.textBoxTestNightRate.Text = ToRate(viewModel.TestNightRate);
                     this.textBoxTotalDays.Text = string.Format("{0} j", viewModel.TotalDays.ToString(CultureInfo.InvariantCulture));

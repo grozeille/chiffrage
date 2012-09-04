@@ -48,7 +48,7 @@ namespace Chiffrage.Projects.Module.ViewModel
             {
                 ProjectCostSummaryType = ProjectCostSummaryType.Simple,
                 Name = "Travaux jours (CNRO)",
-                Rate = project.WorkDayRate,
+                Rate = project.WorkerWorkDayRate,
             };
             summaryItems.Add(workDaysCost);
 
@@ -56,7 +56,7 @@ namespace Chiffrage.Projects.Module.ViewModel
             {
                 ProjectCostSummaryType = ProjectCostSummaryType.Simple,
                 Name = "Travaux nuits courtes (CNRO)",
-                Rate = project.WorkShortNightsRate,
+                Rate = project.WorkerWorkShortNightsRate,
             };
             summaryItems.Add(workShortNightsCost);
 
@@ -64,7 +64,7 @@ namespace Chiffrage.Projects.Module.ViewModel
             {
                 ProjectCostSummaryType = ProjectCostSummaryType.Simple,
                 Name = "Travaux nuits longues (CNRO)",
-                Rate = project.WorkLongNightsRate,
+                Rate = project.WorkerWorkLongNightsRate,
             };
             summaryItems.Add(workLongNightsCost);
 
@@ -72,7 +72,7 @@ namespace Chiffrage.Projects.Module.ViewModel
             {
                 ProjectCostSummaryType = ProjectCostSummaryType.Simple,
                 Name = "Travaux jours (ETAM)",
-                Rate = project.WorkDayRate,
+                Rate = project.TechnicianWorkDayRate,
             };
             summaryItems.Add(executiveWorkDaysCost);
 
@@ -80,7 +80,7 @@ namespace Chiffrage.Projects.Module.ViewModel
             {
                 ProjectCostSummaryType = ProjectCostSummaryType.Simple,
                 Name = "Travaux nuits courtes (ETAM)",
-                Rate = project.WorkShortNightsRate,
+                Rate = project.TechnicianWorkShortNightsRate,
             };
             summaryItems.Add(executiveWorkShortNightsCost);
 
@@ -88,7 +88,7 @@ namespace Chiffrage.Projects.Module.ViewModel
             {
                 ProjectCostSummaryType = ProjectCostSummaryType.Simple,
                 Name = "Travaux nuits longues (ETAM)",
-                Rate = project.WorkLongNightsRate,
+                Rate = project.TechnicianWorkLongNightsRate,
             };
             summaryItems.Add(executiveWorkLongNightsCost);
 

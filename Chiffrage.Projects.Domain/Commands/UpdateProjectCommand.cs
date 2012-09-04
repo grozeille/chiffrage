@@ -24,11 +24,17 @@ namespace Chiffrage.Projects.Domain.Commands
 
         private readonly double referenceRate;
 
-        private readonly double workDayRate;
+        private readonly double workerWorkDayRate;
 
-        private readonly double workShortNightsRate;
+        private readonly double workerWorkShortNightsRate;
 
-        private readonly double workLongNightsRate;
+        private readonly double workerWorkLongNightsRate;
+
+        private readonly double technicianWorkDayRate;
+
+        private readonly double technicianWorkShortNightsRate;
+
+        private readonly double technicianWorkLongNightsRate;
 
         private readonly double testDayRate;
 
@@ -43,9 +49,12 @@ namespace Chiffrage.Projects.Domain.Commands
             DateTime endDate,
             double studyRate,
             double referenceRate,
-            double workDayRate,
-            double workShortNightsRate,
-            double workLongNightsRate,
+            double workerWorkDayRate,
+            double workerWorkShortNightsRate,
+            double workerWorkLongNightsRate,
+            double technicianWorkDayRate,
+            double technicianWorkShortNightsRate,
+            double technicianWorkLongNightsRate,
             double testDayRate,
             double testNightRate)
         {
@@ -57,9 +66,12 @@ namespace Chiffrage.Projects.Domain.Commands
             this.endDate = endDate;
             this.studyRate = studyRate;
             this.referenceRate = referenceRate;
-            this.workDayRate = workDayRate;
-            this.workShortNightsRate = workShortNightsRate;
-            this.workLongNightsRate = workLongNightsRate;
+            this.technicianWorkDayRate = technicianWorkDayRate;
+            this.technicianWorkShortNightsRate = technicianWorkShortNightsRate;
+            this.technicianWorkLongNightsRate = technicianWorkLongNightsRate;
+            this.workerWorkDayRate = workerWorkDayRate;
+            this.workerWorkShortNightsRate = workerWorkShortNightsRate;
+            this.workerWorkLongNightsRate = workerWorkLongNightsRate;
             this.testDayRate = testDayRate;
             this.testNightRate = testNightRate;
         }
@@ -80,11 +92,17 @@ namespace Chiffrage.Projects.Domain.Commands
 
         public double ReferenceRate { get { return this.referenceRate; } }
 
-        public double WorkDayRate { get { return this.workDayRate; } }
+        public double WorkerWorkDayRate { get { return this.workerWorkDayRate; } }
 
-        public double WorkShortNightsRate { get { return this.workShortNightsRate; } }
+        public double WorkerWorkShortNightsRate { get { return this.workerWorkShortNightsRate; } }
 
-        public double WorkLongNightsRate { get { return this.workLongNightsRate; } }
+        public double WorkerWorkLongNightsRate { get { return this.workerWorkLongNightsRate; } }
+
+        public double TechnicianWorkDayRate { get { return this.technicianWorkDayRate; } }
+
+        public double TechnicianWorkShortNightsRate { get { return this.technicianWorkShortNightsRate; } }
+
+        public double TechnicianWorkLongNightsRate { get { return this.technicianWorkLongNightsRate; } }
 
         public double TestDayRate { get { return this.testDayRate; } }
 

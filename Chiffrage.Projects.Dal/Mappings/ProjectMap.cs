@@ -20,12 +20,12 @@ namespace Chiffrage.Projects.Dal.Mappings
 
             Property(x => x.StudyRate);
             Property(x => x.ReferenceRate);
-            Property(x => x.WorkDayRate);
-            Property(x => x.WorkShortNightsRate);
-            Property(x => x.WorkLongNightsRate);
-            Property(x => x.ExecutiveWorkDayRate);
-            Property(x => x.ExecutiveWorkShortNightsRate);
-            Property(x => x.ExecutiveWorkLongNightsRate);
+            Property(x => x.TechnicianWorkDayRate);
+            Property(x => x.TechnicianWorkShortNightsRate);
+            Property(x => x.TechnicianWorkLongNightsRate);
+            Property(x => x.WorkerWorkDayRate);
+            Property(x => x.WorkerWorkShortNightsRate);
+            Property(x => x.WorkerWorkLongNightsRate);
             Property(x => x.TestDayRate);
             Property(x => x.TestNightRate);
 
