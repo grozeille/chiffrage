@@ -1,1 +1,2 @@
-"%ProgramFiles%\Microsoft Office\OFFICE12\EXCEL.EXE" Chiffrage.Excel-packed.xll
+IF "%ProgramFiles(x86)%"=="" ("%ProgramFiles%\Microsoft Office\OFFICE12\EXCEL.EXE" Chiffrage.Excel-packed.xll) ELSE ("%ProgramFiles(x86)%\Microsoft Office\OFFICE12\EXCEL.EXE" Chiffrage.Excel-packed.xll)
+pause
