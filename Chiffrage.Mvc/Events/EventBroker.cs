@@ -45,6 +45,28 @@ namespace Chiffrage.Mvc.Events
             subscribersLock.ExitWriteLock();
         }
 
+        private Action<object, object> CreateDispatchDelegate(Type subscriberType, MethodInfo methodInfo)
+        {
+            var dynamicMethod = new System.Reflection.Emit.DynamicMethod(
+                        methodInfo.Name,
+                        typeof(void),
+                        new Type[] { typeof(object), typeof(object) });
+
+            var il = dynamicMethod.GetILGenerator();
+            il.Emit(System.Reflection.Emit.OpCodes.Nop);
+            il.Emit(System.Reflection.Emit.OpCodes.Ldarg_0);
+            il.Emit(System.Reflection.Emit.OpCodes.Isinst, subscriberType);
+            il.Emit(System.Reflection.Emit.OpCodes.Ldarg_1);
+            il.Emit(System.Reflection.Emit.OpCodes.Isinst, methodInfo.GetParameters()[0].ParameterType);
+            il.Emit(System.Reflection.Emit.OpCodes.Callvirt, methodInfo);
+            il.Emit(System.Reflection.Emit.OpCodes.Nop);
+            il.Emit(System.Reflection.Emit.OpCodes.Ret);
+
+            var methodDelegate = (Action<object, object>)dynamicMethod.CreateDelegate(typeof(Action<object, object>));
+
+            return methodDelegate;
+        }
+
         private void SubscribeInternal(object subscriber)
         {
             var interfaceTypes = subscriber.GetType().GetInterfaces();
@@ -55,27 +77,11 @@ namespace Chiffrage.Mvc.Events
                 {
                     var eventType = interfaceType.GetGenericArguments()[0];
 
-                    var threadUI = interfaceType.Name.Equals("IGenericEventHandlerUI`1") ? SubscriptionMode.UIThread : SubscriptionMode.Default;
-
                     var method = interfaceType.GetMethod("ProcessAction", new[] { eventType });
 
-                    var dynamicMethod = new System.Reflection.Emit.DynamicMethod(
-                        method.Name,
-                        typeof(void),
-                        new Type[] { typeof(object), typeof(object) });
+                    var methodDelegate = CreateDispatchDelegate(subscriber.GetType(), method);
 
-                    var il = dynamicMethod.GetILGenerator();
-                    il.Emit(System.Reflection.Emit.OpCodes.Nop);
-                    il.Emit(System.Reflection.Emit.OpCodes.Ldarg_0);
-                    il.Emit(System.Reflection.Emit.OpCodes.Isinst, subscriber.GetType());
-                    il.Emit(System.Reflection.Emit.OpCodes.Ldarg_1);
-                    il.Emit(System.Reflection.Emit.OpCodes.Isinst, method.GetParameters()[0].ParameterType);
-                    il.Emit(System.Reflection.Emit.OpCodes.Callvirt, method);
-                    //il.Emit(System.Reflection.Emit.OpCodes.Call, method);
-                    il.Emit(System.Reflection.Emit.OpCodes.Nop);
-                    il.Emit(System.Reflection.Emit.OpCodes.Ret);
-
-                    var methodDelegate = (Action<object, object>)dynamicMethod.CreateDelegate(typeof(Action<object, object>));
+                    var threadUI = interfaceType.Name.Equals("IGenericEventHandlerUI`1") ? SubscriptionMode.UIThread : SubscriptionMode.Default;
 
                     var subscriptionItem = new EventSubscriptionItem(eventType, subscriber, methodDelegate, threadUI);
 
@@ -95,29 +101,7 @@ namespace Chiffrage.Mvc.Events
                         throw new InvalidOperationException("To subscribe to an event, the method should be an Action<T> (1 parameter, return void): "+method.ToString());
                     }
 
-                    //var methodDelegateType = typeof(Action<>).MakeGenericType(new Type[] { method.GetParameters()[0].ParameterType });
-
-                    //var methodDelegateType = Expression.GetActionType(new Type[] { method.GetParameters()[0].ParameterType });
-
-                    //var methodDelegate = Delegate.CreateDelegate(methodDelegateType, subscriber, method);
-
-                    var dynamicMethod = new System.Reflection.Emit.DynamicMethod(
-                        method.Name, 
-                        typeof(void),
-                        new Type[] { typeof(object), typeof(object) });
-
-                    var il = dynamicMethod.GetILGenerator();
-                    il.Emit(System.Reflection.Emit.OpCodes.Nop);
-                    il.Emit(System.Reflection.Emit.OpCodes.Ldarg_0);
-                    il.Emit(System.Reflection.Emit.OpCodes.Isinst, subscriber.GetType());
-                    il.Emit(System.Reflection.Emit.OpCodes.Ldarg_1);
-                    il.Emit(System.Reflection.Emit.OpCodes.Isinst, method.GetParameters()[0].ParameterType);
-                    il.Emit(System.Reflection.Emit.OpCodes.Callvirt, method);
-                    //il.Emit(System.Reflection.Emit.OpCodes.Call, method);
-                    il.Emit(System.Reflection.Emit.OpCodes.Nop);
-                    il.Emit(System.Reflection.Emit.OpCodes.Ret);
-
-                    var methodDelegate = (Action<object, object>)dynamicMethod.CreateDelegate(typeof(Action<object, object>));
+                    var methodDelegate = CreateDispatchDelegate(subscriber.GetType(), method);
 
                     var eventType = method.GetParameters()[0].ParameterType;
 
