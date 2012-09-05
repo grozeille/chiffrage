@@ -29,6 +29,8 @@ namespace Chiffrage.Catalogs.Module.ViewModel
 
         public double CatalogTechnicianWorkDays { get; set; }
 
+        public double CatalogExecutiveWorkDays { get; set; }
+
         public double CatalogWorkerWorkDays { get; set; }
 
         public double CatalogTestsDays { get; set; }

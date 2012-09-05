@@ -41,27 +41,27 @@ namespace Chiffrage.Projects.Module.Views
 
         void RemoveFrame(ProjectFrameViewModel frame);
 
-        void AddHardwareWork(ProjectHardwareWorkViewModel workViewModel);
+        void AddHardwareTechnicianWork(ProjectHardwareTechnicianWorkViewModel workViewModel);
 
-        void AddHardwareExecutiveWork(ProjectHardwareExecutiveWorkViewModel executiveWorkViewModel);
+        void AddHardwareWorkerWork(ProjectHardwareWorkerWorkViewModel workViewModel);
 
         void AddHardwareStudyReferenceTest(ProjectHardwareStudyReferenceTestViewModel studyReferenceTestViewModel);
 
-        void SetHardwareWorks(IEnumerable<ProjectHardwareWorkViewModel> works);
+        void SetHardwareTechnicianWorks(IEnumerable<ProjectHardwareTechnicianWorkViewModel> works);
 
-        void SetHardwareExecutiveWorks(IEnumerable<ProjectHardwareExecutiveWorkViewModel> executiveWorks);
+        void SetHardwareWorkerWorks(IEnumerable<ProjectHardwareWorkerWorkViewModel> workerWorks);
 
         void SetHardwareStudyReferenceTests(IEnumerable<ProjectHardwareStudyReferenceTestViewModel> studyReferenceTests);
 
         void UpdateHardwareStudyReferenceTest(ProjectHardwareStudyReferenceTestViewModel studyReferenceTestViewModel);
 
-        void UpdateHardwareExecutiveWork(ProjectHardwareExecutiveWorkViewModel executiveWorkViewModel);
+        void UpdateHardwareWorkerWork(ProjectHardwareWorkerWorkViewModel workViewModel);
 
-        void UpdateHardwareWork(ProjectHardwareWorkViewModel workViewModel);
+        void UpdateHardwareTechnicianWork(ProjectHardwareTechnicianWorkViewModel workViewModel);
 
-        void RemoveHardwareWork(ProjectHardwareWorkViewModel workViewModel);
+        void RemoveHardwareTechnicianWork(ProjectHardwareTechnicianWorkViewModel workViewModel);
 
-        void RemoveHardwareExecutiveWork(ProjectHardwareExecutiveWorkViewModel executiveWorkViewModel);
+        void RemoveHardwareWorkerWork(ProjectHardwareWorkerWorkViewModel workViewModel);
 
         void RemoveHardwareStudyReferenceTest(ProjectHardwareStudyReferenceTestViewModel studyReferenceTestViewModel);
 

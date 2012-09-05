@@ -28,6 +28,8 @@ namespace Chiffrage.Catalogs.Domain
 
         public virtual double CatalogReferenceDays { get; set; }
 
+        public virtual double CatalogExecutiveWorkDays { get; set; }
+
         public virtual double CatalogTechnicianWorkDays { get; set; }
 
         public virtual double CatalogWorkerWorkDays { get; set; }

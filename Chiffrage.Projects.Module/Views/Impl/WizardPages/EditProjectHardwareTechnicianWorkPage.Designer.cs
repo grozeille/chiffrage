@@ -1,6 +1,6 @@
 ﻿namespace Chiffrage.Projects.Module.Views.Impl.WizardPages
 {
-    partial class EditProjectHardwareWorkPage
+    partial class EditProjectHardwareTechnicianWorkPage
     {
         /// <summary> 
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditProjectHardwareWorkPage));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditProjectHardwareTechnicianWorkPage));
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.textBoxWorkShortNights = new System.Windows.Forms.TextBox();
@@ -52,9 +52,9 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(3, 104);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(148, 13);
+            this.label1.Size = new System.Drawing.Size(147, 13);
             this.label1.TabIndex = 17;
-            this.label1.Text = "Travaux CNRO nuits courtes:";
+            this.label1.Text = "Travaux ETAM nuits courtes:";
             // 
             // label2
             // 
@@ -62,14 +62,14 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(3, 130);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(148, 13);
+            this.label2.Size = new System.Drawing.Size(147, 13);
             this.label2.TabIndex = 18;
-            this.label2.Text = "Travaux CNRO nuits longues:";
+            this.label2.Text = "Travaux ETAM nuits longues:";
             // 
             // textBoxWorkShortNights
             // 
             this.textBoxWorkShortNights.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxWorkShortNights.Location = new System.Drawing.Point(157, 101);
+            this.textBoxWorkShortNights.Location = new System.Drawing.Point(156, 101);
             this.textBoxWorkShortNights.Name = "textBoxWorkShortNights";
             this.textBoxWorkShortNights.Size = new System.Drawing.Size(194, 20);
             this.textBoxWorkShortNights.TabIndex = 23;
@@ -78,7 +78,7 @@
             // textBoxWorkLongNights
             // 
             this.textBoxWorkLongNights.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxWorkLongNights.Location = new System.Drawing.Point(157, 127);
+            this.textBoxWorkLongNights.Location = new System.Drawing.Point(156, 127);
             this.textBoxWorkLongNights.Name = "textBoxWorkLongNights";
             this.textBoxWorkLongNights.Size = new System.Drawing.Size(194, 20);
             this.textBoxWorkLongNights.TabIndex = 24;
@@ -87,7 +87,7 @@
             // textBoxHardwareName
             // 
             this.textBoxHardwareName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxHardwareName.Location = new System.Drawing.Point(157, 3);
+            this.textBoxHardwareName.Location = new System.Drawing.Point(156, 3);
             this.textBoxHardwareName.Name = "textBoxHardwareName";
             this.textBoxHardwareName.ReadOnly = true;
             this.textBoxHardwareName.Size = new System.Drawing.Size(194, 20);
@@ -99,14 +99,14 @@
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(3, 52);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(148, 13);
+            this.label7.Size = new System.Drawing.Size(147, 13);
             this.label7.TabIndex = 10;
-            this.label7.Text = "Travaux CNRO (catalogue):";
+            this.label7.Text = "Travaux ETAM (catalogue):";
             // 
             // textBoxCatalogWorkDays
             // 
             this.textBoxCatalogWorkDays.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxCatalogWorkDays.Location = new System.Drawing.Point(157, 49);
+            this.textBoxCatalogWorkDays.Location = new System.Drawing.Point(156, 49);
             this.textBoxCatalogWorkDays.Name = "textBoxCatalogWorkDays";
             this.textBoxCatalogWorkDays.ReadOnly = true;
             this.textBoxCatalogWorkDays.Size = new System.Drawing.Size(194, 20);
@@ -116,7 +116,7 @@
             // textBoxWorkDays
             // 
             this.textBoxWorkDays.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxWorkDays.Location = new System.Drawing.Point(157, 75);
+            this.textBoxWorkDays.Location = new System.Drawing.Point(156, 75);
             this.textBoxWorkDays.Name = "textBoxWorkDays";
             this.textBoxWorkDays.Size = new System.Drawing.Size(194, 20);
             this.textBoxWorkDays.TabIndex = 15;
@@ -164,7 +164,7 @@
             this.labelHardware.AutoSize = true;
             this.labelHardware.Location = new System.Drawing.Point(3, 6);
             this.labelHardware.Name = "labelHardware";
-            this.labelHardware.Size = new System.Drawing.Size(148, 13);
+            this.labelHardware.Size = new System.Drawing.Size(147, 13);
             this.labelHardware.TabIndex = 4;
             this.labelHardware.Text = "Matériel:";
             // 
@@ -174,9 +174,9 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(3, 78);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(148, 13);
+            this.label3.Size = new System.Drawing.Size(147, 13);
             this.label3.TabIndex = 10;
-            this.label3.Text = "Travaux CNRO jour:";
+            this.label3.Text = "Travaux ETAM jour:";
             // 
             // errorProvider
             // 
@@ -184,12 +184,12 @@
             this.errorProvider.ContainerControl = this;
             this.errorProvider.Icon = ((System.Drawing.Icon)(resources.GetObject("errorProvider.Icon")));
             // 
-            // EditProjectHardwareWorkPage
+            // EditProjectHardwareTechnicianWorkPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.tableLayoutPanel);
-            this.Name = "EditProjectHardwareWorkPage";
+            this.Name = "EditProjectHardwareTechnicianWorkPage";
             this.Size = new System.Drawing.Size(412, 413);
             this.tableLayoutPanel.ResumeLayout(false);
             this.tableLayoutPanel.PerformLayout();

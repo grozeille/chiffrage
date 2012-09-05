@@ -34,9 +34,9 @@ namespace Chiffrage.Projects.Domain
 
         public virtual double CatalogTestsDays { get; set; }
 
-        public virtual double CatalogWorkDays { get; set; }
+        public virtual double CatalogTechnicianWorkDays { get; set; }
 
-        public virtual double CatalogExecutiveWorkDays { get; set; }
+        public virtual double CatalogWorkerWorkDays { get; set; }
 
         public virtual double StudyDays { get; set; }
 
@@ -46,17 +46,17 @@ namespace Chiffrage.Projects.Domain
 
         public virtual double TestsNights { get; set; }
 
-        public virtual double WorkDays { get; set; }
+        public virtual double TechnicianWorkDays { get; set; }
 
-        public virtual double WorkShortNights { get; set; }
+        public virtual double TechnicianWorkShortNights { get; set; }
 
-        public virtual double WorkLongNights { get; set; }
+        public virtual double TechnicianWorkLongNights { get; set; }
 
-        public virtual double ExecutiveWorkDays { get; set; }
+        public virtual double WorkerWorkDays { get; set; }
 
-        public virtual double ExecutiveWorkShortNights { get; set; }
+        public virtual double WorkerWorkShortNights { get; set; }
 
-        public virtual double ExecutiveWorkLongNights { get; set; }
+        public virtual double WorkerWorkLongNights { get; set; }
 
         public virtual double Milestone { get; set; }
     }

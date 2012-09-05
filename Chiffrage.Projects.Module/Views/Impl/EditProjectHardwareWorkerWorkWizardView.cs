@@ -14,13 +14,13 @@ using Chiffrage.Projects.Domain.Commands;
 
 namespace Chiffrage.Projects.Module.Views.Impl
 {
-    public class EditProjectHardwareExecutiveWorkWizardView : WizardView, IEditProjectHardwareEecutiveWorkView
+    public class EditProjectHardwareWorkerWorkWizardView : WizardView, IEditProjectHardwareWorkerWorkView
     {
-        private GenericWizardSetting<EditProjectHardwareExecutiveWorkPage> editHardwarePage;
+        private GenericWizardSetting<EditProjectHardwareWorkerWorkPage> editHardwarePage;
 
-        private ProjectHardwareExecutiveWorkViewModel hardware;
+        private ProjectHardwareWorkerWorkViewModel hardware;
 
-        public EditProjectHardwareExecutiveWorkWizardView(IEventBroker eventBroker)
+        public EditProjectHardwareWorkerWorkWizardView(IEventBroker eventBroker)
             : base(eventBroker)
         {
         }
@@ -28,15 +28,15 @@ namespace Chiffrage.Projects.Module.Views.Impl
         protected override IWizardSettingIterator BuildWizardPages()
         {
 
-            this.editHardwarePage = new GenericWizardSetting<EditProjectHardwareExecutiveWorkPage>("Edition d'un matériel",
+            this.editHardwarePage = new GenericWizardSetting<EditProjectHardwareWorkerWorkPage>("Edition d'un matériel",
                                                                          "Vous pouvez ici éditer un matériel", true);
 
 
             this.editHardwarePage.TypedPage.HardwareName = this.hardware.Name;
-            this.editHardwarePage.TypedPage.CatalogExecutiveWorkDays = this.hardware.CatalogExecutiveWorkDays;
-            this.editHardwarePage.TypedPage.ExecutiveWorkDays = this.hardware.ExecutiveWorkDays;
-            this.editHardwarePage.TypedPage.ExecutiveWorkShortNights = this.hardware.ExecutiveWorkShortNights;
-            this.editHardwarePage.TypedPage.ExecutiveWorkLongNights = this.hardware.ExecutiveWorkLongNights;
+            this.editHardwarePage.TypedPage.CatalogWorkerWorkDays = this.hardware.CatalogWorkerWorkDays;
+            this.editHardwarePage.TypedPage.WorkerWorkDays = this.hardware.WorkerWorkDays;
+            this.editHardwarePage.TypedPage.WorkerWorkShortNights = this.hardware.WorkerWorkShortNights;
+            this.editHardwarePage.TypedPage.WorkerWorkLongNights = this.hardware.WorkerWorkLongNights;
 
             return new WizardSettingListIterator(this.editHardwarePage);
         }
@@ -45,17 +45,17 @@ namespace Chiffrage.Projects.Module.Views.Impl
         {
             if(result == DialogResult.OK)
             {
-                var command = new UpdateProjectHardwareExecutiveWorkCommand(
+                var command = new UpdateProjectHardwareWorkerWorkCommand(
                     hardware.ProjectId,
                     hardware.Id,
-                    this.editHardwarePage.TypedPage.ExecutiveWorkDays,
-                    this.editHardwarePage.TypedPage.ExecutiveWorkShortNights,
-                    this.editHardwarePage.TypedPage.ExecutiveWorkLongNights);
+                    this.editHardwarePage.TypedPage.WorkerWorkDays,
+                    this.editHardwarePage.TypedPage.WorkerWorkShortNights,
+                    this.editHardwarePage.TypedPage.WorkerWorkLongNights);
                 this.EventBroker.Publish(command);
             }
         }
 
-        public ProjectHardwareExecutiveWorkViewModel Hardware
+        public ProjectHardwareWorkerWorkViewModel Hardware
         {
             set { this.hardware = value; }
         }

@@ -39,6 +39,7 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
                     newHardwarePage.TypedPage.HardwareName,
                     newHardwarePage.TypedPage.StudyDays,
                     newHardwarePage.TypedPage.ReferenceDays,
+                    newHardwarePage.TypedPage.CatalogExecutiveWorkDays,
                     newHardwarePage.TypedPage.CatalogTechnicianWorkDays,
                     newHardwarePage.TypedPage.CatalogWorkerWorkDays,
                     newHardwarePage.TypedPage.CatalogTestDays));

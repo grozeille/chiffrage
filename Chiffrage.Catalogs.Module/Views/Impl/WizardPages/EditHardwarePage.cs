@@ -34,6 +34,12 @@ namespace Chiffrage.Catalogs.Module.Views.Impl.WizardPages
                 this.errorProvider.SetError(this.textBoxReferenceDays, "Doit être un nombre");
             }
 
+            if (!double.TryParse(this.textBoxCatalogExecutiveWorkDays.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out tempDouble))
+            {
+                e.Cancel = true;
+                this.errorProvider.SetError(this.textBoxCatalogExecutiveWorkDays, "Doit être un nombre");
+            }
+
             if (!double.TryParse(this.textBoxCatalogTechnicianWorkDays.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out tempDouble))
             {
                 e.Cancel = true;
@@ -69,6 +75,12 @@ namespace Chiffrage.Catalogs.Module.Views.Impl.WizardPages
         {
             get { return double.Parse(this.textBoxReferenceDays.Text, NumberStyles.Float, CultureInfo.InvariantCulture); }
             set { this.textBoxReferenceDays.Text = value.ToString(CultureInfo.InvariantCulture); }
+        }
+
+        public double CatalogExecutiveWorkDays
+        {
+            get { return double.Parse(this.textBoxCatalogExecutiveWorkDays.Text, NumberStyles.Float, CultureInfo.InvariantCulture); }
+            set { this.textBoxCatalogExecutiveWorkDays.Text = value.ToString(CultureInfo.InvariantCulture); }
         }
 
         public double CatalogTechnicianWorkDays

@@ -33,9 +33,9 @@ namespace Chiffrage.Projects.Module.Views.Impl
 
         private readonly SortableBindingList<ProjectFrameViewModel> frames = new SortableBindingList<ProjectFrameViewModel>();
 
-        private readonly SortableBindingList<ProjectHardwareWorkViewModel> works = new SortableBindingList<ProjectHardwareWorkViewModel>();
+        private readonly SortableBindingList<ProjectHardwareTechnicianWorkViewModel> technicianWorks = new SortableBindingList<ProjectHardwareTechnicianWorkViewModel>();
 
-        private readonly SortableBindingList<ProjectHardwareExecutiveWorkViewModel> executiveWorks = new SortableBindingList<ProjectHardwareExecutiveWorkViewModel>();
+        private readonly SortableBindingList<ProjectHardwareWorkerWorkViewModel> workerWorks = new SortableBindingList<ProjectHardwareWorkerWorkViewModel>();
 
         private readonly SortableBindingList<ProjectHardwareStudyReferenceTestViewModel> studyReferenceTests = new SortableBindingList<ProjectHardwareStudyReferenceTestViewModel>();
 
@@ -54,8 +54,8 @@ namespace Chiffrage.Projects.Module.Views.Impl
             this.projectHardwareViewModelBindingSource.DataSource = hardwares;
             this.projectFrameViewModelBindingSource.DataSource = frames;
             this.projectSummaryItemViewModelBindingSource.DataSource = summaryItems;
-            this.projectHardwareWorkViewModelBindingSource.DataSource = works;
-            this.projectHardwareExecutiveWorkViewModelBindingSource.DataSource = executiveWorks;
+            this.projectHardwareTechnicianWorkViewModelBindingSource.DataSource = technicianWorks;
+            this.projectHardwareWorkerWorkViewModelBindingSource.DataSource = workerWorks;
             this.projectHardwareStudyReferenceTestViewModelBindingSource.DataSource = studyReferenceTests;
 
             this.textBoxProjectName.Validating += this.ValidateIsRequiredTextBox;
@@ -308,21 +308,21 @@ namespace Chiffrage.Projects.Module.Views.Impl
             }
         }
 
-        private void dataGridViewWork_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void dataGridViewTechnicianWork_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            var hardware = this.projectHardwareWorkViewModelBindingSource[e.RowIndex] as ProjectHardwareWorkViewModel;
+            var hardware = this.projectHardwareTechnicianWorkViewModelBindingSource[e.RowIndex] as ProjectHardwareTechnicianWorkViewModel;
             if (hardware != null)
             {
-                this.eventBroker.Publish(new RequestEditProjectHardwareWorkAction(hardware));
+                this.eventBroker.Publish(new RequestEditProjectHardwareTechnicianWorkAction(hardware));
             }
         }
 
-        private void dataGridViewExecutiveWork_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        private void dataGridViewWorkerWork_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            var hardware = this.projectHardwareExecutiveWorkViewModelBindingSource[e.RowIndex] as ProjectHardwareExecutiveWorkViewModel;
+            var hardware = this.projectHardwareWorkerWorkViewModelBindingSource[e.RowIndex] as ProjectHardwareWorkerWorkViewModel;
             if (hardware != null)
             {
-                this.eventBroker.Publish(new RequestEditProjectHardwareExecutiveWorkAction(hardware));
+                this.eventBroker.Publish(new RequestEditProjectHardwareWorkerWorkAction(hardware));
             }
         }
 
@@ -556,8 +556,8 @@ namespace Chiffrage.Projects.Module.Views.Impl
             this.dataGridViewModules.SetDoubleBuffered();
             this.dataGridViewItemSummary.SetDoubleBuffered();
 
-            this.dataGridViewWork.SetDoubleBuffered();
-            this.dataGridViewExecutiveWork.SetDoubleBuffered();
+            this.dataGridViewTechnicianWork.SetDoubleBuffered();
+            this.dataGridViewWorkerWork.SetDoubleBuffered();
             this.dataGridViewStudyReferenceTest.SetDoubleBuffered();
             this.dataGridViewOther.SetDoubleBuffered();
 
@@ -573,19 +573,19 @@ namespace Chiffrage.Projects.Module.Views.Impl
             }
         }
 
-        public void AddHardwareWork(ProjectHardwareWorkViewModel workViewModel)
+        public void AddHardwareTechnicianWork(ProjectHardwareTechnicianWorkViewModel workViewModel)
         {
             this.InvokeIfRequired(() =>
             {
-                this.works.Add(workViewModel);
+                this.technicianWorks.Add(workViewModel);
             });
         }
 
-        public void AddHardwareExecutiveWork(ProjectHardwareExecutiveWorkViewModel executiveWorkViewModel)
+        public void AddHardwareWorkerWork(ProjectHardwareWorkerWorkViewModel workViewModel)
         {
             this.InvokeIfRequired(() =>
             {
-                this.executiveWorks.Add(executiveWorkViewModel);
+                this.workerWorks.Add(workViewModel);
             });
         }
 
@@ -597,31 +597,31 @@ namespace Chiffrage.Projects.Module.Views.Impl
             });
         }
 
-        public void SetHardwareWorks(IEnumerable<ProjectHardwareWorkViewModel> works)
+        public void SetHardwareTechnicianWorks(IEnumerable<ProjectHardwareTechnicianWorkViewModel> works)
         {
             this.InvokeIfRequired(() =>
             {
-                this.works.Clear();
+                this.technicianWorks.Clear();
                 if (works != null)
                 {
                     foreach (var item in works)
                     {
-                        this.works.Add(item);
+                        this.technicianWorks.Add(item);
                     }
                 }
             });
         }
 
-        public void SetHardwareExecutiveWorks(IEnumerable<ProjectHardwareExecutiveWorkViewModel> executiveWorks)
+        public void SetHardwareWorkerWorks(IEnumerable<ProjectHardwareWorkerWorkViewModel> works)
         {
             this.InvokeIfRequired(() =>
             {
-                this.executiveWorks.Clear();
-                if (executiveWorks != null)
+                this.workerWorks.Clear();
+                if (works != null)
                 {
-                    foreach (var item in executiveWorks)
+                    foreach (var item in works)
                     {
-                        this.executiveWorks.Add(item);
+                        this.workerWorks.Add(item);
                     }
                 }
             });
@@ -652,41 +652,41 @@ namespace Chiffrage.Projects.Module.Views.Impl
             });
         }
 
-        public void UpdateHardwareExecutiveWork(ProjectHardwareExecutiveWorkViewModel hardware)
+        public void UpdateHardwareWorkerWork(ProjectHardwareWorkerWorkViewModel hardware)
         {
             this.InvokeIfRequired(() =>
             {
-                var h = this.executiveWorks.Where(x => x.Id == hardware.Id).First();
-                var index = this.executiveWorks.IndexOf(h);
-                this.executiveWorks[index] = hardware;
+                var h = this.workerWorks.Where(x => x.Id == hardware.Id).First();
+                var index = this.workerWorks.IndexOf(h);
+                this.workerWorks[index] = hardware;
             });
         }
 
-        public void UpdateHardwareWork(ProjectHardwareWorkViewModel hardware)
+        public void UpdateHardwareTechnicianWork(ProjectHardwareTechnicianWorkViewModel hardware)
         {
             this.InvokeIfRequired(() =>
             {
-                var h = this.works.Where(x => x.Id == hardware.Id).First();
-                var index = this.works.IndexOf(h);
-                this.works[index] = hardware;
+                var h = this.technicianWorks.Where(x => x.Id == hardware.Id).First();
+                var index = this.technicianWorks.IndexOf(h);
+                this.technicianWorks[index] = hardware;
             });
         }
 
-        public void RemoveHardwareWork(ProjectHardwareWorkViewModel hardware)
+        public void RemoveHardwareTechnicianWork(ProjectHardwareTechnicianWorkViewModel hardware)
         {
             this.InvokeIfRequired(() =>
             {
-                var item = this.works.Where(x => x.Id == hardware.Id).First();
-                this.works.Remove(item);
+                var item = this.technicianWorks.Where(x => x.Id == hardware.Id).First();
+                this.technicianWorks.Remove(item);
             });
         }
 
-        public void RemoveHardwareExecutiveWork(ProjectHardwareExecutiveWorkViewModel hardware)
+        public void RemoveHardwareWorkerWork(ProjectHardwareWorkerWorkViewModel hardware)
         {
             this.InvokeIfRequired(() =>
             {
-                var item = this.executiveWorks.Where(x => x.Id == hardware.Id).First();
-                this.executiveWorks.Remove(item);
+                var item = this.workerWorks.Where(x => x.Id == hardware.Id).First();
+                this.workerWorks.Remove(item);
             });
         }
 

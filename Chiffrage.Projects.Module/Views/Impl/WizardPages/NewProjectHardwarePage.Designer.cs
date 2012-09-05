@@ -51,8 +51,8 @@ namespace Chiffrage.Projects.Module.Views.Impl.WizardPages
             this.categoryDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.catalogPriceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.catalogWorkDaysDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.catalogExecutiveWorkDaysDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.catalogTechnicianWorkDaysDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.catalogWorkerWorkDaysDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.catalogTestsDaysDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.panel1.SuspendLayout();
@@ -83,8 +83,8 @@ namespace Chiffrage.Projects.Module.Views.Impl.WizardPages
             this.categoryDataGridViewTextBoxColumn,
             this.dataGridViewTextBoxColumn3,
             this.catalogPriceDataGridViewTextBoxColumn,
-            this.catalogWorkDaysDataGridViewTextBoxColumn,
-            this.catalogExecutiveWorkDaysDataGridViewTextBoxColumn,
+            this.catalogTechnicianWorkDaysDataGridViewTextBoxColumn,
+            this.catalogWorkerWorkDaysDataGridViewTextBoxColumn,
             this.catalogTestsDaysDataGridViewTextBoxColumn});
             this.dataGridView.DataSource = this.catalogHardwareViewModelBindingSource;
             this.dataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -240,19 +240,19 @@ namespace Chiffrage.Projects.Module.Views.Impl.WizardPages
             // 
             // catalogWorkDaysDataGridViewTextBoxColumn
             // 
-            this.catalogWorkDaysDataGridViewTextBoxColumn.DataPropertyName = "CatalogWorkDays";
-            this.catalogWorkDaysDataGridViewTextBoxColumn.HeaderText = "Travaux ETAM";
-            this.catalogWorkDaysDataGridViewTextBoxColumn.Name = "catalogWorkDaysDataGridViewTextBoxColumn";
-            this.catalogWorkDaysDataGridViewTextBoxColumn.ReadOnly = true;
-            this.catalogWorkDaysDataGridViewTextBoxColumn.Visible = false;
+            this.catalogTechnicianWorkDaysDataGridViewTextBoxColumn.DataPropertyName = "CatalogTechnicianWorkDays";
+            this.catalogTechnicianWorkDaysDataGridViewTextBoxColumn.HeaderText = "Travaux ETAM";
+            this.catalogTechnicianWorkDaysDataGridViewTextBoxColumn.Name = "catalogTechnicianWorkDaysDataGridViewTextBoxColumn";
+            this.catalogTechnicianWorkDaysDataGridViewTextBoxColumn.ReadOnly = true;
+            this.catalogTechnicianWorkDaysDataGridViewTextBoxColumn.Visible = false;
             // 
             // catalogExecutiveWorkDaysDataGridViewTextBoxColumn
             // 
-            this.catalogExecutiveWorkDaysDataGridViewTextBoxColumn.DataPropertyName = "CatalogExecutiveWorkDays";
-            this.catalogExecutiveWorkDaysDataGridViewTextBoxColumn.HeaderText = "Travaux CNRO";
-            this.catalogExecutiveWorkDaysDataGridViewTextBoxColumn.Name = "catalogExecutiveWorkDaysDataGridViewTextBoxColumn";
-            this.catalogExecutiveWorkDaysDataGridViewTextBoxColumn.ReadOnly = true;
-            this.catalogExecutiveWorkDaysDataGridViewTextBoxColumn.Visible = false;
+            this.catalogWorkerWorkDaysDataGridViewTextBoxColumn.DataPropertyName = "CatalogWorkerWorkDays";
+            this.catalogWorkerWorkDaysDataGridViewTextBoxColumn.HeaderText = "Travaux CNRO";
+            this.catalogWorkerWorkDaysDataGridViewTextBoxColumn.Name = "catalogWorkerWorkDaysDataGridViewTextBoxColumn";
+            this.catalogWorkerWorkDaysDataGridViewTextBoxColumn.ReadOnly = true;
+            this.catalogWorkerWorkDaysDataGridViewTextBoxColumn.Visible = false;
             // 
             // catalogTestsDaysDataGridViewTextBoxColumn
             // 
@@ -302,8 +302,8 @@ namespace Chiffrage.Projects.Module.Views.Impl.WizardPages
         private System.Windows.Forms.DataGridViewTextBoxColumn categoryDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private System.Windows.Forms.DataGridViewTextBoxColumn catalogPriceDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn catalogWorkDaysDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn catalogExecutiveWorkDaysDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn catalogTechnicianWorkDaysDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn catalogWorkerWorkDaysDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn catalogTestsDaysDataGridViewTextBoxColumn;
     }
 }

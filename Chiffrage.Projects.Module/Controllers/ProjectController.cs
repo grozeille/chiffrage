@@ -45,9 +45,9 @@ namespace Chiffrage.Projects.Module.Controllers
 
         private readonly IEditProjectHardwareSupplyView editProjectHardwareSupplyView;
 
-        private readonly IEditProjectHardwareWorkView editProjectHardwareWorkView;
+        private readonly IEditProjectHardwareTechnicianWorkView editProjectHardwareTechnicianWorkView;
 
-        private readonly IEditProjectHardwareEecutiveWorkView editProjectHardwareExecutiveWorkView;
+        private readonly IEditProjectHardwareWorkerWorkView editProjectHardwareWorkerWorkView;
 
         private readonly IEditProjectHardwareStudyReferenceTestsView editProjectHardwareStudyReferenceTestsView;
 
@@ -65,8 +65,8 @@ namespace Chiffrage.Projects.Module.Controllers
             IEditProjectHardwareView editProjectHardwareView,
             INewProjectFrameView newProjectFrameView,
             IEditProjectHardwareSupplyView editProjectHardwareSupplyView,
-            IEditProjectHardwareWorkView editProjectHardwareWorkView,
-            IEditProjectHardwareEecutiveWorkView editProjectHardwareExecutiveWorkView,
+            IEditProjectHardwareTechnicianWorkView editProjectHardwareTechnicianWorkView,
+            IEditProjectHardwareWorkerWorkView editProjectHardwareWorkerWorkView,
             IEditProjectHardwareStudyReferenceTestsView editProjectHardwareStudyReferenceTestsView,
             ICatalogRepository catalogRepository)
         {
@@ -80,8 +80,8 @@ namespace Chiffrage.Projects.Module.Controllers
             this.editProjectSupplyView = editProjectSupplyView;
             this.newProjectFrameView = newProjectFrameView;
             this.editProjectHardwareSupplyView = editProjectHardwareSupplyView;
-            this.editProjectHardwareWorkView = editProjectHardwareWorkView;
-            this.editProjectHardwareExecutiveWorkView = editProjectHardwareExecutiveWorkView;
+            this.editProjectHardwareTechnicianWorkView = editProjectHardwareTechnicianWorkView;
+            this.editProjectHardwareWorkerWorkView = editProjectHardwareWorkerWorkView;
             this.editProjectHardwareStudyReferenceTestsView = editProjectHardwareStudyReferenceTestsView;
             this.catalogRepository = catalogRepository;
         }
@@ -122,19 +122,19 @@ namespace Chiffrage.Projects.Module.Controllers
             return viewModel;
         }
 
-        private ProjectHardwareExecutiveWorkViewModel MapToHardwareExecutiveWorkViewModel(ProjectHardware hardware, int projectId)
+        private ProjectHardwareWorkerWorkViewModel MapToHardwareWorkerWorkViewModel(ProjectHardware hardware, int projectId)
         {
-            Mapper.CreateMap<ProjectHardware, ProjectHardwareExecutiveWorkViewModel>();
-            var viewModel = Mapper.Map<ProjectHardware, ProjectHardwareExecutiveWorkViewModel>(hardware);
+            Mapper.CreateMap<ProjectHardware, ProjectHardwareWorkerWorkViewModel>();
+            var viewModel = Mapper.Map<ProjectHardware, ProjectHardwareWorkerWorkViewModel>(hardware);
             viewModel.ProjectId = projectId;
             
             return viewModel;
         }
 
-        private ProjectHardwareWorkViewModel MapToHardwareWorkViewModel(ProjectHardware hardware, int projectId)
+        private ProjectHardwareTechnicianWorkViewModel MapToHardwareTechnicianWorkViewModel(ProjectHardware hardware, int projectId)
         {
-            Mapper.CreateMap<ProjectHardware, ProjectHardwareWorkViewModel>();
-            var viewModel = Mapper.Map<ProjectHardware, ProjectHardwareWorkViewModel>(hardware);
+            Mapper.CreateMap<ProjectHardware, ProjectHardwareTechnicianWorkViewModel>();
+            var viewModel = Mapper.Map<ProjectHardware, ProjectHardwareTechnicianWorkViewModel>(hardware);
             viewModel.ProjectId = projectId;
 
             return viewModel;
@@ -208,24 +208,24 @@ namespace Chiffrage.Projects.Module.Controllers
                 // tota price of time*rate
                 viewModel.TotalPrice += item.StudyDays * project.StudyRate +
                     item.ReferenceDays * project.ReferenceRate +
-                    item.WorkDays * project.TechnicianWorkDayRate +
-                    item.WorkShortNights * project.TechnicianWorkShortNightsRate +
-                    item.WorkLongNights * project.TechnicianWorkLongNightsRate +
-                    item.ExecutiveWorkDays * project.WorkerWorkDayRate +
-                    item.ExecutiveWorkShortNights * project.WorkerWorkShortNightsRate +
-                    item.ExecutiveWorkLongNights * project.WorkerWorkLongNightsRate +
+                    item.TechnicianWorkDays * project.TechnicianWorkDayRate +
+                    item.TechnicianWorkShortNights * project.TechnicianWorkShortNightsRate +
+                    item.TechnicianWorkLongNights * project.TechnicianWorkLongNightsRate +
+                    item.WorkerWorkDays * project.WorkerWorkDayRate +
+                    item.WorkerWorkShortNights * project.WorkerWorkShortNightsRate +
+                    item.WorkerWorkLongNights * project.WorkerWorkLongNightsRate +
                     item.TestsDays * project.TestDayRate +
                     item.TestsNights * project.TestNightRate;
 
                 // total time
                 viewModel.TotalDays += item.StudyDays +
                     item.ReferenceDays +
-                    item.WorkDays +
-                    item.WorkShortNights +
-                    item.WorkLongNights +
-                    item.ExecutiveWorkDays +
-                    item.ExecutiveWorkShortNights +
-                    item.ExecutiveWorkLongNights +
+                    item.TechnicianWorkDays +
+                    item.TechnicianWorkShortNights +
+                    item.TechnicianWorkLongNights +
+                    item.WorkerWorkDays +
+                    item.WorkerWorkShortNights +
+                    item.WorkerWorkLongNights +
                     item.TestsDays +
                     item.TestsNights;
             }
@@ -274,15 +274,15 @@ namespace Chiffrage.Projects.Module.Controllers
                 supplies.Add(Map(item, project.Id));
             }
 
-            var works = new List<ProjectHardwareWorkViewModel>();
-            var executiveWorks = new List<ProjectHardwareExecutiveWorkViewModel>();
+            var technicianWorks = new List<ProjectHardwareTechnicianWorkViewModel>();
+            var workerWorks = new List<ProjectHardwareWorkerWorkViewModel>();
             var studyReferenceTests = new List<ProjectHardwareStudyReferenceTestViewModel>();
             var hardwares = new List<ProjectHardwareViewModel>();
             foreach (var item in project.Hardwares)
             {
                 hardwares.Add(MapToHardwareViewModel(item, project.Id));
-                works.Add(MapToHardwareWorkViewModel(item, project.Id));
-                executiveWorks.Add(MapToHardwareExecutiveWorkViewModel(item, project.Id));
+                technicianWorks.Add(MapToHardwareTechnicianWorkViewModel(item, project.Id));
+                workerWorks.Add(MapToHardwareWorkerWorkViewModel(item, project.Id));
                 studyReferenceTests.Add(MapToHardwareStudyReferenceTestViewModel(item, project.Id));
             }
 
@@ -296,8 +296,8 @@ namespace Chiffrage.Projects.Module.Controllers
             this.projectView.SetSupplies(supplies);
             this.projectView.SetHardwares(hardwares);
             this.projectView.SetFrames(frames);
-            this.projectView.SetHardwareWorks(works);
-            this.projectView.SetHardwareExecutiveWorks(executiveWorks);
+            this.projectView.SetHardwareTechnicianWorks(technicianWorks);
+            this.projectView.SetHardwareWorkerWorks(workerWorks);
             this.projectView.SetHardwareStudyReferenceTests(studyReferenceTests);
 
             this.RefreshSummary(project.Id);
@@ -433,13 +433,13 @@ namespace Chiffrage.Projects.Module.Controllers
             
             this.projectView.AddHardware(viewModel);
 
-            var workViewModel = MapToHardwareWorkViewModel(eventObject.ProjectHardware, eventObject.ProjectId);
+            var technicianWorkViewModel = MapToHardwareTechnicianWorkViewModel(eventObject.ProjectHardware, eventObject.ProjectId);
 
-            this.projectView.AddHardwareWork(workViewModel);
+            this.projectView.AddHardwareTechnicianWork(technicianWorkViewModel);
 
-            var executiveWorkViewModel = MapToHardwareExecutiveWorkViewModel(eventObject.ProjectHardware, eventObject.ProjectId);
+            var workerWorkViewModel = MapToHardwareWorkerWorkViewModel(eventObject.ProjectHardware, eventObject.ProjectId);
 
-            this.projectView.AddHardwareExecutiveWork(executiveWorkViewModel);
+            this.projectView.AddHardwareWorkerWork(workerWorkViewModel);
 
             var studyReferenceTestViewModel = MapToHardwareStudyReferenceTestViewModel(eventObject.ProjectHardware, eventObject.ProjectId);
 
@@ -457,11 +457,11 @@ namespace Chiffrage.Projects.Module.Controllers
             var hardware = MapToHardwareViewModel(eventObject.Hardware, eventObject.ProjectId);
             this.projectView.RemoveHardware(hardware);
 
-            var workViewModel = MapToHardwareWorkViewModel(eventObject.Hardware, eventObject.ProjectId);
-            this.projectView.RemoveHardwareWork(workViewModel);
+            var technicianWorkViewModel = MapToHardwareTechnicianWorkViewModel(eventObject.Hardware, eventObject.ProjectId);
+            this.projectView.RemoveHardwareTechnicianWork(technicianWorkViewModel);
 
-            var executiveWorkViewModel = MapToHardwareExecutiveWorkViewModel(eventObject.Hardware, eventObject.ProjectId);
-            this.projectView.RemoveHardwareExecutiveWork(executiveWorkViewModel);
+            var workerWorkViewModel = MapToHardwareWorkerWorkViewModel(eventObject.Hardware, eventObject.ProjectId);
+            this.projectView.RemoveHardwareWorkerWork(workerWorkViewModel);
 
             var studyReferenceTestViewModel = MapToHardwareStudyReferenceTestViewModel(eventObject.Hardware, eventObject.ProjectId);
             this.projectView.RemoveHardwareStudyReferenceTest(studyReferenceTestViewModel);
@@ -526,11 +526,11 @@ namespace Chiffrage.Projects.Module.Controllers
             var viewModel = MapToHardwareViewModel(eventObject.ProjectHardware, eventObject.ProjectId);
             this.projectView.UpdateHardware(viewModel);
 
-            var workViewModel = MapToHardwareWorkViewModel(eventObject.ProjectHardware, eventObject.ProjectId);
-            this.projectView.UpdateHardwareWork(workViewModel);
+            var technicianWorkViewModel = MapToHardwareTechnicianWorkViewModel(eventObject.ProjectHardware, eventObject.ProjectId);
+            this.projectView.UpdateHardwareTechnicianWork(technicianWorkViewModel);
 
-            var executiveWorkViewModel = MapToHardwareExecutiveWorkViewModel(eventObject.ProjectHardware, eventObject.ProjectId);
-            this.projectView.UpdateHardwareExecutiveWork(executiveWorkViewModel);
+            var workerWorkViewModel = MapToHardwareWorkerWorkViewModel(eventObject.ProjectHardware, eventObject.ProjectId);
+            this.projectView.UpdateHardwareWorkerWork(workerWorkViewModel);
 
             var studyReferenceTestViewModel = MapToHardwareStudyReferenceTestViewModel(eventObject.ProjectHardware, eventObject.ProjectId);
             this.projectView.UpdateHardwareStudyReferenceTest(studyReferenceTestViewModel);
@@ -557,17 +557,17 @@ namespace Chiffrage.Projects.Module.Controllers
         }
 
         [Subscribe]
-        public void ProcessAction(RequestEditProjectHardwareWorkAction eventObject)
+        public void ProcessAction(RequestEditProjectHardwareTechnicianWorkAction eventObject)
         {
-            this.editProjectHardwareWorkView.Hardware = eventObject.Hardware;
-            this.editProjectHardwareWorkView.ShowView();
+            this.editProjectHardwareTechnicianWorkView.Hardware = eventObject.Hardware;
+            this.editProjectHardwareTechnicianWorkView.ShowView();
         }
 
         [Subscribe]
-        public void ProcessAction(RequestEditProjectHardwareExecutiveWorkAction eventObject)
+        public void ProcessAction(RequestEditProjectHardwareWorkerWorkAction eventObject)
         {
-            this.editProjectHardwareExecutiveWorkView.Hardware = eventObject.Hardware;
-            this.editProjectHardwareExecutiveWorkView.ShowView();
+            this.editProjectHardwareWorkerWorkView.Hardware = eventObject.Hardware;
+            this.editProjectHardwareWorkerWorkView.ShowView();
         }
 
         [Subscribe]

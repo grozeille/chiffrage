@@ -6,16 +6,16 @@ using Chiffrage.Projects.Module.ViewModel;
 
 namespace Chiffrage.Projects.Module.Actions
 {
-    public class RequestEditProjectHardwareExecutiveWorkAction
+    public class RequestEditProjectHardwareWorkerWorkAction
     {
-        private readonly ProjectHardwareExecutiveWorkViewModel hardware;
+        private readonly ProjectHardwareWorkerWorkViewModel hardware;
 
-        public RequestEditProjectHardwareExecutiveWorkAction(ProjectHardwareExecutiveWorkViewModel hardware)
+        public RequestEditProjectHardwareWorkerWorkAction(ProjectHardwareWorkerWorkViewModel hardware)
         {
             this.hardware = hardware;
         }
 
-        public ProjectHardwareExecutiveWorkViewModel Hardware
+        public ProjectHardwareWorkerWorkViewModel Hardware
         {
             get { return this.hardware; }
         }

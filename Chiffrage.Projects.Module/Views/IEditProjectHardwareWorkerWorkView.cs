@@ -7,8 +7,8 @@ using Chiffrage.Projects.Module.ViewModel;
 
 namespace Chiffrage.Projects.Module.Views
 {
-    public interface IEditProjectHardwareEecutiveWorkView : IView
+    public interface IEditProjectHardwareWorkerWorkView : IView
     {
-        ProjectHardwareExecutiveWorkViewModel Hardware { set; }
+        ProjectHardwareWorkerWorkViewModel Hardware { set; }
     }
 }

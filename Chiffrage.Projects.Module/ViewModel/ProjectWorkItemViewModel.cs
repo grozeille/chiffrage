@@ -11,23 +11,23 @@ namespace Chiffrage.Projects.Module.ViewModel
 
         public int HardwareId { get; set; }
 
-        public virtual double CatalogWorkDays { get; set; }
+        public virtual double CatalogTechnicianWorkDays { get; set; }
 
-        public virtual double CatalogExecutiveWorkDays { get; set; }
+        public virtual double CatalogWorkerWorkDays { get; set; }
 
-        public virtual double WorkDays { get; set; }
+        public virtual double TechnicianWorkDays { get; set; }
 
-        public virtual double ExecutiveWorkDays { get; set; }
+        public virtual double WorkerWorkDays { get; set; }
 
         public double Quantity { get; set; }
 
-        public virtual double TotalCatalogWorkDays { get; set; }
+        public virtual double TotalCatalogTechnicianWorkDays { get; set; }
 
-        public virtual double TotalCatalogExecutiveWorkDays { get; set; }
+        public virtual double TotalCatalogWorkerWorkDays { get; set; }
 
-        public virtual double TotalWorkDays { get; set; }
+        public virtual double TotalTechnicianWorkDays { get; set; }
 
-        public virtual double TotalExecutiveWorkDays { get; set; }
+        public virtual double TotalWorkerWorkDays { get; set; }
 
     }
 }

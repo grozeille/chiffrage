@@ -44,53 +44,53 @@ namespace Chiffrage.Projects.Module.ViewModel
             };
             summaryItems.Add(totalStudyReferenceCost);
 
-            var workDaysCost = new ProjectCostSummaryViewModel
+            var workerWorkDaysCost = new ProjectCostSummaryViewModel
             {
                 ProjectCostSummaryType = ProjectCostSummaryType.Simple,
                 Name = "Travaux jours (CNRO)",
                 Rate = project.WorkerWorkDayRate,
             };
-            summaryItems.Add(workDaysCost);
+            summaryItems.Add(workerWorkDaysCost);
 
-            var workShortNightsCost = new ProjectCostSummaryViewModel
+            var workerWorkShortNightsCost = new ProjectCostSummaryViewModel
             {
                 ProjectCostSummaryType = ProjectCostSummaryType.Simple,
                 Name = "Travaux nuits courtes (CNRO)",
                 Rate = project.WorkerWorkShortNightsRate,
             };
-            summaryItems.Add(workShortNightsCost);
+            summaryItems.Add(workerWorkShortNightsCost);
 
-            var workLongNightsCost = new ProjectCostSummaryViewModel
+            var workerWorkLongNightsCost = new ProjectCostSummaryViewModel
             {
                 ProjectCostSummaryType = ProjectCostSummaryType.Simple,
                 Name = "Travaux nuits longues (CNRO)",
                 Rate = project.WorkerWorkLongNightsRate,
             };
-            summaryItems.Add(workLongNightsCost);
+            summaryItems.Add(workerWorkLongNightsCost);
 
-            var executiveWorkDaysCost = new ProjectCostSummaryViewModel
+            var technicianWorkDaysCost = new ProjectCostSummaryViewModel
             {
                 ProjectCostSummaryType = ProjectCostSummaryType.Simple,
                 Name = "Travaux jours (ETAM)",
                 Rate = project.TechnicianWorkDayRate,
             };
-            summaryItems.Add(executiveWorkDaysCost);
+            summaryItems.Add(technicianWorkDaysCost);
 
-            var executiveWorkShortNightsCost = new ProjectCostSummaryViewModel
+            var technicianWorkShortNightsCost = new ProjectCostSummaryViewModel
             {
                 ProjectCostSummaryType = ProjectCostSummaryType.Simple,
                 Name = "Travaux nuits courtes (ETAM)",
                 Rate = project.TechnicianWorkShortNightsRate,
             };
-            summaryItems.Add(executiveWorkShortNightsCost);
+            summaryItems.Add(technicianWorkShortNightsCost);
 
-            var executiveWorkLongNightsCost = new ProjectCostSummaryViewModel
+            var technicianWorkLongNightsCost = new ProjectCostSummaryViewModel
             {
                 ProjectCostSummaryType = ProjectCostSummaryType.Simple,
                 Name = "Travaux nuits longues (ETAM)",
                 Rate = project.TechnicianWorkLongNightsRate,
             };
-            summaryItems.Add(executiveWorkLongNightsCost);
+            summaryItems.Add(technicianWorkLongNightsCost);
 
             var totalWorkCost = new ProjectCostSummaryViewModel
             {
@@ -144,23 +144,23 @@ namespace Chiffrage.Projects.Module.ViewModel
                 referenceCost.TotalTime += item.ReferenceDays;
                 referenceCost.TotalCost += item.ReferenceDays * referenceCost.Rate;
 
-                workDaysCost.TotalTime += item.WorkDays;
-                workDaysCost.TotalCost += item.WorkDays * workDaysCost.Rate;
+                workerWorkDaysCost.TotalTime += item.WorkerWorkDays;
+                workerWorkDaysCost.TotalCost += item.WorkerWorkDays * workerWorkDaysCost.Rate;
 
-                workShortNightsCost.TotalTime += item.WorkShortNights;
-                workShortNightsCost.TotalCost += item.WorkShortNights * workShortNightsCost.Rate;
+                workerWorkShortNightsCost.TotalTime += item.WorkerWorkShortNights;
+                workerWorkShortNightsCost.TotalCost += item.WorkerWorkShortNights * workerWorkShortNightsCost.Rate;
 
-                workLongNightsCost.TotalTime += item.WorkLongNights;
-                workLongNightsCost.TotalCost += item.WorkLongNights * workLongNightsCost.Rate;
+                workerWorkLongNightsCost.TotalTime += item.WorkerWorkLongNights;
+                workerWorkLongNightsCost.TotalCost += item.WorkerWorkLongNights * workerWorkLongNightsCost.Rate;
 
-                executiveWorkDaysCost.TotalTime += item.ExecutiveWorkDays;
-                executiveWorkDaysCost.TotalCost += item.ExecutiveWorkDays * executiveWorkDaysCost.Rate;
+                technicianWorkDaysCost.TotalTime += item.TechnicianWorkDays;
+                technicianWorkDaysCost.TotalCost += item.TechnicianWorkDays * technicianWorkDaysCost.Rate;
 
-                executiveWorkShortNightsCost.TotalTime += item.ExecutiveWorkShortNights;
-                executiveWorkShortNightsCost.TotalCost += item.ExecutiveWorkShortNights * executiveWorkShortNightsCost.Rate;
+                technicianWorkShortNightsCost.TotalTime += item.TechnicianWorkShortNights;
+                technicianWorkShortNightsCost.TotalCost += item.TechnicianWorkShortNights * technicianWorkShortNightsCost.Rate;
 
-                executiveWorkLongNightsCost.TotalTime += item.ExecutiveWorkLongNights;
-                executiveWorkLongNightsCost.TotalCost += item.ExecutiveWorkLongNights * executiveWorkLongNightsCost.Rate;
+                technicianWorkLongNightsCost.TotalTime += item.TechnicianWorkLongNights;
+                technicianWorkLongNightsCost.TotalCost += item.TechnicianWorkLongNights * technicianWorkLongNightsCost.Rate;
 
                 testDaysCost.TotalTime += item.TestsDays;
                 testDaysCost.TotalCost += item.TestsDays * testDaysCost.Rate;
@@ -172,11 +172,11 @@ namespace Chiffrage.Projects.Module.ViewModel
             totalStudyReferenceCost.TotalTime = studyCost.TotalTime + referenceCost.TotalTime;
             totalStudyReferenceCost.TotalCost = studyCost.TotalCost + referenceCost.TotalCost;
 
-            totalWorkCost.TotalTime = workDaysCost.TotalTime + workShortNightsCost.TotalTime + workLongNightsCost.TotalTime +
-                executiveWorkDaysCost.TotalTime + executiveWorkShortNightsCost.TotalTime + executiveWorkLongNightsCost.TotalTime;
+            totalWorkCost.TotalTime = workerWorkDaysCost.TotalTime + workerWorkShortNightsCost.TotalTime + workerWorkLongNightsCost.TotalTime +
+                technicianWorkDaysCost.TotalTime + technicianWorkShortNightsCost.TotalTime + technicianWorkLongNightsCost.TotalTime;
 
-            totalWorkCost.TotalCost = workDaysCost.TotalCost + workShortNightsCost.TotalCost + workLongNightsCost.TotalCost +
-                executiveWorkDaysCost.TotalCost + executiveWorkShortNightsCost.TotalCost + executiveWorkLongNightsCost.TotalCost;
+            totalWorkCost.TotalCost = workerWorkDaysCost.TotalCost + workerWorkShortNightsCost.TotalCost + workerWorkLongNightsCost.TotalCost +
+                technicianWorkDaysCost.TotalCost + technicianWorkShortNightsCost.TotalCost + technicianWorkLongNightsCost.TotalCost;
 
             totalTestsCost.TotalTime = testDaysCost.TotalTime + testNightsCost.TotalTime;
             totalTestsCost.TotalCost = testDaysCost.TotalCost + testNightsCost.TotalCost;

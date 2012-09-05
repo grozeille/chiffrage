@@ -10,9 +10,9 @@ using System.Globalization;
 
 namespace Chiffrage.Projects.Module.Views.Impl.WizardPages
 {
-    public partial class EditProjectHardwareWorkPage : UserControl
+    public partial class EditProjectHardwareTechnicianWorkPage : UserControl
     {
-        public EditProjectHardwareWorkPage()
+        public EditProjectHardwareTechnicianWorkPage()
         {
             InitializeComponent();
         }

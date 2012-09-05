@@ -145,8 +145,8 @@ namespace Chiffrage.Projects.Module.Views.Impl
             this.dataGridViewItemSummary = new System.Windows.Forms.DataGridView();
             this.tabPageWork = new System.Windows.Forms.TabPage();
             this.splitContainerWork = new System.Windows.Forms.SplitContainer();
-            this.dataGridViewWork = new System.Windows.Forms.DataGridView();
-            this.dataGridViewExecutiveWork = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTechnicianWork = new System.Windows.Forms.DataGridView();
+            this.dataGridViewWorkerWork = new System.Windows.Forms.DataGridView();
             this.tabPageStudyTestReference = new System.Windows.Forms.TabPage();
             this.dataGridViewStudyReferenceTest = new System.Windows.Forms.DataGridView();
             this.ColumnTestsNights = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -226,16 +226,16 @@ namespace Chiffrage.Projects.Module.Views.Impl
             this.workDaysDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.workShortNightsDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.workLongNightsDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.projectHardwareWorkViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.projectHardwareTechnicianWorkViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.idDataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.projectIdDataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.catalogIdDataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn35 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.catalogExecutiveWorkDaysDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.executiveWorkDaysDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.executiveWorkShortNightsDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.executiveWorkLongNightsDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.projectHardwareExecutiveWorkViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.catalogWorkerWorkDaysDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.workerWorkDaysDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.workerWorkShortNightsDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.workerWorkLongNightsDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.projectHardwareWorkerWorkViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.idDataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.projectIdDataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.catalogIdDataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -274,8 +274,8 @@ namespace Chiffrage.Projects.Module.Views.Impl
             this.splitContainerWork.Panel1.SuspendLayout();
             this.splitContainerWork.Panel2.SuspendLayout();
             this.splitContainerWork.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewWork)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewExecutiveWork)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTechnicianWork)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewWorkerWork)).BeginInit();
             this.tabPageStudyTestReference.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStudyReferenceTest)).BeginInit();
             this.tabPageOther.SuspendLayout();
@@ -291,8 +291,8 @@ namespace Chiffrage.Projects.Module.Views.Impl
             ((System.ComponentModel.ISupportInitialize)(this.projectHardwareViewModelBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.projectFrameViewModelBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.projectSummaryItemViewModelBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.projectHardwareWorkViewModelBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.projectHardwareExecutiveWorkViewModelBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.projectHardwareTechnicianWorkViewModelBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.projectHardwareWorkerWorkViewModelBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.projectHardwareStudyReferenceTestViewModelBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -1277,25 +1277,25 @@ namespace Chiffrage.Projects.Module.Views.Impl
             // 
             // splitContainerWork.Panel1
             // 
-            this.splitContainerWork.Panel1.Controls.Add(this.dataGridViewWork);
+            this.splitContainerWork.Panel1.Controls.Add(this.dataGridViewTechnicianWork);
             // 
             // splitContainerWork.Panel2
             // 
-            this.splitContainerWork.Panel2.Controls.Add(this.dataGridViewExecutiveWork);
+            this.splitContainerWork.Panel2.Controls.Add(this.dataGridViewWorkerWork);
             this.splitContainerWork.Size = new System.Drawing.Size(1209, 525);
             this.splitContainerWork.SplitterDistance = 255;
             this.splitContainerWork.TabIndex = 5;
             // 
             // dataGridViewWork
             // 
-            this.dataGridViewWork.AllowUserToAddRows = false;
-            this.dataGridViewWork.AllowUserToDeleteRows = false;
+            this.dataGridViewTechnicianWork.AllowUserToAddRows = false;
+            this.dataGridViewTechnicianWork.AllowUserToDeleteRows = false;
             dataGridViewCellStyle18.BackColor = System.Drawing.Color.AliceBlue;
-            this.dataGridViewWork.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle18;
-            this.dataGridViewWork.AutoGenerateColumns = false;
-            this.dataGridViewWork.BackgroundColor = System.Drawing.SystemColors.Window;
-            this.dataGridViewWork.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.dataGridViewWork.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            this.dataGridViewTechnicianWork.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle18;
+            this.dataGridViewTechnicianWork.AutoGenerateColumns = false;
+            this.dataGridViewTechnicianWork.BackgroundColor = System.Drawing.SystemColors.Window;
+            this.dataGridViewTechnicianWork.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.dataGridViewTechnicianWork.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle19.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle19.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1303,9 +1303,9 @@ namespace Chiffrage.Projects.Module.Views.Impl
             dataGridViewCellStyle19.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle19.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle19.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewWork.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle19;
-            this.dataGridViewWork.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            this.dataGridViewWork.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTechnicianWork.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle19;
+            this.dataGridViewTechnicianWork.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.dataGridViewTechnicianWork.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.idDataGridViewTextBoxColumn5,
             this.projectIdDataGridViewTextBoxColumn2,
             this.catalogIdDataGridViewTextBoxColumn3,
@@ -1314,7 +1314,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
             this.workDaysDataGridViewTextBoxColumn,
             this.workShortNightsDataGridViewTextBoxColumn,
             this.workLongNightsDataGridViewTextBoxColumn});
-            this.dataGridViewWork.DataSource = this.projectHardwareWorkViewModelBindingSource;
+            this.dataGridViewTechnicianWork.DataSource = this.projectHardwareTechnicianWorkViewModelBindingSource;
             dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle20.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle20.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1322,13 +1322,13 @@ namespace Chiffrage.Projects.Module.Views.Impl
             dataGridViewCellStyle20.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle20.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle20.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewWork.DefaultCellStyle = dataGridViewCellStyle20;
-            this.dataGridViewWork.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridViewWork.GridColor = System.Drawing.SystemColors.ControlLight;
-            this.dataGridViewWork.Location = new System.Drawing.Point(0, 0);
-            this.dataGridViewWork.Name = "dataGridViewWork";
-            this.dataGridViewWork.ReadOnly = true;
-            this.dataGridViewWork.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            this.dataGridViewTechnicianWork.DefaultCellStyle = dataGridViewCellStyle20;
+            this.dataGridViewTechnicianWork.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridViewTechnicianWork.GridColor = System.Drawing.SystemColors.ControlLight;
+            this.dataGridViewTechnicianWork.Location = new System.Drawing.Point(0, 0);
+            this.dataGridViewTechnicianWork.Name = "dataGridViewWork";
+            this.dataGridViewTechnicianWork.ReadOnly = true;
+            this.dataGridViewTechnicianWork.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle21.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle21.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1336,22 +1336,22 @@ namespace Chiffrage.Projects.Module.Views.Impl
             dataGridViewCellStyle21.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle21.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle21.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewWork.RowHeadersDefaultCellStyle = dataGridViewCellStyle21;
-            this.dataGridViewWork.RowHeadersVisible = false;
-            this.dataGridViewWork.Size = new System.Drawing.Size(1209, 255);
-            this.dataGridViewWork.TabIndex = 3;
-            this.dataGridViewWork.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewWork_CellDoubleClick);
+            this.dataGridViewTechnicianWork.RowHeadersDefaultCellStyle = dataGridViewCellStyle21;
+            this.dataGridViewTechnicianWork.RowHeadersVisible = false;
+            this.dataGridViewTechnicianWork.Size = new System.Drawing.Size(1209, 255);
+            this.dataGridViewTechnicianWork.TabIndex = 3;
+            this.dataGridViewTechnicianWork.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewTechnicianWork_CellDoubleClick);
             // 
             // dataGridViewExecutiveWork
             // 
-            this.dataGridViewExecutiveWork.AllowUserToAddRows = false;
-            this.dataGridViewExecutiveWork.AllowUserToDeleteRows = false;
+            this.dataGridViewWorkerWork.AllowUserToAddRows = false;
+            this.dataGridViewWorkerWork.AllowUserToDeleteRows = false;
             dataGridViewCellStyle22.BackColor = System.Drawing.Color.AliceBlue;
-            this.dataGridViewExecutiveWork.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle22;
-            this.dataGridViewExecutiveWork.AutoGenerateColumns = false;
-            this.dataGridViewExecutiveWork.BackgroundColor = System.Drawing.SystemColors.Window;
-            this.dataGridViewExecutiveWork.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.dataGridViewExecutiveWork.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            this.dataGridViewWorkerWork.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle22;
+            this.dataGridViewWorkerWork.AutoGenerateColumns = false;
+            this.dataGridViewWorkerWork.BackgroundColor = System.Drawing.SystemColors.Window;
+            this.dataGridViewWorkerWork.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.dataGridViewWorkerWork.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle23.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle23.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1359,18 +1359,18 @@ namespace Chiffrage.Projects.Module.Views.Impl
             dataGridViewCellStyle23.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle23.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle23.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewExecutiveWork.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle23;
-            this.dataGridViewExecutiveWork.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
-            this.dataGridViewExecutiveWork.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewWorkerWork.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle23;
+            this.dataGridViewWorkerWork.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            this.dataGridViewWorkerWork.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.idDataGridViewTextBoxColumn6,
             this.projectIdDataGridViewTextBoxColumn3,
             this.catalogIdDataGridViewTextBoxColumn4,
             this.dataGridViewTextBoxColumn35,
-            this.catalogExecutiveWorkDaysDataGridViewTextBoxColumn,
-            this.executiveWorkDaysDataGridViewTextBoxColumn,
-            this.executiveWorkShortNightsDataGridViewTextBoxColumn,
-            this.executiveWorkLongNightsDataGridViewTextBoxColumn});
-            this.dataGridViewExecutiveWork.DataSource = this.projectHardwareExecutiveWorkViewModelBindingSource;
+            this.catalogWorkerWorkDaysDataGridViewTextBoxColumn,
+            this.workerWorkDaysDataGridViewTextBoxColumn,
+            this.workerWorkShortNightsDataGridViewTextBoxColumn,
+            this.workerWorkLongNightsDataGridViewTextBoxColumn});
+            this.dataGridViewWorkerWork.DataSource = this.projectHardwareWorkerWorkViewModelBindingSource;
             dataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle24.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle24.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1378,13 +1378,13 @@ namespace Chiffrage.Projects.Module.Views.Impl
             dataGridViewCellStyle24.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle24.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle24.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataGridViewExecutiveWork.DefaultCellStyle = dataGridViewCellStyle24;
-            this.dataGridViewExecutiveWork.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridViewExecutiveWork.GridColor = System.Drawing.SystemColors.ControlLight;
-            this.dataGridViewExecutiveWork.Location = new System.Drawing.Point(0, 0);
-            this.dataGridViewExecutiveWork.Name = "dataGridViewExecutiveWork";
-            this.dataGridViewExecutiveWork.ReadOnly = true;
-            this.dataGridViewExecutiveWork.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            this.dataGridViewWorkerWork.DefaultCellStyle = dataGridViewCellStyle24;
+            this.dataGridViewWorkerWork.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridViewWorkerWork.GridColor = System.Drawing.SystemColors.ControlLight;
+            this.dataGridViewWorkerWork.Location = new System.Drawing.Point(0, 0);
+            this.dataGridViewWorkerWork.Name = "dataGridViewWorkerWork";
+            this.dataGridViewWorkerWork.ReadOnly = true;
+            this.dataGridViewWorkerWork.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle25.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle25.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle25.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1392,11 +1392,11 @@ namespace Chiffrage.Projects.Module.Views.Impl
             dataGridViewCellStyle25.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle25.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle25.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridViewExecutiveWork.RowHeadersDefaultCellStyle = dataGridViewCellStyle25;
-            this.dataGridViewExecutiveWork.RowHeadersVisible = false;
-            this.dataGridViewExecutiveWork.Size = new System.Drawing.Size(1209, 266);
-            this.dataGridViewExecutiveWork.TabIndex = 3;
-            this.dataGridViewExecutiveWork.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewExecutiveWork_CellDoubleClick);
+            this.dataGridViewWorkerWork.RowHeadersDefaultCellStyle = dataGridViewCellStyle25;
+            this.dataGridViewWorkerWork.RowHeadersVisible = false;
+            this.dataGridViewWorkerWork.Size = new System.Drawing.Size(1209, 266);
+            this.dataGridViewWorkerWork.TabIndex = 3;
+            this.dataGridViewWorkerWork.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewWorkerWork_CellDoubleClick);
             // 
             // tabPageStudyTestReference
             // 
@@ -2102,35 +2102,35 @@ namespace Chiffrage.Projects.Module.Views.Impl
             // 
             // dataGridViewTextBoxColumn32
             // 
-            this.dataGridViewTextBoxColumn32.DataPropertyName = "CatalogWorkDays";
-            this.dataGridViewTextBoxColumn32.HeaderText = "CatalogWorkDays";
+            this.dataGridViewTextBoxColumn32.DataPropertyName = "CatalogTechnicianWorkDays";
+            this.dataGridViewTextBoxColumn32.HeaderText = "CatalogTechnicianWorkDays";
             this.dataGridViewTextBoxColumn32.Name = "dataGridViewTextBoxColumn32";
             this.dataGridViewTextBoxColumn32.ReadOnly = true;
             // 
             // workDaysDataGridViewTextBoxColumn
             // 
-            this.workDaysDataGridViewTextBoxColumn.DataPropertyName = "WorkDays";
-            this.workDaysDataGridViewTextBoxColumn.HeaderText = "WorkDays";
-            this.workDaysDataGridViewTextBoxColumn.Name = "workDaysDataGridViewTextBoxColumn";
+            this.workDaysDataGridViewTextBoxColumn.DataPropertyName = "TechnicianWorkDays";
+            this.workDaysDataGridViewTextBoxColumn.HeaderText = "TechnicianWorkDays";
+            this.workDaysDataGridViewTextBoxColumn.Name = "TechnicianworkDaysDataGridViewTextBoxColumn";
             this.workDaysDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // workShortNightsDataGridViewTextBoxColumn
             // 
-            this.workShortNightsDataGridViewTextBoxColumn.DataPropertyName = "WorkShortNights";
-            this.workShortNightsDataGridViewTextBoxColumn.HeaderText = "WorkShortNights";
-            this.workShortNightsDataGridViewTextBoxColumn.Name = "workShortNightsDataGridViewTextBoxColumn";
+            this.workShortNightsDataGridViewTextBoxColumn.DataPropertyName = "TechnicianWorkShortNights";
+            this.workShortNightsDataGridViewTextBoxColumn.HeaderText = "TechnicianWorkShortNights";
+            this.workShortNightsDataGridViewTextBoxColumn.Name = "TechnicianworkShortNightsDataGridViewTextBoxColumn";
             this.workShortNightsDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // workLongNightsDataGridViewTextBoxColumn
             // 
-            this.workLongNightsDataGridViewTextBoxColumn.DataPropertyName = "WorkLongNights";
-            this.workLongNightsDataGridViewTextBoxColumn.HeaderText = "WorkLongNights";
-            this.workLongNightsDataGridViewTextBoxColumn.Name = "workLongNightsDataGridViewTextBoxColumn";
+            this.workLongNightsDataGridViewTextBoxColumn.DataPropertyName = "TechnicianWorkLongNights";
+            this.workLongNightsDataGridViewTextBoxColumn.HeaderText = "TechnicianWorkLongNights";
+            this.workLongNightsDataGridViewTextBoxColumn.Name = "TechnicianworkLongNightsDataGridViewTextBoxColumn";
             this.workLongNightsDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // projectHardwareWorkViewModelBindingSource
             // 
-            this.projectHardwareWorkViewModelBindingSource.DataSource = typeof(Chiffrage.Projects.Module.ViewModel.ProjectHardwareWorkViewModel);
+            this.projectHardwareTechnicianWorkViewModelBindingSource.DataSource = typeof(Chiffrage.Projects.Module.ViewModel.ProjectHardwareTechnicianWorkViewModel);
             // 
             // idDataGridViewTextBoxColumn6
             // 
@@ -2165,35 +2165,35 @@ namespace Chiffrage.Projects.Module.Views.Impl
             // 
             // catalogExecutiveWorkDaysDataGridViewTextBoxColumn
             // 
-            this.catalogExecutiveWorkDaysDataGridViewTextBoxColumn.DataPropertyName = "CatalogExecutiveWorkDays";
-            this.catalogExecutiveWorkDaysDataGridViewTextBoxColumn.HeaderText = "CatalogExecutiveWorkDays";
-            this.catalogExecutiveWorkDaysDataGridViewTextBoxColumn.Name = "catalogExecutiveWorkDaysDataGridViewTextBoxColumn";
-            this.catalogExecutiveWorkDaysDataGridViewTextBoxColumn.ReadOnly = true;
+            this.catalogWorkerWorkDaysDataGridViewTextBoxColumn.DataPropertyName = "CatalogWorkerWorkDays";
+            this.catalogWorkerWorkDaysDataGridViewTextBoxColumn.HeaderText = "CatalogWorkerWorkDays";
+            this.catalogWorkerWorkDaysDataGridViewTextBoxColumn.Name = "catalogWorkerWorkDaysDataGridViewTextBoxColumn";
+            this.catalogWorkerWorkDaysDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // executiveWorkDaysDataGridViewTextBoxColumn
             // 
-            this.executiveWorkDaysDataGridViewTextBoxColumn.DataPropertyName = "ExecutiveWorkDays";
-            this.executiveWorkDaysDataGridViewTextBoxColumn.HeaderText = "ExecutiveWorkDays";
-            this.executiveWorkDaysDataGridViewTextBoxColumn.Name = "executiveWorkDaysDataGridViewTextBoxColumn";
-            this.executiveWorkDaysDataGridViewTextBoxColumn.ReadOnly = true;
+            this.workerWorkDaysDataGridViewTextBoxColumn.DataPropertyName = "WorkerWorkDays";
+            this.workerWorkDaysDataGridViewTextBoxColumn.HeaderText = "WorkerWorkDays";
+            this.workerWorkDaysDataGridViewTextBoxColumn.Name = "WorkerWorkDaysDataGridViewTextBoxColumn";
+            this.workerWorkDaysDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // executiveWorkShortNightsDataGridViewTextBoxColumn
             // 
-            this.executiveWorkShortNightsDataGridViewTextBoxColumn.DataPropertyName = "ExecutiveWorkShortNights";
-            this.executiveWorkShortNightsDataGridViewTextBoxColumn.HeaderText = "ExecutiveWorkShortNights";
-            this.executiveWorkShortNightsDataGridViewTextBoxColumn.Name = "executiveWorkShortNightsDataGridViewTextBoxColumn";
-            this.executiveWorkShortNightsDataGridViewTextBoxColumn.ReadOnly = true;
+            this.workerWorkShortNightsDataGridViewTextBoxColumn.DataPropertyName = "WorkerWorkShortNights";
+            this.workerWorkShortNightsDataGridViewTextBoxColumn.HeaderText = "WorkerWorkShortNights";
+            this.workerWorkShortNightsDataGridViewTextBoxColumn.Name = "WorkerWorkShortNightsDataGridViewTextBoxColumn";
+            this.workerWorkShortNightsDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // executiveWorkLongNightsDataGridViewTextBoxColumn
             // 
-            this.executiveWorkLongNightsDataGridViewTextBoxColumn.DataPropertyName = "ExecutiveWorkLongNights";
-            this.executiveWorkLongNightsDataGridViewTextBoxColumn.HeaderText = "ExecutiveWorkLongNights";
-            this.executiveWorkLongNightsDataGridViewTextBoxColumn.Name = "executiveWorkLongNightsDataGridViewTextBoxColumn";
-            this.executiveWorkLongNightsDataGridViewTextBoxColumn.ReadOnly = true;
+            this.workerWorkLongNightsDataGridViewTextBoxColumn.DataPropertyName = "WorkerWorkLongNights";
+            this.workerWorkLongNightsDataGridViewTextBoxColumn.HeaderText = "WorkerWorkLongNights";
+            this.workerWorkLongNightsDataGridViewTextBoxColumn.Name = "WorkerWorkLongNightsDataGridViewTextBoxColumn";
+            this.workerWorkLongNightsDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // projectHardwareExecutiveWorkViewModelBindingSource
             // 
-            this.projectHardwareExecutiveWorkViewModelBindingSource.DataSource = typeof(Chiffrage.Projects.Module.ViewModel.ProjectHardwareExecutiveWorkViewModel);
+            this.projectHardwareWorkerWorkViewModelBindingSource.DataSource = typeof(Chiffrage.Projects.Module.ViewModel.ProjectHardwareWorkerWorkViewModel);
             // 
             // idDataGridViewTextBoxColumn7
             // 
@@ -2316,8 +2316,8 @@ namespace Chiffrage.Projects.Module.Views.Impl
             this.splitContainerWork.Panel1.ResumeLayout(false);
             this.splitContainerWork.Panel2.ResumeLayout(false);
             this.splitContainerWork.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewWork)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewExecutiveWork)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTechnicianWork)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewWorkerWork)).EndInit();
             this.tabPageStudyTestReference.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewStudyReferenceTest)).EndInit();
             this.tabPageOther.ResumeLayout(false);
@@ -2335,8 +2335,8 @@ namespace Chiffrage.Projects.Module.Views.Impl
             ((System.ComponentModel.ISupportInitialize)(this.projectHardwareViewModelBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.projectFrameViewModelBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.projectSummaryItemViewModelBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.projectHardwareWorkViewModelBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.projectHardwareExecutiveWorkViewModelBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.projectHardwareTechnicianWorkViewModelBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.projectHardwareWorkerWorkViewModelBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.projectHardwareStudyReferenceTestViewModelBindingSource)).EndInit();
             this.ResumeLayout(false);
 
@@ -2460,8 +2460,8 @@ namespace Chiffrage.Projects.Module.Views.Impl
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn30;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn31;
         private System.Windows.Forms.SplitContainer splitContainerWork;
-        private System.Windows.Forms.DataGridView dataGridViewWork;
-        private System.Windows.Forms.DataGridView dataGridViewExecutiveWork;
+        private System.Windows.Forms.DataGridView dataGridViewTechnicianWork;
+        private System.Windows.Forms.DataGridView dataGridViewWorkerWork;
         private System.Windows.Forms.DataGridViewTextBoxColumn idDataGridViewTextBoxColumn5;
         private System.Windows.Forms.DataGridViewTextBoxColumn projectIdDataGridViewTextBoxColumn2;
         private System.Windows.Forms.DataGridViewTextBoxColumn catalogIdDataGridViewTextBoxColumn3;
@@ -2470,16 +2470,16 @@ namespace Chiffrage.Projects.Module.Views.Impl
         private System.Windows.Forms.DataGridViewTextBoxColumn workDaysDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn workShortNightsDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn workLongNightsDataGridViewTextBoxColumn;
-        private System.Windows.Forms.BindingSource projectHardwareWorkViewModelBindingSource;
+        private System.Windows.Forms.BindingSource projectHardwareTechnicianWorkViewModelBindingSource;
         private System.Windows.Forms.DataGridViewTextBoxColumn idDataGridViewTextBoxColumn6;
         private System.Windows.Forms.DataGridViewTextBoxColumn projectIdDataGridViewTextBoxColumn3;
         private System.Windows.Forms.DataGridViewTextBoxColumn catalogIdDataGridViewTextBoxColumn4;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn35;
-        private System.Windows.Forms.DataGridViewTextBoxColumn catalogExecutiveWorkDaysDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn executiveWorkDaysDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn executiveWorkShortNightsDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn executiveWorkLongNightsDataGridViewTextBoxColumn;
-        private System.Windows.Forms.BindingSource projectHardwareExecutiveWorkViewModelBindingSource;
+        private System.Windows.Forms.DataGridViewTextBoxColumn catalogWorkerWorkDaysDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn workerWorkDaysDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn workerWorkShortNightsDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn workerWorkLongNightsDataGridViewTextBoxColumn;
+        private System.Windows.Forms.BindingSource projectHardwareWorkerWorkViewModelBindingSource;
         private System.Windows.Forms.BindingSource projectHardwareStudyReferenceTestViewModelBindingSource;
         private System.Windows.Forms.DataGridView dataGridViewStudyReferenceTest;
         private System.Windows.Forms.DataGridViewTextBoxColumn idDataGridViewTextBoxColumn1;

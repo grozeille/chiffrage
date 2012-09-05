@@ -32,9 +32,10 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
             this.editHardwarePage.TypedPage.HardwareName = this.hardware.Name;
             this.editHardwarePage.TypedPage.ReferenceDays = this.hardware.CatalogReferenceDays;
             this.editHardwarePage.TypedPage.StudyDays = this.hardware.CatalogStudyDays;
+            this.editHardwarePage.TypedPage.CatalogExecutiveWorkDays = this.hardware.CatalogExecutiveWorkDays;
+            this.editHardwarePage.TypedPage.CatalogTechnicianWorkDays = this.hardware.CatalogTechnicianWorkDays;
             this.editHardwarePage.TypedPage.CatalogWorkerWorkDays = this.hardware.CatalogWorkerWorkDays;
             this.editHardwarePage.TypedPage.CatalogTestDays = this.hardware.CatalogTestsDays;
-            this.editHardwarePage.TypedPage.CatalogTechnicianWorkDays = this.hardware.CatalogTechnicianWorkDays;
 
             return new WizardSettingListIterator(this.editHardwarePage);
         }
@@ -49,6 +50,7 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
                     this.editHardwarePage.TypedPage.HardwareName,
                     this.editHardwarePage.TypedPage.StudyDays,
                     this.editHardwarePage.TypedPage.ReferenceDays,
+                    this.editHardwarePage.TypedPage.CatalogExecutiveWorkDays,
                     this.editHardwarePage.TypedPage.CatalogTechnicianWorkDays,
                     this.editHardwarePage.TypedPage.CatalogWorkerWorkDays,
                     this.editHardwarePage.TypedPage.CatalogTestDays);

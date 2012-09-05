@@ -17,17 +17,19 @@ namespace Chiffrage.Projects.Dal.Mappings
             Property(x => x.Category);
             Property(x => x.CatalogStudyDays);
             Property(x => x.CatalogReferenceDays);
-            Property(x => x.CatalogWorkDays);
-            Property(x => x.CatalogExecutiveWorkDays);
+            Property(x => x.CatalogTechnicianWorkDays);
+            Property(x => x.CatalogWorkerWorkDays);
             Property(x => x.CatalogTestsDays);
             Property(x => x.StudyDays);
             Property(x => x.ReferenceDays);
             Property(x => x.TestsDays);
             Property(x => x.TestsNights);
-            Property(x => x.WorkDays);
-            Property(x => x.WorkShortNights);
-            Property(x => x.WorkLongNights);
-            Property(x => x.ExecutiveWorkDays);
+            Property(x => x.TechnicianWorkDays);
+            Property(x => x.TechnicianWorkShortNights);
+            Property(x => x.TechnicianWorkLongNights);
+            Property(x => x.WorkerWorkDays);
+            Property(x => x.WorkerWorkShortNights);
+            Property(x => x.WorkerWorkLongNights);
             Property(x => x.Milestone);
 
             this.Bag(x => x.Components, y =>

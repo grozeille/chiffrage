@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Chiffrage.Projects.Module.ViewModel
 {
-    public class ProjectHardwareWorkViewModel
+    public class ProjectHardwareTechnicianWorkViewModel
     {
         public int Id { get; set; }
 
@@ -15,12 +15,12 @@ namespace Chiffrage.Projects.Module.ViewModel
 
         public string Name { get; set; }
 
-        public double CatalogWorkDays { get; set; }
+        public double CatalogTechnicianWorkDays { get; set; }
 
-        public double WorkDays { get; set; }
+        public double TechnicianWorkDays { get; set; }
 
-        public double WorkShortNights { get; set; }
+        public double TechnicianWorkShortNights { get; set; }
 
-        public double WorkLongNights { get; set; }
+        public double TechnicianWorkLongNights { get; set; }
     }
 }

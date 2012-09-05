@@ -56,8 +56,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\UpdateProjectHardwareStudyReferenceTestsCommand.cs" />
-    <Compile Include="Commands\UpdateProjectHardwareExecutiveWorkCommand.cs" />
-    <Compile Include="Commands\UpdateProjectHardwareWorkCommand.cs" />
+    <Compile Include="Commands\UpdateProjectHardwareWorkerWorkCommand.cs" />
+    <Compile Include="Commands\UpdateProjectHardwareTechnicianWorkCommand.cs" />
     <Compile Include="Commands\DeleteProjectFrameCommand.cs" />
     <Compile Include="Commands\CreateNewProjectFrameCommand.cs" />
     <Compile Include="Commands\CreateNewProjectHardwareCommand.cs" />

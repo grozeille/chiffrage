@@ -143,8 +143,8 @@ namespace Chiffrage.Projects.Domain.Services
 
             projectHardware.StudyDays = hardware.CatalogStudyDays;
             projectHardware.ReferenceDays = hardware.CatalogReferenceDays;
-            projectHardware.WorkDays = hardware.CatalogTechnicianWorkDays;
-            projectHardware.ExecutiveWorkDays = hardware.CatalogWorkerWorkDays;
+            projectHardware.TechnicianWorkDays = hardware.CatalogTechnicianWorkDays;
+            projectHardware.WorkerWorkDays = hardware.CatalogWorkerWorkDays;
             projectHardware.TestsDays = hardware.CatalogTestsDays;
 
             foreach (var item in projectHardware.Components)
@@ -247,12 +247,12 @@ namespace Chiffrage.Projects.Domain.Services
         }
 
         [Subscribe]
-        public void ProcessAction(UpdateProjectHardwareWorkCommand eventObject)
+        public void ProcessAction(UpdateProjectHardwareTechnicianWorkCommand eventObject)
         {
             var project = this.projectRepository.FindById(eventObject.ProjectId);
             var projectHardware = project.Hardwares.Where(x => x.Id == eventObject.Id).First();
 
-            Mapper.CreateMap<UpdateProjectHardwareWorkCommand, ProjectHardware>();
+            Mapper.CreateMap<UpdateProjectHardwareTechnicianWorkCommand, ProjectHardware>();
 
             Mapper.Map(eventObject, projectHardware);
 
@@ -262,12 +262,12 @@ namespace Chiffrage.Projects.Domain.Services
         }
 
         [Subscribe]
-        public void ProcessAction(UpdateProjectHardwareExecutiveWorkCommand eventObject)
+        public void ProcessAction(UpdateProjectHardwareWorkerWorkCommand eventObject)
         {
             var project = this.projectRepository.FindById(eventObject.ProjectId);
             var projectHardware = project.Hardwares.Where(x => x.Id == eventObject.Id).First();
 
-            Mapper.CreateMap<UpdateProjectHardwareExecutiveWorkCommand, ProjectHardware>();
+            Mapper.CreateMap<UpdateProjectHardwareWorkerWorkCommand, ProjectHardware>();
 
             Mapper.Map(eventObject, projectHardware);
 

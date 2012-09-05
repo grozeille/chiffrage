@@ -14,13 +14,13 @@ using Chiffrage.Projects.Domain.Commands;
 
 namespace Chiffrage.Projects.Module.Views.Impl
 {
-    public class EditProjectHardwareWorkWizardView : WizardView, IEditProjectHardwareWorkView
+    public class EditProjectHardwareTechnicianWorkWizardView : WizardView, IEditProjectHardwareTechnicianWorkView
     {
-        private GenericWizardSetting<EditProjectHardwareWorkPage> editHardwarePage;
+        private GenericWizardSetting<EditProjectHardwareTechnicianWorkPage> editHardwarePage;
 
-        private ProjectHardwareWorkViewModel hardware;
+        private ProjectHardwareTechnicianWorkViewModel hardware;
 
-        public EditProjectHardwareWorkWizardView(IEventBroker eventBroker)
+        public EditProjectHardwareTechnicianWorkWizardView(IEventBroker eventBroker)
             : base(eventBroker)
         {
         }
@@ -28,15 +28,15 @@ namespace Chiffrage.Projects.Module.Views.Impl
         protected override IWizardSettingIterator BuildWizardPages()
         {
 
-            this.editHardwarePage = new GenericWizardSetting<EditProjectHardwareWorkPage>("Edition d'un matériel",
+            this.editHardwarePage = new GenericWizardSetting<EditProjectHardwareTechnicianWorkPage>("Edition d'un matériel",
                                                                          "Vous pouvez ici éditer un matériel", true);
 
 
             this.editHardwarePage.TypedPage.HardwareName = this.hardware.Name;
-            this.editHardwarePage.TypedPage.CatalogWorkDays = this.hardware.CatalogWorkDays;
-            this.editHardwarePage.TypedPage.WorkDays = this.hardware.WorkDays;
-            this.editHardwarePage.TypedPage.WorkShortNights = this.hardware.WorkShortNights;
-            this.editHardwarePage.TypedPage.WorkLongNights = this.hardware.WorkLongNights;
+            this.editHardwarePage.TypedPage.CatalogWorkDays = this.hardware.CatalogTechnicianWorkDays;
+            this.editHardwarePage.TypedPage.WorkDays = this.hardware.TechnicianWorkDays;
+            this.editHardwarePage.TypedPage.WorkShortNights = this.hardware.TechnicianWorkShortNights;
+            this.editHardwarePage.TypedPage.WorkLongNights = this.hardware.TechnicianWorkLongNights;
 
             return new WizardSettingListIterator(this.editHardwarePage);
         }
@@ -45,7 +45,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
         {
             if(result == DialogResult.OK)
             {
-                var command = new UpdateProjectHardwareWorkCommand(
+                var command = new UpdateProjectHardwareTechnicianWorkCommand(
                     hardware.ProjectId,
                     hardware.Id,
                     this.editHardwarePage.TypedPage.WorkDays,
@@ -55,7 +55,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
             }
         }
 
-        public ProjectHardwareWorkViewModel Hardware
+        public ProjectHardwareTechnicianWorkViewModel Hardware
         {
             set { this.hardware = value; }
         }
