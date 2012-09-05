@@ -6,7 +6,6 @@ using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Chiffrage.Projects.Module.ViewModel;
 using Chiffrage.Catalogs.Domain;
-using Chiffrage.Core;
 using Chiffrage.Mvc;
 using Chiffrage.Catalogs.Module.ViewModel;
 

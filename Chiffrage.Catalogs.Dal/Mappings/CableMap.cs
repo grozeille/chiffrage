@@ -20,8 +20,8 @@ namespace Chiffrage.Catalogs.Dal.Propertypings
             Property(x => x.Length);
             Property(x => x.StudyDays);
             Property(x => x.ReferenceDays);
-            Property(x => x.CatalogWorkDays);
-            Property(x => x.CatalogExecutiveWorkDays);
+            Property(x => x.CatalogTechnicianWorkDays);
+            Property(x => x.CatalogWorkerWorkDays);
             Property(x => x.CatalogTestsDays);
         }
     }

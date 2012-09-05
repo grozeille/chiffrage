@@ -21,7 +21,6 @@ namespace Chiffrage.Projects.Module.Views.Impl.WizardPages
         {
             base.OnValidating(e);
 
-            int temp;
             double tempDouble;
             
             if (!double.TryParse(this.textBoxPrice.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out tempDouble))

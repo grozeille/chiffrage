@@ -1,5 +1,4 @@
-﻿using Chiffrage.Core;
-
+﻿
 namespace Chiffrage.Catalogs.Domain
 {
     public class Supply

@@ -6,7 +6,6 @@ using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Chiffrage.Projects.Module.ViewModel;
 using Chiffrage.Catalogs.Domain;
-using Chiffrage.Core;
 using Chiffrage.Mvc;
 using Chiffrage.Catalogs.Module.ViewModel;
 
@@ -45,8 +44,6 @@ namespace Chiffrage.Projects.Module.Views.Impl.WizardPages
         protected override void OnValidating(CancelEventArgs e)
         {
             base.OnValidating(e);
-
-            int temp;
 
             var selected = this.catalogHardwareViewModelBindingSource.Current as CatalogHardwareViewModel;
 

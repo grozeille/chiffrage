@@ -127,7 +127,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
                     {
                         this.calendarProjects.Items.Add(item);
                     }
-                    catch (NullReferenceException ex)
+                    catch (NullReferenceException)
                     {
                         this.calendarProjects.Items.Remove(item);
                     }

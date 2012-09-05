@@ -16,9 +16,9 @@ namespace Chiffrage.Catalogs.Domain.Commands
 
         private readonly double catalogReferenceDays;
 
-        private readonly double catalogWorkDays;
+        private readonly double catalogTechnicianWorkDays;
 
-        private readonly double catalogExecutiveWorkDays;
+        private readonly double catalogWorkerWorkDays;
 
         private readonly double catalogTestsDays;
 
@@ -27,16 +27,16 @@ namespace Chiffrage.Catalogs.Domain.Commands
             string name,
             double studyDays,
             double referenceDays,
-            double catalogWorkDays,
-            double catalogExecutiveWorkDays,
+            double catalogTechnicianWorkDays,
+            double catalogWorkerWorkDays,
             double catalogTestsDays)
         {
             this.catalogId = catalogId;
             this.name = name;
             this.catalogStudyDays = studyDays;
             this.catalogReferenceDays = referenceDays;
-            this.catalogWorkDays = catalogWorkDays;
-            this.catalogExecutiveWorkDays = catalogExecutiveWorkDays;
+            this.catalogTechnicianWorkDays = catalogTechnicianWorkDays;
+            this.catalogWorkerWorkDays = catalogWorkerWorkDays;
             this.catalogTestsDays = catalogTestsDays;
         }
 
@@ -48,9 +48,9 @@ namespace Chiffrage.Catalogs.Domain.Commands
 
         public double CatalogReferenceDays { get { return this.catalogReferenceDays; } }
 
-        public double CatalogWorkDays { get { return this.catalogWorkDays; } }
+        public double CatalogTechnicianWorkDays { get { return this.catalogTechnicianWorkDays; } }
 
-        public double CatalogExecutiveWorkDays { get { return this.catalogExecutiveWorkDays; } }
+        public double CatalogWorkerWorkDays { get { return this.catalogWorkerWorkDays; } }
 
         public double CatalogTestsDays { get { return this.catalogTestsDays; } }
     }

@@ -463,8 +463,6 @@
         private System.Windows.Forms.TabPage tabPageCostSummary;
         private System.Windows.Forms.DataVisualization.Charting.Chart chartProjectCost;
         private System.Windows.Forms.DataGridView dataGridViewItemSummary;
-        private System.Windows.Forms.DataGridViewTextBoxColumn projectIdDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn projectNameDataGridViewTextBoxColumn;
         private System.Windows.Forms.BindingSource projectSummaryItemViewModelBindingSource;
         private System.Windows.Forms.DataGridViewTextBoxColumn itemTypeDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn quantityDataGridViewTextBoxColumn;

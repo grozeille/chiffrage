@@ -291,17 +291,9 @@ namespace Chiffrage.Projects.Module.Views.Impl.WizardPages
         private System.Windows.Forms.Label labelCategory;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panelHeader;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn selectedDataGridViewCheckBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn supplierDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn referenceDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn priceDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn moduleSizeDataGridViewTextBoxColumn;
         private System.Windows.Forms.ErrorProvider errorProvider;
         private System.Windows.Forms.Timer timerFilter;
         private System.Windows.Forms.BindingSource catalogHardwareViewModelBindingSource;
-        private System.Windows.Forms.DataGridViewTextBoxColumn studyDaysDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn referenceDaysDataGridViewTextBoxColumn;
         private System.Windows.Forms.Label labelInvisible;
         private System.Windows.Forms.DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn catalogIdDataGridViewTextBoxColumn;

@@ -143,8 +143,8 @@ namespace Chiffrage.Projects.Domain.Services
 
             projectHardware.StudyDays = hardware.CatalogStudyDays;
             projectHardware.ReferenceDays = hardware.CatalogReferenceDays;
-            projectHardware.WorkDays = hardware.CatalogWorkDays;
-            projectHardware.ExecutiveWorkDays = hardware.CatalogExecutiveWorkDays;
+            projectHardware.WorkDays = hardware.CatalogTechnicianWorkDays;
+            projectHardware.ExecutiveWorkDays = hardware.CatalogWorkerWorkDays;
             projectHardware.TestsDays = hardware.CatalogTestsDays;
 
             foreach (var item in projectHardware.Components)

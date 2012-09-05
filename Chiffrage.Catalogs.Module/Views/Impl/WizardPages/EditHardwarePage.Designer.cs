@@ -38,10 +38,10 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.textBoxStudyDays = new System.Windows.Forms.TextBox();
-            this.textBoxCatalogWorkDays = new System.Windows.Forms.TextBox();
+            this.textBoxCatalogTechnicianWorkDays = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.textBoxReferenceDays = new System.Windows.Forms.TextBox();
-            this.textBoxCatalogExecutiveWorkDays = new System.Windows.Forms.TextBox();
+            this.textBoxCatalogWorkerWorkDays = new System.Windows.Forms.TextBox();
             this.textBoxTestsDays = new System.Windows.Forms.TextBox();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.tableLayoutPanel.SuspendLayout();
@@ -125,14 +125,14 @@
             this.textBoxStudyDays.TabIndex = 16;
             this.textBoxStudyDays.Text = "0";
             // 
-            // textBoxCatalogWorkDays
+            // textBoxCatalogTechnicianWorkDays
             // 
-            this.textBoxCatalogWorkDays.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxCatalogWorkDays.Location = new System.Drawing.Point(92, 101);
-            this.textBoxCatalogWorkDays.Name = "textBoxCatalogWorkDays";
-            this.textBoxCatalogWorkDays.Size = new System.Drawing.Size(194, 20);
-            this.textBoxCatalogWorkDays.TabIndex = 15;
-            this.textBoxCatalogWorkDays.Text = "0";
+            this.textBoxCatalogTechnicianWorkDays.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxCatalogTechnicianWorkDays.Location = new System.Drawing.Point(92, 101);
+            this.textBoxCatalogTechnicianWorkDays.Name = "textBoxCatalogTechnicianWorkDays";
+            this.textBoxCatalogTechnicianWorkDays.Size = new System.Drawing.Size(194, 20);
+            this.textBoxCatalogTechnicianWorkDays.TabIndex = 15;
+            this.textBoxCatalogTechnicianWorkDays.Text = "0";
             // 
             // tableLayoutPanel
             // 
@@ -149,8 +149,8 @@
             this.tableLayoutPanel.Controls.Add(this.label8, 0, 5);
             this.tableLayoutPanel.Controls.Add(this.textBoxStudyDays, 1, 2);
             this.tableLayoutPanel.Controls.Add(this.textBoxReferenceDays, 1, 3);
-            this.tableLayoutPanel.Controls.Add(this.textBoxCatalogWorkDays, 1, 4);
-            this.tableLayoutPanel.Controls.Add(this.textBoxCatalogExecutiveWorkDays, 1, 5);
+            this.tableLayoutPanel.Controls.Add(this.textBoxCatalogTechnicianWorkDays, 1, 4);
+            this.tableLayoutPanel.Controls.Add(this.textBoxCatalogWorkerWorkDays, 1, 5);
             this.tableLayoutPanel.Controls.Add(this.textBoxTestsDays, 1, 6);
             this.tableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel.Location = new System.Drawing.Point(0, 0);
@@ -176,14 +176,14 @@
             this.textBoxReferenceDays.TabIndex = 17;
             this.textBoxReferenceDays.Text = "0";
             // 
-            // textBoxCatalogExecutiveWorkDays
+            // textBoxCatalogWorkerWorkDays
             // 
-            this.textBoxCatalogExecutiveWorkDays.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxCatalogExecutiveWorkDays.Location = new System.Drawing.Point(92, 127);
-            this.textBoxCatalogExecutiveWorkDays.Name = "textBoxCatalogExecutiveWorkDays";
-            this.textBoxCatalogExecutiveWorkDays.Size = new System.Drawing.Size(194, 20);
-            this.textBoxCatalogExecutiveWorkDays.TabIndex = 13;
-            this.textBoxCatalogExecutiveWorkDays.Text = "0";
+            this.textBoxCatalogWorkerWorkDays.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxCatalogWorkerWorkDays.Location = new System.Drawing.Point(92, 127);
+            this.textBoxCatalogWorkerWorkDays.Name = "textBoxCatalogWorkerWorkDays";
+            this.textBoxCatalogWorkerWorkDays.Size = new System.Drawing.Size(194, 20);
+            this.textBoxCatalogWorkerWorkDays.TabIndex = 13;
+            this.textBoxCatalogWorkerWorkDays.Text = "0";
             // 
             // textBoxTestsDays
             // 
@@ -224,10 +224,10 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox textBoxStudyDays;
-        private System.Windows.Forms.TextBox textBoxCatalogWorkDays;
+        private System.Windows.Forms.TextBox textBoxCatalogTechnicianWorkDays;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel;
         private System.Windows.Forms.TextBox textBoxReferenceDays;
-        private System.Windows.Forms.TextBox textBoxCatalogExecutiveWorkDays;
+        private System.Windows.Forms.TextBox textBoxCatalogWorkerWorkDays;
         private System.Windows.Forms.TextBox textBoxTestsDays;
         private System.Windows.Forms.ErrorProvider errorProvider;
 

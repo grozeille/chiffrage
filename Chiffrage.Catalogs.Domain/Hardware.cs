@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Chiffrage.Core;
 
 namespace Chiffrage.Catalogs.Domain
 {
@@ -29,9 +28,9 @@ namespace Chiffrage.Catalogs.Domain
 
         public virtual double CatalogReferenceDays { get; set; }
 
-        public virtual double CatalogWorkDays { get; set; }
+        public virtual double CatalogTechnicianWorkDays { get; set; }
 
-        public virtual double CatalogExecutiveWorkDays { get; set; }
+        public virtual double CatalogWorkerWorkDays { get; set; }
 
         public virtual double CatalogTestsDays { get; set; }
     }
