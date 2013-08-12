@@ -37,12 +37,16 @@
             this.contextMenuStripDeal = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.imageList = new System.Windows.Forms.ImageList(this.components);
             this.treeView = new System.Windows.Forms.TreeView();
+            this.contextMenuStripProject = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItemNewDeal = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemNewCatalog = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemNewProject = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemDealCopy = new System.Windows.Forms.ToolStripMenuItem();
-            this.contextMenuStripProject = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolStripMenuItemDeleteDeal = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemProjectCopy = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripMenuItemDeleteProject = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.contextMenuStripDealsRoot.SuspendLayout();
             this.contextMenuStripCatalogsRoot.SuspendLayout();
@@ -68,9 +72,11 @@
             // 
             this.contextMenuStripDeal.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItemNewProject,
-            this.toolStripMenuItemDealCopy});
+            this.toolStripMenuItemDealCopy,
+            this.toolStripMenuItem2,
+            this.toolStripMenuItemDeleteDeal});
             this.contextMenuStripDeal.Name = "contextMenuStripDeal";
-            this.contextMenuStripDeal.Size = new System.Drawing.Size(157, 48);
+            this.contextMenuStripDeal.Size = new System.Drawing.Size(157, 98);
             // 
             // imageList
             // 
@@ -111,6 +117,20 @@
             this.treeView.Size = new System.Drawing.Size(203, 369);
             this.treeView.TabIndex = 4;
             // 
+            // contextMenuStripProject
+            // 
+            this.contextMenuStripProject.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItemProjectCopy,
+            this.toolStripSeparator1,
+            this.toolStripMenuItemDeleteProject});
+            this.contextMenuStripProject.Name = "contextMenuStripDeal";
+            this.contextMenuStripProject.Size = new System.Drawing.Size(130, 54);
+            // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(153, 6);
+            // 
             // toolStripMenuItemNewDeal
             // 
             this.toolStripMenuItemNewDeal.Image = global::Chiffrage.App.Properties.Resources.user_suit;
@@ -139,19 +159,31 @@
             this.toolStripMenuItemDealCopy.Size = new System.Drawing.Size(156, 22);
             this.toolStripMenuItemDealCopy.Text = "Dupliquer";
             // 
-            // contextMenuStripProject
+            // toolStripMenuItemDeleteDeal
             // 
-            this.contextMenuStripProject.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripMenuItemProjectCopy});
-            this.contextMenuStripProject.Name = "contextMenuStripDeal";
-            this.contextMenuStripProject.Size = new System.Drawing.Size(153, 48);
+            this.toolStripMenuItemDeleteDeal.Image = global::Chiffrage.App.Properties.Resources.cancel;
+            this.toolStripMenuItemDeleteDeal.Name = "toolStripMenuItemDeleteDeal";
+            this.toolStripMenuItemDeleteDeal.Size = new System.Drawing.Size(156, 22);
+            this.toolStripMenuItemDeleteDeal.Text = "Supprimer";
             // 
             // toolStripMenuItemProjectCopy
             // 
             this.toolStripMenuItemProjectCopy.Image = global::Chiffrage.App.Properties.Resources.page_paste;
             this.toolStripMenuItemProjectCopy.Name = "toolStripMenuItemProjectCopy";
-            this.toolStripMenuItemProjectCopy.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItemProjectCopy.Size = new System.Drawing.Size(129, 22);
             this.toolStripMenuItemProjectCopy.Text = "Dupliquer";
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(126, 6);
+            // 
+            // toolStripMenuItemDeleteProject
+            // 
+            this.toolStripMenuItemDeleteProject.Image = global::Chiffrage.App.Properties.Resources.cancel;
+            this.toolStripMenuItemDeleteProject.Name = "toolStripMenuItemDeleteProject";
+            this.toolStripMenuItemDeleteProject.Size = new System.Drawing.Size(129, 22);
+            this.toolStripMenuItemDeleteProject.Text = "Supprimer";
             // 
             // NavigationUserControl
             // 
@@ -185,5 +217,9 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemDealCopy;
         private System.Windows.Forms.ContextMenuStrip contextMenuStripProject;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemProjectCopy;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemDeleteDeal;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemDeleteProject;
     }
 }

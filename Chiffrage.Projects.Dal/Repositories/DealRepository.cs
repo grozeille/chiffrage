@@ -69,5 +69,16 @@ namespace Chiffrage.Projects.Dal.Repositories
         }
 
         #endregion
+
+
+        public void Delete(Deal deal)
+        {
+            var session = OpenSessionIfRequired();
+            using (var transaction = session.BeginTransaction())
+            {
+                session.Delete(deal);
+                session.Transaction.Commit();
+            }
+        }
     }
 }

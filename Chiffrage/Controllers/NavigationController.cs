@@ -101,6 +101,18 @@ namespace Chiffrage.App.Controllers
         }
 
         [Subscribe]
+        public void ProcessAction(DealDeletedEvent eventObject)
+        {
+            this.navigationView.RemoveDeal(eventObject.DealId);
+        }
+
+        [Subscribe]
+        public void ProcessAction(ProjectDeletedEvent eventObject)
+        {
+            this.navigationView.RemoveProject(eventObject.DealId, eventObject.ProjectId);
+        }
+
+        [Subscribe]
         public void ProcessAction(CatalogCreatedEvent eventObject)
         {
             Mapper.CreateMap<SupplierCatalog, CatalogItemViewModel>();

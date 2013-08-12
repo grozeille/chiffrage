@@ -72,6 +72,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Actions\RequestDeleteProjectAction.cs" />
+    <Compile Include="Actions\RequestDeleteDealAction.cs" />
     <Compile Include="Actions\RequestCopyProjectAction.cs" />
     <Compile Include="Actions\RequestCopyDealAction.cs" />
     <Compile Include="Actions\RequestEditProjectHardwareWorkerWorkAction.cs" />

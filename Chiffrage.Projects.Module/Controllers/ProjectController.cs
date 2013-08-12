@@ -649,5 +649,20 @@ namespace Chiffrage.Projects.Module.Controllers
 
             this.eventBroker.Publish(new ProjectCreatedEvent(deal, cloneProject));
         }
+
+        [Subscribe]
+        public void ProcessAction(RequestDeleteProjectAction eventObject)
+        {
+            var deal = this.dealRepository.FindById(eventObject.DealId);
+            var project = this.projectRepository.FindById(eventObject.ProjectId);
+
+            deal.Projects.Remove(project);
+
+            this.dealRepository.Save(deal);
+
+            this.projectRepository.Delete(project);
+
+            this.eventBroker.Publish(new ProjectDeletedEvent(deal.Id, project.Id));
+        }
     }
 }

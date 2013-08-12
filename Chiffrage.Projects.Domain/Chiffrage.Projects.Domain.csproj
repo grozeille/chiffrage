@@ -72,6 +72,8 @@
     <Compile Include="Commands\UpdateProjectHardwareSupplyCommand.cs" />
     <Compile Include="Commands\UpdateProjectSupplyCommand.cs" />
     <Compile Include="Deal.cs" />
+    <Compile Include="Events\ProjectDeletedEvent.cs" />
+    <Compile Include="Events\DealDeletedEvent.cs" />
     <Compile Include="Events\ProjectHardwareSupplyUpdatedEvent.cs" />
     <Compile Include="Events\ProjectHardwareUpdatedEvent.cs" />
     <Compile Include="Events\ProjectFrameDeletedEvent.cs" />

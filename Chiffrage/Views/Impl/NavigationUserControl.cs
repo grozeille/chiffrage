@@ -67,6 +67,41 @@ namespace Chiffrage
 
                 return null;
             });
+
+            this.eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemDeleteDeal, () =>
+            {
+                if (this.treeView.SelectedNode != null)
+                {
+                    var deal = this.treeView.SelectedNode.Tag as DealItemViewModel;
+                    if (deal != null)
+                    {
+                        if (MessageBox.Show("Êtes-vous sûr de vouloir supprimer cette affaire?", "Supprimer", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                        {
+                            return new RequestDeleteDealAction(deal.Id);
+                        }
+                    }
+                }
+
+                return null;
+            });
+
+            this.eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemDeleteProject, () =>
+            {
+                if (this.treeView.SelectedNode != null)
+                {
+                    var deal = this.treeView.SelectedNode.Parent.Tag as DealItemViewModel;
+                    var project = this.treeView.SelectedNode.Tag as ProjectItemViewModel;
+                    if (deal != null && project != null)
+                    {
+                        if (MessageBox.Show("Êtes-vous sûr de vouloir supprimer cet projet?", "Supprimer", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                        {
+                            return new RequestDeleteProjectAction(deal.Id, project.Id);
+                        }
+                    }
+                }
+
+                return null;
+            });
         }
 
         public NavigationUserControl()
@@ -275,6 +310,36 @@ namespace Chiffrage
 
                 this.eventBroker.RegisterTreeNodeSelectEventSource(nodeProject, new ProjectSelectedAction(viewModel.Id));
                 this.eventBroker.RegisterTreeNodeUnselectEventSource(nodeProject, new ProjectUnselectedAction(viewModel.Id));
+            });
+        }
+
+        public void RemoveDeal(int dealId)
+        {
+            InvokeIfRequired(() =>
+            {
+                this.treeView.BeginUpdate();
+
+                var node = this.GetDealTreeNode(dealId);
+
+                this.treeNodeDeals.Nodes.Remove(node);
+
+                this.treeView.EndUpdate();
+            });
+        }
+
+        public void RemoveProject(int dealId, int projectId)
+        {
+            InvokeIfRequired(() =>
+            {
+                this.treeView.BeginUpdate();
+
+                var dealNode = this.GetDealTreeNode(dealId);
+
+                var node = this.GetProjectTreeNode(projectId);
+
+                dealNode.Nodes.Remove(node);
+
+                this.treeView.EndUpdate();
             });
         }
 

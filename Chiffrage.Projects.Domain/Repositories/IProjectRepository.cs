@@ -9,5 +9,7 @@ namespace Chiffrage.Projects.Domain.Repositories
         IList<Project> FindAll();
 
         void Save(Project project);
+
+        void Delete(Project project);
     }
 }

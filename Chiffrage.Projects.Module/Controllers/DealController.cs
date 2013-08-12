@@ -161,6 +161,17 @@ namespace Chiffrage.Projects.Module.Controllers
             }
         }
 
+
+        [Subscribe]
+        public void ProcessAction(RequestDeleteDealAction eventObject)
+        {
+            var deal = this.dealRepository.FindById(eventObject.DealId);
+
+            this.dealRepository.Delete(deal);
+
+            this.eventBroker.Publish(new DealDeletedEvent(deal.Id));
+        }
+
         private DealViewModel Map(Deal deal)
         {
             Mapper.CreateMap<Deal, DealViewModel>();
