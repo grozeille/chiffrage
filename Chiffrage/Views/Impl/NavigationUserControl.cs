@@ -217,9 +217,6 @@ namespace Chiffrage
             {
                 var node = this.GetDealTreeNode(dealId);
 
-                node.Tag = viewModel;
-                node.ContextMenuStrip = this.contextMenuStripProject;
-
                 this.AddProject(node, viewModel);
             });
         }

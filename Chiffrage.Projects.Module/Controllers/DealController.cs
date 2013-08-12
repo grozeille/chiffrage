@@ -155,10 +155,6 @@ namespace Chiffrage.Projects.Module.Controllers
             this.dealRepository.Save(cloneDeal);
             
             this.eventBroker.Publish(new DealCreatedEvent(cloneDeal));
-            foreach (var p in cloneDeal.Projects)
-            {
-                this.eventBroker.Publish(new ProjectCreatedEvent(cloneDeal, p));
-            }
         }
 
 
