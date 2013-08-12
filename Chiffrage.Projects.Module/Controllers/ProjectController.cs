@@ -51,6 +51,8 @@ namespace Chiffrage.Projects.Module.Controllers
 
         private readonly IEditProjectHardwareStudyReferenceTestsView editProjectHardwareStudyReferenceTestsView;
 
+        private readonly IEventBroker eventBroker;
+
         // no better way...
         private readonly System.Windows.Forms.RichTextBox rtBox = new System.Windows.Forms.RichTextBox();
         
@@ -68,7 +70,8 @@ namespace Chiffrage.Projects.Module.Controllers
             IEditProjectHardwareTechnicianWorkView editProjectHardwareTechnicianWorkView,
             IEditProjectHardwareWorkerWorkView editProjectHardwareWorkerWorkView,
             IEditProjectHardwareStudyReferenceTestsView editProjectHardwareStudyReferenceTestsView,
-            ICatalogRepository catalogRepository)
+            ICatalogRepository catalogRepository, 
+            IEventBroker eventBroker)
         {
             this.projectView = projectView;
             this.newProjectView = newProjectView;
@@ -84,6 +87,7 @@ namespace Chiffrage.Projects.Module.Controllers
             this.editProjectHardwareWorkerWorkView = editProjectHardwareWorkerWorkView;
             this.editProjectHardwareStudyReferenceTestsView = editProjectHardwareStudyReferenceTestsView;
             this.catalogRepository = catalogRepository;
+            this.eventBroker = eventBroker;
         }
 
 
@@ -577,6 +581,73 @@ namespace Chiffrage.Projects.Module.Controllers
         {
             this.editProjectHardwareStudyReferenceTestsView.Hardware = eventObject.Hardware;
             this.editProjectHardwareStudyReferenceTestsView.ShowView();
+        }
+
+        [Subscribe]
+        public void ProcessAction(RequestCopyProjectAction eventObject)
+        {
+            var deal = this.dealRepository.FindById(eventObject.DealId);
+            var project = this.projectRepository.FindById(eventObject.ProjectId);
+
+            Mapper.CreateMap<ProjectSupply, ProjectSupply>();
+            Mapper.CreateMap<ProjectHardwareSupply, ProjectHardwareSupply>();
+            Mapper.CreateMap<ProjectHardware, ProjectHardware>();
+            Mapper.CreateMap<OtherBenefit, OtherBenefit>();
+            Mapper.CreateMap<ProjectFrame, ProjectFrame>();
+            Mapper.CreateMap<Project, Project>();
+
+
+            Project cloneProject = Mapper.Map<Project, Project>(project);
+            cloneProject.Name += " (copie)";
+            cloneProject.Id = 0;
+            deal.Projects.Add(cloneProject);
+
+            cloneProject.Supplies = new List<ProjectSupply>();
+            foreach (var s in project.Supplies)
+            {
+                ProjectSupply cloneProjectSupply = Mapper.Map<ProjectSupply, ProjectSupply>(s);
+                cloneProjectSupply.Id = 0;
+                cloneProject.Supplies.Add(cloneProjectSupply);
+            }
+
+            cloneProject.Hardwares = new List<ProjectHardware>();
+            foreach (var h in project.Hardwares)
+            {
+                ProjectHardware cloneHardware = Mapper.Map<ProjectHardware, ProjectHardware>(h);
+                cloneHardware.Id = 0;
+                cloneProject.Hardwares.Add(cloneHardware);
+
+                cloneHardware.Components = new List<ProjectHardwareSupply>();
+                foreach (var s in h.Components)
+                {
+                    ProjectHardwareSupply cloneSupply = Mapper.Map<ProjectHardwareSupply, ProjectHardwareSupply>(s);
+                    s.Id = 0;
+                    cloneHardware.Components.Add(s);
+                }
+            }
+
+            cloneProject.OtherBenefits = new List<OtherBenefit>();
+            foreach (var o in project.OtherBenefits)
+            {
+                OtherBenefit cloneOtherBenefits = Mapper.Map<OtherBenefit, OtherBenefit>(o);
+                cloneOtherBenefits.Id = 0;
+                cloneProject.OtherBenefits.Add(cloneOtherBenefits);
+            }
+
+            cloneProject.Frames = new List<ProjectFrame>();
+            foreach (var f in project.Frames)
+            {
+                ProjectFrame cloneFrame = Mapper.Map<ProjectFrame, ProjectFrame>(f);
+                cloneFrame.Id = 0;
+                cloneProject.Frames.Add(cloneFrame);
+            }
+
+
+            this.dealRepository.Save(deal);
+
+            this.eventBroker.Publish(new DealCreatedEvent(deal));
+
+            this.eventBroker.Publish(new ProjectCreatedEvent(deal, cloneProject));
         }
     }
 }

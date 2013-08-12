@@ -53,6 +53,20 @@ namespace Chiffrage
 
                 return null;
             });
+            this.eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemProjectCopy, () =>
+            {
+                if (this.treeView.SelectedNode != null)
+                {
+                    var deal = this.treeView.SelectedNode.Parent.Tag as DealItemViewModel;
+                    var project = this.treeView.SelectedNode.Tag as ProjectItemViewModel;
+                    if (deal != null && project != null)
+                    {
+                        return new RequestCopyProjectAction(deal.Id, project.Id);
+                    }
+                }
+
+                return null;
+            });
         }
 
         public NavigationUserControl()
@@ -167,6 +181,10 @@ namespace Chiffrage
             InvokeIfRequired(() =>
             {
                 var node = this.GetDealTreeNode(dealId);
+
+                node.Tag = viewModel;
+                node.ContextMenuStrip = this.contextMenuStripProject;
+
                 this.AddProject(node, viewModel);
             });
         }
@@ -253,6 +271,7 @@ namespace Chiffrage
                 var nodeProject = nodeDeal.Nodes.Add("project_" + viewModel.Id, viewModel.Name, "report.png",
                                                      "report.png");
                 nodeProject.Tag = viewModel;
+                nodeProject.ContextMenuStrip = this.contextMenuStripProject;
 
                 this.eventBroker.RegisterTreeNodeSelectEventSource(nodeProject, new ProjectSelectedAction(viewModel.Id));
                 this.eventBroker.RegisterTreeNodeUnselectEventSource(nodeProject, new ProjectUnselectedAction(viewModel.Id));

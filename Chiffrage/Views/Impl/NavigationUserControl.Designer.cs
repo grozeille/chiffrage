@@ -30,8 +30,8 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NavigationUserControl));
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Affaires");
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Catalogues");
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Affaires");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Catalogues");
             this.contextMenuStripDealsRoot = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.contextMenuStripCatalogsRoot = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.contextMenuStripDeal = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -41,10 +41,13 @@
             this.toolStripMenuItemNewCatalog = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemNewProject = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItemDealCopy = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuStripProject = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.toolStripMenuItemProjectCopy = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.contextMenuStripDealsRoot.SuspendLayout();
             this.contextMenuStripCatalogsRoot.SuspendLayout();
             this.contextMenuStripDeal.SuspendLayout();
+            this.contextMenuStripProject.SuspendLayout();
             this.SuspendLayout();
             // 
             // contextMenuStripDealsRoot
@@ -67,7 +70,7 @@
             this.toolStripMenuItemNewProject,
             this.toolStripMenuItemDealCopy});
             this.contextMenuStripDeal.Name = "contextMenuStripDeal";
-            this.contextMenuStripDeal.Size = new System.Drawing.Size(157, 70);
+            this.contextMenuStripDeal.Size = new System.Drawing.Size(157, 48);
             // 
             // imageList
             // 
@@ -90,19 +93,19 @@
             this.treeView.ImageList = this.imageList;
             this.treeView.Location = new System.Drawing.Point(1, 1);
             this.treeView.Name = "treeView";
-            treeNode3.ContextMenuStrip = this.contextMenuStripDealsRoot;
-            treeNode3.ImageKey = "folder_user.png";
-            treeNode3.Name = "TreeNodeDeals";
-            treeNode3.SelectedImageKey = "folder_user.png";
-            treeNode3.Text = "Affaires";
-            treeNode4.ContextMenuStrip = this.contextMenuStripCatalogsRoot;
-            treeNode4.ImageKey = "folder_table.png";
-            treeNode4.Name = "TreeNodeCatalogs";
-            treeNode4.SelectedImageKey = "folder_table.png";
-            treeNode4.Text = "Catalogues";
+            treeNode1.ContextMenuStrip = this.contextMenuStripDealsRoot;
+            treeNode1.ImageKey = "folder_user.png";
+            treeNode1.Name = "TreeNodeDeals";
+            treeNode1.SelectedImageKey = "folder_user.png";
+            treeNode1.Text = "Affaires";
+            treeNode2.ContextMenuStrip = this.contextMenuStripCatalogsRoot;
+            treeNode2.ImageKey = "folder_table.png";
+            treeNode2.Name = "TreeNodeCatalogs";
+            treeNode2.SelectedImageKey = "folder_table.png";
+            treeNode2.Text = "Catalogues";
             this.treeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode3,
-            treeNode4});
+            treeNode1,
+            treeNode2});
             this.treeView.SelectedImageIndex = 0;
             this.treeView.ShowRootLines = false;
             this.treeView.Size = new System.Drawing.Size(203, 369);
@@ -136,6 +139,20 @@
             this.toolStripMenuItemDealCopy.Size = new System.Drawing.Size(156, 22);
             this.toolStripMenuItemDealCopy.Text = "Dupliquer";
             // 
+            // contextMenuStripProject
+            // 
+            this.contextMenuStripProject.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItemProjectCopy});
+            this.contextMenuStripProject.Name = "contextMenuStripDeal";
+            this.contextMenuStripProject.Size = new System.Drawing.Size(153, 48);
+            // 
+            // toolStripMenuItemProjectCopy
+            // 
+            this.toolStripMenuItemProjectCopy.Image = global::Chiffrage.App.Properties.Resources.page_paste;
+            this.toolStripMenuItemProjectCopy.Name = "toolStripMenuItemProjectCopy";
+            this.toolStripMenuItemProjectCopy.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItemProjectCopy.Text = "Dupliquer";
+            // 
             // NavigationUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -150,6 +167,7 @@
             this.contextMenuStripDealsRoot.ResumeLayout(false);
             this.contextMenuStripCatalogsRoot.ResumeLayout(false);
             this.contextMenuStripDeal.ResumeLayout(false);
+            this.contextMenuStripProject.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -165,5 +183,7 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuStripCatalogsRoot;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemNewCatalog;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemDealCopy;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStripProject;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemProjectCopy;
     }
 }

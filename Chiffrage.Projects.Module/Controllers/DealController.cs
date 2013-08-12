@@ -118,12 +118,12 @@ namespace Chiffrage.Projects.Module.Controllers
                     cloneProject.Supplies.Add(cloneProjectSupply);
                 }
 
-                p.Hardwares = new List<ProjectHardware>();
+                cloneProject.Hardwares = new List<ProjectHardware>();
                 foreach (var h in p.Hardwares)
                 {
                     ProjectHardware cloneHardware = Mapper.Map<ProjectHardware, ProjectHardware>(h);
                     cloneHardware.Id = 0;
-                    p.Hardwares.Add(cloneHardware);
+                    cloneProject.Hardwares.Add(cloneHardware);
 
                     cloneHardware.Components = new List<ProjectHardwareSupply>();
                     foreach (var s in h.Components)
@@ -134,35 +134,31 @@ namespace Chiffrage.Projects.Module.Controllers
                     }
                 }
 
-                p.OtherBenefits = new List<OtherBenefit>();
+                cloneProject.OtherBenefits = new List<OtherBenefit>();
                 foreach (var o in p.OtherBenefits)
                 {
                     OtherBenefit cloneOtherBenefits = Mapper.Map<OtherBenefit, OtherBenefit>(o);
                     cloneOtherBenefits.Id = 0;
-                    p.OtherBenefits.Add(cloneOtherBenefits);
+                    cloneProject.OtherBenefits.Add(cloneOtherBenefits);
                 }
 
-                p.Frames = new List<ProjectFrame>();
+                cloneProject.Frames = new List<ProjectFrame>();
                 foreach (var f in p.Frames)
                 {
                     ProjectFrame cloneFrame = Mapper.Map<ProjectFrame, ProjectFrame>(f);
                     cloneFrame.Id = 0;
-                    p.Frames.Add(cloneFrame);
+                    cloneProject.Frames.Add(cloneFrame);
                 }
             }
 
 
             this.dealRepository.Save(cloneDeal);
-            /*foreach (var p in cloneDeal.Projects)
-            {
-                this.projectRepository.Save(p);
-            }*/
             
             this.eventBroker.Publish(new DealCreatedEvent(cloneDeal));
-            /*foreach (var p in cloneDeal.Projects)
+            foreach (var p in cloneDeal.Projects)
             {
                 this.eventBroker.Publish(new ProjectCreatedEvent(cloneDeal, p));
-            }*/
+            }
         }
 
         private DealViewModel Map(Deal deal)
