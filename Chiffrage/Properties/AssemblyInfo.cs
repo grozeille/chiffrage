@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Chiffrage")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Microsoft")]
+[assembly: AssemblyCompany("Grozeille")]
 [assembly: AssemblyProduct("Chiffrage")]
-[assembly: AssemblyCopyright("Copyright © Microsoft 2009")]
+[assembly: AssemblyCopyright("Copyright © Grozeille 2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
