@@ -40,6 +40,19 @@ namespace Chiffrage
 
                 return null;
             });
+            this.eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemDealCopy, () =>
+            {
+                if (this.treeView.SelectedNode != null)
+                {
+                    var deal = this.treeView.SelectedNode.Tag as DealItemViewModel;
+                    if (deal != null)
+                    {
+                        return new RequestCopyDealAction(deal.Id);
+                    }
+                }
+
+                return null;
+            });
         }
 
         public NavigationUserControl()

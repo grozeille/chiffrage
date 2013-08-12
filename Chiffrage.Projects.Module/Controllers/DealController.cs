@@ -21,14 +21,18 @@ namespace Chiffrage.Projects.Module.Controllers
         private static ILog logger = LogManager.GetLogger(typeof(DealController));
 
         private readonly IDealRepository dealRepository;
+        private readonly IProjectRepository projectRepository;
         private readonly IDealView dealView;
         private readonly INewDealView newDealView;
+        private readonly IEventBroker eventBroker;
 
-        public DealController(IDealRepository dealRepository, IDealView dealView, INewDealView newDealView)
+        public DealController(IDealRepository dealRepository, IProjectRepository projectRepository, IDealView dealView, INewDealView newDealView, IEventBroker eventBroker)
         {
             this.dealView = dealView;
             this.newDealView = newDealView;
             this.dealRepository = dealRepository;
+            this.eventBroker = eventBroker;
+            this.projectRepository = projectRepository;
         }
 
         [Subscribe]
@@ -40,27 +44,19 @@ namespace Chiffrage.Projects.Module.Controllers
         [Subscribe]
         public void ProcessAction(DealSelectedAction eventObject)
         {
-            logger.Error("ProcessAction");
             var deal = this.dealRepository.FindById(eventObject.Id);
-            logger.Error("ProcessAction FindById End");
             var dealViewModel = this.Map(deal);
-            logger.Error("ProcessAction Map End");
-
+            
             Mapper.CreateMap<Project, DealProjectCalendarItemViewModel>()
                 .ForMember(x => x.ProjectId, y => y.MapFrom(z => z.Id));
 
-            logger.Error("ProcessAction CreateMap End");
             var calendarItems = Mapper.Map<IList<Project>, List<DealProjectCalendarItemViewModel>>(deal.Projects);
-            logger.Error("ProcessAction Map End");
-
+            
             this.dealView.SetDealViewModel(dealViewModel);
-            logger.Error("ProcessAction SetDealViewModel End");
             this.dealView.SetCalendarItems(calendarItems);
-            logger.Error("ProcessAction SetCalendarItems End");
             this.dealView.SetSummaryItems(deal.BuildSummaryItems());
-            logger.Error("ProcessAction SetSummaryItems End");
             this.dealView.SetProjectCostSummaryItems(deal.BuildDealProjectCostSummaryItems());
-            logger.Error("ProcessAction SetProjectCostSummaryItems End");
+            
             this.dealView.ShowView();
         }
 
@@ -89,6 +85,84 @@ namespace Chiffrage.Projects.Module.Controllers
         public void ProcessAction(RequestNewDealAction eventObject)
         {
             this.newDealView.ShowView();
+        }
+
+        [Subscribe]
+        public void ProcessAction(RequestCopyDealAction eventObject)
+        {
+            var deal = this.dealRepository.FindById(eventObject.DealId);
+            Mapper.CreateMap<ProjectSupply, ProjectSupply>();
+            Mapper.CreateMap<ProjectHardwareSupply, ProjectHardwareSupply>();
+            Mapper.CreateMap<ProjectHardware, ProjectHardware>();
+            Mapper.CreateMap<OtherBenefit, OtherBenefit>();
+            Mapper.CreateMap<ProjectFrame, ProjectFrame>();
+            Mapper.CreateMap<Project, Project>();
+            Mapper.CreateMap<Deal, Deal>();
+
+            var cloneDeal = Mapper.Map<Deal, Deal>(deal);
+            cloneDeal.Name += " (copie)";
+            cloneDeal.Id = 0;
+
+            cloneDeal.Projects = new List<Project>();
+            foreach (var p in deal.Projects)
+            {
+                Project cloneProject = Mapper.Map<Project, Project>(p);
+                cloneProject.Id = 0;
+                cloneDeal.Projects.Add(cloneProject);
+
+                cloneProject.Supplies = new List<ProjectSupply>();
+                foreach (var s in p.Supplies)
+                {
+                    ProjectSupply cloneProjectSupply = Mapper.Map<ProjectSupply, ProjectSupply>(s);
+                    cloneProjectSupply.Id = 0;
+                    cloneProject.Supplies.Add(cloneProjectSupply);
+                }
+
+                p.Hardwares = new List<ProjectHardware>();
+                foreach (var h in p.Hardwares)
+                {
+                    ProjectHardware cloneHardware = Mapper.Map<ProjectHardware, ProjectHardware>(h);
+                    cloneHardware.Id = 0;
+                    p.Hardwares.Add(cloneHardware);
+
+                    cloneHardware.Components = new List<ProjectHardwareSupply>();
+                    foreach (var s in h.Components)
+                    {
+                        ProjectHardwareSupply cloneSupply = Mapper.Map<ProjectHardwareSupply, ProjectHardwareSupply>(s);
+                        s.Id = 0;
+                        cloneHardware.Components.Add(s);
+                    }
+                }
+
+                p.OtherBenefits = new List<OtherBenefit>();
+                foreach (var o in p.OtherBenefits)
+                {
+                    OtherBenefit cloneOtherBenefits = Mapper.Map<OtherBenefit, OtherBenefit>(o);
+                    cloneOtherBenefits.Id = 0;
+                    p.OtherBenefits.Add(cloneOtherBenefits);
+                }
+
+                p.Frames = new List<ProjectFrame>();
+                foreach (var f in p.Frames)
+                {
+                    ProjectFrame cloneFrame = Mapper.Map<ProjectFrame, ProjectFrame>(f);
+                    cloneFrame.Id = 0;
+                    p.Frames.Add(cloneFrame);
+                }
+            }
+
+
+            this.dealRepository.Save(cloneDeal);
+            /*foreach (var p in cloneDeal.Projects)
+            {
+                this.projectRepository.Save(p);
+            }*/
+            
+            this.eventBroker.Publish(new DealCreatedEvent(cloneDeal));
+            /*foreach (var p in cloneDeal.Projects)
+            {
+                this.eventBroker.Publish(new ProjectCreatedEvent(cloneDeal, p));
+            }*/
         }
 
         private DealViewModel Map(Deal deal)

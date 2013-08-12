@@ -294,6 +294,7 @@
     <Content Include="app.ico" />
     <None Include="Resources\transparent.png" />
     <None Include="Resources\transparent1.png" />
+    <None Include="Resources\page_paste.png" />
     <Content Include="x64\SQLite.Interop.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
