@@ -129,7 +129,7 @@ namespace Chiffrage.Projects.Module.Controllers
                     foreach (var s in h.Components)
                     {
                         ProjectHardwareSupply cloneSupply = Mapper.Map<ProjectHardwareSupply, ProjectHardwareSupply>(s);
-                        s.Id = 0;
+                        cloneSupply.Id = 0;
                         cloneHardware.Components.Add(s);
                     }
                 }
