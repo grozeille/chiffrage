@@ -96,6 +96,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\CatalogHardwareSelectionViewModel.cs" />
     <Compile Include="ViewModel\CostSummaryItemViewModelBuilder.cs" />
     <Compile Include="ViewModel\ProjectSummaryItemViewModelBuilder.cs" />
     <Compile Include="ViewModel\DealProjectCostViewModel.cs" />
@@ -307,6 +308,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Properties\DataSources\Chiffrage.Catalogs.Module.ViewModel.CatalogViewModel.datasource" />
+    <None Include="Properties\DataSources\Chiffrage.Projects.Module.ViewModel.CatalogHardwareSelectionViewModel.datasource" />
     <None Include="Properties\DataSources\Chiffrage.Projects.Module.ViewModel.ProjectCostSummaryViewModel.datasource" />
     <None Include="Properties\DataSources\Chiffrage.Projects.Module.ViewModel.ProjectHardwareWorkerWorkViewModel.datasource" />
     <None Include="Properties\DataSources\Chiffrage.Projects.Module.ViewModel.ProjectHardwareStudyReferenceTestViewModel.datasource" />

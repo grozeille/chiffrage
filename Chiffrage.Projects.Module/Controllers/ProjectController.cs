@@ -395,28 +395,30 @@ namespace Chiffrage.Projects.Module.Controllers
         public void ProcessAction(RequestNewProjectHardwareAction eventObject)
         {
             var catalogs = this.catalogRepository.FindAll();
-            List<CatalogHardwareViewModel> hardwaresViewModel = new List<CatalogHardwareViewModel>();
-            Mapper.CreateMap<Hardware, CatalogHardwareViewModel>();
+            List<CatalogHardwareSelectionViewModel> hardwaresViewModel = new List<CatalogHardwareSelectionViewModel>();
+            Mapper.CreateMap<Hardware, CatalogHardwareSelectionViewModel>();
             Mapper.CreateMap<HardwareSupply, CatalogHardwareSupplyViewModel>();
 
             foreach (var catalog in catalogs)
             {
-                var hardwares = Mapper.Map<IList<Hardware>, IList<CatalogHardwareViewModel>>(catalog.Hardwares);
+                var hardwares = Mapper.Map<IList<Hardware>, IList<CatalogHardwareSelectionViewModel>>(catalog.Hardwares);
                 foreach (var item in hardwares)
                 {
                     item.CatalogId = catalog.Id;
-                    item.ModuleSize = item.Components.Sum(x => x.SupplyModuleSize * x.Quantity);
-                    item.CatalogPrice = item.Components.Sum(x => x.SupplyCatalogPrice * x.Quantity);
-                    foreach (var subItem in item.Components)
-                    {
-                        subItem.HardwareId = item.Id;
-                        subItem.CatalogId = catalog.Id;
-                        if (subItem.Comment.StartsWith("{\\rtf"))
-                        {
-                            rtBox.Rtf = string.IsNullOrEmpty(subItem.Comment) ? "{\\rtf}" : subItem.Comment;
-                            subItem.Comment = rtBox.Text;
-                        }
-                    }
+                    item.CatalogName = catalog.SupplierName;
+                    item.Quantity = 1;
+                    //item.ModuleSize = item.Components.Sum(x => x.SupplyModuleSize * x.Quantity);
+                    //item.CatalogPrice = item.Components.Sum(x => x.SupplyCatalogPrice * x.Quantity);
+                    //foreach (var subItem in item.Components)
+                    //{
+                    //    subItem.HardwareId = item.Id;
+                    //    subItem.CatalogId = catalog.Id;
+                    //    if (subItem.Comment.StartsWith("{\\rtf"))
+                    //    {
+                    //        rtBox.Rtf = string.IsNullOrEmpty(subItem.Comment) ? "{\\rtf}" : subItem.Comment;
+                    //        subItem.Comment = rtBox.Text;
+                    //    }
+                    //}
                 }
                 hardwaresViewModel.AddRange(hardwares);
             }

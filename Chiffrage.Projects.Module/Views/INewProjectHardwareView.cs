@@ -12,6 +12,6 @@ namespace Chiffrage.Projects.Module.Views
     {
         int ProjectId { set; }
 
-        IList<CatalogHardwareViewModel> Hardwares { set; }
+        IList<CatalogHardwareSelectionViewModel> Hardwares { set; }
     }
 }

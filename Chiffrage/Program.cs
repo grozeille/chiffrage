@@ -27,7 +27,6 @@ namespace Chiffrage.App
     {
         private static ILog logger = LogManager.GetLogger(typeof(Program));
 
-
         /// <summary>
         /// The main entry point for the application.
         /// </summary>

@@ -12,6 +12,7 @@ using NHibernate.Cfg.MappingSchema;
 using System.IO;
 using Chiffrage.Catalogs.Dal.Repositories;
 using Chiffrage.App;
+using NHibernate.Context;
 
 namespace Chiffrage.App.Ioc
 {
@@ -37,6 +38,11 @@ namespace Chiffrage.App.Ioc
 
             var dealConfiguration = new Configuration()
             .Proxy(p => p.ProxyFactoryFactory<NHibernate.Bytecode.DefaultProxyFactoryFactory>())
+            .CurrentSessionContext<CatalogSessionContext>()
+            .Cache(x =>
+            {
+                x.UseQueryCache = true;
+            })
             .DataBaseIntegration(d =>
             {
                 d.ConnectionString = string.Format("Data Source={0};Version=3;", file);
@@ -54,7 +60,11 @@ namespace Chiffrage.App.Ioc
             HbmMapping dealMapping = dealMapper.CompileMappingForAllExplicitlyAddedEntities();
             dealConfiguration.AddMapping(dealMapping);
 
-            return dealConfiguration.BuildSessionFactory();
+            var factory = dealConfiguration.BuildSessionFactory();
+
+            ProjectSessionContext.Bind(factory.OpenSession());
+
+            return factory;
         }
 
         private ISessionFactory BuildCatalogSessionFactory()
@@ -67,6 +77,11 @@ namespace Chiffrage.App.Ioc
 
             var catalogConfiguration = new Configuration()
             .Proxy(p => p.ProxyFactoryFactory<NHibernate.Bytecode.DefaultProxyFactoryFactory>())
+            .CurrentSessionContext<ProjectSessionContext>()
+            .Cache(x =>
+            {
+                x.UseQueryCache = true;
+            })
             .DataBaseIntegration(new Action<NHibernate.Cfg.Loquacious.IDbIntegrationConfigurationProperties>((d) =>
             {
                 d.ConnectionString = string.Format("Data Source={0};Version=3;", catalogPath);
@@ -82,7 +97,11 @@ namespace Chiffrage.App.Ioc
             HbmMapping catalogMapping = catalogMapper.CompileMappingForAllExplicitlyAddedEntities();
             catalogConfiguration.AddMapping(catalogMapping);
 
-            return catalogConfiguration.BuildSessionFactory();
+            var factory = catalogConfiguration.BuildSessionFactory();
+
+            CatalogSessionContext.Bind(factory.OpenSession());
+
+            return factory;
         }
 
         public static bool IsRunningOnMono ()

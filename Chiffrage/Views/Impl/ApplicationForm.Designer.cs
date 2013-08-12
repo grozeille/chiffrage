@@ -109,7 +109,7 @@
             // splitContainer.Panel2
             // 
             this.splitContainer.Panel2.Padding = new System.Windows.Forms.Padding(0, 3, 3, 3);
-            this.splitContainer.Size = new System.Drawing.Size(1227, 603);
+            this.splitContainer.Size = new System.Drawing.Size(1227, 681);
             this.splitContainer.SplitterDistance = 254;
             this.splitContainer.TabIndex = 2;
             // 
@@ -191,7 +191,7 @@
             // 
             this.catalogueToolStripMenuItem1.Image = global::Chiffrage.App.Properties.Resources.book_open;
             this.catalogueToolStripMenuItem1.Name = "catalogueToolStripMenuItem1";
-            this.catalogueToolStripMenuItem1.Size = new System.Drawing.Size(152, 22);
+            this.catalogueToolStripMenuItem1.Size = new System.Drawing.Size(128, 22);
             this.catalogueToolStripMenuItem1.Text = "Catalogue";
             // 
             // toolStripSeparator
@@ -229,14 +229,14 @@
             // 
             this.affaireToolStripMenuItem2.Image = global::Chiffrage.App.Properties.Resources.user_suit;
             this.affaireToolStripMenuItem2.Name = "affaireToolStripMenuItem2";
-            this.affaireToolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
+            this.affaireToolStripMenuItem2.Size = new System.Drawing.Size(128, 22);
             this.affaireToolStripMenuItem2.Text = "Affaire";
             // 
             // projetToolStripMenuItem2
             // 
             this.projetToolStripMenuItem2.Image = global::Chiffrage.App.Properties.Resources.report;
             this.projetToolStripMenuItem2.Name = "projetToolStripMenuItem2";
-            this.projetToolStripMenuItem2.Size = new System.Drawing.Size(152, 22);
+            this.projetToolStripMenuItem2.Size = new System.Drawing.Size(128, 22);
             this.projetToolStripMenuItem2.Text = "Projet";
             this.projetToolStripMenuItem2.Visible = false;
             // 
@@ -337,7 +337,7 @@
             // 
             this.splitContainerMain.Panel1.Controls.Add(this.splitContainer);
             this.splitContainerMain.Size = new System.Drawing.Size(1227, 710);
-            this.splitContainerMain.SplitterDistance = 603;
+            this.splitContainerMain.SplitterDistance = 681;
             this.splitContainerMain.TabIndex = 8;
             // 
             // ApplicationForm

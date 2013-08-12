@@ -12,11 +12,14 @@ using Chiffrage.Projects.Domain.Events;
 using Chiffrage.Projects.Domain.Commands;
 using Chiffrage.Common.Module.Actions;
 using System.Collections.Generic;
+using Common.Logging;
 
 namespace Chiffrage.Projects.Module.Controllers
 {
     public class DealController : IController
     {
+        private static ILog logger = LogManager.GetLogger(typeof(DealController));
+
         private readonly IDealRepository dealRepository;
         private readonly IDealView dealView;
         private readonly INewDealView newDealView;
@@ -37,22 +40,27 @@ namespace Chiffrage.Projects.Module.Controllers
         [Subscribe]
         public void ProcessAction(DealSelectedAction eventObject)
         {
+            logger.Error("ProcessAction");
             var deal = this.dealRepository.FindById(eventObject.Id);
-
+            logger.Error("ProcessAction FindById End");
             var dealViewModel = this.Map(deal);
+            logger.Error("ProcessAction Map End");
 
             Mapper.CreateMap<Project, DealProjectCalendarItemViewModel>()
                 .ForMember(x => x.ProjectId, y => y.MapFrom(z => z.Id));
 
+            logger.Error("ProcessAction CreateMap End");
             var calendarItems = Mapper.Map<IList<Project>, List<DealProjectCalendarItemViewModel>>(deal.Projects);
-            
+            logger.Error("ProcessAction Map End");
+
             this.dealView.SetDealViewModel(dealViewModel);
+            logger.Error("ProcessAction SetDealViewModel End");
             this.dealView.SetCalendarItems(calendarItems);
-
+            logger.Error("ProcessAction SetCalendarItems End");
             this.dealView.SetSummaryItems(deal.BuildSummaryItems());
-
+            logger.Error("ProcessAction SetSummaryItems End");
             this.dealView.SetProjectCostSummaryItems(deal.BuildDealProjectCostSummaryItems());
-
+            logger.Error("ProcessAction SetProjectCostSummaryItems End");
             this.dealView.ShowView();
         }
 

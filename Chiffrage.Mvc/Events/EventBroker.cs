@@ -13,6 +13,8 @@ namespace Chiffrage.Mvc.Events
 {
     public class EventBroker: IEventBroker, IDisposable
     {
+        private static ILog logger = LogManager.GetLogger(typeof(EventBroker));
+
         private readonly BlockingQueue<Message> eventQueue = new BlockingQueue<Message>(Int32.MaxValue);
 
         private Thread dispatchingThread;
@@ -201,7 +203,6 @@ namespace Chiffrage.Mvc.Events
                 if (this.eventQueue.TryDequeue(out message))
                 {
                     subscribersLock.EnterReadLock();
-                    
                     foreach (var subscriber in this.subscribers)
                     {
                         if (subscriber.EventType.IsInstanceOfType(message.Body))
@@ -212,13 +213,13 @@ namespace Chiffrage.Mvc.Events
                                 {
                                     this.UISynchronizationContext.Post((o) => 
                                         {
+
                                             var args = (object[])o;
                                             var s = (EventSubscriptionItem)args[0];
                                             var m = (Message)args[1];
 
                                             //s.Method.Invoke(s.EventHandler, new[] { m.Body });
                                             s.Method(s.EventHandler, m.Body);
-
                                             if (m.AsyncResult != null)
                                             {
                                                 m.AsyncResult.ManualResetEvent.Set();
@@ -235,7 +236,7 @@ namespace Chiffrage.Mvc.Events
                                 {
                                     //subscriber.Method.Invoke(subscriber.EventHandler, new[] { message.Body });
                                     subscriber.Method(subscriber.EventHandler, message.Body);
-
+                                    
                                     if (message.AsyncResult != null)
                                     {
                                         message.AsyncResult.ManualResetEvent.Set();
@@ -255,7 +256,7 @@ namespace Chiffrage.Mvc.Events
 
                                             //s.Method.Invoke(s.EventHandler, new[] { m.Body });
                                             s.Method(s.EventHandler, m.Body);
-
+                                    
                                             if (m.AsyncResult != null)
                                             {
                                                 m.AsyncResult.ManualResetEvent.Set();

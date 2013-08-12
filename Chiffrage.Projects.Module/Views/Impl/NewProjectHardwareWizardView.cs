@@ -20,7 +20,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
 
         private int projectId;
 
-        private IList<CatalogHardwareViewModel> hardwares;
+        private IList<CatalogHardwareSelectionViewModel> hardwares;
 
         public NewProjectHardwareWizardView(IEventBroker eventBroker)
             : base(eventBroker)
@@ -39,12 +39,18 @@ namespace Chiffrage.Projects.Module.Views.Impl
         {
             if (result == DialogResult.OK)
             {
-                var command = new CreateNewProjectHardwareCommand(
-                    projectId,
-                    newProjectSupplyPage.TypedPage.CatalogHardwareViewModel.CatalogId,
-                    newProjectSupplyPage.TypedPage.CatalogHardwareViewModel.Id);
+                foreach(var i in newProjectSupplyPage.TypedPage.CatalogHardwareViewModel)
+                {
+                    for (int cpt = 0; cpt < i.Quantity; cpt++)
+                    {
+                        var command = new CreateNewProjectHardwareCommand(
+                        projectId,
+                        i.CatalogId,
+                        i.Id);
 
-                this.EventBroker.Publish(command);
+                        this.EventBroker.Publish(command);
+                    }
+                }
             }
         }
 
@@ -54,7 +60,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
             set { this.projectId = value; }
         }
 
-        public IList<CatalogHardwareViewModel> Hardwares
+        public IList<CatalogHardwareSelectionViewModel> Hardwares
         {
             set { this.hardwares = value; }
         }

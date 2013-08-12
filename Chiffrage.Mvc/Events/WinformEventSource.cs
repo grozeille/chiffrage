@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Windows.Forms;
+using Common.Logging;
 
 namespace Chiffrage.Mvc.Events
 {
     public static class WinformEventSource
     {
+        private static ILog logger = LogManager.GetLogger(typeof(WinformEventSource));
+
         public static void RegisterTreeNodeSelectEventSource(this IEventBroker eventBroker, TreeNode treeNode,
                                                              object myEvent)
         {

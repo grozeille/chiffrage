@@ -9,11 +9,14 @@ using Chiffrage.Catalogs.Module.ViewModel;
 using Chiffrage.Projects.Module.Actions;
 using Chiffrage.Catalogs.Module.Actions;
 using System.Drawing;
+using Common.Logging;
 
 namespace Chiffrage
 {
     public partial class NavigationUserControl : UserControlView, INavigationView
     {
+        private static ILog logger = LogManager.GetLogger(typeof(NavigationUserControl));
+
         private readonly IEventBroker eventBroker;
         private readonly TreeNode treeNodeCatalogs;
         private readonly TreeNode treeNodeDeals;
