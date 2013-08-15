@@ -24,6 +24,7 @@ namespace Chiffrage.Catalogs.Module
         protected override void Load(ContainerBuilder builder)
         {
             builder.Register<ICatalogRepository>(x => new CatalogRepository(x.ResolveNamed<ISessionFactory>("CatalogSessionFactory"))).SingleInstance();
+            builder.Register<ITaskRepository>(x => new TaskRepository(x.ResolveNamed<ISessionFactory>("CatalogSessionFactory"))).SingleInstance();
 
             builder.RegisterAssemblyTypes(this.ThisAssembly)
                 .Where(t => t.GetInterface(typeof(IView).Name) != null && !t.IsAbstract && t.IsPublic)

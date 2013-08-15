@@ -32,6 +32,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NavigationUserControl));
             System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Affaires");
             System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Catalogues");
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Tâches");
             this.contextMenuStripDealsRoot = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItemNewDeal = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStripCatalogsRoot = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -134,6 +135,7 @@
             this.imageList.Images.SetKeyName(4, "lorry.png");
             this.imageList.Images.SetKeyName(5, "folder_user.png");
             this.imageList.Images.SetKeyName(6, "folder_table.png");
+            this.imageList.Images.SetKeyName(7, "note.png");
             // 
             // treeView
             // 
@@ -154,9 +156,14 @@
             treeNode2.Name = "TreeNodeCatalogs";
             treeNode2.SelectedImageKey = "folder_table.png";
             treeNode2.Text = "Catalogues";
+            treeNode3.ImageKey = "note.png";
+            treeNode3.Name = "TreeNodeTasks";
+            treeNode3.SelectedImageKey = "note.png";
+            treeNode3.Text = "Tâches";
             this.treeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
             treeNode1,
-            treeNode2});
+            treeNode2,
+            treeNode3});
             this.treeView.SelectedImageIndex = 0;
             this.treeView.ShowRootLines = false;
             this.treeView.Size = new System.Drawing.Size(203, 369);

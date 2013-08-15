@@ -70,9 +70,11 @@
     <Compile Include="Cable.cs" />
     <Compile Include="Commands\CopyCatalogCommand.cs" />
     <Compile Include="Commands\CreateNewHardwareSupplyCommand.cs" />
+    <Compile Include="Commands\CreateNewTaskCommand.cs" />
     <Compile Include="Commands\DeleteCatalogCommand.cs" />
     <Compile Include="Commands\DeleteHardwareCommand.cs" />
     <Compile Include="Commands\DeleteHardwareSupplyCommand.cs" />
+    <Compile Include="Commands\DeleteTaskCommand.cs" />
     <Compile Include="Commands\ImportHardwareCommand.cs" />
     <Compile Include="Commands\UpdateHardwareCommand.cs" />
     <Compile Include="Commands\CreateNewHardwareCommand.cs" />
@@ -82,6 +84,7 @@
     <Compile Include="Commands\CreateNewCatalogCommand.cs" />
     <Compile Include="Commands\CreateNewSupplyCommand.cs" />
     <Compile Include="Commands\UpdateCatalogCommand.cs" />
+    <Compile Include="Commands\UpdateTaskCommand.cs" />
     <Compile Include="CsvLine.cs" />
     <Compile Include="EmptyInt32TypeConverter.cs" />
     <Compile Include="Events\CatalogCreatedEvent.cs" />
@@ -99,13 +102,20 @@
     <Compile Include="Events\SupplyDeletedEvent.cs" />
     <Compile Include="Events\SupplyMustBeUniqueErrorEvent.cs" />
     <Compile Include="Events\SupplyUpdatedEvent.cs" />
+    <Compile Include="Events\TaskCreatedEvent.cs" />
+    <Compile Include="Events\TaskDeletedEvent.cs" />
+    <Compile Include="Events\TaskUpdatedEvent.cs" />
     <Compile Include="Hardware.cs" />
     <Compile Include="HardwareSupply.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ICatalogRepository.cs" />
+    <Compile Include="Repositories\ITaskRepository.cs" />
     <Compile Include="Services\CatalogService.cs" />
+    <Compile Include="Services\TaskService.cs" />
     <Compile Include="SupplierCatalog.cs" />
     <Compile Include="Supply.cs" />
+    <Compile Include="Task.cs" />
+    <Compile Include="TaskType.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Chiffrage.Mvc\Chiffrage.Mvc.csproj">

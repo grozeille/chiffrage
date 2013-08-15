@@ -24,9 +24,13 @@ namespace Chiffrage.Catalogs.Domain
 
         public virtual string Category { get; set; }
 
+
         public virtual double CatalogStudyDays { get; set; }
 
         public virtual double CatalogReferenceDays { get; set; }
+
+        public virtual double CatalogVerificationDays { get; set; }
+
 
         public virtual double CatalogExecutiveWorkDays { get; set; }
 

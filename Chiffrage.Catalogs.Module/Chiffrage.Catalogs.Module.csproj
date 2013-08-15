@@ -69,6 +69,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Actions\RequestNewTaskAction.cs" />
+    <Compile Include="Actions\TasksUnselectedAction.cs" />
+    <Compile Include="Actions\TasksSelectedAction.cs" />
     <Compile Include="CatalogModule.cs" />
     <Compile Include="Controllers\CatalogController.cs" />
     <Compile Include="Actions\CatalogSelectedAction.cs" />
@@ -81,6 +84,7 @@
     <Compile Include="Actions\RequestNewHardwareAction.cs" />
     <Compile Include="Actions\RequestNewHardwareSupplyAction.cs" />
     <Compile Include="Actions\RequestNewSupplyAction.cs" />
+    <Compile Include="Controllers\TaskController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -91,6 +95,7 @@
     <Compile Include="ViewModel\CatalogHardwareViewModel.cs" />
     <Compile Include="ViewModel\CatalogSupplyViewModel.cs" />
     <Compile Include="ViewModel\CatalogViewModel.cs" />
+    <Compile Include="ViewModel\TaskViewModel.cs" />
     <Compile Include="Views\ICatalogView.cs" />
     <Compile Include="Views\IEditHardwareSupplyView.cs" />
     <Compile Include="Views\IEditHardwareView.cs" />
@@ -111,6 +116,12 @@
     <Compile Include="Views\Impl\NewHardwareSupplyWizardView.cs" />
     <Compile Include="Views\Impl\NewHardwareWizardView.cs" />
     <Compile Include="Views\Impl\NewSupplyWizardView.cs" />
+    <Compile Include="Views\Impl\TasksUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Impl\TasksUserControl.Designer.cs">
+      <DependentUpon>TasksUserControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Impl\WizardPages\EditHardwarePage.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -163,6 +174,7 @@
     <Compile Include="Views\INewHardwareSupplyView.cs" />
     <Compile Include="Views\INewHardwareView.cs" />
     <Compile Include="Views\INewSupplyView.cs" />
+    <Compile Include="Views\ITasksView.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Chiffrage.Catalogs.Dal\Chiffrage.Catalogs.Dal.csproj">
@@ -184,6 +196,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Properties\DataSources\Chiffrage.Catalogs.Module.ViewModel.TaskViewModel.datasource" />
     <None Include="Resources\add.png" />
   </ItemGroup>
   <ItemGroup>
@@ -196,6 +209,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Impl\CatalogUserControl.resx">
       <DependentUpon>CatalogUserControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Impl\TasksUserControl.resx">
+      <DependentUpon>TasksUserControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Impl\WizardPages\EditHardwarePage.resx">
       <DependentUpon>EditHardwarePage.cs</DependentUpon>

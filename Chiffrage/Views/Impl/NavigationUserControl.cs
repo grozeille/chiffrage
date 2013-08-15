@@ -21,6 +21,7 @@ namespace Chiffrage
 
         private readonly IEventBroker eventBroker;
         private readonly TreeNode treeNodeCatalogs;
+        private readonly TreeNode treeNodeTasks;
         private readonly TreeNode treeNodeDeals;
 
         public NavigationUserControl(IEventBroker eventBroker)
@@ -29,6 +30,8 @@ namespace Chiffrage
             this.eventBroker = eventBroker;
             this.eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemNewCatalog, new RequestNewCatalogAction());
             this.eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemNewDeal, new RequestNewDealAction());
+            this.eventBroker.RegisterTreeNodeSelectEventSource(this.treeNodeTasks, new TasksSelectedAction());
+            this.eventBroker.RegisterTreeNodeUnselectEventSource(this.treeNodeTasks, new TasksUnselectedAction());
             this.eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemNewProject, () =>
             {
                 if (this.treeView.SelectedNode != null)
@@ -142,6 +145,7 @@ namespace Chiffrage
 
             this.treeNodeDeals = this.treeView.Nodes[0];
             this.treeNodeCatalogs = this.treeView.Nodes[1];
+            this.treeNodeTasks = this.treeView.Nodes[2];
         }
 
         public void Display(NavigationItemViewModel viewModel)

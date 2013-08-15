@@ -29,15 +29,17 @@
         private void InitializeComponent()
         {
             this.listBoxLog = new System.Windows.Forms.ListBox();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // listBoxLog
             // 
+            this.listBoxLog.BackColor = System.Drawing.Color.AliceBlue;
             this.listBoxLog.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listBoxLog.FormattingEnabled = true;
-            this.listBoxLog.Location = new System.Drawing.Point(0, 0);
+            this.listBoxLog.Location = new System.Drawing.Point(3, 0);
             this.listBoxLog.Name = "listBoxLog";
-            this.listBoxLog.Size = new System.Drawing.Size(545, 169);
+            this.listBoxLog.Size = new System.Drawing.Size(539, 169);
             this.listBoxLog.TabIndex = 0;
             // 
             // ErrorLogView
@@ -46,7 +48,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.listBoxLog);
             this.Name = "ErrorLogView";
+            this.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
             this.Size = new System.Drawing.Size(545, 169);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.ResumeLayout(false);
 
         }
