@@ -13,6 +13,7 @@ using Chiffrage.Projects.Domain.Commands;
 using Chiffrage.Common.Module.Actions;
 using System.Collections.Generic;
 using Common.Logging;
+using Chiffrage.Mvc.Views;
 
 namespace Chiffrage.Projects.Module.Controllers
 {
@@ -24,11 +25,13 @@ namespace Chiffrage.Projects.Module.Controllers
         private readonly IProjectRepository projectRepository;
         private readonly IDealView dealView;
         private readonly INewDealView newDealView;
+        private readonly ILoadingView loadingView;
 
-        public DealController(IDealRepository dealRepository, IDealView dealView, INewDealView newDealView)
+        public DealController(IDealRepository dealRepository, IDealView dealView, INewDealView newDealView, ILoadingView loadingView)
         {
             this.dealView = dealView;
             this.newDealView = newDealView;
+            this.loadingView = loadingView;
             this.dealRepository = dealRepository;
         }
 
@@ -41,6 +44,9 @@ namespace Chiffrage.Projects.Module.Controllers
         [Subscribe]
         public void ProcessAction(DealSelectedAction eventObject)
         {
+            this.loadingView.Continuous = true;
+            this.loadingView.ShowView();
+
             var deal = this.dealRepository.FindById(eventObject.Id);
             var dealViewModel = this.Map(deal);
             
@@ -53,7 +59,8 @@ namespace Chiffrage.Projects.Module.Controllers
             this.dealView.SetCalendarItems(calendarItems);
             this.dealView.SetSummaryItems(deal.BuildSummaryItems());
             this.dealView.SetProjectCostSummaryItems(deal.BuildDealProjectCostSummaryItems());
-            
+
+            this.loadingView.HideView();
             this.dealView.ShowView();
         }
 

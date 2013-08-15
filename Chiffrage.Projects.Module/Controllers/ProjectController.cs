@@ -18,6 +18,7 @@ using Chiffrage.Mvc;
 using Chiffrage.Mvc.Views;
 using Chiffrage.Common.Module.Actions;
 using Chiffrage.Catalogs.Module.ViewModel;
+using System.Threading;
 
 namespace Chiffrage.Projects.Module.Controllers
 {
@@ -50,6 +51,8 @@ namespace Chiffrage.Projects.Module.Controllers
         private readonly IEditProjectHardwareWorkerWorkView editProjectHardwareWorkerWorkView;
 
         private readonly IEditProjectHardwareStudyReferenceTestsView editProjectHardwareStudyReferenceTestsView;
+
+        private readonly ILoadingView loadingView;
         
         // no better way...
         private readonly System.Windows.Forms.RichTextBox rtBox = new System.Windows.Forms.RichTextBox();
@@ -68,6 +71,7 @@ namespace Chiffrage.Projects.Module.Controllers
             IEditProjectHardwareTechnicianWorkView editProjectHardwareTechnicianWorkView,
             IEditProjectHardwareWorkerWorkView editProjectHardwareWorkerWorkView,
             IEditProjectHardwareStudyReferenceTestsView editProjectHardwareStudyReferenceTestsView,
+            ILoadingView loadingView,
             ICatalogRepository catalogRepository)
         {
             this.projectView = projectView;
@@ -83,6 +87,7 @@ namespace Chiffrage.Projects.Module.Controllers
             this.editProjectHardwareTechnicianWorkView = editProjectHardwareTechnicianWorkView;
             this.editProjectHardwareWorkerWorkView = editProjectHardwareWorkerWorkView;
             this.editProjectHardwareStudyReferenceTestsView = editProjectHardwareStudyReferenceTestsView;
+            this.loadingView = loadingView;
             this.catalogRepository = catalogRepository;
         }
 
@@ -264,10 +269,13 @@ namespace Chiffrage.Projects.Module.Controllers
         [Subscribe]
         public void ProcessAction(ProjectSelectedAction eventObject)
         {
+            this.loadingView.Continuous = true;
+            this.loadingView.ShowView();
+
             var project = this.projectRepository.FindById(eventObject.Id);
 
             var viewModel = Map(project);
-            
+
             var supplies = new List<ProjectSupplyViewModel>();
             foreach (var item in project.Supplies)
             {
@@ -303,6 +311,7 @@ namespace Chiffrage.Projects.Module.Controllers
             this.RefreshSummary(project.Id);
             this.RefreshCostSummary(project.Id);
 
+            this.loadingView.HideView();
             this.projectView.ShowView();
         }
 

@@ -19,7 +19,8 @@ namespace Chiffrage
             ICatalogView catalogView,
             IDealView dealView,
             IErrorLogView errorLogView,
-            IProjectView projectView)
+            IProjectView projectView,
+            ILoadingView loadingView)
             : this()
         {
             navigationView.SetParent(this.splitContainer.Panel1);
@@ -30,6 +31,8 @@ namespace Chiffrage
             projectView.HideView();
             projectView.SetParent(this.splitContainer.Panel2);
             errorLogView.SetParent(this.splitContainerMain.Panel2);
+            loadingView.HideView();
+            loadingView.SetParent(this.splitContainer.Panel2);
             
             eventBroker.RegisterToolStripBouttonClickEventSource(this.saveToolStripButton, new SaveAction());
             eventBroker.RegisterToolStripMenuItemClickEventSource(this.affaireToolStripMenuItem2, new RequestNewDealAction());

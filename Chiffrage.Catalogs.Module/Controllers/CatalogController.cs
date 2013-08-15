@@ -13,6 +13,7 @@ using Chiffrage.Catalogs.Domain.Events;
 using System.ComponentModel;
 using Chiffrage.Common.Module.Actions;
 using System;
+using Chiffrage.Mvc.Views;
 
 namespace Chiffrage.Catalogs.Module.Controllers
 {
@@ -28,6 +29,7 @@ namespace Chiffrage.Catalogs.Module.Controllers
         private readonly INewHardwareSupplyView newHardwareSupplyView;
         private readonly IEditHardwareSupplyView editHardwareSupplyView;
         private readonly IImportHardwareView importHardwareView;
+        private readonly ILoadingView loadingView;
 
         // no better way...
         private readonly System.Windows.Forms.RichTextBox rtBox = new System.Windows.Forms.RichTextBox();
@@ -45,7 +47,8 @@ namespace Chiffrage.Catalogs.Module.Controllers
             INewHardwareSupplyView newHardwareSupplyView,
             IEditHardwareSupplyView editHardwareSupplyView,
             ICatalogRepository repository,
-            IImportHardwareView importHardwareView)
+            IImportHardwareView importHardwareView,
+            ILoadingView loadingView)
         {
             this.catalogView = catalogView;
             this.newCatalogView = newCatalogView;
@@ -56,6 +59,7 @@ namespace Chiffrage.Catalogs.Module.Controllers
             this.newHardwareSupplyView = newHardwareSupplyView;
             this.editHardwareSupplyView = editHardwareSupplyView;
             this.importHardwareView = importHardwareView;
+            this.loadingView = loadingView;
             this.repository = repository;
         }
 
@@ -68,8 +72,13 @@ namespace Chiffrage.Catalogs.Module.Controllers
         [Subscribe]
         public void ProcessAction(CatalogSelectedAction eventObject)
         {
-            this.catalogView.ShowView();
+            this.loadingView.Continuous = true;
+            this.loadingView.ShowView();
+
             this.DisplayCatalog(eventObject.Id);
+
+            this.loadingView.HideView();
+            this.catalogView.ShowView();
         }
 
         [Subscribe]

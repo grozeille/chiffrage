@@ -29,6 +29,9 @@ namespace Chiffrage.App.Ioc
                 .SingleInstance()
                 .OnActivated(x => x.Instance.Start());
 
+            builder.RegisterType<LoadingView>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
             builder.RegisterAssemblyTypes(this.ThisAssembly)
                 .Where(t => t.GetInterface(typeof(IView).Name) != null && !t.IsAbstract && t.IsPublic)
                 .AsImplementedInterfaces()
