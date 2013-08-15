@@ -8,6 +8,7 @@ using Chiffrage.Projects.Module.ViewModel;
 using Chiffrage.Catalogs.Domain;
 using Chiffrage.Mvc;
 using Chiffrage.Catalogs.Module.ViewModel;
+using System.Globalization;
 
 namespace Chiffrage.Projects.Module.Views.Impl.WizardPages
 {
@@ -102,6 +103,14 @@ namespace Chiffrage.Projects.Module.Views.Impl.WizardPages
         {
             this.timerFilter.Enabled = false;
             this.timerFilter.Enabled = true;
+        }
+
+        private void dataGridView_CurrentCellDirtyStateChanged(object sender, EventArgs e)
+        {
+            if (dataGridView.IsCurrentCellDirty)
+            {
+                dataGridView.CommitEdit(DataGridViewDataErrorContexts.Commit);
+            }
         }
     }
 }

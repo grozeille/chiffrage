@@ -34,6 +34,14 @@ namespace Chiffrage.Projects.Module.Views.Impl.WizardPages
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NewProjectHardwarePage));
             this.dataGridView = new System.Windows.Forms.DataGridView();
+            this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.catalogIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SelectedColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.Quantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CatalogNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.categoryDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.catalogHardwareViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.textBoxSearch = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -45,14 +53,6 @@ namespace Chiffrage.Projects.Module.Views.Impl.WizardPages
             this.panelHeader = new System.Windows.Forms.Panel();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.timerFilter = new System.Windows.Forms.Timer(this.components);
-            this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.catalogIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SelectedColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.Quantity = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CatalogNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.categoryDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.catalogHardwareViewModelBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.catalogViewModelBindingSource)).BeginInit();
@@ -94,6 +94,69 @@ namespace Chiffrage.Projects.Module.Views.Impl.WizardPages
             this.dataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView.Size = new System.Drawing.Size(467, 322);
             this.dataGridView.TabIndex = 2;
+            this.dataGridView.CurrentCellDirtyStateChanged += new System.EventHandler(this.dataGridView_CurrentCellDirtyStateChanged);
+            // 
+            // idDataGridViewTextBoxColumn
+            // 
+            this.idDataGridViewTextBoxColumn.DataPropertyName = "Id";
+            this.idDataGridViewTextBoxColumn.HeaderText = "Id";
+            this.idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
+            this.idDataGridViewTextBoxColumn.ReadOnly = true;
+            this.idDataGridViewTextBoxColumn.Visible = false;
+            // 
+            // catalogIdDataGridViewTextBoxColumn
+            // 
+            this.catalogIdDataGridViewTextBoxColumn.DataPropertyName = "CatalogId";
+            this.catalogIdDataGridViewTextBoxColumn.HeaderText = "CatalogId";
+            this.catalogIdDataGridViewTextBoxColumn.Name = "catalogIdDataGridViewTextBoxColumn";
+            this.catalogIdDataGridViewTextBoxColumn.ReadOnly = true;
+            this.catalogIdDataGridViewTextBoxColumn.Visible = false;
+            // 
+            // SelectedColumn
+            // 
+            this.SelectedColumn.DataPropertyName = "Selected";
+            this.SelectedColumn.FillWeight = 15F;
+            this.SelectedColumn.HeaderText = " ";
+            this.SelectedColumn.Name = "SelectedColumn";
+            // 
+            // Quantity
+            // 
+            this.Quantity.DataPropertyName = "Quantity";
+            this.Quantity.FillWeight = 25F;
+            this.Quantity.HeaderText = "Quantité";
+            this.Quantity.Name = "Quantity";
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.DataPropertyName = "Name";
+            this.dataGridViewTextBoxColumn1.FillWeight = 98.47716F;
+            this.dataGridViewTextBoxColumn1.HeaderText = "Nom";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            // 
+            // CatalogNameColumn
+            // 
+            this.CatalogNameColumn.DataPropertyName = "CatalogName";
+            this.CatalogNameColumn.FillWeight = 50F;
+            this.CatalogNameColumn.HeaderText = "Catalogue";
+            this.CatalogNameColumn.Name = "CatalogNameColumn";
+            this.CatalogNameColumn.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.DataPropertyName = "Reference";
+            this.dataGridViewTextBoxColumn2.HeaderText = "Reference";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            this.dataGridViewTextBoxColumn2.Visible = false;
+            // 
+            // categoryDataGridViewTextBoxColumn
+            // 
+            this.categoryDataGridViewTextBoxColumn.DataPropertyName = "Category";
+            this.categoryDataGridViewTextBoxColumn.HeaderText = "Categorie";
+            this.categoryDataGridViewTextBoxColumn.Name = "categoryDataGridViewTextBoxColumn";
+            this.categoryDataGridViewTextBoxColumn.ReadOnly = true;
+            this.categoryDataGridViewTextBoxColumn.Visible = false;
             // 
             // catalogHardwareViewModelBindingSource
             // 
@@ -183,68 +246,6 @@ namespace Chiffrage.Projects.Module.Views.Impl.WizardPages
             // 
             this.timerFilter.Interval = 500;
             this.timerFilter.Tick += new System.EventHandler(this.timerFilter_Tick);
-            // 
-            // idDataGridViewTextBoxColumn
-            // 
-            this.idDataGridViewTextBoxColumn.DataPropertyName = "Id";
-            this.idDataGridViewTextBoxColumn.HeaderText = "Id";
-            this.idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
-            this.idDataGridViewTextBoxColumn.ReadOnly = true;
-            this.idDataGridViewTextBoxColumn.Visible = false;
-            // 
-            // catalogIdDataGridViewTextBoxColumn
-            // 
-            this.catalogIdDataGridViewTextBoxColumn.DataPropertyName = "CatalogId";
-            this.catalogIdDataGridViewTextBoxColumn.HeaderText = "CatalogId";
-            this.catalogIdDataGridViewTextBoxColumn.Name = "catalogIdDataGridViewTextBoxColumn";
-            this.catalogIdDataGridViewTextBoxColumn.ReadOnly = true;
-            this.catalogIdDataGridViewTextBoxColumn.Visible = false;
-            // 
-            // SelectedColumn
-            // 
-            this.SelectedColumn.DataPropertyName = "Selected";
-            this.SelectedColumn.FillWeight = 15F;
-            this.SelectedColumn.HeaderText = " ";
-            this.SelectedColumn.Name = "SelectedColumn";
-            // 
-            // Quantity
-            // 
-            this.Quantity.DataPropertyName = "Quantity";
-            this.Quantity.FillWeight = 25F;
-            this.Quantity.HeaderText = "Quantité";
-            this.Quantity.Name = "Quantity";
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.DataPropertyName = "Name";
-            this.dataGridViewTextBoxColumn1.FillWeight = 98.47716F;
-            this.dataGridViewTextBoxColumn1.HeaderText = "Nom";
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            this.dataGridViewTextBoxColumn1.ReadOnly = true;
-            // 
-            // CatalogNameColumn
-            // 
-            this.CatalogNameColumn.DataPropertyName = "CatalogName";
-            this.CatalogNameColumn.FillWeight = 50F;
-            this.CatalogNameColumn.HeaderText = "Catalogue";
-            this.CatalogNameColumn.Name = "CatalogNameColumn";
-            this.CatalogNameColumn.ReadOnly = true;
-            // 
-            // dataGridViewTextBoxColumn2
-            // 
-            this.dataGridViewTextBoxColumn2.DataPropertyName = "Reference";
-            this.dataGridViewTextBoxColumn2.HeaderText = "Reference";
-            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
-            this.dataGridViewTextBoxColumn2.ReadOnly = true;
-            this.dataGridViewTextBoxColumn2.Visible = false;
-            // 
-            // categoryDataGridViewTextBoxColumn
-            // 
-            this.categoryDataGridViewTextBoxColumn.DataPropertyName = "Category";
-            this.categoryDataGridViewTextBoxColumn.HeaderText = "Categorie";
-            this.categoryDataGridViewTextBoxColumn.Name = "categoryDataGridViewTextBoxColumn";
-            this.categoryDataGridViewTextBoxColumn.ReadOnly = true;
-            this.categoryDataGridViewTextBoxColumn.Visible = false;
             // 
             // NewProjectHardwarePage
             // 
