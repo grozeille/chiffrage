@@ -353,6 +353,8 @@ namespace Chiffrage.Projects.Module.Views.Impl
                     
                     this.textBoxTotalModules.Text = string.Empty;
                     this.textBoxModulesNotInFrame.Text = string.Empty;
+
+                    this.commentUserControl.Rtf = "{\\rtf}";
                 }
                 else
                 {
@@ -380,6 +382,10 @@ namespace Chiffrage.Projects.Module.Views.Impl
                     this.textBoxTotalModules.Text = viewModel.TotalModules.ToString(CultureInfo.InvariantCulture);
                     this.textBoxModulesNotInFrame.Text = viewModel.ModulesNotInFrame.ToString(CultureInfo.InvariantCulture);
                     this.pictureBoxWarningFrame.Visible = viewModel.ModulesNotInFrame > 0;
+
+                    if (viewModel.Comment == null || !(viewModel.Comment.StartsWith("{\\rtf") && viewModel.Comment.EndsWith("}")))
+                        viewModel.Comment = "{\\rtf" + viewModel.Comment + "}";
+                    this.commentUserControl.Rtf = viewModel.Comment;
                 }
             });
         }
