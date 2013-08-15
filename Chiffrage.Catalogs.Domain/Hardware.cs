@@ -7,9 +7,12 @@ namespace Chiffrage.Catalogs.Domain
     {
         private IList<HardwareSupply> components;
 
+        private IList<HardwareTask> tasks;
+
         public Hardware()
         {
             this.components = new List<HardwareSupply>();
+            this.tasks = new List<HardwareTask>();
         }
 
         public virtual IList<HardwareSupply> Components
@@ -39,5 +42,11 @@ namespace Chiffrage.Catalogs.Domain
         public virtual double CatalogWorkerWorkDays { get; set; }
 
         public virtual double CatalogTestsDays { get; set; }
+
+        public virtual IList<HardwareTask> Tasks
+        {
+            get { return this.tasks; }
+            set { this.tasks = value; }
+        }
     }
 }

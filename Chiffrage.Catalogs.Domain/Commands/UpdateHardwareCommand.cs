@@ -14,38 +14,18 @@ namespace Chiffrage.Catalogs.Domain.Commands
 
         private readonly string name;
 
-        private readonly double catalogStudyDays;
-
-        private readonly double catalogReferenceDays;
-
-        private readonly double catalogExecutiveWorkDays;
-
-        private readonly double catalogTechnicianWorkDays;
-
-        private readonly double catalogWorkerWorkDays;
-
-        private readonly double catalogTestsDays;
+        private readonly IList<HardwareTask> tasks;
 
         public UpdateHardwareCommand(
-            int catalogId, 
+            int catalogId,
             int hardwareId,
             string name,
-            double studyDays,
-            double referenceDays,
-            double catalogExecutiveWorkDays,
-            double catalogTechnicianWorkDays,
-            double catalogWorkerWorkDays,
-            double catalogTestsDays)
+            IList<HardwareTask> tasks)
         {
             this.catalogId = catalogId;
             this.hardwareId = hardwareId;
             this.name = name;
-            this.catalogStudyDays = studyDays;
-            this.catalogReferenceDays = referenceDays;
-            this.catalogExecutiveWorkDays = catalogExecutiveWorkDays;
-            this.catalogTechnicianWorkDays = catalogTechnicianWorkDays;
-            this.catalogWorkerWorkDays = catalogWorkerWorkDays;
-            this.catalogTestsDays = catalogTestsDays;
+            this.tasks = tasks;
         }
 
         public int CatalogId { get { return this.catalogId; } }
@@ -54,16 +34,6 @@ namespace Chiffrage.Catalogs.Domain.Commands
 
         public string Name { get { return this.name; } }
 
-        public double CatalogStudyDays { get { return this.catalogStudyDays; } }
-
-        public double CatalogReferenceDays { get { return this.catalogReferenceDays; } }
-
-        public double CatalogExecutiveWorkDays { get { return this.catalogExecutiveWorkDays; } }
-
-        public double CatalogTechnicianWorkDays { get { return this.catalogTechnicianWorkDays; } }
-
-        public double CatalogWorkerWorkDays { get { return this.catalogWorkerWorkDays; } }
-
-        public double CatalogTestsDays { get { return this.catalogTestsDays; } }
+        public IList<HardwareTask> Tasks { get { return this.tasks; } }
     }
 }

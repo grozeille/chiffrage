@@ -19,13 +19,15 @@ namespace Chiffrage.Catalogs.Module.Controllers
 {
     public class CatalogController : IController
     {
+        private readonly ICatalogRepository repository;
+        private readonly ITaskRepository taskRepository;
+        
         private readonly ICatalogView catalogView;
         private readonly INewCatalogView newCatalogView;
         private readonly INewSupplyView newSupplyView;
         private readonly INewHardwareView newHardwareView;
         private readonly IEditSupplyView editSupplyView;
         private readonly IEditHardwareView editHardwareView;
-        private readonly ICatalogRepository repository;
         private readonly INewHardwareSupplyView newHardwareSupplyView;
         private readonly IEditHardwareSupplyView editHardwareSupplyView;
         private readonly IImportHardwareView importHardwareView;
@@ -38,6 +40,8 @@ namespace Chiffrage.Catalogs.Module.Controllers
         public event Action<UpdateCatalogCommand> OnCatalogUpdateCommand;
 
         public CatalogController(
+            ICatalogRepository repository,
+            ITaskRepository taskRepository,
             ICatalogView catalogView,
             INewCatalogView newCatalogView,
             INewSupplyView newSupplyView,
@@ -46,7 +50,6 @@ namespace Chiffrage.Catalogs.Module.Controllers
             IEditHardwareView editHardwareView,
             INewHardwareSupplyView newHardwareSupplyView,
             IEditHardwareSupplyView editHardwareSupplyView,
-            ICatalogRepository repository,
             IImportHardwareView importHardwareView,
             ILoadingView loadingView)
         {
@@ -61,6 +64,7 @@ namespace Chiffrage.Catalogs.Module.Controllers
             this.importHardwareView = importHardwareView;
             this.loadingView = loadingView;
             this.repository = repository;
+            this.taskRepository = taskRepository;
         }
 
         [Subscribe]
@@ -237,7 +241,12 @@ namespace Chiffrage.Catalogs.Module.Controllers
         [Subscribe]
         public void ProcessAction(RequestEditHardwareAction eventObject)
         {
+            SupplierCatalog catalog = this.repository.FindById(eventObject.Hardware.CatalogId);
+            Hardware hardware = catalog.Hardwares.Where(x => x.Id == eventObject.Hardware.Id).FirstOrDefault();
+
             this.editHardwareView.Hardware = eventObject.Hardware;
+            this.editHardwareView.CatalogTasks = this.taskRepository.FindAll();
+            this.editHardwareView.HardwareTask = hardware.Tasks;
 
             this.editHardwareView.ShowView();
         }
@@ -294,6 +303,7 @@ namespace Chiffrage.Catalogs.Module.Controllers
         public void ProcessAction(RequestNewHardwareAction eventObject)
         {
             this.newHardwareView.CatalogId = eventObject.CatalogId;
+            this.newHardwareView.Tasks = this.taskRepository.FindAll();
             this.newHardwareView.ShowView();
         }
 

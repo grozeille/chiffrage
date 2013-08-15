@@ -63,6 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Mappings\CableMap.cs" />
+    <Compile Include="Mappings\HardwareTaskMap.cs" />
     <Compile Include="Mappings\HardwareMap.cs" />
     <Compile Include="Mappings\HardwareSupplyMap.cs" />
     <Compile Include="Mappings\SupplierCatalogMap.cs" />

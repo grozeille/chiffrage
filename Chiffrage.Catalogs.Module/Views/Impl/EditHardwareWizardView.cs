@@ -10,6 +10,7 @@ using Chiffrage.Mvc.Events;
 using Chiffrage.Mvc.Views;
 using Chiffrage.Catalogs.Module.Views.Impl.WizardPages;
 using Chiffrage.Catalogs.Domain.Commands;
+using Chiffrage.Catalogs.Domain;
 
 namespace Chiffrage.Catalogs.Module.Views.Impl
 {
@@ -18,6 +19,10 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
         private GenericWizardSetting<EditHardwarePage> editHardwarePage;
 
         private CatalogHardwareViewModel hardware;
+
+        private IList<Task> catalogTasks;
+
+        private IList<HardwareTask> hardwareTasks;
 
         public EditHardwareWizardView(IEventBroker eventBroker)
             : base(eventBroker)
@@ -30,12 +35,8 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
             this.editHardwarePage = new GenericWizardSetting<EditHardwarePage>("Edition d'un matériel",
                                                                          "Vous pouvez ici éditer un matériel", true);
             this.editHardwarePage.TypedPage.HardwareName = this.hardware.Name;
-            this.editHardwarePage.TypedPage.ReferenceDays = this.hardware.CatalogReferenceDays;
-            this.editHardwarePage.TypedPage.StudyDays = this.hardware.CatalogStudyDays;
-            this.editHardwarePage.TypedPage.CatalogExecutiveWorkDays = this.hardware.CatalogExecutiveWorkDays;
-            this.editHardwarePage.TypedPage.CatalogTechnicianWorkDays = this.hardware.CatalogTechnicianWorkDays;
-            this.editHardwarePage.TypedPage.CatalogWorkerWorkDays = this.hardware.CatalogWorkerWorkDays;
-            this.editHardwarePage.TypedPage.CatalogTestDays = this.hardware.CatalogTestsDays;
+            this.editHardwarePage.TypedPage.CatalogTasks = this.catalogTasks;
+            this.editHardwarePage.TypedPage.HardwareTasks = this.hardwareTasks;
 
             return new WizardSettingListIterator(this.editHardwarePage);
         }
@@ -48,12 +49,7 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
                     hardware.CatalogId,
                     hardware.Id,
                     this.editHardwarePage.TypedPage.HardwareName,
-                    this.editHardwarePage.TypedPage.StudyDays,
-                    this.editHardwarePage.TypedPage.ReferenceDays,
-                    this.editHardwarePage.TypedPage.CatalogExecutiveWorkDays,
-                    this.editHardwarePage.TypedPage.CatalogTechnicianWorkDays,
-                    this.editHardwarePage.TypedPage.CatalogWorkerWorkDays,
-                    this.editHardwarePage.TypedPage.CatalogTestDays);
+                    this.editHardwarePage.TypedPage.HardwareTasks);
                 this.EventBroker.Publish(command);
             }
         }
@@ -61,6 +57,22 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
         public CatalogHardwareViewModel Hardware
         {
             set { this.hardware = value; }
+        }
+
+        public IList<Task> CatalogTasks
+        {
+            set
+            {
+                this.catalogTasks = value;
+            }
+        }
+
+        public IList<HardwareTask> HardwareTask
+        {
+            set
+            {
+                this.hardwareTasks = value;
+            }
         }
 
         public override string Name

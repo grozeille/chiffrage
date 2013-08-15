@@ -2,11 +2,18 @@
 using System.ComponentModel;
 using Chiffrage.Catalogs.Module.ViewModel;
 using System.Globalization;
+using Chiffrage.Catalogs.Domain;
+using System.Collections.Generic;
+using System;
 
 namespace Chiffrage.Catalogs.Module.Views.Impl.WizardPages
 {
     public partial class EditHardwarePage : UserControl
     {
+        private IList<TextBox> tasks = new List<TextBox>();
+
+        private IList<Task> catalogTasks = new List<Task>();
+
         public EditHardwarePage()
         {
             this.InitializeComponent();
@@ -18,44 +25,14 @@ namespace Chiffrage.Catalogs.Module.Views.Impl.WizardPages
 
             double tempDouble;
 
-            if (string.IsNullOrEmpty(this.textBoxHardwareName.Text))
+            foreach (var item in tasks)
             {
-                e.Cancel = true; this.errorProvider.SetError(this.textBoxHardwareName, "Obligatoire");
-            }
-
-            if (!double.TryParse(this.textBoxStudyDays.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out tempDouble))
-            {
-                e.Cancel = true; this.errorProvider.SetError(this.textBoxStudyDays, "Doit être un nombre");
-            }
-
-            if (!double.TryParse(this.textBoxReferenceDays.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out tempDouble))
-            {
-                e.Cancel = true;
-                this.errorProvider.SetError(this.textBoxReferenceDays, "Doit être un nombre");
-            }
-
-            if (!double.TryParse(this.textBoxCatalogExecutiveWorkDays.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out tempDouble))
-            {
-                e.Cancel = true;
-                this.errorProvider.SetError(this.textBoxCatalogExecutiveWorkDays, "Doit être un nombre");
-            }
-
-            if (!double.TryParse(this.textBoxCatalogTechnicianWorkDays.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out tempDouble))
-            {
-                e.Cancel = true;
-                this.errorProvider.SetError(this.textBoxCatalogTechnicianWorkDays, "Doit être un nombre");
-            }
-
-            if (!double.TryParse(this.textBoxCatalogWorkerWorkDays.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out tempDouble))
-            {
-                e.Cancel = true;
-                this.errorProvider.SetError(this.textBoxCatalogWorkerWorkDays, "Doit être un nombre");
-            }
-
-            if (!double.TryParse(this.textBoxTestsDays.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out tempDouble))
-            {
-                e.Cancel = true;
-                this.errorProvider.SetError(this.textBoxTestsDays, "Doit être un nombre");
+                HardwareTask task = item.Tag as HardwareTask;
+                if (!double.TryParse(item.Text, NumberStyles.Float, CultureInfo.InvariantCulture, out tempDouble))
+                {
+                    e.Cancel = true;
+                    this.errorProvider.SetError(item, "Doit être un nombre");
+                }
             }
         }
 
@@ -65,40 +42,101 @@ namespace Chiffrage.Catalogs.Module.Views.Impl.WizardPages
             set { this.textBoxHardwareName.Text = value; }
         }
 
-        public double StudyDays
+        public IList<Task> CatalogTasks
         {
-            get { return double.Parse(this.textBoxStudyDays.Text, NumberStyles.Float, CultureInfo.InvariantCulture); }
-            set { this.textBoxStudyDays.Text = value.ToString(CultureInfo.InvariantCulture); }
+            set
+            {
+                this.catalogTasks = value;
+            }
         }
 
-        public double ReferenceDays
+        public IList<HardwareTask> HardwareTasks
         {
-            get { return double.Parse(this.textBoxReferenceDays.Text, NumberStyles.Float, CultureInfo.InvariantCulture); }
-            set { this.textBoxReferenceDays.Text = value.ToString(CultureInfo.InvariantCulture); }
-        }
+            set
+            {
+                var taskMap = new Dictionary<int, Task>();
+                foreach(var item in catalogTasks)
+                {
+                    taskMap.Add(item.Id, item);
+                }
 
-        public double CatalogExecutiveWorkDays
-        {
-            get { return double.Parse(this.textBoxCatalogExecutiveWorkDays.Text, NumberStyles.Float, CultureInfo.InvariantCulture); }
-            set { this.textBoxCatalogExecutiveWorkDays.Text = value.ToString(CultureInfo.InvariantCulture); }
-        }
+                this.tableLayoutPanel.RowCount = 3 + value.Count;
+                this.tableLayoutPanel.RowStyles.Clear();
+                this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.AutoSize));
+                this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
 
-        public double CatalogTechnicianWorkDays
-        {
-            get { return double.Parse(this.textBoxCatalogTechnicianWorkDays.Text, NumberStyles.Float, CultureInfo.InvariantCulture); }
-            set { this.textBoxCatalogTechnicianWorkDays.Text = value.ToString(CultureInfo.InvariantCulture); }
-        }
+                this.tableLayoutPanel.Controls.Clear();
+                this.tableLayoutPanel.Controls.Add(this.labelHardware, 0, 0);
+                this.tableLayoutPanel.Controls.Add(this.textBoxHardwareName, 1, 0);
 
-        public double CatalogWorkerWorkDays
-        {
-            get { return double.Parse(this.textBoxCatalogWorkerWorkDays.Text, NumberStyles.Float, CultureInfo.InvariantCulture); }
-            set { this.textBoxCatalogWorkerWorkDays.Text = value.ToString(CultureInfo.InvariantCulture); }
-        }
+                int cptRow = 2;
+                int size = 50;
+                tasks.Clear();
+                foreach (var item in value)
+                {
+                    taskMap.Remove(item.Task.Id);
 
-        public double CatalogTestDays
-        {
-            get { return double.Parse(this.textBoxTestsDays.Text, NumberStyles.Float, CultureInfo.InvariantCulture); }
-            set { this.textBoxTestsDays.Text = value.ToString(CultureInfo.InvariantCulture); }
+                    this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.AutoSize));
+
+                    Label label = new Label();
+                    label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+                    label.AutoSize = true;
+                    label.Text = new String(new char[] { item.Task.Name[0] }).ToUpper() + item.Task.Name.Substring(1);
+                    this.tableLayoutPanel.Controls.Add(label, 0, cptRow);
+
+                    TextBox textbox = new TextBox();
+                    textbox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+                    textbox.Tag = item;
+                    textbox.Text = item.Value.ToString(CultureInfo.InvariantCulture);
+                    this.tableLayoutPanel.Controls.Add(textbox, 1, cptRow);
+
+
+                    tasks.Add(textbox);
+
+                    size += 26;
+
+                    cptRow++;
+                }
+
+                foreach(var item in taskMap.Values)
+                {
+                    this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.AutoSize));
+
+                    Label label = new Label();
+                    label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+                    label.AutoSize = true;
+                    label.Text = new String(new char[] { item.Name[0] }).ToUpper() + item.Name.Substring(1);
+                    this.tableLayoutPanel.Controls.Add(label, 0, cptRow);
+
+                    TextBox textbox = new TextBox();
+                    textbox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+                    textbox.Tag = new HardwareTask { Task = item };
+                    textbox.Text = "0.0";
+                    this.tableLayoutPanel.Controls.Add(textbox, 1, cptRow);
+
+
+                    tasks.Add(textbox);
+
+                    size += 26;
+
+                    cptRow++;
+                }
+
+                this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+                this.tableLayoutPanel.Height = size;
+            }
+            get
+            {
+                var result = new List<HardwareTask>();
+                foreach (var item in tasks)
+                {
+                    var task = item.Tag as HardwareTask;
+                    task.Value = Double.Parse(item.Text, NumberStyles.Float, CultureInfo.InvariantCulture);
+                    result.Add(task);
+                }
+
+                return result;
+            }
         }
     }
 }

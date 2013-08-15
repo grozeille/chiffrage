@@ -9,12 +9,16 @@ using Chiffrage.Mvc.Events;
 using Chiffrage.Mvc.Views;
 using Chiffrage.Catalogs.Module.Views.Impl.WizardPages;
 using Chiffrage.Catalogs.Domain.Commands;
+using Chiffrage.Catalogs.Module.ViewModel;
+using Chiffrage.Catalogs.Domain;
 
 namespace Chiffrage.Catalogs.Module.Views.Impl
 {
     public class NewHardwareWizardView : WizardView, INewHardwareView
     {
         private int catalogId;
+
+        private IList<Task> tasks;
 
         private GenericWizardSetting<NewHardwarePage> newHardwarePage;
 
@@ -27,6 +31,9 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
         {
             this.newHardwarePage = new GenericWizardSetting<NewHardwarePage>("Création d'une matériel",
                                                                          "Vous pouvez ici créer un nouveau matériel", true);
+
+            this.newHardwarePage.TypedPage.Tasks = tasks;
+
             return new WizardSettingListIterator(this.newHardwarePage);
         }
 
@@ -34,21 +41,23 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
         {
             if(result == DialogResult.OK)
             {
+
+
                 this.EventBroker.Publish(new CreateNewHardwareCommand(
                     this.catalogId,
                     newHardwarePage.TypedPage.HardwareName,
-                    newHardwarePage.TypedPage.StudyDays,
-                    newHardwarePage.TypedPage.ReferenceDays,
-                    newHardwarePage.TypedPage.CatalogExecutiveWorkDays,
-                    newHardwarePage.TypedPage.CatalogTechnicianWorkDays,
-                    newHardwarePage.TypedPage.CatalogWorkerWorkDays,
-                    newHardwarePage.TypedPage.CatalogTestDays));
+                    newHardwarePage.TypedPage.HardwareTasks));
             }
         }
 
         public int CatalogId
         {
             set { this.catalogId = value; }
+        }
+
+        public IList<Task> Tasks
+        {
+            set { this.tasks = value; }
         }
 
         public override string Name
