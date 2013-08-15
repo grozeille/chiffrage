@@ -8,7 +8,7 @@ namespace Chiffrage.Catalogs.Module.Views
 {
     public interface ICatalogView : IView
     {
-        void Display(CatalogViewModel viewModel);
+        void Display(CatalogViewModel viewModel, IList<Task> tasks);
 
         CatalogViewModel GetViewModel();
 

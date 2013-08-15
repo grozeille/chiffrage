@@ -160,7 +160,7 @@ namespace Chiffrage.Catalogs.Module.Controllers
 
             var result = Mapper.Map<SupplierCatalog, CatalogViewModel>(eventObject.Catalog);
 
-            this.catalogView.Display(result);
+            this.catalogView.Display(result, this.taskRepository.FindAll());
         }
 
         [Subscribe]
@@ -211,8 +211,8 @@ namespace Chiffrage.Catalogs.Module.Controllers
             {
                 hardwaresViewModel.Add(Map(catalog.Id, item));
             }
-            
-            this.catalogView.Display(catalogViewModel);
+
+            this.catalogView.Display(catalogViewModel, this.taskRepository.FindAll());
             this.catalogView.RemoveAllHardwares();
             this.catalogView.RemoveSupplies();
             this.catalogView.AddSupplies(suppliesViewModel);

@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel;
+using System.Collections.Generic;
+using Chiffrage.Catalogs.Domain;
 
 namespace Chiffrage.Catalogs.Module.ViewModel
 {
@@ -23,18 +25,8 @@ namespace Chiffrage.Catalogs.Module.ViewModel
 
         public double CatalogPrice { get; set; }
 
-        public double CatalogStudyDays { get; set; }
-
-        public double CatalogReferenceDays { get; set; }
-
-        public double CatalogTechnicianWorkDays { get; set; }
-
-        public double CatalogExecutiveWorkDays { get; set; }
-
-        public double CatalogWorkerWorkDays { get; set; }
-
-        public double CatalogTestsDays { get; set; }
-
         public BindingList<CatalogHardwareSupplyViewModel> Components { get; set; }
+
+        public IList<HardwareTask> Tasks { get; set; }
     }
 }

@@ -27,6 +27,8 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
 
         private readonly SortableBindingList<CatalogHardwareViewModel> hardwares = new SortableBindingList<CatalogHardwareViewModel>();
 
+        private IList<DataGridViewTextBoxColumn> taskColumns = new List<DataGridViewTextBoxColumn>();
+
         public CatalogUserControl(IEventBroker eventBroker)
             : this()
         {
@@ -208,7 +210,7 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
 
         #region ICatalogView Members
 
-        public void Display(CatalogViewModel viewModel)
+        public void Display(CatalogViewModel viewModel, IList<Task> tasks)
         {
             this.InvokeIfRequired(() =>
             {
@@ -217,6 +219,26 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
                 if (viewModel.Comment == null || !(viewModel.Comment.StartsWith("{\\rtf") && viewModel.Comment.EndsWith("}")))
                     viewModel.Comment = "{\\rtf" + viewModel.Comment + "}";
                 this.commentUserControl.Rtf = viewModel.Comment;
+
+                foreach (var item in taskColumns)
+                {
+                    this.dataGridViewHardwares.Columns.Remove(item);
+                }
+
+                taskColumns.Clear();
+                foreach (var item in tasks)
+                {
+                    var column = new DataGridViewTextBoxColumn();
+                    column.HeaderText = new String(new char[]{ item.Name[0] }).ToUpper()+item.Name.Substring(1);;
+                    column.Name = "task_" + item.Id;
+                    column.Tag = item.Id;
+                    column.ReadOnly = true;
+                    column.Visible = true;
+
+                    this.dataGridViewHardwares.Columns.Add(column);
+                    taskColumns.Add(column);
+                }
+
             });
         }
 
@@ -242,7 +264,11 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
 
         public void AddHardware(CatalogHardwareViewModel result)
         {
-            this.InvokeIfRequired(() => this.hardwares.Add(result));
+            this.InvokeIfRequired(() =>
+            {
+                this.hardwares.Add(result);
+                RefreshTasks();
+            });
         }
 
         public void AddSupply(CatalogSupplyViewModel result)
@@ -275,6 +301,7 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
                 var hardware = this.hardwares.Where(s => s.Id == result.Id).First();
                 var index = this.hardwares.IndexOf(hardware);
                 this.hardwares[index] = result;
+                RefreshTasks();
             });
         }
 
@@ -314,6 +341,7 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
                 foreach(var item in result)
                 {
                     this.hardwares.Add(item);
+                    RefreshTasks();
                 }
             });
         }
@@ -345,6 +373,7 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
                     var index = this.hardwares.IndexOf(hardware);
                     this.hardwares[index] = item;
                 }
+                RefreshTasks();
             });
         }
 
@@ -354,6 +383,32 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
         {
             this.catalogId = null;
             base.HideView();
+        }
+
+        private void RefreshTasks()
+        {
+            foreach(DataGridViewRow row in this.dataGridViewHardwares.Rows)
+            {
+                var hardware = row.DataBoundItem as CatalogHardwareViewModel;
+                var tasksMap = new Dictionary<int, HardwareTask>();
+                foreach (var item in hardware.Tasks)
+                {
+                    tasksMap.Add(item.Task.Id, item);
+                }
+
+                foreach (var item in taskColumns)
+                {
+                    HardwareTask task = null;
+                    if (tasksMap.TryGetValue((int)item.Tag, out task))
+                    {
+                        row.Cells[item.Index].Value = task.Value;
+                    }
+                    else
+                    {
+                        row.Cells[item.Index].Value = 0.0;
+                    }
+                }
+            }
         }
 
         private void dataGridViewSupplies_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
