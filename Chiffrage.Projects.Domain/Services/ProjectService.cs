@@ -77,6 +77,10 @@ namespace Chiffrage.Projects.Domain.Services
             var deal = this.dealRepository.FindById(eventObject.DealId);
 
             var newProject = new Project();
+            newProject.Hardwares = new List<ProjectHardware>();
+            newProject.Frames = new List<ProjectFrame>();
+            newProject.OtherBenefits = new List<OtherBenefit>();
+            newProject.Supplies = new List<ProjectSupply>();
             newProject.Name = eventObject.ProjectName;
 
             this.projectRepository.Save(newProject);
