@@ -18,7 +18,8 @@ namespace Chiffrage.Catalogs.Dal.Mappings
             this.Bag(x => x.Supplies, y =>
             {
                 y.Fetch(CollectionFetchMode.Join);
-                y.Lazy(CollectionLazy.NoLazy);
+                //y.Lazy(CollectionLazy.Extra);
+                y.BatchSize(10);
                 y.Cascade(Cascade.All);
             },
             action => action.OneToMany());
@@ -26,7 +27,8 @@ namespace Chiffrage.Catalogs.Dal.Mappings
             this.Bag(x => x.Hardwares, y =>
             {
                 y.Fetch(CollectionFetchMode.Join);
-                y.Lazy(CollectionLazy.NoLazy);
+                //y.Lazy(CollectionLazy.Extra);
+                y.BatchSize(10);
                 y.Cascade(Cascade.All);
             },
             action => action.OneToMany());
@@ -34,7 +36,8 @@ namespace Chiffrage.Catalogs.Dal.Mappings
             this.Bag(x => x.Cables, y =>
             {
                 y.Fetch(CollectionFetchMode.Join);
-                y.Lazy(CollectionLazy.NoLazy);
+                //y.Lazy(CollectionLazy.Extra);
+                y.BatchSize(10);
                 y.Cascade(Cascade.All);
             },
             action => action.OneToMany());

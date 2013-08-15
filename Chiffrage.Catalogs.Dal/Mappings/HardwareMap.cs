@@ -23,7 +23,8 @@ namespace Chiffrage.Catalogs.Dal.Mappings
             this.Bag(x => x.Components, y =>
             {
                 y.Fetch(CollectionFetchMode.Join);
-                y.Lazy(CollectionLazy.NoLazy);
+                //y.Lazy(CollectionLazy.Extra);
+                y.BatchSize(10);
                 y.Cascade(Cascade.All);
             },
             action => action.OneToMany());

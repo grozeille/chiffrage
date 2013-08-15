@@ -39,12 +39,10 @@ namespace Chiffrage.App.Ioc
             var dealConfiguration = new Configuration()
             .Proxy(p => p.ProxyFactoryFactory<NHibernate.Bytecode.DefaultProxyFactoryFactory>())
             .CurrentSessionContext<CatalogSessionContext>()
-            .Cache(x =>
-            {
-                x.UseQueryCache = true;
-            })
             .DataBaseIntegration(d =>
             {
+                d.ConnectionReleaseMode = ConnectionReleaseMode.OnClose;
+                //d.LogFormattedSql = true;
                 d.ConnectionString = string.Format("Data Source={0};Version=3;", file);
                 d.Dialect<SQLiteDialect>();
                 if(IsRunningOnMono())
@@ -78,12 +76,10 @@ namespace Chiffrage.App.Ioc
             var catalogConfiguration = new Configuration()
             .Proxy(p => p.ProxyFactoryFactory<NHibernate.Bytecode.DefaultProxyFactoryFactory>())
             .CurrentSessionContext<ProjectSessionContext>()
-            .Cache(x =>
-            {
-                x.UseQueryCache = true;
-            })
             .DataBaseIntegration(new Action<NHibernate.Cfg.Loquacious.IDbIntegrationConfigurationProperties>((d) =>
             {
+                d.ConnectionReleaseMode = ConnectionReleaseMode.OnClose;
+                //d.LogFormattedSql = true;
                 d.ConnectionString = string.Format("Data Source={0};Version=3;", catalogPath);
                 d.Dialect<SQLiteDialect>();
                 if(IsRunningOnMono())

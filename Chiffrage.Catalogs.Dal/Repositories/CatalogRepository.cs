@@ -32,20 +32,6 @@ namespace Chiffrage.Catalogs.Dal.Repositories
 
         #region ICatalogRepository Members
 
-        public void Save(Catalog catalog)
-        {
-            var session = OpenSessionIfRequired();
-            //using (var session = this.sessionFactory.OpenSession())
-            {
-                using (var transaction = session.BeginTransaction())
-                {
-                    foreach (var item in catalog.SupplierCatalogs)
-                        session.SaveOrUpdate(item);
-                    session.Transaction.Commit();
-                }
-            }
-        }
-
         public void Save(SupplierCatalog catalog)
         {
             var session = OpenSessionIfRequired();
@@ -74,6 +60,24 @@ namespace Chiffrage.Catalogs.Dal.Repositories
             //using (var session = this.sessionFactory.OpenSession())
             {
                 return session.Query<SupplierCatalog>().Where(x => x.Id == catalogId).FirstOrDefault();
+            }
+        }
+
+        public void Delete(SupplierCatalog catalog)
+        {
+            var session = OpenSessionIfRequired();
+            using (var transaction = session.BeginTransaction())
+            {
+                foreach (Hardware h in catalog.Hardwares)
+                {
+                    foreach (HardwareSupply s in h.Components)
+                    {
+                        session.Delete(s);
+                    }
+                }
+
+                session.Delete(catalog);
+                session.Transaction.Commit();
             }
         }
 
