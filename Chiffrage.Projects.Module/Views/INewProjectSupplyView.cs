@@ -12,6 +12,6 @@ namespace Chiffrage.Projects.Module.Views
     {
         int ProjectId { set; }
 
-        IList<CatalogSupplyViewModel> Supplies { set; }
+        IList<CatalogSupplySelectionViewModel> Supplies { set; }
     }
 }

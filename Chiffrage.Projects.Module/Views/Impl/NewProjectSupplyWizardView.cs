@@ -20,7 +20,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
 
         private int projectId;
 
-        private IList<CatalogSupplyViewModel> supplies;
+        private IList<CatalogSupplySelectionViewModel> supplies;
 
         public NewProjectSupplyWizardView(IEventBroker eventBroker)
             : base(eventBroker)
@@ -39,13 +39,16 @@ namespace Chiffrage.Projects.Module.Views.Impl
         {
             if (result == DialogResult.OK)
             {
-                var command = new CreateNewProjectSupplyCommand(
-                    projectId,
-                    newProjectSupplyPage.TypedPage.CatalogSupplyViewModel.CatalogId,
-                    newProjectSupplyPage.TypedPage.CatalogSupplyViewModel.Id,
-                    newProjectSupplyPage.TypedPage.Quantity);
+                foreach(var item in newProjectSupplyPage.TypedPage.CatalogSupplyViewModel)
+                {
+                    var command = new CreateNewProjectSupplyCommand(
+                        projectId,
+                        item.CatalogId,
+                        item.Id,
+                        item.Quantity);
 
-                this.EventBroker.Publish(command);
+                    this.EventBroker.Publish(command);
+                }
             }
         }
 
@@ -55,7 +58,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
             set { this.projectId = value; }
         }
 
-        public IList<CatalogSupplyViewModel> Supplies
+        public IList<CatalogSupplySelectionViewModel> Supplies
         {
             set { this.supplies = value; }
         }

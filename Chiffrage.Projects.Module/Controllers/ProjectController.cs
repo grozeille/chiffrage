@@ -351,18 +351,31 @@ namespace Chiffrage.Projects.Module.Controllers
         public void ProcessAction(RequestNewProjectSupplyAction eventObject)
         {
             var catalogs = this.catalogRepository.FindAll();
-            List<CatalogSupplyViewModel> suppliesViewModel = new List<CatalogSupplyViewModel>();
-            Mapper.CreateMap<Supply, CatalogSupplyViewModel>();
+            List<CatalogSupplySelectionViewModel> suppliesViewModel = new List<CatalogSupplySelectionViewModel>();
+            Mapper.CreateMap<Supply, CatalogSupplySelectionViewModel>();
 
             foreach(var catalog in catalogs)
             {
-                var supplies = Mapper.Map<IList<Supply>, IList<CatalogSupplyViewModel>>(catalog.Supplies);
+                var supplies = Mapper.Map<IList<Supply>, IList<CatalogSupplySelectionViewModel>>(catalog.Supplies);
                 foreach (var item in supplies)
                 {
                     item.CatalogId = catalog.Id;
+                    item.CatalogName = catalog.SupplierName;
+                    item.Quantity = 1;
                 }
                 suppliesViewModel.AddRange(supplies);
             }
+
+            suppliesViewModel.Sort((x, y) =>
+            {
+                int result = x.CatalogName.CompareTo(y.CatalogName);
+                if (result != 0)
+                {
+                    return result;
+                }
+
+                return x.Name.CompareTo(y.Name);
+            });
 
             this.newProjectSupplyView.Supplies = suppliesViewModel;
             this.newProjectSupplyView.ProjectId = eventObject.ProjectId;
@@ -416,18 +429,6 @@ namespace Chiffrage.Projects.Module.Controllers
                     item.CatalogId = catalog.Id;
                     item.CatalogName = catalog.SupplierName;
                     item.Quantity = 1;
-                    //item.ModuleSize = item.Components.Sum(x => x.SupplyModuleSize * x.Quantity);
-                    //item.CatalogPrice = item.Components.Sum(x => x.SupplyCatalogPrice * x.Quantity);
-                    //foreach (var subItem in item.Components)
-                    //{
-                    //    subItem.HardwareId = item.Id;
-                    //    subItem.CatalogId = catalog.Id;
-                    //    if (subItem.Comment.StartsWith("{\\rtf"))
-                    //    {
-                    //        rtBox.Rtf = string.IsNullOrEmpty(subItem.Comment) ? "{\\rtf}" : subItem.Comment;
-                    //        subItem.Comment = rtBox.Text;
-                    //    }
-                    //}
                 }
                 hardwaresViewModel.AddRange(hardwares);
             }

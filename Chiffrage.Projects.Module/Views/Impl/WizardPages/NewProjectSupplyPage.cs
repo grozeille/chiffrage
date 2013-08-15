@@ -13,27 +13,36 @@ namespace Chiffrage.Projects.Module.Views.Impl.WizardPages
 {
     public partial class NewProjectSupplyPage : UserControl
     {
-        private IList<CatalogSupplyViewModel> supplies;
+        private IList<CatalogSupplySelectionViewModel> supplies;
 
-        public CatalogSupplyViewModel CatalogSupplyViewModel
+        private IList<CatalogViewModel> catalogs;
+
+        public IList<CatalogSupplySelectionViewModel> CatalogSupplyViewModel
         {
             get
             {
-                return this.catalogSupplyViewModelBindingSource.Current as CatalogSupplyViewModel;
+                return this.supplies.Where(x => x.Selected).ToList();
             }
         }
 
-        public int Quantity
+        public IList<CatalogSupplySelectionViewModel> Supplies
         {
-            get
+            set 
             {
-                return int.Parse(this.textBoxQuantity.Text);
-            }
-        }
+                this.supplies = value;
 
-        public IList<CatalogSupplyViewModel> Supplies
-        {
-            set { this.supplies = value; }
+                var catalogMap = new Dictionary<int, string>();
+                foreach (var s in this.supplies)
+                {
+                    if (!catalogMap.ContainsKey(s.CatalogId))
+                    {
+                        catalogMap.Add(s.CatalogId, s.CatalogName);
+                    }
+                }
+
+                catalogs = catalogMap.Select(x => new CatalogViewModel { Id = x.Key, SupplierName = x.Value }).ToList();
+                catalogs.Insert(0, new CatalogViewModel { Id = -1, SupplierName = String.Empty });
+            }
         }
 
         public NewProjectSupplyPage()
@@ -45,25 +54,20 @@ namespace Chiffrage.Projects.Module.Views.Impl.WizardPages
         {
             base.OnLoad(e);
 
-            this.catalogSupplyViewModelBindingSource.DataSource = new SortableBindingList<CatalogSupplyViewModel>(this.supplies);
+            this.catalogSupplyViewModelBindingSource.DataSource = new SortableBindingList<CatalogSupplySelectionViewModel>(this.supplies);
             this.catalogSupplyViewModelBindingSource.ResetBindings(false);
+
+            this.catalogViewModelBindingSource.DataSource = new BindingList<CatalogViewModel>(this.catalogs);
+            this.catalogViewModelBindingSource.ResetBindings(true);
         }
 
         protected override void OnValidating(CancelEventArgs e)
         {
             base.OnValidating(e);
 
-            int temp;
+            var selected = this.CatalogSupplyViewModel;
 
-            if (!int.TryParse(this.textBoxQuantity.Text, out temp))
-            {
-                e.Cancel = true;
-                this.errorProvider.SetError(this.textBoxQuantity, "Doit être un nombre");
-            }
-
-            var selected = this.catalogSupplyViewModelBindingSource.Current as CatalogSupplyViewModel;
-
-            if (selected == null)
+            if (selected.Count == 0)
             {
                 e.Cancel = true;
                 this.errorProvider.SetError(this.labelnvisible, "Obligatoire");
@@ -73,8 +77,14 @@ namespace Chiffrage.Projects.Module.Views.Impl.WizardPages
         private void timerFilter_Tick(object sender, EventArgs e)
         {
             var searchRegex = new Regex(string.Format(".*{0}.*", Regex.Escape(this.textBoxSearch.Text)), RegexOptions.IgnoreCase);
+            var catalogId = (this.catalogViewModelBindingSource.Current as CatalogViewModel).Id;
             this.catalogSupplyViewModelBindingSource.DataSource = this.supplies.Where(x =>
                 {
+                    if (catalogId != -1 && !x.CatalogId.Equals(catalogId))
+                    {
+                        return false;
+                    }
+
                     return (x.Name != null && searchRegex.IsMatch(x.Name)) ||
                         (x.Reference != null && searchRegex.IsMatch(x.Reference));
                 }).ToList();
@@ -88,24 +98,18 @@ namespace Chiffrage.Projects.Module.Views.Impl.WizardPages
             this.timerFilter.Enabled = true;
         }
 
-        private void dataGridView_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        private void comboBoxCatalogs_SelectedIndexChanged(object sender, EventArgs e)
         {
-            /*var col = dataGridView.Columns[e.ColumnIndex];
-            if (this.dataGridView.SortedColumn == col)
+            this.timerFilter.Enabled = false;
+            this.timerFilter.Enabled = true;
+        }
+
+        private void dataGridView_CurrentCellDirtyStateChanged(object sender, EventArgs e)
+        {
+            if (dataGridView.IsCurrentCellDirty)
             {
-                if (this.dataGridView.SortOrder == SortOrder.Ascending)
-                {
-                    this.dataGridView.Sort(col, ListSortDirection.Descending);
-                }
-                else
-                {
-                    this.dataGridView.Sort(col, ListSortDirection.Ascending);
-                }
+                dataGridView.CommitEdit(DataGridViewDataErrorContexts.Commit);
             }
-            else
-            {
-                this.dataGridView.Sort(col, ListSortDirection.Ascending);
-            }*/
         }
     }
 }
