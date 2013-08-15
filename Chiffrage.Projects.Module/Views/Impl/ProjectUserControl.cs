@@ -134,14 +134,14 @@ namespace Chiffrage.Projects.Module.Views.Impl
                         var selectedList = selected.Values.ToList();
                         for (int cpt = 0; cpt < (Math.Min(selected.Count, maxItems)); cpt++)
                         {
-                            builder.AppendLine(selectedList[cpt].Name);
+                            builder.Append(" - ").AppendLine(selectedList[cpt].Name);
                         }
                         if (selected.Count > maxItems)
                         {
                             builder.AppendLine("...");
                         }
 
-                        var result = MessageBox.Show("Êtes-vous sûr de vouloir supprimer les composants: \n'" + builder.ToString(), "Supprimer?", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                        var result = MessageBox.Show("Êtes-vous sûr de vouloir supprimer les fournitures: \n" + builder.ToString(), "Supprimer?", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
                         var commands = new List<DeleteProjectSupplyCommand>();
                         if (result == DialogResult.OK)
                         {
@@ -165,14 +165,41 @@ namespace Chiffrage.Projects.Module.Views.Impl
             {
                 if (this.id.HasValue)
                 {
-                    var projectHardware = this.projectHardwareViewModelBindingSource.Current as ProjectHardwareViewModel;
-                    if (projectHardware != null)
+                    IDictionary<int, ProjectHardwareViewModel> selected = new Dictionary<int, ProjectHardwareViewModel>();
+                    foreach (DataGridViewCell item in this.dataGridViewHardware.SelectedCells)
                     {
-                        var result = MessageBox.Show("Êtes-vous sûr de vouloir supprimer le matériel '" + projectHardware.Name + "'?", "Supprimer?", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                        var hardware = this.dataGridViewHardware.Rows[item.RowIndex].DataBoundItem as ProjectHardwareViewModel;
+                        if (!selected.ContainsKey(hardware.Id))
+                        {
+                            selected.Add(hardware.Id, hardware);
+                        }
+                    }
+
+                    if (selected.Count > 0)
+                    {
+                        int maxItems = 10;
+                        StringBuilder builder = new StringBuilder();
+                        var selectedList = selected.Values.ToList();
+                        for (int cpt = 0; cpt < (Math.Min(selected.Count, maxItems)); cpt++)
+                        {
+                            builder.Append(" - ").AppendLine(selectedList[cpt].Name);
+                        }
+                        if (selected.Count > maxItems)
+                        {
+                            builder.AppendLine("...");
+                        }
+
+                        var result = MessageBox.Show("Êtes-vous sûr de vouloir supprimer les matériels: \n" + builder.ToString(), "Supprimer?", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                        var commands = new List<DeleteProjectHardwareCommand>();
                         if (result == DialogResult.OK)
                         {
-                            return new DeleteProjectHardwareCommand(this.id.Value, projectHardware.Id);
+                            foreach (var item in selectedList)
+                            {
+                                commands.Add(new DeleteProjectHardwareCommand(this.id.Value, item.Id));
+                            }
                         }
+
+                        return commands;
                     }
                 }
 

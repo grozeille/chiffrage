@@ -13,6 +13,7 @@ using Chiffrage.Catalogs.Domain.Commands;
 using System.Collections.Generic;
 using Chiffrage.Mvc;
 using Chiffrage.Catalogs.Module.Actions;
+using System.Text;
 
 namespace Chiffrage.Catalogs.Module.Views.Impl
 {
@@ -38,14 +39,41 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
                 {
                     if (this.catalogId.HasValue)
                     {
-                        var supply = this.suppliesBindingSource.Current as CatalogSupplyViewModel;
-                        if (supply != null)
+                        IDictionary<int, CatalogSupplyViewModel> selected = new Dictionary<int, CatalogSupplyViewModel>();
+                        foreach (DataGridViewCell item in this.dataGridViewSupplies.SelectedCells)
                         {
-                            var result = MessageBox.Show("Êtes-vous sûr de vouloir supprimer le composant '" + supply.Name + "'?", "Supprimer?", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                            var supply = this.dataGridViewSupplies.Rows[item.RowIndex].DataBoundItem as CatalogSupplyViewModel;
+                            if (!selected.ContainsKey(supply.Id))
+                            {
+                                selected.Add(supply.Id, supply);
+                            }
+                        }
+
+                        if (selected.Count > 0)
+                        {
+                            int maxItems = 10;
+                            StringBuilder builder = new StringBuilder();
+                            var selectedList = selected.Values.ToList();
+                            for (int cpt = 0; cpt < (Math.Min(selected.Count, maxItems)); cpt++)
+                            {
+                                builder.Append(" - ").AppendLine(selectedList[cpt].Name);
+                            }
+                            if (selected.Count > maxItems)
+                            {
+                                builder.AppendLine("...");
+                            }
+
+                            var result = MessageBox.Show("Êtes-vous sûr de vouloir supprimer les fournitures: \n" + builder.ToString(), "Supprimer?", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                            var commands = new List<DeleteSupplyCommand>();
                             if (result == DialogResult.OK)
                             {
-                                return new DeleteSupplyCommand(this.catalogId.Value, supply.Id);
+                                foreach (var item in selectedList)
+                                {
+                                    commands.Add(new DeleteSupplyCommand(this.catalogId.Value, item.Id));
+                                }
                             }
+
+                            return commands;
                         }
                     }
 
@@ -59,14 +87,41 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
             {
                 if (this.catalogId.HasValue)
                 {
-                    var hardware = this.hardwaresBindingSource.Current as CatalogHardwareViewModel;
-                    if (hardware != null)
+                    IDictionary<int, CatalogHardwareViewModel> selected = new Dictionary<int, CatalogHardwareViewModel>();
+                    foreach (DataGridViewCell item in this.dataGridViewHardwares.SelectedCells)
                     {
-                        var result = MessageBox.Show("Êtes-vous sûr de vouloir supprimer le matériel '" + hardware.Name + "'?", "Supprimer?", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                        var supply = this.dataGridViewHardwares.Rows[item.RowIndex].DataBoundItem as CatalogHardwareViewModel;
+                        if (!selected.ContainsKey(supply.Id))
+                        {
+                            selected.Add(supply.Id, supply);
+                        }
+                    }
+
+                    if (selected.Count > 0)
+                    {
+                        int maxItems = 10;
+                        StringBuilder builder = new StringBuilder();
+                        var selectedList = selected.Values.ToList();
+                        for (int cpt = 0; cpt < (Math.Min(selected.Count, maxItems)); cpt++)
+                        {
+                            builder.Append(" - ").AppendLine(selectedList[cpt].Name);
+                        }
+                        if (selected.Count > maxItems)
+                        {
+                            builder.AppendLine("...");
+                        }
+
+                        var result = MessageBox.Show("Êtes-vous sûr de vouloir supprimer les matériels: \n" + builder.ToString(), "Supprimer?", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                        var commands = new List<DeleteHardwareCommand>();
                         if (result == DialogResult.OK)
                         {
-                            return new DeleteHardwareCommand(this.catalogId.Value, hardware.Id);
+                            foreach (var item in selectedList)
+                            {
+                                commands.Add(new DeleteHardwareCommand(this.catalogId.Value, item.Id));
+                            }
                         }
+
+                        return commands;
                     }
                 }
 
@@ -91,15 +146,41 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
                 {
                     if (this.catalogId.HasValue)
                     {
-                        var hardwareSupply = this.componentsBindingSource.Current as CatalogHardwareSupplyViewModel;
-                        if (hardwareSupply != null)
+                        IDictionary<int, CatalogHardwareSupplyViewModel> selected = new Dictionary<int, CatalogHardwareSupplyViewModel>();
+                        foreach (DataGridViewCell item in this.dataGridViewHardwareSupplies.SelectedCells)
                         {
-                            var hardware = this.hardwaresBindingSource.Current as CatalogHardwareViewModel;
-                            var result = MessageBox.Show("Êtes-vous sûr de vouloir supprimer le componsant '" + hardwareSupply.SupplyName + "' du matériel '" + hardware.Name+ "' ?", "Supprimer?", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                            var supply = this.dataGridViewHardwareSupplies.Rows[item.RowIndex].DataBoundItem as CatalogHardwareSupplyViewModel;
+                            if (!selected.ContainsKey(supply.Id))
+                            {
+                                selected.Add(supply.Id, supply);
+                            }
+                        }
+
+                        if (selected.Count > 0)
+                        {
+                            int maxItems = 10;
+                            StringBuilder builder = new StringBuilder();
+                            var selectedList = selected.Values.ToList();
+                            for (int cpt = 0; cpt < (Math.Min(selected.Count, maxItems)); cpt++)
+                            {
+                                builder.Append(" - ").AppendLine(selectedList[cpt].SupplyName);
+                            }
+                            if (selected.Count > maxItems)
+                            {
+                                builder.AppendLine("...");
+                            }
+
+                            var result = MessageBox.Show("Êtes-vous sûr de vouloir supprimer les composants: \n" + builder.ToString(), "Supprimer?", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                            var commands = new List<DeleteHardwareSupplyCommand>();
                             if (result == DialogResult.OK)
                             {
-                                return new DeleteHardwareSupplyCommand(this.catalogId.Value, hardwareSupply.HardwareId, hardwareSupply.Id);
+                                foreach (var item in selectedList)
+                                {
+                                    commands.Add(new DeleteHardwareSupplyCommand(this.catalogId.Value, item.HardwareId, item.Id));
+                                }
                             }
+
+                            return commands;
                         }
                     }
 
