@@ -18,6 +18,7 @@ using Chiffrage.Projects.Module.Actions;
 using Chiffrage.Projects.Module.Properties;
 using System.Windows.Forms.DataVisualization.Charting;
 using System.Text.RegularExpressions;
+using System.Text;
 
 namespace Chiffrage.Projects.Module.Views.Impl
 {
@@ -116,14 +117,41 @@ namespace Chiffrage.Projects.Module.Views.Impl
             {
                 if (this.id.HasValue)
                 {
-                    var projectSupply = this.projectSupplyViewModelBindingSource.Current as ProjectSupplyViewModel;
-                    if (projectSupply != null)
+                    IDictionary<int, ProjectSupplyViewModel> selected = new Dictionary<int, ProjectSupplyViewModel>();
+                    foreach (DataGridViewCell item in this.dataGridView.SelectedCells)
                     {
-                        var result = MessageBox.Show("Êtes-vous sûr de vouloir supprimer le composant '" + projectSupply.Name + "'?", "Supprimer?", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                        var supply = this.dataGridView.Rows[item.RowIndex].DataBoundItem as ProjectSupplyViewModel;
+                        if (!selected.ContainsKey(supply.Id))
+                        {
+                            selected.Add(supply.Id, supply);
+                        }
+                    }
+
+                    if (selected.Count > 0)
+                    {
+                        int maxItems = 10;
+                        StringBuilder builder = new StringBuilder();
+                        var selectedList = selected.Values.ToList();
+                        for (int cpt = 0; cpt < (Math.Min(selected.Count, maxItems)); cpt++)
+                        {
+                            builder.AppendLine(selectedList[cpt].Name);
+                        }
+                        if (selected.Count > maxItems)
+                        {
+                            builder.AppendLine("...");
+                        }
+
+                        var result = MessageBox.Show("Êtes-vous sûr de vouloir supprimer les composants: \n'" + builder.ToString(), "Supprimer?", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                        var commands = new List<DeleteProjectSupplyCommand>();
                         if (result == DialogResult.OK)
                         {
-                            return new DeleteProjectSupplyCommand(this.id.Value, projectSupply.Id);
+                            foreach (var item in selectedList)
+                            {
+                                commands.Add(new DeleteProjectSupplyCommand(this.id.Value, item.Id));
+                            }
                         }
+
+                        return commands;
                     }
                 }
 

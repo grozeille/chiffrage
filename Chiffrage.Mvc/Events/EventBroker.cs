@@ -8,6 +8,7 @@ using System.Reflection;
 using System.Diagnostics;
 using System.ComponentModel;
 using System.Linq.Expressions;
+using System.Collections;
 
 namespace Chiffrage.Mvc.Events
 {
@@ -186,7 +187,44 @@ namespace Chiffrage.Mvc.Events
 
         private void InternalPublish(Message message)
         {
-            this.eventQueue.Enqueue(message);
+            var messages = new List<Message>();
+            if (message.Body.GetType().IsArray)
+            {
+                var eventObjectList = (IEnumerable)message.Body;
+                foreach (var item in eventObjectList)
+                {
+                    Message m = new Message();
+                    m.AsyncResult = message.AsyncResult;
+                    m.AsyncCallback = message.AsyncCallback;
+                    m.Body = item;
+                    messages.Add(m);
+                }
+            }
+            else
+            {
+                var enumerationType = message.Body.GetType().GetInterface("IEnumerable`1");
+                if (enumerationType != null)
+                {
+                    var eventObjectList = (IEnumerable)message.Body;
+                    foreach (var item in eventObjectList)
+                    {
+                        Message m = new Message();
+                        m.AsyncResult = message.AsyncResult;
+                        m.AsyncCallback = message.AsyncCallback;
+                        m.Body = item;
+                        messages.Add(m);
+                    }
+                }
+                else
+                {
+                    messages.Add(message);
+                }
+            }
+
+            foreach (var item in messages)
+            {
+                this.eventQueue.Enqueue(item);
+            }
 
             if (this.dispatchingThread == null)
                 this.Start();
