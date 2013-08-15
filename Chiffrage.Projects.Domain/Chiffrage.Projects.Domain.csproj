@@ -55,6 +55,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\CopyDealCommand.cs" />
+    <Compile Include="Commands\CopyProjectCommand.cs" />
+    <Compile Include="Commands\DeleteDealCommand.cs" />
+    <Compile Include="Commands\DeleteProjectCommand.cs" />
     <Compile Include="Commands\UpdateProjectHardwareStudyReferenceTestsCommand.cs" />
     <Compile Include="Commands\UpdateProjectHardwareWorkerWorkCommand.cs" />
     <Compile Include="Commands\UpdateProjectHardwareTechnicianWorkCommand.cs" />

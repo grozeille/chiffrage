@@ -290,5 +290,169 @@ namespace Chiffrage.Projects.Domain.Services
 
             this.eventBroker.Publish(new ProjectHardwareUpdatedEvent(project.Id, projectHardware));
         }
+
+        [Subscribe]
+        public void ProcessAction(CopyDealCommand eventObject)
+        {
+            var deal = this.dealRepository.FindById(eventObject.DealId);
+            Mapper.CreateMap<ProjectSupply, ProjectSupply>();
+            Mapper.CreateMap<ProjectHardwareSupply, ProjectHardwareSupply>();
+            Mapper.CreateMap<ProjectHardware, ProjectHardware>();
+            Mapper.CreateMap<OtherBenefit, OtherBenefit>();
+            Mapper.CreateMap<ProjectFrame, ProjectFrame>();
+            Mapper.CreateMap<Project, Project>();
+            Mapper.CreateMap<Deal, Deal>();
+
+            var cloneDeal = Mapper.Map<Deal, Deal>(deal);
+            cloneDeal.Name += " (copie)";
+            cloneDeal.Id = 0;
+
+            cloneDeal.Projects = new List<Project>();
+            foreach (var p in deal.Projects)
+            {
+                Project cloneProject = Mapper.Map<Project, Project>(p);
+                cloneProject.Id = 0;
+                cloneDeal.Projects.Add(cloneProject);
+
+                cloneProject.Supplies = new List<ProjectSupply>();
+                foreach (var s in p.Supplies)
+                {
+                    ProjectSupply cloneProjectSupply = Mapper.Map<ProjectSupply, ProjectSupply>(s);
+                    cloneProjectSupply.Id = 0;
+                    cloneProject.Supplies.Add(cloneProjectSupply);
+                }
+
+                cloneProject.Hardwares = new List<ProjectHardware>();
+                foreach (var h in p.Hardwares)
+                {
+                    ProjectHardware cloneHardware = Mapper.Map<ProjectHardware, ProjectHardware>(h);
+                    cloneHardware.Id = 0;
+                    cloneProject.Hardwares.Add(cloneHardware);
+
+                    cloneHardware.Components = new List<ProjectHardwareSupply>();
+                    foreach (var s in h.Components)
+                    {
+                        ProjectHardwareSupply cloneSupply = Mapper.Map<ProjectHardwareSupply, ProjectHardwareSupply>(s);
+                        cloneSupply.Id = 0;
+                        cloneHardware.Components.Add(s);
+                    }
+                }
+
+                cloneProject.OtherBenefits = new List<OtherBenefit>();
+                foreach (var o in p.OtherBenefits)
+                {
+                    OtherBenefit cloneOtherBenefits = Mapper.Map<OtherBenefit, OtherBenefit>(o);
+                    cloneOtherBenefits.Id = 0;
+                    cloneProject.OtherBenefits.Add(cloneOtherBenefits);
+                }
+
+                cloneProject.Frames = new List<ProjectFrame>();
+                foreach (var f in p.Frames)
+                {
+                    ProjectFrame cloneFrame = Mapper.Map<ProjectFrame, ProjectFrame>(f);
+                    cloneFrame.Id = 0;
+                    cloneProject.Frames.Add(cloneFrame);
+                }
+            }
+
+
+            this.dealRepository.Save(cloneDeal);
+
+            this.eventBroker.Publish(new DealCreatedEvent(cloneDeal));
+        }
+
+
+        [Subscribe]
+        public void ProcessAction(DeleteDealCommand eventObject)
+        {
+            var deal = this.dealRepository.FindById(eventObject.DealId);
+
+            this.dealRepository.Delete(deal);
+
+            this.eventBroker.Publish(new DealDeletedEvent(deal.Id));
+        }
+
+
+        [Subscribe]
+        public void ProcessAction(CopyProjectCommand eventObject)
+        {
+            var deal = this.dealRepository.FindById(eventObject.DealId);
+            var project = this.projectRepository.FindById(eventObject.ProjectId);
+
+            Mapper.CreateMap<ProjectSupply, ProjectSupply>();
+            Mapper.CreateMap<ProjectHardwareSupply, ProjectHardwareSupply>();
+            Mapper.CreateMap<ProjectHardware, ProjectHardware>();
+            Mapper.CreateMap<OtherBenefit, OtherBenefit>();
+            Mapper.CreateMap<ProjectFrame, ProjectFrame>();
+            Mapper.CreateMap<Project, Project>();
+
+
+            Project cloneProject = Mapper.Map<Project, Project>(project);
+            cloneProject.Name += " (copie)";
+            cloneProject.Id = 0;
+            deal.Projects.Add(cloneProject);
+
+            cloneProject.Supplies = new List<ProjectSupply>();
+            foreach (var s in project.Supplies)
+            {
+                ProjectSupply cloneProjectSupply = Mapper.Map<ProjectSupply, ProjectSupply>(s);
+                cloneProjectSupply.Id = 0;
+                cloneProject.Supplies.Add(cloneProjectSupply);
+            }
+
+            cloneProject.Hardwares = new List<ProjectHardware>();
+            foreach (var h in project.Hardwares)
+            {
+                ProjectHardware cloneHardware = Mapper.Map<ProjectHardware, ProjectHardware>(h);
+                cloneHardware.Id = 0;
+                cloneProject.Hardwares.Add(cloneHardware);
+
+                cloneHardware.Components = new List<ProjectHardwareSupply>();
+                foreach (var s in h.Components)
+                {
+                    ProjectHardwareSupply cloneSupply = Mapper.Map<ProjectHardwareSupply, ProjectHardwareSupply>(s);
+                    cloneSupply.Id = 0;
+                    cloneHardware.Components.Add(s);
+                }
+            }
+
+            cloneProject.OtherBenefits = new List<OtherBenefit>();
+            foreach (var o in project.OtherBenefits)
+            {
+                OtherBenefit cloneOtherBenefits = Mapper.Map<OtherBenefit, OtherBenefit>(o);
+                cloneOtherBenefits.Id = 0;
+                cloneProject.OtherBenefits.Add(cloneOtherBenefits);
+            }
+
+            cloneProject.Frames = new List<ProjectFrame>();
+            foreach (var f in project.Frames)
+            {
+                ProjectFrame cloneFrame = Mapper.Map<ProjectFrame, ProjectFrame>(f);
+                cloneFrame.Id = 0;
+                cloneProject.Frames.Add(cloneFrame);
+            }
+
+
+            this.dealRepository.Save(deal);
+
+            this.eventBroker.Publish(new DealCreatedEvent(deal));
+
+            this.eventBroker.Publish(new ProjectCreatedEvent(deal, cloneProject));
+        }
+
+        [Subscribe]
+        public void ProcessAction(DeleteProjectCommand eventObject)
+        {
+            var deal = this.dealRepository.FindById(eventObject.DealId);
+            var project = this.projectRepository.FindById(eventObject.ProjectId);
+
+            deal.Projects.Remove(project);
+
+            this.dealRepository.Save(deal);
+
+            this.projectRepository.Delete(project);
+
+            this.eventBroker.Publish(new ProjectDeletedEvent(deal.Id, project.Id));
+        }
     }
 }

@@ -107,6 +107,12 @@ namespace Chiffrage.App.Controllers
         }
 
         [Subscribe]
+        public void ProcessAction(CatalogDeletedEvent eventObject)
+        {
+            this.navigationView.RemoveCatalog(eventObject.CatalogId);
+        }
+
+        [Subscribe]
         public void ProcessAction(ProjectDeletedEvent eventObject)
         {
             this.navigationView.RemoveProject(eventObject.DealId, eventObject.ProjectId);

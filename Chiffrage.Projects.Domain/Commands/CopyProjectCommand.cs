@@ -4,15 +4,15 @@ using System.Linq;
 using System.Text;
 using Chiffrage.Mvc.Events;
 
-namespace Chiffrage.Projects.Module.Actions
+namespace Chiffrage.Projects.Domain.Commands
 {
-    public class RequestCopyProjectAction
+    public class CopyProjectCommand
     {
         public int DealId { get; private set; }
 
         public int ProjectId { get; private set; }
 
-        public RequestCopyProjectAction(int dealId, int projectId)
+        public CopyProjectCommand(int dealId, int projectId)
         {
             this.DealId = dealId;
             this.ProjectId = projectId;

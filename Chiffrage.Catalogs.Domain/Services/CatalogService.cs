@@ -367,6 +367,72 @@ namespace Chiffrage.Catalogs.Domain.Services
             }
         }
 
+        [Subscribe]
+        public void ProcessAction(CopyCatalogCommand eventObject)
+        {
+            var catalog = this.repository.FindById(eventObject.CatalogId);
+
+            Mapper.CreateMap<SupplierCatalog, SupplierCatalog>();
+            Mapper.CreateMap<Supply, Supply>();
+            Mapper.CreateMap<Hardware, Hardware>();
+            Mapper.CreateMap<Cable, Cable>();
+            Mapper.CreateMap<HardwareSupply, HardwareSupply>();
+
+
+            SupplierCatalog cloneCatalog = Mapper.Map<SupplierCatalog, SupplierCatalog>(catalog);
+            cloneCatalog.SupplierName += " (copie)";
+            cloneCatalog.Id = 0;
+
+            cloneCatalog.Supplies = new List<Supply>();
+            IDictionary<Int32, Supply> supplyCache = new Dictionary<Int32, Supply>();
+            foreach (var s in catalog.Supplies)
+            {
+                Supply cloneSupply = Mapper.Map<Supply, Supply>(s);
+                cloneSupply.Id = 0;
+                cloneCatalog.Supplies.Add(cloneSupply);
+                supplyCache.Add(s.Id, cloneSupply);
+            }
+
+            cloneCatalog.Hardwares = new List<Hardware>();
+            foreach (var h in catalog.Hardwares)
+            {
+                Hardware cloneHardware = Mapper.Map<Hardware, Hardware>(h);
+                cloneHardware.Id = 0;
+                cloneCatalog.Hardwares.Add(cloneHardware);
+
+                cloneHardware.Components = new List<HardwareSupply>();
+                foreach (var s in h.Components)
+                {
+                    HardwareSupply cloneSupply = Mapper.Map<HardwareSupply, HardwareSupply>(s);
+                    cloneSupply.Id = 0;
+                    cloneSupply.Supply = supplyCache[cloneSupply.Supply.Id];
+                    cloneHardware.Components.Add(s);
+                }
+            }
+
+            cloneCatalog.Cables = new List<Cable>();
+            foreach (var o in catalog.Cables)
+            {
+                Cable cloneCable = Mapper.Map<Cable, Cable>(o);
+                cloneCable.Id = 0;
+                cloneCatalog.Cables.Add(cloneCable);
+            }
+
+            this.repository.Save(cloneCatalog);
+
+            this.eventBroker.Publish(new CatalogCreatedEvent(cloneCatalog));
+        }
+
+        [Subscribe]
+        public void ProcessAction(DeleteCatalogCommand eventObject)
+        {
+            var catalog = this.repository.FindById(eventObject.CatalogId);
+
+            this.repository.Delete(catalog);
+
+            this.eventBroker.Publish(new CatalogDeletedEvent(catalog.Id));
+        }
+
         private Supply FindOrCreateSupply(CsvLine line, IEnumerable<Supply> suppliesToFind, IList<Supply> suppliesToAdd)
         {
             var supply = new Supply

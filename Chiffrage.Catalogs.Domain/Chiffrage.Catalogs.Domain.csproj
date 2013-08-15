@@ -68,8 +68,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cable.cs" />
-    <Compile Include="Catalog.cs" />
+    <Compile Include="Commands\CopyCatalogCommand.cs" />
     <Compile Include="Commands\CreateNewHardwareSupplyCommand.cs" />
+    <Compile Include="Commands\DeleteCatalogCommand.cs" />
     <Compile Include="Commands\DeleteHardwareCommand.cs" />
     <Compile Include="Commands\DeleteHardwareSupplyCommand.cs" />
     <Compile Include="Commands\ImportHardwareCommand.cs" />
@@ -85,6 +86,7 @@
     <Compile Include="EmptyInt32TypeConverter.cs" />
     <Compile Include="Events\CatalogCreatedEvent.cs" />
     <Compile Include="Events\CatalogUpdatedEvent.cs" />
+    <Compile Include="Events\CatalogDeletedEvent.cs" />
     <Compile Include="Events\HardwareCreatedEvent.cs" />
     <Compile Include="Events\HardwareDeletedEvent.cs" />
     <Compile Include="Events\HardwareMustBeUniqueErrorEvent.cs" />

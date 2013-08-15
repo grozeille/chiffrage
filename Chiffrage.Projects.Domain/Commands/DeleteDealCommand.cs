@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using Chiffrage.Mvc.Events;
 
-namespace Chiffrage.Projects.Module.Actions
+namespace Chiffrage.Projects.Domain.Commands
 {
-    public class RequestDeleteDealAction
+    public class DeleteDealCommand
     {
         public int DealId { get; private set; }
 
-        public RequestDeleteDealAction(int dealId)
+        public DeleteDealCommand(int dealId)
         {
             this.DealId = dealId;
         }

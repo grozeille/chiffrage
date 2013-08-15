@@ -24,15 +24,12 @@ namespace Chiffrage.Projects.Module.Controllers
         private readonly IProjectRepository projectRepository;
         private readonly IDealView dealView;
         private readonly INewDealView newDealView;
-        private readonly IEventBroker eventBroker;
 
-        public DealController(IDealRepository dealRepository, IProjectRepository projectRepository, IDealView dealView, INewDealView newDealView, IEventBroker eventBroker)
+        public DealController(IDealRepository dealRepository, IDealView dealView, INewDealView newDealView)
         {
             this.dealView = dealView;
             this.newDealView = newDealView;
             this.dealRepository = dealRepository;
-            this.eventBroker = eventBroker;
-            this.projectRepository = projectRepository;
         }
 
         [Subscribe]
@@ -85,87 +82,6 @@ namespace Chiffrage.Projects.Module.Controllers
         public void ProcessAction(RequestNewDealAction eventObject)
         {
             this.newDealView.ShowView();
-        }
-
-        [Subscribe]
-        public void ProcessAction(RequestCopyDealAction eventObject)
-        {
-            var deal = this.dealRepository.FindById(eventObject.DealId);
-            Mapper.CreateMap<ProjectSupply, ProjectSupply>();
-            Mapper.CreateMap<ProjectHardwareSupply, ProjectHardwareSupply>();
-            Mapper.CreateMap<ProjectHardware, ProjectHardware>();
-            Mapper.CreateMap<OtherBenefit, OtherBenefit>();
-            Mapper.CreateMap<ProjectFrame, ProjectFrame>();
-            Mapper.CreateMap<Project, Project>();
-            Mapper.CreateMap<Deal, Deal>();
-
-            var cloneDeal = Mapper.Map<Deal, Deal>(deal);
-            cloneDeal.Name += " (copie)";
-            cloneDeal.Id = 0;
-
-            cloneDeal.Projects = new List<Project>();
-            foreach (var p in deal.Projects)
-            {
-                Project cloneProject = Mapper.Map<Project, Project>(p);
-                cloneProject.Id = 0;
-                cloneDeal.Projects.Add(cloneProject);
-
-                cloneProject.Supplies = new List<ProjectSupply>();
-                foreach (var s in p.Supplies)
-                {
-                    ProjectSupply cloneProjectSupply = Mapper.Map<ProjectSupply, ProjectSupply>(s);
-                    cloneProjectSupply.Id = 0;
-                    cloneProject.Supplies.Add(cloneProjectSupply);
-                }
-
-                cloneProject.Hardwares = new List<ProjectHardware>();
-                foreach (var h in p.Hardwares)
-                {
-                    ProjectHardware cloneHardware = Mapper.Map<ProjectHardware, ProjectHardware>(h);
-                    cloneHardware.Id = 0;
-                    cloneProject.Hardwares.Add(cloneHardware);
-
-                    cloneHardware.Components = new List<ProjectHardwareSupply>();
-                    foreach (var s in h.Components)
-                    {
-                        ProjectHardwareSupply cloneSupply = Mapper.Map<ProjectHardwareSupply, ProjectHardwareSupply>(s);
-                        cloneSupply.Id = 0;
-                        cloneHardware.Components.Add(s);
-                    }
-                }
-
-                cloneProject.OtherBenefits = new List<OtherBenefit>();
-                foreach (var o in p.OtherBenefits)
-                {
-                    OtherBenefit cloneOtherBenefits = Mapper.Map<OtherBenefit, OtherBenefit>(o);
-                    cloneOtherBenefits.Id = 0;
-                    cloneProject.OtherBenefits.Add(cloneOtherBenefits);
-                }
-
-                cloneProject.Frames = new List<ProjectFrame>();
-                foreach (var f in p.Frames)
-                {
-                    ProjectFrame cloneFrame = Mapper.Map<ProjectFrame, ProjectFrame>(f);
-                    cloneFrame.Id = 0;
-                    cloneProject.Frames.Add(cloneFrame);
-                }
-            }
-
-
-            this.dealRepository.Save(cloneDeal);
-            
-            this.eventBroker.Publish(new DealCreatedEvent(cloneDeal));
-        }
-
-
-        [Subscribe]
-        public void ProcessAction(RequestDeleteDealAction eventObject)
-        {
-            var deal = this.dealRepository.FindById(eventObject.DealId);
-
-            this.dealRepository.Delete(deal);
-
-            this.eventBroker.Publish(new DealDeletedEvent(deal.Id));
         }
 
         private DealViewModel Map(Deal deal)

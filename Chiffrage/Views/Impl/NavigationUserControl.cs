@@ -10,6 +10,8 @@ using Chiffrage.Projects.Module.Actions;
 using Chiffrage.Catalogs.Module.Actions;
 using System.Drawing;
 using Common.Logging;
+using Chiffrage.Projects.Domain.Commands;
+using Chiffrage.Catalogs.Domain.Commands;
 
 namespace Chiffrage
 {
@@ -47,27 +49,12 @@ namespace Chiffrage
                     var deal = this.treeView.SelectedNode.Tag as DealItemViewModel;
                     if (deal != null)
                     {
-                        return new RequestCopyDealAction(deal.Id);
+                        return new CopyDealCommand(deal.Id);
                     }
                 }
 
                 return null;
             });
-            this.eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemProjectCopy, () =>
-            {
-                if (this.treeView.SelectedNode != null)
-                {
-                    var deal = this.treeView.SelectedNode.Parent.Tag as DealItemViewModel;
-                    var project = this.treeView.SelectedNode.Tag as ProjectItemViewModel;
-                    if (deal != null && project != null)
-                    {
-                        return new RequestCopyProjectAction(deal.Id, project.Id);
-                    }
-                }
-
-                return null;
-            });
-
             this.eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemDeleteDeal, () =>
             {
                 if (this.treeView.SelectedNode != null)
@@ -77,7 +64,7 @@ namespace Chiffrage
                     {
                         if (MessageBox.Show("Êtes-vous sûr de vouloir supprimer cette affaire?", "Supprimer", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
                         {
-                            return new RequestDeleteDealAction(deal.Id);
+                            return new DeleteDealCommand(deal.Id);
                         }
                     }
                 }
@@ -85,6 +72,21 @@ namespace Chiffrage
                 return null;
             });
 
+
+            this.eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemProjectCopy, () =>
+            {
+                if (this.treeView.SelectedNode != null)
+                {
+                    var deal = this.treeView.SelectedNode.Parent.Tag as DealItemViewModel;
+                    var project = this.treeView.SelectedNode.Tag as ProjectItemViewModel;
+                    if (deal != null && project != null)
+                    {
+                        return new CopyProjectCommand(deal.Id, project.Id);
+                    }
+                }
+
+                return null;
+            });
             this.eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemDeleteProject, () =>
             {
                 if (this.treeView.SelectedNode != null)
@@ -95,7 +97,37 @@ namespace Chiffrage
                     {
                         if (MessageBox.Show("Êtes-vous sûr de vouloir supprimer cet projet?", "Supprimer", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
                         {
-                            return new RequestDeleteProjectAction(deal.Id, project.Id);
+                            return new DeleteProjectCommand(deal.Id, project.Id);
+                        }
+                    }
+                }
+
+                return null;
+            });
+
+            this.eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemCatalogCopy, () =>
+            {
+                if (this.treeView.SelectedNode != null)
+                {
+                    var catalog = this.treeView.SelectedNode.Tag as CatalogItemViewModel;
+                    if (catalog != null)
+                    {
+                        return new CopyCatalogCommand(catalog.Id);
+                    }
+                }
+
+                return null;
+            });
+            this.eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemCatalogDelete, () =>
+            {
+                if (this.treeView.SelectedNode != null)
+                {
+                    var catalog = this.treeView.SelectedNode.Tag as CatalogItemViewModel;
+                    if (catalog != null)
+                    {
+                        if (MessageBox.Show("Êtes-vous sûr de vouloir supprimer ce catalogue?", "Supprimer", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                        {
+                            return new DeleteCatalogCommand(catalog.Id);
                         }
                     }
                 }
@@ -205,6 +237,7 @@ namespace Chiffrage
                 var nodeCatalog = this.treeNodeCatalogs.Nodes.Add("catalog_" + viewModel.Id, viewModel.SupplierName,
                                                                   "book_open.png", "book_open.png");
                 nodeCatalog.Tag = viewModel;
+                nodeCatalog.ContextMenuStrip = this.contextMenuStripCatalog;
 
                 this.eventBroker.RegisterTreeNodeSelectEventSource(nodeCatalog, new CatalogSelectedAction(viewModel.Id));
                 this.eventBroker.RegisterTreeNodeUnselectEventSource(nodeCatalog, new CatalogUnselectedAction(viewModel.Id));
@@ -335,6 +368,20 @@ namespace Chiffrage
                 var node = this.GetProjectTreeNode(projectId);
 
                 dealNode.Nodes.Remove(node);
+
+                this.treeView.EndUpdate();
+            });
+        }
+
+        public void RemoveCatalog(int catalogId)
+        {
+            InvokeIfRequired(() =>
+            {
+                this.treeView.BeginUpdate();
+
+                var node = this.GetCatalogTreeNode(catalogId);
+
+                this.treeNodeCatalogs.Nodes.Remove(node);
 
                 this.treeView.EndUpdate();
             });

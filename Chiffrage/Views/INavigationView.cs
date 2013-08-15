@@ -30,5 +30,7 @@ namespace Chiffrage.App.Views
         void RemoveDeal(int dealId);
 
         void RemoveProject(int dealId, int projectId);
+
+        void RemoveCatalog(int catalogId);
     }
 }
