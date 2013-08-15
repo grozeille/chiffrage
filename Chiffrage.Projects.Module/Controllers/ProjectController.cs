@@ -423,6 +423,17 @@ namespace Chiffrage.Projects.Module.Controllers
                 hardwaresViewModel.AddRange(hardwares);
             }
 
+            hardwaresViewModel.Sort((x, y) =>
+            {
+                int result = x.CatalogName.CompareTo(y.CatalogName);
+                if (result != 0)
+                {
+                    return result;
+                }
+
+                return x.Name.CompareTo(y.Name);
+            });
+
             this.newProjectHardwareView.ProjectId = eventObject.ProjectId;
             this.newProjectHardwareView.Hardwares = hardwaresViewModel;
             this.newProjectHardwareView.ShowView();
