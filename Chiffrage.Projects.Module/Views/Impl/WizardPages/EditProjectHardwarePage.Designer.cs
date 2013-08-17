@@ -32,9 +32,9 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditProjectHardwarePage));
             this.labelHardware = new System.Windows.Forms.Label();
             this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
-            this.textBoxHardwareName = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.textBoxMilestone = new System.Windows.Forms.TextBox();
+            this.textBoxHardwareName = new System.Windows.Forms.TextBox();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this.tableLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
@@ -52,33 +52,27 @@
             // 
             // tableLayoutPanel
             // 
-            this.tableLayoutPanel.ColumnCount = 3;
+            this.tableLayoutPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel.ColumnCount = 4;
             this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200F));
+            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
+            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
             this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this.tableLayoutPanel.Controls.Add(this.label11, 0, 2);
             this.tableLayoutPanel.Controls.Add(this.textBoxMilestone, 1, 2);
             this.tableLayoutPanel.Controls.Add(this.labelHardware, 0, 0);
             this.tableLayoutPanel.Controls.Add(this.textBoxHardwareName, 1, 0);
-            this.tableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel.Name = "tableLayoutPanel";
-            this.tableLayoutPanel.RowCount = 4;
+            this.tableLayoutPanel.RowCount = 5;
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel.Size = new System.Drawing.Size(389, 364);
+            this.tableLayoutPanel.Size = new System.Drawing.Size(459, 103);
             this.tableLayoutPanel.TabIndex = 8;
-            // 
-            // textBoxHardwareName
-            // 
-            this.textBoxHardwareName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxHardwareName.Location = new System.Drawing.Point(129, 3);
-            this.textBoxHardwareName.Name = "textBoxHardwareName";
-            this.textBoxHardwareName.ReadOnly = true;
-            this.textBoxHardwareName.Size = new System.Drawing.Size(194, 20);
-            this.textBoxHardwareName.TabIndex = 5;
             // 
             // label11
             // 
@@ -93,11 +87,22 @@
             // textBoxMilestone
             // 
             this.textBoxMilestone.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel.SetColumnSpan(this.textBoxMilestone, 2);
             this.textBoxMilestone.Location = new System.Drawing.Point(129, 49);
             this.textBoxMilestone.Name = "textBoxMilestone";
             this.textBoxMilestone.Size = new System.Drawing.Size(194, 20);
             this.textBoxMilestone.TabIndex = 16;
             this.textBoxMilestone.Text = "0";
+            // 
+            // textBoxHardwareName
+            // 
+            this.textBoxHardwareName.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel.SetColumnSpan(this.textBoxHardwareName, 2);
+            this.textBoxHardwareName.Location = new System.Drawing.Point(129, 3);
+            this.textBoxHardwareName.Name = "textBoxHardwareName";
+            this.textBoxHardwareName.ReadOnly = true;
+            this.textBoxHardwareName.Size = new System.Drawing.Size(194, 20);
+            this.textBoxHardwareName.TabIndex = 5;
             // 
             // errorProvider
             // 
@@ -109,9 +114,10 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
             this.Controls.Add(this.tableLayoutPanel);
             this.Name = "EditProjectHardwarePage";
-            this.Size = new System.Drawing.Size(389, 364);
+            this.Size = new System.Drawing.Size(459, 235);
             this.tableLayoutPanel.ResumeLayout(false);
             this.tableLayoutPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();

@@ -15,11 +15,11 @@ namespace Chiffrage.Projects.Dal.Mappings
             Property(x => x.Quantity);
             Property(x => x.Comment);
             this.ManyToOne(x => x.Supply, y =>
-                {
-                    //y.Lazy(LazyRelation.Proxy);
-                    y.Fetch(FetchKind.Join);
-                    y.Cascade(Cascade.All);
-                });
+            {
+                //y.Lazy(LazyRelation.Proxy);
+                y.Fetch(FetchKind.Join);
+                y.Cascade(Cascade.All);
+            });
         }
     }
 }

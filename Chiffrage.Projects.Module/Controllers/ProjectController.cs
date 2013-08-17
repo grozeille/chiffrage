@@ -34,6 +34,8 @@ namespace Chiffrage.Projects.Module.Controllers
 
         private readonly ICatalogRepository catalogRepository;
 
+        private readonly ITaskRepository taskRepository;
+
         private readonly INewProjectSupplyView newProjectSupplyView;
 
         private readonly INewProjectHardwareView newProjectHardwareView;
@@ -72,7 +74,8 @@ namespace Chiffrage.Projects.Module.Controllers
             IEditProjectHardwareWorkerWorkView editProjectHardwareWorkerWorkView,
             IEditProjectHardwareStudyReferenceTestsView editProjectHardwareStudyReferenceTestsView,
             ILoadingView loadingView,
-            ICatalogRepository catalogRepository)
+            ICatalogRepository catalogRepository,
+            ITaskRepository taskRepository)
         {
             this.projectView = projectView;
             this.newProjectView = newProjectView;
@@ -89,6 +92,7 @@ namespace Chiffrage.Projects.Module.Controllers
             this.editProjectHardwareStudyReferenceTestsView = editProjectHardwareStudyReferenceTestsView;
             this.loadingView = loadingView;
             this.catalogRepository = catalogRepository;
+            this.taskRepository = taskRepository;
         }
 
 
@@ -499,7 +503,12 @@ namespace Chiffrage.Projects.Module.Controllers
         [Subscribe]
         public void ProcessAction(RequestEditProjectHardwareAction eventObject)
         {
+            Project project = this.projectRepository.FindById(eventObject.Hardware.ProjectId);
+            ProjectHardware hardware = project.Hardwares.Where(x => x.Id == eventObject.Hardware.Id).FirstOrDefault();
+
             this.editProjectHardwareView.Hardware = eventObject.Hardware;
+            this.editProjectHardwareView.CatalogTasks = this.taskRepository.FindAll();
+            this.editProjectHardwareView.HardwareTask = hardware.Tasks;
             this.editProjectHardwareView.ShowView();
         }
 

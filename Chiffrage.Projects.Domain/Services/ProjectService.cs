@@ -141,6 +141,13 @@ namespace Chiffrage.Projects.Domain.Services
             Mapper.CreateMap<Hardware, ProjectHardware>()
                 .ForMember(x => x.HardwareId, y => y.MapFrom(z => z.Id))
                 .ForMember(x => x.Id, y => y.Ignore());
+            Mapper.CreateMap<HardwareTask, ProjectHardwareTask>()
+                .ForMember(x => x.HardwareTaskId, y => y.MapFrom(z => z.Id))
+                .ForMember(x => x.TaskType, y => y.MapFrom(z => z.Task.Type))
+                .ForMember(x => x.TaskId, y => y.MapFrom(z => z.Task.Id))
+                .ForMember(x => x.Name, y => y.MapFrom(z => z.Task.Name))
+                .ForMember(x => x.CatalogValue, y => y.MapFrom(z => z.Value))
+                .ForMember(x => x.Id, y => y.Ignore());
 
             var projectHardware = Mapper.Map<Hardware, ProjectHardware>(hardware);
             projectHardware.CatalogId = catalog.Id;

@@ -7,15 +7,24 @@ namespace Chiffrage.Projects.Domain
     {
         private IList<ProjectHardwareSupply> components;
 
+        private IList<ProjectHardwareTask> tasks;
+
         public ProjectHardware()
         {
             this.components = new List<ProjectHardwareSupply>();
+            this.tasks = new List<ProjectHardwareTask>();
         }
 
         public virtual IList<ProjectHardwareSupply> Components
         {
             get { return this.components; }
             set { this.components = value; }
+        }
+
+        public virtual IList<ProjectHardwareTask> Tasks
+        {
+            get { return this.tasks; }
+            set { this.tasks = value; }
         }
 
         public virtual int Id { get; set; }

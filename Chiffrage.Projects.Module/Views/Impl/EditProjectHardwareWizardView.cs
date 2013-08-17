@@ -11,6 +11,8 @@ using Chiffrage.Mvc.Views;
 using Chiffrage.Projects.Module.Views.Impl.WizardPages;
 using Chiffrage.Catalogs.Domain.Commands;
 using Chiffrage.Projects.Domain.Commands;
+using Chiffrage.Projects.Domain;
+using Chiffrage.Catalogs.Domain;
 
 namespace Chiffrage.Projects.Module.Views.Impl
 {
@@ -19,6 +21,10 @@ namespace Chiffrage.Projects.Module.Views.Impl
         private GenericWizardSetting<EditProjectHardwarePage> editHardwarePage;
 
         private ProjectHardwareViewModel hardware;
+
+        private IList<Task> catalogTasks;
+
+        private IList<ProjectHardwareTask> hardwareTasks;
 
         public EditProjectHardwareWizardView(IEventBroker eventBroker)
             : base(eventBroker)
@@ -33,6 +39,8 @@ namespace Chiffrage.Projects.Module.Views.Impl
 
             this.editHardwarePage.TypedPage.HardwareName = this.hardware.Name;
             this.editHardwarePage.TypedPage.Milestone = this.hardware.Milestone;
+            this.editHardwarePage.TypedPage.CatalogTasks = this.catalogTasks;
+            this.editHardwarePage.TypedPage.HardwareTasks = this.hardwareTasks;
 
             return new WizardSettingListIterator(this.editHardwarePage);
         }
@@ -44,7 +52,8 @@ namespace Chiffrage.Projects.Module.Views.Impl
                 var command = new UpdateProjectHardwareCommand(
                     hardware.ProjectId,
                     hardware.Id,
-                    this.editHardwarePage.TypedPage.Milestone);
+                    this.editHardwarePage.TypedPage.Milestone,
+                    this.editHardwarePage.TypedPage.HardwareTasks);
                 this.EventBroker.Publish(command);
             }
         }
@@ -52,6 +61,22 @@ namespace Chiffrage.Projects.Module.Views.Impl
         public ProjectHardwareViewModel Hardware
         {
             set { this.hardware = value; }
+        }
+
+        public IList<Task> CatalogTasks
+        {
+            set
+            {
+                this.catalogTasks = value;
+            }
+        }
+
+        public IList<ProjectHardwareTask> HardwareTask
+        {
+            set
+            {
+                this.hardwareTasks = value;
+            }
         }
 
         public override string Name

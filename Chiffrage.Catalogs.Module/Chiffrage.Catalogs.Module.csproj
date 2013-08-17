@@ -116,6 +116,7 @@
     <Compile Include="Views\Impl\NewHardwareSupplyWizardView.cs" />
     <Compile Include="Views\Impl\NewHardwareWizardView.cs" />
     <Compile Include="Views\Impl\NewSupplyWizardView.cs" />
+    <Compile Include="Views\Impl\ProjectHardwareTask.cs" />
     <Compile Include="Views\Impl\TasksUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>

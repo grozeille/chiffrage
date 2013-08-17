@@ -95,6 +95,9 @@
     <Compile Include="OtherBenefit.cs" />
     <Compile Include="Project.cs" />
     <Compile Include="ProjectHardware.cs" />
+    <Compile Include="ProjectHardwareTask.cs" />
+    <Compile Include="ProjectHardwareTaskType.cs" />
+    <Compile Include="ProjectHardwareTaskTypeConsts.cs" />
     <Compile Include="ProjectSupply.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\IProjectRepository.cs" />
