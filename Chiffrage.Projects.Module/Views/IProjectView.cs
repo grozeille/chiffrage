@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using Chiffrage.Projects.Module.ViewModel;
 using Chiffrage.Mvc.Views;
+using Chiffrage.Catalogs.Domain;
 
 namespace Chiffrage.Projects.Module.Views
 {
     public interface IProjectView : IView
     {
-        void SetProjectViewModel(ProjectViewModel viewModel);
+        void SetProjectViewModel(ProjectViewModel viewModel, IList<Task> tasks);
 
         void SetSupplies(IEnumerable<ProjectSupplyViewModel> supplies);
 
@@ -40,30 +41,6 @@ namespace Chiffrage.Projects.Module.Views
         void AddFrames(IEnumerable<ProjectFrameViewModel> frames);
 
         void RemoveFrame(ProjectFrameViewModel frame);
-
-        void AddHardwareTechnicianWork(ProjectHardwareTechnicianWorkViewModel workViewModel);
-
-        void AddHardwareWorkerWork(ProjectHardwareWorkerWorkViewModel workViewModel);
-
-        void AddHardwareStudyReferenceTest(ProjectHardwareStudyReferenceTestViewModel studyReferenceTestViewModel);
-
-        void SetHardwareTechnicianWorks(IEnumerable<ProjectHardwareTechnicianWorkViewModel> works);
-
-        void SetHardwareWorkerWorks(IEnumerable<ProjectHardwareWorkerWorkViewModel> workerWorks);
-
-        void SetHardwareStudyReferenceTests(IEnumerable<ProjectHardwareStudyReferenceTestViewModel> studyReferenceTests);
-
-        void UpdateHardwareStudyReferenceTest(ProjectHardwareStudyReferenceTestViewModel studyReferenceTestViewModel);
-
-        void UpdateHardwareWorkerWork(ProjectHardwareWorkerWorkViewModel workViewModel);
-
-        void UpdateHardwareTechnicianWork(ProjectHardwareTechnicianWorkViewModel workViewModel);
-
-        void RemoveHardwareTechnicianWork(ProjectHardwareTechnicianWorkViewModel workViewModel);
-
-        void RemoveHardwareWorkerWork(ProjectHardwareWorkerWorkViewModel workViewModel);
-
-        void RemoveHardwareStudyReferenceTest(ProjectHardwareStudyReferenceTestViewModel studyReferenceTestViewModel);
 
         void SetCostSummaryItems(IEnumerable<ProjectCostSummaryViewModel> summaryItems);
 

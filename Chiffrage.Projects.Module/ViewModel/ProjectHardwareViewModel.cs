@@ -1,5 +1,6 @@
 ﻿using Chiffrage.Projects.Domain;
 using System.ComponentModel;
+using System.Collections.Generic;
 
 namespace Chiffrage.Projects.Module.ViewModel
 {
@@ -29,5 +30,7 @@ namespace Chiffrage.Projects.Module.ViewModel
         public virtual double Milestone { get; set; }
 
         public BindingList<ProjectHardwareSupplyViewModel> Components { get; set; }
+
+        public IList<ProjectHardwareTask> Tasks { get; set; }
     }
 }

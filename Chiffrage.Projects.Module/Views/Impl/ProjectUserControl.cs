@@ -28,17 +28,13 @@ namespace Chiffrage.Projects.Module.Views.Impl
 
         private readonly SortableBindingList<ProjectSupplyViewModel> supplies = new SortableBindingList<ProjectSupplyViewModel>();
 
-        private readonly SortableBindingList<ProjectHardwareViewModel> hardwares = new SortableBindingList<ProjectHardwareViewModel>();
+        private readonly ProjectHardwareList hardwares = new ProjectHardwareList();
 
         private readonly SortableBindingList<ProjectSummaryItemViewModel> summaryItems = new SortableBindingList<ProjectSummaryItemViewModel>();
 
         private readonly SortableBindingList<ProjectFrameViewModel> frames = new SortableBindingList<ProjectFrameViewModel>();
-
-        private readonly SortableBindingList<ProjectHardwareTechnicianWorkViewModel> technicianWorks = new SortableBindingList<ProjectHardwareTechnicianWorkViewModel>();
-
-        private readonly SortableBindingList<ProjectHardwareWorkerWorkViewModel> workerWorks = new SortableBindingList<ProjectHardwareWorkerWorkViewModel>();
-
-        private readonly SortableBindingList<ProjectHardwareStudyReferenceTestViewModel> studyReferenceTests = new SortableBindingList<ProjectHardwareStudyReferenceTestViewModel>();
+        
+        private IList<DataGridViewTextBoxColumn> taskColumns = new List<DataGridViewTextBoxColumn>();
 
         private Font defaultFont = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Regular,
                                             GraphicsUnit.Point, ((byte) (0)));
@@ -55,10 +51,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
             this.projectHardwareViewModelBindingSource.DataSource = hardwares;
             this.projectFrameViewModelBindingSource.DataSource = frames;
             this.projectSummaryItemViewModelBindingSource.DataSource = summaryItems;
-            this.projectHardwareTechnicianWorkViewModelBindingSource.DataSource = technicianWorks;
-            this.projectHardwareWorkerWorkViewModelBindingSource.DataSource = workerWorks;
-            this.projectHardwareStudyReferenceTestViewModelBindingSource.DataSource = studyReferenceTests;
-
+            
             this.textBoxProjectName.Validating += this.ValidateIsRequiredTextBox;
 
             this.textBoxReferenceRate.Validating += this.ValidateIsRateTextBox;
@@ -354,34 +347,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
             }
         }
 
-        private void dataGridViewStudyReferenceTest_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            var hardware = this.projectHardwareStudyReferenceTestViewModelBindingSource[e.RowIndex] as ProjectHardwareStudyReferenceTestViewModel;
-            if (hardware != null)
-            {
-                this.eventBroker.Publish(new RequestEditProjectHardwareStudyReferenceTestAction(hardware));
-            }
-        }
-
-        private void dataGridViewTechnicianWork_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            var hardware = this.projectHardwareTechnicianWorkViewModelBindingSource[e.RowIndex] as ProjectHardwareTechnicianWorkViewModel;
-            if (hardware != null)
-            {
-                this.eventBroker.Publish(new RequestEditProjectHardwareTechnicianWorkAction(hardware));
-            }
-        }
-
-        private void dataGridViewWorkerWork_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            var hardware = this.projectHardwareWorkerWorkViewModelBindingSource[e.RowIndex] as ProjectHardwareWorkerWorkViewModel;
-            if (hardware != null)
-            {
-                this.eventBroker.Publish(new RequestEditProjectHardwareWorkerWorkAction(hardware));
-            }
-        }
-
-        public void SetProjectViewModel(ProjectViewModel viewModel)
+        public void SetProjectViewModel(ProjectViewModel viewModel, IList<Task> tasks)
         {
             this.InvokeIfRequired(() =>
             {
@@ -441,6 +407,30 @@ namespace Chiffrage.Projects.Module.Views.Impl
                     if (viewModel.Comment == null || !(viewModel.Comment.StartsWith("{\\rtf") && viewModel.Comment.EndsWith("}")))
                         viewModel.Comment = "{\\rtf" + viewModel.Comment + "}";
                     this.commentUserControl.Rtf = viewModel.Comment;
+                }
+
+                hardwares.CatalogTasks = tasks;
+                
+                if (tasks != null)
+                {
+                    foreach (var item in taskColumns)
+                    {
+                        this.dataGridViewHardware.Columns.Remove(item);
+                    }
+
+                    taskColumns.Clear();
+                    foreach (var item in tasks)
+                    {
+                        var column = new DataGridViewTextBoxColumn();
+                        column.HeaderText = new String(new char[] { item.Name[0] }).ToUpper() + item.Name.Substring(1); ;
+                        column.Name = "task_" + item.Id;
+                        column.Tag = item.Id;
+                        column.ReadOnly = true;
+                        column.Visible = true;
+                        column.DataPropertyName = "Tasks[" + item.Id + "]";
+                        this.dataGridViewHardware.Columns.Add(column);
+                        taskColumns.Add(column);
+                    }
                 }
             });
         }
@@ -617,9 +607,6 @@ namespace Chiffrage.Projects.Module.Views.Impl
             this.dataGridViewModules.SetDoubleBuffered();
             this.dataGridViewItemSummary.SetDoubleBuffered();
 
-            this.dataGridViewTechnicianWork.SetDoubleBuffered();
-            this.dataGridViewWorkerWork.SetDoubleBuffered();
-            this.dataGridViewStudyReferenceTest.SetDoubleBuffered();
             this.dataGridViewOther.SetDoubleBuffered();
 
             this.dataGridViewSummary.SetDoubleBuffered();
@@ -632,132 +619,6 @@ namespace Chiffrage.Projects.Module.Views.Impl
             {
                 this.eventBroker.Publish(new RequestEditProjectHardwareSupplyAction(hardwareSupply));
             }
-        }
-
-        public void AddHardwareTechnicianWork(ProjectHardwareTechnicianWorkViewModel workViewModel)
-        {
-            this.InvokeIfRequired(() =>
-            {
-                this.technicianWorks.Add(workViewModel);
-            });
-        }
-
-        public void AddHardwareWorkerWork(ProjectHardwareWorkerWorkViewModel workViewModel)
-        {
-            this.InvokeIfRequired(() =>
-            {
-                this.workerWorks.Add(workViewModel);
-            });
-        }
-
-        public void AddHardwareStudyReferenceTest(ProjectHardwareStudyReferenceTestViewModel studyReferenceTestViewModel)
-        {
-            this.InvokeIfRequired(() =>
-            {
-                this.studyReferenceTests.Add(studyReferenceTestViewModel);
-            });
-        }
-
-        public void SetHardwareTechnicianWorks(IEnumerable<ProjectHardwareTechnicianWorkViewModel> works)
-        {
-            this.InvokeIfRequired(() =>
-            {
-                this.technicianWorks.Clear();
-                if (works != null)
-                {
-                    foreach (var item in works)
-                    {
-                        this.technicianWorks.Add(item);
-                    }
-                }
-            });
-        }
-
-        public void SetHardwareWorkerWorks(IEnumerable<ProjectHardwareWorkerWorkViewModel> works)
-        {
-            this.InvokeIfRequired(() =>
-            {
-                this.workerWorks.Clear();
-                if (works != null)
-                {
-                    foreach (var item in works)
-                    {
-                        this.workerWorks.Add(item);
-                    }
-                }
-            });
-        }
-
-        public void SetHardwareStudyReferenceTests(IEnumerable<ProjectHardwareStudyReferenceTestViewModel> studyReferenceTests)
-        {
-            this.InvokeIfRequired(() =>
-            {
-                this.studyReferenceTests.Clear();
-                if (studyReferenceTests != null)
-                {
-                    foreach (var item in studyReferenceTests)
-                    {
-                        this.studyReferenceTests.Add(item);
-                    }
-                }
-            });
-        }
-
-        public void UpdateHardwareStudyReferenceTest(ProjectHardwareStudyReferenceTestViewModel hardware)
-        {
-            this.InvokeIfRequired(() =>
-            {
-                var h = this.studyReferenceTests.Where(x => x.Id == hardware.Id).First();
-                var index = this.studyReferenceTests.IndexOf(h);
-                this.studyReferenceTests[index] = hardware;
-            });
-        }
-
-        public void UpdateHardwareWorkerWork(ProjectHardwareWorkerWorkViewModel hardware)
-        {
-            this.InvokeIfRequired(() =>
-            {
-                var h = this.workerWorks.Where(x => x.Id == hardware.Id).First();
-                var index = this.workerWorks.IndexOf(h);
-                this.workerWorks[index] = hardware;
-            });
-        }
-
-        public void UpdateHardwareTechnicianWork(ProjectHardwareTechnicianWorkViewModel hardware)
-        {
-            this.InvokeIfRequired(() =>
-            {
-                var h = this.technicianWorks.Where(x => x.Id == hardware.Id).First();
-                var index = this.technicianWorks.IndexOf(h);
-                this.technicianWorks[index] = hardware;
-            });
-        }
-
-        public void RemoveHardwareTechnicianWork(ProjectHardwareTechnicianWorkViewModel hardware)
-        {
-            this.InvokeIfRequired(() =>
-            {
-                var item = this.technicianWorks.Where(x => x.Id == hardware.Id).First();
-                this.technicianWorks.Remove(item);
-            });
-        }
-
-        public void RemoveHardwareWorkerWork(ProjectHardwareWorkerWorkViewModel hardware)
-        {
-            this.InvokeIfRequired(() =>
-            {
-                var item = this.workerWorks.Where(x => x.Id == hardware.Id).First();
-                this.workerWorks.Remove(item);
-            });
-        }
-
-        public void RemoveHardwareStudyReferenceTest(ProjectHardwareStudyReferenceTestViewModel hardware)
-        {
-            this.InvokeIfRequired(() =>
-            {
-                var item = this.studyReferenceTests.Where(x => x.Id == hardware.Id).First();
-                this.studyReferenceTests.Remove(item);
-            });
         }
 
         public void SetCostSummaryItems(IEnumerable<ProjectCostSummaryViewModel> summaryItems)

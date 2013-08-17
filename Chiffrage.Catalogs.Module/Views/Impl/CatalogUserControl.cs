@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using Chiffrage.Mvc;
 using Chiffrage.Catalogs.Module.Actions;
 using System.Text;
+using Chiffrage.Projects.Module.ViewModel;
 
 namespace Chiffrage.Catalogs.Module.Views.Impl
 {
@@ -25,7 +26,7 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
 
         private readonly SortableBindingList<CatalogSupplyViewModel> supplies = new SortableBindingList<CatalogSupplyViewModel>();
 
-        private readonly SortableBindingList<CatalogHardwareViewModel> hardwares = new SortableBindingList<CatalogHardwareViewModel>();
+        private readonly CatalogHardwareList hardwares = new CatalogHardwareList();
 
         private IList<DataGridViewTextBoxColumn> taskColumns = new List<DataGridViewTextBoxColumn>();
 
@@ -234,7 +235,7 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
                     column.Tag = item.Id;
                     column.ReadOnly = true;
                     column.Visible = true;
-
+                    column.DataPropertyName = "Tasks[" + item.Id + "]";
                     this.dataGridViewHardwares.Columns.Add(column);
                     taskColumns.Add(column);
                 }
@@ -267,7 +268,6 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
             this.InvokeIfRequired(() =>
             {
                 this.hardwares.Add(result);
-                RefreshTasks();
             });
         }
 
@@ -301,7 +301,6 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
                 var hardware = this.hardwares.Where(s => s.Id == result.Id).First();
                 var index = this.hardwares.IndexOf(hardware);
                 this.hardwares[index] = result;
-                RefreshTasks();
             });
         }
 
@@ -341,7 +340,6 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
                 foreach(var item in result)
                 {
                     this.hardwares.Add(item);
-                    RefreshTasks();
                 }
             });
         }
@@ -373,7 +371,6 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
                     var index = this.hardwares.IndexOf(hardware);
                     this.hardwares[index] = item;
                 }
-                RefreshTasks();
             });
         }
 
@@ -383,32 +380,6 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
         {
             this.catalogId = null;
             base.HideView();
-        }
-
-        private void RefreshTasks()
-        {
-            foreach(DataGridViewRow row in this.dataGridViewHardwares.Rows)
-            {
-                var hardware = row.DataBoundItem as CatalogHardwareViewModel;
-                var tasksMap = new Dictionary<int, HardwareTask>();
-                foreach (var item in hardware.Tasks)
-                {
-                    tasksMap.Add(item.Task.Id, item);
-                }
-
-                foreach (var item in taskColumns)
-                {
-                    HardwareTask task = null;
-                    if (tasksMap.TryGetValue((int)item.Tag, out task))
-                    {
-                        row.Cells[item.Index].Value = task.Value;
-                    }
-                    else
-                    {
-                        row.Cells[item.Index].Value = 0.0;
-                    }
-                }
-            }
         }
 
         private void dataGridViewSupplies_CellDoubleClick(object sender, DataGridViewCellEventArgs e)

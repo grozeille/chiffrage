@@ -75,6 +75,7 @@
     <Compile Include="Events\SubscriptionMode.cs" />
     <Compile Include="Events\WinformEventSource.cs" />
     <Compile Include="Exceptions\NoParentViewException.cs" />
+    <Compile Include="ListItemDescriptor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PropertyComparer.cs" />
     <Compile Include="Services\IService.cs" />

@@ -72,10 +72,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Actions\RequestEditProjectHardwareWorkerWorkAction.cs" />
-    <Compile Include="Actions\RequestEditProjectHardwareStudyReferenceTestAction.cs" />
     <Compile Include="Actions\RequestEditProjectHardwareSupplyAction.cs" />
-    <Compile Include="Actions\RequestEditProjectHardwareTechnicianWorkAction.cs" />
     <Compile Include="Controllers\DealController.cs" />
     <Compile Include="Controllers\ProjectController.cs" />
     <Compile Include="Actions\DealSelectedAction.cs" />
@@ -99,33 +96,25 @@
     <Compile Include="ViewModel\CatalogHardwareSelectionViewModel.cs" />
     <Compile Include="ViewModel\CatalogSupplySelectionViewModel.cs" />
     <Compile Include="ViewModel\CostSummaryItemViewModelBuilder.cs" />
+    <Compile Include="ViewModel\ProjectHardwareList.cs" />
     <Compile Include="ViewModel\ProjectSummaryItemViewModelBuilder.cs" />
     <Compile Include="ViewModel\DealProjectCostViewModel.cs" />
     <Compile Include="ViewModel\ProjectCostSummaryType.cs" />
     <Compile Include="ViewModel\ProjectCostSummaryViewModel.cs" />
-    <Compile Include="ViewModel\ProjectHardwareWorkerWorkViewModel.cs" />
     <Compile Include="ViewModel\DealProjectCalendarItemViewModel.cs" />
     <Compile Include="ViewModel\DealViewModel.cs" />
     <Compile Include="ViewModel\ProjectFrameViewModel.cs" />
-    <Compile Include="ViewModel\ProjectHardwareStudyReferenceTestViewModel.cs" />
     <Compile Include="ViewModel\ProjectHardwareSupplyViewModel.cs" />
     <Compile Include="ViewModel\ProjectHardwareViewModel.cs" />
-    <Compile Include="ViewModel\ProjectHardwareTechnicianWorkViewModel.cs" />
     <Compile Include="ViewModel\ProjectSupplyViewModel.cs" />
     <Compile Include="ViewModel\ProjectViewModel.cs" />
     <Compile Include="ViewModel\ProjectSummaryItemType.cs" />
     <Compile Include="ViewModel\ProjectSummaryItemViewModel.cs" />
     <Compile Include="ViewModel\ProjectWorkItemViewModel.cs" />
-    <Compile Include="Views\IEditProjectHardwareWorkerWorkView.cs" />
-    <Compile Include="Views\IEditProjectHardwareStudyReferenceTestsWizardView.cs" />
-    <Compile Include="Views\IEditProjectHardwareTechnicianWorkView.cs" />
     <Compile Include="Views\IDealView.cs" />
     <Compile Include="Views\IEditProjectHardwareSupplyView.cs" />
     <Compile Include="Views\IEditProjectHardwareView.cs" />
     <Compile Include="Views\IEditProjectSupplyView.cs" />
-    <Compile Include="Views\Impl\EditProjectHardwareStudyReferenceTestsWizardView.cs" />
-    <Compile Include="Views\Impl\EditProjectHardwareWorkerWorkWizardView.cs" />
-    <Compile Include="Views\Impl\EditProjectHardwareTechnicianWorkWizardView.cs" />
     <Compile Include="Views\Impl\DealUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -146,18 +135,6 @@
     <Compile Include="Views\Impl\ProjectUserControl.Designer.cs">
       <DependentUpon>ProjectUserControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\Impl\WizardPages\EditProjectHardwareWorkerWorkPage.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Views\Impl\WizardPages\EditProjectHardwareWorkerWorkPage.Designer.cs">
-      <DependentUpon>EditProjectHardwareWorkerWorkPage.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Impl\WizardPages\EditProjectHardwareStudyReferenceTestPage.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Views\Impl\WizardPages\EditProjectHardwareStudyReferenceTestPage.Designer.cs">
-      <DependentUpon>EditProjectHardwareStudyReferenceTestPage.cs</DependentUpon>
-    </Compile>
     <Compile Include="Views\Impl\WizardPages\EditProjectHardwareSupplyPage2.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -175,12 +152,6 @@
     </Compile>
     <Compile Include="Views\Impl\WizardPages\EditProjectHardwarePage.Designer.cs">
       <DependentUpon>EditProjectHardwarePage.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Impl\WizardPages\EditProjectHardwareTechnicianWorkPage.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Views\Impl\WizardPages\EditProjectHardwareTechnicianWorkPage.Designer.cs">
-      <DependentUpon>EditProjectHardwareTechnicianWorkPage.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\Impl\WizardPages\EditProjectSupplyPage.cs">
       <SubType>UserControl</SubType>
@@ -237,12 +208,6 @@
       <DependentUpon>ProjectUserControl.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\Impl\WizardPages\EditProjectHardwareWorkerWorkPage.resx">
-      <DependentUpon>EditProjectHardwareWorkerWorkPage.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Impl\WizardPages\EditProjectHardwareStudyReferenceTestPage.resx">
-      <DependentUpon>EditProjectHardwareStudyReferenceTestPage.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Views\Impl\WizardPages\EditProjectHardwareSupplyPage2.resx">
       <DependentUpon>EditProjectHardwareSupplyPage2.cs</DependentUpon>
     </EmbeddedResource>
@@ -251,9 +216,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Impl\WizardPages\EditProjectHardwarePage.resx">
       <DependentUpon>EditProjectHardwarePage.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\Impl\WizardPages\EditProjectHardwareTechnicianWorkPage.resx">
-      <DependentUpon>EditProjectHardwareTechnicianWorkPage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Impl\WizardPages\EditProjectSupplyPage.resx">
       <DependentUpon>EditProjectSupplyPage.cs</DependentUpon>

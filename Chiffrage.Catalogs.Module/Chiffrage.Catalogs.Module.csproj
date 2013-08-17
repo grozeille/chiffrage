@@ -95,6 +95,7 @@
     <Compile Include="ViewModel\CatalogHardwareViewModel.cs" />
     <Compile Include="ViewModel\CatalogSupplyViewModel.cs" />
     <Compile Include="ViewModel\CatalogViewModel.cs" />
+    <Compile Include="ViewModel\CatalogHardwareList.cs" />
     <Compile Include="ViewModel\TaskViewModel.cs" />
     <Compile Include="Views\ICatalogView.cs" />
     <Compile Include="Views\IEditHardwareSupplyView.cs" />
