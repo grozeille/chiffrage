@@ -27,22 +27,6 @@ namespace Chiffrage.Catalogs.Domain
 
         public virtual string Category { get; set; }
 
-
-        public virtual double CatalogStudyDays { get; set; }
-
-        public virtual double CatalogReferenceDays { get; set; }
-
-        public virtual double CatalogVerificationDays { get; set; }
-
-
-        public virtual double CatalogExecutiveWorkDays { get; set; }
-
-        public virtual double CatalogTechnicianWorkDays { get; set; }
-
-        public virtual double CatalogWorkerWorkDays { get; set; }
-
-        public virtual double CatalogTestsDays { get; set; }
-
         public virtual IList<HardwareTask> Tasks
         {
             get { return this.tasks; }

@@ -21,106 +21,61 @@ namespace Chiffrage.Projects.Module.ViewModel
             supplyCost.TotalCost += project.Hardwares.Sum(x => x.Components.Sum(y => y.Supply.Price * y.Quantity));
             summaryItems.Add(supplyCost);
 
-            var studyCost = new ProjectCostSummaryViewModel
-            {
-                ProjectCostSummaryType = ProjectCostSummaryType.Simple,
-                Name = "Etudes",
-                Rate = project.StudyRate,
-            };
-            summaryItems.Add(studyCost);
+            var taskItems = new Dictionary<int, Dictionary<ProjectHardwareTaskType, ProjectCostSummaryViewModel>>();
 
-            var referenceCost = new ProjectCostSummaryViewModel
+            foreach (var item in project.Tasks)
             {
-                ProjectCostSummaryType = ProjectCostSummaryType.Simple,
-                Name = "Saisie",
-                Rate = project.ReferenceRate,
-            };
-            summaryItems.Add(referenceCost);
+                var taskRates = new Dictionary<ProjectHardwareTaskType, ProjectCostSummaryViewModel>();
+                taskItems.Add(item.TaskId, taskRates);
 
-            var totalStudyReferenceCost = new ProjectCostSummaryViewModel
-            {
-                ProjectCostSummaryType = ProjectCostSummaryType.TotalStudyReference,
-                Name = "Total Etude",
-            };
-            summaryItems.Add(totalStudyReferenceCost);
+                string name = new String(new char[] { item.Name[0] }).ToUpper() + item.Name.Substring(1);
+                var dayCost = new ProjectCostSummaryViewModel
+                {
+                    ProjectCostSummaryType = ProjectCostSummaryType.Simple,
+                    Name = name+" (jour)",
+                    Rate = item.DayRate,
+                };
+                summaryItems.Add(dayCost);
+                taskRates.Add(ProjectHardwareTaskType.DAY, dayCost);
 
-            var workerWorkDaysCost = new ProjectCostSummaryViewModel
-            {
-                ProjectCostSummaryType = ProjectCostSummaryType.Simple,
-                Name = "Travaux jours (CNRO)",
-                Rate = project.WorkerWorkDayRate,
-            };
-            summaryItems.Add(workerWorkDaysCost);
+                if (item.TaskType == Catalogs.Domain.TaskType.DAYS_NIGHT)
+                {
+                    var nightCost = new ProjectCostSummaryViewModel
+                    {
+                        ProjectCostSummaryType = ProjectCostSummaryType.Simple,
+                        Name = name + " (nuit)",
+                        Rate = item.NightRate,
+                    };
+                    summaryItems.Add(nightCost);
+                    taskRates.Add(ProjectHardwareTaskType.NIGHT, nightCost);
+                }
+                else if (item.TaskType == Catalogs.Domain.TaskType.DAYS_LONGNIGHT_SHORTNIGHT)
+                {
+                    var longNightCost = new ProjectCostSummaryViewModel
+                    {
+                        ProjectCostSummaryType = ProjectCostSummaryType.Simple,
+                        Name = name + " (nuit longue)",
+                        Rate = item.LongNightRate,
+                    };
+                    summaryItems.Add(longNightCost);
+                    taskRates.Add(ProjectHardwareTaskType.LONG_NIGHT, longNightCost);
 
-            var workerWorkShortNightsCost = new ProjectCostSummaryViewModel
-            {
-                ProjectCostSummaryType = ProjectCostSummaryType.Simple,
-                Name = "Travaux nuits courtes (CNRO)",
-                Rate = project.WorkerWorkShortNightsRate,
-            };
-            summaryItems.Add(workerWorkShortNightsCost);
-
-            var workerWorkLongNightsCost = new ProjectCostSummaryViewModel
-            {
-                ProjectCostSummaryType = ProjectCostSummaryType.Simple,
-                Name = "Travaux nuits longues (CNRO)",
-                Rate = project.WorkerWorkLongNightsRate,
-            };
-            summaryItems.Add(workerWorkLongNightsCost);
-
-            var technicianWorkDaysCost = new ProjectCostSummaryViewModel
-            {
-                ProjectCostSummaryType = ProjectCostSummaryType.Simple,
-                Name = "Travaux jours (ETAM)",
-                Rate = project.TechnicianWorkDayRate,
-            };
-            summaryItems.Add(technicianWorkDaysCost);
-
-            var technicianWorkShortNightsCost = new ProjectCostSummaryViewModel
-            {
-                ProjectCostSummaryType = ProjectCostSummaryType.Simple,
-                Name = "Travaux nuits courtes (ETAM)",
-                Rate = project.TechnicianWorkShortNightsRate,
-            };
-            summaryItems.Add(technicianWorkShortNightsCost);
-
-            var technicianWorkLongNightsCost = new ProjectCostSummaryViewModel
-            {
-                ProjectCostSummaryType = ProjectCostSummaryType.Simple,
-                Name = "Travaux nuits longues (ETAM)",
-                Rate = project.TechnicianWorkLongNightsRate,
-            };
-            summaryItems.Add(technicianWorkLongNightsCost);
-
+                    var shortNightCost = new ProjectCostSummaryViewModel
+                    {
+                        ProjectCostSummaryType = ProjectCostSummaryType.Simple,
+                        Name = name + " (nuit courte)",
+                        Rate = item.ShortNightRate,
+                    };
+                    summaryItems.Add(shortNightCost);
+                    taskRates.Add(ProjectHardwareTaskType.SHORT_NIGHT, shortNightCost);
+                }
+            }
             var totalWorkCost = new ProjectCostSummaryViewModel
             {
                 ProjectCostSummaryType = ProjectCostSummaryType.TotalWork,
-                Name = "Total Travaux",
+                Name = "Total temps de travail",
             };
             summaryItems.Add(totalWorkCost);
-
-            var testDaysCost = new ProjectCostSummaryViewModel
-            {
-                ProjectCostSummaryType = ProjectCostSummaryType.Simple,
-                Name = "Essais jours",
-                Rate = project.TestDayRate,
-            };
-            summaryItems.Add(testDaysCost);
-
-            var testNightsCost = new ProjectCostSummaryViewModel
-            {
-                ProjectCostSummaryType = ProjectCostSummaryType.Simple,
-                Name = "Essais nuits",
-                Rate = project.TestNightRate,
-            };
-            summaryItems.Add(testNightsCost);
-
-            var totalTestsCost = new ProjectCostSummaryViewModel
-            {
-                ProjectCostSummaryType = ProjectCostSummaryType.TotalTests,
-                Name = "Total Essais",
-            };
-            summaryItems.Add(totalTestsCost);
 
             var totalOtherCost = new ProjectCostSummaryViewModel
             {
@@ -138,51 +93,24 @@ namespace Chiffrage.Projects.Module.ViewModel
 
             foreach (var item in project.Hardwares)
             {
-                studyCost.TotalTime += item.StudyDays;
-                studyCost.TotalCost += item.StudyDays * studyCost.Rate;
-
-                referenceCost.TotalTime += item.ReferenceDays;
-                referenceCost.TotalCost += item.ReferenceDays * referenceCost.Rate;
-
-                workerWorkDaysCost.TotalTime += item.WorkerWorkDays;
-                workerWorkDaysCost.TotalCost += item.WorkerWorkDays * workerWorkDaysCost.Rate;
-
-                workerWorkShortNightsCost.TotalTime += item.WorkerWorkShortNights;
-                workerWorkShortNightsCost.TotalCost += item.WorkerWorkShortNights * workerWorkShortNightsCost.Rate;
-
-                workerWorkLongNightsCost.TotalTime += item.WorkerWorkLongNights;
-                workerWorkLongNightsCost.TotalCost += item.WorkerWorkLongNights * workerWorkLongNightsCost.Rate;
-
-                technicianWorkDaysCost.TotalTime += item.TechnicianWorkDays;
-                technicianWorkDaysCost.TotalCost += item.TechnicianWorkDays * technicianWorkDaysCost.Rate;
-
-                technicianWorkShortNightsCost.TotalTime += item.TechnicianWorkShortNights;
-                technicianWorkShortNightsCost.TotalCost += item.TechnicianWorkShortNights * technicianWorkShortNightsCost.Rate;
-
-                technicianWorkLongNightsCost.TotalTime += item.TechnicianWorkLongNights;
-                technicianWorkLongNightsCost.TotalCost += item.TechnicianWorkLongNights * technicianWorkLongNightsCost.Rate;
-
-                testDaysCost.TotalTime += item.TestsDays;
-                testDaysCost.TotalCost += item.TestsDays * testDaysCost.Rate;
-
-                testNightsCost.TotalTime += item.TestsNights;
-                testNightsCost.TotalCost += item.TestsNights * testNightsCost.Rate;
+                foreach (var task in item.Tasks)
+                {
+                    Dictionary<ProjectHardwareTaskType, ProjectCostSummaryViewModel> taskSummaryItem;
+                    if (taskItems.TryGetValue(task.TaskId, out taskSummaryItem))
+                    {
+                        ProjectCostSummaryViewModel summaryItem;
+                        if (taskSummaryItem.TryGetValue(task.HardwareTaskType, out summaryItem))
+                        {
+                            summaryItem.TotalTime += task.Value;
+                            summaryItem.TotalCost += task.Value * summaryItem.Rate;
+                            totalWorkCost.TotalCost += task.Value * summaryItem.Rate;
+                        }
+                    }
+                }
             }
 
-            totalStudyReferenceCost.TotalTime = studyCost.TotalTime + referenceCost.TotalTime;
-            totalStudyReferenceCost.TotalCost = studyCost.TotalCost + referenceCost.TotalCost;
-
-            totalWorkCost.TotalTime = workerWorkDaysCost.TotalTime + workerWorkShortNightsCost.TotalTime + workerWorkLongNightsCost.TotalTime +
-                technicianWorkDaysCost.TotalTime + technicianWorkShortNightsCost.TotalTime + technicianWorkLongNightsCost.TotalTime;
-
-            totalWorkCost.TotalCost = workerWorkDaysCost.TotalCost + workerWorkShortNightsCost.TotalCost + workerWorkLongNightsCost.TotalCost +
-                technicianWorkDaysCost.TotalCost + technicianWorkShortNightsCost.TotalCost + technicianWorkLongNightsCost.TotalCost;
-
-            totalTestsCost.TotalTime = testDaysCost.TotalTime + testNightsCost.TotalTime;
-            totalTestsCost.TotalCost = testDaysCost.TotalCost + testNightsCost.TotalCost;
-
-            bigTotalCost.TotalTime = totalStudyReferenceCost.TotalTime + totalWorkCost.TotalTime + totalTestsCost.TotalTime;
-            bigTotalCost.TotalCost = totalStudyReferenceCost.TotalCost + totalWorkCost.TotalCost + totalTestsCost.TotalCost + supplyCost.TotalCost;
+            bigTotalCost.TotalTime = totalOtherCost.TotalTime + totalWorkCost.TotalTime;
+            bigTotalCost.TotalCost = totalOtherCost.TotalCost + totalWorkCost.TotalCost + supplyCost.TotalCost;
 
             // how costs the frames?
 

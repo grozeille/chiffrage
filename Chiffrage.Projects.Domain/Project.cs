@@ -26,24 +26,6 @@ namespace Chiffrage.Projects.Domain
 
         public virtual IList<ProjectFrame> Frames { get; set; }
 
-        public virtual double StudyRate { get; set; }
-
-        public virtual double ReferenceRate { get; set; }
-
-        public virtual double TechnicianWorkDayRate { get; set; }
-
-        public virtual double TechnicianWorkShortNightsRate { get; set; }
-
-        public virtual double TechnicianWorkLongNightsRate { get; set; }
-
-        public virtual double WorkerWorkDayRate { get; set; }
-
-        public virtual double WorkerWorkShortNightsRate { get; set; }
-
-        public virtual double WorkerWorkLongNightsRate { get; set; }
-
-        public virtual double TestDayRate { get; set; }
-
-        public virtual double TestNightRate { get; set; }
+        public virtual IList<ProjectTask> Tasks { get; set; }
     }
 }

@@ -75,6 +75,7 @@
     <Compile Include="Commands\UpdateProjectHardwareCommand.cs" />
     <Compile Include="Commands\UpdateProjectHardwareSupplyCommand.cs" />
     <Compile Include="Commands\UpdateProjectSupplyCommand.cs" />
+    <Compile Include="ProjectTask.cs" />
     <Compile Include="Deal.cs" />
     <Compile Include="Events\ProjectDeletedEvent.cs" />
     <Compile Include="Events\DealDeletedEvent.cs" />

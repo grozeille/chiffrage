@@ -171,34 +171,27 @@ namespace Chiffrage.Projects.Module.Controllers
                 viewModel.TotalPrice += item.Quantity * item.Price;
             }
 
+            var rates = new Dictionary<int, Dictionary<ProjectHardwareTaskType, double>>();
+            foreach(var item in project.Tasks)
+            {
+                var taskRates = new Dictionary<ProjectHardwareTaskType, double>();
+                taskRates.Add(ProjectHardwareTaskType.DAY, item.DayRate);
+                taskRates.Add(ProjectHardwareTaskType.NIGHT, item.NightRate);
+                taskRates.Add(ProjectHardwareTaskType.LONG_NIGHT, item.LongNightRate);
+                taskRates.Add(ProjectHardwareTaskType.SHORT_NIGHT, item.ShortNightRate);
+                rates.Add(item.TaskId, taskRates);
+            }
+
             foreach (var item in project.Hardwares)
             {
                 // total price of components
                 viewModel.TotalPrice += item.Components.Sum(x => x.Supply.Price * x.Quantity);
 
-                // tota price of time*rate
-                viewModel.TotalPrice += item.StudyDays * project.StudyRate +
-                    item.ReferenceDays * project.ReferenceRate +
-                    item.TechnicianWorkDays * project.TechnicianWorkDayRate +
-                    item.TechnicianWorkShortNights * project.TechnicianWorkShortNightsRate +
-                    item.TechnicianWorkLongNights * project.TechnicianWorkLongNightsRate +
-                    item.WorkerWorkDays * project.WorkerWorkDayRate +
-                    item.WorkerWorkShortNights * project.WorkerWorkShortNightsRate +
-                    item.WorkerWorkLongNights * project.WorkerWorkLongNightsRate +
-                    item.TestsDays * project.TestDayRate +
-                    item.TestsNights * project.TestNightRate;
-
-                // total time
-                viewModel.TotalDays += item.StudyDays +
-                    item.ReferenceDays +
-                    item.TechnicianWorkDays +
-                    item.TechnicianWorkShortNights +
-                    item.TechnicianWorkLongNights +
-                    item.WorkerWorkDays +
-                    item.WorkerWorkShortNights +
-                    item.WorkerWorkLongNights +
-                    item.TestsDays +
-                    item.TestsNights;
+                foreach (var task in item.Tasks)
+                {
+                    viewModel.TotalPrice += rates[task.TaskId][task.HardwareTaskType] * task.Value;
+                    viewModel.TotalDays += task.Value;
+                }
             }
 
             return viewModel;

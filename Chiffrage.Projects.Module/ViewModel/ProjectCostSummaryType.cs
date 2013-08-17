@@ -9,9 +9,7 @@ namespace Chiffrage.Projects.Module.ViewModel
     {
         Simple,
         TotalSupply,
-        TotalStudyReference,
         TotalWork,
-        TotalTests,
         TotalOther,
         BigTotal
     }

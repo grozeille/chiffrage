@@ -14,12 +14,6 @@ namespace Chiffrage.Catalogs.Dal.Mappings
             });
             Property(x => x.Name);
             Property(x => x.Category);
-            Property(x => x.CatalogStudyDays);
-            Property(x => x.CatalogReferenceDays);
-            Property(x => x.CatalogTechnicianWorkDays);
-            Property(x => x.CatalogWorkerWorkDays);
-            Property(x => x.CatalogExecutiveWorkDays);
-            Property(x => x.CatalogTestsDays);
             this.Bag(x => x.Components, y =>
             {
                 y.Fetch(CollectionFetchMode.Join);

@@ -152,12 +152,6 @@ namespace Chiffrage.Projects.Domain.Services
             var projectHardware = Mapper.Map<Hardware, ProjectHardware>(hardware);
             projectHardware.CatalogId = catalog.Id;
 
-            projectHardware.StudyDays = hardware.CatalogStudyDays;
-            projectHardware.ReferenceDays = hardware.CatalogReferenceDays;
-            projectHardware.TechnicianWorkDays = hardware.CatalogTechnicianWorkDays;
-            projectHardware.WorkerWorkDays = hardware.CatalogWorkerWorkDays;
-            projectHardware.TestsDays = hardware.CatalogTestsDays;
-
             foreach (var item in projectHardware.Components)
             {
                 item.Supply.CatalogId = catalog.Id;

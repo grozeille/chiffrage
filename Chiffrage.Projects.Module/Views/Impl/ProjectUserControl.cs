@@ -36,12 +36,17 @@ namespace Chiffrage.Projects.Module.Views.Impl
         
         private IList<DataGridViewTextBoxColumn> taskColumns = new List<DataGridViewTextBoxColumn>();
 
+        private IList<TextBox> dayRates = new List<TextBox>();
+        private IList<TextBox> nightRates = new List<TextBox>();
+        private IList<TextBox> longNightRates = new List<TextBox>();
+        private IList<TextBox> shortNightRates = new List<TextBox>();
+
         private Font defaultFont = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Regular,
                                             GraphicsUnit.Point, ((byte) (0)));
         
         private readonly IEventBroker eventBroker;
 
-        private readonly string rateRegex = @"(\d+\.?\d*)(?: +€/j)?";
+        private readonly string rateRegex = @"(\d+\.?\d*)(?: +€/h)?";
 
         public ProjectUserControl()
         {
@@ -53,20 +58,6 @@ namespace Chiffrage.Projects.Module.Views.Impl
             this.projectSummaryItemViewModelBindingSource.DataSource = summaryItems;
             
             this.textBoxProjectName.Validating += this.ValidateIsRequiredTextBox;
-
-            this.textBoxReferenceRate.Validating += this.ValidateIsRateTextBox;
-            this.textBoxStudyRate.Validating += this.ValidateIsRateTextBox;
-
-            this.textBoxWorkerWorkDayRate.Validating += this.ValidateIsRateTextBox;
-            this.textBoxWorkerWorkShortNightsRate.Validating += this.ValidateIsRateTextBox;
-            this.textBoxWorkerWorkLongNightsRate.Validating += this.ValidateIsRateTextBox;
-
-            this.textBoxTechnicianWorkDayRate.Validating += this.ValidateIsRateTextBox;
-            this.textBoxTechnicianWorkShortNightsRate.Validating += this.ValidateIsRateTextBox;
-            this.textBoxTechnicianWorkLongNightsRate.Validating += this.ValidateIsRateTextBox;
-
-            this.textBoxTestDayRate.Validating += this.ValidateIsRateTextBox;
-            this.textBoxTestNightRate.Validating += this.ValidateIsRateTextBox;
 
             this.chartCostSummary.Series[0]["PieLabelStyle"] = "Outside";
             this.chartCostSummary.Series[0]["PieLineColor"] = "Black";
@@ -93,7 +84,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
 
         private string ToRate(double value)
         {
-            return value.ToString(@"#.## €/j;#.## €/j;\0 €/j", CultureInfo.InvariantCulture);
+            return value.ToString(@"#.## €/h;#.## €/h;\0 €/h", CultureInfo.InvariantCulture);
         }
         
         public ProjectUserControl(IEventBroker eventBroker)
@@ -228,7 +219,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
             int index = this.dataGridViewSummary.Rows.Add(
                 icon,
                 name,
-                string.Format("{0} j", days),
+                string.Format("{0} h", days),
                 null,
                 string.Format("{0} €", cost)
                 );
@@ -246,7 +237,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
             int index = this.dataGridViewSummary.Rows.Add(
                 icon,
                 name,
-                days.HasValue ? string.Format("{0} j", days) : string.Empty,
+                days.HasValue ? string.Format("{0} h", days) : string.Empty,
                 null,
                 string.Format("{0} €", cost) 
                 );
@@ -263,8 +254,8 @@ namespace Chiffrage.Projects.Module.Views.Impl
             int index = this.dataGridViewSummary.Rows.Add(
                 Resources.blank,
                 name,
-                string.Format("{0} j", days),
-                string.Format("{0} €/j", rate),
+                string.Format("{0} h", days),
+                string.Format("{0} €/h", rate),
                 string.Format("{0} €", cost)
                 );
             foreach (DataGridViewCell cell in this.dataGridViewSummary.Rows[index].Cells)
@@ -299,7 +290,44 @@ namespace Chiffrage.Projects.Module.Views.Impl
                 }
 
                 this.commentUserControl.Validate();
-                
+
+                var error = false;
+                var projectTasks = new List<ProjectTask>();
+                foreach (var item in dayRates)
+                {
+                    var projectTask = item.Tag as ProjectTask;
+                    projectTask.DayRate = this.ParseRate(item.Text);
+                    projectTasks.Add(projectTask);
+                }
+                foreach (var item in nightRates)
+                {
+                    if (item.Enabled)
+                    {
+                        var projectTask = item.Tag as ProjectTask;
+                        projectTask.NightRate = this.ParseRate(item.Text);
+                    }
+                }
+                foreach (var item in longNightRates)
+                {
+                    if (item.Enabled)
+                    {
+                        var projectTask = item.Tag as ProjectTask;
+                        projectTask.LongNightRate = this.ParseRate(item.Text);
+                    }
+                }
+                foreach (var item in shortNightRates)
+                {
+                    if (item.Enabled)
+                    {
+                        var projectTask = item.Tag as ProjectTask;
+                        projectTask.ShortNightRate = this.ParseRate(item.Text);
+                    }
+                }
+                if (error)
+                {
+                    return;
+                }
+
                 var command = new UpdateProjectCommand(
                     this.id.Value,
                     this.textBoxProjectName.Text,
@@ -307,16 +335,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
                     this.textBoxReference.Text,
                     this.dateTimePickerProjectBegin.Value,
                     this.dateTimePickerProjectEnd.Value,
-                    ParseRate(this.textBoxStudyRate.Text),
-                    ParseRate(this.textBoxReferenceRate.Text),
-                    ParseRate(this.textBoxWorkerWorkDayRate.Text),
-                    ParseRate(this.textBoxWorkerWorkShortNightsRate.Text),
-                    ParseRate(this.textBoxWorkerWorkLongNightsRate.Text),
-                    ParseRate(this.textBoxTechnicianWorkDayRate.Text),
-                    ParseRate(this.textBoxTechnicianWorkShortNightsRate.Text),
-                    ParseRate(this.textBoxTechnicianWorkLongNightsRate.Text),
-                    ParseRate(this.textBoxTestDayRate.Text),
-                    ParseRate(this.textBoxTestNightRate.Text));
+                    projectTasks);
 
                 this.eventBroker.Publish(command);
             });
@@ -359,16 +378,6 @@ namespace Chiffrage.Projects.Module.Views.Impl
                     this.textBoxReference.Text = string.Empty;
                     this.dateTimePickerProjectBegin.Value = DateTime.Now;
                     this.dateTimePickerProjectEnd.Value = DateTime.Now;
-                    this.textBoxReferenceRate.Text = string.Empty;
-                    this.textBoxStudyRate.Text = string.Empty;
-                    this.textBoxTechnicianWorkDayRate.Text = string.Empty;
-                    this.textBoxTechnicianWorkShortNightsRate.Text = string.Empty;
-                    this.textBoxTechnicianWorkLongNightsRate.Text = string.Empty;
-                    this.textBoxWorkerWorkDayRate.Text = string.Empty;
-                    this.textBoxWorkerWorkShortNightsRate.Text = string.Empty;
-                    this.textBoxWorkerWorkLongNightsRate.Text = string.Empty;
-                    this.textBoxTestDayRate.Text = string.Empty;
-                    this.textBoxTestNightRate.Text = string.Empty;
                     this.textBoxTotalDays.Text = string.Empty;
                     this.textBoxTotalPrice.Text = string.Empty;
                     
@@ -387,17 +396,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
                     this.dateTimePickerProjectEnd.Value = viewModel.EndDate;
                     this.dateTimePickerProjectEnd.Value = viewModel.EndDate;
 
-                    this.textBoxReferenceRate.Text = ToRate(viewModel.ReferenceRate);
-                    this.textBoxStudyRate.Text = ToRate(viewModel.StudyRate);
-                    this.textBoxWorkerWorkDayRate.Text = ToRate(viewModel.WorkerWorkDayRate);
-                    this.textBoxWorkerWorkShortNightsRate.Text = ToRate(viewModel.WorkerWorkShortNightsRate);
-                    this.textBoxWorkerWorkLongNightsRate.Text = ToRate(viewModel.WorkerWorkLongNightsRate);
-                    this.textBoxTechnicianWorkDayRate.Text = ToRate(viewModel.TechnicianWorkDayRate);
-                    this.textBoxTechnicianWorkShortNightsRate.Text = ToRate(viewModel.TechnicianWorkShortNightsRate);
-                    this.textBoxTechnicianWorkLongNightsRate.Text = ToRate(viewModel.TechnicianWorkLongNightsRate);
-                    this.textBoxTestDayRate.Text = ToRate(viewModel.TestDayRate);
-                    this.textBoxTestNightRate.Text = ToRate(viewModel.TestNightRate);
-                    this.textBoxTotalDays.Text = string.Format("{0} j", viewModel.TotalDays.ToString(CultureInfo.InvariantCulture));
+                    this.textBoxTotalDays.Text = string.Format("{0} h", viewModel.TotalDays.ToString(CultureInfo.InvariantCulture));
                     this.textBoxTotalPrice.Text = string.Format("{0} €", viewModel.TotalPrice.ToString(CultureInfo.InvariantCulture));
                     
                     this.textBoxTotalModules.Text = viewModel.TotalModules.ToString(CultureInfo.InvariantCulture);
@@ -431,7 +430,93 @@ namespace Chiffrage.Projects.Module.Views.Impl
                         this.dataGridViewHardware.Columns.Add(column);
                         taskColumns.Add(column);
                     }
+
+                    this.tableLayoutPanelTasks.SetDoubleBuffered();
+                    this.tableLayoutPanelTasks.SuspendLayout();
+                    this.tableLayoutPanelTasks.RowCount = 2 + tasks.Count;
+                    this.tableLayoutPanelTasks.RowStyles.Clear();
+                    this.tableLayoutPanelTasks.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.AutoSize));
+
+                    this.tableLayoutPanelTasks.Controls.Clear();
+                    this.dayRates.Clear();
+                    this.nightRates.Clear();
+                    this.longNightRates.Clear();
+                    this.shortNightRates.Clear();
+                    
+                    this.tableLayoutPanelTasks.Controls.Add(this.labelHeaderTasksDay, 1, 0);
+                    this.tableLayoutPanelTasks.Controls.Add(this.labelHeaderTasksNight, 2, 0);
+                    this.tableLayoutPanelTasks.Controls.Add(this.labelHeaderTasksLongNights, 3, 0);
+                    this.tableLayoutPanelTasks.Controls.Add(this.labelHeaderTasksShortNight, 4, 0);
+
+                    var taskMap = new Dictionary<int, ProjectTask>();
+                    foreach (var item in viewModel.Tasks)
+                    {
+                        taskMap.Add(item.TaskId, item);
+                    }
+
+                    int cptRow = 1;
+                    foreach (var item in tasks)
+                    {
+                        ProjectTask projectTask = null;
+                        if (!taskMap.TryGetValue(item.Id, out projectTask))
+                        {
+                            projectTask = new ProjectTask { TaskId = item.Id, TaskType = item.Type, Name = item.Name };
+                        }
+
+                        this.tableLayoutPanelTasks.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.AutoSize));
+
+                        Label taskLabel = new Label();
+                        taskLabel.Text = new String(new char[] { item.Name[0] }).ToUpper() + item.Name.Substring(1);
+
+                        this.tableLayoutPanelTasks.Controls.Add(taskLabel, 0, cptRow);
+
+                        TextBox taskDayTextBox = new TextBox();
+                        taskDayTextBox.Text = this.ToRate(projectTask.DayRate);
+                        taskDayTextBox.Tag = projectTask;
+                        taskDayTextBox.Validating += ValidateIsRateTextBox;
+                        this.dayRates.Add(taskDayTextBox);
+                        this.tableLayoutPanelTasks.Controls.Add(taskDayTextBox, 1, cptRow);
+
+                        TextBox taskNightTextBox = new TextBox();
+                        this.nightRates.Add(taskNightTextBox);
+                        taskNightTextBox.Tag = projectTask;
+                        taskNightTextBox.Enabled = item.Type == TaskType.DAYS_NIGHT;
+                        if (taskNightTextBox.Enabled)
+                        {
+                            taskNightTextBox.Text = this.ToRate(projectTask.NightRate);
+                            taskNightTextBox.Validating += ValidateIsRateTextBox;
+                        }
+                        this.tableLayoutPanelTasks.Controls.Add(taskNightTextBox, 2, cptRow);
+                        
+                        TextBox taskLongNightTextBox = new TextBox();
+                        this.longNightRates.Add(taskLongNightTextBox);
+                        taskLongNightTextBox.Tag = projectTask;
+                        taskLongNightTextBox.Enabled = item.Type == TaskType.DAYS_LONGNIGHT_SHORTNIGHT;
+                        if (taskLongNightTextBox.Enabled)
+                        {
+                            taskLongNightTextBox.Text = this.ToRate(projectTask.LongNightRate);
+                            taskLongNightTextBox.Validating += ValidateIsRateTextBox;
+                        }
+                        this.tableLayoutPanelTasks.Controls.Add(taskLongNightTextBox, 3, cptRow);
+                        
+                        TextBox taskShortNightTextBox = new TextBox();
+                        this.shortNightRates.Add(taskShortNightTextBox);
+                        taskShortNightTextBox.Tag = projectTask;
+                        taskShortNightTextBox.Enabled = item.Type == TaskType.DAYS_LONGNIGHT_SHORTNIGHT;
+                        if (taskShortNightTextBox.Enabled)
+                        {
+                            taskShortNightTextBox.Text = this.ToRate(projectTask.ShortNightRate);
+                            taskShortNightTextBox.Validating += ValidateIsRateTextBox;
+                        }
+                        this.tableLayoutPanelTasks.Controls.Add(taskShortNightTextBox, 4, cptRow);
+                        
+                        cptRow++;
+                    }
+
+                    this.tableLayoutPanelTasks.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100f));
                 }
+
+                this.tableLayoutPanelTasks.ResumeLayout(true);
             });
         }
 
@@ -645,17 +730,9 @@ namespace Chiffrage.Projects.Module.Views.Impl
                             {
                                 this.BuildTotalRow(Resources.package, item.Name, null, item.TotalCost);
                             }
-                            else if (item.ProjectCostSummaryType == ProjectCostSummaryType.TotalStudyReference)
-                            {
-                                this.BuildTotalRow(Resources.map_edit, item.Name, item.TotalTime, item.TotalCost);
-                            }
                             else if (item.ProjectCostSummaryType == ProjectCostSummaryType.TotalWork)
                             {
                                 this.BuildTotalRow(Resources.wrench, item.Name, item.TotalTime, item.TotalCost);
-                            }
-                            else if (item.ProjectCostSummaryType == ProjectCostSummaryType.TotalTests)
-                            {
-                                this.BuildTotalRow(Resources.rosette, item.Name, item.TotalTime, item.TotalCost);
                             }
                             else if (item.ProjectCostSummaryType == ProjectCostSummaryType.TotalOther)
                             {

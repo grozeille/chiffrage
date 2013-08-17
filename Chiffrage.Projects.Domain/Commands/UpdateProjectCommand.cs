@@ -19,26 +19,8 @@ namespace Chiffrage.Projects.Domain.Commands
         private readonly DateTime startDate;
 
         private readonly DateTime endDate;
-
-        private readonly double studyRate;
-
-        private readonly double referenceRate;
-
-        private readonly double workerWorkDayRate;
-
-        private readonly double workerWorkShortNightsRate;
-
-        private readonly double workerWorkLongNightsRate;
-
-        private readonly double technicianWorkDayRate;
-
-        private readonly double technicianWorkShortNightsRate;
-
-        private readonly double technicianWorkLongNightsRate;
-
-        private readonly double testDayRate;
-
-        private readonly double testNightRate;
+        
+        private readonly IEnumerable<ProjectTask> tasks;
 
         public UpdateProjectCommand(
             int projectId, 
@@ -47,16 +29,7 @@ namespace Chiffrage.Projects.Domain.Commands
             string reference, 
             DateTime startDate, 
             DateTime endDate,
-            double studyRate,
-            double referenceRate,
-            double workerWorkDayRate,
-            double workerWorkShortNightsRate,
-            double workerWorkLongNightsRate,
-            double technicianWorkDayRate,
-            double technicianWorkShortNightsRate,
-            double technicianWorkLongNightsRate,
-            double testDayRate,
-            double testNightRate)
+            IEnumerable<ProjectTask> tasks)
         {
             this.projectId = projectId;
             this.name = name;
@@ -64,16 +37,7 @@ namespace Chiffrage.Projects.Domain.Commands
             this.reference = reference;
             this.startDate = startDate;
             this.endDate = endDate;
-            this.studyRate = studyRate;
-            this.referenceRate = referenceRate;
-            this.technicianWorkDayRate = technicianWorkDayRate;
-            this.technicianWorkShortNightsRate = technicianWorkShortNightsRate;
-            this.technicianWorkLongNightsRate = technicianWorkLongNightsRate;
-            this.workerWorkDayRate = workerWorkDayRate;
-            this.workerWorkShortNightsRate = workerWorkShortNightsRate;
-            this.workerWorkLongNightsRate = workerWorkLongNightsRate;
-            this.testDayRate = testDayRate;
-            this.testNightRate = testNightRate;
+            this.tasks = tasks;
         }
 
         public int ProjectId { get { return this.projectId; } }
@@ -87,25 +51,7 @@ namespace Chiffrage.Projects.Domain.Commands
         public DateTime StartDate { get { return this.startDate; } }
 
         public DateTime EndDate { get { return this.endDate; } }
-
-        public double StudyRate { get { return this.studyRate; } }
-
-        public double ReferenceRate { get { return this.referenceRate; } }
-
-        public double WorkerWorkDayRate { get { return this.workerWorkDayRate; } }
-
-        public double WorkerWorkShortNightsRate { get { return this.workerWorkShortNightsRate; } }
-
-        public double WorkerWorkLongNightsRate { get { return this.workerWorkLongNightsRate; } }
-
-        public double TechnicianWorkDayRate { get { return this.technicianWorkDayRate; } }
-
-        public double TechnicianWorkShortNightsRate { get { return this.technicianWorkShortNightsRate; } }
-
-        public double TechnicianWorkLongNightsRate { get { return this.technicianWorkLongNightsRate; } }
-
-        public double TestDayRate { get { return this.testDayRate; } }
-
-        public double TestNightRate { get { return this.testNightRate; } }
+        
+        public IEnumerable<ProjectTask> Tasks { get { return this.tasks; } }
     }
 }

@@ -18,17 +18,6 @@ namespace Chiffrage.Projects.Dal.Mappings
             Property(x => x.StartDate);
             Property(x => x.EndDate);
 
-            Property(x => x.StudyRate);
-            Property(x => x.ReferenceRate);
-            Property(x => x.TechnicianWorkDayRate);
-            Property(x => x.TechnicianWorkShortNightsRate);
-            Property(x => x.TechnicianWorkLongNightsRate);
-            Property(x => x.WorkerWorkDayRate);
-            Property(x => x.WorkerWorkShortNightsRate);
-            Property(x => x.WorkerWorkLongNightsRate);
-            Property(x => x.TestDayRate);
-            Property(x => x.TestNightRate);
-
             this.Bag(x => x.Supplies, y =>
             {
                 y.Fetch(CollectionFetchMode.Join);
@@ -63,7 +52,16 @@ namespace Chiffrage.Projects.Dal.Mappings
                 y.BatchSize(10);
                 y.Cascade(Cascade.All);
             },
-            action => action.OneToMany());       
+            action => action.OneToMany());
+
+            this.Bag(x => x.Tasks, y =>
+            {
+                y.Fetch(CollectionFetchMode.Join);
+                //y.Lazy(CollectionLazy.Extra);
+                y.BatchSize(10);
+                y.Cascade(Cascade.All);
+            },
+            action => action.OneToMany());
         }
     }
 }
