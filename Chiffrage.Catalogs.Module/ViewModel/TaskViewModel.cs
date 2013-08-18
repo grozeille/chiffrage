@@ -14,6 +14,8 @@ namespace Chiffrage.Catalogs.Module.ViewModel
 
         private String type;
 
+        private int orderId;
+
         public String Name
         {
             get { return name; }
@@ -31,6 +33,16 @@ namespace Chiffrage.Catalogs.Module.ViewModel
             {
                 this.type = value;
                 this.FirePropertyChanged("Type");
+            }
+        }
+
+        public int OrderId
+        {
+            get { return orderId; }
+            set
+            {
+                this.orderId = value;
+                this.FirePropertyChanged("OrderId");
             }
         }
 

@@ -408,17 +408,21 @@ namespace Chiffrage.Projects.Module.Views.Impl
                     this.commentUserControl.Rtf = viewModel.Comment;
                 }
 
-                hardwares.CatalogTasks = tasks;
-                
+
+                hardwares.CatalogTasks = null;
                 if (tasks != null)
                 {
+                    var orderedTasks = tasks.OrderBy(x => x.OrderId).ToList();
+
+                    hardwares.CatalogTasks = orderedTasks;
+
                     foreach (var item in taskColumns)
                     {
                         this.dataGridViewHardware.Columns.Remove(item);
                     }
 
                     taskColumns.Clear();
-                    foreach (var item in tasks)
+                    foreach (var item in orderedTasks)
                     {
                         var column = new DataGridViewTextBoxColumn();
                         column.HeaderText = new String(new char[] { item.Name[0] }).ToUpper() + item.Name.Substring(1); ;
@@ -455,7 +459,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
                     }
 
                     int cptRow = 1;
-                    foreach (var item in tasks)
+                    foreach (var item in orderedTasks)
                     {
                         ProjectTask projectTask = null;
                         if (!taskMap.TryGetValue(item.Id, out projectTask))

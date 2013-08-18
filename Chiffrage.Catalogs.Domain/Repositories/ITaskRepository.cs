@@ -9,6 +9,8 @@ namespace Chiffrage.Catalogs.Domain.Repositories
     {
         void Save(Task task);
 
+        void Save(IEnumerable<Task> task);
+
         IList<Task> FindAll();
 
         Task FindById(int taskId);

@@ -38,6 +38,9 @@ namespace Chiffrage.Catalogs.Module.Controllers
         public event Action<UpdateTaskCommand> OnTaskUpdateCommand;
 
         [Publish]
+        public event Action<UpdateTaskListCommand> OnTaskUpdateListCommand;
+
+        [Publish]
         public event Action<CreateNewTaskCommand> OnCreateNewTaskCommand;
 
         [Subscribe]
@@ -72,7 +75,14 @@ namespace Chiffrage.Catalogs.Module.Controllers
             foreach (var t in tasks)
             {
                 tasksViewModel.Add(this.Convert(t));
+            }
 
+            var ordered = tasksViewModel.OrderBy(x => x.OrderId);
+            int cpt = 0;
+            foreach (var item in tasks)
+            {
+                item.OrderId = cpt;
+                cpt++;
             }
 
             this.tasksView.DisplayTasks(tasksViewModel, new String[]{ ViewModelTypeDay, ViewModelTypeDayAndNight, ViewModelTypeDayAndLongNightAndShortNight});
@@ -86,6 +96,8 @@ namespace Chiffrage.Catalogs.Module.Controllers
             {
                 return;
             }
+
+            var commands = new List<UpdateTaskCommand>();
 
             foreach (var item in viewModel)
             {
@@ -104,8 +116,11 @@ namespace Chiffrage.Catalogs.Module.Controllers
                     default:
                         break;
                 }
-                OnTaskUpdateCommand(new UpdateTaskCommand(item.Id, item.Name, taskType));
+
+                commands.Add(new UpdateTaskCommand(item.Id, item.Name, taskType, item.OrderId));
             }
+
+            this.OnTaskUpdateListCommand(new UpdateTaskListCommand(commands));
         }
 
         [Subscribe]
@@ -131,6 +146,7 @@ namespace Chiffrage.Catalogs.Module.Controllers
             TaskViewModel viewModel = new TaskViewModel();
             viewModel.Id = task.Id;
             viewModel.Name = task.Name;
+            viewModel.OrderId = task.OrderId;
             switch (task.Type)
             {
                 case TaskType.DAYS:

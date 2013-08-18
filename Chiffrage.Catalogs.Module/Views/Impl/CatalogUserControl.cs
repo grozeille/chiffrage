@@ -226,9 +226,12 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
                     this.dataGridViewHardwares.Columns.Remove(item);
                 }
 
-                this.hardwares.CatalogTasks = tasks;
+
+                var orderedTasks = tasks.OrderBy(x => x.OrderId).ToList();
+
+                this.hardwares.CatalogTasks = orderedTasks;
                 taskColumns.Clear();
-                foreach (var item in tasks)
+                foreach (var item in orderedTasks)
                 {
                     var column = new DataGridViewTextBoxColumn();
                     column.HeaderText = new String(new char[]{ item.Name[0] }).ToUpper()+item.Name.Substring(1);;

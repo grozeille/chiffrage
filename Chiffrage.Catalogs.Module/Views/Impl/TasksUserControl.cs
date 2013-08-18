@@ -73,6 +73,8 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
 
                 return null;
             });
+
+            this.dataGridViewTasks.SetDoubleBuffered();
         }
 
         public void DisplayTasks(IList<TaskViewModel> tasks, String[] taskTypes)
@@ -91,12 +93,19 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
                 if (tasks == null)
                 {
                     this.taskViewModelBindingSource.DataSource = new SortableBindingList<TaskViewModel>();
-                    //this.taskViewModelBindingSource.Sort = "";
                     this.taskViewModelBindingSource.ResetBindings(false);
                 }
                 else
                 {
-                    this.taskViewModelBindingSource.DataSource = tasks;
+                    var ordered = tasks.OrderBy(x => x.OrderId);
+                    int cpt = 0;
+                    foreach (var item in ordered)
+                    {
+                        item.OrderId = cpt;
+                        cpt++;
+                    }
+                    this.taskViewModelBindingSource.DataSource = this.tasks;
+                    this.taskViewModelBindingSource.Sort = "OrderId ASC";
                     this.taskViewModelBindingSource.ResetBindings(false);
                 }
             });
@@ -171,6 +180,32 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
             {
                 this.textBoxName.Enabled = true;
                 this.comboBoxType.Enabled = true;
+            }
+        }
+
+        private void toolStripButtonUp_Click(object sender, EventArgs e)
+        {
+            var current = this.taskViewModelBindingSource.Current as TaskViewModel;
+            var position = this.taskViewModelBindingSource.Position;
+            if(current.OrderId > 0)
+            {
+                current.OrderId--;
+                this.tasks.Where(x => x.OrderId == current.OrderId && x.Id != current.Id).First().OrderId++;
+                this.taskViewModelBindingSource.ApplySort(TypeDescriptor.GetProperties(typeof(TaskViewModel))["OrderId"], ListSortDirection.Ascending);
+                this.dataGridViewTasks.CurrentCell = this.dataGridViewTasks.Rows[position - 1].Cells[0];
+            }
+        }
+
+        private void toolStripButtonDown_Click(object sender, EventArgs e)
+        {
+            var current = this.taskViewModelBindingSource.Current as TaskViewModel;
+            var position = this.taskViewModelBindingSource.Position;
+            if (current.OrderId < this.tasks.Max(x => x.OrderId))
+            {
+                current.OrderId++;
+                this.tasks.Where(x => x.OrderId == current.OrderId && x.Id != current.Id).First().OrderId--;
+                this.taskViewModelBindingSource.ApplySort(TypeDescriptor.GetProperties(typeof(TaskViewModel))["OrderId"], ListSortDirection.Ascending);
+                this.dataGridViewTasks.CurrentCell = this.dataGridViewTasks.Rows[position + 1].Cells[0];
             }
         }
     }

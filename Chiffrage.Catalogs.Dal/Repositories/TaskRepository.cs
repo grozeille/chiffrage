@@ -42,6 +42,19 @@ namespace Chiffrage.Catalogs.Dal.Repositories
             }
         }
 
+        public void Save(IEnumerable<Domain.Task> tasks)
+        {
+            var session = OpenSessionIfRequired();
+            using (var transaction = session.BeginTransaction())
+            {
+                foreach (var item in tasks)
+                {
+                    session.SaveOrUpdate(item);
+                }
+                session.Transaction.Commit();
+            }
+        }
+
         public IList<Domain.Task> FindAll()
         {
             var session = OpenSessionIfRequired();
