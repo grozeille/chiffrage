@@ -298,6 +298,7 @@
     <None Include="Resources\cancel.png" />
     <None Include="Resources\delete.png" />
     <None Include="Resources\page_copy.png" />
+    <None Include="Resources\cross1.png" />
     <Content Include="x64\SQLite.Interop.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
