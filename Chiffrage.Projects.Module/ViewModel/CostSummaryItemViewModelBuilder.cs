@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Chiffrage.Projects.Domain;
+using Chiffrage.Catalogs.Domain;
 
 namespace Chiffrage.Projects.Module.ViewModel
 {
     public static class CostSummaryItemViewModelBuilder
     {
-        public static IEnumerable<ProjectCostSummaryViewModel> BuildProjectCostSummaryItems(this Project project)
+        public static IEnumerable<ProjectCostSummaryViewModel> BuildProjectCostSummaryItems(this Project project, IEnumerable<Task> catalogTasks)
         {
             var summaryItems = new List<ProjectCostSummaryViewModel>();
 
@@ -22,41 +23,72 @@ namespace Chiffrage.Projects.Module.ViewModel
             summaryItems.Add(supplyCost);
 
             var taskItems = new Dictionary<int, Dictionary<ProjectHardwareTaskType, ProjectCostSummaryViewModel>>();
-
+            var rates = new Dictionary<int, Dictionary<ProjectHardwareTaskType, double>>();
             foreach (var item in project.Tasks)
             {
+                var taskRates = new Dictionary<ProjectHardwareTaskType, double>();
+                taskRates.Add(ProjectHardwareTaskType.DAY, item.DayRate);
+                if (item.TaskType == TaskType.DAYS_NIGHT)
+                {
+                    taskRates.Add(ProjectHardwareTaskType.NIGHT, item.NightRate);
+                }
+                else if (item.TaskType == TaskType.DAYS_LONGNIGHT_SHORTNIGHT)
+                {
+                    taskRates.Add(ProjectHardwareTaskType.LONG_NIGHT, item.LongNightRate);
+                    taskRates.Add(ProjectHardwareTaskType.SHORT_NIGHT, item.ShortNightRate);
+                }
+                rates.Add(item.TaskId, taskRates);
+            }
+
+
+            foreach (var item in catalogTasks)
+            {
                 var taskRates = new Dictionary<ProjectHardwareTaskType, ProjectCostSummaryViewModel>();
-                taskItems.Add(item.TaskId, taskRates);
+                taskItems.Add(item.Id, taskRates);
+
+                Dictionary<ProjectHardwareTaskType, double> projectTaskRates;
+                double rate;
+                rates.TryGetValue(item.Id, out projectTaskRates);
 
                 string name = new String(new char[] { item.Name[0] }).ToUpper() + item.Name.Substring(1);
                 var dayCost = new ProjectCostSummaryViewModel
                 {
                     ProjectCostSummaryType = ProjectCostSummaryType.Simple,
                     Name = name+" (jour)",
-                    Rate = item.DayRate,
                 };
+                
+                if (projectTaskRates != null && projectTaskRates.TryGetValue(ProjectHardwareTaskType.DAY, out rate))
+                {
+                    dayCost.Rate = rate;
+                }
                 summaryItems.Add(dayCost);
                 taskRates.Add(ProjectHardwareTaskType.DAY, dayCost);
 
-                if (item.TaskType == Catalogs.Domain.TaskType.DAYS_NIGHT)
+                if (item.Type == Catalogs.Domain.TaskType.DAYS_NIGHT)
                 {
                     var nightCost = new ProjectCostSummaryViewModel
                     {
                         ProjectCostSummaryType = ProjectCostSummaryType.Simple,
                         Name = name + " (nuit)",
-                        Rate = item.NightRate,
                     };
+                    if (projectTaskRates != null && projectTaskRates.TryGetValue(ProjectHardwareTaskType.NIGHT, out rate))
+                    {
+                        nightCost.Rate = rate;
+                    }
                     summaryItems.Add(nightCost);
                     taskRates.Add(ProjectHardwareTaskType.NIGHT, nightCost);
                 }
-                else if (item.TaskType == Catalogs.Domain.TaskType.DAYS_LONGNIGHT_SHORTNIGHT)
+                else if (item.Type == Catalogs.Domain.TaskType.DAYS_LONGNIGHT_SHORTNIGHT)
                 {
                     var longNightCost = new ProjectCostSummaryViewModel
                     {
                         ProjectCostSummaryType = ProjectCostSummaryType.Simple,
                         Name = name + " (nuit longue)",
-                        Rate = item.LongNightRate,
                     };
+                    if (projectTaskRates != null && projectTaskRates.TryGetValue(ProjectHardwareTaskType.LONG_NIGHT, out rate))
+                    {
+                        longNightCost.Rate = rate;
+                    }
                     summaryItems.Add(longNightCost);
                     taskRates.Add(ProjectHardwareTaskType.LONG_NIGHT, longNightCost);
 
@@ -64,8 +96,11 @@ namespace Chiffrage.Projects.Module.ViewModel
                     {
                         ProjectCostSummaryType = ProjectCostSummaryType.Simple,
                         Name = name + " (nuit courte)",
-                        Rate = item.ShortNightRate,
                     };
+                    if (projectTaskRates != null && projectTaskRates.TryGetValue(ProjectHardwareTaskType.SHORT_NIGHT, out rate))
+                    {
+                        shortNightCost.Rate = rate;
+                    }
                     summaryItems.Add(shortNightCost);
                     taskRates.Add(ProjectHardwareTaskType.SHORT_NIGHT, shortNightCost);
                 }
@@ -105,6 +140,14 @@ namespace Chiffrage.Projects.Module.ViewModel
                             summaryItem.TotalCost += task.Value * summaryItem.Rate;
                             totalWorkCost.TotalCost += task.Value * summaryItem.Rate;
                         }
+                        else
+                        {
+                            Console.WriteLine("EEE");
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("EEE");
                     }
                 }
             }
@@ -117,11 +160,11 @@ namespace Chiffrage.Projects.Module.ViewModel
             return summaryItems;
         }
 
-        public static IEnumerable<DealProjectCostSummaryViewModel> BuildDealProjectCostSummaryItems(this Deal deal)
+        public static IEnumerable<DealProjectCostSummaryViewModel> BuildDealProjectCostSummaryItems(this Deal deal, IEnumerable<Task> catalogTasks)
         {
             foreach(var item in deal.Projects)
             {
-                var summary = item.BuildProjectCostSummaryItems();
+                var summary = item.BuildProjectCostSummaryItems(catalogTasks);
                 
                 yield return new DealProjectCostSummaryViewModel
                 {

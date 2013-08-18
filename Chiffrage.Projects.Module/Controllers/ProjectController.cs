@@ -176,9 +176,15 @@ namespace Chiffrage.Projects.Module.Controllers
             {
                 var taskRates = new Dictionary<ProjectHardwareTaskType, double>();
                 taskRates.Add(ProjectHardwareTaskType.DAY, item.DayRate);
-                taskRates.Add(ProjectHardwareTaskType.NIGHT, item.NightRate);
-                taskRates.Add(ProjectHardwareTaskType.LONG_NIGHT, item.LongNightRate);
-                taskRates.Add(ProjectHardwareTaskType.SHORT_NIGHT, item.ShortNightRate);
+                if (item.TaskType == TaskType.DAYS_NIGHT)
+                {
+                    taskRates.Add(ProjectHardwareTaskType.NIGHT, item.NightRate);
+                }
+                else if (item.TaskType == TaskType.DAYS_LONGNIGHT_SHORTNIGHT)
+                {
+                    taskRates.Add(ProjectHardwareTaskType.LONG_NIGHT, item.LongNightRate);
+                    taskRates.Add(ProjectHardwareTaskType.SHORT_NIGHT, item.ShortNightRate);
+                }
                 rates.Add(item.TaskId, taskRates);
             }
 
@@ -189,7 +195,15 @@ namespace Chiffrage.Projects.Module.Controllers
 
                 foreach (var task in item.Tasks)
                 {
-                    viewModel.TotalPrice += rates[task.TaskId][task.HardwareTaskType] * task.Value;
+                    Dictionary<ProjectHardwareTaskType, double> taskRates;
+                    if (rates.TryGetValue(task.TaskId, out taskRates))
+                    {
+                        double rate;
+                        if (taskRates.TryGetValue(task.HardwareTaskType, out rate))
+                        {
+                            viewModel.TotalPrice += rate * task.Value;                            
+                        }
+                    }
                     viewModel.TotalDays += task.Value;
                 }
             }
@@ -216,7 +230,7 @@ namespace Chiffrage.Projects.Module.Controllers
         {
             var project = this.projectRepository.FindById(projectId);
 
-            this.projectView.SetCostSummaryItems(project.BuildProjectCostSummaryItems());
+            this.projectView.SetCostSummaryItems(project.BuildProjectCostSummaryItems(this.taskRepository.FindAll()));
         }
 
         [Subscribe]

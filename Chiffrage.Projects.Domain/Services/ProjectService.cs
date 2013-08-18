@@ -81,6 +81,7 @@ namespace Chiffrage.Projects.Domain.Services
             newProject.Frames = new List<ProjectFrame>();
             newProject.OtherBenefits = new List<OtherBenefit>();
             newProject.Supplies = new List<ProjectSupply>();
+            newProject.Tasks = new List<ProjectTask>();
             newProject.Name = eventObject.ProjectName;
 
             this.projectRepository.Save(newProject);

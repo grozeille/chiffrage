@@ -168,6 +168,7 @@
             this.treeView.ShowRootLines = false;
             this.treeView.Size = new System.Drawing.Size(203, 369);
             this.treeView.TabIndex = 4;
+            this.treeView.MouseDown += new System.Windows.Forms.MouseEventHandler(this.treeView_MouseDown);
             // 
             // contextMenuStripProject
             // 

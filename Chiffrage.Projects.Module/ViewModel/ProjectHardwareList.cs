@@ -76,16 +76,16 @@ namespace Chiffrage.Projects.Module.ViewModel
                     switch (item.HardwareTaskType)
                     {
                         case ProjectHardwareTaskType.DAY:
-                            taskType = "J";
+                            taskType = "h (J)";
                             break;
                         case ProjectHardwareTaskType.NIGHT:
-                            taskType = "N";
+                            taskType = "h (N)";
                             break;
                         case ProjectHardwareTaskType.SHORT_NIGHT:
-                            taskType = "NC";
+                            taskType = "h (NC)";
                             break;
                         case ProjectHardwareTaskType.LONG_NIGHT:
-                            taskType = "NL";
+                            taskType = "h (NL)";
                             break;
                         default:
                             break;
