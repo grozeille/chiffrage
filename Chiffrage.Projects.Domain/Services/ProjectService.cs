@@ -371,14 +371,14 @@ namespace Chiffrage.Projects.Domain.Services
             cloneProject.Name += " (copie)";
             cloneProject.Id = 0;
 
-            var supplyMap = new Dictionary<int, ProjectSupply>();
+            var supplyCache = new Dictionary<int, ProjectSupply>();
             cloneProject.Supplies = new List<ProjectSupply>();
             foreach (var s in project.Supplies)
             {
                 ProjectSupply cloneProjectSupply = Mapper.Map<ProjectSupply, ProjectSupply>(s);
                 cloneProjectSupply.Id = 0;
                 cloneProject.Supplies.Add(cloneProjectSupply);
-                supplyMap.Add(s.Id, cloneProjectSupply);
+                supplyCache.Add(s.Id, cloneProjectSupply);
             }
 
             cloneProject.Hardwares = new List<ProjectHardware>();
@@ -395,7 +395,7 @@ namespace Chiffrage.Projects.Domain.Services
                     cloneSupply.Id = 0;
 
                     ProjectSupply cloneProjectSupply;
-                    if (!supplyMap.TryGetValue(s.Supply.Id, out cloneProjectSupply))
+                    if (!supplyCache.TryGetValue(s.Supply.Id, out cloneProjectSupply))
                     {
                         cloneProjectSupply = Mapper.Map<ProjectSupply, ProjectSupply>(s.Supply);
                         cloneProjectSupply.Id = 0;

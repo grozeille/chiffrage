@@ -377,6 +377,7 @@ namespace Chiffrage.Catalogs.Domain.Services
             Mapper.CreateMap<Hardware, Hardware>();
             Mapper.CreateMap<Cable, Cable>();
             Mapper.CreateMap<HardwareSupply, HardwareSupply>();
+            Mapper.CreateMap<HardwareTask, HardwareTask>();
 
 
             SupplierCatalog cloneCatalog = Mapper.Map<SupplierCatalog, SupplierCatalog>(catalog);
@@ -406,7 +407,15 @@ namespace Chiffrage.Catalogs.Domain.Services
                     HardwareSupply cloneSupply = Mapper.Map<HardwareSupply, HardwareSupply>(s);
                     cloneSupply.Id = 0;
                     cloneSupply.Supply = supplyCache[cloneSupply.Supply.Id];
-                    cloneHardware.Components.Add(s);
+                    cloneHardware.Components.Add(cloneSupply);
+                }
+
+                cloneHardware.Tasks = new List<HardwareTask>();
+                foreach (var s in h.Tasks)
+                {
+                    HardwareTask cloneTask = Mapper.Map<HardwareTask, HardwareTask>(s);
+                    cloneTask.Id = 0;
+                    cloneHardware.Tasks.Add(cloneTask);
                 }
             }
 
