@@ -11,6 +11,7 @@ using Chiffrage.Catalogs.Module.ViewModel;
 using Chiffrage.Mvc.Events;
 using Chiffrage.Catalogs.Module.Actions;
 using Chiffrage.Catalogs.Domain.Commands;
+using Chiffrage.Mvc;
 
 namespace Chiffrage.Catalogs.Module.Views.Impl
 {
@@ -76,9 +77,11 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
 
         public void DisplayTasks(IList<TaskViewModel> tasks, String[] taskTypes)
         {
-            this.tasks = tasks == null ? null : new BindingList<TaskViewModel>(tasks);
+            this.tasks = tasks == null ? null : new SortableBindingList<TaskViewModel>(tasks);
             this.InvokeIfRequired(() =>
             {
+                this.textBoxName.Enabled = false;
+                this.comboBoxType.Enabled = false;
                 this.comboBoxType.Items.Clear();
                 if (taskTypes != null)
                 {
@@ -87,7 +90,8 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
 
                 if (tasks == null)
                 {
-                    this.taskViewModelBindingSource.DataSource = new BindingList<TaskViewModel>();
+                    this.taskViewModelBindingSource.DataSource = new SortableBindingList<TaskViewModel>();
+                    //this.taskViewModelBindingSource.Sort = "";
                     this.taskViewModelBindingSource.ResetBindings(false);
                 }
                 else
@@ -154,6 +158,20 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
         private void comboBoxType_SelectedIndexChanged(object sender, EventArgs e)
         {
             (this.taskViewModelBindingSource.Current as TaskViewModel).Type = this.comboBoxType.SelectedItem.ToString();
+        }
+
+        private void taskViewModelBindingSource_CurrentChanged(object sender, EventArgs e)
+        {
+            if (this.taskViewModelBindingSource.Current == null)
+            {
+                this.textBoxName.Enabled = false;
+                this.comboBoxType.Enabled = false;
+            }
+            else
+            {
+                this.textBoxName.Enabled = true;
+                this.comboBoxType.Enabled = true;
+            }
         }
     }
 }
