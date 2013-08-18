@@ -22,6 +22,15 @@ namespace Chiffrage.Catalogs.Dal.Mappings
                 y.Cascade(Cascade.All);
             },
             action => action.OneToMany());
+
+            this.Bag(x => x.Tasks, y =>
+            {
+                y.Fetch(CollectionFetchMode.Join);
+                //y.Lazy(CollectionLazy.Extra);
+                y.BatchSize(10);
+                y.Cascade(Cascade.All);
+            },
+            action => action.OneToMany());
         }
     }
 }

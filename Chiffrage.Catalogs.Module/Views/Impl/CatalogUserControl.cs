@@ -226,6 +226,7 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
                     this.dataGridViewHardwares.Columns.Remove(item);
                 }
 
+                this.hardwares.CatalogTasks = tasks;
                 taskColumns.Clear();
                 foreach (var item in tasks)
                 {
