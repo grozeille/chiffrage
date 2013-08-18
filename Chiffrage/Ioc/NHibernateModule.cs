@@ -29,11 +29,17 @@ namespace Chiffrage.App.Ioc
 
         private ISessionFactory BuildProjectsSessionFactory()
         {
-            // register nhibernate
-            var file = "deal.cat";
-            if (Chiffrage.App.Properties.Settings.Default.DealsRecentPath != null && Chiffrage.App.Properties.Settings.Default.DealsRecentPath.Count > 0)
+            var oldPath = "deal.cat";
+            var file = "data\\deal.sqlite";
+            if (!Directory.Exists("data"))
             {
-                file = Chiffrage.App.Properties.Settings.Default.DealsRecentPath[Chiffrage.App.Properties.Settings.Default.DealsRecentPath.Count - 1];
+                Directory.CreateDirectory("data");
+            }
+
+            // migration des vieux fichiers
+            if (!File.Exists(file) && File.Exists(oldPath))
+            {
+                File.Copy(oldPath, file);
             }
 
             var dealConfiguration = new Configuration()
@@ -67,10 +73,17 @@ namespace Chiffrage.App.Ioc
 
         private ISessionFactory BuildCatalogSessionFactory()
         {
-            var catalogPath = Chiffrage.App.Properties.Settings.Default.CatalogPath;
-            if (string.IsNullOrEmpty(catalogPath))
+            var oldPath = "catalog.cat";
+            var file = "data\\catalog.sqlite";
+            if (!Directory.Exists("data"))
             {
-                catalogPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "catalog.cat");
+                Directory.CreateDirectory("data");
+            }
+
+            // migration des vieux fichiers
+            if (!File.Exists(file) && File.Exists(oldPath))
+            {
+                File.Copy(oldPath, file);
             }
 
             var catalogConfiguration = new Configuration()
@@ -80,7 +93,7 @@ namespace Chiffrage.App.Ioc
             {
                 d.ConnectionReleaseMode = ConnectionReleaseMode.OnClose;
                 //d.LogFormattedSql = true;
-                d.ConnectionString = string.Format("Data Source={0};Version=3;", catalogPath);
+                d.ConnectionString = string.Format("Data Source={0};Version=3;", file);
                 d.Dialect<SQLiteDialect>();
                 if(IsRunningOnMono())
                 {
