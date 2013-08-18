@@ -72,6 +72,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Actions\ProjectPasteAction.cs" />
+    <Compile Include="Actions\ProjectCopyAction.cs" />
     <Compile Include="Actions\RequestEditProjectHardwareSupplyAction.cs" />
     <Compile Include="Controllers\DealController.cs" />
     <Compile Include="Controllers\ProjectController.cs" />

@@ -6,16 +6,13 @@ using Chiffrage.Mvc.Events;
 
 namespace Chiffrage.Projects.Domain.Commands
 {
-    public class CopyProjectCommand
+    public class CloneDealCommand
     {
         public int DealId { get; private set; }
 
-        public int ProjectId { get; private set; }
-
-        public CopyProjectCommand(int dealId, int projectId)
+        public CloneDealCommand(int dealId)
         {
             this.DealId = dealId;
-            this.ProjectId = projectId;
         }
     }
 }

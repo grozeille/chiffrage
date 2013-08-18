@@ -30,11 +30,11 @@ namespace Chiffrage
             this.treeView.SetDoubleBuffered();
 
             this.eventBroker = eventBroker;
-            this.eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemNewCatalog, new RequestNewCatalogAction());
-            this.eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemNewDeal, new RequestNewDealAction());
+            this.eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemCatalogNew, new RequestNewCatalogAction());
+            this.eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemDealNew, new RequestNewDealAction());
             this.eventBroker.RegisterTreeNodeSelectEventSource(this.treeNodeTasks, new TasksSelectedAction());
             this.eventBroker.RegisterTreeNodeUnselectEventSource(this.treeNodeTasks, new TasksUnselectedAction());
-            this.eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemNewProject, () =>
+            this.eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemProjectNew, () =>
             {
                 if (this.treeView.SelectedNode != null)
                 {
@@ -47,20 +47,20 @@ namespace Chiffrage
 
                 return null;
             });
-            this.eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemDealCopy, () =>
+            this.eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemDealClone, () =>
             {
                 if (this.treeView.SelectedNode != null)
                 {
                     var deal = this.treeView.SelectedNode.Tag as DealItemViewModel;
                     if (deal != null)
                     {
-                        return new CopyDealCommand(deal.Id);
+                        return new CloneDealCommand(deal.Id);
                     }
                 }
 
                 return null;
             });
-            this.eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemDeleteDeal, () =>
+            this.eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemDealDelete, () =>
             {
                 if (this.treeView.SelectedNode != null)
                 {
@@ -78,7 +78,7 @@ namespace Chiffrage
             });
 
 
-            this.eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemProjectCopy, () =>
+            this.eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemProjectClone, () =>
             {
                 if (this.treeView.SelectedNode != null)
                 {
@@ -86,13 +86,13 @@ namespace Chiffrage
                     var project = this.treeView.SelectedNode.Tag as ProjectItemViewModel;
                     if (deal != null && project != null)
                     {
-                        return new CopyProjectCommand(deal.Id, project.Id);
+                        return new CloneProjectCommand(deal.Id, project.Id);
                     }
                 }
 
                 return null;
             });
-            this.eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemDeleteProject, () =>
+            this.eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemProjectDelete, () =>
             {
                 if (this.treeView.SelectedNode != null)
                 {
@@ -110,7 +110,7 @@ namespace Chiffrage
                 return null;
             });
 
-            this.eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemCatalogCopy, () =>
+            this.eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemCatalogClone, () =>
             {
                 if (this.treeView.SelectedNode != null)
                 {
@@ -134,6 +134,32 @@ namespace Chiffrage
                         {
                             return new DeleteCatalogCommand(catalog.Id);
                         }
+                    }
+                }
+
+                return null;
+            });
+            this.eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemProjectCopy, () =>
+            {
+                if (this.treeView.SelectedNode != null)
+                {
+                    var project = this.treeView.SelectedNode.Tag as ProjectItemViewModel;
+                    if (project != null)
+                    {
+                        return new ProjectCopyAction(project.Id);
+                    }
+                }
+
+                return null;
+            });
+            this.eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemProjectPaste, () =>
+            {
+                if (this.treeView.SelectedNode != null)
+                {
+                    var deal = this.treeView.SelectedNode.Tag as DealItemViewModel;
+                    if (deal != null)
+                    {
+                        return new ProjectPasteAction(deal.Id);
                     }
                 }
 

@@ -49,9 +49,14 @@ namespace Chiffrage.Projects.Module.Controllers
         private readonly IEditProjectHardwareSupplyView editProjectHardwareSupplyView;
 
         private readonly ILoadingView loadingView;
+
+        private int? projectIdClipboard = null;
         
         // no better way...
         private readonly System.Windows.Forms.RichTextBox rtBox = new System.Windows.Forms.RichTextBox();
+
+        [Publish]
+        public event Action<CloneProjectCommand> OnCloneProjectCommand;
         
         public ProjectController(
             IProjectView projectView, 
@@ -517,5 +522,19 @@ namespace Chiffrage.Projects.Module.Controllers
             this.RefreshProject(eventObject.ProjectId);
         }
 
+        [Subscribe]
+        public void ProcessAction(ProjectCopyAction eventObject)
+        {
+            this.projectIdClipboard = eventObject.Id;
+        }
+
+        [Subscribe]
+        public void ProcessAction(ProjectPasteAction eventObject)
+        {
+            if (this.projectIdClipboard.HasValue)
+            {
+                OnCloneProjectCommand(new CloneProjectCommand(eventObject.DealId, this.projectIdClipboard.Value));
+            }
+        }
     }
 }
