@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System.Linq;
+using System.Windows.Forms;
 using System.ComponentModel;
 using Chiffrage.Catalogs.Module.ViewModel;
 using System.Globalization;
@@ -55,7 +56,7 @@ namespace Chiffrage.Catalogs.Module.Views.Impl.WizardPages
             set
             {
                 var taskMap = new Dictionary<int, Task>();
-                foreach(var item in catalogTasks)
+                foreach(var item in catalogTasks.OrderBy(x => x.OrderId))
                 {
                     taskMap.Add(item.Id, item);
                 }
@@ -72,7 +73,8 @@ namespace Chiffrage.Catalogs.Module.Views.Impl.WizardPages
                 int cptRow = 2;
                 int size = 50;
                 tasks.Clear();
-                foreach (var item in value)
+                var orderedTasks = value.OrderBy(x => x.Task.OrderId);
+                foreach (var item in orderedTasks)
                 {
                     taskMap.Remove(item.Task.Id);
 

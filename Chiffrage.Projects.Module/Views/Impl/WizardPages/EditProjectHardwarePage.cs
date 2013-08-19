@@ -80,7 +80,7 @@ namespace Chiffrage.Projects.Module.Views.Impl.WizardPages
             set
             {
                 var taskMap = new Dictionary<int, ProjectTask>();
-                foreach (var item in projectTasks)
+                foreach (var item in projectTasks.OrderBy(x => x.OrderId))
                 {
                     taskMap.Add(item.Id, item);
                 }
@@ -97,7 +97,9 @@ namespace Chiffrage.Projects.Module.Views.Impl.WizardPages
                 int cptRow = 4;
                 int size = 75;
                 tasks.Clear();
-                foreach (var item in value)
+
+                var orderedTasks = value.OrderBy(x => x.Task.OrderId);
+                foreach (var item in orderedTasks)
                 {
                     taskMap.Remove(item.Id);
 
