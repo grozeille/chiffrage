@@ -1,18 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
-using System.ComponentModel;
-using Chiffrage.Catalogs.Domain;
-using Chiffrage.Mvc;
 using System.Windows.Forms;
+using Chiffrage.Mvc;
 using Chiffrage.Projects.Domain;
 
 namespace Chiffrage.Projects.Module.ViewModel
 {
-    public class ProjectHardwareList : SortableBindingList<ProjectHardwareViewModel>, ITypedList
+    public class DealSummaryItemViewModelList: SortableBindingList<DealSummaryItemViewModel>, ITypedList
     {
-        public IList<ProjectTask> ProjectTasks { get; set; }
+        public IEnumerable<Project> Projects { get; set; }
 
         public PropertyDescriptorCollection GetItemProperties(PropertyDescriptor[] listAccessors)
         {
@@ -26,24 +25,24 @@ namespace Chiffrage.Projects.Module.ViewModel
             else
             {
                 // Return properties in sort order.
-                origProps = TypeDescriptor.GetProperties(typeof(ProjectHardwareViewModel));
+                origProps = TypeDescriptor.GetProperties(typeof(DealSummaryItemViewModel));
             }
 
             List<PropertyDescriptor> newProps = new List<PropertyDescriptor>(origProps.Count);
             foreach (PropertyDescriptor prop in origProps)
             {
 
-                if (prop.Name != "Tasks")
+                if (prop.Name != "ProjectItems")
                 {
                     newProps.Add(prop);
                 }
             }
 
-            if (this.ProjectTasks != null)
+            if (this.Projects != null)
             {
-                foreach (var item in this.ProjectTasks)
+                foreach (var item in this.Projects)
                 {
-                    newProps.Add(new ProjectHardwareListItemDescriptor(item.Id));
+                    newProps.Add(new DealSummaryItemViewModelListItemDescriptor(item.Id));
                 }
             }
 
@@ -55,47 +54,32 @@ namespace Chiffrage.Projects.Module.ViewModel
             return "";
         }
 
-        private class ProjectHardwareListItemDescriptor : PropertyDescriptor
+        private class DealSummaryItemViewModelListItemDescriptor : PropertyDescriptor
         {
             private static readonly Attribute[] nix = new Attribute[0];
-            private readonly int taskId;
+            private readonly int projectId;
 
-            public ProjectHardwareListItemDescriptor(int taskId)
-                : base("Tasks[" + taskId + "]", nix)
+            public DealSummaryItemViewModelListItemDescriptor(int projectId)
+                : base("ProjectItems[" + projectId + "]", nix)
             {
-                this.taskId = taskId;
+                this.projectId = projectId;
             }
 
             public override object GetValue(object component)
             {
-                var hardware = (ProjectHardwareViewModel)component;
-                var item = hardware.Tasks.Where(x => x.Task != null && x.Task.Id == this.taskId).FirstOrDefault();
+                var dealItem = (DealSummaryItemViewModel)component;
+                var item = dealItem.ProjectItems.Where(x => x.ProjectId == this.projectId).FirstOrDefault();
                 if (item != null)
                 {
-                    string taskType = "";
-                    switch (item.HardwareTaskType)
-                    {
-                        case ProjectHardwareTaskType.DAY:
-                            taskType = "h (J)";
-                            break;
-                        case ProjectHardwareTaskType.SHORT_NIGHT:
-                            taskType = "h (NC)";
-                            break;
-                        case ProjectHardwareTaskType.LONG_NIGHT:
-                            taskType = "h (NL)";
-                            break;
-                        default:
-                            break;
-                    }
-                    return item.Value +" "+taskType;
+                    return item.Quantity;
                 }
 
-                return "";
+                return 0;
             }
 
             public override Type PropertyType
             {
-                get { return typeof(string); }
+                get { return typeof(int); }
             }
 
             public override bool IsReadOnly
@@ -120,7 +104,7 @@ namespace Chiffrage.Projects.Module.ViewModel
 
             public override Type ComponentType
             {
-                get { return typeof(IList<ProjectHardwareTask>); }
+                get { return typeof(IList<DealSummaryProjectItemViewModel>); }
             }
 
             public override bool ShouldSerializeValue(object component)

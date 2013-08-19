@@ -9,7 +9,7 @@ namespace Chiffrage.Projects.Module.ViewModel
 {
     public static class ProjectSummaryItemViewModelBuilder
     {
-        public static IEnumerable<ProjectSummaryItemViewModel> BuildSummaryItems(this ProjectHardware hardware, int projectId)
+        public static IEnumerable<ProjectSummaryItemViewModel> BuildSummaryItems(this ProjectHardware hardware)
         {
             yield return new ProjectSummaryItemViewModel
             {
@@ -49,7 +49,7 @@ namespace Chiffrage.Projects.Module.ViewModel
             }
         }
 
-        public static IEnumerable<ProjectSummaryItemViewModel> BuildSummaryItems(this ProjectSupply supply, int projectId)
+        public static IEnumerable<ProjectSummaryItemViewModel> BuildSummaryItems(this ProjectSupply supply)
         {
             yield return new ProjectSummaryItemViewModel
             {
@@ -80,7 +80,7 @@ namespace Chiffrage.Projects.Module.ViewModel
             };
         }
 
-        public static ProjectSummaryItemViewModel BuildSummaryItem(this ProjectFrame frame, int projectId)
+        public static ProjectSummaryItemViewModel BuildSummaryItem(this ProjectFrame frame)
         {
             return new ProjectSummaryItemViewModel
             {
@@ -96,17 +96,17 @@ namespace Chiffrage.Projects.Module.ViewModel
 
             foreach (var item in project.Supplies)
             {
-                summaryItems.AddRange(BuildSummaryItems(item, project.Id));
+                summaryItems.AddRange(item.BuildSummaryItems());
             }
 
             foreach (var item in project.Hardwares)
             {
-                summaryItems.AddRange(BuildSummaryItems(item, project.Id));
+                summaryItems.AddRange(item.BuildSummaryItems());
             }
 
             foreach (var item in project.Frames)
             {
-                summaryItems.Add(BuildSummaryItem(item, project.Id));
+                summaryItems.Add(item.BuildSummaryItem());
             }
 
             // now do a "groupby"
@@ -121,17 +121,37 @@ namespace Chiffrage.Projects.Module.ViewModel
                 });
         }
 
-        public static IEnumerable<ProjectSummaryItemViewModel> BuildSummaryItems(this Deal deal)
+        public static IEnumerable<DealSummaryItemViewModel> BuildSummaryItems(this Deal deal)
         {
-            return deal.Projects
-                .SelectMany(x => x.BuildSummaryItems())
-                .GroupBy(x => string.Format("{0}#{1}", x.ItemType, x.Name))
-                .Select(x => new ProjectSummaryItemViewModel
+            var allItemsMap = new Dictionary<string, DealSummaryItemViewModel>();
+
+            foreach(var item in deal.Projects)
+            {
+                foreach(var projectSummaryItem in item.BuildSummaryItems())
                 {
-                    Name = x.First().Name,
-                    ItemType = x.First().ItemType,
-                    Quantity = x.Sum(y => y.Quantity)
-                });
+                    var key = string.Format("{0}#{1}", projectSummaryItem.ItemType, projectSummaryItem.Name);
+                    DealSummaryItemViewModel dealSummaryItem;
+                    if(!allItemsMap.TryGetValue(key, out dealSummaryItem))
+                    {
+                        dealSummaryItem = new DealSummaryItemViewModel
+                                              {
+                                                  Name = projectSummaryItem.Name,
+                                                  ItemType = projectSummaryItem.ItemType,
+                                                  ProjectItems = new List<DealSummaryProjectItemViewModel>()
+                                              };
+                        allItemsMap.Add(key, dealSummaryItem);
+                    }
+
+                    var dealSummaryProjectItem = new DealSummaryProjectItemViewModel();
+                    dealSummaryProjectItem.ProjectId = item.Id;
+                    dealSummaryProjectItem.ProjectName = item.Name;
+                    dealSummaryProjectItem.Quantity = projectSummaryItem.Quantity;
+
+                    dealSummaryItem.ProjectItems.Add(dealSummaryProjectItem);
+                }
+            }
+
+            return allItemsMap.Values;
         }        
     }
 }

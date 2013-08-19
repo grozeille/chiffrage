@@ -1,4 +1,5 @@
-﻿using Chiffrage.Projects.Module.ViewModel;
+﻿using Chiffrage.Projects.Domain;
+using Chiffrage.Projects.Module.ViewModel;
 using Chiffrage.Mvc.Views;
 using System.Collections.Generic;
 
@@ -10,7 +11,7 @@ namespace Chiffrage.Projects.Module.Views
 
         void SetCalendarItems(IEnumerable<DealProjectCalendarItemViewModel> calendarItems);
 
-        void SetSummaryItems(IEnumerable<ProjectSummaryItemViewModel> summaryItems);
+        void SetSummaryItems(IEnumerable<DealSummaryItemViewModel> summaryItems, IEnumerable<Project> projects);
 
         void SetProjectCostSummaryItems(IEnumerable<DealProjectCostSummaryViewModel> costSummaryItems);
 

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Windows.Forms;
+using Chiffrage.Projects.Domain;
 using Chiffrage.Projects.Module.ViewModel;
 using Chiffrage.Projects.Module.Views;
 using Chiffrage.Mvc.Views;
@@ -19,7 +21,9 @@ namespace Chiffrage.Projects.Module.Views.Impl
 
         private readonly IList<CalendarItem> calendarItems = new List<CalendarItem>();
 
-        private readonly SortableBindingList<ProjectSummaryItemViewModel> summaryItems = new SortableBindingList<ProjectSummaryItemViewModel>();
+        private readonly DealSummaryItemViewModelList summaryItems = new DealSummaryItemViewModelList();
+
+        private IList<DataGridViewColumn> projectColumns = new List<DataGridViewColumn>();
 
         private readonly IEventBroker eventBroker;
 
@@ -27,7 +31,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
         {
             this.InitializeComponent();
 
-            this.projectSummaryItemViewModelBindingSource.DataSource = summaryItems;
+            this.dealSummaryItemViewModelBindingSource.DataSource = summaryItems;
 
             this.textBoxDealName.Validating += this.ValidateIsRequiredTextBox;
 
@@ -205,10 +209,33 @@ namespace Chiffrage.Projects.Module.Views.Impl
         }
 
 
-        public void SetSummaryItems(IEnumerable<ProjectSummaryItemViewModel> summaryItems)
+        public void SetSummaryItems(IEnumerable<DealSummaryItemViewModel> summaryItems, IEnumerable<Project> projects)
         {
             this.InvokeIfRequired(() =>
             {
+                if(projects != null)
+                {
+                    foreach (var item in projectColumns)
+                    {
+                        this.dataGridViewItemSummary.Columns.Remove(item);
+                    }
+
+                    projectColumns.Clear();
+                    foreach (var item in projects)
+                    {
+                        var column = new DataGridViewTextBoxColumn();
+                        column.HeaderText = new String(new char[] { item.Name[0] }).ToUpper() + item.Name.Substring(1); ;
+                        column.Name = "project_" + item.Id;
+                        column.Tag = item.Id;
+                        column.ReadOnly = true;
+                        column.Visible = true;
+                        column.DataPropertyName = "ProjectItems[" + item.Id + "]";
+                        this.dataGridViewItemSummary.Columns.Add(column);
+                        projectColumns.Add(column);
+                    }
+                }
+
+                this.summaryItems.Projects = projects;
                 this.summaryItems.Clear();
                 if (summaryItems != null)
                 {

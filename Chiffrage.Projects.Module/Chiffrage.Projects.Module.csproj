@@ -98,6 +98,9 @@
     <Compile Include="ViewModel\CatalogHardwareSelectionViewModel.cs" />
     <Compile Include="ViewModel\CatalogSupplySelectionViewModel.cs" />
     <Compile Include="ViewModel\CostSummaryItemViewModelBuilder.cs" />
+    <Compile Include="ViewModel\DealSummaryItemViewModel.cs" />
+    <Compile Include="ViewModel\DealSummaryItemViewModelList.cs" />
+    <Compile Include="ViewModel\DealSummaryProjectItemViewModel.cs" />
     <Compile Include="ViewModel\ProjectHardwareList.cs" />
     <Compile Include="ViewModel\ProjectSummaryItemViewModelBuilder.cs" />
     <Compile Include="ViewModel\DealProjectCostViewModel.cs" />
@@ -276,6 +279,7 @@
     <None Include="Properties\DataSources\Chiffrage.Catalogs.Module.ViewModel.CatalogViewModel.datasource" />
     <None Include="Properties\DataSources\Chiffrage.Projects.Module.ViewModel.CatalogHardwareSelectionViewModel.datasource" />
     <None Include="Properties\DataSources\Chiffrage.Projects.Module.ViewModel.CatalogSupplySelectionViewModel.datasource" />
+    <None Include="Properties\DataSources\Chiffrage.Projects.Module.ViewModel.DealSummaryItemViewModel.datasource" />
     <None Include="Properties\DataSources\Chiffrage.Projects.Module.ViewModel.ProjectCostSummaryViewModel.datasource" />
     <None Include="Properties\DataSources\Chiffrage.Projects.Module.ViewModel.ProjectHardwareWorkerWorkViewModel.datasource" />
     <None Include="Properties\DataSources\Chiffrage.Projects.Module.ViewModel.ProjectHardwareStudyReferenceTestViewModel.datasource" />
