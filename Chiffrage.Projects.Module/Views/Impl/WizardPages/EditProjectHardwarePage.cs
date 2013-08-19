@@ -89,10 +89,15 @@ namespace Chiffrage.Projects.Module.Views.Impl.WizardPages
                 this.tableLayoutPanel.RowStyles.Clear();
                 this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.AutoSize));
                 this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+                this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.AutoSize));
+                this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
 
                 this.tableLayoutPanel.Controls.Clear();
                 this.tableLayoutPanel.Controls.Add(this.labelHardware, 0, 0);
                 this.tableLayoutPanel.Controls.Add(this.textBoxHardwareName, 1, 0);
+
+                this.tableLayoutPanel.Controls.Add(this.label11, 0, 2);
+                this.tableLayoutPanel.Controls.Add(this.textBoxMilestone, 1, 2);
 
                 int cptRow = 4;
                 int size = 75;

@@ -69,7 +69,7 @@ namespace Chiffrage.Projects.Module.ViewModel
             public override object GetValue(object component)
             {
                 var hardware = (ProjectHardwareViewModel)component;
-                var item = hardware.Tasks.Where(x => x.Id == this.taskId).FirstOrDefault();
+                var item = hardware.Tasks.Where(x => x.Task.Id == this.taskId).FirstOrDefault();
                 if (item != null)
                 {
                     string taskType = "";
