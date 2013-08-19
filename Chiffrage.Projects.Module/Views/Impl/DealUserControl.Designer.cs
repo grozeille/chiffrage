@@ -42,7 +42,6 @@
             System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.dateTimePickerDealEnd = new System.Windows.Forms.DateTimePicker();
-            this.bindingSourceDeal = new System.Windows.Forms.BindingSource(this.components);
             this.labelEnd = new System.Windows.Forms.Label();
             this.dateTimePickerDealBegin = new System.Windows.Forms.DateTimePicker();
             this.labelDealDate = new System.Windows.Forms.Label();
@@ -63,12 +62,12 @@
             this.comboBoxProjects = new System.Windows.Forms.ComboBox();
             this.tabPageCostSummary = new System.Windows.Forms.TabPage();
             this.chartProjectCost = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.dealSummaryItemViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.bindingSourceDeal = new System.Windows.Forms.BindingSource(this.components);
             this.itemTypeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.projectItemsDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dealSummaryItemViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceDeal)).BeginInit();
             this.panelMain.SuspendLayout();
             this.tabControlDeal.SuspendLayout();
             this.tabPageDeal.SuspendLayout();
@@ -78,6 +77,7 @@
             this.panelSelectDate.SuspendLayout();
             this.tabPageCostSummary.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartProjectCost)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceDeal)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dealSummaryItemViewModelBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -88,10 +88,6 @@
             this.dateTimePickerDealEnd.Name = "dateTimePickerDealEnd";
             this.dateTimePickerDealEnd.Size = new System.Drawing.Size(200, 20);
             this.dateTimePickerDealEnd.TabIndex = 3;
-            // 
-            // bindingSourceDeal
-            // 
-            this.bindingSourceDeal.DataSource = typeof(Chiffrage.Projects.Module.ViewModel.DealViewModel);
             // 
             // labelEnd
             // 
@@ -235,7 +231,6 @@
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridViewItemSummary.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
-            this.dataGridViewItemSummary.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dataGridViewItemSummary.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.itemTypeDataGridViewTextBoxColumn,
             this.nameDataGridViewTextBoxColumn,
@@ -266,6 +261,7 @@
             this.dataGridViewItemSummary.RowHeadersVisible = false;
             this.dataGridViewItemSummary.Size = new System.Drawing.Size(810, 437);
             this.dataGridViewItemSummary.TabIndex = 3;
+            this.dataGridViewItemSummary.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dataGridViewItemSummary_CellPainting);
             // 
             // tabPageScheduling
             // 
@@ -389,9 +385,9 @@
             this.chartProjectCost.TabIndex = 0;
             this.chartProjectCost.Text = "chartProjectCost";
             // 
-            // dealSummaryItemViewModelBindingSource
+            // bindingSourceDeal
             // 
-            this.dealSummaryItemViewModelBindingSource.DataSource = typeof(Chiffrage.Projects.Module.ViewModel.DealSummaryItemViewModel);
+            this.bindingSourceDeal.DataSource = typeof(Chiffrage.Projects.Module.ViewModel.DealViewModel);
             // 
             // itemTypeDataGridViewTextBoxColumn
             // 
@@ -416,6 +412,10 @@
             this.projectItemsDataGridViewTextBoxColumn.ReadOnly = true;
             this.projectItemsDataGridViewTextBoxColumn.Visible = false;
             // 
+            // dealSummaryItemViewModelBindingSource
+            // 
+            this.dealSummaryItemViewModelBindingSource.DataSource = typeof(Chiffrage.Projects.Module.ViewModel.DealSummaryItemViewModel);
+            // 
             // DealUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -424,7 +424,6 @@
             this.Name = "DealUserControl";
             this.Size = new System.Drawing.Size(824, 469);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceDeal)).EndInit();
             this.panelMain.ResumeLayout(false);
             this.panelMain.PerformLayout();
             this.tabControlDeal.ResumeLayout(false);
@@ -435,6 +434,7 @@
             this.panelSelectDate.ResumeLayout(false);
             this.tabPageCostSummary.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.chartProjectCost)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceDeal)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dealSummaryItemViewModelBindingSource)).EndInit();
             this.ResumeLayout(false);
 

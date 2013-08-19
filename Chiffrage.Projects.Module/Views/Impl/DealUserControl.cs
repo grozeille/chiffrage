@@ -229,6 +229,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
                         column.Tag = item.Id;
                         column.ReadOnly = true;
                         column.Visible = true;
+                        column.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;
                         column.DataPropertyName = "ProjectItems[" + item.Id + "]";
                         this.dataGridViewItemSummary.Columns.Add(column);
                         projectColumns.Add(column);
@@ -260,6 +261,26 @@ namespace Chiffrage.Projects.Module.Views.Impl
                     }
                 }
             });
+        }
+
+        private void dataGridViewItemSummary_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
+        {
+            if (e.RowIndex == -1 && e.ColumnIndex >= 2)
+            {
+                e.PaintBackground(e.ClipBounds, true);
+                Rectangle rect = this.dataGridViewItemSummary.GetColumnDisplayRectangle(e.ColumnIndex, true);
+                Size titleSize = TextRenderer.MeasureText(e.Value.ToString(), e.CellStyle.Font);
+                if (this.dataGridViewItemSummary.ColumnHeadersHeight < titleSize.Width)
+                {
+                    this.dataGridViewItemSummary.ColumnHeadersHeight = titleSize.Width + 5;
+                }
+                e.Graphics.TranslateTransform(0, titleSize.Width);
+                e.Graphics.RotateTransform(-90.0F);
+                e.Graphics.DrawString(e.Value.ToString(), this.Font, Brushes.Black, new PointF(rect.Y - (dataGridViewItemSummary.ColumnHeadersHeight - titleSize.Width), rect.X));
+                e.Graphics.RotateTransform(90.0F);
+                e.Graphics.TranslateTransform(0, -titleSize.Width);
+                e.Handled = true;
+            }
         }
     }
 }
