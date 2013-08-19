@@ -16,6 +16,8 @@ namespace Chiffrage.Projects.Dal.Mappings
             Property(x => x.Name);
             Property(x => x.Category);
             Property(x => x.Milestone);
+            Property(x => x.CatalogId);
+            Property(x => x.HardwareId);
 
             this.Bag(x => x.Components, y =>
             {

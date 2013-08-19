@@ -108,19 +108,26 @@ namespace Chiffrage.Projects.Domain.Services
             var supply = catalog.Supplies.Where(x => x.Id == eventObject.SupplyId).First();
             var project = this.projectRepository.FindById(eventObject.ProjectId);
 
-            Mapper.CreateMap<Supply, ProjectSupply>()
-                .ForMember(x => x.SupplyId, y => y.MapFrom(z => z.Id))
-                .ForMember(x => x.Id, y => y.Ignore());
-
-            var projectSupply = Mapper.Map<Supply, ProjectSupply>(supply);
-            projectSupply.CatalogId = catalog.Id;
-            projectSupply.Quantity = eventObject.Quantity;
-            projectSupply.Price = supply.CatalogPrice;
+            var projectSupply = MapProjectSupply(supply, new ProjectSupply(), eventObject.Quantity, catalog);
             project.Supplies.Add(projectSupply);
 
             this.projectRepository.Save(project);
 
             this.eventBroker.Publish(new ProjectSupplyCreatedEvent(project.Id, projectSupply));
+        }
+
+        private static ProjectSupply MapProjectSupply(Supply supply, ProjectSupply projectSupply, int quantity,
+                                                      SupplierCatalog catalog)
+        {
+            Mapper.CreateMap<Supply, ProjectSupply>()
+                .ForMember(x => x.SupplyId, y => y.MapFrom(z => z.Id))
+                .ForMember(x => x.Id, y => y.Ignore());
+
+            Mapper.Map<Supply, ProjectSupply>(supply, projectSupply);
+            projectSupply.CatalogId = catalog.Id;
+            projectSupply.Quantity = quantity;
+            projectSupply.Price = supply.CatalogPrice;
+            return projectSupply;
         }
 
         [Subscribe]
@@ -143,6 +150,17 @@ namespace Chiffrage.Projects.Domain.Services
             var hardware = catalog.Hardwares.Where(x => x.Id == eventObject.HardwareId).First();
             var project = this.projectRepository.FindById(eventObject.ProjectId);
 
+            var projectHardware = MapProjectHardware(project, hardware, new ProjectHardware(),  catalog);
+
+            project.Hardwares.Add(projectHardware);
+
+            this.projectRepository.Save(project);
+
+            this.eventBroker.Publish(new ProjectHardwareCreatedEvent(project.Id, projectHardware));
+        }
+
+        private ProjectHardware MapProjectHardware(Project project, Hardware hardware, ProjectHardware projectHardware, SupplierCatalog catalog)
+        {
             Mapper.CreateMap<Supply, ProjectSupply>()
                 .ForMember(x => x.SupplyId, y => y.MapFrom(z => z.Id))
                 .ForMember(x => x.Id, y => y.Ignore());
@@ -155,19 +173,39 @@ namespace Chiffrage.Projects.Domain.Services
                 .ForMember(x => x.Id, y => y.Ignore());
 
             var projectTasksByOriginalId = new Dictionary<int, ProjectTask>();
-            foreach(var item in project.Tasks)
+            foreach (var item in project.Tasks)
             {
                 projectTasksByOriginalId.Add(item.TaskId, item);
             }
+            var hardwareTasksByOriginalId = new Dictionary<int, HardwareTask>();
+            foreach (var item in hardware.Tasks)
+            {
+                hardwareTasksByOriginalId.Add(item.Id, item);
+            }
 
-            var projectHardware = Mapper.Map<Hardware, ProjectHardware>(hardware);
+            Mapper.Map<Hardware, ProjectHardware>(hardware, projectHardware);
             projectHardware.CatalogId = catalog.Id;
 
-            projectHardware.Tasks = new List<ProjectHardwareTask>();
-            foreach(var item in hardware.Tasks)
+            if (projectHardware.Tasks == null)
+            {
+                projectHardware.Tasks = new List<ProjectHardwareTask>();
+            }
+
+            foreach(var item in projectHardware.Tasks)
+            {
+                HardwareTask hardwareTask;
+                if (hardwareTasksByOriginalId.TryGetValue(item.HardwareTaskId, out hardwareTask))
+                {
+                    item.CatalogValue = hardwareTask.Value;
+                    item.Value = hardwareTask.Value;
+                    hardwareTasksByOriginalId.Remove(item.HardwareTaskId);
+                }
+            }
+
+            foreach (var item in hardwareTasksByOriginalId.Values)
             {
                 ProjectTask projectTask;
-                if(projectTasksByOriginalId.TryGetValue(item.Task.Id, out projectTask))
+                if (projectTasksByOriginalId.TryGetValue(item.Task.Id, out projectTask))
                 {
                     var projectHardwareTask = new ProjectHardwareTask
                                                   {
@@ -180,17 +218,12 @@ namespace Chiffrage.Projects.Domain.Services
                     projectHardware.Tasks.Add(projectHardwareTask);
                 }
             }
-            
+
             foreach (var item in projectHardware.Components)
             {
                 item.Supply.CatalogId = catalog.Id;
             }
-
-            project.Hardwares.Add(projectHardware);
-
-            this.projectRepository.Save(project);
-
-            this.eventBroker.Publish(new ProjectHardwareCreatedEvent(project.Id, projectHardware));
+            return projectHardware;
         }
 
         [Subscribe]
@@ -549,6 +582,48 @@ namespace Chiffrage.Projects.Domain.Services
 
             this.projectRepository.Save(project);
             this.eventBroker.Publish(new ProjectUpdatedEvent(project));
+        }
+
+        [Subscribe]
+        public void ProcessAction(ReloadProjectSupplyCommand eventObject)
+        {
+            var project = this.projectRepository.FindById(eventObject.ProjectId);
+            var supply = project.Supplies.Where(x => x.Id == eventObject.ProjectSupplyId).First();
+
+            var catalog = this.catalogRepository.FindById(supply.CatalogId);
+            var catalogSupply = catalog.Supplies.Where(x => x.Id == supply.SupplyId).FirstOrDefault();
+            if(catalogSupply == null)
+            {
+                // il n'existe plus
+                return;
+            }
+            
+            MapProjectSupply(catalogSupply, supply, supply.Quantity, catalog);
+
+            this.projectRepository.Save(project);
+
+            this.eventBroker.Publish(new ProjectSupplyUpdatedEvent(project.Id, supply));
+        }
+
+        [Subscribe]
+        public void ProcessAction(ReloadProjectHardwareCommand eventObject)
+        {
+            var project = this.projectRepository.FindById(eventObject.ProjectId);
+            var hardware = project.Hardwares.Where(x => x.Id == eventObject.ProjectHardwareId).First();
+
+            var catalog = this.catalogRepository.FindById(hardware.CatalogId);
+            var catalogHardware = catalog.Hardwares.Where(x => x.Id == hardware.HardwareId).FirstOrDefault();
+            if (catalogHardware == null)
+            {
+                // il n'existe plus
+                return;
+            }
+
+            MapProjectHardware(project, catalogHardware, hardware, catalog);
+
+            this.projectRepository.Save(project);
+
+            this.eventBroker.Publish(new ProjectHardwareUpdatedEvent(project.Id, hardware));
         }
     }
 }

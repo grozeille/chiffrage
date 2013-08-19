@@ -12,8 +12,11 @@ namespace Chiffrage.Projects.Dal.Mappings
             {
                 y.Generator(Generators.Identity);
             });
+
             Property(x => x.Quantity);
             Property(x => x.Comment);
+            Property(x => x.HardwareSupplyId);
+
             this.ManyToOne(x => x.Supply, y =>
             {
                 //y.Lazy(LazyRelation.Proxy);

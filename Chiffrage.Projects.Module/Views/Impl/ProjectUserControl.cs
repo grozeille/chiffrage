@@ -94,142 +94,270 @@ namespace Chiffrage.Projects.Module.Views.Impl
             this.CausesValidation = true;
 
             //this.toolStripButtonAdd.Click += OnSelect;
-            this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonAdd, () =>
-                this.id.HasValue ? new RequestNewProjectSupplyAction(this.id.Value) : null);
+            this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonSupplyAdd, AddSupply);
+            this.eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemSupplyAdd, AddSupply);
 
-            this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonRemove, () =>
+            this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonSupplyRemove, RemoveSupply);
+            this.eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemSupplyRemove, RemoveSupply);
+
+            this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonSupplyReload, ReloadSupply); 
+            this.eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemSupplyReload, ReloadSupply);
+
+            this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonHardwareAdd, AddHardware);
+            this.eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemHardwareAdd, AddHardware);
+
+            this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonHardwareRemove, RemoveHardware);
+            this.eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemHardwareRemove, RemoveHardware);
+
+            this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonHardwareReload, ReloadHardware);
+            this.eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemHardwareReload, ReloadHardware);
+
+            this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonAddFrame, AddFrame);
+
+            this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonRemoveFrame,RemoveFrame);
+
+            this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonRefreshTasks, ReloadTasks);
+
+        }
+
+        private RequestNewProjectSupplyAction AddSupply()
+        {
+            return this.id.HasValue ? new RequestNewProjectSupplyAction(this.id.Value) : null;
+        }
+
+        private RequestNewProjectFrameAction AddFrame()
+        {
+            return this.id.HasValue ? new RequestNewProjectFrameAction(this.id.Value) : null;
+        }
+
+        private RequestNewProjectHardwareAction AddHardware()
+        {
+            return this.id.HasValue ? new RequestNewProjectHardwareAction(this.id.Value) : null;
+        }
+
+        private IList<ReloadProjectSupplyCommand> ReloadSupply()
+        {
+            if (this.id.HasValue)
             {
-                if (this.id.HasValue)
+                IDictionary<int, ProjectSupplyViewModel> selected = new Dictionary<int, ProjectSupplyViewModel>();
+                foreach (DataGridViewCell item in this.dataGridView.SelectedCells)
                 {
-                    IDictionary<int, ProjectSupplyViewModel> selected = new Dictionary<int, ProjectSupplyViewModel>();
-                    foreach (DataGridViewCell item in this.dataGridView.SelectedCells)
+                    var supply = this.dataGridView.Rows[item.RowIndex].DataBoundItem as ProjectSupplyViewModel;
+                    if (!selected.ContainsKey(supply.Id))
                     {
-                        var supply = this.dataGridView.Rows[item.RowIndex].DataBoundItem as ProjectSupplyViewModel;
-                        if (!selected.ContainsKey(supply.Id))
-                        {
-                            selected.Add(supply.Id, supply);
-                        }
-                    }
-
-                    if (selected.Count > 0)
-                    {
-                        int maxItems = 10;
-                        StringBuilder builder = new StringBuilder();
-                        var selectedList = selected.Values.ToList();
-                        for (int cpt = 0; cpt < (Math.Min(selected.Count, maxItems)); cpt++)
-                        {
-                            builder.Append(" - ").AppendLine(selectedList[cpt].Name);
-                        }
-                        if (selected.Count > maxItems)
-                        {
-                            builder.AppendLine("...");
-                        }
-
-                        var result = MessageBox.Show("Êtes-vous sûr de vouloir supprimer les fournitures: \n" + builder.ToString(), "Supprimer?", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
-                        var commands = new List<DeleteProjectSupplyCommand>();
-                        if (result == DialogResult.OK)
-                        {
-                            foreach (var item in selectedList)
-                            {
-                                commands.Add(new DeleteProjectSupplyCommand(this.id.Value, item.Id));
-                            }
-                        }
-
-                        return commands;
+                        selected.Add(supply.Id, supply);
                     }
                 }
 
-                return null;
-            });
-
-            this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonAddHardware, () =>
-                this.id.HasValue ? new RequestNewProjectHardwareAction(this.id.Value) : null);
-
-            this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonRemoveHardware, () =>
-            {
-                if (this.id.HasValue)
+                if (selected.Count > 0)
                 {
-                    IDictionary<int, ProjectHardwareViewModel> selected = new Dictionary<int, ProjectHardwareViewModel>();
-                    foreach (DataGridViewCell item in this.dataGridViewHardware.SelectedCells)
+                    int maxItems = 10;
+                    StringBuilder builder = new StringBuilder();
+                    var selectedList = selected.Values.ToList();
+                    for (int cpt = 0; cpt < (Math.Min(selected.Count, maxItems)); cpt++)
                     {
-                        var hardware = this.dataGridViewHardware.Rows[item.RowIndex].DataBoundItem as ProjectHardwareViewModel;
-                        if (!selected.ContainsKey(hardware.Id))
-                        {
-                            selected.Add(hardware.Id, hardware);
-                        }
+                        builder.Append(" - ").AppendLine(selectedList[cpt].Name);
+                    }
+                    if (selected.Count > maxItems)
+                    {
+                        builder.AppendLine("...");
                     }
 
-                    if (selected.Count > 0)
-                    {
-                        int maxItems = 10;
-                        StringBuilder builder = new StringBuilder();
-                        var selectedList = selected.Values.ToList();
-                        for (int cpt = 0; cpt < (Math.Min(selected.Count, maxItems)); cpt++)
-                        {
-                            builder.Append(" - ").AppendLine(selectedList[cpt].Name);
-                        }
-                        if (selected.Count > maxItems)
-                        {
-                            builder.AppendLine("...");
-                        }
-
-                        var result = MessageBox.Show("Êtes-vous sûr de vouloir supprimer les matériels: \n" + builder.ToString(), "Supprimer?", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
-                        var commands = new List<DeleteProjectHardwareCommand>();
-                        if (result == DialogResult.OK)
-                        {
-                            foreach (var item in selectedList)
-                            {
-                                commands.Add(new DeleteProjectHardwareCommand(this.id.Value, item.Id));
-                            }
-                        }
-
-                        return commands;
-                    }
-                }
-
-                return null;
-            });
-
-            this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonAddFrame, () =>
-                this.id.HasValue ? new RequestNewProjectFrameAction(this.id.Value) : null);
-
-            this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonRemoveFrame,() =>
-            {
-                if (this.id.HasValue)
-                {
-                    var projectFrame = this.projectFrameViewModelBindingSource.Current as ProjectFrameViewModel;
-                    if (projectFrame != null)
-                    {
-                        var result = MessageBox.Show("Êtes-vous sûr de vouloir supprimer ce chassis ?", "Supprimer?", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
-                        if (result == DialogResult.OK)
-                        {
-                            return new DeleteProjectFrameCommand(this.id.Value, projectFrame.Id);
-                        }
-                    }
-                }
-
-                return null;
-            });
-
-            this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonRefreshTasks, () =>
-            {
-                if (this.id.HasValue)
-                {
                     var result =
-                        MessageBox.Show("Êtes-vous sûr de vouloir recharger les tâches pour ce projet?les matériels: \n" +
-                                        "ATTENTION: les temps des tâches supprimées vont à leur tour être supprimés.",
-                                        "Recharger?",
-                                        MessageBoxButtons.OKCancel,
-                                        MessageBoxIcon.Question);
-
+                        MessageBox.Show(
+                            "Êtes-vous sûr de vouloir recharger les valeurs du catalogue pour les fournitures: \n" +
+                            builder.ToString(), "Recharger?", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                    var commands = new List<ReloadProjectSupplyCommand>();
                     if (result == DialogResult.OK)
                     {
-                        return new RefreshProjectTasksCommand(this.id.Value);
+                        foreach (var item in selectedList)
+                        {
+                            commands.Add(new ReloadProjectSupplyCommand(this.id.Value, item.Id));
+                        }
+                    }
+
+                    return commands;
+                }
+            }
+
+            return null;
+        }
+
+        private RefreshProjectTasksCommand ReloadTasks()
+        {
+            if (this.id.HasValue)
+            {
+                var result =
+                    MessageBox.Show("Êtes-vous sûr de vouloir recharger les tâches pour ce projet?les matériels: \n" +
+                                    "ATTENTION: les temps des tâches supprimées vont à leur tour être supprimés.",
+                                    "Recharger?",
+                                    MessageBoxButtons.OKCancel,
+                                    MessageBoxIcon.Question);
+
+                if (result == DialogResult.OK)
+                {
+                    return new RefreshProjectTasksCommand(this.id.Value);
+                }
+            }
+
+            return null;
+        }
+
+        private DeleteProjectFrameCommand RemoveFrame()
+        {
+            if (this.id.HasValue)
+            {
+                var projectFrame = this.projectFrameViewModelBindingSource.Current as ProjectFrameViewModel;
+                if (projectFrame != null)
+                {
+                    var result = MessageBox.Show("Êtes-vous sûr de vouloir supprimer ce chassis ?", "Supprimer?",
+                                                 MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                    if (result == DialogResult.OK)
+                    {
+                        return new DeleteProjectFrameCommand(this.id.Value, projectFrame.Id);
+                    }
+                }
+            }
+
+            return null;
+        }
+
+        private IList<DeleteProjectHardwareCommand> RemoveHardware()
+        {
+            if (this.id.HasValue)
+            {
+                IDictionary<int, ProjectHardwareViewModel> selected = new Dictionary<int, ProjectHardwareViewModel>();
+                foreach (DataGridViewCell item in this.dataGridViewHardware.SelectedCells)
+                {
+                    var hardware = this.dataGridViewHardware.Rows[item.RowIndex].DataBoundItem as ProjectHardwareViewModel;
+                    if (!selected.ContainsKey(hardware.Id))
+                    {
+                        selected.Add(hardware.Id, hardware);
                     }
                 }
 
-                return null;
-            });
+                if (selected.Count > 0)
+                {
+                    int maxItems = 10;
+                    StringBuilder builder = new StringBuilder();
+                    var selectedList = selected.Values.ToList();
+                    for (int cpt = 0; cpt < (Math.Min(selected.Count, maxItems)); cpt++)
+                    {
+                        builder.Append(" - ").AppendLine(selectedList[cpt].Name);
+                    }
+                    if (selected.Count > maxItems)
+                    {
+                        builder.AppendLine("...");
+                    }
+
+                    var result = MessageBox.Show("Êtes-vous sûr de vouloir supprimer les matériels: \n" + builder.ToString(),
+                                                 "Supprimer?", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                    var commands = new List<DeleteProjectHardwareCommand>();
+                    if (result == DialogResult.OK)
+                    {
+                        foreach (var item in selectedList)
+                        {
+                            commands.Add(new DeleteProjectHardwareCommand(this.id.Value, item.Id));
+                        }
+                    }
+
+                    return commands;
+                }
+            }
+
+            return null;
+        }
+
+        private IList<DeleteProjectSupplyCommand> RemoveSupply()
+        {
+            if (this.id.HasValue)
+            {
+                IDictionary<int, ProjectSupplyViewModel> selected = new Dictionary<int, ProjectSupplyViewModel>();
+                foreach (DataGridViewCell item in this.dataGridView.SelectedCells)
+                {
+                    var supply = this.dataGridView.Rows[item.RowIndex].DataBoundItem as ProjectSupplyViewModel;
+                    if (!selected.ContainsKey(supply.Id))
+                    {
+                        selected.Add(supply.Id, supply);
+                    }
+                }
+
+                if (selected.Count > 0)
+                {
+                    int maxItems = 10;
+                    StringBuilder builder = new StringBuilder();
+                    var selectedList = selected.Values.ToList();
+                    for (int cpt = 0; cpt < (Math.Min(selected.Count, maxItems)); cpt++)
+                    {
+                        builder.Append(" - ").AppendLine(selectedList[cpt].Name);
+                    }
+                    if (selected.Count > maxItems)
+                    {
+                        builder.AppendLine("...");
+                    }
+
+                    var result = MessageBox.Show("Êtes-vous sûr de vouloir supprimer les fournitures: \n" + builder.ToString(),
+                                                 "Supprimer?", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                    var commands = new List<DeleteProjectSupplyCommand>();
+                    if (result == DialogResult.OK)
+                    {
+                        foreach (var item in selectedList)
+                        {
+                            commands.Add(new DeleteProjectSupplyCommand(this.id.Value, item.Id));
+                        }
+                    }
+
+                    return commands;
+                }
+            }
+
+            return null;
+        }
+
+        private IList<ReloadProjectHardwareCommand> ReloadHardware()
+        {
+            if (this.id.HasValue)
+            {
+                IDictionary<int, ProjectHardwareViewModel> selected = new Dictionary<int, ProjectHardwareViewModel>();
+                foreach (DataGridViewCell item in this.dataGridViewHardware.SelectedCells)
+                {
+                    var hardware = this.dataGridViewHardware.Rows[item.RowIndex].DataBoundItem as ProjectHardwareViewModel;
+                    if (!selected.ContainsKey(hardware.Id))
+                    {
+                        selected.Add(hardware.Id, hardware);
+                    }
+                }
+
+                if (selected.Count > 0)
+                {
+                    int maxItems = 10;
+                    StringBuilder builder = new StringBuilder();
+                    var selectedList = selected.Values.ToList();
+                    for (int cpt = 0; cpt < (Math.Min(selected.Count, maxItems)); cpt++)
+                    {
+                        builder.Append(" - ").AppendLine(selectedList[cpt].Name);
+                    }
+                    if (selected.Count > maxItems)
+                    {
+                        builder.AppendLine("...");
+                    }
+
+                    var result = MessageBox.Show("Êtes-vous sûr de vouloir recharger les valeurs du catalogue pour les matériels: \n" + builder.ToString(),
+                                                 "Supprimer?", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+                    var commands = new List<ReloadProjectHardwareCommand>();
+                    if (result == DialogResult.OK)
+                    {
+                        foreach (var item in selectedList)
+                        {
+                            commands.Add(new ReloadProjectHardwareCommand(this.id.Value, item.Id));
+                        }
+                    }
+
+                    return commands;
+                }
+            }
+
+            return null;
         }
 
         #region Summary
@@ -286,13 +414,6 @@ namespace Chiffrage.Projects.Module.Views.Impl
         }
         #endregion
 
-        private void textBox_Enter(object sender, EventArgs e)
-        {
-            (sender as TextBox).SelectAll();
-        }
-        
-        #region IProjectView Members
-        
         public void Save()
         {
             this.InvokeIfRequired(() =>
@@ -360,8 +481,6 @@ namespace Chiffrage.Projects.Module.Views.Impl
                 this.eventBroker.Publish(command);
             });
         }
-
-        #endregion
 
         public override void HideView()
         {

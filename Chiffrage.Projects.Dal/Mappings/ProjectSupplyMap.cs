@@ -14,6 +14,7 @@ namespace Chiffrage.Projects.Dal.Mappings
                 });
             Property(x => x.Quantity);
             Property(x => x.CatalogId);
+            Property(x => x.SupplyId);
 
             Property(x => x.Name);
             Property(x => x.Reference);
