@@ -57,6 +57,7 @@
   <ItemGroup>
     <Compile Include="Commands\CloneDealCommand.cs" />
     <Compile Include="Commands\CloneProjectCommand.cs" />
+    <Compile Include="Commands\RefreshProjectTasksCommand.cs" />
     <Compile Include="Commands\DeleteDealCommand.cs" />
     <Compile Include="Commands\DeleteProjectCommand.cs" />
     <Compile Include="Commands\UpdateProjectHardwareStudyReferenceTestsCommand.cs" />

@@ -483,5 +483,72 @@ namespace Chiffrage.Projects.Domain.Services
 
             this.eventBroker.Publish(new ProjectDeletedEvent(deal.Id, project.Id));
         }
+
+        [Subscribe]
+        public void ProcessAction(RefreshProjectTasksCommand eventObject)
+        {
+            var tasks = this.taskRepository.FindAll();
+
+            var project = this.projectRepository.FindById(eventObject.ProjectId);
+
+            var tasksByOriginalId = new Dictionary<int, ProjectTask>();
+            foreach(var item in project.Tasks)
+            {
+                tasksByOriginalId.Add(item.TaskId, item);
+            }
+
+            // maj de l'existant
+            var toAdd = new List<ProjectTask>();
+            foreach(var item in tasks)
+            {
+                ProjectTask projectTask;
+                if(tasksByOriginalId.TryGetValue(item.Id, out projectTask))
+                {
+                    projectTask.Name = item.Name;
+                    projectTask.Category = item.Category;
+                    projectTask.Type = item.Type;
+                    projectTask.OrderId = item.OrderId;
+                }
+                else
+                {
+                    projectTask = new ProjectTask
+                                      {
+                                          Name = item.Name,
+                                          TaskId = item.Id,
+                                          Category = item.Category,
+                                          Type = item.Type,
+                                          OrderId = item.OrderId
+                                      };
+                    project.Tasks.Add(projectTask);
+                    toAdd.Add(projectTask);
+                }
+            }
+
+            // suppressions de ceux qui n'existent plus
+            var toRemove = new List<ProjectTask>();
+            foreach(var item in project.Tasks)
+            {
+                var task = tasks.Where(x => x.Id == item.TaskId).FirstOrDefault();
+                if(task == null)
+                {
+                    toRemove.Add(item);
+                }
+            }
+            foreach(var item in toRemove)
+            {
+                project.Tasks.Remove(item);
+                foreach(var hardware in project.Hardwares)
+                {
+                    var existing = hardware.Tasks.Where(x => x.Task.TaskId == item.TaskId).FirstOrDefault();
+                    if(existing != null)
+                    {
+                        hardware.Tasks.Remove(existing);
+                    }
+                }
+            }
+
+            this.projectRepository.Save(project);
+            this.eventBroker.Publish(new ProjectUpdatedEvent(project));
+        }
     }
 }

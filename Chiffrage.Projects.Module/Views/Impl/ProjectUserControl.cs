@@ -210,6 +210,26 @@ namespace Chiffrage.Projects.Module.Views.Impl
 
                 return null;
             });
+
+            this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonRefreshTasks, () =>
+            {
+                if (this.id.HasValue)
+                {
+                    var result =
+                        MessageBox.Show("Êtes-vous sûr de vouloir recharger les tâches pour ce projet?les matériels: \n" +
+                                        "ATTENTION: les temps des tâches supprimées vont à leur tour être supprimés.",
+                                        "Recharger?",
+                                        MessageBoxButtons.OKCancel,
+                                        MessageBoxIcon.Question);
+
+                    if (result == DialogResult.OK)
+                    {
+                        return new RefreshProjectTasksCommand(this.id.Value);
+                    }
+                }
+
+                return null;
+            });
         }
 
         #region Summary
