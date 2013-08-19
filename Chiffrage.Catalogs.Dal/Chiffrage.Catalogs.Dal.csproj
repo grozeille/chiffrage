@@ -72,6 +72,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CatalogRepository.cs" />
     <Compile Include="Repositories\CatalogSessionContext.cs" />
+    <Compile Include="Repositories\SessionManager.cs" />
     <Compile Include="Repositories\TaskRepository.cs" />
   </ItemGroup>
   <ItemGroup>

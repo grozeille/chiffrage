@@ -5,8 +5,6 @@ using Chiffrage.Projects.Domain.Repositories;
 using NHibernate;
 using NHibernate.Linq;
 using Common.Logging;
-using NHibernate.Context;
-using Chiffrage.Catalogs.Dal.Repositories;
 
 namespace Chiffrage.Projects.Dal.Repositories
 {
@@ -19,18 +17,7 @@ namespace Chiffrage.Projects.Dal.Repositories
         public DealRepository(ISessionFactory sessionFactory)
         {
             this.sessionFactory = sessionFactory;
-            OpenSessionIfRequired();
-        }
-
-        private ISession OpenSessionIfRequired()
-        {
-            if (!ProjectSessionContext.HasBind(sessionFactory))
-            {
-                ProjectSessionContext.Bind(sessionFactory.OpenSession());
-                logger.Info("ProjectSessionContext.OpenSession");
-            }
-
-            return this.sessionFactory.GetCurrentSession();
+            SessionManager.OpenSessionIfRequired(this.sessionFactory);
         }
 
         #region IDealRepository Members
@@ -38,7 +25,7 @@ namespace Chiffrage.Projects.Dal.Repositories
         public IList<Deal> FindAll()
         {
 
-            var session = OpenSessionIfRequired();
+            var session = SessionManager.OpenSessionIfRequired(this.sessionFactory);
             //using (var session = this.sessionFactory.OpenSession())
             {
                 return session.Query<Deal>().ToList();
@@ -47,7 +34,7 @@ namespace Chiffrage.Projects.Dal.Repositories
 
         public void Save(Deal deal)
         {
-            var session = OpenSessionIfRequired();
+            var session = SessionManager.OpenSessionIfRequired(this.sessionFactory);
             //using (var session = this.sessionFactory.OpenSession())
             {
                 using (var transaction = session.BeginTransaction())
@@ -60,7 +47,7 @@ namespace Chiffrage.Projects.Dal.Repositories
 
         public Deal FindById(int dealId)
         {
-            var session = OpenSessionIfRequired();
+            var session = SessionManager.OpenSessionIfRequired(this.sessionFactory);
 
             //using (var session = this.sessionFactory.OpenSession())
             {   
@@ -70,7 +57,7 @@ namespace Chiffrage.Projects.Dal.Repositories
 
         public void Delete(Deal deal)
         {
-            var session = OpenSessionIfRequired();
+            var session = SessionManager.OpenSessionIfRequired(this.sessionFactory);
             using (var transaction = session.BeginTransaction())
             {
                 session.Delete(deal);

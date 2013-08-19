@@ -6,11 +6,10 @@ using NHibernate.Context;
 using NHibernate;
 using NHibernate.Engine;
 
-namespace Chiffrage.Catalogs.Dal.Repositories
+namespace Chiffrage.Projects.Dal.Repositories
 {
     public class ProjectSessionContext : CurrentSessionContext
     {
-        [ThreadStatic]
 		private static ISession _session;
 
 		protected override ISession Session

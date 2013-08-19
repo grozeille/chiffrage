@@ -18,23 +18,13 @@ namespace Chiffrage.Catalogs.Dal.Repositories
         public TaskRepository(ISessionFactory sessionFactory)
         {
             this.sessionFactory = sessionFactory;
-        }
-
-        private ISession OpenSessionIfRequired()
-        {
-            if (!CatalogSessionContext.HasBind(sessionFactory))
-            {
-                CatalogSessionContext.Bind(sessionFactory.OpenSession());
-                logger.Info("CatalogSessionContext.OpenSession");
-            }
-
-            return this.sessionFactory.GetCurrentSession();
+            SessionManager.OpenSessionIfRequired(this.sessionFactory);
         }
 
 
         public void Save(Domain.Task task)
         {
-            var session = OpenSessionIfRequired();
+            var session = SessionManager.OpenSessionIfRequired(this.sessionFactory);
             using (var transaction = session.BeginTransaction())
             {
                 session.SaveOrUpdate(task);
@@ -44,7 +34,7 @@ namespace Chiffrage.Catalogs.Dal.Repositories
 
         public void Save(IEnumerable<Domain.Task> tasks)
         {
-            var session = OpenSessionIfRequired();
+            var session = SessionManager.OpenSessionIfRequired(this.sessionFactory);
             using (var transaction = session.BeginTransaction())
             {
                 foreach (var item in tasks)
@@ -57,19 +47,19 @@ namespace Chiffrage.Catalogs.Dal.Repositories
 
         public IList<Domain.Task> FindAll()
         {
-            var session = OpenSessionIfRequired();
+            var session = SessionManager.OpenSessionIfRequired(this.sessionFactory);
             return session.Query<Domain.Task>().ToList();
         }
 
         public Domain.Task FindById(int taskId)
         {
-            var session = OpenSessionIfRequired();
+            var session = SessionManager.OpenSessionIfRequired(this.sessionFactory);
             return session.Query<Domain.Task>().Where(x => x.Id == taskId).FirstOrDefault();
         }
 
         public void Delete(Domain.Task task)
         {
-            var session = OpenSessionIfRequired();
+            var session = SessionManager.OpenSessionIfRequired(this.sessionFactory);
             using (var transaction = session.BeginTransaction())
             {
                 session.Delete(task);

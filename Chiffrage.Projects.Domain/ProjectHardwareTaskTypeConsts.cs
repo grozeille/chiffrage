@@ -10,8 +10,6 @@ namespace Chiffrage.Projects.Domain
     {
         public const String DAY = "Jour";
 
-        public const String NIGHT = "Nuit";
-
         public const String LONG_NIGHT = "Nuit longue";
 
         public const String SHORT_NIGHT = "Nuit courte";
@@ -22,8 +20,6 @@ namespace Chiffrage.Projects.Domain
             {
                 case ProjectHardwareTaskType.DAY:
                     return DAY;
-                case ProjectHardwareTaskType.NIGHT:
-                    return NIGHT;
                 case ProjectHardwareTaskType.SHORT_NIGHT:
                     return SHORT_NIGHT;
                 case ProjectHardwareTaskType.LONG_NIGHT:
@@ -39,8 +35,6 @@ namespace Chiffrage.Projects.Domain
             {
                 case DAY:
                     return ProjectHardwareTaskType.DAY;
-                case NIGHT:
-                    return ProjectHardwareTaskType.NIGHT;
                 case SHORT_NIGHT:
                     return ProjectHardwareTaskType.SHORT_NIGHT;
                 case LONG_NIGHT:

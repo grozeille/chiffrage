@@ -79,10 +79,10 @@ namespace Chiffrage.Projects.Module.Views.Impl.WizardPages
         {
             set
             {
-                var taskMap = new Dictionary<int, ProjectTask>();
-                foreach (var item in projectTasks.OrderBy(x => x.OrderId))
+                var projectHardwareTaskMap = new Dictionary<int, ProjectHardwareTask>();
+                foreach (var item in value)
                 {
-                    taskMap.Add(item.Id, item);
+                    projectHardwareTaskMap.Add(item.Task.Id, item);
                 }
 
                 this.tableLayoutPanel.RowCount = 5 + (value.Count * 2);
@@ -98,74 +98,14 @@ namespace Chiffrage.Projects.Module.Views.Impl.WizardPages
                 int size = 75;
                 tasks.Clear();
 
-                var orderedTasks = value.OrderBy(x => x.Task.OrderId);
-                foreach (var item in orderedTasks)
+                foreach (var item in this.projectTasks.OrderBy(x => x.OrderId))
                 {
-                    taskMap.Remove(item.Id);
-
-                    // la valeur du catalogue
-                    this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.AutoSize));
-
-                    Label catalogLabel = new Label();
-                    catalogLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-                    catalogLabel.AutoSize = true;
-                    catalogLabel.Text = new String(new char[] { item.Task.Name[0] }).ToUpper() + item.Task.Name.Substring(1) + " (catalogue)";
-                    this.tableLayoutPanel.Controls.Add(catalogLabel, 0, cptRow);
-
-                    TextBox catalogTextbox = new TextBox();
-                    catalogTextbox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-                    catalogTextbox.Text = item.CatalogValue.ToString(CultureInfo.InvariantCulture);
-                    catalogTextbox.Enabled = false;
-                    this.tableLayoutPanel.Controls.Add(catalogTextbox, 1, cptRow);
-                    
-                    size += 26;
-
-                    cptRow++;
-
-                    // la valeur saisie
-                    this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.AutoSize));
-
-                    Label label = new Label();
-                    label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-                    label.AutoSize = true;
-                    label.Text = new String(new char[] { item.Task.Name[0] }).ToUpper() + item.Task.Name.Substring(1);
-                    this.tableLayoutPanel.Controls.Add(label, 0, cptRow);
-
-                    TextBox textbox = new TextBox();
-                    textbox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-                    textbox.Text = item.Value.ToString(CultureInfo.InvariantCulture);
-                    this.tableLayoutPanel.Controls.Add(textbox, 1, cptRow);
-
-                    ComboBox comboBox = new ComboBox();
-                    comboBox.Size = new System.Drawing.Size(20, comboBox.Size.Height);
-                    comboBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-                    if (item.Task.Type == TaskType.DAYS)
+                    ProjectHardwareTask projectHardwareTask;
+                    if (!projectHardwareTaskMap.TryGetValue(item.Id, out projectHardwareTask))
                     {
-                        comboBox.Items.AddRange(new String[] { ProjectHardwareTaskTypeConsts.DAY });
+                        projectHardwareTask = new ProjectHardwareTask { Task = item,  };
                     }
-                    else if (item.Task.Type == TaskType.DAYS_NIGHT)
-                    {
-                        comboBox.Items.AddRange(new String[] { ProjectHardwareTaskTypeConsts.DAY, ProjectHardwareTaskTypeConsts.NIGHT });
-                    }
-                    else if (item.Task.Type == TaskType.DAYS_LONGNIGHT_SHORTNIGHT)
-                    {
-                        comboBox.Items.AddRange(new String[] { ProjectHardwareTaskTypeConsts.DAY, ProjectHardwareTaskTypeConsts.SHORT_NIGHT, ProjectHardwareTaskTypeConsts.LONG_NIGHT });
-                    }
-                    comboBox.DropDownStyle = ComboBoxStyle.DropDownList;
-                    comboBox.Text = ProjectHardwareTaskTypeConsts.ToString(item.HardwareTaskType);
-                    this.tableLayoutPanel.Controls.Add(comboBox, 2, cptRow);
 
-                    var textBoxWithComboBox = new TextBoxWithComboBox { TextBox = textbox, ComboBox = comboBox, ProjectHardwareTask = item };
-
-                    tasks.Add(textBoxWithComboBox);
-
-                    size += 26;
-
-                    cptRow++;
-                }
-
-                foreach (var item in taskMap.Values)
-                {
                     // la valeur du catalogue
                     this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.AutoSize));
 
@@ -177,10 +117,10 @@ namespace Chiffrage.Projects.Module.Views.Impl.WizardPages
 
                     TextBox catalogTextbox = new TextBox();
                     catalogTextbox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-                    catalogTextbox.Text = "0.0";
+                    catalogTextbox.Text = projectHardwareTask.CatalogValue.ToString(CultureInfo.InvariantCulture);
                     catalogTextbox.Enabled = false;
                     this.tableLayoutPanel.Controls.Add(catalogTextbox, 1, cptRow);
-
+                    
                     size += 26;
 
                     cptRow++;
@@ -196,7 +136,7 @@ namespace Chiffrage.Projects.Module.Views.Impl.WizardPages
 
                     TextBox textbox = new TextBox();
                     textbox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-                    textbox.Text = "0.0";
+                    textbox.Text = projectHardwareTask.Value.ToString(CultureInfo.InvariantCulture);
                     this.tableLayoutPanel.Controls.Add(textbox, 1, cptRow);
 
                     ComboBox comboBox = new ComboBox();
@@ -208,27 +148,14 @@ namespace Chiffrage.Projects.Module.Views.Impl.WizardPages
                     }
                     else if (item.Type == TaskType.DAYS_NIGHT)
                     {
-                        comboBox.Items.AddRange(new String[] { ProjectHardwareTaskTypeConsts.DAY, ProjectHardwareTaskTypeConsts.NIGHT });
-                    }
-                    else if (item.Type == TaskType.DAYS_LONGNIGHT_SHORTNIGHT)
-                    {
                         comboBox.Items.AddRange(new String[] { ProjectHardwareTaskTypeConsts.DAY, ProjectHardwareTaskTypeConsts.SHORT_NIGHT, ProjectHardwareTaskTypeConsts.LONG_NIGHT });
                     }
                     comboBox.DropDownStyle = ComboBoxStyle.DropDownList;
-                    comboBox.Text = ProjectHardwareTaskTypeConsts.DAY;
+                    comboBox.Text =
+                            ProjectHardwareTaskTypeConsts.ToString(projectHardwareTask.HardwareTaskType);
                     this.tableLayoutPanel.Controls.Add(comboBox, 2, cptRow);
 
-                    var textBoxWithComboBox = new TextBoxWithComboBox
-                    {
-                        TextBox = textbox,
-                        ComboBox = comboBox,
-                        ProjectHardwareTask = new ProjectHardwareTask
-                        {
-                            Task = item,
-                            HardwareTaskType = ProjectHardwareTaskType.DAY,
-                            Value = 0.0
-                        }
-                    };
+                    var textBoxWithComboBox = new TextBoxWithComboBox { TextBox = textbox, ComboBox = comboBox, ProjectHardwareTask = projectHardwareTask };
 
                     tasks.Add(textBoxWithComboBox);
 

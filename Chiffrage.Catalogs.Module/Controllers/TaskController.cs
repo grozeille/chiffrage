@@ -25,7 +25,6 @@ namespace Chiffrage.Catalogs.Module.Controllers
 
         private const string ViewModelTypeDay = "Jour";
         private const string ViewModelTypeDayAndNight = "Jour & Nuit";
-        private const string ViewModelTypeDayAndLongNightAndShortNight = "Jour & Nuit longue & Nuit courte";
 
         public TaskController(ITaskRepository taskRepository, ILoadingView loadingView, ITasksView tasksView)
         {
@@ -88,7 +87,7 @@ namespace Chiffrage.Catalogs.Module.Controllers
 
             this.tasksView.DisplayTasks(
                 tasksViewModel, 
-                new String[]{ ViewModelTypeDay, ViewModelTypeDayAndNight, ViewModelTypeDayAndLongNightAndShortNight},
+                new String[]{ ViewModelTypeDay, ViewModelTypeDayAndNight},
                 new String[]{ TaskCategoryConsts.STUDY, TaskCategoryConsts.WORK, TaskCategoryConsts.TEST});
         }
 
@@ -113,9 +112,6 @@ namespace Chiffrage.Catalogs.Module.Controllers
                         break;
                     case ViewModelTypeDayAndNight:
                         taskType = TaskType.DAYS_NIGHT;
-                        break;
-                    case ViewModelTypeDayAndLongNightAndShortNight:
-                        taskType = TaskType.DAYS_LONGNIGHT_SHORTNIGHT;
                         break;
                     default:
                         break;
@@ -160,9 +156,6 @@ namespace Chiffrage.Catalogs.Module.Controllers
                     break;
                 case TaskType.DAYS_NIGHT:
                     viewModel.Type = ViewModelTypeDayAndNight;
-                    break;
-                case TaskType.DAYS_LONGNIGHT_SHORTNIGHT:
-                    viewModel.Type = ViewModelTypeDayAndLongNightAndShortNight;
                     break;
                 default:
                     break;

@@ -457,6 +457,9 @@ namespace Chiffrage.Projects.Module.Views.Impl
 
                     this.tableLayoutPanelTasks.SetDoubleBuffered();
                     this.tableLayoutPanelTasks.SuspendLayout();
+
+                    this.tableLayoutPanelTasks.ColumnStyles[0] = new ColumnStyle(SizeType.AutoSize);
+                    
                     this.tableLayoutPanelTasks.RowCount = 2 + viewModel.Tasks.Count;
                     this.tableLayoutPanelTasks.RowStyles.Clear();
                     this.tableLayoutPanelTasks.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.AutoSize));
@@ -468,9 +471,8 @@ namespace Chiffrage.Projects.Module.Views.Impl
                     this.shortNightRates.Clear();
                     
                     this.tableLayoutPanelTasks.Controls.Add(this.labelHeaderTasksDay, 1, 0);
-                    this.tableLayoutPanelTasks.Controls.Add(this.labelHeaderTasksNight, 2, 0);
-                    this.tableLayoutPanelTasks.Controls.Add(this.labelHeaderTasksLongNights, 3, 0);
-                    this.tableLayoutPanelTasks.Controls.Add(this.labelHeaderTasksShortNight, 4, 0);
+                    this.tableLayoutPanelTasks.Controls.Add(this.labelHeaderTasksLongNights, 2, 0);
+                    this.tableLayoutPanelTasks.Controls.Add(this.labelHeaderTasksShortNight, 3, 0);
 
                     int cptRow = 1;
                     foreach (var item in orderedTasks)
@@ -478,6 +480,8 @@ namespace Chiffrage.Projects.Module.Views.Impl
                         this.tableLayoutPanelTasks.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.AutoSize));
 
                         Label taskLabel = new Label();
+                        taskLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+                        taskLabel.AutoSize = true;
                         taskLabel.Text = new String(new char[] { item.Name[0] }).ToUpper() + item.Name.Substring(1);
 
                         this.tableLayoutPanelTasks.Controls.Add(taskLabel, 0, cptRow);
@@ -489,38 +493,27 @@ namespace Chiffrage.Projects.Module.Views.Impl
                         this.dayRates.Add(taskDayTextBox);
                         this.tableLayoutPanelTasks.Controls.Add(taskDayTextBox, 1, cptRow);
 
-                        TextBox taskNightTextBox = new TextBox();
-                        this.nightRates.Add(taskNightTextBox);
-                        taskNightTextBox.Tag = item;
-                        taskNightTextBox.Enabled = item.Type == TaskType.DAYS_NIGHT;
-                        if (taskNightTextBox.Enabled)
-                        {
-                            taskNightTextBox.Text = this.ToRate(item.NightRate);
-                            taskNightTextBox.Validating += ValidateIsRateTextBox;
-                        }
-                        this.tableLayoutPanelTasks.Controls.Add(taskNightTextBox, 2, cptRow);
-                        
                         TextBox taskLongNightTextBox = new TextBox();
                         this.longNightRates.Add(taskLongNightTextBox);
                         taskLongNightTextBox.Tag = item;
-                        taskLongNightTextBox.Enabled = item.Type == TaskType.DAYS_LONGNIGHT_SHORTNIGHT;
+                        taskLongNightTextBox.Enabled = item.Type == TaskType.DAYS_NIGHT;
                         if (taskLongNightTextBox.Enabled)
                         {
                             taskLongNightTextBox.Text = this.ToRate(item.LongNightRate);
                             taskLongNightTextBox.Validating += ValidateIsRateTextBox;
                         }
-                        this.tableLayoutPanelTasks.Controls.Add(taskLongNightTextBox, 3, cptRow);
+                        this.tableLayoutPanelTasks.Controls.Add(taskLongNightTextBox, 2, cptRow);
                         
                         TextBox taskShortNightTextBox = new TextBox();
                         this.shortNightRates.Add(taskShortNightTextBox);
                         taskShortNightTextBox.Tag = item;
-                        taskShortNightTextBox.Enabled = item.Type == TaskType.DAYS_LONGNIGHT_SHORTNIGHT;
+                        taskShortNightTextBox.Enabled = item.Type == TaskType.DAYS_NIGHT;
                         if (taskShortNightTextBox.Enabled)
                         {
                             taskShortNightTextBox.Text = this.ToRate(item.ShortNightRate);
                             taskShortNightTextBox.Validating += ValidateIsRateTextBox;
                         }
-                        this.tableLayoutPanelTasks.Controls.Add(taskShortNightTextBox, 4, cptRow);
+                        this.tableLayoutPanelTasks.Controls.Add(taskShortNightTextBox, 3, cptRow);
                         
                         cptRow++;
                     }

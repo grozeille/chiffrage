@@ -75,6 +75,7 @@
     <Compile Include="Repositories\ProjectSessionContext.cs" />
     <Compile Include="Repositories\DealRepository.cs" />
     <Compile Include="Repositories\ProjectRepository.cs" />
+    <Compile Include="Repositories\SessionManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Chiffrage.Catalogs.Domain\Chiffrage.Catalogs.Domain.csproj">

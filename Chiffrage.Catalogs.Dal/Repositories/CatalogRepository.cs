@@ -17,24 +17,14 @@ namespace Chiffrage.Catalogs.Dal.Repositories
         public CatalogRepository(ISessionFactory sessionFactory)
         {
             this.sessionFactory = sessionFactory;
-        }
-
-        private ISession OpenSessionIfRequired()
-        {
-            if (!CatalogSessionContext.HasBind(sessionFactory))
-            {
-                CatalogSessionContext.Bind(sessionFactory.OpenSession());
-                logger.Info("CatalogSessionContext.OpenSession");
-            }
-
-            return this.sessionFactory.GetCurrentSession();
+            SessionManager.OpenSessionIfRequired(this.sessionFactory);
         }
 
         #region ICatalogRepository Members
 
         public void Save(SupplierCatalog catalog)
         {
-            var session = OpenSessionIfRequired();
+            var session = SessionManager.OpenSessionIfRequired(this.sessionFactory);
             //using (var session = this.sessionFactory.OpenSession())
             {
                 using (var transaction = session.BeginTransaction())
@@ -47,7 +37,7 @@ namespace Chiffrage.Catalogs.Dal.Repositories
 
         public IList<SupplierCatalog> FindAll()
         {
-            var session = OpenSessionIfRequired();
+            var session = SessionManager.OpenSessionIfRequired(this.sessionFactory);
             //using (var session = this.sessionFactory.OpenSession())
             {
                 return session.Query<SupplierCatalog>().ToList();
@@ -56,7 +46,7 @@ namespace Chiffrage.Catalogs.Dal.Repositories
 
         public SupplierCatalog FindById(int catalogId)
         {
-            var session = OpenSessionIfRequired();
+            var session = SessionManager.OpenSessionIfRequired(this.sessionFactory);
             //using (var session = this.sessionFactory.OpenSession())
             {
                 return session.Query<SupplierCatalog>().Where(x => x.Id == catalogId).FirstOrDefault();
@@ -65,7 +55,7 @@ namespace Chiffrage.Catalogs.Dal.Repositories
 
         public void Delete(SupplierCatalog catalog)
         {
-            var session = OpenSessionIfRequired();
+            var session = SessionManager.OpenSessionIfRequired(this.sessionFactory);
             using (var transaction = session.BeginTransaction())
             {
                 foreach (Hardware h in catalog.Hardwares)

@@ -66,8 +66,6 @@ namespace Chiffrage.App.Ioc
 
             var factory = dealConfiguration.BuildSessionFactory();
 
-            ProjectSessionContext.Bind(factory.OpenSession());
-
             return factory;
         }
 
@@ -107,8 +105,6 @@ namespace Chiffrage.App.Ioc
             catalogConfiguration.AddMapping(catalogMapping);
 
             var factory = catalogConfiguration.BuildSessionFactory();
-
-            CatalogSessionContext.Bind(factory.OpenSession());
 
             return factory;
         }

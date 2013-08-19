@@ -55,10 +55,10 @@ namespace Chiffrage.Catalogs.Module.Views.Impl.WizardPages
         {
             set
             {
-                var taskMap = new Dictionary<int, Task>();
-                foreach(var item in catalogTasks.OrderBy(x => x.OrderId))
+                var hardwareTaskMap = new Dictionary<int, HardwareTask>();
+                foreach(var item in value)
                 {
-                    taskMap.Add(item.Id, item);
+                    hardwareTaskMap.Add(item.Task.Id, item);
                 }
 
                 this.tableLayoutPanel.RowCount = 3 + value.Count;
@@ -73,35 +73,16 @@ namespace Chiffrage.Catalogs.Module.Views.Impl.WizardPages
                 int cptRow = 2;
                 int size = 50;
                 tasks.Clear();
-                var orderedTasks = value.OrderBy(x => x.Task.OrderId);
-                foreach (var item in orderedTasks)
+                
+                foreach (var item in this.catalogTasks.OrderBy(x => x.OrderId))
                 {
-                    taskMap.Remove(item.Task.Id);
+                    HardwareTask hardwareTask;
+                    if(!hardwareTaskMap.TryGetValue(item.Id, out hardwareTask))
+                    {
+                        hardwareTask = new HardwareTask { Task = item };
+                    }
+                    
 
-                    this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.AutoSize));
-
-                    Label label = new Label();
-                    label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-                    label.AutoSize = true;
-                    label.Text = new String(new char[] { item.Task.Name[0] }).ToUpper() + item.Task.Name.Substring(1);
-                    this.tableLayoutPanel.Controls.Add(label, 0, cptRow);
-
-                    TextBox textbox = new TextBox();
-                    textbox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-                    textbox.Tag = item;
-                    textbox.Text = item.Value.ToString(CultureInfo.InvariantCulture);
-                    this.tableLayoutPanel.Controls.Add(textbox, 1, cptRow);
-
-
-                    tasks.Add(textbox);
-
-                    size += 26;
-
-                    cptRow++;
-                }
-
-                foreach(var item in taskMap.Values)
-                {
                     this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.AutoSize));
 
                     Label label = new Label();
@@ -112,10 +93,9 @@ namespace Chiffrage.Catalogs.Module.Views.Impl.WizardPages
 
                     TextBox textbox = new TextBox();
                     textbox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-                    textbox.Tag = new HardwareTask { Task = item };
-                    textbox.Text = "0.0";
+                    textbox.Tag = hardwareTask;
+                    textbox.Text = hardwareTask.Value.ToString(CultureInfo.InvariantCulture);
                     this.tableLayoutPanel.Controls.Add(textbox, 1, cptRow);
-
 
                     tasks.Add(textbox);
 

@@ -7,6 +7,6 @@ namespace Chiffrage.Projects.Domain
 {
     public enum ProjectHardwareTaskType
     {
-        DAY, NIGHT, SHORT_NIGHT, LONG_NIGHT
+        DAY, SHORT_NIGHT, LONG_NIGHT
     }
 }

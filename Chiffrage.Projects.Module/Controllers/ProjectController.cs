@@ -189,9 +189,6 @@ namespace Chiffrage.Projects.Module.Controllers
                         case ProjectHardwareTaskType.DAY:
                             rate = task.Task.DayRate;
                             break;
-                        case ProjectHardwareTaskType.NIGHT:
-                            rate = task.Task.NightRate;
-                            break;
                         case ProjectHardwareTaskType.SHORT_NIGHT:
                             rate = task.Task.ShortNightRate;
                             break;

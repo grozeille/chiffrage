@@ -14,21 +14,28 @@ namespace Chiffrage.Catalogs.Domain.Services
     {
         private readonly IEventBroker eventBroker;
         private readonly ITaskRepository repository;
+        private readonly ICatalogRepository catalogRepository;
 
         public TaskService(
             IEventBroker eventBroker,
-            ITaskRepository repository)
+            ITaskRepository repository,
+            ICatalogRepository catalogRepository)
         {
             this.repository = repository;
+            this.catalogRepository = catalogRepository;
             this.eventBroker = eventBroker;
         }
 
         [Subscribe]
         public void ProcessAction(CreateNewTaskCommand eventObject)
         {
+            var tasks = this.repository.FindAll();
+
             var task = new Task();
             task.Name = eventObject.Name;
             task.Type = TaskType.DAYS;
+            task.Category = TaskCategory.STUDY;
+            task.OrderId = tasks.Count == 0 ? 0 : tasks.Max(x => x.OrderId) + 1;
 
             this.repository.Save(task);
 
@@ -76,9 +83,48 @@ namespace Chiffrage.Catalogs.Domain.Services
         {
             var task = this.repository.FindById(eventObject.TaskId);
 
+            var catalogs = this.catalogRepository.FindAll();
+            foreach(var catalog in catalogs)
+            {
+                bool toSave = false;
+                foreach(var hardware in catalog.Hardwares)
+                {
+                    var found = hardware.Tasks.Where(x => x.Task.Id == task.Id).FirstOrDefault();
+                    if(found != null)
+                    {
+                        hardware.Tasks.Remove(found);
+                        toSave = true;
+                    }
+                }
+
+                if (toSave)
+                {
+                    this.catalogRepository.Save(catalog);
+                    this.eventBroker.Publish(new CatalogUpdatedEvent(catalog));
+                }
+            }
+
             this.repository.Delete(task);
 
             this.eventBroker.Publish(new TaskDeletedEvent(task.Id));
+
+            var tasks = this.repository.FindAll().OrderBy(x => x.OrderId);
+            var tasksToNotifyUpdated = new List<Task>();
+            int cpt = 0;
+            foreach(var item in tasks)
+            {
+                if (item.OrderId != cpt)
+                {
+                    item.OrderId = cpt;
+                    tasksToNotifyUpdated.Add(item);
+                }
+                cpt++;
+            }
+
+            foreach (var item in tasksToNotifyUpdated)
+            {
+                this.eventBroker.Publish(new TaskUpdatedEvent(item));
+            }
         }
     }
 }

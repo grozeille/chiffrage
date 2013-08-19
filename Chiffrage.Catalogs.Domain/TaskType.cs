@@ -7,6 +7,6 @@ namespace Chiffrage.Catalogs.Domain
 {
     public enum TaskType
     {
-        DAYS, DAYS_NIGHT, DAYS_LONGNIGHT_SHORTNIGHT
+        DAYS, DAYS_NIGHT
     }
 }

@@ -23,24 +23,6 @@ namespace Chiffrage.Projects.Module.ViewModel
             supplyCost.TotalCost += project.Hardwares.Sum(x => x.Components.Sum(y => y.Supply.Price * y.Quantity));
             summaryItems.Add(supplyCost);
 
-            // conserve les taux des différentes tâches
-            var rates = new Dictionary<int, Dictionary<ProjectHardwareTaskType, double>>();
-            foreach (var item in project.Tasks)
-            {
-                var taskRates = new Dictionary<ProjectHardwareTaskType, double>();
-                taskRates.Add(ProjectHardwareTaskType.DAY, item.DayRate);
-                if (item.Type == TaskType.DAYS_NIGHT)
-                {
-                    taskRates.Add(ProjectHardwareTaskType.NIGHT, item.NightRate);
-                }
-                else if (item.Type == TaskType.DAYS_LONGNIGHT_SHORTNIGHT)
-                {
-                    taskRates.Add(ProjectHardwareTaskType.LONG_NIGHT, item.LongNightRate);
-                    taskRates.Add(ProjectHardwareTaskType.SHORT_NIGHT, item.ShortNightRate);
-                }
-                rates.Add(item.TaskId, taskRates);
-            }
-
             // conserve les lignes correspondantes aux tâches
             var taskItems = new Dictionary<int, Dictionary<ProjectHardwareTaskType, ProjectCostSummaryViewModel>>();
             var taskGroupItems = new Dictionary<TaskCategory, ProjectCostSummaryViewModel>();
@@ -54,51 +36,25 @@ namespace Chiffrage.Projects.Module.ViewModel
                     var taskRates = new Dictionary<ProjectHardwareTaskType, ProjectCostSummaryViewModel>();
                     taskItems.Add(item.Id, taskRates);
 
-                    Dictionary<ProjectHardwareTaskType, double> projectTaskRates;
-                    double rate;
-                    rates.TryGetValue(item.Id, out projectTaskRates);
-
                     string name = new String(new char[] {item.Name[0]}).ToUpper() + item.Name.Substring(1);
                     var dayCost = new ProjectCostSummaryViewModel
                                       {
                                           ProjectCostSummaryType = ProjectCostSummaryType.Simple,
                                           Name = name + " (jour)",
+                                          Rate = item.DayRate
                                       };
 
-                    if (projectTaskRates != null && projectTaskRates.TryGetValue(ProjectHardwareTaskType.DAY, out rate))
-                    {
-                        dayCost.Rate = rate;
-                    }
                     summaryItems.Add(dayCost);
                     taskRates.Add(ProjectHardwareTaskType.DAY, dayCost);
 
                     if (item.Type == Catalogs.Domain.TaskType.DAYS_NIGHT)
                     {
-                        var nightCost = new ProjectCostSummaryViewModel
-                                            {
-                                                ProjectCostSummaryType = ProjectCostSummaryType.Simple,
-                                                Name = name + " (nuit)",
-                                            };
-                        if (projectTaskRates != null &&
-                            projectTaskRates.TryGetValue(ProjectHardwareTaskType.NIGHT, out rate))
-                        {
-                            nightCost.Rate = rate;
-                        }
-                        summaryItems.Add(nightCost);
-                        taskRates.Add(ProjectHardwareTaskType.NIGHT, nightCost);
-                    }
-                    else if (item.Type == Catalogs.Domain.TaskType.DAYS_LONGNIGHT_SHORTNIGHT)
-                    {
                         var longNightCost = new ProjectCostSummaryViewModel
                                                 {
                                                     ProjectCostSummaryType = ProjectCostSummaryType.Simple,
                                                     Name = name + " (nuit longue)",
+                                                    Rate = item.LongNightRate
                                                 };
-                        if (projectTaskRates != null &&
-                            projectTaskRates.TryGetValue(ProjectHardwareTaskType.LONG_NIGHT, out rate))
-                        {
-                            longNightCost.Rate = rate;
-                        }
                         summaryItems.Add(longNightCost);
                         taskRates.Add(ProjectHardwareTaskType.LONG_NIGHT, longNightCost);
 
@@ -106,12 +62,8 @@ namespace Chiffrage.Projects.Module.ViewModel
                                                  {
                                                      ProjectCostSummaryType = ProjectCostSummaryType.Simple,
                                                      Name = name + " (nuit courte)",
+                                                     Rate = item.ShortNightRate
                                                  };
-                        if (projectTaskRates != null &&
-                            projectTaskRates.TryGetValue(ProjectHardwareTaskType.SHORT_NIGHT, out rate))
-                        {
-                            shortNightCost.Rate = rate;
-                        }
                         summaryItems.Add(shortNightCost);
                         taskRates.Add(ProjectHardwareTaskType.SHORT_NIGHT, shortNightCost);
                     }
