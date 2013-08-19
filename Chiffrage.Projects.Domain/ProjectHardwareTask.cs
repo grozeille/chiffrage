@@ -12,16 +12,12 @@ namespace Chiffrage.Projects.Domain
 
         public virtual int HardwareTaskId { get; set; }
 
-        public virtual int TaskId { get; set; }
-
-        public virtual string Name { get; set; }
+        public virtual ProjectTask Task { get; set; }
 
         public virtual double Value { get; set; }
 
         public virtual double CatalogValue { get; set; }
 
-        public virtual TaskType TaskType { get; set; }
-        
         public virtual ProjectHardwareTaskType HardwareTaskType { get; set; }
     }
 }

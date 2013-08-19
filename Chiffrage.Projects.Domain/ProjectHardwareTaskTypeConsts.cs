@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Chiffrage.Projects.Domain;
 
-namespace Chiffrage.Projects.Module.ViewModel
+namespace Chiffrage.Projects.Domain
 {
     public static class ProjectHardwareTaskTypeConsts
     {

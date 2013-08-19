@@ -22,7 +22,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
 
         private ProjectHardwareViewModel hardware;
 
-        private IList<Task> catalogTasks;
+        private IList<ProjectTask> projectTasks;
 
         private IList<ProjectHardwareTask> hardwareTasks;
 
@@ -39,7 +39,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
 
             this.editHardwarePage.TypedPage.HardwareName = this.hardware.Name;
             this.editHardwarePage.TypedPage.Milestone = this.hardware.Milestone;
-            this.editHardwarePage.TypedPage.CatalogTasks = this.catalogTasks;
+            this.editHardwarePage.TypedPage.ProjectTasks = this.projectTasks;
             this.editHardwarePage.TypedPage.HardwareTasks = this.hardwareTasks;
 
             return new WizardSettingListIterator(this.editHardwarePage);
@@ -63,11 +63,11 @@ namespace Chiffrage.Projects.Module.Views.Impl
             set { this.hardware = value; }
         }
 
-        public IList<Task> CatalogTasks
+        public IList<ProjectTask> ProjectTasks
         {
             set
             {
-                this.catalogTasks = value;
+                this.projectTasks = value;
             }
         }
 

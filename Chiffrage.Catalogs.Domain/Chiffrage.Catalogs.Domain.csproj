@@ -117,6 +117,8 @@
     <Compile Include="SupplierCatalog.cs" />
     <Compile Include="Supply.cs" />
     <Compile Include="Task.cs" />
+    <Compile Include="TaskCategory.cs" />
+    <Compile Include="TaskCategoryConsts.cs" />
     <Compile Include="TaskType.cs" />
   </ItemGroup>
   <ItemGroup>

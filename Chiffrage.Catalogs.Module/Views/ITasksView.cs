@@ -9,7 +9,7 @@ namespace Chiffrage.Catalogs.Module.Views
 {
     public interface ITasksView : IView
     {
-        void DisplayTasks(IList<TaskViewModel> tasks, String[] taskTypes);
+        void DisplayTasks(IList<TaskViewModel> tasks, String[] taskTypes, String[] taskCategories);
 
         IList<TaskViewModel> GetViewModel();
 

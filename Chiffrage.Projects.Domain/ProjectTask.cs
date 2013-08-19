@@ -14,6 +14,12 @@ namespace Chiffrage.Projects.Domain
 
         public virtual string Name { get; set; }
 
+        public virtual TaskType Type { get; set; }
+
+        public virtual TaskCategory Category { get; set; }
+
+        public virtual int OrderId { get; set; }
+
         public virtual double DayRate { get; set; }
 
         public virtual double NightRate { get; set; }
@@ -21,7 +27,5 @@ namespace Chiffrage.Projects.Domain
         public virtual double LongNightRate { get; set; }
 
         public virtual double ShortNightRate { get; set; }
-
-        public virtual TaskType TaskType { get; set; }
     }
 }

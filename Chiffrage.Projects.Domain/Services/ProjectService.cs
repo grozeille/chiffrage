@@ -19,15 +19,18 @@ namespace Chiffrage.Projects.Domain.Services
         private readonly ICatalogRepository catalogRepository;
         private readonly IDealRepository dealRepository;
         private readonly IProjectRepository projectRepository;
+        private readonly ITaskRepository taskRepository;
 
         public ProjectService(
             IEventBroker eventBroker,
             ICatalogRepository catalogRepository,
+            ITaskRepository taskRepository,
             IDealRepository dealRepository,
             IProjectRepository projectRepository)
         {
             this.dealRepository = dealRepository;
             this.catalogRepository = catalogRepository;
+            this.taskRepository = taskRepository;
             this.projectRepository = projectRepository;
             this.eventBroker = eventBroker;
         }
@@ -81,7 +84,14 @@ namespace Chiffrage.Projects.Domain.Services
             newProject.Frames = new List<ProjectFrame>();
             newProject.OtherBenefits = new List<OtherBenefit>();
             newProject.Supplies = new List<ProjectSupply>();
-            newProject.Tasks = new List<ProjectTask>();
+            newProject.Tasks = this.taskRepository.FindAll().Select(x => new ProjectTask
+            { 
+                Name = x.Name, 
+                TaskId = x.Id,
+                Category = x.Category,
+                Type = x.Type,
+                OrderId = x.OrderId
+            }).ToList();
             newProject.Name = eventObject.ProjectName;
 
             this.projectRepository.Save(newProject);
@@ -141,18 +151,36 @@ namespace Chiffrage.Projects.Domain.Services
                 .ForMember(x => x.Id, y => y.Ignore());
             Mapper.CreateMap<Hardware, ProjectHardware>()
                 .ForMember(x => x.HardwareId, y => y.MapFrom(z => z.Id))
+                .ForMember(x => x.Tasks, y => y.Ignore())
                 .ForMember(x => x.Id, y => y.Ignore());
-            Mapper.CreateMap<HardwareTask, ProjectHardwareTask>()
-                .ForMember(x => x.HardwareTaskId, y => y.MapFrom(z => z.Id))
-                .ForMember(x => x.TaskType, y => y.MapFrom(z => z.Task.Type))
-                .ForMember(x => x.TaskId, y => y.MapFrom(z => z.Task.Id))
-                .ForMember(x => x.Name, y => y.MapFrom(z => z.Task.Name))
-                .ForMember(x => x.CatalogValue, y => y.MapFrom(z => z.Value))
-                .ForMember(x => x.Id, y => y.Ignore());
+
+            var projectTasksByOriginalId = new Dictionary<int, ProjectTask>();
+            foreach(var item in project.Tasks)
+            {
+                projectTasksByOriginalId.Add(item.TaskId, item);
+            }
 
             var projectHardware = Mapper.Map<Hardware, ProjectHardware>(hardware);
             projectHardware.CatalogId = catalog.Id;
 
+            projectHardware.Tasks = new List<ProjectHardwareTask>();
+            foreach(var item in hardware.Tasks)
+            {
+                ProjectTask projectTask;
+                if(projectTasksByOriginalId.TryGetValue(item.Task.Id, out projectTask))
+                {
+                    var projectHardwareTask = new ProjectHardwareTask
+                                                  {
+                                                      Value = item.Value,
+                                                      CatalogValue = item.Value,
+                                                      HardwareTaskId = item.Id,
+                                                      HardwareTaskType = ProjectHardwareTaskType.DAY,
+                                                      Task = projectTask
+                                                  };
+                    projectHardware.Tasks.Add(projectHardwareTask);
+                }
+            }
+            
             foreach (var item in projectHardware.Components)
             {
                 item.Supply.CatalogId = catalog.Id;

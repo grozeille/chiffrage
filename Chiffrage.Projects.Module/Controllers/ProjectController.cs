@@ -176,23 +176,6 @@ namespace Chiffrage.Projects.Module.Controllers
                 viewModel.TotalPrice += item.Quantity * item.Price;
             }
 
-            var rates = new Dictionary<int, Dictionary<ProjectHardwareTaskType, double>>();
-            foreach(var item in project.Tasks)
-            {
-                var taskRates = new Dictionary<ProjectHardwareTaskType, double>();
-                taskRates.Add(ProjectHardwareTaskType.DAY, item.DayRate);
-                if (item.TaskType == TaskType.DAYS_NIGHT)
-                {
-                    taskRates.Add(ProjectHardwareTaskType.NIGHT, item.NightRate);
-                }
-                else if (item.TaskType == TaskType.DAYS_LONGNIGHT_SHORTNIGHT)
-                {
-                    taskRates.Add(ProjectHardwareTaskType.LONG_NIGHT, item.LongNightRate);
-                    taskRates.Add(ProjectHardwareTaskType.SHORT_NIGHT, item.ShortNightRate);
-                }
-                rates.Add(item.TaskId, taskRates);
-            }
-
             foreach (var item in project.Hardwares)
             {
                 // total price of components
@@ -200,15 +183,25 @@ namespace Chiffrage.Projects.Module.Controllers
 
                 foreach (var task in item.Tasks)
                 {
-                    Dictionary<ProjectHardwareTaskType, double> taskRates;
-                    if (rates.TryGetValue(task.TaskId, out taskRates))
+                    double rate;
+                    switch (task.HardwareTaskType)
                     {
-                        double rate;
-                        if (taskRates.TryGetValue(task.HardwareTaskType, out rate))
-                        {
-                            viewModel.TotalPrice += rate * task.Value;                            
-                        }
+                        case ProjectHardwareTaskType.DAY:
+                            rate = task.Task.DayRate;
+                            break;
+                        case ProjectHardwareTaskType.NIGHT:
+                            rate = task.Task.NightRate;
+                            break;
+                        case ProjectHardwareTaskType.SHORT_NIGHT:
+                            rate = task.Task.ShortNightRate;
+                            break;
+                        case ProjectHardwareTaskType.LONG_NIGHT:
+                            rate = task.Task.LongNightRate;
+                            break;
+                        default:
+                            throw new ArgumentOutOfRangeException();
                     }
+                    viewModel.TotalPrice += rate * task.Value;
                     viewModel.TotalDays += task.Value;
                 }
             }
@@ -221,7 +214,7 @@ namespace Chiffrage.Projects.Module.Controllers
             var project = this.projectRepository.FindById(projectId);
             var projectViewModel = Map(project);
 
-            this.projectView.SetProjectViewModel(projectViewModel, this.taskRepository.FindAll());
+            this.projectView.SetProjectViewModel(projectViewModel);
         }
 
         private void RefreshSummary(int projectId)
@@ -235,7 +228,7 @@ namespace Chiffrage.Projects.Module.Controllers
         {
             var project = this.projectRepository.FindById(projectId);
 
-            this.projectView.SetCostSummaryItems(project.BuildProjectCostSummaryItems(this.taskRepository.FindAll()));
+            this.projectView.SetCostSummaryItems(project.BuildProjectCostSummaryItems());
         }
 
         [Subscribe]
@@ -272,7 +265,7 @@ namespace Chiffrage.Projects.Module.Controllers
                 frames.Add(Map(item, project.Id));
             }
 
-            this.projectView.SetProjectViewModel(viewModel, this.taskRepository.FindAll());
+            this.projectView.SetProjectViewModel(viewModel);
             this.projectView.SetSupplies(supplies);
             this.projectView.SetHardwares(hardwares);
             this.projectView.SetFrames(frames);
@@ -289,7 +282,7 @@ namespace Chiffrage.Projects.Module.Controllers
         {
             this.projectView.HideView();
 
-            this.projectView.SetProjectViewModel(null, null);
+            this.projectView.SetProjectViewModel(null);
             this.projectView.SetSupplies(null);
             this.projectView.SetHardwares(null);
             this.projectView.SetFrames(null);
@@ -450,7 +443,7 @@ namespace Chiffrage.Projects.Module.Controllers
             ProjectHardware hardware = project.Hardwares.Where(x => x.Id == eventObject.Hardware.Id).FirstOrDefault();
 
             this.editProjectHardwareView.Hardware = eventObject.Hardware;
-            this.editProjectHardwareView.CatalogTasks = this.taskRepository.FindAll();
+            this.editProjectHardwareView.ProjectTasks = project.Tasks;
             this.editProjectHardwareView.HardwareTask = hardware.Tasks;
             this.editProjectHardwareView.ShowView();
         }

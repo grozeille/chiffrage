@@ -14,12 +14,16 @@ namespace Chiffrage.Projects.Dal.Mappings
             });
 
             Property(x => x.HardwareTaskId);
-            Property(x => x.TaskId);
-            Property(x => x.Name);
             Property(x => x.Value);
-            Property(x => x.TaskType);
+            Property(x => x.CatalogValue);
             Property(x => x.HardwareTaskType);
-            
+
+            this.ManyToOne(x => x.Task, y =>
+            {
+                //y.Lazy(LazyRelation.Proxy);
+                y.Fetch(FetchKind.Join);
+                y.Cascade(Cascade.Merge);
+            });
         }
     }
 }

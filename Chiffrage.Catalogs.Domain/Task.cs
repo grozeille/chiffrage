@@ -14,5 +14,7 @@ namespace Chiffrage.Catalogs.Domain
         public virtual int OrderId { get; set; }
 
         public virtual TaskType Type { get; set; }
+
+        public virtual TaskCategory Category { get; set; }
     }
 }

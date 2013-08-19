@@ -62,9 +62,10 @@ namespace Chiffrage.Catalogs.Module.Controllers
         }
 
         [Subscribe]
-        public void ProcessAction(CatalogUnselectedAction eventObject)
+        public void ProcessAction(TasksUnselectedAction eventObject)
         {
-            this.tasksView.DisplayTasks(null, null);
+            this.ProcessAction(new SaveAction());
+            this.tasksView.DisplayTasks(null, null, null);
             this.tasksView.HideView();
         }
 
@@ -85,7 +86,10 @@ namespace Chiffrage.Catalogs.Module.Controllers
                 cpt++;
             }
 
-            this.tasksView.DisplayTasks(tasksViewModel, new String[]{ ViewModelTypeDay, ViewModelTypeDayAndNight, ViewModelTypeDayAndLongNightAndShortNight});
+            this.tasksView.DisplayTasks(
+                tasksViewModel, 
+                new String[]{ ViewModelTypeDay, ViewModelTypeDayAndNight, ViewModelTypeDayAndLongNightAndShortNight},
+                new String[]{ TaskCategoryConsts.STUDY, TaskCategoryConsts.WORK, TaskCategoryConsts.TEST});
         }
 
         [Subscribe]
@@ -117,7 +121,9 @@ namespace Chiffrage.Catalogs.Module.Controllers
                         break;
                 }
 
-                commands.Add(new UpdateTaskCommand(item.Id, item.Name, taskType, item.OrderId));
+                TaskCategory taskCategory = TaskCategoryConsts.ParseString(item.Category);
+
+                commands.Add(new UpdateTaskCommand(item.Id, item.Name, taskType, taskCategory, item.OrderId));
             }
 
             this.OnTaskUpdateListCommand(new UpdateTaskListCommand(commands));
@@ -161,6 +167,7 @@ namespace Chiffrage.Catalogs.Module.Controllers
                 default:
                     break;
             }
+            viewModel.Category = TaskCategoryConsts.ToString(task.Category);
 
             return viewModel;
         }

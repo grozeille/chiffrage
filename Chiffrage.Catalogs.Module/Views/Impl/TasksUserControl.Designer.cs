@@ -31,8 +31,12 @@
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dataGridViewTasks = new System.Windows.Forms.DataGridView();
+            this.CategoryColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.OrderId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.panelDetails = new System.Windows.Forms.Panel();
+            this.comboBoxCategory = new System.Windows.Forms.ComboBox();
+            this.labelCategory = new System.Windows.Forms.Label();
             this.comboBoxType = new System.Windows.Forms.ComboBox();
             this.labelType = new System.Windows.Forms.Label();
             this.textBoxName = new System.Windows.Forms.TextBox();
@@ -42,10 +46,9 @@
             this.toolStripButtonUp = new System.Windows.Forms.ToolStripButton();
             this.toolStripSupplies = new System.Windows.Forms.ToolStrip();
             this.toolStripButtonDown = new System.Windows.Forms.ToolStripButton();
-            this.taskViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.typeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.OrderId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.taskViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTasks)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -72,6 +75,7 @@
             this.dataGridViewTasks.ColumnHeadersVisible = false;
             this.dataGridViewTasks.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.nameDataGridViewTextBoxColumn,
+            this.CategoryColumn,
             this.typeDataGridViewTextBoxColumn,
             this.OrderId});
             this.dataGridViewTasks.DataSource = this.taskViewModelBindingSource;
@@ -83,6 +87,21 @@
             this.dataGridViewTasks.RowHeadersVisible = false;
             this.dataGridViewTasks.Size = new System.Drawing.Size(280, 429);
             this.dataGridViewTasks.TabIndex = 9;
+            // 
+            // CategoryColumn
+            // 
+            this.CategoryColumn.DataPropertyName = "Category";
+            this.CategoryColumn.HeaderText = "Category";
+            this.CategoryColumn.Name = "CategoryColumn";
+            this.CategoryColumn.ReadOnly = true;
+            // 
+            // OrderId
+            // 
+            this.OrderId.DataPropertyName = "OrderId";
+            this.OrderId.HeaderText = "OrderId";
+            this.OrderId.Name = "OrderId";
+            this.OrderId.ReadOnly = true;
+            this.OrderId.Visible = false;
             // 
             // splitContainer1
             // 
@@ -103,6 +122,8 @@
             // 
             // panelDetails
             // 
+            this.panelDetails.Controls.Add(this.comboBoxCategory);
+            this.panelDetails.Controls.Add(this.labelCategory);
             this.panelDetails.Controls.Add(this.comboBoxType);
             this.panelDetails.Controls.Add(this.labelType);
             this.panelDetails.Controls.Add(this.textBoxName);
@@ -113,12 +134,32 @@
             this.panelDetails.Size = new System.Drawing.Size(509, 429);
             this.panelDetails.TabIndex = 0;
             // 
+            // comboBoxCategory
+            // 
+            this.comboBoxCategory.DataBindings.Add(new System.Windows.Forms.Binding("SelectedItem", this.taskViewModelBindingSource, "Category", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
+            this.comboBoxCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxCategory.FormattingEnabled = true;
+            this.comboBoxCategory.Location = new System.Drawing.Point(83, 80);
+            this.comboBoxCategory.Name = "comboBoxCategory";
+            this.comboBoxCategory.Size = new System.Drawing.Size(180, 21);
+            this.comboBoxCategory.TabIndex = 5;
+            this.comboBoxCategory.SelectedIndexChanged += new System.EventHandler(this.comboBoxCategory_SelectedIndexChanged);
+            // 
+            // labelCategory
+            // 
+            this.labelCategory.AutoSize = true;
+            this.labelCategory.Location = new System.Drawing.Point(22, 83);
+            this.labelCategory.Name = "labelCategory";
+            this.labelCategory.Size = new System.Drawing.Size(55, 13);
+            this.labelCategory.TabIndex = 4;
+            this.labelCategory.Text = "Categorie:";
+            // 
             // comboBoxType
             // 
             this.comboBoxType.DataBindings.Add(new System.Windows.Forms.Binding("SelectedItem", this.taskViewModelBindingSource, "Type", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
             this.comboBoxType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxType.FormattingEnabled = true;
-            this.comboBoxType.Location = new System.Drawing.Point(80, 53);
+            this.comboBoxType.Location = new System.Drawing.Point(83, 53);
             this.comboBoxType.Name = "comboBoxType";
             this.comboBoxType.Size = new System.Drawing.Size(180, 21);
             this.comboBoxType.TabIndex = 3;
@@ -136,7 +177,7 @@
             // textBoxName
             // 
             this.textBoxName.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.taskViewModelBindingSource, "Name", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged));
-            this.textBoxName.Location = new System.Drawing.Point(80, 23);
+            this.textBoxName.Location = new System.Drawing.Point(83, 23);
             this.textBoxName.Name = "textBoxName";
             this.textBoxName.Size = new System.Drawing.Size(180, 20);
             this.textBoxName.TabIndex = 1;
@@ -198,13 +239,6 @@
             this.toolStripButtonDown.Text = "Déscendre";
             this.toolStripButtonDown.Click += new System.EventHandler(this.toolStripButtonDown_Click);
             // 
-            // taskViewModelBindingSource
-            // 
-            this.taskViewModelBindingSource.AllowNew = false;
-            this.taskViewModelBindingSource.DataSource = typeof(Chiffrage.Catalogs.Module.ViewModel.TaskViewModel);
-            this.taskViewModelBindingSource.Sort = "OrderId ASC";
-            this.taskViewModelBindingSource.CurrentChanged += new System.EventHandler(this.taskViewModelBindingSource_CurrentChanged);
-            // 
             // nameDataGridViewTextBoxColumn
             // 
             this.nameDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
@@ -222,12 +256,12 @@
             this.typeDataGridViewTextBoxColumn.ReadOnly = true;
             this.typeDataGridViewTextBoxColumn.Visible = false;
             // 
-            // OrderId
+            // taskViewModelBindingSource
             // 
-            this.OrderId.DataPropertyName = "OrderId";
-            this.OrderId.HeaderText = "OrderId";
-            this.OrderId.Name = "OrderId";
-            this.OrderId.ReadOnly = true;
+            this.taskViewModelBindingSource.AllowNew = false;
+            this.taskViewModelBindingSource.DataSource = typeof(Chiffrage.Catalogs.Module.ViewModel.TaskViewModel);
+            this.taskViewModelBindingSource.Sort = "OrderId ASC";
+            this.taskViewModelBindingSource.CurrentChanged += new System.EventHandler(this.taskViewModelBindingSource_CurrentChanged);
             // 
             // TasksUserControl
             // 
@@ -267,7 +301,10 @@
         private System.Windows.Forms.ToolStripButton toolStripButtonUp;
         private System.Windows.Forms.ToolStrip toolStripSupplies;
         private System.Windows.Forms.ToolStripButton toolStripButtonDown;
+        private System.Windows.Forms.ComboBox comboBoxCategory;
+        private System.Windows.Forms.Label labelCategory;
         private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CategoryColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn typeDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn OrderId;
     }

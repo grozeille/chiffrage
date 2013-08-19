@@ -12,7 +12,7 @@ namespace Chiffrage.Projects.Module.ViewModel
 {
     public class ProjectHardwareList : SortableBindingList<ProjectHardwareViewModel>, ITypedList
     {
-        public IList<Task> CatalogTasks { get; set; }
+        public IList<ProjectTask> ProjectTasks { get; set; }
 
         public PropertyDescriptorCollection GetItemProperties(PropertyDescriptor[] listAccessors)
         {
@@ -39,9 +39,9 @@ namespace Chiffrage.Projects.Module.ViewModel
                 }
             }
 
-            if (this.CatalogTasks != null)
+            if (this.ProjectTasks != null)
             {
-                foreach (var item in this.CatalogTasks)
+                foreach (var item in this.ProjectTasks)
                 {
                     newProps.Add(new ProjectHardwareListItemDescriptor(item.Id));
                 }
@@ -69,7 +69,7 @@ namespace Chiffrage.Projects.Module.ViewModel
             public override object GetValue(object component)
             {
                 var hardware = (ProjectHardwareViewModel)component;
-                var item = hardware.Tasks.Where(x => x.TaskId == this.taskId).FirstOrDefault();
+                var item = hardware.Tasks.Where(x => x.Id == this.taskId).FirstOrDefault();
                 if (item != null)
                 {
                     string taskType = "";

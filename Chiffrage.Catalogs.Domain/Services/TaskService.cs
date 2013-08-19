@@ -42,6 +42,7 @@ namespace Chiffrage.Catalogs.Domain.Services
             task.Name = eventObject.Name;
             task.Type = eventObject.Type;
             task.OrderId = eventObject.OrderId;
+            task.Category = eventObject.Category;
 
             this.repository.Save(task);
 
@@ -58,6 +59,7 @@ namespace Chiffrage.Catalogs.Domain.Services
                 task.Name = item.Name;
                 task.Type = item.Type;
                 task.OrderId = item.OrderId;
+                task.Category = item.Category;
                 tasks.Add(task);
             }
 

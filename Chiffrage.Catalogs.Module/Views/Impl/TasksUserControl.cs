@@ -77,17 +77,25 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
             this.dataGridViewTasks.SetDoubleBuffered();
         }
 
-        public void DisplayTasks(IList<TaskViewModel> tasks, String[] taskTypes)
+        public void DisplayTasks(IList<TaskViewModel> tasks, String[] taskTypes, String[] taskCategories)
         {
             this.tasks = tasks == null ? null : new SortableBindingList<TaskViewModel>(tasks);
             this.InvokeIfRequired(() =>
             {
                 this.textBoxName.Enabled = false;
                 this.comboBoxType.Enabled = false;
+                this.comboBoxCategory.Enabled = false;
+
                 this.comboBoxType.Items.Clear();
                 if (taskTypes != null)
                 {
                     this.comboBoxType.Items.AddRange(taskTypes);
+                }
+
+                this.comboBoxCategory.Items.Clear();
+                if (taskCategories != null)
+                {
+                    this.comboBoxCategory.Items.AddRange(taskCategories);
                 }
 
                 if (tasks == null)
@@ -155,9 +163,9 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
                     var found = this.tasks.Where(x => x.Id == task.Id).FirstOrDefault();
                     if (found != null)
                     {
+                        
                         int index = this.tasks.IndexOf(found);
-                        this.tasks.RemoveAt(index);
-                        this.tasks.Insert(index, task);
+                        this.tasks[index] = task;
                         this.taskViewModelBindingSource.ResetBindings(false);
                     }
                 }
@@ -169,17 +177,24 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
             (this.taskViewModelBindingSource.Current as TaskViewModel).Type = this.comboBoxType.SelectedItem.ToString();
         }
 
+        private void comboBoxCategory_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            (this.taskViewModelBindingSource.Current as TaskViewModel).Category = this.comboBoxCategory.SelectedItem.ToString();
+        }
+
         private void taskViewModelBindingSource_CurrentChanged(object sender, EventArgs e)
         {
             if (this.taskViewModelBindingSource.Current == null)
             {
                 this.textBoxName.Enabled = false;
                 this.comboBoxType.Enabled = false;
+                this.comboBoxCategory.Enabled = false;
             }
             else
             {
                 this.textBoxName.Enabled = true;
                 this.comboBoxType.Enabled = true;
+                this.comboBoxCategory.Enabled = true;
             }
         }
 

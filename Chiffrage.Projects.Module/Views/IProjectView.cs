@@ -10,7 +10,7 @@ namespace Chiffrage.Projects.Module.Views
 {
     public interface IProjectView : IView
     {
-        void SetProjectViewModel(ProjectViewModel viewModel, IList<Task> tasks);
+        void SetProjectViewModel(ProjectViewModel viewModel);
 
         void SetSupplies(IEnumerable<ProjectSupplyViewModel> supplies);
 

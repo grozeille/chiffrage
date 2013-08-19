@@ -15,7 +15,9 @@ namespace Chiffrage.Projects.Dal.Mappings
 
             Property(x => x.Name);
             Property(x => x.TaskId);
-            Property(x => x.TaskType);
+            Property(x => x.Type);
+            Property(x => x.OrderId);
+            Property(x => x.Category);
             Property(x => x.DayRate);
             Property(x => x.NightRate);
             Property(x => x.LongNightRate);

@@ -10,6 +10,8 @@ namespace Chiffrage.Projects.Module.ViewModel
         Simple,
         TotalSupply,
         TotalWork,
+        TotalStudy,
+        TotalTests,
         TotalOther,
         BigTotal
     }

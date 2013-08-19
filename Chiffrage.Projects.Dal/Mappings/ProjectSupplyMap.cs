@@ -13,14 +13,6 @@ namespace Chiffrage.Projects.Dal.Mappings
                     y.Generator(Generators.Identity);
                 });
             Property(x => x.Quantity);
-            //Property(x => x.WorkDays);
-            //Property(x => x.WorkShortNights);
-            //Property(x => x.WorkLongNights);
-            //Property(x => x.ExecutiveWorkDays);
-            //Property(x => x.ExecutiveWorkShortNights);
-            //Property(x => x.ExecutiveWorkLongNights);
-            //Property(x => x.TestsDays);
-            //Property(x => x.TestsNights);
             Property(x => x.CatalogId);
 
             Property(x => x.Name);

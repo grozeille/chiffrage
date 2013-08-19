@@ -366,7 +366,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
             }
         }
 
-        public void SetProjectViewModel(ProjectViewModel viewModel, IList<Task> tasks)
+        public void SetProjectViewModel(ProjectViewModel viewModel)
         {
             this.InvokeIfRequired(() =>
             {
@@ -409,12 +409,12 @@ namespace Chiffrage.Projects.Module.Views.Impl
                 }
 
 
-                hardwares.CatalogTasks = null;
-                if (tasks != null)
+                hardwares.ProjectTasks = null;
+                if (viewModel != null && viewModel.Tasks != null)
                 {
-                    var orderedTasks = tasks.OrderBy(x => x.OrderId).ToList();
+                    var orderedTasks = viewModel.Tasks.OrderBy(x => x.OrderId).ToList();
 
-                    hardwares.CatalogTasks = orderedTasks;
+                    hardwares.ProjectTasks = orderedTasks;
 
                     foreach (var item in taskColumns)
                     {
@@ -437,7 +437,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
 
                     this.tableLayoutPanelTasks.SetDoubleBuffered();
                     this.tableLayoutPanelTasks.SuspendLayout();
-                    this.tableLayoutPanelTasks.RowCount = 2 + tasks.Count;
+                    this.tableLayoutPanelTasks.RowCount = 2 + viewModel.Tasks.Count;
                     this.tableLayoutPanelTasks.RowStyles.Clear();
                     this.tableLayoutPanelTasks.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.AutoSize));
 
@@ -452,21 +452,9 @@ namespace Chiffrage.Projects.Module.Views.Impl
                     this.tableLayoutPanelTasks.Controls.Add(this.labelHeaderTasksLongNights, 3, 0);
                     this.tableLayoutPanelTasks.Controls.Add(this.labelHeaderTasksShortNight, 4, 0);
 
-                    var taskMap = new Dictionary<int, ProjectTask>();
-                    foreach (var item in viewModel.Tasks)
-                    {
-                        taskMap.Add(item.TaskId, item);
-                    }
-
                     int cptRow = 1;
                     foreach (var item in orderedTasks)
                     {
-                        ProjectTask projectTask = null;
-                        if (!taskMap.TryGetValue(item.Id, out projectTask))
-                        {
-                            projectTask = new ProjectTask { TaskId = item.Id, TaskType = item.Type, Name = item.Name };
-                        }
-
                         this.tableLayoutPanelTasks.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.AutoSize));
 
                         Label taskLabel = new Label();
@@ -475,41 +463,41 @@ namespace Chiffrage.Projects.Module.Views.Impl
                         this.tableLayoutPanelTasks.Controls.Add(taskLabel, 0, cptRow);
 
                         TextBox taskDayTextBox = new TextBox();
-                        taskDayTextBox.Text = this.ToRate(projectTask.DayRate);
-                        taskDayTextBox.Tag = projectTask;
+                        taskDayTextBox.Text = this.ToRate(item.DayRate);
+                        taskDayTextBox.Tag = item;
                         taskDayTextBox.Validating += ValidateIsRateTextBox;
                         this.dayRates.Add(taskDayTextBox);
                         this.tableLayoutPanelTasks.Controls.Add(taskDayTextBox, 1, cptRow);
 
                         TextBox taskNightTextBox = new TextBox();
                         this.nightRates.Add(taskNightTextBox);
-                        taskNightTextBox.Tag = projectTask;
+                        taskNightTextBox.Tag = item;
                         taskNightTextBox.Enabled = item.Type == TaskType.DAYS_NIGHT;
                         if (taskNightTextBox.Enabled)
                         {
-                            taskNightTextBox.Text = this.ToRate(projectTask.NightRate);
+                            taskNightTextBox.Text = this.ToRate(item.NightRate);
                             taskNightTextBox.Validating += ValidateIsRateTextBox;
                         }
                         this.tableLayoutPanelTasks.Controls.Add(taskNightTextBox, 2, cptRow);
                         
                         TextBox taskLongNightTextBox = new TextBox();
                         this.longNightRates.Add(taskLongNightTextBox);
-                        taskLongNightTextBox.Tag = projectTask;
+                        taskLongNightTextBox.Tag = item;
                         taskLongNightTextBox.Enabled = item.Type == TaskType.DAYS_LONGNIGHT_SHORTNIGHT;
                         if (taskLongNightTextBox.Enabled)
                         {
-                            taskLongNightTextBox.Text = this.ToRate(projectTask.LongNightRate);
+                            taskLongNightTextBox.Text = this.ToRate(item.LongNightRate);
                             taskLongNightTextBox.Validating += ValidateIsRateTextBox;
                         }
                         this.tableLayoutPanelTasks.Controls.Add(taskLongNightTextBox, 3, cptRow);
                         
                         TextBox taskShortNightTextBox = new TextBox();
                         this.shortNightRates.Add(taskShortNightTextBox);
-                        taskShortNightTextBox.Tag = projectTask;
+                        taskShortNightTextBox.Tag = item;
                         taskShortNightTextBox.Enabled = item.Type == TaskType.DAYS_LONGNIGHT_SHORTNIGHT;
                         if (taskShortNightTextBox.Enabled)
                         {
-                            taskShortNightTextBox.Text = this.ToRate(projectTask.ShortNightRate);
+                            taskShortNightTextBox.Text = this.ToRate(item.ShortNightRate);
                             taskShortNightTextBox.Validating += ValidateIsRateTextBox;
                         }
                         this.tableLayoutPanelTasks.Controls.Add(taskShortNightTextBox, 4, cptRow);
@@ -737,6 +725,14 @@ namespace Chiffrage.Projects.Module.Views.Impl
                             else if (item.ProjectCostSummaryType == ProjectCostSummaryType.TotalWork)
                             {
                                 this.BuildTotalRow(Resources.wrench, item.Name, item.TotalTime, item.TotalCost);
+                            }
+                            else if (item.ProjectCostSummaryType == ProjectCostSummaryType.TotalStudy)
+                            {
+                                this.BuildTotalRow(Resources.map_edit, item.Name, item.TotalTime, item.TotalCost);
+                            }
+                            else if (item.ProjectCostSummaryType == ProjectCostSummaryType.TotalTests)
+                            {
+                                this.BuildTotalRow(Resources.rosette, item.Name, item.TotalTime, item.TotalCost);
                             }
                             else if (item.ProjectCostSummaryType == ProjectCostSummaryType.TotalOther)
                             {

@@ -15,6 +15,7 @@ namespace Chiffrage.Catalogs.Dal.Mappings
             Property(x => x.Name);
             Property(x => x.Type);
             Property(x => x.OrderId);
+            Property(x => x.Category);
         }
     }
 }

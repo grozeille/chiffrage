@@ -27,7 +27,7 @@ namespace Chiffrage.Projects.Module.Views.Impl.WizardPages
 
         private IList<TextBoxWithComboBox> tasks = new List<TextBoxWithComboBox>();
 
-        private IList<Task> catalogTasks = new List<Task>();
+        private IList<ProjectTask> projectTasks = new List<ProjectTask>();
 
         public EditProjectHardwarePage()
         {
@@ -67,11 +67,11 @@ namespace Chiffrage.Projects.Module.Views.Impl.WizardPages
             set { this.textBoxMilestone.Text = value.ToString(CultureInfo.InvariantCulture); }
         }
 
-        public IList<Task> CatalogTasks
+        public IList<ProjectTask> ProjectTasks
         {
             set
             {
-                this.catalogTasks = value;
+                this.projectTasks = value;
             }
         }
 
@@ -79,8 +79,8 @@ namespace Chiffrage.Projects.Module.Views.Impl.WizardPages
         {
             set
             {
-                var taskMap = new Dictionary<int, Task>();
-                foreach (var item in catalogTasks)
+                var taskMap = new Dictionary<int, ProjectTask>();
+                foreach (var item in projectTasks)
                 {
                     taskMap.Add(item.Id, item);
                 }
@@ -99,7 +99,7 @@ namespace Chiffrage.Projects.Module.Views.Impl.WizardPages
                 tasks.Clear();
                 foreach (var item in value)
                 {
-                    taskMap.Remove(item.TaskId);
+                    taskMap.Remove(item.Id);
 
                     // la valeur du catalogue
                     this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.AutoSize));
@@ -107,7 +107,7 @@ namespace Chiffrage.Projects.Module.Views.Impl.WizardPages
                     Label catalogLabel = new Label();
                     catalogLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
                     catalogLabel.AutoSize = true;
-                    catalogLabel.Text = new String(new char[] { item.Name[0] }).ToUpper() + item.Name.Substring(1)+ " (catalogue)";
+                    catalogLabel.Text = new String(new char[] { item.Task.Name[0] }).ToUpper() + item.Task.Name.Substring(1) + " (catalogue)";
                     this.tableLayoutPanel.Controls.Add(catalogLabel, 0, cptRow);
 
                     TextBox catalogTextbox = new TextBox();
@@ -126,7 +126,7 @@ namespace Chiffrage.Projects.Module.Views.Impl.WizardPages
                     Label label = new Label();
                     label.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
                     label.AutoSize = true;
-                    label.Text = new String(new char[] { item.Name[0] }).ToUpper() + item.Name.Substring(1);
+                    label.Text = new String(new char[] { item.Task.Name[0] }).ToUpper() + item.Task.Name.Substring(1);
                     this.tableLayoutPanel.Controls.Add(label, 0, cptRow);
 
                     TextBox textbox = new TextBox();
@@ -137,15 +137,15 @@ namespace Chiffrage.Projects.Module.Views.Impl.WizardPages
                     ComboBox comboBox = new ComboBox();
                     comboBox.Size = new System.Drawing.Size(20, comboBox.Size.Height);
                     comboBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-                    if (item.TaskType == TaskType.DAYS)
+                    if (item.Task.Type == TaskType.DAYS)
                     {
                         comboBox.Items.AddRange(new String[] { ProjectHardwareTaskTypeConsts.DAY });
                     }
-                    else if (item.TaskType == TaskType.DAYS_NIGHT)
+                    else if (item.Task.Type == TaskType.DAYS_NIGHT)
                     {
                         comboBox.Items.AddRange(new String[] { ProjectHardwareTaskTypeConsts.DAY, ProjectHardwareTaskTypeConsts.NIGHT });
                     }
-                    else if (item.TaskType == TaskType.DAYS_LONGNIGHT_SHORTNIGHT)
+                    else if (item.Task.Type == TaskType.DAYS_LONGNIGHT_SHORTNIGHT)
                     {
                         comboBox.Items.AddRange(new String[] { ProjectHardwareTaskTypeConsts.DAY, ProjectHardwareTaskTypeConsts.SHORT_NIGHT, ProjectHardwareTaskTypeConsts.LONG_NIGHT });
                     }
@@ -222,9 +222,7 @@ namespace Chiffrage.Projects.Module.Views.Impl.WizardPages
                         ComboBox = comboBox,
                         ProjectHardwareTask = new ProjectHardwareTask
                         {
-                            Name = item.Name,
-                            TaskId = item.Id,
-                            TaskType = item.Type,
+                            Task = item,
                             HardwareTaskType = ProjectHardwareTaskType.DAY,
                             Value = 0.0
                         }

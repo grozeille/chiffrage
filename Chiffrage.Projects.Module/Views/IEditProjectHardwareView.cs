@@ -13,7 +13,7 @@ namespace Chiffrage.Projects.Module.Views
     {
         ProjectHardwareViewModel Hardware { set; }
 
-        IList<Task> CatalogTasks { set; }
+        IList<ProjectTask> ProjectTasks { set; }
 
         IList<ProjectHardwareTask> HardwareTask { set; }
     }
