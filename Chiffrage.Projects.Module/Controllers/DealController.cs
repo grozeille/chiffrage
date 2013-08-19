@@ -69,6 +69,8 @@ namespace Chiffrage.Projects.Module.Controllers
         [Subscribe]
         public void ProcessAction(DealUnselectedAction eventObject)
         {
+            this.ProcessAction(new SaveAction());
+
             this.dealView.HideView();
             this.dealView.SetDealViewModel(null);
         }

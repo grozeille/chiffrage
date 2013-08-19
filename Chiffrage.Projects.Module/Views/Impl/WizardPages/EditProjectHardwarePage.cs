@@ -82,7 +82,10 @@ namespace Chiffrage.Projects.Module.Views.Impl.WizardPages
                 var projectHardwareTaskMap = new Dictionary<int, ProjectHardwareTask>();
                 foreach (var item in value)
                 {
-                    projectHardwareTaskMap.Add(item.Task.Id, item);
+                    if (item.Task != null)
+                    {
+                        projectHardwareTaskMap.Add(item.Task.Id, item);
+                    }
                 }
 
                 this.tableLayoutPanel.RowCount = 5 + (value.Count * 2);

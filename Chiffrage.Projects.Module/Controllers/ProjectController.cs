@@ -183,20 +183,23 @@ namespace Chiffrage.Projects.Module.Controllers
 
                 foreach (var task in item.Tasks)
                 {
-                    double rate;
-                    switch (task.HardwareTaskType)
+                    double rate = 0.0;
+                    if (task.Task != null)
                     {
-                        case ProjectHardwareTaskType.DAY:
-                            rate = task.Task.DayRate;
-                            break;
-                        case ProjectHardwareTaskType.SHORT_NIGHT:
-                            rate = task.Task.ShortNightRate;
-                            break;
-                        case ProjectHardwareTaskType.LONG_NIGHT:
-                            rate = task.Task.LongNightRate;
-                            break;
-                        default:
-                            throw new ArgumentOutOfRangeException();
+                        switch (task.HardwareTaskType)
+                        {
+                            case ProjectHardwareTaskType.DAY:
+                                rate = task.Task.DayRate;
+                                break;
+                            case ProjectHardwareTaskType.SHORT_NIGHT:
+                                rate = task.Task.ShortNightRate;
+                                break;
+                            case ProjectHardwareTaskType.LONG_NIGHT:
+                                rate = task.Task.LongNightRate;
+                                break;
+                            default:
+                                throw new ArgumentOutOfRangeException();
+                        }
                     }
                     viewModel.TotalPrice += rate * task.Value;
                     viewModel.TotalDays += task.Value;
@@ -277,6 +280,8 @@ namespace Chiffrage.Projects.Module.Controllers
         [Subscribe]
         public void ProcessAction(ProjectUnselectedAction eventObject)
         {
+            this.ProcessAction(new SaveAction());
+
             this.projectView.HideView();
 
             this.projectView.SetProjectViewModel(null);

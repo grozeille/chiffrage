@@ -594,6 +594,12 @@ namespace Chiffrage.Projects.Domain.Services
             var supply = project.Supplies.Where(x => x.Id == eventObject.ProjectSupplyId).First();
 
             var catalog = this.catalogRepository.FindById(supply.CatalogId);
+            if (catalog == null)
+            {
+                // le catalogue n'existe plus
+                return;
+            }
+
             var catalogSupply = catalog.Supplies.Where(x => x.Id == supply.SupplyId).FirstOrDefault();
             if(catalogSupply == null)
             {
@@ -615,6 +621,12 @@ namespace Chiffrage.Projects.Domain.Services
             var hardware = project.Hardwares.Where(x => x.Id == eventObject.ProjectHardwareId).First();
 
             var catalog = this.catalogRepository.FindById(hardware.CatalogId);
+            if(catalog == null)
+            {
+                // le catalogue n'existe plus
+                return;
+            }
+
             var catalogHardware = catalog.Hardwares.Where(x => x.Id == hardware.HardwareId).FirstOrDefault();
             if (catalogHardware == null)
             {

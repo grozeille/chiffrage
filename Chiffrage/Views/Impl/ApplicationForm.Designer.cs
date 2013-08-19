@@ -34,32 +34,22 @@
             this.aProposToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aideToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainer = new System.Windows.Forms.SplitContainer();
-            this.historyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparatorHistory = new System.Windows.Forms.ToolStripSeparator();
             this.quitterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripButtonRefresh = new System.Windows.Forms.ToolStripButton();
-            this.catalogueToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemNewCatalog = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.newToolStripSplitButton = new System.Windows.Forms.ToolStripSplitButton();
-            this.affaireToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.projetToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemNewDeal = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.ouvrirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.nouveauToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.affaireToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.projetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.catalogueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItemCloseCatalog = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemNewDeal2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItemNewCatalog2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparatorSave = new System.Windows.Forms.ToolStripSeparator();
             this.splitContainerMain = new System.Windows.Forms.SplitContainer();
             this.splitContainer.SuspendLayout();
@@ -72,7 +62,7 @@
             // toolStripSeparatorHelp
             // 
             this.toolStripSeparatorHelp.Name = "toolStripSeparatorHelp";
-            this.toolStripSeparatorHelp.Size = new System.Drawing.Size(119, 6);
+            this.toolStripSeparatorHelp.Size = new System.Drawing.Size(149, 6);
             // 
             // statusStrip
             // 
@@ -85,14 +75,14 @@
             // aProposToolStripMenuItem
             // 
             this.aProposToolStripMenuItem.Name = "aProposToolStripMenuItem";
-            this.aProposToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.aProposToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.aProposToolStripMenuItem.Text = "A propos";
             // 
             // aideToolStripMenuItem
             // 
             this.aideToolStripMenuItem.Image = global::Chiffrage.App.Properties.Resources.help;
             this.aideToolStripMenuItem.Name = "aideToolStripMenuItem";
-            this.aideToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
+            this.aideToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.aideToolStripMenuItem.Text = "Aide";
             // 
             // splitContainer
@@ -113,12 +103,6 @@
             this.splitContainer.SplitterDistance = 254;
             this.splitContainer.TabIndex = 2;
             // 
-            // historyToolStripMenuItem
-            // 
-            this.historyToolStripMenuItem.Name = "historyToolStripMenuItem";
-            this.historyToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
-            this.historyToolStripMenuItem.Text = "Fichiers récents";
-            // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -129,37 +113,22 @@
             this.toolStripMenuItem2.Size = new System.Drawing.Size(24, 20);
             this.toolStripMenuItem2.Text = "?";
             // 
-            // toolStripSeparatorHistory
-            // 
-            this.toolStripSeparatorHistory.Name = "toolStripSeparatorHistory";
-            this.toolStripSeparatorHistory.Size = new System.Drawing.Size(176, 6);
-            // 
             // quitterToolStripMenuItem
             // 
             this.quitterToolStripMenuItem.Image = global::Chiffrage.App.Properties.Resources.door_out;
             this.quitterToolStripMenuItem.Name = "quitterToolStripMenuItem";
             this.quitterToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
-            this.quitterToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.quitterToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
             this.quitterToolStripMenuItem.Text = "Quitter";
+            this.quitterToolStripMenuItem.Click += new System.EventHandler(this.quitterToolStripMenuItem_Click);
             // 
             // saveFileDialog
             // 
             this.saveFileDialog.Filter = "Fichier d\'affaire (*.aff)|*.aff";
             // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(176, 6);
-            // 
             // openFileDialog
             // 
             this.openFileDialog.Filter = "Fichier d\'affaire (*.aff)|*.aff";
-            // 
-            // saveAsToolStripMenuItem
-            // 
-            this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
-            this.saveAsToolStripMenuItem.Text = "Sauvegarder sous...";
             // 
             // saveToolStripButton
             // 
@@ -169,30 +138,12 @@
             this.saveToolStripButton.Size = new System.Drawing.Size(92, 22);
             this.saveToolStripButton.Text = "Sauvegarder";
             // 
-            // saveToolStripMenuItem
+            // toolStripMenuItemNewCatalog
             // 
-            this.saveToolStripMenuItem.Enabled = false;
-            this.saveToolStripMenuItem.Image = global::Chiffrage.App.Properties.Resources.disk;
-            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
-            this.saveToolStripMenuItem.Text = "Sauvegarder";
-            // 
-            // toolStripButtonRefresh
-            // 
-            this.toolStripButtonRefresh.Image = global::Chiffrage.App.Properties.Resources.arrow_refresh;
-            this.toolStripButtonRefresh.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.toolStripButtonRefresh.Name = "toolStripButtonRefresh";
-            this.toolStripButtonRefresh.Size = new System.Drawing.Size(77, 22);
-            this.toolStripButtonRefresh.Text = "Rafraîchir";
-            this.toolStripButtonRefresh.ToolTipText = "Rafraîchir";
-            // 
-            // catalogueToolStripMenuItem1
-            // 
-            this.catalogueToolStripMenuItem1.Image = global::Chiffrage.App.Properties.Resources.book_open;
-            this.catalogueToolStripMenuItem1.Name = "catalogueToolStripMenuItem1";
-            this.catalogueToolStripMenuItem1.Size = new System.Drawing.Size(128, 22);
-            this.catalogueToolStripMenuItem1.Text = "Catalogue";
+            this.toolStripMenuItemNewCatalog.Image = global::Chiffrage.App.Properties.Resources.book_open;
+            this.toolStripMenuItemNewCatalog.Name = "toolStripMenuItemNewCatalog";
+            this.toolStripMenuItemNewCatalog.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItemNewCatalog.Text = "Catalogue";
             // 
             // toolStripSeparator
             // 
@@ -204,7 +155,6 @@
             this.toolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.newToolStripSplitButton,
             this.saveToolStripButton,
-            this.toolStripButtonRefresh,
             this.toolStripSeparator,
             this.helpToolStripButton});
             this.toolStrip.Location = new System.Drawing.Point(0, 24);
@@ -216,29 +166,20 @@
             // newToolStripSplitButton
             // 
             this.newToolStripSplitButton.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.affaireToolStripMenuItem2,
-            this.projetToolStripMenuItem2,
-            this.catalogueToolStripMenuItem1});
+            this.toolStripMenuItemNewDeal,
+            this.toolStripMenuItemNewCatalog});
             this.newToolStripSplitButton.Image = global::Chiffrage.App.Properties.Resources.page_white_add;
             this.newToolStripSplitButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.newToolStripSplitButton.Name = "newToolStripSplitButton";
             this.newToolStripSplitButton.Size = new System.Drawing.Size(87, 22);
             this.newToolStripSplitButton.Text = "Nouveau";
             // 
-            // affaireToolStripMenuItem2
+            // toolStripMenuItemNewDeal
             // 
-            this.affaireToolStripMenuItem2.Image = global::Chiffrage.App.Properties.Resources.user_suit;
-            this.affaireToolStripMenuItem2.Name = "affaireToolStripMenuItem2";
-            this.affaireToolStripMenuItem2.Size = new System.Drawing.Size(128, 22);
-            this.affaireToolStripMenuItem2.Text = "Affaire";
-            // 
-            // projetToolStripMenuItem2
-            // 
-            this.projetToolStripMenuItem2.Image = global::Chiffrage.App.Properties.Resources.report;
-            this.projetToolStripMenuItem2.Name = "projetToolStripMenuItem2";
-            this.projetToolStripMenuItem2.Size = new System.Drawing.Size(128, 22);
-            this.projetToolStripMenuItem2.Text = "Projet";
-            this.projetToolStripMenuItem2.Visible = false;
+            this.toolStripMenuItemNewDeal.Image = global::Chiffrage.App.Properties.Resources.user_suit;
+            this.toolStripMenuItemNewDeal.Name = "toolStripMenuItemNewDeal";
+            this.toolStripMenuItemNewDeal.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItemNewDeal.Text = "Affaire";
             // 
             // helpToolStripButton
             // 
@@ -247,12 +188,6 @@
             this.helpToolStripButton.Name = "helpToolStripButton";
             this.helpToolStripButton.Size = new System.Drawing.Size(51, 22);
             this.helpToolStripButton.Text = "Aide";
-            // 
-            // ouvrirToolStripMenuItem
-            // 
-            this.ouvrirToolStripMenuItem.Name = "ouvrirToolStripMenuItem";
-            this.ouvrirToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
-            this.ouvrirToolStripMenuItem.Text = "Ouvrir";
             // 
             // menuStrip
             // 
@@ -269,14 +204,7 @@
             // 
             this.toolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.nouveauToolStripMenuItem,
-            this.ouvrirToolStripMenuItem,
-            this.toolStripMenuItemCloseCatalog,
             this.toolStripSeparatorSave,
-            this.saveToolStripMenuItem,
-            this.saveAsToolStripMenuItem,
-            this.toolStripSeparator1,
-            this.historyToolStripMenuItem,
-            this.toolStripSeparatorHistory,
             this.quitterToolStripMenuItem});
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
             this.toolStripMenuItem1.Size = new System.Drawing.Size(54, 20);
@@ -285,45 +213,31 @@
             // nouveauToolStripMenuItem
             // 
             this.nouveauToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.affaireToolStripMenuItem,
-            this.projetToolStripMenuItem,
-            this.catalogueToolStripMenuItem});
+            this.toolStripMenuItemNewDeal2,
+            this.toolStripMenuItemNewCatalog2});
             this.nouveauToolStripMenuItem.Image = global::Chiffrage.App.Properties.Resources.page_white_add;
             this.nouveauToolStripMenuItem.Name = "nouveauToolStripMenuItem";
-            this.nouveauToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.nouveauToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
             this.nouveauToolStripMenuItem.Text = "Nouveau";
             // 
-            // affaireToolStripMenuItem
+            // toolStripMenuItemNewDeal2
             // 
-            this.affaireToolStripMenuItem.Image = global::Chiffrage.App.Properties.Resources.user_suit;
-            this.affaireToolStripMenuItem.Name = "affaireToolStripMenuItem";
-            this.affaireToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
-            this.affaireToolStripMenuItem.Text = "Affaire...";
+            this.toolStripMenuItemNewDeal2.Image = global::Chiffrage.App.Properties.Resources.user_suit;
+            this.toolStripMenuItemNewDeal2.Name = "toolStripMenuItemNewDeal2";
+            this.toolStripMenuItemNewDeal2.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItemNewDeal2.Text = "Affaire...";
             // 
-            // projetToolStripMenuItem
+            // toolStripMenuItemNewCatalog2
             // 
-            this.projetToolStripMenuItem.Image = global::Chiffrage.App.Properties.Resources.report;
-            this.projetToolStripMenuItem.Name = "projetToolStripMenuItem";
-            this.projetToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
-            this.projetToolStripMenuItem.Text = "Projet...";
-            // 
-            // catalogueToolStripMenuItem
-            // 
-            this.catalogueToolStripMenuItem.Image = global::Chiffrage.App.Properties.Resources.lorry;
-            this.catalogueToolStripMenuItem.Name = "catalogueToolStripMenuItem";
-            this.catalogueToolStripMenuItem.Size = new System.Drawing.Size(137, 22);
-            this.catalogueToolStripMenuItem.Text = "Catalogue...";
-            // 
-            // toolStripMenuItemCloseCatalog
-            // 
-            this.toolStripMenuItemCloseCatalog.Name = "toolStripMenuItemCloseCatalog";
-            this.toolStripMenuItemCloseCatalog.Size = new System.Drawing.Size(179, 22);
-            this.toolStripMenuItemCloseCatalog.Text = "Fermer";
+            this.toolStripMenuItemNewCatalog2.Image = global::Chiffrage.App.Properties.Resources.lorry;
+            this.toolStripMenuItemNewCatalog2.Name = "toolStripMenuItemNewCatalog2";
+            this.toolStripMenuItemNewCatalog2.Size = new System.Drawing.Size(152, 22);
+            this.toolStripMenuItemNewCatalog2.Text = "Catalogue...";
             // 
             // toolStripSeparatorSave
             // 
             this.toolStripSeparatorSave.Name = "toolStripSeparatorSave";
-            this.toolStripSeparatorSave.Size = new System.Drawing.Size(176, 6);
+            this.toolStripSeparatorSave.Size = new System.Drawing.Size(150, 6);
             // 
             // splitContainerMain
             // 
@@ -372,32 +286,22 @@
         private System.Windows.Forms.ToolStripMenuItem aProposToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aideToolStripMenuItem;
         private System.Windows.Forms.SplitContainer splitContainer;
-        private System.Windows.Forms.ToolStripMenuItem historyToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparatorHistory;
         private System.Windows.Forms.ToolStripMenuItem quitterToolStripMenuItem;
         private System.Windows.Forms.SaveFileDialog saveFileDialog;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.OpenFileDialog openFileDialog;
-        private System.Windows.Forms.ToolStripMenuItem saveAsToolStripMenuItem;
         private System.Windows.Forms.ToolStripButton saveToolStripButton;
-        private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
-        private System.Windows.Forms.ToolStripButton toolStripButtonRefresh;
-        private System.Windows.Forms.ToolStripMenuItem catalogueToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemNewCatalog;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator;
         private System.Windows.Forms.ToolStrip toolStrip;
         private System.Windows.Forms.ToolStripSplitButton newToolStripSplitButton;
-        private System.Windows.Forms.ToolStripMenuItem affaireToolStripMenuItem2;
-        private System.Windows.Forms.ToolStripMenuItem projetToolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemNewDeal;
         private System.Windows.Forms.ToolStripButton helpToolStripButton;
-        private System.Windows.Forms.ToolStripMenuItem ouvrirToolStripMenuItem;
         private System.Windows.Forms.MenuStrip menuStrip;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem nouveauToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem affaireToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem projetToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem catalogueToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemCloseCatalog;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemNewDeal2;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItemNewCatalog2;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparatorSave;
         private System.Windows.Forms.SplitContainer splitContainerMain;
     }

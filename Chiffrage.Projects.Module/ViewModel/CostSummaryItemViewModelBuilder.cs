@@ -114,17 +114,20 @@ namespace Chiffrage.Projects.Module.ViewModel
             {
                 foreach (var task in item.Tasks)
                 {
-                    Dictionary<ProjectHardwareTaskType, ProjectCostSummaryViewModel> taskSummaryItem;
-                    if (taskItems.TryGetValue(task.Task.Id, out taskSummaryItem))
+                    if (task.Task != null)
                     {
-                        ProjectCostSummaryViewModel summaryItem;
-                        if (taskSummaryItem.TryGetValue(task.HardwareTaskType, out summaryItem))
+                        Dictionary<ProjectHardwareTaskType, ProjectCostSummaryViewModel> taskSummaryItem;
+                        if (taskItems.TryGetValue(task.Task.Id, out taskSummaryItem))
                         {
-                            summaryItem.TotalTime += task.Value;
-                            summaryItem.TotalCost += task.Value * summaryItem.Rate;
+                            ProjectCostSummaryViewModel summaryItem;
+                            if (taskSummaryItem.TryGetValue(task.HardwareTaskType, out summaryItem))
+                            {
+                                summaryItem.TotalTime += task.Value;
+                                summaryItem.TotalCost += task.Value*summaryItem.Rate;
 
-                            taskGroupItems[task.Task.Category].TotalTime += task.Value;
-                            taskGroupItems[task.Task.Category].TotalCost += task.Value * summaryItem.Rate;
+                                taskGroupItems[task.Task.Category].TotalTime += task.Value;
+                                taskGroupItems[task.Task.Category].TotalCost += task.Value*summaryItem.Rate;
+                            }
                         }
                     }
                 }

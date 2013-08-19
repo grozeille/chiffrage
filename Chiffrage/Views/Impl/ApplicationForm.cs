@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using Chiffrage.App.Events;
 using Chiffrage.App.Views;
+using Chiffrage.Catalogs.Module.Actions;
 using Chiffrage.Mvc.Events;
 using Chiffrage.Mvc.Views;
 using Chiffrage.Projects.Module.Views;
@@ -38,16 +39,20 @@ namespace Chiffrage
             tasksView.SetParent(this.splitContainer.Panel2);
 
             eventBroker.RegisterToolStripBouttonClickEventSource(this.saveToolStripButton, new SaveAction());
-            eventBroker.RegisterToolStripMenuItemClickEventSource(this.affaireToolStripMenuItem2, new RequestNewDealAction());
-            //eventBroker.RegisterToolStripMenuItemClickEventSource(this.projetToolStripMenuItem2, ()=>
-            //    {
-            //        new RequestNewProjectEvent(this.)
-            //    });
+            eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemNewDeal, new RequestNewDealAction());
+            eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemNewDeal2, new RequestNewDealAction());
+            eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemNewCatalog, new RequestNewCatalogAction());
+            eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemNewCatalog2, new RequestNewCatalogAction());
         }
 
         public ApplicationForm()
         {
             this.InitializeComponent();
+        }
+
+        private void quitterToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
