@@ -432,6 +432,16 @@ namespace Chiffrage.Projects.Domain.Services
             cloneProject.Name += " (copie)";
             cloneProject.Id = 0;
 
+            var taskCache = new Dictionary<int, ProjectTask>();
+            cloneProject.Tasks = new List<ProjectTask>();
+            foreach (var s in project.Tasks)
+            {
+                ProjectTask cloneProjectTask = Mapper.Map<ProjectTask, ProjectTask>(s);
+                cloneProjectTask.Id = 0;
+                cloneProject.Tasks.Add(cloneProjectTask);
+                taskCache.Add(s.Id, cloneProjectTask);
+            }
+
             var supplyCache = new Dictionary<int, ProjectSupply>();
             cloneProject.Supplies = new List<ProjectSupply>();
             foreach (var s in project.Supplies)
@@ -471,6 +481,7 @@ namespace Chiffrage.Projects.Domain.Services
                 {
                     ProjectHardwareTask cloneTask = Mapper.Map<ProjectHardwareTask, ProjectHardwareTask>(s);
                     cloneTask.Id = 0;
+                    cloneTask.Task = taskCache[s.Task.Id];
                     cloneHardware.Tasks.Add(cloneTask);
                 }
             }
@@ -489,14 +500,6 @@ namespace Chiffrage.Projects.Domain.Services
                 ProjectFrame cloneFrame = Mapper.Map<ProjectFrame, ProjectFrame>(f);
                 cloneFrame.Id = 0;
                 cloneProject.Frames.Add(cloneFrame);
-            }
-
-            cloneProject.Tasks = new List<ProjectTask>();
-            foreach (var s in project.Tasks)
-            {
-                ProjectTask cloneProjectTask = Mapper.Map<ProjectTask, ProjectTask>(s);
-                cloneProjectTask.Id = 0;
-                cloneProject.Tasks.Add(cloneProjectTask);
             }
 
             return cloneProject;
