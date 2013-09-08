@@ -126,6 +126,46 @@ namespace Chiffrage.Projects.Module.Controllers
                 dealViewModel.EndDate = DateTime.Now;
             }
 
+            dealViewModel.TotalPrice = 0;
+            dealViewModel.TotalDays = 0;
+            foreach (var project in deal.Projects)
+            {
+                foreach (var item in project.Supplies)
+                {
+                    dealViewModel.TotalPrice += item.Quantity*item.Price;
+                }
+
+                foreach (var item in project.Hardwares)
+                {
+                    // total price of components
+                    dealViewModel.TotalPrice += item.Components.Sum(x => x.Supply.Price*x.Quantity);
+
+                    foreach (var task in item.Tasks)
+                    {
+                        double rate = 0.0;
+                        if (task.Task != null)
+                        {
+                            switch (task.HardwareTaskType)
+                            {
+                                case ProjectHardwareTaskType.DAY:
+                                    rate = task.Task.DayRate;
+                                    break;
+                                case ProjectHardwareTaskType.SHORT_NIGHT:
+                                    rate = task.Task.ShortNightRate;
+                                    break;
+                                case ProjectHardwareTaskType.LONG_NIGHT:
+                                    rate = task.Task.LongNightRate;
+                                    break;
+                                default:
+                                    throw new ArgumentOutOfRangeException();
+                            }
+                        }
+                        dealViewModel.TotalPrice += rate*task.Value;
+                        dealViewModel.TotalDays += task.Value;
+                    }
+                }
+            }
+
             return dealViewModel;
         }
 

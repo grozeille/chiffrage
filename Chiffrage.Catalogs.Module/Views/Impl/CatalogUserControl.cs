@@ -15,7 +15,6 @@ using System.Collections.Generic;
 using Chiffrage.Mvc;
 using Chiffrage.Catalogs.Module.Actions;
 using System.Text;
-using Chiffrage.Projects.Module.ViewModel;
 
 namespace Chiffrage.Catalogs.Module.Views.Impl
 {
@@ -550,7 +549,7 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
                 return (x.Name != null && searchRegex.IsMatch(x.Name)) ||
                     (x.Reference != null && searchRegex.IsMatch(x.Reference));
             });
-            this.hardwaresBindingSource.DataSource = new SortableBindingList<CatalogHardwareViewModel>(filtered, this.hardwares);
+            this.hardwaresBindingSource.DataSource = new CatalogHardwareList(filtered, this.hardwares);
             this.hardwaresBindingSource.ResetBindings(false);
         }
 

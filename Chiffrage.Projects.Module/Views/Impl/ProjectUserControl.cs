@@ -541,8 +541,8 @@ namespace Chiffrage.Projects.Module.Views.Impl
                     this.dateTimePickerProjectEnd.Value = viewModel.EndDate;
                     this.dateTimePickerProjectEnd.Value = viewModel.EndDate;
 
-                    this.textBoxTotalDays.Text = string.Format("{0} h", viewModel.TotalDays.ToString(CultureInfo.InvariantCulture));
-                    this.textBoxTotalPrice.Text = string.Format("{0} €", viewModel.TotalPrice.ToString(CultureInfo.InvariantCulture));
+                    this.textBoxTotalDays.Text = string.Format(CultureInfo.InvariantCulture, "{0:0.##} h", viewModel.TotalDays);
+                    this.textBoxTotalPrice.Text = string.Format(CultureInfo.InvariantCulture, "{0:0.##} €", viewModel.TotalPrice);
                     
                     this.textBoxTotalModules.Text = viewModel.TotalModules.ToString(CultureInfo.InvariantCulture);
                     this.textBoxModulesNotInFrame.Text = viewModel.ModulesNotInFrame.ToString(CultureInfo.InvariantCulture);

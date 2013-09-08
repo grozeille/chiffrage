@@ -42,6 +42,7 @@
             System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.dateTimePickerDealEnd = new System.Windows.Forms.DateTimePicker();
+            this.bindingSourceDeal = new System.Windows.Forms.BindingSource(this.components);
             this.labelEnd = new System.Windows.Forms.Label();
             this.dateTimePickerDealBegin = new System.Windows.Forms.DateTimePicker();
             this.labelDealDate = new System.Windows.Forms.Label();
@@ -50,11 +51,19 @@
             this.textBoxDealName = new System.Windows.Forms.TextBox();
             this.labelDeal = new System.Windows.Forms.Label();
             this.panelMain = new System.Windows.Forms.Panel();
+            this.labelTotalDays = new System.Windows.Forms.Label();
+            this.labelTotalPrice = new System.Windows.Forms.Label();
+            this.textBoxTotalDays = new System.Windows.Forms.TextBox();
+            this.textBoxTotalPrice = new System.Windows.Forms.TextBox();
             this.commentUserControl = new Chiffrage.Common.Module.Views.CommentUserControl();
             this.tabControlDeal = new System.Windows.Forms.TabControl();
             this.tabPageDeal = new System.Windows.Forms.TabPage();
             this.tabPageSummary = new System.Windows.Forms.TabPage();
             this.dataGridViewItemSummary = new System.Windows.Forms.DataGridView();
+            this.itemTypeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.projectItemsDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dealSummaryItemViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tabPageScheduling = new System.Windows.Forms.TabPage();
             this.calendarProjects = new System.Windows.Forms.Calendar.Calendar();
             this.panelSelectDate = new System.Windows.Forms.Panel();
@@ -62,23 +71,18 @@
             this.comboBoxProjects = new System.Windows.Forms.ComboBox();
             this.tabPageCostSummary = new System.Windows.Forms.TabPage();
             this.chartProjectCost = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.bindingSourceDeal = new System.Windows.Forms.BindingSource(this.components);
-            this.itemTypeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.projectItemsDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dealSummaryItemViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceDeal)).BeginInit();
             this.panelMain.SuspendLayout();
             this.tabControlDeal.SuspendLayout();
             this.tabPageDeal.SuspendLayout();
             this.tabPageSummary.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewItemSummary)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dealSummaryItemViewModelBindingSource)).BeginInit();
             this.tabPageScheduling.SuspendLayout();
             this.panelSelectDate.SuspendLayout();
             this.tabPageCostSummary.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartProjectCost)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceDeal)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dealSummaryItemViewModelBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // dateTimePickerDealEnd
@@ -88,6 +92,10 @@
             this.dateTimePickerDealEnd.Name = "dateTimePickerDealEnd";
             this.dateTimePickerDealEnd.Size = new System.Drawing.Size(200, 20);
             this.dateTimePickerDealEnd.TabIndex = 3;
+            // 
+            // bindingSourceDeal
+            // 
+            this.bindingSourceDeal.DataSource = typeof(Chiffrage.Projects.Module.ViewModel.DealViewModel);
             // 
             // labelEnd
             // 
@@ -151,8 +159,12 @@
             // 
             // panelMain
             // 
+            this.panelMain.Controls.Add(this.labelTotalDays);
+            this.panelMain.Controls.Add(this.labelTotalPrice);
             this.panelMain.Controls.Add(this.dateTimePickerDealEnd);
+            this.panelMain.Controls.Add(this.textBoxTotalDays);
             this.panelMain.Controls.Add(this.labelEnd);
+            this.panelMain.Controls.Add(this.textBoxTotalPrice);
             this.panelMain.Controls.Add(this.dateTimePickerDealBegin);
             this.panelMain.Controls.Add(this.labelDealDate);
             this.panelMain.Controls.Add(this.textBoxReference);
@@ -164,6 +176,40 @@
             this.panelMain.Name = "panelMain";
             this.panelMain.Size = new System.Drawing.Size(810, 121);
             this.panelMain.TabIndex = 9;
+            // 
+            // labelTotalDays
+            // 
+            this.labelTotalDays.AutoSize = true;
+            this.labelTotalDays.Location = new System.Drawing.Point(294, 13);
+            this.labelTotalDays.Name = "labelTotalDays";
+            this.labelTotalDays.Size = new System.Drawing.Size(69, 13);
+            this.labelTotalDays.TabIndex = 20;
+            this.labelTotalDays.Text = "Temps Total:";
+            // 
+            // labelTotalPrice
+            // 
+            this.labelTotalPrice.AutoSize = true;
+            this.labelTotalPrice.Location = new System.Drawing.Point(294, 39);
+            this.labelTotalPrice.Name = "labelTotalPrice";
+            this.labelTotalPrice.Size = new System.Drawing.Size(59, 13);
+            this.labelTotalPrice.TabIndex = 19;
+            this.labelTotalPrice.Text = "Coût Total:";
+            // 
+            // textBoxTotalDays
+            // 
+            this.textBoxTotalDays.Location = new System.Drawing.Point(369, 10);
+            this.textBoxTotalDays.Name = "textBoxTotalDays";
+            this.textBoxTotalDays.ReadOnly = true;
+            this.textBoxTotalDays.Size = new System.Drawing.Size(88, 20);
+            this.textBoxTotalDays.TabIndex = 21;
+            // 
+            // textBoxTotalPrice
+            // 
+            this.textBoxTotalPrice.Location = new System.Drawing.Point(369, 36);
+            this.textBoxTotalPrice.Name = "textBoxTotalPrice";
+            this.textBoxTotalPrice.ReadOnly = true;
+            this.textBoxTotalPrice.Size = new System.Drawing.Size(88, 20);
+            this.textBoxTotalPrice.TabIndex = 22;
             // 
             // commentUserControl
             // 
@@ -262,6 +308,33 @@
             this.dataGridViewItemSummary.Size = new System.Drawing.Size(810, 437);
             this.dataGridViewItemSummary.TabIndex = 3;
             this.dataGridViewItemSummary.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dataGridViewItemSummary_CellPainting);
+            // 
+            // itemTypeDataGridViewTextBoxColumn
+            // 
+            this.itemTypeDataGridViewTextBoxColumn.DataPropertyName = "ItemType";
+            this.itemTypeDataGridViewTextBoxColumn.HeaderText = "Type";
+            this.itemTypeDataGridViewTextBoxColumn.Name = "itemTypeDataGridViewTextBoxColumn";
+            this.itemTypeDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // nameDataGridViewTextBoxColumn
+            // 
+            this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
+            this.nameDataGridViewTextBoxColumn.HeaderText = "Nom";
+            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
+            this.nameDataGridViewTextBoxColumn.ReadOnly = true;
+            this.nameDataGridViewTextBoxColumn.Width = 200;
+            // 
+            // projectItemsDataGridViewTextBoxColumn
+            // 
+            this.projectItemsDataGridViewTextBoxColumn.DataPropertyName = "ProjectItems";
+            this.projectItemsDataGridViewTextBoxColumn.HeaderText = "ProjectItems";
+            this.projectItemsDataGridViewTextBoxColumn.Name = "projectItemsDataGridViewTextBoxColumn";
+            this.projectItemsDataGridViewTextBoxColumn.ReadOnly = true;
+            this.projectItemsDataGridViewTextBoxColumn.Visible = false;
+            // 
+            // dealSummaryItemViewModelBindingSource
+            // 
+            this.dealSummaryItemViewModelBindingSource.DataSource = typeof(Chiffrage.Projects.Module.ViewModel.DealSummaryItemViewModel);
             // 
             // tabPageScheduling
             // 
@@ -385,37 +458,6 @@
             this.chartProjectCost.TabIndex = 0;
             this.chartProjectCost.Text = "chartProjectCost";
             // 
-            // bindingSourceDeal
-            // 
-            this.bindingSourceDeal.DataSource = typeof(Chiffrage.Projects.Module.ViewModel.DealViewModel);
-            // 
-            // itemTypeDataGridViewTextBoxColumn
-            // 
-            this.itemTypeDataGridViewTextBoxColumn.DataPropertyName = "ItemType";
-            this.itemTypeDataGridViewTextBoxColumn.HeaderText = "Type";
-            this.itemTypeDataGridViewTextBoxColumn.Name = "itemTypeDataGridViewTextBoxColumn";
-            this.itemTypeDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // nameDataGridViewTextBoxColumn
-            // 
-            this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
-            this.nameDataGridViewTextBoxColumn.HeaderText = "Nom";
-            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
-            this.nameDataGridViewTextBoxColumn.ReadOnly = true;
-            this.nameDataGridViewTextBoxColumn.Width = 200;
-            // 
-            // projectItemsDataGridViewTextBoxColumn
-            // 
-            this.projectItemsDataGridViewTextBoxColumn.DataPropertyName = "ProjectItems";
-            this.projectItemsDataGridViewTextBoxColumn.HeaderText = "ProjectItems";
-            this.projectItemsDataGridViewTextBoxColumn.Name = "projectItemsDataGridViewTextBoxColumn";
-            this.projectItemsDataGridViewTextBoxColumn.ReadOnly = true;
-            this.projectItemsDataGridViewTextBoxColumn.Visible = false;
-            // 
-            // dealSummaryItemViewModelBindingSource
-            // 
-            this.dealSummaryItemViewModelBindingSource.DataSource = typeof(Chiffrage.Projects.Module.ViewModel.DealSummaryItemViewModel);
-            // 
             // DealUserControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -424,18 +466,18 @@
             this.Name = "DealUserControl";
             this.Size = new System.Drawing.Size(824, 469);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceDeal)).EndInit();
             this.panelMain.ResumeLayout(false);
             this.panelMain.PerformLayout();
             this.tabControlDeal.ResumeLayout(false);
             this.tabPageDeal.ResumeLayout(false);
             this.tabPageSummary.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewItemSummary)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dealSummaryItemViewModelBindingSource)).EndInit();
             this.tabPageScheduling.ResumeLayout(false);
             this.panelSelectDate.ResumeLayout(false);
             this.tabPageCostSummary.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.chartProjectCost)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSourceDeal)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dealSummaryItemViewModelBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -468,5 +510,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn projectItemsDataGridViewTextBoxColumn;
         private System.Windows.Forms.BindingSource dealSummaryItemViewModelBindingSource;
+        private System.Windows.Forms.Label labelTotalDays;
+        private System.Windows.Forms.Label labelTotalPrice;
+        private System.Windows.Forms.TextBox textBoxTotalDays;
+        private System.Windows.Forms.TextBox textBoxTotalPrice;
     }
 }

@@ -8,11 +8,28 @@ using Chiffrage.Mvc;
 using System.Windows.Forms;
 using Chiffrage.Catalogs.Module.ViewModel;
 
-namespace Chiffrage.Projects.Module.ViewModel
+namespace Chiffrage.Catalogs.Module.ViewModel
 {
     public class CatalogHardwareList : SortableBindingList<CatalogHardwareViewModel>, ITypedList
     {
         public IList<Task> CatalogTasks { get; set; }
+
+        public CatalogHardwareList():base()
+        {
+            
+        }
+
+        public CatalogHardwareList(IEnumerable<CatalogHardwareViewModel> enumeration)
+            : base(enumeration)
+        {
+            
+        }
+
+        public CatalogHardwareList(IEnumerable<CatalogHardwareViewModel> enumeration, CatalogHardwareList original)
+            : base(enumeration, original)
+        {
+            this.CatalogTasks = original.CatalogTasks;
+        }
 
         public PropertyDescriptorCollection GetItemProperties(PropertyDescriptor[] listAccessors)
         {

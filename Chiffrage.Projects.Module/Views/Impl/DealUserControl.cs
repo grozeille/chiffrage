@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Windows.Forms;
 using Chiffrage.Projects.Domain;
 using Chiffrage.Projects.Module.ViewModel;
@@ -106,6 +107,9 @@ namespace Chiffrage.Projects.Module.Views.Impl
                     this.dateTimePickerDealBegin.Value = viewModel.StartDate;
                     this.dateTimePickerDealEnd.Value = viewModel.EndDate;
                     this.commentUserControl.Rtf = viewModel.Comment;
+
+                    this.textBoxTotalDays.Text = string.Format(CultureInfo.InvariantCulture, "{0:0.##} h", viewModel.TotalDays);
+                    this.textBoxTotalPrice.Text = string.Format(CultureInfo.InvariantCulture, "{0:0.##} €", viewModel.TotalPrice);
                 }
                 else
                 {
@@ -115,6 +119,9 @@ namespace Chiffrage.Projects.Module.Views.Impl
                     this.dateTimePickerDealBegin.Value = DateTime.Now;
                     this.dateTimePickerDealEnd.Value = DateTime.Now;
                     this.commentUserControl.Rtf = string.Empty;
+
+                    this.textBoxTotalDays.Text = string.Empty;
+                    this.textBoxTotalPrice.Text = string.Empty;
                 }
             });
         }
