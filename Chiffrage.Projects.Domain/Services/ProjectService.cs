@@ -144,6 +144,42 @@ namespace Chiffrage.Projects.Domain.Services
         }
         
         [Subscribe]
+        public void ProcessAction(CreateNewProjectHardwareListCommand eventObject)
+        {
+            var projects = new List<Project>();
+            var hardwares = new Dictionary<ProjectHardware, int>();
+            foreach (var groupByProject in eventObject.Commands.GroupBy(x => x.ProjectId))
+            {
+                var project = this.projectRepository.FindById(groupByProject.Key);
+                foreach(var groupByCatalog in groupByProject.GroupBy(x => x.CatalogId))
+                {
+                    var catalog = this.catalogRepository.FindById(groupByCatalog.Key);
+                    foreach(var item in groupByCatalog)
+                    {
+                        var hardware = catalog.Hardwares.Where(x => x.Id == item.HardwareId).First();
+                    
+                        var projectHardware = MapProjectHardware(project, hardware, new ProjectHardware(), catalog);
+
+                        project.Hardwares.Add(projectHardware);
+
+                        projects.Add(project);
+                        hardwares.Add(projectHardware, project.Id);
+                    }
+                }
+            }
+
+            foreach(var item in projects)
+            {
+                this.projectRepository.Save(item);
+            }
+
+            foreach(var item in hardwares)
+            {
+                this.eventBroker.Publish(new ProjectHardwareCreatedEvent(item.Value, item.Key));
+            }
+        }
+
+        [Subscribe]
         public void ProcessAction(CreateNewProjectHardwareCommand eventObject)
         {
             var catalog = this.catalogRepository.FindById(eventObject.CatalogId);

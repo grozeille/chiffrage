@@ -60,6 +60,7 @@
     </Compile>
     <Compile Include="Commands\CloneDealCommand.cs" />
     <Compile Include="Commands\CloneProjectCommand.cs" />
+    <Compile Include="Commands\CreateNewProjectHardwareListCommand.cs" />
     <Compile Include="Commands\ReloadProjectHardwareCommand.cs" />
     <Compile Include="Commands\ReloadProjectSupplyCommand.cs" />
     <Compile Include="Commands\RefreshProjectTasksCommand.cs" />
