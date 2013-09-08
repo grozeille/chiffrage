@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Collections.Generic;
 using Chiffrage.Catalogs.Domain;
+using Chiffrage.Mvc;
 
 namespace Chiffrage.Catalogs.Module.ViewModel
 {
@@ -8,7 +9,7 @@ namespace Chiffrage.Catalogs.Module.ViewModel
     {
         public CatalogHardwareViewModel()
         {
-            this.Components = new BindingList<CatalogHardwareSupplyViewModel>();
+            this.Components = new SortableBindingList<CatalogHardwareSupplyViewModel>();
         }
 
         public int Id { get; set; }
@@ -19,13 +20,11 @@ namespace Chiffrage.Catalogs.Module.ViewModel
 
         public string Reference { get; set; }
 
-        public string Category { get; set; }
-
         public int ModuleSize { get; set; }
 
         public double CatalogPrice { get; set; }
 
-        public BindingList<CatalogHardwareSupplyViewModel> Components { get; set; }
+        public SortableBindingList<CatalogHardwareSupplyViewModel> Components { get; set; }
 
         public IList<HardwareTask> Tasks { get; set; }
     }
