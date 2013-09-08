@@ -28,6 +28,8 @@ namespace Chiffrage.Projects.Module.Controllers
         private readonly INewDealView newDealView;
         private readonly ILoadingView loadingView;
 
+        private int? currentDealId;
+
         public DealController(IDealRepository dealRepository, ITaskRepository taskRepository, IDealView dealView, INewDealView newDealView, ILoadingView loadingView)
         {
             this.dealView = dealView;
@@ -64,15 +66,22 @@ namespace Chiffrage.Projects.Module.Controllers
 
             this.loadingView.HideView();
             this.dealView.ShowView();
+
+            this.currentDealId = eventObject.Id;
         }
 
         [Subscribe]
         public void ProcessAction(DealUnselectedAction eventObject)
         {
-            this.ProcessAction(new SaveAction());
+            if (this.currentDealId.HasValue && currentDealId.Value == eventObject.Id)
+            {
+                this.ProcessAction(new SaveAction());
 
-            this.dealView.HideView();
-            this.dealView.SetDealViewModel(null);
+                this.dealView.HideView();
+                this.dealView.SetDealViewModel(null);
+
+                this.currentDealId = null;
+            }
         }
 
         [Subscribe]
@@ -84,9 +93,12 @@ namespace Chiffrage.Projects.Module.Controllers
         [Subscribe]
         public void ProcessAction(DealUpdatedEvent eventObject)
         {
-            var result = this.Map(eventObject.NewDeal);
+            if (this.currentDealId.HasValue && currentDealId.Value == eventObject.NewDeal.Id)
+            {
+                var result = this.Map(eventObject.NewDeal);
 
-            this.dealView.SetDealViewModel(result);
+                this.dealView.SetDealViewModel(result);
+            }
         }
 
         [Subscribe]

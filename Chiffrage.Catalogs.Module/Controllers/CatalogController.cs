@@ -33,6 +33,8 @@ namespace Chiffrage.Catalogs.Module.Controllers
         private readonly IImportHardwareView importHardwareView;
         private readonly ILoadingView loadingView;
 
+        private int? currentCatalogId = null;
+
         // no better way...
         private readonly System.Windows.Forms.RichTextBox rtBox = new System.Windows.Forms.RichTextBox();
 
@@ -83,12 +85,19 @@ namespace Chiffrage.Catalogs.Module.Controllers
 
             this.loadingView.HideView();
             this.catalogView.ShowView();
+
+            this.currentCatalogId = eventObject.Id;
         }
 
         [Subscribe]
         public void ProcessAction(CatalogUnselectedAction eventObject)
         {
-            this.catalogView.HideView();
+            if (this.currentCatalogId.HasValue && currentCatalogId.Value == eventObject.Id)
+            {
+                this.catalogView.HideView();
+
+                this.currentCatalogId = null;
+            }
         }
 
         /*
@@ -156,11 +165,14 @@ namespace Chiffrage.Catalogs.Module.Controllers
         [Subscribe]
         public void ProcessAction(CatalogUpdatedEvent eventObject)
         {
-            Mapper.CreateMap<SupplierCatalog, CatalogViewModel>();
+            if (this.currentCatalogId.HasValue && currentCatalogId.Value == eventObject.Catalog.Id)
+            {
+                Mapper.CreateMap<SupplierCatalog, CatalogViewModel>();
 
-            var result = Mapper.Map<SupplierCatalog, CatalogViewModel>(eventObject.Catalog);
+                var result = Mapper.Map<SupplierCatalog, CatalogViewModel>(eventObject.Catalog);
 
-            this.catalogView.Display(result, this.taskRepository.FindAll());
+                this.catalogView.Display(result, this.taskRepository.FindAll());
+            }
         }
 
         [Subscribe]

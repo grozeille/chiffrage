@@ -51,6 +51,8 @@ namespace Chiffrage.Projects.Module.Controllers
         private readonly ILoadingView loadingView;
 
         private int? projectIdClipboard = null;
+
+        private int? currentProjectId = null;
         
         // no better way...
         private readonly System.Windows.Forms.RichTextBox rtBox = new System.Windows.Forms.RichTextBox();
@@ -275,27 +277,37 @@ namespace Chiffrage.Projects.Module.Controllers
 
             this.loadingView.HideView();
             this.projectView.ShowView();
+
+            this.currentProjectId = eventObject.Id;
         }
 
         [Subscribe]
         public void ProcessAction(ProjectUnselectedAction eventObject)
         {
-            this.ProcessAction(new SaveAction());
+            if (this.currentProjectId.HasValue && currentProjectId.Value == eventObject.Id)
+            {
+                this.ProcessAction(new SaveAction());
 
-            this.projectView.HideView();
+                this.projectView.HideView();
 
-            this.projectView.SetProjectViewModel(null);
-            this.projectView.SetSupplies(null);
-            this.projectView.SetHardwares(null);
-            this.projectView.SetFrames(null);
-            this.projectView.SetSummaryItems(null);
+                this.projectView.SetProjectViewModel(null);
+                this.projectView.SetSupplies(null);
+                this.projectView.SetHardwares(null);
+                this.projectView.SetFrames(null);
+                this.projectView.SetSummaryItems(null);
+
+                this.currentProjectId = null;
+            }
         }
 
         [Subscribe]
         public void ProcessAction(ProjectUpdatedEvent eventObject)
         {
-            this.RefreshProject(eventObject.NewProject.Id);
-            this.RefreshCostSummary(eventObject.NewProject.Id);
+            if (this.currentProjectId.HasValue && this.currentProjectId.Value == eventObject.NewProject.Id)
+            {
+                this.RefreshProject(eventObject.NewProject.Id);
+                this.RefreshCostSummary(eventObject.NewProject.Id);
+            }
         }
 
         [Subscribe]

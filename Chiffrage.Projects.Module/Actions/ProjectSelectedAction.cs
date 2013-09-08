@@ -10,5 +10,10 @@ namespace Chiffrage.Projects.Module.Actions
         }
 
         public int Id { get; private set; }
+
+        public override string ToString()
+        {
+            return "ProjectSelectedAction[id=" + this.Id + "]";
+        }
     }
 }
