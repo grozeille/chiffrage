@@ -65,7 +65,7 @@ namespace Chiffrage.App.Ioc
             dealConfiguration.AddMapping(dealMapping);
 
             var factory = dealConfiguration.BuildSessionFactory();
-
+            
             return factory;
         }
 
@@ -105,7 +105,7 @@ namespace Chiffrage.App.Ioc
             catalogConfiguration.AddMapping(catalogMapping);
 
             var factory = catalogConfiguration.BuildSessionFactory();
-
+            
             return factory;
         }
 

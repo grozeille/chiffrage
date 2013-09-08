@@ -25,32 +25,23 @@ namespace Chiffrage.Catalogs.Dal.Repositories
         public void Save(SupplierCatalog catalog)
         {
             var session = SessionManager.OpenSessionIfRequired(this.sessionFactory);
-            //using (var session = this.sessionFactory.OpenSession())
+            using (var transaction = session.BeginTransaction())
             {
-                using (var transaction = session.BeginTransaction())
-                {
-                    session.SaveOrUpdate(catalog);
-                    session.Transaction.Commit();
-                }
+                session.SaveOrUpdate(catalog);
+                session.Transaction.Commit();
             }
         }
 
         public IList<SupplierCatalog> FindAll()
         {
             var session = SessionManager.OpenSessionIfRequired(this.sessionFactory);
-            //using (var session = this.sessionFactory.OpenSession())
-            {
-                return session.Query<SupplierCatalog>().ToList();
-            }
+            return session.Query<SupplierCatalog>().ToList();
         }
 
         public SupplierCatalog FindById(int catalogId)
         {
             var session = SessionManager.OpenSessionIfRequired(this.sessionFactory);
-            //using (var session = this.sessionFactory.OpenSession())
-            {
-                return session.Query<SupplierCatalog>().Where(x => x.Id == catalogId).FirstOrDefault();
-            }
+            return session.Query<SupplierCatalog>().Where(x => x.Id == catalogId).FirstOrDefault();
         }
 
         public void Delete(SupplierCatalog catalog)

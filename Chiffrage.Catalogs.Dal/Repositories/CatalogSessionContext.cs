@@ -10,6 +10,7 @@ namespace Chiffrage.Catalogs.Dal.Repositories
 {
     public class CatalogSessionContext : CurrentSessionContext
     {
+        [ThreadStatic]
         private static ISession _session;
 
 		protected override ISession Session
