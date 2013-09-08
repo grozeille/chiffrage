@@ -31,6 +31,8 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
 
         private IList<DataGridViewTextBoxColumn> taskColumns = new List<DataGridViewTextBoxColumn>();
 
+        private IList<string> categories = new List<string>();
+
         public CatalogUserControl(IEventBroker eventBroker)
             : this()
         {
@@ -278,7 +280,11 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
 
         public void AddSupply(CatalogSupplyViewModel result)
         {
-            this.InvokeIfRequired(() => this.supplies.Add(result));
+            this.InvokeIfRequired(() =>
+                                      {
+                                          this.supplies.Add(result);
+                                          this.RefreshCategories();
+                                      });
         }
 
         public void AddHardwareSupply(CatalogHardwareSupplyViewModel result)
@@ -296,6 +302,7 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
                 var supply = this.supplies.Where(s => s.Id == result.Id).First();
                 var index = this.supplies.IndexOf(supply);
                 this.supplies[index] = result;
+                this.RefreshCategories();
             });
         }
 
@@ -315,6 +322,7 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
             {
                 var supply = this.supplies.Where(x => x.Id == result.Id).First();
                 this.supplies.Remove(supply);
+                this.RefreshCategories();
             });
         }
 
@@ -335,6 +343,7 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
                 {
                     this.supplies.Add(item);
                 }
+                this.RefreshCategories();
             });
         }
 
@@ -354,6 +363,7 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
             this.InvokeIfRequired(() =>
             {
                 this.supplies.Clear();
+                this.RefreshCategories();
             });
         }
 
@@ -385,6 +395,19 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
         {
             this.catalogId = null;
             base.HideView();
+        }
+
+        private void RefreshCategories()
+        {
+            this.categories = this.supplies.Select(x => x.Category).Where(x => x != null).Distinct().ToList();
+            this.categories.Insert(0, "");
+            var selected = this.toolStripComboBoxCategories.SelectedItem as String;
+            this.toolStripComboBoxCategories.Items.Clear();
+            this.toolStripComboBoxCategories.Items.AddRange(this.categories.ToArray());
+            if (this.categories.Contains(selected))
+            {
+                this.toolStripComboBoxCategories.SelectedItem = selected;
+            }
         }
 
         private void dataGridViewSupplies_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -468,6 +491,13 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
             var searchRegex = new Regex(string.Format(".*{0}.*", Regex.Escape(this.toolStripTextBoxSupplyFilter.Text)), RegexOptions.IgnoreCase);
             var filtered = this.supplies.Where(x =>
             {
+                var selectedCategory =
+                    this.toolStripComboBoxCategories.SelectedItem as String;
+                if (!string.IsNullOrEmpty(selectedCategory) && (x.Category == null || !x.Category.Equals(selectedCategory)))
+                {
+                    return false;
+                }
+
                 return (x.Name != null && searchRegex.IsMatch(x.Name)) ||
                     (x.Reference != null && searchRegex.IsMatch(x.Reference));
             });
@@ -477,6 +507,12 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
         }
 
         private void toolStripTextBoxSupplyFilter_TextChanged(object sender, EventArgs e)
+        {
+            this.timerSupplyFilter.Enabled = false;
+            this.timerSupplyFilter.Enabled = true;
+        }
+
+        private void toolStripComboBoxCategories_SelectedIndexChanged(object sender, EventArgs e)
         {
             this.timerSupplyFilter.Enabled = false;
             this.timerSupplyFilter.Enabled = true;

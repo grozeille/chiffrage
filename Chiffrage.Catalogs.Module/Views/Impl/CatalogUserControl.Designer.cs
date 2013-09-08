@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPageMainInfo = new System.Windows.Forms.TabPage();
             this.commentUserControl = new Chiffrage.Common.Module.Views.CommentUserControl();
@@ -56,7 +56,7 @@
             this.toolStripButtonRemoveSupply = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
-            this.toolStripComboBox1 = new System.Windows.Forms.ToolStripComboBox();
+            this.toolStripComboBoxCategories = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLabelSupplyFilter = new System.Windows.Forms.ToolStripLabel();
             this.toolStripTextBoxSupplyFilter = new System.Windows.Forms.ToolStripTextBox();
@@ -74,6 +74,9 @@
             this.toolStripButtonAddHardware = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonRemoveHardware = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonImport = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripLabelHardwareFilter = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripTextBoxHardwareFilter = new System.Windows.Forms.ToolStripTextBox();
             this.dataGridViewHardwareSupplies = new System.Windows.Forms.DataGridView();
             this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.catalogIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -95,9 +98,6 @@
             this.toolStripButtonRemoveHardwareSupply = new System.Windows.Forms.ToolStripButton();
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.timerSupplyFilter = new System.Windows.Forms.Timer(this.components);
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripLabelHardwareFilter = new System.Windows.Forms.ToolStripLabel();
-            this.toolStripTextBoxHardwareFilter = new System.Windows.Forms.ToolStripTextBox();
             this.timerHardwareFilter = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.tabControl.SuspendLayout();
@@ -199,8 +199,8 @@
             this.dataGridViewSupplies.AllowUserToDeleteRows = false;
             this.dataGridViewSupplies.AllowUserToOrderColumns = true;
             this.dataGridViewSupplies.AllowUserToResizeRows = false;
-            dataGridViewCellStyle12.BackColor = System.Drawing.Color.AliceBlue;
-            this.dataGridViewSupplies.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.AliceBlue;
+            this.dataGridViewSupplies.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
             this.dataGridViewSupplies.AutoGenerateColumns = false;
             this.dataGridViewSupplies.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGridViewSupplies.BackgroundColor = System.Drawing.SystemColors.Window;
@@ -322,7 +322,7 @@
             this.toolStripButtonRemoveSupply,
             this.toolStripSeparator1,
             this.toolStripLabel1,
-            this.toolStripComboBox1,
+            this.toolStripComboBoxCategories,
             this.toolStripSeparator2,
             this.toolStripLabelSupplyFilter,
             this.toolStripTextBoxSupplyFilter});
@@ -359,12 +359,13 @@
             this.toolStripLabel1.Size = new System.Drawing.Size(61, 22);
             this.toolStripLabel1.Text = "Catégorie:";
             // 
-            // toolStripComboBox1
+            // toolStripComboBoxCategories
             // 
-            this.toolStripComboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.toolStripComboBox1.FlatStyle = System.Windows.Forms.FlatStyle.Standard;
-            this.toolStripComboBox1.Name = "toolStripComboBox1";
-            this.toolStripComboBox1.Size = new System.Drawing.Size(121, 25);
+            this.toolStripComboBoxCategories.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.toolStripComboBoxCategories.FlatStyle = System.Windows.Forms.FlatStyle.Standard;
+            this.toolStripComboBoxCategories.Name = "toolStripComboBoxCategories";
+            this.toolStripComboBoxCategories.Size = new System.Drawing.Size(121, 25);
+            this.toolStripComboBoxCategories.SelectedIndexChanged += new System.EventHandler(this.toolStripComboBoxCategories_SelectedIndexChanged);
             // 
             // toolStripSeparator2
             // 
@@ -421,8 +422,8 @@
             this.dataGridViewHardwares.AllowUserToDeleteRows = false;
             this.dataGridViewHardwares.AllowUserToOrderColumns = true;
             this.dataGridViewHardwares.AllowUserToResizeRows = false;
-            dataGridViewCellStyle10.BackColor = System.Drawing.Color.AliceBlue;
-            this.dataGridViewHardwares.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.AliceBlue;
+            this.dataGridViewHardwares.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
             this.dataGridViewHardwares.AutoGenerateColumns = false;
             this.dataGridViewHardwares.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGridViewHardwares.BackgroundColor = System.Drawing.SystemColors.Window;
@@ -542,13 +543,30 @@
             this.toolStripButtonImport.Size = new System.Drawing.Size(73, 22);
             this.toolStripButtonImport.Text = "Importer";
             // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolStripLabelHardwareFilter
+            // 
+            this.toolStripLabelHardwareFilter.Name = "toolStripLabelHardwareFilter";
+            this.toolStripLabelHardwareFilter.Size = new System.Drawing.Size(36, 22);
+            this.toolStripLabelHardwareFilter.Text = "Filtre:";
+            // 
+            // toolStripTextBoxHardwareFilter
+            // 
+            this.toolStripTextBoxHardwareFilter.Name = "toolStripTextBoxHardwareFilter";
+            this.toolStripTextBoxHardwareFilter.Size = new System.Drawing.Size(200, 25);
+            this.toolStripTextBoxHardwareFilter.TextChanged += new System.EventHandler(this.toolStripTextBoxHardwareFilter_TextChanged);
+            // 
             // dataGridViewHardwareSupplies
             // 
             this.dataGridViewHardwareSupplies.AllowUserToAddRows = false;
             this.dataGridViewHardwareSupplies.AllowUserToOrderColumns = true;
             this.dataGridViewHardwareSupplies.AllowUserToResizeRows = false;
-            dataGridViewCellStyle11.BackColor = System.Drawing.Color.AliceBlue;
-            this.dataGridViewHardwareSupplies.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.AliceBlue;
+            this.dataGridViewHardwareSupplies.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
             this.dataGridViewHardwareSupplies.AutoGenerateColumns = false;
             this.dataGridViewHardwareSupplies.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGridViewHardwareSupplies.BackgroundColor = System.Drawing.SystemColors.Window;
@@ -751,23 +769,6 @@
             this.timerSupplyFilter.Interval = 500;
             this.timerSupplyFilter.Tick += new System.EventHandler(this.timerSupplyFilter_Tick);
             // 
-            // toolStripSeparator3
-            // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
-            // 
-            // toolStripLabelHardwareFilter
-            // 
-            this.toolStripLabelHardwareFilter.Name = "toolStripLabelHardwareFilter";
-            this.toolStripLabelHardwareFilter.Size = new System.Drawing.Size(36, 22);
-            this.toolStripLabelHardwareFilter.Text = "Filtre:";
-            // 
-            // toolStripTextBoxHardwareFilter
-            // 
-            this.toolStripTextBoxHardwareFilter.Name = "toolStripTextBoxHardwareFilter";
-            this.toolStripTextBoxHardwareFilter.Size = new System.Drawing.Size(200, 25);
-            this.toolStripTextBoxHardwareFilter.TextChanged += new System.EventHandler(this.toolStripTextBoxHardwareFilter_TextChanged);
-            // 
             // timerHardwareFilter
             // 
             this.timerHardwareFilter.Interval = 500;
@@ -841,7 +842,7 @@
         private System.Windows.Forms.ToolStripButton toolStripButtonRemoveSupply;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
-        private System.Windows.Forms.ToolStripComboBox toolStripComboBox1;
+        private System.Windows.Forms.ToolStripComboBox toolStripComboBoxCategories;
         private System.Windows.Forms.DataGridViewTextBoxColumn idDataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn catalogIdDataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
