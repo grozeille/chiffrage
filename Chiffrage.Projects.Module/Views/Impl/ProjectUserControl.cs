@@ -642,6 +642,13 @@ namespace Chiffrage.Projects.Module.Views.Impl
                     this.tableLayoutPanelTasks.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100f));
                 }
 
+                this.RefreshCategories();
+                this.toolStripTextBoxHardwareFilter.Text = "";
+                this.toolStripTextBoxSupplyFilter.Text = "";
+
+                this.ApplyHardwareFilter();
+                this.ApplySupplyFilter();
+
                 this.tableLayoutPanelTasks.ResumeLayout(true);
             });
         }
@@ -652,6 +659,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
                                       {
                                           this.supplies.Add(viewModel);
                                           this.RefreshCategories();
+                                          this.ApplySupplyFilter();
                                       });
         }
 
@@ -663,6 +671,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
                 this.supplies.Clear();
                 this.projectSupplyViewModelBindingSource.ResumeBinding();
                 this.RefreshCategories();
+                this.ApplySupplyFilter();
             });
         }
 
@@ -677,6 +686,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
                 }
                 this.projectSupplyViewModelBindingSource.ResumeBinding();
                 this.RefreshCategories();
+                this.ApplySupplyFilter();
             });
         }
 
@@ -687,6 +697,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
                 var item = this.supplies.Where(x => x.Id == supply.Id).First();
                 this.supplies.Remove(item);
                 this.RefreshCategories();
+                this.ApplySupplyFilter();
             });
         }
         
@@ -703,6 +714,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
                     }
                 }
                 this.RefreshCategories();
+                this.ApplySupplyFilter();
             });
         }
 
@@ -714,6 +726,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
                 var index = this.supplies.IndexOf(s);
                 this.supplies[index] = supply;
                 this.RefreshCategories();
+                this.ApplySupplyFilter();
             });
         }
 
@@ -729,6 +742,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
                             this.hardwares.Add(item);
                         }
                     }
+                    this.ApplyHardwareFilter();
                 });
         }
         
@@ -737,6 +751,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
             this.InvokeIfRequired(() =>
                 {
                     hardwares.Add(viewModel);
+                    this.ApplyHardwareFilter();
                 });
         }
 
@@ -746,6 +761,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
             {
                 var item = this.hardwares.Where(x => x.Id == hardware.Id).First();
                 this.hardwares.Remove(item);
+                this.ApplyHardwareFilter();
             });
         }
 
@@ -756,6 +772,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
                 var h = this.hardwares.Where(x => x.Id == hardware.Id).First();
                 var index = this.hardwares.IndexOf(h);
                 this.hardwares[index] = hardware;
+                this.ApplyHardwareFilter();
             });
         }
 
@@ -902,7 +919,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
             });
         }
 
-        private void timerSupplyFilter_Tick(object sender, EventArgs e)
+        private void ApplySupplyFilter()
         {
             var searchRegex = new Regex(string.Format(".*{0}.*", Regex.Escape(this.toolStripTextBoxSupplyFilter.Text)), RegexOptions.IgnoreCase);
             var filtered = this.supplies.Where(x =>
@@ -919,6 +936,11 @@ namespace Chiffrage.Projects.Module.Views.Impl
             });
             this.projectSupplyViewModelBindingSource.DataSource = new SortableBindingList<ProjectSupplyViewModel>(filtered, this.supplies);
             this.projectSupplyViewModelBindingSource.ResetBindings(false);
+        }
+
+        private void timerSupplyFilter_Tick(object sender, EventArgs e)
+        {
+            this.ApplySupplyFilter();
             this.timerSupplyFilter.Enabled = false;
         }
 
@@ -934,7 +956,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
             this.timerHardwareFilter.Enabled = true;
         }
 
-        private void timerHardwareFilter_Tick(object sender, EventArgs e)
+        private void ApplyHardwareFilter()
         {
             var searchRegex = new Regex(string.Format(".*{0}.*", Regex.Escape(this.toolStripTextBoxHardwareFilter.Text)), RegexOptions.IgnoreCase);
             var filtered = this.hardwares.Where(x =>
@@ -943,6 +965,11 @@ namespace Chiffrage.Projects.Module.Views.Impl
             });
             this.projectHardwareViewModelBindingSource.DataSource = new ProjectHardwareList(filtered, this.hardwares);
             this.projectHardwareViewModelBindingSource.ResetBindings(false);
+        }
+
+        private void timerHardwareFilter_Tick(object sender, EventArgs e)
+        {
+            this.ApplyHardwareFilter();
             this.timerHardwareFilter.Enabled = false;
         }
     }
