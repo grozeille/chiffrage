@@ -2,6 +2,7 @@
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using Chiffrage.Catalogs.Module.ViewModel;
 using Chiffrage.Catalogs.Module.Views;
@@ -460,6 +461,44 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
             this.dataGridViewSupplies.SetDoubleBuffered();
             this.dataGridViewHardwares.SetDoubleBuffered();
             this.dataGridViewHardwareSupplies.SetDoubleBuffered();
+        }
+
+        private void timerSupplyFilter_Tick(object sender, EventArgs e)
+        {
+            var searchRegex = new Regex(string.Format(".*{0}.*", Regex.Escape(this.toolStripTextBoxSupplyFilter.Text)), RegexOptions.IgnoreCase);
+            var filtered = this.supplies.Where(x =>
+            {
+                return (x.Name != null && searchRegex.IsMatch(x.Name)) ||
+                    (x.Reference != null && searchRegex.IsMatch(x.Reference));
+            });
+            this.suppliesBindingSource.DataSource = new SortableBindingList<CatalogSupplyViewModel>(filtered, this.supplies);
+            this.suppliesBindingSource.ResetBindings(false);
+            this.timerSupplyFilter.Enabled = false;
+        }
+
+        private void toolStripTextBoxSupplyFilter_TextChanged(object sender, EventArgs e)
+        {
+            this.timerSupplyFilter.Enabled = false;
+            this.timerSupplyFilter.Enabled = true;
+        }
+
+        private void timerHardwareFilter_Tick(object sender, EventArgs e)
+        {
+            var searchRegex = new Regex(string.Format(".*{0}.*", Regex.Escape(this.toolStripTextBoxHardwareFilter.Text)), RegexOptions.IgnoreCase);
+            var filtered = this.hardwares.Where(x =>
+            {
+                return (x.Name != null && searchRegex.IsMatch(x.Name)) ||
+                    (x.Reference != null && searchRegex.IsMatch(x.Reference));
+            });
+            this.hardwaresBindingSource.DataSource = new SortableBindingList<CatalogHardwareViewModel>(filtered, this.hardwares);
+            this.hardwaresBindingSource.ResetBindings(false);
+            this.timerHardwareFilter.Enabled = false;
+        }
+
+        private void toolStripTextBoxHardwareFilter_TextChanged(object sender, EventArgs e)
+        {
+            this.timerHardwareFilter.Enabled = false;
+            this.timerHardwareFilter.Enabled = true;
         }
     }
 }

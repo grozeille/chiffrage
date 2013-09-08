@@ -25,6 +25,24 @@ namespace Chiffrage.Mvc
             this.comparers = new Dictionary<Type, PropertyComparer<T>>();
         }
 
+        public SortableBindingList(IEnumerable<T> enumeration, SortableBindingList<T> original)
+            : base(new List<T>(enumeration))
+        {
+            this.comparers = new Dictionary<Type, PropertyComparer<T>>();
+
+            this.propertyDescriptor = original.propertyDescriptor;
+            this.listSortDirection = original.listSortDirection;
+
+            List<T> itemsList = (List<T>)this.Items;
+
+            foreach(var item in original.comparers)
+            {
+                itemsList.Sort(item.Value);
+            }
+
+            this.isSorted = true;
+        }
+
         protected override bool SupportsSortingCore
         {
             get { return true; }

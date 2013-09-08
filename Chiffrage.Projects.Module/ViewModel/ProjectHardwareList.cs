@@ -12,6 +12,21 @@ namespace Chiffrage.Projects.Module.ViewModel
 {
     public class ProjectHardwareList : SortableBindingList<ProjectHardwareViewModel>, ITypedList
     {
+        public ProjectHardwareList():base()
+        {
+            
+        }
+
+        public ProjectHardwareList(IEnumerable<ProjectHardwareViewModel> enumeration):base(enumeration)
+        {
+            
+        }
+
+        public ProjectHardwareList(IEnumerable<ProjectHardwareViewModel> enumeration, ProjectHardwareList original)
+            : base(enumeration, original)
+        {
+        }
+
         public IList<ProjectTask> ProjectTasks { get; set; }
 
         public PropertyDescriptorCollection GetItemProperties(PropertyDescriptor[] listAccessors)

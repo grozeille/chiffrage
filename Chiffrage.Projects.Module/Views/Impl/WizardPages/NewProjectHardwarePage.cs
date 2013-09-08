@@ -79,7 +79,7 @@ namespace Chiffrage.Projects.Module.Views.Impl.WizardPages
         {
             var searchRegex = new Regex(string.Format(".*{0}.*", Regex.Escape(this.textBoxSearch.Text)), RegexOptions.IgnoreCase);
             var catalogId = (this.catalogViewModelBindingSource.Current as CatalogViewModel).Id;
-            this.catalogHardwareViewModelBindingSource.DataSource = this.hardwares.Where(x =>
+            var filtered = this.hardwares.Where(x =>
                 {
                     if (catalogId != -1 && !x.CatalogId.Equals(catalogId))
                     {
@@ -88,7 +88,9 @@ namespace Chiffrage.Projects.Module.Views.Impl.WizardPages
 
                     return (x.Name != null && searchRegex.IsMatch(x.Name)) ||
                         (x.Reference != null && searchRegex.IsMatch(x.Reference));
-                }).ToList();
+                });
+            this.catalogHardwareViewModelBindingSource.DataSource =
+                new SortableBindingList<CatalogHardwareSelectionViewModel>(filtered, this.catalogHardwareViewModelBindingSource.DataSource as SortableBindingList<CatalogHardwareSelectionViewModel>);
             this.catalogHardwareViewModelBindingSource.ResetBindings(false);
             this.timerFilter.Enabled = false;
         }

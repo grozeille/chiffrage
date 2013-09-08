@@ -877,5 +877,42 @@ namespace Chiffrage.Projects.Module.Views.Impl
                 }
             });
         }
+
+        private void timerSupplyFilter_Tick(object sender, EventArgs e)
+        {
+            var searchRegex = new Regex(string.Format(".*{0}.*", Regex.Escape(this.toolStripTextBoxSupplyFilter.Text)), RegexOptions.IgnoreCase);
+            var filtered = this.supplies.Where(x =>
+            {
+                return (x.Name != null && searchRegex.IsMatch(x.Name)) ||
+                    (x.Reference != null && searchRegex.IsMatch(x.Reference));
+            });
+            this.projectSupplyViewModelBindingSource.DataSource = new SortableBindingList<ProjectSupplyViewModel>(filtered, this.supplies);
+            this.projectSupplyViewModelBindingSource.ResetBindings(false);
+            this.timerSupplyFilter.Enabled = false;
+        }
+
+        private void toolStripTextBoxSupplyFilter_TextChanged(object sender, EventArgs e)
+        {
+            this.timerSupplyFilter.Enabled = false;
+            this.timerSupplyFilter.Enabled = true;
+        }
+
+        private void toolStripTextBoxHardwareFilter_TextChanged(object sender, EventArgs e)
+        {
+            this.timerHardwareFilter.Enabled = false;
+            this.timerHardwareFilter.Enabled = true;
+        }
+
+        private void timerHardwareFilter_Tick(object sender, EventArgs e)
+        {
+            var searchRegex = new Regex(string.Format(".*{0}.*", Regex.Escape(this.toolStripTextBoxHardwareFilter.Text)), RegexOptions.IgnoreCase);
+            var filtered = this.hardwares.Where(x =>
+            {
+                return (x.Name != null && searchRegex.IsMatch(x.Name));
+            });
+            this.projectHardwareViewModelBindingSource.DataSource = new ProjectHardwareList(filtered, this.hardwares);
+            this.projectHardwareViewModelBindingSource.ResetBindings(false);
+            this.timerHardwareFilter.Enabled = false;
+        }
     }
 }
