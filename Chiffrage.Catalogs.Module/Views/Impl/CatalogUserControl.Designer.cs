@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
@@ -50,12 +49,12 @@
             this.pFC0DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pFC12DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.capDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.suppliesBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.suppliesBindingSource = new System.Windows.Forms.BindingSource();
             this.toolStripSupplies = new System.Windows.Forms.ToolStrip();
             this.toolStripButtonAddSupply = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonRemoveSupply = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripLabelCategory = new System.Windows.Forms.ToolStripLabel();
             this.toolStripComboBoxCategories = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLabelSupplyFilter = new System.Windows.Forms.ToolStripLabel();
@@ -66,10 +65,9 @@
             this.idDataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.catalogIdDataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nameDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.categoryDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.moduleSizeDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.catalogPriceDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.hardwaresBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.hardwaresBindingSource = new System.Windows.Forms.BindingSource();
             this.toolStripHardware = new System.Windows.Forms.ToolStrip();
             this.toolStripButtonAddHardware = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonRemoveHardware = new System.Windows.Forms.ToolStripButton();
@@ -92,13 +90,13 @@
             this.supplyPFC12DataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.supplyCapDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.commentDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.componentsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.componentsBindingSource = new System.Windows.Forms.BindingSource();
             this.toolStripHardwareSupplies = new System.Windows.Forms.ToolStrip();
             this.toolStripButtonAddHardwareSupply = new System.Windows.Forms.ToolStripButton();
             this.toolStripButtonRemoveHardwareSupply = new System.Windows.Forms.ToolStripButton();
             this.dataGridView = new System.Windows.Forms.DataGridView();
-            this.timerSupplyFilter = new System.Windows.Forms.Timer(this.components);
-            this.timerHardwareFilter = new System.Windows.Forms.Timer(this.components);
+            this.timerSupplyFilter = new System.Windows.Forms.Timer();
+            this.timerHardwareFilter = new System.Windows.Forms.Timer();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.tabControl.SuspendLayout();
             this.tabPageMainInfo.SuspendLayout();
@@ -321,7 +319,7 @@
             this.toolStripButtonAddSupply,
             this.toolStripButtonRemoveSupply,
             this.toolStripSeparator1,
-            this.toolStripLabel1,
+            this.toolStripLabelCategory,
             this.toolStripComboBoxCategories,
             this.toolStripSeparator2,
             this.toolStripLabelSupplyFilter,
@@ -353,11 +351,11 @@
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
             // 
-            // toolStripLabel1
+            // toolStripLabelCategory
             // 
-            this.toolStripLabel1.Name = "toolStripLabel1";
-            this.toolStripLabel1.Size = new System.Drawing.Size(61, 22);
-            this.toolStripLabel1.Text = "Catégorie:";
+            this.toolStripLabelCategory.Name = "toolStripLabelCategory";
+            this.toolStripLabelCategory.Size = new System.Drawing.Size(61, 22);
+            this.toolStripLabelCategory.Text = "Catégorie:";
             // 
             // toolStripComboBoxCategories
             // 
@@ -434,7 +432,6 @@
             this.idDataGridViewTextBoxColumn2,
             this.catalogIdDataGridViewTextBoxColumn2,
             this.nameDataGridViewTextBoxColumn1,
-            this.categoryDataGridViewTextBoxColumn1,
             this.moduleSizeDataGridViewTextBoxColumn1,
             this.catalogPriceDataGridViewTextBoxColumn1});
             this.dataGridViewHardwares.DataSource = this.hardwaresBindingSource;
@@ -474,14 +471,6 @@
             this.nameDataGridViewTextBoxColumn1.Name = "nameDataGridViewTextBoxColumn1";
             this.nameDataGridViewTextBoxColumn1.ReadOnly = true;
             this.nameDataGridViewTextBoxColumn1.Width = 54;
-            // 
-            // categoryDataGridViewTextBoxColumn1
-            // 
-            this.categoryDataGridViewTextBoxColumn1.DataPropertyName = "Category";
-            this.categoryDataGridViewTextBoxColumn1.HeaderText = "Categorie";
-            this.categoryDataGridViewTextBoxColumn1.Name = "categoryDataGridViewTextBoxColumn1";
-            this.categoryDataGridViewTextBoxColumn1.ReadOnly = true;
-            this.categoryDataGridViewTextBoxColumn1.Width = 77;
             // 
             // moduleSizeDataGridViewTextBoxColumn1
             // 
@@ -841,7 +830,7 @@
         private System.Windows.Forms.ToolStripButton toolStripButtonAddSupply;
         private System.Windows.Forms.ToolStripButton toolStripButtonRemoveSupply;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripLabel toolStripLabel1;
+        private System.Windows.Forms.ToolStripLabel toolStripLabelCategory;
         private System.Windows.Forms.ToolStripComboBox toolStripComboBoxCategories;
         private System.Windows.Forms.DataGridViewTextBoxColumn idDataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn catalogIdDataGridViewTextBoxColumn1;

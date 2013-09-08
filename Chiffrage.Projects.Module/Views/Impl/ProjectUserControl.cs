@@ -36,6 +36,8 @@ namespace Chiffrage.Projects.Module.Views.Impl
         
         private IList<DataGridViewTextBoxColumn> taskColumns = new List<DataGridViewTextBoxColumn>();
 
+        private IList<string> categories = new List<string>();
+
         private IList<TextBox> dayRates = new List<TextBox>();
         private IList<TextBox> nightRates = new List<TextBox>();
         private IList<TextBox> longNightRates = new List<TextBox>();
@@ -646,7 +648,11 @@ namespace Chiffrage.Projects.Module.Views.Impl
 
         public void AddSupply(ProjectSupplyViewModel viewModel)
         {
-            this.InvokeIfRequired(() => supplies.Add(viewModel));
+            this.InvokeIfRequired(() =>
+                                      {
+                                          this.supplies.Add(viewModel);
+                                          this.RefreshCategories();
+                                      });
         }
 
         public void RemoveAllSupplies()
@@ -656,6 +662,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
                 this.projectSupplyViewModelBindingSource.SuspendBinding();
                 this.supplies.Clear();
                 this.projectSupplyViewModelBindingSource.ResumeBinding();
+                this.RefreshCategories();
             });
         }
 
@@ -669,6 +676,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
                     this.supplies.Add(item);
                 }
                 this.projectSupplyViewModelBindingSource.ResumeBinding();
+                this.RefreshCategories();
             });
         }
 
@@ -678,6 +686,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
             {
                 var item = this.supplies.Where(x => x.Id == supply.Id).First();
                 this.supplies.Remove(item);
+                this.RefreshCategories();
             });
         }
         
@@ -693,6 +702,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
                         this.supplies.Add(item);
                     }
                 }
+                this.RefreshCategories();
             });
         }
 
@@ -703,6 +713,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
                 var s = this.supplies.Where(x => x.Id == supply.Id).First();
                 var index = this.supplies.IndexOf(s);
                 this.supplies[index] = supply;
+                this.RefreshCategories();
             });
         }
 
@@ -821,6 +832,19 @@ namespace Chiffrage.Projects.Module.Views.Impl
             this.dataGridViewSummary.SetDoubleBuffered();
         }
 
+        private void RefreshCategories()
+        {
+            this.categories = this.supplies.Select(x => x.Category).Where(x => x != null).Distinct().ToList();
+            this.categories.Insert(0, "");
+            var selected = this.toolStripComboBoxCategories.SelectedItem as String;
+            this.toolStripComboBoxCategories.Items.Clear();
+            this.toolStripComboBoxCategories.Items.AddRange(this.categories.ToArray());
+            if (this.categories.Contains(selected))
+            {
+                this.toolStripComboBoxCategories.SelectedItem = selected;
+            }
+        }
+
         private void dataGridViewHardwareSupplies_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             var hardwareSupply = this.componentsBindingSource[e.RowIndex] as ProjectHardwareSupplyViewModel;
@@ -883,6 +907,13 @@ namespace Chiffrage.Projects.Module.Views.Impl
             var searchRegex = new Regex(string.Format(".*{0}.*", Regex.Escape(this.toolStripTextBoxSupplyFilter.Text)), RegexOptions.IgnoreCase);
             var filtered = this.supplies.Where(x =>
             {
+                var selectedCategory =
+                    this.toolStripComboBoxCategories.SelectedItem as String;
+                if (!string.IsNullOrEmpty(selectedCategory) && (x.Category == null || !x.Category.Equals(selectedCategory)))
+                {
+                    return false;
+                }
+
                 return (x.Name != null && searchRegex.IsMatch(x.Name)) ||
                     (x.Reference != null && searchRegex.IsMatch(x.Reference));
             });
