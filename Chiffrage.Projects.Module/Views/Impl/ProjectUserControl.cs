@@ -316,7 +316,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
             return null;
         }
 
-        private IList<ReloadProjectHardwareCommand> ReloadHardware()
+        private ReloadProjectListHardwareCommand ReloadHardware()
         {
             if (this.id.HasValue)
             {
@@ -355,7 +355,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
                         }
                     }
 
-                    return commands;
+                    return new ReloadProjectListHardwareCommand(commands);
                 }
             }
 

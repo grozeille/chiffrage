@@ -19,11 +19,14 @@ using Chiffrage.Mvc.Views;
 using Chiffrage.Common.Module.Actions;
 using Chiffrage.Catalogs.Module.ViewModel;
 using System.Threading;
+using Common.Logging;
 
 namespace Chiffrage.Projects.Module.Controllers
 {
     public class ProjectController : IController
     {
+        private static ILog logger = LogManager.GetLogger(typeof(ProjectController));
+
         private readonly IProjectView projectView;
 
         private readonly INewProjectView newProjectView;
@@ -267,16 +270,35 @@ namespace Chiffrage.Projects.Module.Controllers
                 frames.Add(Map(item, project.Id));
             }
 
-            this.projectView.SetProjectViewModel(viewModel);
-            this.projectView.SetSupplies(supplies);
-            this.projectView.SetHardwares(hardwares);
-            this.projectView.SetFrames(frames);
+            try
+            {
+                this.projectView.SetProjectViewModel(viewModel);
+                this.projectView.SetSupplies(supplies);
+                this.projectView.SetHardwares(hardwares);
+                this.projectView.SetFrames(frames);
 
-            this.RefreshSummary(project.Id);
-            this.RefreshCostSummary(project.Id);
+                this.RefreshSummary(project.Id);
+                this.RefreshCostSummary(project.Id);
 
-            this.loadingView.HideView();
-            this.projectView.ShowView();
+                this.loadingView.HideView();
+                this.projectView.ShowView();
+            }
+            catch(Exception ex)
+            {
+                logger.Warn("Error while loading the project",ex);
+
+                // a weird bug throw an exception the first time it loads a project, so try again
+                this.projectView.SetProjectViewModel(viewModel);
+                this.projectView.SetSupplies(supplies);
+                this.projectView.SetHardwares(hardwares);
+                this.projectView.SetFrames(frames);
+
+                this.RefreshSummary(project.Id);
+                this.RefreshCostSummary(project.Id);
+
+                this.loadingView.HideView();
+                this.projectView.ShowView();
+            }
 
             this.currentProjectId = eventObject.Id;
         }
@@ -439,6 +461,26 @@ namespace Chiffrage.Projects.Module.Controllers
         }
 
         [Subscribe]
+        public void ProcessAction(ProjectHardwareListCreatedEvent eventObject)
+        {
+            if (this.currentProjectId.HasValue)
+            {
+                foreach (var item in eventObject.Commands.Where(x => x.ProjectId == this.currentProjectId))
+                {
+                    var viewModel = MapToHardwareViewModel(item.ProjectHardware, item.ProjectId);
+
+                    this.projectView.AddHardware(viewModel);
+
+                }
+
+                this.RefreshSummary(this.currentProjectId.Value);
+                this.RefreshCostSummary(this.currentProjectId.Value);
+
+                this.RefreshProject(this.currentProjectId.Value);
+            }
+        }
+
+        [Subscribe]
         public void ProcessAction(ProjectHardwareDeletedEvent eventObject)
         {
             var hardware = MapToHardwareViewModel(eventObject.Hardware, eventObject.ProjectId);
@@ -512,6 +554,23 @@ namespace Chiffrage.Projects.Module.Controllers
 
             this.RefreshCostSummary(eventObject.ProjectId);
         }
+
+        [Subscribe]
+        public void ProcessAction(ProjectHardwareListUpdatedEvent eventObject)
+        {
+            if(this.currentProjectId.HasValue)
+            {
+                foreach (var item in eventObject.Commands.Where(x => x.ProjectId == this.currentProjectId))
+                {
+                    var viewModel = MapToHardwareViewModel(item.ProjectHardware, item.ProjectId);
+                    this.projectView.UpdateHardware(viewModel);
+                }
+
+                this.RefreshProject(this.currentProjectId.Value);
+
+                this.RefreshCostSummary(this.currentProjectId.Value);
+            }
+        } 
 
         [Subscribe]
         public void ProcessAction(RequestEditProjectHardwareSupplyAction eventObject)
