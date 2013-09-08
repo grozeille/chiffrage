@@ -59,6 +59,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\AssemblyVersion.cs">
+      <Link>Properties\AssemblyVersion.cs</Link>
+    </Compile>
     <Compile Include="Controllers\IController.cs" />
     <Compile Include="Events\BlockingQueue.cs" />
     <Compile Include="Events\ErrorEvent.cs" />

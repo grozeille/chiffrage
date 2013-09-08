@@ -120,6 +120,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\AssemblyVersion.cs">
+      <Link>Properties\AssemblyVersion.cs</Link>
+    </Compile>
     <Compile Include="Controllers\ApplicationController.cs" />
     <Compile Include="Controllers\ErrorLogController.cs" />
     <Compile Include="Controllers\NavigationController.cs" />

@@ -72,6 +72,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\AssemblyVersion.cs">
+      <Link>Properties\AssemblyVersion.cs</Link>
+    </Compile>
     <Compile Include="Actions\ProjectPasteAction.cs" />
     <Compile Include="Actions\ProjectCopyAction.cs" />
     <Compile Include="Actions\RequestEditProjectHardwareSupplyAction.cs" />
