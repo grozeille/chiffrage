@@ -151,7 +151,7 @@ namespace Chiffrage.Projects.Module.ViewModel
                 {
                     ProjectName = item.Name,
                     ProjectId = item.Id,
-                    Cost = summary.Sum(x => x.TotalCost)
+                    Cost = summary.Where(x => x.Name.Equals("Total")).First().TotalCost
                 };
             }
         }
