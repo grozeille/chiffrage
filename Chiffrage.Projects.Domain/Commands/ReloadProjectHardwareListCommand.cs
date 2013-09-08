@@ -7,11 +7,11 @@ using Chiffrage.Mvc.Events;
 
 namespace Chiffrage.Projects.Domain.Commands
 {
-    public class ReloadProjectListHardwareCommand
+    public class ReloadProjectHardwareListCommand
     {
         private readonly IEnumerable<ReloadProjectHardwareCommand> commands;
 
-        public ReloadProjectListHardwareCommand(IEnumerable<ReloadProjectHardwareCommand> commands)
+        public ReloadProjectHardwareListCommand(IEnumerable<ReloadProjectHardwareCommand> commands)
         {
             this.commands = commands;
         }

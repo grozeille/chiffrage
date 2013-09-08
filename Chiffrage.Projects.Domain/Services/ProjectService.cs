@@ -116,6 +116,44 @@ namespace Chiffrage.Projects.Domain.Services
             this.eventBroker.Publish(new ProjectSupplyCreatedEvent(project.Id, projectSupply));
         }
 
+        [Subscribe]
+        public void ProcessAction(CreateNewProjectSupplyListCommand eventObject)
+        {
+            var projects = new List<Project>();
+            var supplies = new Dictionary<ProjectSupply, int>();
+            foreach (var groupByProject in eventObject.Commands.GroupBy(x => x.ProjectId))
+            {
+                var project = this.projectRepository.FindById(groupByProject.Key);
+                foreach(var groupByCatalog in groupByProject.GroupBy(x => x.CatalogId))
+                {
+                    var catalog = this.catalogRepository.FindById(groupByCatalog.Key);
+                    foreach (var item in groupByCatalog)
+                    {
+                        var supply = catalog.Supplies.Where(x => x.Id == item.SupplyId).First();
+
+                        var projectSupply = MapProjectSupply(supply, new ProjectSupply(), item.Quantity, catalog);
+                        project.Supplies.Add(projectSupply);
+
+                        projects.Add(project);
+                        supplies.Add(projectSupply, project.Id);
+                    }
+                }
+            }
+
+            foreach(var item in projects)
+            {
+                this.projectRepository.Save(item);
+            }
+
+            var commandList = new List<ProjectSupplyCreatedEvent>();
+            foreach(var item in supplies)
+            {
+                commandList.Add(new ProjectSupplyCreatedEvent(item.Value, item.Key));
+            }
+
+            this.eventBroker.Publish(new ProjectSupplyListCreatedEvent(commandList));
+        }
+
         private static ProjectSupply MapProjectSupply(Supply supply, ProjectSupply projectSupply, int quantity,
                                                       SupplierCatalog catalog)
         {
@@ -655,7 +693,7 @@ namespace Chiffrage.Projects.Domain.Services
         }
 
         [Subscribe]
-        public void ProcessAction(ReloadProjectListSupplyCommand eventObject)
+        public void ProcessAction(ReloadProjectSupplyListCommand eventObject)
         {
             var projects = new List<Project>();
             var supplies = new Dictionary<ProjectSupply, int>();
@@ -692,10 +730,13 @@ namespace Chiffrage.Projects.Domain.Services
                 this.projectRepository.Save(item);
             }
 
+            var commands = new List<ProjectSupplyUpdatedEvent>();
             foreach (var item in supplies)
             {
-                this.eventBroker.Publish(new ProjectSupplyUpdatedEvent(item.Value, item.Key));
+                commands.Add(new ProjectSupplyUpdatedEvent(item.Value, item.Key));
             }
+
+            this.eventBroker.Publish(new ProjectSupplyListUpdatedEvent(commands));
         }
 
         [Subscribe]
@@ -726,7 +767,7 @@ namespace Chiffrage.Projects.Domain.Services
         }
 
         [Subscribe]
-        public void ProcessAction(ReloadProjectListHardwareCommand eventObject)
+        public void ProcessAction(ReloadProjectHardwareListCommand eventObject)
         {
             var projects = new List<Project>();
             var hardwares = new Dictionary<ProjectHardware, int>();

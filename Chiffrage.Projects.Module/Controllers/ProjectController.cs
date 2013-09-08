@@ -381,6 +381,25 @@ namespace Chiffrage.Projects.Module.Controllers
         }
 
         [Subscribe]
+        public void ProcessAction(ProjectSupplyListCreatedEvent eventObject)
+        {
+            if (this.currentProjectId.HasValue)
+            {
+                foreach (var item in eventObject.Commands.Where(x => x.ProjectId == this.currentProjectId))
+                {
+                    var viewModel = Map(item.ProjectSupply, item.ProjectId);
+                    this.projectView.AddSupply(viewModel);
+
+                }
+
+                this.RefreshSummary(this.currentProjectId.Value);
+                this.RefreshCostSummary(this.currentProjectId.Value);
+
+                this.RefreshProject(this.currentProjectId.Value);
+            }
+        }
+
+        [Subscribe]
         public void ProcessAction(ProjectSupplyCreatedEvent eventObject)
         {
             var viewModel = Map(eventObject.ProjectSupply, eventObject.ProjectId);
@@ -542,6 +561,25 @@ namespace Chiffrage.Projects.Module.Controllers
             this.projectView.UpdateSupply(viewModel);
 
             this.RefreshProject(eventObject.ProjectId);
+            this.RefreshSummary(eventObject.ProjectId);
+            this.RefreshCostSummary(eventObject.ProjectId);
+        }
+
+        [Subscribe]
+        public void ProcessAction(ProjectSupplyListUpdatedEvent eventObject)
+        {
+            if (this.currentProjectId.HasValue)
+            {
+                foreach (var item in eventObject.Commands.Where(x => x.ProjectId == this.currentProjectId))
+                {
+                    var viewModel = Map(item.ProjectSupply, item.ProjectId);
+                    this.projectView.UpdateSupply(viewModel);
+                }
+
+                this.RefreshProject(this.currentProjectId.Value);
+                this.RefreshSummary(this.currentProjectId.Value);
+                this.RefreshCostSummary(this.currentProjectId.Value);
+            }
         }
 
         [Subscribe]
@@ -551,7 +589,7 @@ namespace Chiffrage.Projects.Module.Controllers
             this.projectView.UpdateHardware(viewModel);
 
             this.RefreshProject(eventObject.ProjectId);
-
+            this.RefreshSummary(eventObject.ProjectId);
             this.RefreshCostSummary(eventObject.ProjectId);
         }
 
@@ -567,7 +605,7 @@ namespace Chiffrage.Projects.Module.Controllers
                 }
 
                 this.RefreshProject(this.currentProjectId.Value);
-
+                this.RefreshSummary(this.currentProjectId.Value);
                 this.RefreshCostSummary(this.currentProjectId.Value);
             }
         } 
@@ -586,6 +624,8 @@ namespace Chiffrage.Projects.Module.Controllers
             this.projectView.UpdateHardware(viewModel);
 
             this.RefreshProject(eventObject.ProjectId);
+            this.RefreshSummary(eventObject.ProjectId);
+            this.RefreshCostSummary(eventObject.ProjectId);
         }
 
         [Subscribe]

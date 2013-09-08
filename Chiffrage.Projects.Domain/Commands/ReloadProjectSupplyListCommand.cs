@@ -6,11 +6,11 @@ using Chiffrage.Mvc.Events;
 
 namespace Chiffrage.Projects.Domain.Commands
 {
-    public class ReloadProjectListSupplyCommand
+    public class ReloadProjectSupplyListCommand
     {
         private readonly IEnumerable<ReloadProjectSupplyCommand> commands;
 
-        public ReloadProjectListSupplyCommand(IEnumerable<ReloadProjectSupplyCommand> commands)
+        public ReloadProjectSupplyListCommand(IEnumerable<ReloadProjectSupplyCommand> commands)
         {
             this.commands = commands;
         }

@@ -137,7 +137,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
             return this.id.HasValue ? new RequestNewProjectHardwareAction(this.id.Value) : null;
         }
 
-        private IList<ReloadProjectSupplyCommand> ReloadSupply()
+        private ReloadProjectSupplyListCommand ReloadSupply()
         {
             if (this.id.HasValue)
             {
@@ -169,16 +169,18 @@ namespace Chiffrage.Projects.Module.Views.Impl
                         MessageBox.Show(
                             "Êtes-vous sûr de vouloir recharger les valeurs du catalogue pour les fournitures: \n" +
                             builder.ToString(), "Recharger?", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
-                    var commands = new List<ReloadProjectSupplyCommand>();
+                    
                     if (result == DialogResult.OK)
                     {
+                        var commands = new List<ReloadProjectSupplyCommand>();
                         foreach (var item in selectedList)
                         {
                             commands.Add(new ReloadProjectSupplyCommand(this.id.Value, item.Id));
                         }
+                        return new ReloadProjectSupplyListCommand(commands);
                     }
 
-                    return commands;
+                    return null;
                 }
             }
 
@@ -316,7 +318,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
             return null;
         }
 
-        private ReloadProjectListHardwareCommand ReloadHardware()
+        private ReloadProjectHardwareListCommand ReloadHardware()
         {
             if (this.id.HasValue)
             {
@@ -346,16 +348,18 @@ namespace Chiffrage.Projects.Module.Views.Impl
 
                     var result = MessageBox.Show("Êtes-vous sûr de vouloir recharger les valeurs du catalogue pour les matériels: \n" + builder.ToString(),
                                                  "Supprimer?", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
-                    var commands = new List<ReloadProjectHardwareCommand>();
+                    
                     if (result == DialogResult.OK)
                     {
+                        var commands = new List<ReloadProjectHardwareCommand>();
                         foreach (var item in selectedList)
                         {
                             commands.Add(new ReloadProjectHardwareCommand(this.id.Value, item.Id));
                         }
+                        return new ReloadProjectHardwareListCommand(commands);
                     }
 
-                    return new ReloadProjectListHardwareCommand(commands);
+                    return null;
                 }
             }
 
