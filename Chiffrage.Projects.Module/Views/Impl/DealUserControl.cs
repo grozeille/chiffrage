@@ -231,7 +231,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
                     foreach (var item in projects)
                     {
                         var column = new DataGridViewTextBoxColumn();
-                        column.HeaderText = new String(new char[] { item.Name[0] }).ToUpper() + item.Name.Substring(1); ;
+                        column.HeaderText = new String(new char[] { item.Name[0] }).ToUpper() + item.Name.Substring(1);
                         column.Name = "project_" + item.Id;
                         column.Tag = item.Id;
                         column.ReadOnly = true;
@@ -241,6 +241,15 @@ namespace Chiffrage.Projects.Module.Views.Impl
                         this.dataGridViewItemSummary.Columns.Add(column);
                         projectColumns.Add(column);
                     }
+                    var columnTotal = new DataGridViewTextBoxColumn();
+                    columnTotal.HeaderText = "Total";
+                    columnTotal.Name = "project_total";
+                    columnTotal.ReadOnly = true;
+                    columnTotal.Visible = true;
+                    columnTotal.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;
+                    columnTotal.DataPropertyName = "TOTAL";
+                    this.dataGridViewItemSummary.Columns.Add(columnTotal);
+                    projectColumns.Add(columnTotal);
                 }
 
                 this.summaryItems.Projects = projects;
