@@ -6,13 +6,13 @@
 
         public virtual string Name { get; set; }
 
-        public virtual double Days { get; set; }
+        public virtual double Hours { get; set; }
 
         public virtual double CostRate { get; set; }
 
         public virtual double TotalCost
         {
-            get { return this.Days*this.CostRate; }
+            get { return this.Hours * this.CostRate; }
         }
     }
 }

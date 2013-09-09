@@ -36,6 +36,8 @@ namespace Chiffrage.Projects.Module.Views.Impl
         
         private IList<DataGridViewTextBoxColumn> taskColumns = new List<DataGridViewTextBoxColumn>();
 
+        private BindingList<OtherBenefit> otherBenefits;
+
         private IList<string> categories = new List<string>();
 
         private IList<TextBox> dayRates = new List<TextBox>();
@@ -482,7 +484,8 @@ namespace Chiffrage.Projects.Module.Views.Impl
                     this.textBoxReference.Text,
                     this.dateTimePickerProjectBegin.Value,
                     this.dateTimePickerProjectEnd.Value,
-                    projectTasks);
+                    projectTasks,
+                    otherBenefits);
 
                 this.eventBroker.Publish(command);
             });
@@ -551,6 +554,10 @@ namespace Chiffrage.Projects.Module.Views.Impl
                     if (viewModel.Comment == null || !(viewModel.Comment.StartsWith("{\\rtf") && viewModel.Comment.EndsWith("}")))
                         viewModel.Comment = "{\\rtf" + viewModel.Comment + "}";
                     this.commentUserControl.Rtf = viewModel.Comment;
+
+                    this.otherBenefits = new BindingList<OtherBenefit>(viewModel.OtherBenefits);
+                    this.otherBenefitBindingSource.DataSource = otherBenefits;
+                    this.otherBenefitBindingSource.ResetBindings(false);
                 }
 
 

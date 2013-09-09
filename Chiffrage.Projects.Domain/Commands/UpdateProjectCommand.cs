@@ -22,6 +22,8 @@ namespace Chiffrage.Projects.Domain.Commands
         
         private readonly IEnumerable<ProjectTask> tasks;
 
+        private readonly IEnumerable<OtherBenefit> otherBenefits;
+
         public UpdateProjectCommand(
             int projectId, 
             string name, 
@@ -29,7 +31,8 @@ namespace Chiffrage.Projects.Domain.Commands
             string reference, 
             DateTime startDate, 
             DateTime endDate,
-            IEnumerable<ProjectTask> tasks)
+            IEnumerable<ProjectTask> tasks,
+            IEnumerable<OtherBenefit> otherBenefits)
         {
             this.projectId = projectId;
             this.name = name;
@@ -38,6 +41,7 @@ namespace Chiffrage.Projects.Domain.Commands
             this.startDate = startDate;
             this.endDate = endDate;
             this.tasks = tasks;
+            this.otherBenefits = otherBenefits;
         }
 
         public int ProjectId { get { return this.projectId; } }
@@ -53,5 +57,7 @@ namespace Chiffrage.Projects.Domain.Commands
         public DateTime EndDate { get { return this.endDate; } }
         
         public IEnumerable<ProjectTask> Tasks { get { return this.tasks; } }
+
+        public IEnumerable<OtherBenefit> OtherBenefits { get { return this.otherBenefits; } }
     }
 }

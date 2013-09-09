@@ -211,6 +211,14 @@ namespace Chiffrage.Projects.Module.Controllers
                 }
             }
 
+            if(viewModel.OtherBenefits == null)
+            {
+                viewModel.OtherBenefits = new List<OtherBenefit>();
+            }
+
+            viewModel.TotalPrice += viewModel.OtherBenefits.Sum(x => x.Hours*x.CostRate);
+            viewModel.TotalDays += viewModel.OtherBenefits.Sum(x => x.Hours);
+
             return viewModel;
         }
 

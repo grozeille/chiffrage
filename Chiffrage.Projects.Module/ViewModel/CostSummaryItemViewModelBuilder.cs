@@ -100,6 +100,8 @@ namespace Chiffrage.Projects.Module.ViewModel
                 Name = "Total Divers",
             };
             summaryItems.Add(totalOtherCost);
+            totalOtherCost.TotalCost = project.OtherBenefits.Sum(x => x.CostRate*x.Hours);
+            totalOtherCost.TotalTime = project.OtherBenefits.Sum(x => x.Hours);
 
             // ligne du total
             var bigTotalCost = new ProjectCostSummaryViewModel

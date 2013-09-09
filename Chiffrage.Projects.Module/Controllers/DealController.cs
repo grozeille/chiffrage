@@ -164,6 +164,9 @@ namespace Chiffrage.Projects.Module.Controllers
                         dealViewModel.TotalDays += task.Value;
                     }
                 }
+
+                dealViewModel.TotalPrice += project.OtherBenefits.Sum(x => x.Hours * x.CostRate);
+                dealViewModel.TotalDays += project.OtherBenefits.Sum(x => x.Hours);
             }
 
             return dealViewModel;
