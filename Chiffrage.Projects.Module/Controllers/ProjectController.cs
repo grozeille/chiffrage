@@ -23,6 +23,7 @@ using Common.Logging;
 
 namespace Chiffrage.Projects.Module.Controllers
 {
+    [Topic("topic://UI")]
     public class ProjectController : IController
     {
         private static ILog logger = LogManager.GetLogger(typeof(ProjectController));
@@ -60,7 +61,7 @@ namespace Chiffrage.Projects.Module.Controllers
         // no better way...
         private readonly System.Windows.Forms.RichTextBox rtBox = new System.Windows.Forms.RichTextBox();
 
-        [Publish]
+        [Publish(Topic = "topic://commands")]
         public event Action<CloneProjectCommand> OnCloneProjectCommand;
         
         public ProjectController(
@@ -330,7 +331,7 @@ namespace Chiffrage.Projects.Module.Controllers
             }
         }
 
-        [Subscribe]
+        [Subscribe(Topic = "topic://events")]
         public void ProcessAction(ProjectUpdatedEvent eventObject)
         {
             if (this.currentProjectId.HasValue && this.currentProjectId.Value == eventObject.NewProject.Id)
@@ -388,7 +389,7 @@ namespace Chiffrage.Projects.Module.Controllers
             this.newProjectSupplyView.ShowView();
         }
 
-        [Subscribe]
+        [Subscribe(Topic = "topic://events")]
         public void ProcessAction(ProjectSupplyListCreatedEvent eventObject)
         {
             if (this.currentProjectId.HasValue)
@@ -407,7 +408,7 @@ namespace Chiffrage.Projects.Module.Controllers
             }
         }
 
-        [Subscribe]
+        [Subscribe(Topic = "topic://events")]
         public void ProcessAction(ProjectSupplyCreatedEvent eventObject)
         {
             var viewModel = Map(eventObject.ProjectSupply, eventObject.ProjectId);
@@ -419,7 +420,7 @@ namespace Chiffrage.Projects.Module.Controllers
             this.RefreshProject(eventObject.ProjectId);
         }
 
-        [Subscribe]
+        [Subscribe(Topic = "topic://events")]
         public void ProcessAction(ProjectSupplyDeletedEvent eventObject)
         {
             var supply = Map(eventObject.ProjectSupply, eventObject.ProjectId);
@@ -474,7 +475,7 @@ namespace Chiffrage.Projects.Module.Controllers
             this.newProjectHardwareView.ShowView();
         }
 
-        [Subscribe]
+        [Subscribe(Topic = "topic://events")]
         public void ProcessAction(ProjectHardwareCreatedEvent eventObject)
         {
             var viewModel = MapToHardwareViewModel(eventObject.ProjectHardware, eventObject.ProjectId);
@@ -487,7 +488,7 @@ namespace Chiffrage.Projects.Module.Controllers
             this.RefreshProject(eventObject.ProjectId);
         }
 
-        [Subscribe]
+        [Subscribe(Topic = "topic://events")]
         public void ProcessAction(ProjectHardwareListCreatedEvent eventObject)
         {
             if (this.currentProjectId.HasValue)
@@ -507,7 +508,7 @@ namespace Chiffrage.Projects.Module.Controllers
             }
         }
 
-        [Subscribe]
+        [Subscribe(Topic = "topic://events")]
         public void ProcessAction(ProjectHardwareDeletedEvent eventObject)
         {
             var hardware = MapToHardwareViewModel(eventObject.Hardware, eventObject.ProjectId);
@@ -538,7 +539,7 @@ namespace Chiffrage.Projects.Module.Controllers
             this.newProjectFrameView.ShowView();            
         }
 
-        [Subscribe]
+        [Subscribe(Topic = "topic://events")]
         public void ProcessAction(ProjectFrameCreatedEvent eventObject)
         {
             this.RefreshProject(eventObject.ProjectId);
@@ -550,7 +551,7 @@ namespace Chiffrage.Projects.Module.Controllers
             this.RefreshCostSummary(eventObject.ProjectId);
         }
 
-        [Subscribe]
+        [Subscribe(Topic = "topic://events")]
         public void ProcessAction(ProjectFrameDeletedEvent eventObject)
         {
             var frame = Map(eventObject.Frame, eventObject.ProjectId);
@@ -562,7 +563,7 @@ namespace Chiffrage.Projects.Module.Controllers
             this.RefreshCostSummary(eventObject.ProjectId);
         }
 
-        [Subscribe]
+        [Subscribe(Topic = "topic://events")]
         public void ProcessAction(ProjectSupplyUpdatedEvent eventObject)
         {
             var viewModel = Map(eventObject.ProjectSupply, eventObject.ProjectId);
@@ -573,7 +574,7 @@ namespace Chiffrage.Projects.Module.Controllers
             this.RefreshCostSummary(eventObject.ProjectId);
         }
 
-        [Subscribe]
+        [Subscribe(Topic = "topic://events")]
         public void ProcessAction(ProjectSupplyListUpdatedEvent eventObject)
         {
             if (this.currentProjectId.HasValue)
@@ -590,7 +591,7 @@ namespace Chiffrage.Projects.Module.Controllers
             }
         }
 
-        [Subscribe]
+        [Subscribe(Topic = "topic://events")]
         public void ProcessAction(ProjectHardwareUpdatedEvent eventObject)
         {
             var viewModel = MapToHardwareViewModel(eventObject.ProjectHardware, eventObject.ProjectId);
@@ -601,7 +602,7 @@ namespace Chiffrage.Projects.Module.Controllers
             this.RefreshCostSummary(eventObject.ProjectId);
         }
 
-        [Subscribe]
+        [Subscribe(Topic = "topic://events")]
         public void ProcessAction(ProjectHardwareListUpdatedEvent eventObject)
         {
             if(this.currentProjectId.HasValue)
@@ -625,7 +626,7 @@ namespace Chiffrage.Projects.Module.Controllers
             this.editProjectHardwareSupplyView.ShowView();
         }
 
-        [Subscribe]
+        [Subscribe(Topic = "topic://events")]
         public void ProcessAction(ProjectHardwareSupplyUpdatedEvent eventObject)
         {
             var viewModel = MapToHardwareViewModel(eventObject.ProjectHardware, eventObject.ProjectId);

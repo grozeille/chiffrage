@@ -46,7 +46,7 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
                 this.EventBroker.Publish(new CreateNewHardwareCommand(
                     this.catalogId,
                     newHardwarePage.TypedPage.HardwareName,
-                    newHardwarePage.TypedPage.HardwareTasks));
+                    newHardwarePage.TypedPage.HardwareTasks), "topic://commands");
             }
         }
 

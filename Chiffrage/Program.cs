@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using Chiffrage.Catalogs.Dal.Repositories;
 using Chiffrage.Catalogs.Domain;
 using Chiffrage.App.Ioc;
+using Chiffrage.EventStore;
 using Chiffrage.Mvc.Events;
 using Common.Logging;
 using Settings = Chiffrage.App.Properties.Settings;
@@ -52,6 +53,7 @@ namespace Chiffrage.App
 
                 var builder = new ContainerBuilder();
                 builder.RegisterModule(new NHibernateModule());
+                builder.RegisterModule(new EventStoreModule());
                 builder.RegisterModule(new ProjectModule());
                 builder.RegisterModule(new CatalogModule());
                 builder.RegisterModule(new ChiffrageModule());
@@ -67,7 +69,7 @@ namespace Chiffrage.App
 
                 var applicationForm = container.Resolve<IApplicationView>();
 
-                this.eventBroker.Publish(new ApplicationStartAction());
+                this.eventBroker.Publish(new ApplicationStartAction(), "topic://UI");
 
                 Application.Run((ApplicationForm)applicationForm);
                 this.eventBroker.Stop();
@@ -83,7 +85,7 @@ namespace Chiffrage.App
             }
         }
 
-        [Subscribe]
+        [Subscribe(Topic = "topic://UI")]
         public void ProcessAction(ApplicationEndAction eventObject)
         {
             this.eventBroker.Stop();

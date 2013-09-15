@@ -5,14 +5,14 @@ using System.Text;
 
 namespace Chiffrage.Mvc.Events
 {
-    [AttributeUsage(AttributeTargets.Event)]
-    public class PublishAttribute : Attribute
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
+    public class TopicAttribute : Attribute
     {
         public string Topic { get; set; }
 
-        public PublishAttribute()
+        public TopicAttribute(string topic)
         {
-            this.Topic = null;
+            this.Topic = topic;
         }
     }
 }

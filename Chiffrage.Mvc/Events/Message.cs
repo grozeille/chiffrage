@@ -9,6 +9,8 @@ namespace Chiffrage.Mvc.Events
     {
         public object Body { get; set; }
 
+        public string Topic { get; set; }
+
         public MessageAsyncResult AsyncResult { get; set; }
 
         public AsyncCallback AsyncCallback { get; set; }

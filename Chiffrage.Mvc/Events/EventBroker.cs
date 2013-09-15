@@ -5,9 +5,7 @@ using Common.Logging;
 using System.Windows.Forms;
 using System.Linq;
 using System.Reflection;
-using System.Diagnostics;
 using System.ComponentModel;
-using System.Linq.Expressions;
 using System.Collections;
 
 namespace Chiffrage.Mvc.Events
@@ -16,9 +14,12 @@ namespace Chiffrage.Mvc.Events
     {
         private static ILog logger = LogManager.GetLogger(typeof(EventBroker));
 
+        public static readonly string DefaultTopic = "topic://default";
+
         private readonly BlockingQueue<Message> eventQueue = new BlockingQueue<Message>(Int32.MaxValue);
 
         private Thread dispatchingThread;
+
         private readonly IList<EventSubscriptionItem> subscribers = new List<EventSubscriptionItem>();
 
         private ReaderWriterLockSlim subscribersLock = new ReaderWriterLockSlim();
@@ -74,6 +75,13 @@ namespace Chiffrage.Mvc.Events
         {
             var interfaceTypes = subscriber.GetType().GetInterfaces();
 
+            var topicAttribute = subscriber.GetType().GetCustomAttributes(typeof(TopicAttribute), false).FirstOrDefault() as TopicAttribute;
+            var topic = EventBroker.DefaultTopic;
+            if (topicAttribute != null)
+            {
+                topic = topicAttribute.Topic;
+            }
+
             foreach (var interfaceType in interfaceTypes)
             {
                 if (interfaceType.Name.Equals("IGenericEventHandler`1") || interfaceType.Name.Equals("IGenericEventHandlerUI`1"))
@@ -82,11 +90,18 @@ namespace Chiffrage.Mvc.Events
 
                     var method = interfaceType.GetMethod("ProcessAction", new[] { eventType });
 
+                    var methodTopicAttribute = method.GetCustomAttributes(typeof(TopicAttribute), false).FirstOrDefault() as TopicAttribute;
+                    var methodTopic = topic;
+                    if(methodTopicAttribute != null)
+                    {
+                        methodTopic = methodTopicAttribute.Topic;
+                    }
+
                     var methodDelegate = CreateDispatchDelegate(subscriber.GetType(), method);
 
                     var threadUI = interfaceType.Name.Equals("IGenericEventHandlerUI`1") ? SubscriptionMode.UIThread : SubscriptionMode.Default;
 
-                    var subscriptionItem = new EventSubscriptionItem(eventType, subscriber, methodDelegate, threadUI);
+                    var subscriptionItem = new EventSubscriptionItem(eventType, subscriber, methodDelegate, threadUI, methodTopic);
 
                     subscribers.Add(subscriptionItem);
                 }                
@@ -104,13 +119,22 @@ namespace Chiffrage.Mvc.Events
                         throw new InvalidOperationException("To subscribe to an event, the method should be an Action<T> (1 parameter, return void): "+method.ToString());
                     }
 
+                    var methodTopicAttribute = method.GetCustomAttributes(typeof(TopicAttribute), false).FirstOrDefault() as TopicAttribute;
+                    var methodTopic = topic;
+                    if (methodTopicAttribute != null)
+                    {
+                        methodTopic = methodTopicAttribute.Topic;
+                    }
+
+                    methodTopic = subscribreAttribute.Topic ?? methodTopic;
+
                     var methodDelegate = CreateDispatchDelegate(subscriber.GetType(), method);
 
                     var eventType = method.GetParameters()[0].ParameterType;
 
                     var threadUI = subscribreAttribute.SubscriptionMode;
 
-                    var subscriptionItem = new EventSubscriptionItem(eventType, subscriber, methodDelegate, threadUI);
+                    var subscriptionItem = new EventSubscriptionItem(eventType, subscriber, methodDelegate, threadUI, methodTopic);
 
                     subscribers.Add(subscriptionItem);
                 }
@@ -130,10 +154,19 @@ namespace Chiffrage.Mvc.Events
                         throw new InvalidOperationException("To publish an event, the method should be an Action<T> (1 parameter, return void): " + method.ToString());
                     }
 
+                    var methodTopicAttribute = method.GetCustomAttributes(typeof(TopicAttribute), false).FirstOrDefault() as TopicAttribute;
+                    var methodTopic = topic;
+                    if (methodTopicAttribute != null)
+                    {
+                        methodTopic = methodTopicAttribute.Topic;
+                    }
+
+                    methodTopic = publishAttribute.Topic ?? methodTopic;
+
                     var eventType = method.GetParameters()[0].ParameterType;
 
                     var eventPublisherType = typeof(EventPublisher<>).MakeGenericType(new Type[] { method.GetParameters()[0].ParameterType });
-                    object eventPublisher = Activator.CreateInstance(eventPublisherType, this);
+                    object eventPublisher = Activator.CreateInstance(eventPublisherType, this, methodTopic);
 
                     var eventPublisherMethod = eventPublisher.GetType().GetMethod("Publish");
                     var eventPublisherDelegate = Delegate.CreateDelegate(eventObject.EventHandlerType, eventPublisher, eventPublisherMethod);
@@ -162,27 +195,42 @@ namespace Chiffrage.Mvc.Events
             this.dispatchingThread = null;
         }
 
-        public void Publish(object eventObject)
+        public void Publish(object eventObject, string topic)
         {
-            this.InternalPublish(new Message { Body = eventObject });
+            this.InternalPublish(new Message { Body = eventObject, Topic = topic});
         }
 
-        public IAsyncResult PublishAndWait(object eventObject)
+        public void Publish(object eventObject)
+        {
+            this.Publish(eventObject, EventBroker.DefaultTopic);
+        }
+
+        public IAsyncResult PublishAndWait(object eventObject, string topic)
         {
             var result = new MessageAsyncResult();
-            var message = new Message { Body = eventObject, AsyncResult = result };
+            var message = new Message { Body = eventObject, AsyncResult = result, Topic = topic};
 
             this.InternalPublish(message);
 
             return result;
         }
 
-        public void PublishAndExecute(object eventObject, AsyncCallback callback)
+        public IAsyncResult PublishAndWait(object eventObject)
+        {
+            return this.PublishAndWait(eventObject, EventBroker.DefaultTopic);
+        }
+
+        public void PublishAndExecute(object eventObject, string topic, AsyncCallback callback)
         {
             var result = new MessageAsyncResult();
-            var message = new Message { Body = eventObject, AsyncResult = result, AsyncCallback = callback };
+            var message = new Message { Body = eventObject, AsyncResult = result, AsyncCallback = callback, Topic = topic};
 
             this.InternalPublish(message);
+        }
+
+        public void PublishAndExecute(object eventObject, AsyncCallback callback)
+        {
+            this.PublishAndExecute(eventObject, EventBroker.DefaultTopic, callback);
         }
 
         private void InternalPublish(Message message)
@@ -196,6 +244,7 @@ namespace Chiffrage.Mvc.Events
                     Message m = new Message();
                     m.AsyncResult = message.AsyncResult;
                     m.AsyncCallback = message.AsyncCallback;
+                    m.Topic = message.Topic;
                     m.Body = item;
                     messages.Add(m);
                 }
@@ -211,6 +260,7 @@ namespace Chiffrage.Mvc.Events
                         Message m = new Message();
                         m.AsyncResult = message.AsyncResult;
                         m.AsyncCallback = message.AsyncCallback;
+                        m.Topic = message.Topic;
                         m.Body = item;
                         messages.Add(m);
                     }
@@ -243,7 +293,7 @@ namespace Chiffrage.Mvc.Events
                     subscribersLock.EnterReadLock();
                     foreach (var subscriber in this.subscribers)
                     {
-                        if (subscriber.EventType.IsInstanceOfType(message.Body))
+                        if (subscriber.Topic.Equals(message.Topic) && subscriber.EventType.IsInstanceOfType(message.Body))
                         {
                             try
                             {

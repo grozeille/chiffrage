@@ -276,6 +276,10 @@
       <Project>{226D518E-B1BB-4B77-8031-2F704FADDC83}</Project>
       <Name>Chiffrage.Common.Module</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Chiffrage.EventStore\Chiffrage.EventStore.csproj">
+      <Project>{ED8E7548-2199-48AF-959E-E09089955AE7}</Project>
+      <Name>Chiffrage.EventStore</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Chiffrage.Mvc\Chiffrage.Mvc.csproj">
       <Project>{771D2DDA-D611-4E74-8857-6E60C08536EE}</Project>
       <Name>Chiffrage.Mvc</Name>

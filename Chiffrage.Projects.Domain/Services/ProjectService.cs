@@ -13,6 +13,7 @@ using Chiffrage.Catalogs.Domain;
 
 namespace Chiffrage.Projects.Domain.Services
 {
+    [Topic("topic://commands")]
     public class ProjectService : IService
     {
         private readonly IEventBroker eventBroker;
@@ -43,7 +44,7 @@ namespace Chiffrage.Projects.Domain.Services
 
             this.dealRepository.Save(newDeal);
 
-            this.eventBroker.Publish(new DealCreatedEvent(newDeal));
+            this.eventBroker.Publish(new DealCreatedEvent(newDeal), "topic://events");
         }
 
         [Subscribe]
@@ -57,7 +58,7 @@ namespace Chiffrage.Projects.Domain.Services
 
             this.dealRepository.Save(deal);
 
-            this.eventBroker.Publish(new DealUpdatedEvent(deal));
+            this.eventBroker.Publish(new DealUpdatedEvent(deal), "topic://events");
         }
 
         [Subscribe]
@@ -71,7 +72,7 @@ namespace Chiffrage.Projects.Domain.Services
 
             this.projectRepository.Save(project);
 
-            this.eventBroker.Publish(new ProjectUpdatedEvent(project));
+            this.eventBroker.Publish(new ProjectUpdatedEvent(project), "topic://events");
         }
 
         [Subscribe]
@@ -98,7 +99,7 @@ namespace Chiffrage.Projects.Domain.Services
             deal.Projects.Add(newProject);
             this.dealRepository.Save(deal);
 
-            this.eventBroker.Publish(new ProjectCreatedEvent(deal, newProject));
+            this.eventBroker.Publish(new ProjectCreatedEvent(deal, newProject), "topic://events");
         }
 
         [Subscribe]
@@ -113,7 +114,7 @@ namespace Chiffrage.Projects.Domain.Services
 
             this.projectRepository.Save(project);
 
-            this.eventBroker.Publish(new ProjectSupplyCreatedEvent(project.Id, projectSupply));
+            this.eventBroker.Publish(new ProjectSupplyCreatedEvent(project.Id, projectSupply), "topic://events");
         }
 
         [Subscribe]
@@ -151,7 +152,7 @@ namespace Chiffrage.Projects.Domain.Services
                 commandList.Add(new ProjectSupplyCreatedEvent(item.Value, item.Key));
             }
 
-            this.eventBroker.Publish(new ProjectSupplyListCreatedEvent(commandList));
+            this.eventBroker.Publish(new ProjectSupplyListCreatedEvent(commandList), "topic://events");
         }
 
         private static ProjectSupply MapProjectSupply(Supply supply, ProjectSupply projectSupply, int quantity,
@@ -178,7 +179,7 @@ namespace Chiffrage.Projects.Domain.Services
 
             this.projectRepository.Save(project);
 
-            this.eventBroker.Publish(new ProjectSupplyDeletedEvent(project.Id, supply));
+            this.eventBroker.Publish(new ProjectSupplyDeletedEvent(project.Id, supply), "topic://events");
         }
         
         [Subscribe]
@@ -217,7 +218,7 @@ namespace Chiffrage.Projects.Domain.Services
                 commandList.Add(new ProjectHardwareCreatedEvent(item.Value, item.Key));
             }
 
-            this.eventBroker.Publish(new ProjectHardwareListCreatedEvent(commandList));
+            this.eventBroker.Publish(new ProjectHardwareListCreatedEvent(commandList), "topic://events");
         }
 
         [Subscribe]
@@ -233,7 +234,7 @@ namespace Chiffrage.Projects.Domain.Services
 
             this.projectRepository.Save(project);
 
-            this.eventBroker.Publish(new ProjectHardwareCreatedEvent(project.Id, projectHardware));
+            this.eventBroker.Publish(new ProjectHardwareCreatedEvent(project.Id, projectHardware), "topic://events");
         }
 
         private ProjectHardware MapProjectHardware(Project project, Hardware hardware, ProjectHardware projectHardware, SupplierCatalog catalog)
@@ -314,7 +315,7 @@ namespace Chiffrage.Projects.Domain.Services
 
             this.projectRepository.Save(project);
 
-            this.eventBroker.Publish(new ProjectHardwareDeletedEvent(project.Id, hardware));
+            this.eventBroker.Publish(new ProjectHardwareDeletedEvent(project.Id, hardware), "topic://events");
         }
 
         [Subscribe]
@@ -329,7 +330,7 @@ namespace Chiffrage.Projects.Domain.Services
 
             this.projectRepository.Save(project);
 
-            this.eventBroker.Publish(new ProjectFrameCreatedEvent(project.Id, projectFrame));
+            this.eventBroker.Publish(new ProjectFrameCreatedEvent(project.Id, projectFrame), "topic://events");
         }
 
         [Subscribe]
@@ -342,7 +343,7 @@ namespace Chiffrage.Projects.Domain.Services
 
             this.projectRepository.Save(project);
 
-            this.eventBroker.Publish(new ProjectFrameDeletedEvent(project.Id, frame));
+            this.eventBroker.Publish(new ProjectFrameDeletedEvent(project.Id, frame), "topic://events");
         }
 
         [Subscribe]
@@ -357,7 +358,7 @@ namespace Chiffrage.Projects.Domain.Services
 
             this.projectRepository.Save(project);
 
-            this.eventBroker.Publish(new ProjectSupplyUpdatedEvent(project.Id, projectSupply));
+            this.eventBroker.Publish(new ProjectSupplyUpdatedEvent(project.Id, projectSupply), "topic://events");
         }
 
         [Subscribe]
@@ -372,7 +373,7 @@ namespace Chiffrage.Projects.Domain.Services
 
             this.projectRepository.Save(project);
 
-            this.eventBroker.Publish(new ProjectHardwareUpdatedEvent(project.Id, projectHardware));
+            this.eventBroker.Publish(new ProjectHardwareUpdatedEvent(project.Id, projectHardware), "topic://events");
         }
 
         [Subscribe]
@@ -388,7 +389,7 @@ namespace Chiffrage.Projects.Domain.Services
 
             this.projectRepository.Save(project);
 
-            this.eventBroker.Publish(new ProjectHardwareSupplyUpdatedEvent(project.Id, projectHardware, projectHardwareSupply));
+            this.eventBroker.Publish(new ProjectHardwareSupplyUpdatedEvent(project.Id, projectHardware, projectHardwareSupply), "topic://events");
         }
 
         [Subscribe]
@@ -403,7 +404,7 @@ namespace Chiffrage.Projects.Domain.Services
 
             this.projectRepository.Save(project);
 
-            this.eventBroker.Publish(new ProjectHardwareUpdatedEvent(project.Id, projectHardware));
+            this.eventBroker.Publish(new ProjectHardwareUpdatedEvent(project.Id, projectHardware), "topic://events");
         }
 
         [Subscribe]
@@ -418,7 +419,7 @@ namespace Chiffrage.Projects.Domain.Services
 
             this.projectRepository.Save(project);
 
-            this.eventBroker.Publish(new ProjectHardwareUpdatedEvent(project.Id, projectHardware));
+            this.eventBroker.Publish(new ProjectHardwareUpdatedEvent(project.Id, projectHardware), "topic://events");
         }
 
         [Subscribe]
@@ -433,7 +434,7 @@ namespace Chiffrage.Projects.Domain.Services
 
             this.projectRepository.Save(project);
 
-            this.eventBroker.Publish(new ProjectHardwareUpdatedEvent(project.Id, projectHardware));
+            this.eventBroker.Publish(new ProjectHardwareUpdatedEvent(project.Id, projectHardware), "topic://events");
         }
 
         [Subscribe]
@@ -462,7 +463,7 @@ namespace Chiffrage.Projects.Domain.Services
 
             this.dealRepository.Save(cloneDeal);
 
-            this.eventBroker.Publish(new DealCreatedEvent(cloneDeal));
+            this.eventBroker.Publish(new DealCreatedEvent(cloneDeal), "topic://events");
         }
 
 
@@ -473,7 +474,7 @@ namespace Chiffrage.Projects.Domain.Services
 
             this.dealRepository.Delete(deal);
 
-            this.eventBroker.Publish(new DealDeletedEvent(deal.Id));
+            this.eventBroker.Publish(new DealDeletedEvent(deal.Id), "topic://events");
         }
 
 
@@ -489,9 +490,9 @@ namespace Chiffrage.Projects.Domain.Services
 
             this.dealRepository.Save(deal);
 
-            this.eventBroker.Publish(new DealUpdatedEvent(deal));
+            this.eventBroker.Publish(new DealUpdatedEvent(deal), "topic://events");
 
-            this.eventBroker.Publish(new ProjectCreatedEvent(deal, cloneProject));
+            this.eventBroker.Publish(new ProjectCreatedEvent(deal, cloneProject), "topic://events");
         }
 
         private Project CloneProject(Project project)
@@ -595,7 +596,7 @@ namespace Chiffrage.Projects.Domain.Services
 
             this.projectRepository.Delete(project);
 
-            this.eventBroker.Publish(new ProjectDeletedEvent(deal.Id, project.Id));
+            this.eventBroker.Publish(new ProjectDeletedEvent(deal.Id, project.Id), "topic://events");
         }
 
         [Subscribe]
@@ -662,7 +663,7 @@ namespace Chiffrage.Projects.Domain.Services
             }
 
             this.projectRepository.Save(project);
-            this.eventBroker.Publish(new ProjectUpdatedEvent(project));
+            this.eventBroker.Publish(new ProjectUpdatedEvent(project), "topic://events");
         }
 
         [Subscribe]
@@ -689,7 +690,7 @@ namespace Chiffrage.Projects.Domain.Services
 
             this.projectRepository.Save(project);
 
-            this.eventBroker.Publish(new ProjectSupplyUpdatedEvent(project.Id, supply));
+            this.eventBroker.Publish(new ProjectSupplyUpdatedEvent(project.Id, supply), "topic://events");
         }
 
         [Subscribe]
@@ -736,7 +737,7 @@ namespace Chiffrage.Projects.Domain.Services
                 commands.Add(new ProjectSupplyUpdatedEvent(item.Value, item.Key));
             }
 
-            this.eventBroker.Publish(new ProjectSupplyListUpdatedEvent(commands));
+            this.eventBroker.Publish(new ProjectSupplyListUpdatedEvent(commands), "topic://events");
         }
 
         [Subscribe]
@@ -763,7 +764,7 @@ namespace Chiffrage.Projects.Domain.Services
 
             this.projectRepository.Save(project);
 
-            this.eventBroker.Publish(new ProjectHardwareUpdatedEvent(project.Id, hardware));
+            this.eventBroker.Publish(new ProjectHardwareUpdatedEvent(project.Id, hardware), "topic://events");
         }
 
         [Subscribe]
@@ -810,7 +811,7 @@ namespace Chiffrage.Projects.Domain.Services
                 commandList.Add(new ProjectHardwareUpdatedEvent(item.Value, item.Key));
             }
 
-            this.eventBroker.Publish(new ProjectHardwareListUpdatedEvent(commandList));
+            this.eventBroker.Publish(new ProjectHardwareListUpdatedEvent(commandList), "topic://events");
         }
     }
 }

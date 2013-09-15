@@ -15,6 +15,7 @@ using System.Windows.Forms;
 using Chiffrage.Catalogs.Remoting.Contracts.Services;
 using Chiffrage.Catalogs.Remoting.Contracts;
 using Chiffrage.Catalogs.Remoting.Contracts.Model;
+using System.Net.Sockets;
 
 namespace Chiffrage.Catalogs.Remoting.Services
 {
@@ -32,9 +33,27 @@ namespace Chiffrage.Catalogs.Remoting.Services
 
         public void Start()
         {
-            TcpChannel channel = new TcpChannel(Consts.Port);
-            // Enregistrement du canal
-            ChannelServices.RegisterChannel(channel, false);
+            int tryCpt = 0;
+            System.Net.Sockets.SocketException ex = null;
+            do
+            {
+                TcpChannel channel = null;
+                try
+                {
+                    channel = new TcpChannel(Consts.Port + tryCpt);
+                    // Enregistrement du canal
+                    ChannelServices.RegisterChannel(channel, false);
+                    ex = null;
+                }
+                catch(SocketException sex)
+                {
+                    ChannelServices.UnregisterChannel(channel);
+                    logger.Warn("Port "+(Consts.Port+tryCpt)+" already used?", sex);
+                    ex = sex;
+                    tryCpt++;
+                }
+            } while (ex != null);
+            
             RemotingServices.Marshal(this, Consts.ServiceName, typeof(ICatalogRemoteService));
         }
 

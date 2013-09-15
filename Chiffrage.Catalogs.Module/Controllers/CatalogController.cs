@@ -17,6 +17,7 @@ using Chiffrage.Mvc.Views;
 
 namespace Chiffrage.Catalogs.Module.Controllers
 {
+    [Topic("topic://UI")]
     public class CatalogController : IController
     {
         private readonly ICatalogRepository repository;
@@ -38,7 +39,7 @@ namespace Chiffrage.Catalogs.Module.Controllers
         // no better way...
         private readonly System.Windows.Forms.RichTextBox rtBox = new System.Windows.Forms.RichTextBox();
 
-        [Publish]
+        [Publish(Topic = "topic://commands")]
         public event Action<UpdateCatalogCommand> OnCatalogUpdateCommand;
 
         public CatalogController(
@@ -162,7 +163,7 @@ namespace Chiffrage.Catalogs.Module.Controllers
 
         }*/
 
-        [Subscribe]
+        [Subscribe(Topic = "topic://events")]
         public void ProcessAction(CatalogUpdatedEvent eventObject)
         {
             if (this.currentCatalogId.HasValue && currentCatalogId.Value == eventObject.Catalog.Id)
@@ -231,7 +232,7 @@ namespace Chiffrage.Catalogs.Module.Controllers
             this.catalogView.AddHardwares(hardwaresViewModel);
         }
 
-        [Subscribe]
+        [Subscribe(Topic = "topic://events")]
         public void ProcessAction(SupplyCreatedEvent eventObject)
         {
             Mapper.CreateMap<Supply, CatalogSupplyViewModel>();
@@ -263,7 +264,7 @@ namespace Chiffrage.Catalogs.Module.Controllers
             this.editHardwareView.ShowView();
         }
 
-        [Subscribe]
+        [Subscribe(Topic = "topic://events")]
         public void ProcessAction(SupplyUpdatedEvent eventObject)
         {
             Mapper.CreateMap<Supply, CatalogSupplyViewModel>();
@@ -283,7 +284,7 @@ namespace Chiffrage.Catalogs.Module.Controllers
             this.catalogView.UpdateHardwares(hardwareToUpdates);
         }
 
-        [Subscribe]
+        [Subscribe(Topic = "topic://events")]
         public void ProcessAction(HardwareUpdatedEvent eventObject)
         {
             var result = Map(eventObject.CatalogId, eventObject.Hardware);
@@ -291,7 +292,7 @@ namespace Chiffrage.Catalogs.Module.Controllers
             this.catalogView.UpdateHardware(result);
         }
 
-        [Subscribe]
+        [Subscribe(Topic = "topic://events")]
         public void ProcessAction(HardwareDeletedEvent eventObject)
         {
             Mapper.CreateMap<Hardware, CatalogHardwareViewModel>();
@@ -301,7 +302,7 @@ namespace Chiffrage.Catalogs.Module.Controllers
             this.catalogView.RemoveHardware(result);
         }
 
-        [Subscribe]
+        [Subscribe(Topic = "topic://events")]
         public void ProcessAction(SupplyDeletedEvent eventObject)
         {
             Mapper.CreateMap<Supply, CatalogSupplyViewModel>();
@@ -333,7 +334,7 @@ namespace Chiffrage.Catalogs.Module.Controllers
             this.newHardwareSupplyView.ShowView();
         }
 
-        [Subscribe]
+        [Subscribe(Topic = "topic://events")]
         public void ProcessAction(HardwareCreatedEvent eventObject)
         {
             var result = Map(eventObject.CatalogId, eventObject.Hardware);
@@ -342,7 +343,7 @@ namespace Chiffrage.Catalogs.Module.Controllers
             this.catalogView.AddHardware(result);
         }
 
-        [Subscribe]
+        [Subscribe(Topic = "topic://events")]
         public void ProcessAction(HardwareSupplyCreatedEvent eventObject)
         {
             var result = Map(eventObject.CatalogId, eventObject.Hardware);
@@ -350,7 +351,7 @@ namespace Chiffrage.Catalogs.Module.Controllers
             this.catalogView.UpdateHardware(result);
         }
 
-        [Subscribe]
+        [Subscribe(Topic = "topic://events")]
         public void ProcessAction(HardwareSupplyDeletedEvent eventObject)
         {
             var result = Map(eventObject.CatalogId, eventObject.Hardware);
@@ -358,7 +359,7 @@ namespace Chiffrage.Catalogs.Module.Controllers
             this.catalogView.UpdateHardware(result);
         }
 
-        [Subscribe]
+        [Subscribe(Topic = "topic://events")]
         public void ProcessAction(HardwareSupplyUpdatedEvent eventObject)
         {
             var result = Map(eventObject.CatalogId, eventObject.Hardware);

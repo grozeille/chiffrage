@@ -17,6 +17,7 @@ using Chiffrage.Catalogs.Domain.Events;
 
 namespace Chiffrage.Catalogs.Module.Controllers
 {
+    [Topic("topic://UI")]
     public class TaskController : IController
     {
         private readonly ITaskRepository taskRepository;
@@ -33,13 +34,13 @@ namespace Chiffrage.Catalogs.Module.Controllers
             this.tasksView = tasksView;
         }
 
-        [Publish]
+        [Publish(Topic = "topic://commands")]
         public event Action<UpdateTaskCommand> OnTaskUpdateCommand;
 
-        [Publish]
+        [Publish(Topic = "topic://commands")]
         public event Action<UpdateTaskListCommand> OnTaskUpdateListCommand;
 
-        [Publish]
+        [Publish(Topic = "topic://commands")]
         public event Action<CreateNewTaskCommand> OnCreateNewTaskCommand;
 
         [Subscribe]
@@ -125,19 +126,19 @@ namespace Chiffrage.Catalogs.Module.Controllers
             this.OnTaskUpdateListCommand(new UpdateTaskListCommand(commands));
         }
 
-        [Subscribe]
+        [Subscribe(Topic = "topic://events")]
         public void ProcessAction(TaskCreatedEvent eventObject)
         {
             this.tasksView.AddTask(this.Convert(eventObject.Task));
         }
 
-        [Subscribe]
+        [Subscribe(Topic = "topic://events")]
         public void ProcessAction(TaskDeletedEvent eventObject)
         {
             this.tasksView.DeleteTask(eventObject.TaskId);
         }
 
-        [Subscribe]
+        [Subscribe(Topic = "topic://events")]
         public void ProcessAction(TaskUpdatedEvent eventObject)
         {
             this.tasksView.UpdateTask(this.Convert(eventObject.Task));

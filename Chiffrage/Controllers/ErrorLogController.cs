@@ -12,6 +12,7 @@ using Chiffrage.Projects.Domain.Events;
 
 namespace Chiffrage.App.Controllers
 {
+    [Topic("topic://events")]
     public class ErrorLogController : IController
     {
         private readonly IErrorLogView view;
@@ -21,7 +22,7 @@ namespace Chiffrage.App.Controllers
             this.view = view;
         }
 
-        [Subscribe]
+        [Subscribe(Topic = "topic://default")]
         public void ProcessAction(ErrorEvent eventObject)
         {   
             this.AppendLog(eventObject.Exception);  
@@ -103,6 +104,12 @@ namespace Chiffrage.App.Controllers
         public void ProcessAction(ProjectUpdatedEvent eventObject)
         {
             this.AppendInfoLog(string.Format("Project '{0}' updated successfully", eventObject.NewProject.Name));
+        }
+
+        [Subscribe(Topic = "topic://events")]
+        public void ProcessAction(Object eventObject)
+        {
+            this.AppendInfoLog(string.Format("Message '{0}'", eventObject.ToString()));
         }
     }
 }

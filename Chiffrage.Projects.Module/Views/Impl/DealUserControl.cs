@@ -91,7 +91,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
                     this.dateTimePickerDealBegin.Value,
                     this.dateTimePickerDealEnd.Value);
 
-                this.eventBroker.Publish(command);
+                this.eventBroker.Publish(command, "topic://commands");
             });
         }
 

@@ -98,29 +98,29 @@ namespace Chiffrage.Projects.Module.Views.Impl
             this.CausesValidation = true;
 
             //this.toolStripButtonAdd.Click += OnSelect;
-            this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonSupplyAdd, AddSupply);
-            this.eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemSupplyAdd, AddSupply);
+            this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonSupplyAdd, AddSupply, "topic://UI");
+            this.eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemSupplyAdd, AddSupply, "topic://UI");
 
-            this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonSupplyRemove, RemoveSupply);
-            this.eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemSupplyRemove, RemoveSupply);
+            this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonSupplyRemove, RemoveSupply, "topic://commands");
+            this.eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemSupplyRemove, RemoveSupply, "topic://commands");
 
-            this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonSupplyReload, ReloadSupply); 
-            this.eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemSupplyReload, ReloadSupply);
+            this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonSupplyReload, ReloadSupply, "topic://commands");
+            this.eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemSupplyReload, ReloadSupply, "topic://commands");
 
-            this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonHardwareAdd, AddHardware);
-            this.eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemHardwareAdd, AddHardware);
+            this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonHardwareAdd, AddHardware, "topic://UI");
+            this.eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemHardwareAdd, AddHardware, "topic://UI");
 
-            this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonHardwareRemove, RemoveHardware);
-            this.eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemHardwareRemove, RemoveHardware);
+            this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonHardwareRemove, RemoveHardware, "topic://commands");
+            this.eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemHardwareRemove, RemoveHardware, "topic://commands");
 
-            this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonHardwareReload, ReloadHardware);
-            this.eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemHardwareReload, ReloadHardware);
+            this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonHardwareReload, ReloadHardware, "topic://commands");
+            this.eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemHardwareReload, ReloadHardware, "topic://commands");
 
-            this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonAddFrame, AddFrame);
+            this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonAddFrame, AddFrame, "topic://UI");
 
-            this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonRemoveFrame,RemoveFrame);
+            this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonRemoveFrame, RemoveFrame, "topic://commands");
 
-            this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonRefreshTasks, ReloadTasks);
+            this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonRefreshTasks, ReloadTasks, "topic://commands");
 
         }
 
@@ -487,7 +487,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
                     projectTasks,
                     otherBenefits);
 
-                this.eventBroker.Publish(command);
+                this.eventBroker.Publish(command, "topic://commands");
             });
         }
 
@@ -501,7 +501,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
             var supply = this.projectSupplyViewModelBindingSource[e.RowIndex] as ProjectSupplyViewModel;
             if (supply != null)
             {
-                this.eventBroker.Publish(new RequestEditProjectSupplyAction(supply));
+                this.eventBroker.Publish(new RequestEditProjectSupplyAction(supply), "topic://UI");
             }
         }
 
@@ -510,7 +510,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
             var hardware = this.projectHardwareViewModelBindingSource[e.RowIndex] as ProjectHardwareViewModel;
             if (hardware != null)
             {
-                this.eventBroker.Publish(new RequestEditProjectHardwareAction(hardware));
+                this.eventBroker.Publish(new RequestEditProjectHardwareAction(hardware), "topic://UI");
             }
         }
 
@@ -878,7 +878,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
             var hardwareSupply = this.componentsBindingSource[e.RowIndex] as ProjectHardwareSupplyViewModel;
             if (hardwareSupply != null)
             {
-                this.eventBroker.Publish(new RequestEditProjectHardwareSupplyAction(hardwareSupply));
+                this.eventBroker.Publish(new RequestEditProjectHardwareSupplyAction(hardwareSupply), "topic://UI");
             }
         }
 

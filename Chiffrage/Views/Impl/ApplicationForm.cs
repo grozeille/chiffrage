@@ -38,11 +38,11 @@ namespace Chiffrage
             tasksView.HideView();
             tasksView.SetParent(this.splitContainer.Panel2);
 
-            eventBroker.RegisterToolStripBouttonClickEventSource(this.saveToolStripButton, new SaveAction());
-            eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemNewDeal, new RequestNewDealAction());
-            eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemNewDeal2, new RequestNewDealAction());
-            eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemNewCatalog, new RequestNewCatalogAction());
-            eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemNewCatalog2, new RequestNewCatalogAction());
+            eventBroker.RegisterToolStripBouttonClickEventSource(this.saveToolStripButton, new SaveAction(), "topic://UI");
+            eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemNewDeal, new RequestNewDealAction(), "topic://UI");
+            eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemNewDeal2, new RequestNewDealAction(), "topic://UI");
+            eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemNewCatalog, new RequestNewCatalogAction(), "topic://UI");
+            eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemNewCatalog2, new RequestNewCatalogAction(), "topic://UI");
         }
 
         public ApplicationForm()

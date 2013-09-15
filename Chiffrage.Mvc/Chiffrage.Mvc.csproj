@@ -64,6 +64,7 @@
     </Compile>
     <Compile Include="Controllers\IController.cs" />
     <Compile Include="Events\BlockingQueue.cs" />
+    <Compile Include="Events\TopicAttribute.cs" />
     <Compile Include="Events\ErrorEvent.cs" />
     <Compile Include="Events\EventBroker.cs" />
     <Compile Include="Events\EventPublisher.cs" />

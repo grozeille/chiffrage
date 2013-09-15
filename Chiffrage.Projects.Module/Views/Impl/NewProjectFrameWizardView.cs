@@ -40,7 +40,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
             {
                 var command = new CreateNewProjectFrameCommand(this.projectId, newProjectFramePage.TypedPage.FrameSize, newProjectFramePage.TypedPage.FrameCount);
 
-                this.EventBroker.Publish(command);
+                this.EventBroker.Publish(command, "topic://commands");
             }
         }
 

@@ -31,7 +31,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
         {
             if (result == DialogResult.OK)
             {
-                this.EventBroker.Publish(new CreateNewDealCommand(newDealPage.TypedPage.DealName));
+                this.EventBroker.Publish(new CreateNewDealCommand(newDealPage.TypedPage.DealName), "topic://commands");
             }
         }
 

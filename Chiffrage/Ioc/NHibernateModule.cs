@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Autofac;
+using Chiffrage.EventStore.Repositories;
 using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.Dialect;
@@ -23,6 +24,8 @@ namespace Chiffrage.App.Ioc
             builder.RegisterInstance<ISessionFactory>(this.BuildCatalogSessionFactory()).Named<ISessionFactory>("CatalogSessionFactory");
 
             builder.RegisterInstance<ISessionFactory>(this.BuildProjectsSessionFactory()).Named<ISessionFactory>("ProjectSessionFactory");
+
+            builder.RegisterInstance<ISessionFactory>(this.BuildEventSessionFactory()).Named<ISessionFactory>("EventSessionFactory");
 
             base.Load(builder);
         }
@@ -106,6 +109,41 @@ namespace Chiffrage.App.Ioc
 
             var factory = catalogConfiguration.BuildSessionFactory();
             
+            return factory;
+        }
+
+        private ISessionFactory BuildEventSessionFactory()
+        {
+            var file = "data\\events.sqlite";
+            if (!Directory.Exists("data"))
+            {
+                Directory.CreateDirectory("data");
+            }
+
+            var configuration = new Configuration()
+            .Proxy(p => p.ProxyFactoryFactory<NHibernate.Bytecode.DefaultProxyFactoryFactory>())
+            .CurrentSessionContext<EventStoreSessionContext>()
+            .DataBaseIntegration(d =>
+            {
+                d.ConnectionReleaseMode = ConnectionReleaseMode.OnClose;
+                //d.LogFormattedSql = true;
+                d.ConnectionString = string.Format("Data Source={0};Version=3;", file);
+                d.Dialect<SQLiteDialect>();
+                if (IsRunningOnMono())
+                {
+                    d.Driver<MonoSQLiteDriver>();
+                }
+                d.SchemaAction = SchemaAutoAction.Update;
+            });
+            var mapper = new ModelMapper();
+
+            mapper.AddMappings(typeof(EventRepository).Assembly.GetTypes());
+
+            HbmMapping mapping = mapper.CompileMappingForAllExplicitlyAddedEntities();
+            configuration.AddMapping(mapping);
+
+            var factory = configuration.BuildSessionFactory();
+
             return factory;
         }
 

@@ -39,7 +39,7 @@ namespace Chiffrage.Catalogs.Domain.Services
 
             this.repository.Save(task);
 
-            this.eventBroker.Publish(new TaskCreatedEvent(task));
+            this.eventBroker.Publish(new TaskCreatedEvent(task), "topic://events");
         }
 
         [Subscribe]
@@ -53,7 +53,7 @@ namespace Chiffrage.Catalogs.Domain.Services
 
             this.repository.Save(task);
 
-            this.eventBroker.Publish(new TaskUpdatedEvent(task));
+            this.eventBroker.Publish(new TaskUpdatedEvent(task), "topic://events");
         }
 
         [Subscribe]
@@ -74,7 +74,7 @@ namespace Chiffrage.Catalogs.Domain.Services
 
             foreach (var item in tasks)
             {
-                this.eventBroker.Publish(new TaskUpdatedEvent(item));
+                this.eventBroker.Publish(new TaskUpdatedEvent(item), "topic://events");
             }
         }
 
@@ -100,13 +100,13 @@ namespace Chiffrage.Catalogs.Domain.Services
                 if (toSave)
                 {
                     this.catalogRepository.Save(catalog);
-                    this.eventBroker.Publish(new CatalogUpdatedEvent(catalog));
+                    this.eventBroker.Publish(new CatalogUpdatedEvent(catalog), "topic://events");
                 }
             }
 
             this.repository.Delete(task);
 
-            this.eventBroker.Publish(new TaskDeletedEvent(task.Id));
+            this.eventBroker.Publish(new TaskDeletedEvent(task.Id), "topic://events");
 
             var tasks = this.repository.FindAll().OrderBy(x => x.OrderId);
             var tasksToNotifyUpdated = new List<Task>();
@@ -123,7 +123,7 @@ namespace Chiffrage.Catalogs.Domain.Services
 
             foreach (var item in tasksToNotifyUpdated)
             {
-                this.eventBroker.Publish(new TaskUpdatedEvent(item));
+                this.eventBroker.Publish(new TaskUpdatedEvent(item), "topic://events");
             }
         }
     }

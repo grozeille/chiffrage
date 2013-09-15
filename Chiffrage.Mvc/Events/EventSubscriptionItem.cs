@@ -11,12 +11,13 @@ namespace Chiffrage.Mvc.Events
     public class EventSubscriptionItem
     {
         //public EventSubscriptionItem(Type eventType, object eventHandler, MethodInfo method, SubscriptionMode subscriptionMode)
-        public EventSubscriptionItem(Type eventType, object eventHandler, Action<object, object> method, SubscriptionMode subscriptionMode)
+        public EventSubscriptionItem(Type eventType, object eventHandler, Action<object, object> method, SubscriptionMode subscriptionMode, String topic)
         {
             this.EventHandler = eventHandler;
             this.Method = method;
             this.SubscriptionMode = subscriptionMode;
             this.EventType = eventType;
+            this.Topic = topic;
         }
 
         public object EventHandler { get; private set; }
@@ -28,5 +29,7 @@ namespace Chiffrage.Mvc.Events
         public Type EventType { get; private set; }
 
         public SubscriptionMode SubscriptionMode { get; private set; }
+
+        public string Topic { get; private set; }
     }
 }

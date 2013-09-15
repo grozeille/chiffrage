@@ -54,7 +54,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
                     hardware.Id,
                     this.editHardwarePage.TypedPage.Milestone,
                     this.editHardwarePage.TypedPage.HardwareTasks);
-                this.EventBroker.Publish(command);
+                this.EventBroker.Publish(command, "topic://commands");
             }
         }
 
