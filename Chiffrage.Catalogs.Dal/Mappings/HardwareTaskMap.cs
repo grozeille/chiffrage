@@ -15,7 +15,7 @@ namespace Chiffrage.Catalogs.Dal.Mappings
             Property(x => x.Value);
             this.ManyToOne(x => x.Task, y =>
             {
-                //y.Lazy(LazyRelation.Proxy);
+                y.Lazy(LazyRelation.NoLazy);
                 y.Fetch(FetchKind.Join);
                 y.Cascade(Cascade.Merge);
             });

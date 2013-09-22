@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Autofac;
 using Chiffrage.EventStore.Repositories;
+using Chiffrage.Mvc.Events;
 using NHibernate;
 using NHibernate.Cfg;
 using NHibernate.Dialect;
@@ -26,6 +27,9 @@ namespace Chiffrage.App.Ioc
             builder.RegisterInstance<ISessionFactory>(this.BuildProjectsSessionFactory()).Named<ISessionFactory>("ProjectSessionFactory");
 
             builder.RegisterInstance<ISessionFactory>(this.BuildEventSessionFactory()).Named<ISessionFactory>("EventSessionFactory");
+
+            builder.Register<CatalogSessionManagerService>(x => new CatalogSessionManagerService(x.ResolveNamed<ISessionFactory>("CatalogSessionFactory"), x.Resolve<IEventBroker>())).SingleInstance();
+            builder.Register<ProjectSessionManagerService>(x => new ProjectSessionManagerService(x.ResolveNamed<ISessionFactory>("ProjectSessionFactory"), x.Resolve<IEventBroker>())).SingleInstance();
 
             base.Load(builder);
         }

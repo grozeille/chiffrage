@@ -15,6 +15,8 @@ namespace Chiffrage.EventStore
 
         public virtual DateTime Time { get; set; }
 
+        public virtual string SessionId{ get; set; }
+
         public EventObject()
         {
             this.Time = DateTime.Now;

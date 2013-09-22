@@ -60,6 +60,8 @@ namespace Chiffrage.App
 
                 var container = builder.Build();
 
+                container.Resolve<CatalogSessionManagerService>();
+                container.Resolve<ProjectSessionManagerService>();
 
                 this.eventBroker = container.Resolve<IEventBroker>();
                 this.eventBroker.Start();

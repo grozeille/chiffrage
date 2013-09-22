@@ -26,6 +26,10 @@ namespace Chiffrage.Mvc.Events
 
         public SynchronizationContext UISynchronizationContext { get; set; }
 
+        public event Action<Object> OnBeforeSend;
+
+        public event Action<Object> OnAfterSend;
+
         public object[] Subscribers
         {
             set
@@ -291,6 +295,10 @@ namespace Chiffrage.Mvc.Events
                 if (this.eventQueue.TryDequeue(out message))
                 {
                     subscribersLock.EnterReadLock();
+                    if (this.OnBeforeSend != null)
+                    {
+                        this.OnBeforeSend(message);
+                    }
                     foreach (var subscriber in this.subscribers)
                     {
                         if (subscriber.Topic.Equals(message.Topic) && subscriber.EventType.IsInstanceOfType(message.Body))
@@ -366,7 +374,10 @@ namespace Chiffrage.Mvc.Events
                             }
                         }
                     }
-
+                    if (this.OnAfterSend != null)
+                    {
+                        this.OnAfterSend(message);
+                    }
                     subscribersLock.ExitReadLock();
                 }
             } while (true);

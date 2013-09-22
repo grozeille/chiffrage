@@ -57,7 +57,7 @@ namespace Chiffrage.Projects.Dal.Mappings
             this.Bag(x => x.Tasks, y =>
             {
                 y.Fetch(CollectionFetchMode.Join);
-                //y.Lazy(CollectionLazy.Extra);
+                y.Lazy(CollectionLazy.NoLazy);
                 y.BatchSize(10);
                 y.Cascade(Cascade.All);
             },
