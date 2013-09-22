@@ -61,7 +61,7 @@ namespace Chiffrage.App.Controllers
         [Subscribe]
         public void ProcessAction(CatalogUpdatedEvent eventObject)
         {
-            this.AppendInfoLog(string.Format("Catalog '{0}' updated successfully", eventObject.Catalog.SupplierName));
+            this.AppendInfoLog(string.Format("Catalog '{0}' updated successfully", eventObject.CatalogId));
         }
 
         [Subscribe]
@@ -79,7 +79,7 @@ namespace Chiffrage.App.Controllers
         [Subscribe]
         public void ProcessAction(CatalogCreatedEvent eventObject)
         {
-            this.AppendInfoLog(string.Format("Catalog '{0}' created successfully", eventObject.Catalog.SupplierName));
+            this.AppendInfoLog(string.Format("Catalog '{0}' created successfully", eventObject.CatalogId));
         }
 
         [Subscribe]

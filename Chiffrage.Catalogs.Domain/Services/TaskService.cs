@@ -100,7 +100,7 @@ namespace Chiffrage.Catalogs.Domain.Services
                 if (toSave)
                 {
                     this.catalogRepository.Save(catalog);
-                    this.eventBroker.Publish(new CatalogUpdatedEvent(catalog), "topic://events");
+                    this.eventBroker.Publish(new CatalogUpdatedEvent(catalog.Id), "topic://events");
                 }
             }
 

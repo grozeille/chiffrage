@@ -93,12 +93,14 @@ namespace Chiffrage.Catalogs.Module.Controllers
         [Subscribe]
         public void ProcessAction(CatalogUnselectedAction eventObject)
         {
-            if (this.currentCatalogId.HasValue && currentCatalogId.Value == eventObject.Id)
+            if (!this.currentCatalogId.HasValue || currentCatalogId.Value != eventObject.Id)
             {
-                this.catalogView.HideView();
-
-                this.currentCatalogId = null;
+                return;
             }
+
+            this.catalogView.HideView();
+
+            this.currentCatalogId = null;
         }
 
         /*
@@ -166,14 +168,18 @@ namespace Chiffrage.Catalogs.Module.Controllers
         [Subscribe(Topic = "topic://events")]
         public void ProcessAction(CatalogUpdatedEvent eventObject)
         {
-            if (this.currentCatalogId.HasValue && currentCatalogId.Value == eventObject.Catalog.Id)
+            if (!this.currentCatalogId.HasValue || currentCatalogId.Value != eventObject.CatalogId)
             {
-                Mapper.CreateMap<SupplierCatalog, CatalogViewModel>();
-
-                var result = Mapper.Map<SupplierCatalog, CatalogViewModel>(eventObject.Catalog);
-
-                this.catalogView.Display(result, this.taskRepository.FindAll());
+                return;
             }
+
+            var catalog = this.repository.FindById(eventObject.CatalogId);
+
+            Mapper.CreateMap<SupplierCatalog, CatalogViewModel>();
+
+            var result = Mapper.Map<SupplierCatalog, CatalogViewModel>(catalog);
+
+            this.catalogView.Display(result, this.taskRepository.FindAll());
         }
 
         [Subscribe]
@@ -295,9 +301,18 @@ namespace Chiffrage.Catalogs.Module.Controllers
         [Subscribe(Topic = "topic://events")]
         public void ProcessAction(HardwareDeletedEvent eventObject)
         {
+            if (!this.currentCatalogId.HasValue || currentCatalogId.Value != eventObject.CatalogId)
+            {
+                return;
+            }
+
+            var hardware =
+                this.repository.FindById(eventObject.CatalogId).Hardwares.Where(x => x.Id == eventObject.HardwareId).
+                    FirstOrDefault();
+
             Mapper.CreateMap<Hardware, CatalogHardwareViewModel>();
 
-            var result = Mapper.Map<Hardware, CatalogHardwareViewModel>(eventObject.Hardware);
+            var result = Mapper.Map<Hardware, CatalogHardwareViewModel>(hardware);
 
             this.catalogView.RemoveHardware(result);
         }
@@ -337,7 +352,15 @@ namespace Chiffrage.Catalogs.Module.Controllers
         [Subscribe(Topic = "topic://events")]
         public void ProcessAction(HardwareCreatedEvent eventObject)
         {
-            var result = Map(eventObject.CatalogId, eventObject.Hardware);
+            if (!this.currentCatalogId.HasValue || currentCatalogId.Value != eventObject.CatalogId)
+            {
+                return;
+            }
+
+            var hardware =
+                this.repository.FindById(eventObject.CatalogId).Hardwares.Where(x => x.Id.Equals(eventObject.HardwareId)).FirstOrDefault();
+
+            var result = Map(eventObject.CatalogId, hardware);
             result.CatalogId = eventObject.CatalogId;
 
             this.catalogView.AddHardware(result);

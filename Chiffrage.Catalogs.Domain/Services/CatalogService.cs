@@ -15,6 +15,7 @@ using OfficeOpenXml;
 
 namespace Chiffrage.Catalogs.Domain.Services
 {
+    [Topic("topic://commands")]
     public class CatalogService : IService
     {
         private readonly IEventBroker eventBroker;
@@ -36,7 +37,7 @@ namespace Chiffrage.Catalogs.Domain.Services
 
             this.repository.Save(catalog);
 
-            this.eventBroker.Publish(new CatalogCreatedEvent(catalog), "topic://events");
+            this.eventBroker.Publish(new CatalogCreatedEvent(catalog.Id), "topic://events");
         }
 
         [Subscribe]
@@ -48,7 +49,7 @@ namespace Chiffrage.Catalogs.Domain.Services
 
             this.repository.Save(catalog);
 
-            this.eventBroker.Publish(new CatalogUpdatedEvent(catalog), "topic://events");
+            this.eventBroker.Publish(new CatalogUpdatedEvent(catalog.Id), "topic://events");
         }
 
         [Subscribe]
@@ -120,7 +121,7 @@ namespace Chiffrage.Catalogs.Domain.Services
             // hardware name must be unique
             if (catalog.Hardwares.Where(x => x.Name.Equals(hardware.Name, System.StringComparison.OrdinalIgnoreCase)).Any())
             {
-                this.eventBroker.Publish(new HardwareMustBeUniqueErrorEvent(catalog.Id, hardware), "topic://events");
+                this.eventBroker.Publish(new HardwareMustBeUniqueErrorEvent(catalog.Id, hardware.Id), "topic://events");
             }
             else
             {
@@ -128,7 +129,7 @@ namespace Chiffrage.Catalogs.Domain.Services
 
                 this.repository.Save(catalog);
 
-                this.eventBroker.Publish(new HardwareCreatedEvent(catalog.Id, hardware), "topic://events");
+                this.eventBroker.Publish(new HardwareCreatedEvent(catalog.Id, hardware.Id), "topic://events");
             }
         }
 
@@ -161,7 +162,7 @@ namespace Chiffrage.Catalogs.Domain.Services
 
                 this.repository.Save(catalog);
 
-                this.eventBroker.Publish(new HardwareDeletedEvent(catalog.Id, hardware), "topic://events");
+                this.eventBroker.Publish(new HardwareDeletedEvent(catalog.Id, hardware.Id), "topic://events");
             }
         }
 
@@ -363,7 +364,7 @@ namespace Chiffrage.Catalogs.Domain.Services
 
             foreach (var item in newHardwares)
             {
-                this.eventBroker.Publish(new HardwareCreatedEvent(catalog.Id, item), "topic://events");
+                this.eventBroker.Publish(new HardwareCreatedEvent(catalog.Id, item.Id), "topic://events");
             }
         }
 
@@ -429,7 +430,7 @@ namespace Chiffrage.Catalogs.Domain.Services
 
             this.repository.Save(cloneCatalog);
 
-            this.eventBroker.Publish(new CatalogCreatedEvent(cloneCatalog), "topic://events");
+            this.eventBroker.Publish(new CatalogCreatedEvent(cloneCatalog.Id), "topic://events");
         }
 
         [Subscribe]

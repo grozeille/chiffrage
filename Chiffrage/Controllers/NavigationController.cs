@@ -75,7 +75,9 @@ namespace Chiffrage.App.Controllers
         {
             Mapper.CreateMap<SupplierCatalog, CatalogItemViewModel>();
 
-            var result = Mapper.Map<SupplierCatalog, CatalogItemViewModel>(eventObject.Catalog);
+            var catalog = this.catalogRepository.FindById(eventObject.CatalogId);
+
+            var result = Mapper.Map<SupplierCatalog, CatalogItemViewModel>(catalog);
 
             this.navigationView.UpdateCatalog(result);
         }
@@ -124,7 +126,9 @@ namespace Chiffrage.App.Controllers
         {
             Mapper.CreateMap<SupplierCatalog, CatalogItemViewModel>();
 
-            var result = Mapper.Map<SupplierCatalog, CatalogItemViewModel>(eventObject.Catalog);
+            var catalog = this.catalogRepository.FindById(eventObject.CatalogId);
+
+            var result = Mapper.Map<SupplierCatalog, CatalogItemViewModel>(catalog);
 
             this.navigationView.AddCatalog(result);
             this.navigationView.SelectCatalog(result.Id);
