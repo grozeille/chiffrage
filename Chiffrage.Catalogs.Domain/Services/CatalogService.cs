@@ -15,7 +15,7 @@ using OfficeOpenXml;
 
 namespace Chiffrage.Catalogs.Domain.Services
 {
-    [Topic("topic://commands")]
+    [Topic(Topics.COMMANDS)]
     public class CatalogService : IService
     {
         private readonly IEventBroker eventBroker;
@@ -64,7 +64,7 @@ namespace Chiffrage.Catalogs.Domain.Services
             // supply name must be unique
             if (catalog.Supplies.Where(x => x.Name.Equals(eventObject.Name, System.StringComparison.OrdinalIgnoreCase)).Any())
             {
-                this.eventBroker.Publish(new SupplyMustBeUniqueErrorEvent(catalog.Id, supply), "topic://events");
+                this.eventBroker.Publish(new SupplyMustBeUniqueErrorEvent(catalog.Id, supply.Id), "topic://events");
             }
             else
             {
@@ -72,7 +72,7 @@ namespace Chiffrage.Catalogs.Domain.Services
 
                 this.repository.Save(catalog);
 
-                this.eventBroker.Publish(new SupplyCreatedEvent(catalog.Id, supply), "topic://events");
+                this.eventBroker.Publish(new SupplyCreatedEvent(catalog.Id, supply.Id), "topic://events");
             }
         }
 
@@ -89,7 +89,7 @@ namespace Chiffrage.Catalogs.Domain.Services
 
             this.repository.Save(catalog);
 
-            this.eventBroker.Publish(new SupplyUpdatedEvent(catalog.Id, supply), "topic://events");
+            this.eventBroker.Publish(new SupplyUpdatedEvent(catalog.Id, supply.Id), "topic://events");
         }
 
         [Subscribe]
@@ -105,7 +105,7 @@ namespace Chiffrage.Catalogs.Domain.Services
 
                 this.repository.Save(catalog);
 
-                this.eventBroker.Publish(new SupplyDeletedEvent(catalog.Id, supply), "topic://events");
+                this.eventBroker.Publish(new SupplyDeletedEvent(catalog.Id, supply.Id), "topic://events");
             }
         }
 
@@ -146,7 +146,7 @@ namespace Chiffrage.Catalogs.Domain.Services
 
             this.repository.Save(catalog);
 
-            this.eventBroker.Publish(new HardwareUpdatedEvent(catalog.Id, hardware), "topic://events");
+            this.eventBroker.Publish(new HardwareUpdatedEvent(catalog.Id, hardware.Id), "topic://events");
         }
 
         [Subscribe]
@@ -183,7 +183,7 @@ namespace Chiffrage.Catalogs.Domain.Services
             // supply name must be unique in hardaware components
             if (hardware.Components.Where(x => x.Id == supply.Id).Any())
             {
-                this.eventBroker.Publish(new HardwareSupplyMustBeUniqueErrorEvent(catalog.Id, hardware.Id, supply), "topic://events");
+                this.eventBroker.Publish(new HardwareSupplyMustBeUniqueErrorEvent(catalog.Id, hardware.Id, supply.Id), "topic://events");
             }
             else
             {
@@ -191,7 +191,7 @@ namespace Chiffrage.Catalogs.Domain.Services
 
                 this.repository.Save(catalog);
 
-                this.eventBroker.Publish(new HardwareSupplyCreatedEvent(catalog.Id, hardware, hardwareSupply), "topic://events");
+                this.eventBroker.Publish(new HardwareSupplyCreatedEvent(catalog.Id, hardware.Id, hardwareSupply.Id), "topic://events");
             }
         }
 
@@ -206,7 +206,7 @@ namespace Chiffrage.Catalogs.Domain.Services
 
             this.repository.Save(catalog);
 
-            this.eventBroker.Publish(new HardwareSupplyDeletedEvent(catalog.Id, hardware, hardwareSupply), "topic://events");
+            this.eventBroker.Publish(new HardwareSupplyDeletedEvent(catalog.Id, hardware.Id, hardwareSupply.Id), "topic://events");
         }
 
         [Subscribe]
@@ -221,7 +221,7 @@ namespace Chiffrage.Catalogs.Domain.Services
 
             this.repository.Save(catalog);
 
-            this.eventBroker.Publish(new HardwareSupplyUpdatedEvent(catalog.Id, hardware, hardwareSupply), "topic://events");
+            this.eventBroker.Publish(new HardwareSupplyUpdatedEvent(catalog.Id, hardware.Id, hardwareSupply.Id), "topic://events");
         }
 
         [Subscribe]
@@ -359,7 +359,7 @@ namespace Chiffrage.Catalogs.Domain.Services
 
             foreach (var item in newSupplies)
             {
-                this.eventBroker.Publish(new SupplyCreatedEvent(catalog.Id, item), "topic://events");
+                this.eventBroker.Publish(new SupplyCreatedEvent(catalog.Id, item.Id), "topic://events");
             }
 
             foreach (var item in newHardwares)

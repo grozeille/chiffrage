@@ -87,7 +87,7 @@ namespace Chiffrage.App
             }
         }
 
-        [Subscribe(Topic = "topic://UI")]
+        [Subscribe(Topic = Topics.UI)]
         public void ProcessAction(ApplicationEndAction eventObject)
         {
             this.eventBroker.Stop();

@@ -7,25 +7,25 @@ using Chiffrage.Mvc.Events;
 
 namespace Chiffrage.Catalogs.Domain.Events
 {
-    public class SupplyUpdatedEvent
+    public class SupplyUpdatedEvent : ICatalogEvent
     {
         private readonly int catalogId;
-        private readonly Supply supply;
+        private readonly int supplyId;
 
-        public SupplyUpdatedEvent(int catalogId, Supply supply)
+        public SupplyUpdatedEvent(int catalogId, int supplyId)
         {
             this.catalogId = catalogId;
-            this.supply = supply;
+            this.supplyId = supplyId;
+        }
+
+        public int SupplyId
+        {
+            get { return this.supplyId; }
         }
 
         public int CatalogId
         {
             get { return this.catalogId; }
-        }
-
-        public Supply Supply
-        {
-            get { return this.supply; }
         }
     }
 }

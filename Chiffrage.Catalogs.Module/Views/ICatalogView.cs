@@ -18,7 +18,7 @@ namespace Chiffrage.Catalogs.Module.Views
 
         void UpdateSupply(CatalogSupplyViewModel result);
 
-        void RemoveSupply(CatalogSupplyViewModel result);
+        void RemoveSupply(int supplyId);
 
         void AddHardware(CatalogHardwareViewModel result);
 
@@ -26,7 +26,7 @@ namespace Chiffrage.Catalogs.Module.Views
 
         void UpdateHardware(CatalogHardwareViewModel result);
 
-        void RemoveHardware(CatalogHardwareViewModel result);
+        void RemoveHardware(int hardwareId);
 
         void AddHardwareSupply(CatalogHardwareSupplyViewModel result);
 

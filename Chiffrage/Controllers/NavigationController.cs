@@ -18,7 +18,7 @@ using Chiffrage.Common.Module.Actions;
 
 namespace Chiffrage.App.Controllers
 {
-    [Topic("topic://UI")]
+    [Topic(Topics.UI)]
     public class NavigationController : IController
     {
         private readonly INavigationView navigationView;
@@ -70,7 +70,7 @@ namespace Chiffrage.App.Controllers
             this.navigationView.ShowView();
         }
 
-        [Subscribe(Topic = "topic://events")]
+        [Subscribe(Topic = Topics.EVENTS)]
         public void ProcessAction(CatalogUpdatedEvent eventObject)
         {
             Mapper.CreateMap<SupplierCatalog, CatalogItemViewModel>();
@@ -82,7 +82,7 @@ namespace Chiffrage.App.Controllers
             this.navigationView.UpdateCatalog(result);
         }
 
-        [Subscribe(Topic = "topic://events")]
+        [Subscribe(Topic = Topics.EVENTS)]
         public void ProcessAction(DealUpdatedEvent eventObject)
         {
             Mapper.CreateMap<Deal, DealItemViewModel>();
@@ -103,25 +103,25 @@ namespace Chiffrage.App.Controllers
             this.navigationView.SelectDeal(result.Id);
         }
 
-        [Subscribe(Topic = "topic://events")]
+        [Subscribe(Topic = Topics.EVENTS)]
         public void ProcessAction(DealDeletedEvent eventObject)
         {
             this.navigationView.RemoveDeal(eventObject.DealId);
         }
 
-        [Subscribe(Topic = "topic://events")]
+        [Subscribe(Topic = Topics.EVENTS)]
         public void ProcessAction(CatalogDeletedEvent eventObject)
         {
             this.navigationView.RemoveCatalog(eventObject.CatalogId);
         }
 
-        [Subscribe(Topic = "topic://events")]
+        [Subscribe(Topic = Topics.EVENTS)]
         public void ProcessAction(ProjectDeletedEvent eventObject)
         {
             this.navigationView.RemoveProject(eventObject.DealId, eventObject.ProjectId);
         }
 
-        [Subscribe(Topic = "topic://events")]
+        [Subscribe(Topic = Topics.EVENTS)]
         public void ProcessAction(CatalogCreatedEvent eventObject)
         {
             Mapper.CreateMap<SupplierCatalog, CatalogItemViewModel>();
@@ -134,7 +134,7 @@ namespace Chiffrage.App.Controllers
             this.navigationView.SelectCatalog(result.Id);
         }
 
-        [Subscribe(Topic = "topic://events")]
+        [Subscribe(Topic = Topics.EVENTS)]
         public void ProcessAction(ProjectCreatedEvent eventObject)
         {
             Mapper.CreateMap<Project, ProjectItemViewModel>();
@@ -145,7 +145,7 @@ namespace Chiffrage.App.Controllers
             this.navigationView.SelectProject(result.Id);
         }
 
-        [Subscribe(Topic = "topic://events")]
+        [Subscribe(Topic = Topics.EVENTS)]
         public void ProcessAction(ProjectUpdatedEvent eventObject)
         {
             Mapper.CreateMap<Project, ProjectItemViewModel>();

@@ -77,6 +77,7 @@
     <Compile Include="Events\PublishAttribute.cs" />
     <Compile Include="Events\SubscribeAttribute.cs" />
     <Compile Include="Events\SubscriptionMode.cs" />
+    <Compile Include="Events\Topics.cs" />
     <Compile Include="Events\WinformEventSource.cs" />
     <Compile Include="Exceptions\NoParentViewException.cs" />
     <Compile Include="ListItemDescriptor.cs" />

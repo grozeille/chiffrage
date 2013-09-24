@@ -13,7 +13,7 @@ using Chiffrage.Catalogs.Domain;
 
 namespace Chiffrage.Projects.Domain.Services
 {
-    [Topic("topic://commands")]
+    [Topic(Topics.COMMANDS)]
     public class ProjectService : IService
     {
         private readonly IEventBroker eventBroker;

@@ -25,7 +25,7 @@ namespace Chiffrage.EventStore.Services
 
         private readonly IList<object> blacklist = new List<object>();
 
-        [Publish(Topic = "topic://events")]
+        [Publish(Topic = Topics.EVENTS)]
         public event Action<Object> OnEvent;
 
         public EventStoreService(IEventRepository eventRepository)
@@ -85,7 +85,7 @@ namespace Chiffrage.EventStore.Services
             }
         }
 
-        //[Subscribe(Topic = "topic://events")]
+        //[Subscribe(Topic = Topics.EVENTS)]
         public void ProcessAction(Object eventObject)
         {
             lock (mylock)

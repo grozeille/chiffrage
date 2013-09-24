@@ -18,7 +18,7 @@ using Chiffrage.Catalogs.Domain.Repositories;
 
 namespace Chiffrage.Projects.Module.Controllers
 {
-    [Topic("topic://UI")]
+    [Topic(Topics.UI)]
     public class DealController : IController
     {
         private static ILog logger = LogManager.GetLogger(typeof(DealController));
@@ -91,7 +91,7 @@ namespace Chiffrage.Projects.Module.Controllers
             this.dealView.Save();
         }
 
-        [Subscribe(Topic = "topic://events")]
+        [Subscribe(Topic = Topics.EVENTS)]
         public void ProcessAction(DealUpdatedEvent eventObject)
         {
             if (this.currentDealId.HasValue && currentDealId.Value == eventObject.NewDeal.Id)
