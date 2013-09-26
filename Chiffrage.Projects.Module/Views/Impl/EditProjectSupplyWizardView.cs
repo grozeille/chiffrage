@@ -53,7 +53,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
                     this.supply.Id,
                     editSupplyPage.TypedPage.Quantity,
                     editSupplyPage.TypedPage.Price);
-                this.EventBroker.Publish(command, "topic://commands");
+                this.EventBroker.Publish(command, Topics.COMMANDS);
             }
         }
 

@@ -32,7 +32,7 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
         {
             if (result == DialogResult.OK)
             {
-                this.EventBroker.Publish(new CreateNewCatalogCommand(newCatalogPage.TypedPage.SupplierName), "topic://commands");
+                this.EventBroker.Publish(new CreateNewCatalogCommand(newCatalogPage.TypedPage.SupplierName), Topics.COMMANDS);
             }
         }
 

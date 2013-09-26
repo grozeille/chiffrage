@@ -28,10 +28,10 @@ namespace Chiffrage
             : this()
         {
             this.eventBroker = eventBroker;
-            this.eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemCatalogNew, new RequestNewCatalogAction(), "topic://UI");
-            this.eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemDealNew, new RequestNewDealAction(), "topic://UI");
-            this.eventBroker.RegisterTreeNodeSelectEventSource(this.treeNodeTasks, new TasksSelectedAction(), "topic://UI");
-            this.eventBroker.RegisterTreeNodeUnselectEventSource(this.treeNodeTasks, new TasksUnselectedAction(), "topic://UI");
+            this.eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemCatalogNew, new RequestNewCatalogAction(), Topics.UI);
+            this.eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemDealNew, new RequestNewDealAction(), Topics.UI);
+            this.eventBroker.RegisterTreeNodeSelectEventSource(this.treeNodeTasks, new TasksSelectedAction(), Topics.UI);
+            this.eventBroker.RegisterTreeNodeUnselectEventSource(this.treeNodeTasks, new TasksUnselectedAction(), Topics.UI);
             this.eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemProjectNew, () =>
             {
                 if (this.treeView.SelectedNode != null)
@@ -44,7 +44,7 @@ namespace Chiffrage
                 }
 
                 return null;
-            }, "topic://UI");
+            }, Topics.UI);
             this.eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemDealClone, () =>
             {
                 if (this.treeView.SelectedNode != null)
@@ -57,7 +57,7 @@ namespace Chiffrage
                 }
 
                 return null;
-            }, "topic://commands");
+            }, Topics.COMMANDS);
             this.eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemDealDelete, () =>
             {
                 if (this.treeView.SelectedNode != null)
@@ -73,7 +73,7 @@ namespace Chiffrage
                 }
 
                 return null;
-            }, "topic://commands");
+            }, Topics.COMMANDS);
 
 
             this.eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemProjectClone, () =>
@@ -89,7 +89,7 @@ namespace Chiffrage
                 }
 
                 return null;
-            }, "topic://commands");
+            }, Topics.COMMANDS);
             this.eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemProjectDelete, () =>
             {
                 if (this.treeView.SelectedNode != null)
@@ -106,7 +106,7 @@ namespace Chiffrage
                 }
 
                 return null;
-            }, "topic://commands");
+            }, Topics.COMMANDS);
 
             this.eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemCatalogClone, () =>
             {
@@ -120,7 +120,7 @@ namespace Chiffrage
                 }
 
                 return null;
-            }, "topic://commands");
+            }, Topics.COMMANDS);
             this.eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemCatalogDelete, () =>
             {
                 if (this.treeView.SelectedNode != null)
@@ -136,7 +136,7 @@ namespace Chiffrage
                 }
 
                 return null;
-            }, "topic://commands");
+            }, Topics.COMMANDS);
             this.eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemProjectCopy, () =>
             {
                 if (this.treeView.SelectedNode != null)
@@ -149,7 +149,7 @@ namespace Chiffrage
                 }
 
                 return null;
-            }, "topic://UI");
+            }, Topics.UI);
             this.eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemProjectPaste, () =>
             {
                 if (this.treeView.SelectedNode != null)
@@ -162,7 +162,7 @@ namespace Chiffrage
                 }
 
                 return null;
-            }, "topic://UI");
+            }, Topics.UI);
         }
 
         public NavigationUserControl()
@@ -250,8 +250,8 @@ namespace Chiffrage
                 nodeDeal.Tag = viewModel;
                 nodeDeal.ContextMenuStrip = this.contextMenuStripDeal;
 
-                this.eventBroker.RegisterTreeNodeSelectEventSource(nodeDeal, new DealSelectedAction(viewModel.Id), "topic://UI");
-                this.eventBroker.RegisterTreeNodeUnselectEventSource(nodeDeal, new DealUnselectedAction(viewModel.Id), "topic://UI");
+                this.eventBroker.RegisterTreeNodeSelectEventSource(nodeDeal, new DealSelectedAction(viewModel.Id), Topics.UI);
+                this.eventBroker.RegisterTreeNodeUnselectEventSource(nodeDeal, new DealUnselectedAction(viewModel.Id), Topics.UI);
 
                 foreach (var project in viewModel.Projects)
                 {
@@ -269,8 +269,8 @@ namespace Chiffrage
                 nodeCatalog.Tag = viewModel;
                 nodeCatalog.ContextMenuStrip = this.contextMenuStripCatalog;
 
-                this.eventBroker.RegisterTreeNodeSelectEventSource(nodeCatalog, new CatalogSelectedAction(viewModel.Id), "topic://UI");
-                this.eventBroker.RegisterTreeNodeUnselectEventSource(nodeCatalog, new CatalogUnselectedAction(viewModel.Id), "topic://UI");
+                this.eventBroker.RegisterTreeNodeSelectEventSource(nodeCatalog, new CatalogSelectedAction(viewModel.Id), Topics.UI);
+                this.eventBroker.RegisterTreeNodeUnselectEventSource(nodeCatalog, new CatalogUnselectedAction(viewModel.Id), Topics.UI);
             });
         }
 
@@ -368,8 +368,8 @@ namespace Chiffrage
                 nodeProject.Tag = viewModel;
                 nodeProject.ContextMenuStrip = this.contextMenuStripProject;
 
-                this.eventBroker.RegisterTreeNodeSelectEventSource(nodeProject, new ProjectSelectedAction(viewModel.Id), "topic://UI");
-                this.eventBroker.RegisterTreeNodeUnselectEventSource(nodeProject, new ProjectUnselectedAction(viewModel.Id), "topic://UI");
+                this.eventBroker.RegisterTreeNodeSelectEventSource(nodeProject, new ProjectSelectedAction(viewModel.Id), Topics.UI);
+                this.eventBroker.RegisterTreeNodeUnselectEventSource(nodeProject, new ProjectUnselectedAction(viewModel.Id), Topics.UI);
             });
         }
 

@@ -48,7 +48,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
                         i.CatalogId,
                         i.Id);
 
-                        this.EventBroker.Publish(command, "topic://commands");
+                        this.EventBroker.Publish(command, Topics.COMMANDS);
                     }
                 }
             }

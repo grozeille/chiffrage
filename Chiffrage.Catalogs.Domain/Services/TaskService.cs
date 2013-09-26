@@ -10,6 +10,7 @@ using Chiffrage.Catalogs.Domain.Events;
 
 namespace Chiffrage.Catalogs.Domain.Services
 {
+    [Topic(Topics.COMMANDS)]
     public class TaskService : IService
     {
         private readonly IEventBroker eventBroker;
@@ -39,7 +40,7 @@ namespace Chiffrage.Catalogs.Domain.Services
 
             this.repository.Save(task);
 
-            this.eventBroker.Publish(new TaskCreatedEvent(task.Id), "topic://events");
+            this.eventBroker.Publish(new TaskCreatedEvent(task.Id), Topics.EVENTS);
         }
 
         [Subscribe]
@@ -53,7 +54,7 @@ namespace Chiffrage.Catalogs.Domain.Services
 
             this.repository.Save(task);
 
-            this.eventBroker.Publish(new TaskUpdatedEvent(task.Id), "topic://events");
+            this.eventBroker.Publish(new TaskUpdatedEvent(task.Id), Topics.EVENTS);
         }
 
         [Subscribe]
@@ -74,7 +75,7 @@ namespace Chiffrage.Catalogs.Domain.Services
 
             foreach (var item in tasks)
             {
-                this.eventBroker.Publish(new TaskUpdatedEvent(item.Id), "topic://events");
+                this.eventBroker.Publish(new TaskUpdatedEvent(item.Id), Topics.EVENTS);
             }
         }
 
@@ -100,13 +101,13 @@ namespace Chiffrage.Catalogs.Domain.Services
                 if (toSave)
                 {
                     this.catalogRepository.Save(catalog);
-                    this.eventBroker.Publish(new CatalogUpdatedEvent(catalog.Id), "topic://events");
+                    this.eventBroker.Publish(new CatalogUpdatedEvent(catalog.Id), Topics.EVENTS);
                 }
             }
 
             this.repository.Delete(task);
 
-            this.eventBroker.Publish(new TaskDeletedEvent(task.Id), "topic://events");
+            this.eventBroker.Publish(new TaskDeletedEvent(task.Id), Topics.EVENTS);
 
             var tasks = this.repository.FindAll().OrderBy(x => x.OrderId);
             var tasksToNotifyUpdated = new List<Task>();
@@ -123,7 +124,7 @@ namespace Chiffrage.Catalogs.Domain.Services
 
             foreach (var item in tasksToNotifyUpdated)
             {
-                this.eventBroker.Publish(new TaskUpdatedEvent(item.Id), "topic://events");
+                this.eventBroker.Publish(new TaskUpdatedEvent(item.Id), Topics.EVENTS);
             }
         }
     }

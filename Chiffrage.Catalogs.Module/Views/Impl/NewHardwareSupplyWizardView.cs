@@ -50,7 +50,7 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
                     this.parentHardwareId, 
                     this.newHardwareSupplyPage.TypedPage.SelectedSupply, 
                     this.newHardwareSupplyPage.TypedPage.Quantity,
-                    this.commentPage.TypedPage.Comment), "topic://commands");
+                    this.commentPage.TypedPage.Comment), Topics.COMMANDS);
             }
         }
 

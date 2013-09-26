@@ -71,7 +71,7 @@ namespace Chiffrage.App
 
                 var applicationForm = container.Resolve<IApplicationView>();
 
-                this.eventBroker.Publish(new ApplicationStartAction(), "topic://UI");
+                this.eventBroker.Publish(new ApplicationStartAction(), Topics.UI);
 
                 Application.Run((ApplicationForm)applicationForm);
                 this.eventBroker.Stop();

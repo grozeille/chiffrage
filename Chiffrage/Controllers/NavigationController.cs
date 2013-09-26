@@ -50,7 +50,7 @@ namespace Chiffrage.App.Controllers
         {
             var result = new NavigationItemViewModel();
 
-            this.eventBroker.Publish(new ApplicationLoadedEvent(0, 2, "Loading catalogs..."), "topic://UI");
+            this.eventBroker.Publish(new ApplicationLoadedEvent(0, 2, "Loading catalogs..."), Topics.UI);
 
             var catalogs = this.catalogRepository.FindAll();
 
@@ -58,7 +58,7 @@ namespace Chiffrage.App.Controllers
 
             result.Catalogs = Mapper.Map<IList<SupplierCatalog>, CatalogItemViewModel[]>(catalogs);
 
-            this.eventBroker.Publish(new ApplicationLoadedEvent(1, 2, "Loading deals..."), "topic://UI");
+            this.eventBroker.Publish(new ApplicationLoadedEvent(1, 2, "Loading deals..."), Topics.UI);
 
             var deals = this.dealRepository.FindAll();
 
@@ -67,7 +67,7 @@ namespace Chiffrage.App.Controllers
 
             result.Deals = Mapper.Map<IList<Deal>, DealItemViewModel[]>(deals);
 
-            this.eventBroker.Publish(new ApplicationLoadedEvent(2, 2, "Application loaded"), "topic://UI");
+            this.eventBroker.Publish(new ApplicationLoadedEvent(2, 2, "Application loaded"), Topics.UI);
 
             this.navigationView.Display(result);
 

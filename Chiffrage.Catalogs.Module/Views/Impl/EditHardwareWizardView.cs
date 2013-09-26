@@ -50,7 +50,7 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
                     hardware.Id,
                     this.editHardwarePage.TypedPage.HardwareName,
                     this.editHardwarePage.TypedPage.HardwareTasks);
-                this.EventBroker.Publish(command, "topic://commands");
+                this.EventBroker.Publish(command, Topics.COMMANDS);
             }
         }
 

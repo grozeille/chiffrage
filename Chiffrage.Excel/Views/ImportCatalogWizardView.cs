@@ -40,7 +40,7 @@ namespace Chiffrage.Excel.Views
         {
             if (result == DialogResult.OK)
             {
-                this.EventBroker.Publish(new RequestImportCatalogAction(this.importCatalog.TypedPage.SelectedCatalogItem), "topic://commands");
+                this.EventBroker.Publish(new RequestImportCatalogAction(this.importCatalog.TypedPage.SelectedCatalogItem), Topics.COMMANDS);
             }
         }
 
