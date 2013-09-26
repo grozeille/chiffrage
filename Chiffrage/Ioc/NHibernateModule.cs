@@ -56,12 +56,14 @@ namespace Chiffrage.App.Ioc
             {
                 d.ConnectionReleaseMode = ConnectionReleaseMode.OnClose;
                 //d.LogFormattedSql = true;
-                d.ConnectionString = string.Format("Data Source={0};Version=3;", file);
-                d.Dialect<SQLiteDialect>();
-                if(IsRunningOnMono())
-                {
-                    d.Driver<MonoSQLiteDriver>();
-                }
+                d.ConnectionString = "Server=localhost;Port=8889;Database=chiffrage_deal;Uid=chiffrage;Pwd=chiffrage;";
+                //d.ConnectionString = string.Format("Data Source={0};Version=3;", file);
+                //d.Dialect<SQLiteDialect>();
+                d.Dialect<MySQL5Dialect>();
+                //if(IsRunningOnMono())
+                //{
+                //    d.Driver<MonoSQLiteDriver>();
+                //}
                 d.SchemaAction = SchemaAutoAction.Update;
             });
             var dealMapper = new ModelMapper();
@@ -98,12 +100,14 @@ namespace Chiffrage.App.Ioc
             {
                 d.ConnectionReleaseMode = ConnectionReleaseMode.OnClose;
                 //d.LogFormattedSql = true;
-                d.ConnectionString = string.Format("Data Source={0};Version=3;", file);
-                d.Dialect<SQLiteDialect>();
-                if(IsRunningOnMono())
-                {
-                    d.Driver<MonoSQLiteDriver>();
-                }
+                d.ConnectionString = "Server=localhost;Port=8889;Database=chiffrage_catalog;Uid=chiffrage;Pwd=chiffrage;";
+                //d.ConnectionString = string.Format("Data Source={0};Version=3;", file);
+                //d.Dialect<SQLiteDialect>();
+                d.Dialect<MySQL5Dialect>();
+                //if(IsRunningOnMono())
+                //{
+                //    d.Driver<MonoSQLiteDriver>();
+                //}
                 d.SchemaAction = SchemaAutoAction.Update;
             }));
             var catalogMapper = new ModelMapper();
@@ -131,12 +135,14 @@ namespace Chiffrage.App.Ioc
             {
                 d.ConnectionReleaseMode = ConnectionReleaseMode.OnClose;
                 //d.LogFormattedSql = true;
-                d.ConnectionString = string.Format("Data Source={0};Version=3;", file);
-                d.Dialect<SQLiteDialect>();
-                if (IsRunningOnMono())
-                {
-                    d.Driver<MonoSQLiteDriver>();
-                }
+                d.ConnectionString = "Server=localhost;Port=8889;Database=chiffrage_events;Uid=chiffrage;Pwd=chiffrage;";
+                //d.ConnectionString = string.Format("Data Source={0};Version=3;", file);
+                //d.Dialect<SQLiteDialect>();
+                d.Dialect<MySQL5Dialect>();
+                //if(IsRunningOnMono())
+                //{
+                //    d.Driver<MonoSQLiteDriver>();
+                //}
                 d.SchemaAction = SchemaAutoAction.Update;
             });
             var mapper = new ModelMapper();
