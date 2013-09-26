@@ -25,6 +25,7 @@ namespace Chiffrage.Projects.Module.ViewModel
         public ProjectHardwareList(IEnumerable<ProjectHardwareViewModel> enumeration, ProjectHardwareList original)
             : base(enumeration, original)
         {
+            this.ProjectTasks = original.ProjectTasks;
         }
 
         public IList<ProjectTask> ProjectTasks { get; set; }

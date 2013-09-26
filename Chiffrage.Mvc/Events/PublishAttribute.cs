@@ -12,7 +12,7 @@ namespace Chiffrage.Mvc.Events
 
         public PublishAttribute()
         {
-            this.Topic = "topic://default";
+            this.Topic = null;
         }
     }
 }

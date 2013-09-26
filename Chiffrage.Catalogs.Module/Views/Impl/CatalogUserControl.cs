@@ -15,7 +15,6 @@ using System.Collections.Generic;
 using Chiffrage.Mvc;
 using Chiffrage.Catalogs.Module.Actions;
 using System.Text;
-using Chiffrage.Projects.Module.ViewModel;
 
 namespace Chiffrage.Catalogs.Module.Views.Impl
 {
@@ -31,13 +30,15 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
 
         private IList<DataGridViewTextBoxColumn> taskColumns = new List<DataGridViewTextBoxColumn>();
 
+        private IList<string> categories = new List<string>();
+
         public CatalogUserControl(IEventBroker eventBroker)
             : this()
         {
             this.eventBroker = eventBroker;
 
             this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonAddSupply, () =>
-                this.catalogId.HasValue ? new RequestNewSupplyAction(this.catalogId.Value) : null);
+                this.catalogId.HasValue ? new RequestNewSupplyAction(this.catalogId.Value) : null, Topics.UI);
 
             this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonRemoveSupply, () =>
                 {
@@ -82,10 +83,10 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
                     }
 
                     return null;
-                });
+                }, Topics.COMMANDS);
 
             this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonAddHardware, () =>
-               this.catalogId.HasValue ? new RequestNewHardwareAction(this.catalogId.Value) : null);
+               this.catalogId.HasValue ? new RequestNewHardwareAction(this.catalogId.Value) : null, Topics.UI);
 
             this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonRemoveHardware, () =>
             {
@@ -130,7 +131,7 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
                 }
 
                 return null;
-            });
+            }, Topics.COMMANDS);
 
             this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonAddHardwareSupply, () =>
                 {
@@ -144,7 +145,7 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
                     }
 
                     return null;
-                });
+                }, Topics.UI);
 
             this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonRemoveHardwareSupply, () =>
                 {
@@ -189,7 +190,7 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
                     }
 
                     return null;
-                });
+                }, Topics.COMMANDS);
 
             this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonImport, () =>
                 {
@@ -199,7 +200,7 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
                     }
                     
                     return null;
-                });
+                }, Topics.UI);
         }
 
         public CatalogUserControl()
@@ -245,6 +246,12 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
                     taskColumns.Add(column);
                 }
 
+                this.RefreshCategories();
+                this.toolStripTextBoxSupplyFilter.Text = "";
+                this.toolStripTextBoxHardwareFilter.Text = "";
+
+                this.ApplyHardwareFilter();
+                this.ApplySuppliesFilter();
             });
         }
 
@@ -273,12 +280,18 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
             this.InvokeIfRequired(() =>
             {
                 this.hardwares.Add(result);
+                this.ApplyHardwareFilter();
             });
         }
 
         public void AddSupply(CatalogSupplyViewModel result)
         {
-            this.InvokeIfRequired(() => this.supplies.Add(result));
+            this.InvokeIfRequired(() =>
+                                      {
+                                          this.supplies.Add(result);
+                                          this.ApplySuppliesFilter();
+                                          this.RefreshCategories();
+                                      });
         }
 
         public void AddHardwareSupply(CatalogHardwareSupplyViewModel result)
@@ -296,6 +309,8 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
                 var supply = this.supplies.Where(s => s.Id == result.Id).First();
                 var index = this.supplies.IndexOf(supply);
                 this.supplies[index] = result;
+                this.RefreshCategories();
+                this.ApplySuppliesFilter();
             });
         }
 
@@ -306,24 +321,28 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
                 var hardware = this.hardwares.Where(s => s.Id == result.Id).First();
                 var index = this.hardwares.IndexOf(hardware);
                 this.hardwares[index] = result;
+                this.ApplyHardwareFilter();
             });
         }
 
-        public void RemoveSupply(CatalogSupplyViewModel result)
+        public void RemoveSupply(int supplyId)
         {
             this.InvokeIfRequired(() =>
             {
-                var supply = this.supplies.Where(x => x.Id == result.Id).First();
+                var supply = this.supplies.Where(x => x.Id == supplyId).First();
                 this.supplies.Remove(supply);
+                this.RefreshCategories();
+                this.ApplySuppliesFilter();
             });
         }
 
-        public void RemoveHardware(CatalogHardwareViewModel result)
+        public void RemoveHardware(int hardwareId)
         {
             this.InvokeIfRequired(() =>
             {
-                var hardware = this.hardwares.Where(x => x.Id == result.Id).First();
+                var hardware = this.hardwares.Where(x => x.Id == hardwareId).First();
                 this.hardwares.Remove(hardware);
+                this.ApplyHardwareFilter();
             });
         }
 
@@ -335,6 +354,8 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
                 {
                     this.supplies.Add(item);
                 }
+                this.RefreshCategories();
+                this.ApplySuppliesFilter();
             });
         }
 
@@ -346,6 +367,7 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
                 {
                     this.hardwares.Add(item);
                 }
+                this.ApplyHardwareFilter();
             });
         }
 
@@ -354,6 +376,8 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
             this.InvokeIfRequired(() =>
             {
                 this.supplies.Clear();
+                this.RefreshCategories();
+                this.ApplySuppliesFilter();
             });
         }
 
@@ -362,6 +386,7 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
             this.InvokeIfRequired(() =>
             {
                 this.hardwares.Clear();
+                this.ApplyHardwareFilter();
             });
         }
 
@@ -376,6 +401,9 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
                     var index = this.hardwares.IndexOf(hardware);
                     this.hardwares[index] = item;
                 }
+
+                this.ApplyHardwareFilter();
+                this.ApplySuppliesFilter();
             });
         }
 
@@ -385,6 +413,19 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
         {
             this.catalogId = null;
             base.HideView();
+        }
+
+        private void RefreshCategories()
+        {
+            this.categories = this.supplies.Select(x => x.Category).Where(x => x != null).Distinct().ToList();
+            this.categories.Insert(0, "");
+            var selected = this.toolStripComboBoxCategories.SelectedItem as String;
+            this.toolStripComboBoxCategories.Items.Clear();
+            this.toolStripComboBoxCategories.Items.AddRange(this.categories.ToArray());
+            if (this.categories.Contains(selected))
+            {
+                this.toolStripComboBoxCategories.SelectedItem = selected;
+            }
         }
 
         private void dataGridViewSupplies_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -397,7 +438,7 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
             var supply = this.suppliesBindingSource[e.RowIndex] as CatalogSupplyViewModel;
             if (supply != null)
             {
-                this.eventBroker.Publish(new RequestEditSupplyAction(supply));
+                this.eventBroker.Publish(new RequestEditSupplyAction(supply), Topics.UI);
             }
         }
 
@@ -411,7 +452,7 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
             var hardware = this.hardwaresBindingSource[e.RowIndex] as CatalogHardwareViewModel;
             if (hardware != null)
             {
-                this.eventBroker.Publish(new RequestEditHardwareAction(hardware));
+                this.eventBroker.Publish(new RequestEditHardwareAction(hardware), Topics.UI);
             }
         }
 
@@ -425,7 +466,7 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
             var hardwareSupply = this.componentsBindingSource[e.RowIndex] as CatalogHardwareSupplyViewModel;
             if (hardwareSupply != null)
             {
-                this.eventBroker.Publish(new RequestEditHardwareSupplyAction(hardwareSupply.CatalogId, hardwareSupply.HardwareId, hardwareSupply.Id));
+                this.eventBroker.Publish(new RequestEditHardwareSupplyAction(hardwareSupply.CatalogId, hardwareSupply.HardwareId, hardwareSupply.Id), Topics.UI);
             }
         }
 
@@ -463,16 +504,28 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
             this.dataGridViewHardwareSupplies.SetDoubleBuffered();
         }
 
-        private void timerSupplyFilter_Tick(object sender, EventArgs e)
+        private void ApplySuppliesFilter()
         {
             var searchRegex = new Regex(string.Format(".*{0}.*", Regex.Escape(this.toolStripTextBoxSupplyFilter.Text)), RegexOptions.IgnoreCase);
             var filtered = this.supplies.Where(x =>
             {
+                var selectedCategory =
+                    this.toolStripComboBoxCategories.SelectedItem as String;
+                if (!string.IsNullOrEmpty(selectedCategory) && (x.Category == null || !x.Category.Equals(selectedCategory)))
+                {
+                    return false;
+                }
+
                 return (x.Name != null && searchRegex.IsMatch(x.Name)) ||
                     (x.Reference != null && searchRegex.IsMatch(x.Reference));
             });
             this.suppliesBindingSource.DataSource = new SortableBindingList<CatalogSupplyViewModel>(filtered, this.supplies);
             this.suppliesBindingSource.ResetBindings(false);
+        }
+
+        private void timerSupplyFilter_Tick(object sender, EventArgs e)
+        {
+            this.ApplySuppliesFilter();
             this.timerSupplyFilter.Enabled = false;
         }
 
@@ -482,7 +535,13 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
             this.timerSupplyFilter.Enabled = true;
         }
 
-        private void timerHardwareFilter_Tick(object sender, EventArgs e)
+        private void toolStripComboBoxCategories_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.timerSupplyFilter.Enabled = false;
+            this.timerSupplyFilter.Enabled = true;
+        }
+
+        private void ApplyHardwareFilter()
         {
             var searchRegex = new Regex(string.Format(".*{0}.*", Regex.Escape(this.toolStripTextBoxHardwareFilter.Text)), RegexOptions.IgnoreCase);
             var filtered = this.hardwares.Where(x =>
@@ -490,8 +549,13 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
                 return (x.Name != null && searchRegex.IsMatch(x.Name)) ||
                     (x.Reference != null && searchRegex.IsMatch(x.Reference));
             });
-            this.hardwaresBindingSource.DataSource = new SortableBindingList<CatalogHardwareViewModel>(filtered, this.hardwares);
+            this.hardwaresBindingSource.DataSource = new CatalogHardwareList(filtered, this.hardwares);
             this.hardwaresBindingSource.ResetBindings(false);
+        }
+
+        private void timerHardwareFilter_Tick(object sender, EventArgs e)
+        {
+            this.ApplyHardwareFilter();
             this.timerHardwareFilter.Enabled = false;
         }
 

@@ -7,22 +7,22 @@ using Chiffrage.Mvc.Events;
 
 namespace Chiffrage.Catalogs.Domain.Events
 {
-    public class HardwareSupplyCreatedEvent
+    public class HardwareSupplyCreatedEvent : ICatalogEvent
     {
         private readonly int catalogId;
-        private readonly Hardware hardware;
-        private readonly HardwareSupply component;
+        private readonly int hardwareId;
+        private readonly int componentId;
 
-        public HardwareSupplyCreatedEvent(int catalogId, Hardware hardware, HardwareSupply component)
+        public HardwareSupplyCreatedEvent(int catalogId, int hardwareId, int componentId)
         {
             this.catalogId = catalogId;
-            this.hardware = hardware;
-            this.component = component;
+            this.hardwareId = hardwareId;
+            this.componentId = componentId;
         }
 
-        public HardwareSupply Component
+        public int ComponentId
         {
-            get { return this.component; }
+            get { return this.componentId; }
         }
 
         public int CatalogId
@@ -30,9 +30,9 @@ namespace Chiffrage.Catalogs.Domain.Events
             get { return this.catalogId; }
         }
 
-        public Hardware Hardware
+        public int HardwareId
         {
-            get { return this.hardware; }
+            get { return this.hardwareId; }
         }
     }
 }

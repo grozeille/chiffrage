@@ -5,25 +5,25 @@ using System.Text;
 
 namespace Chiffrage.Projects.Domain.Events
 {
-    public class ProjectHardwareSupplyUpdatedEvent
+    public class ProjectHardwareSupplyUpdatedEvent : IProjectEvent
     {
         private readonly int projectId;
 
-        private readonly ProjectHardwareSupply hardwareSupply;
+        private readonly int hardwareSupplyId;
 
-        private readonly ProjectHardware hardware;
+        private readonly int hardwareId;
 
-        public ProjectHardwareSupplyUpdatedEvent(int projectId, ProjectHardware hardware, ProjectHardwareSupply hardwareSupply)
+        public ProjectHardwareSupplyUpdatedEvent(int projectId, int hardwareId, int hardwareSupplyId)
         {
             this.projectId = projectId;
-            this.hardware = hardware;
-            this.hardwareSupply = hardwareSupply;
+            this.hardwareId = hardwareId;
+            this.hardwareSupplyId = hardwareSupplyId;
         }
 
         public int ProjectId { get { return this.projectId; } }
 
-        public ProjectHardware ProjectHardware { get { return this.hardware; } }
+        public int ProjectHardwareId { get { return this.hardwareId; } }
 
-        public ProjectHardwareSupply ProjectHardwareSupply { get { return this.hardwareSupply; } }
+        public int ProjectHardwareSupplyId { get { return this.hardwareSupplyId; } }
     }
 }

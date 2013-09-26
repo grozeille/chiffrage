@@ -44,7 +44,7 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
                     newSupplyPage.TypedPage.PFC12,
                     newSupplyPage.TypedPage.PFC0,
                     newSupplyPage.TypedPage.Cap);
-                this.EventBroker.Publish(command);
+                this.EventBroker.Publish(command, Topics.COMMANDS);
             }
         }
 

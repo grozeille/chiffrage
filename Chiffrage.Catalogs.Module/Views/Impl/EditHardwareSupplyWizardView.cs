@@ -45,7 +45,7 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
                     hardwareSupply.Id,
                     this.editHardwareSupplyPage.TypedPage.Quantity,
                     this.editHardwareSupplyPage.TypedPage.Comment);
-                this.EventBroker.Publish(command);
+                this.EventBroker.Publish(command, Topics.COMMANDS);
             }
         }
 

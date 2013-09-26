@@ -44,6 +44,8 @@ namespace Chiffrage.Projects.Module.ViewModel
                 {
                     newProps.Add(new DealSummaryItemViewModelListItemDescriptor(item.Id));
                 }
+
+                newProps.Add(new DealTotalItemViewModelListItemDescriptor());
             }
 
             return new PropertyDescriptorCollection(newProps.ToArray());
@@ -105,6 +107,58 @@ namespace Chiffrage.Projects.Module.ViewModel
             public override Type ComponentType
             {
                 get { return typeof(IList<DealSummaryProjectItemViewModel>); }
+            }
+
+            public override bool ShouldSerializeValue(object component)
+            {
+                return false;
+            }
+        }
+
+        private class DealTotalItemViewModelListItemDescriptor : PropertyDescriptor
+        {
+            private static readonly Attribute[] nix = new Attribute[0];
+            
+            public DealTotalItemViewModelListItemDescriptor()
+                : base("TOTAL", nix)
+            {
+            }
+
+            public override object GetValue(object component)
+            {
+                var dealItem = (DealSummaryItemViewModel)component;
+
+                return dealItem.ProjectItems.Sum(x => x.Quantity);
+            }
+
+            public override Type PropertyType
+            {
+                get { return typeof(int); }
+            }
+
+            public override bool IsReadOnly
+            {
+                get { return true; }
+            }
+
+            public override void SetValue(object component, object value)
+            {
+                throw new NotSupportedException();
+            }
+
+            public override void ResetValue(object component)
+            {
+                throw new NotSupportedException();
+            }
+
+            public override bool CanResetValue(object component)
+            {
+                return false;
+            }
+
+            public override Type ComponentType
+            {
+                get { return typeof(IList<DealTotalItemViewModelListItemDescriptor>); }
             }
 
             public override bool ShouldSerializeValue(object component)

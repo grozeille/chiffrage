@@ -46,7 +46,7 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
             {
                 this.EventBroker.Publish(new ImportHardwareCommand(
                     this.catalogId,
-                    this.page.TypedPage.Filepath));
+                    this.page.TypedPage.Filepath), Topics.COMMANDS);
             }
         }
     }

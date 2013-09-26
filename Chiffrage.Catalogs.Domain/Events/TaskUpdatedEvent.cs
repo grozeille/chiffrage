@@ -9,13 +9,13 @@ namespace Chiffrage.Catalogs.Domain.Events
 {
     public class TaskUpdatedEvent
     {
-        private readonly Task task;
+        private readonly int taskId;
 
-        public TaskUpdatedEvent(Task task)
+        public TaskUpdatedEvent(int taskId)
         {
-            this.task = task;
+            this.taskId = taskId;
         }
 
-        public Task Task { get { return this.task; } }
+        public int TaskId { get { return this.taskId; } }
     }
 }

@@ -56,7 +56,7 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
                     editSupplyPage.TypedPage.PFC12,
                     editSupplyPage.TypedPage.PFC0,
                     editSupplyPage.TypedPage.Cap);
-                this.EventBroker.Publish(command);
+                this.EventBroker.Publish(command, Topics.COMMANDS);
             }
         }
 

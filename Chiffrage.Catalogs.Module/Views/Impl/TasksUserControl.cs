@@ -31,7 +31,7 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
         {
             this.eventBroker = eventBroker;
 
-            this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonAddSupply, () => new RequestNewTaskAction());
+            this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonAddSupply, () => new RequestNewTaskAction(), Topics.UI);
             this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonRemoveSupply, () =>
             {
                 IDictionary<int, TaskViewModel> selected = new Dictionary<int, TaskViewModel>();
@@ -72,7 +72,7 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
                 }
 
                 return null;
-            });
+            }, Topics.COMMANDS);
 
             this.dataGridViewTasks.SetDoubleBuffered();
         }

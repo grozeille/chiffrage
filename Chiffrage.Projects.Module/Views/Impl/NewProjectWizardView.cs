@@ -34,7 +34,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
         {
             if (result == DialogResult.OK)
             {
-                this.EventBroker.Publish(new CreateNewProjectCommand(parentDealId, newProjectPage.TypedPage.ProjectName));
+                this.EventBroker.Publish(new CreateNewProjectCommand(parentDealId, newProjectPage.TypedPage.ProjectName), Topics.COMMANDS);
             }
         }
 

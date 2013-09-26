@@ -72,6 +72,7 @@
     </Compile>
     <Compile Include="Cable.cs" />
     <Compile Include="Commands\UpdateTaskListCommand.cs" />
+    <Compile Include="Events\ICatalogEvent.cs" />
     <Compile Include="HardwareTask.cs" />
     <Compile Include="Commands\CopyCatalogCommand.cs" />
     <Compile Include="Commands\CreateNewHardwareSupplyCommand.cs" />

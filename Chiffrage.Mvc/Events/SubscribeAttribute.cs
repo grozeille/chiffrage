@@ -14,7 +14,7 @@ namespace Chiffrage.Mvc.Events
 
         public SubscribeAttribute()
         {
-            this.Topic = "topic://default";
+            this.Topic = null;
             this.SubscriptionMode = SubscriptionMode.Default;
         }
     }

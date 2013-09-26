@@ -29,5 +29,7 @@ namespace Chiffrage.Projects.Module.ViewModel
         public virtual int ModulesNotInFrame { get; set; }
 
         public virtual IList<ProjectTask> Tasks { get; set; }
+
+        public IList<OtherBenefit> OtherBenefits { get; set; }
     }
 }

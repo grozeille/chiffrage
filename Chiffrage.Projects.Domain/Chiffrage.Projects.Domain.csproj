@@ -60,6 +60,10 @@
     </Compile>
     <Compile Include="Commands\CloneDealCommand.cs" />
     <Compile Include="Commands\CloneProjectCommand.cs" />
+    <Compile Include="Commands\CreateNewProjectSupplyListCommand.cs" />
+    <Compile Include="Commands\ReloadProjectSupplyListCommand.cs" />
+    <Compile Include="Commands\ReloadProjectHardwareListCommand.cs" />
+    <Compile Include="Commands\CreateNewProjectHardwareListCommand.cs" />
     <Compile Include="Commands\ReloadProjectHardwareCommand.cs" />
     <Compile Include="Commands\ReloadProjectSupplyCommand.cs" />
     <Compile Include="Commands\RefreshProjectTasksCommand.cs" />
@@ -81,6 +85,12 @@
     <Compile Include="Commands\UpdateProjectHardwareCommand.cs" />
     <Compile Include="Commands\UpdateProjectHardwareSupplyCommand.cs" />
     <Compile Include="Commands\UpdateProjectSupplyCommand.cs" />
+    <Compile Include="Events\IDealEvent.cs" />
+    <Compile Include="Events\IProjectEvent.cs" />
+    <Compile Include="Events\ProjectSupplyListCreatedEvent.cs" />
+    <Compile Include="Events\ProjectSupplyListUpdatedEvent.cs" />
+    <Compile Include="Events\ProjectHardwareListUpdatedEvent.cs" />
+    <Compile Include="Events\ProjectHardwareListCreatedEvent.cs" />
     <Compile Include="ProjectTask.cs" />
     <Compile Include="Deal.cs" />
     <Compile Include="Events\ProjectDeletedEvent.cs" />

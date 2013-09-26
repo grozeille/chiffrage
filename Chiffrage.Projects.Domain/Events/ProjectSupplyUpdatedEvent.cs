@@ -6,20 +6,18 @@ using Chiffrage.Mvc.Events;
 
 namespace Chiffrage.Projects.Domain.Events
 {
-    public class ProjectSupplyUpdatedEvent
+    public class ProjectSupplyUpdatedEvent : IProjectEvent
     {
         private readonly int projectId;
+        private readonly int projectSupplyId;
 
-        private readonly ProjectSupply supply;
-
-        public ProjectSupplyUpdatedEvent(int projectId, ProjectSupply supply)
+        public ProjectSupplyUpdatedEvent(int projectId, int projectSupplyId)
         {
             this.projectId = projectId;
-            this.supply = supply;
+            this.projectSupplyId = projectSupplyId;
         }
 
         public int ProjectId { get { return this.projectId; } }
-
-        public ProjectSupply ProjectSupply { get { return this.supply; } }
+        public int ProjectSupplyId { get { return this.projectSupplyId; } }
     }
 }

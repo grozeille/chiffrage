@@ -15,5 +15,9 @@ namespace Chiffrage.Projects.Module.ViewModel
         public DateTime EndDate { get; set; }
 
         public string Comment { get; set; }
+
+        public double TotalDays { get; set; }
+
+        public double TotalPrice { get; set; }
     }
 }

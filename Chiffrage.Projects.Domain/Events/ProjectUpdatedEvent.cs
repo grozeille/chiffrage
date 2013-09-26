@@ -7,13 +7,18 @@ using Chiffrage.Projects.Domain;
 
 namespace Chiffrage.Projects.Domain.Events
 {
-    public class ProjectUpdatedEvent
+    public class ProjectUpdatedEvent: IProjectEvent
     {
-        public Project NewProject { get; private set; }
+        private readonly int projectId;
 
-        public ProjectUpdatedEvent(Project newProject)
+        public ProjectUpdatedEvent(int projectId)
         {
-            this.NewProject = newProject;
+            this.projectId = projectId;
+        }
+
+        public int ProjectId
+        {
+            get { return this.projectId; }
         }
     }
 }

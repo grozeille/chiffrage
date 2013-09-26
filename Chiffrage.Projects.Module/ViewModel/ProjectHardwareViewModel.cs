@@ -1,4 +1,5 @@
-﻿using Chiffrage.Projects.Domain;
+﻿using Chiffrage.Mvc;
+using Chiffrage.Projects.Domain;
 using System.ComponentModel;
 using System.Collections.Generic;
 
@@ -8,7 +9,7 @@ namespace Chiffrage.Projects.Module.ViewModel
     {
         public ProjectHardwareViewModel()
         {
-            this.Components = new BindingList<ProjectHardwareSupplyViewModel>();
+            this.Components = new SortableBindingList<ProjectHardwareSupplyViewModel>();
         }
 
         public int Id { get; set; }
@@ -29,7 +30,7 @@ namespace Chiffrage.Projects.Module.ViewModel
 
         public virtual double Milestone { get; set; }
 
-        public BindingList<ProjectHardwareSupplyViewModel> Components { get; set; }
+        public SortableBindingList<ProjectHardwareSupplyViewModel> Components { get; set; }
 
         public IList<ProjectHardwareTask> Tasks { get; set; }
     }

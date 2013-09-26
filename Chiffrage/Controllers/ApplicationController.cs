@@ -18,7 +18,7 @@ namespace Chiffrage.App.Controllers
             this.applicationView = applicationView;
         }
 
-        [Subscribe]
+        [Subscribe(Topic = Topics.UI)]
         public void ProcessAction(ApplicationLoadedEvent eventObject)
         {
             if (eventObject.Position == eventObject.Max)

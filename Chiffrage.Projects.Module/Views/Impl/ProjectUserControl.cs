@@ -36,6 +36,10 @@ namespace Chiffrage.Projects.Module.Views.Impl
         
         private IList<DataGridViewTextBoxColumn> taskColumns = new List<DataGridViewTextBoxColumn>();
 
+        private BindingList<OtherBenefit> otherBenefits;
+
+        private IList<string> categories = new List<string>();
+
         private IList<TextBox> dayRates = new List<TextBox>();
         private IList<TextBox> nightRates = new List<TextBox>();
         private IList<TextBox> longNightRates = new List<TextBox>();
@@ -94,29 +98,29 @@ namespace Chiffrage.Projects.Module.Views.Impl
             this.CausesValidation = true;
 
             //this.toolStripButtonAdd.Click += OnSelect;
-            this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonSupplyAdd, AddSupply);
-            this.eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemSupplyAdd, AddSupply);
+            this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonSupplyAdd, AddSupply, Topics.UI);
+            this.eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemSupplyAdd, AddSupply, Topics.UI);
 
-            this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonSupplyRemove, RemoveSupply);
-            this.eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemSupplyRemove, RemoveSupply);
+            this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonSupplyRemove, RemoveSupply, Topics.COMMANDS);
+            this.eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemSupplyRemove, RemoveSupply, Topics.COMMANDS);
 
-            this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonSupplyReload, ReloadSupply); 
-            this.eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemSupplyReload, ReloadSupply);
+            this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonSupplyReload, ReloadSupply, Topics.COMMANDS);
+            this.eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemSupplyReload, ReloadSupply, Topics.COMMANDS);
 
-            this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonHardwareAdd, AddHardware);
-            this.eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemHardwareAdd, AddHardware);
+            this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonHardwareAdd, AddHardware, Topics.UI);
+            this.eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemHardwareAdd, AddHardware, Topics.UI);
 
-            this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonHardwareRemove, RemoveHardware);
-            this.eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemHardwareRemove, RemoveHardware);
+            this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonHardwareRemove, RemoveHardware, Topics.COMMANDS);
+            this.eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemHardwareRemove, RemoveHardware, Topics.COMMANDS);
 
-            this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonHardwareReload, ReloadHardware);
-            this.eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemHardwareReload, ReloadHardware);
+            this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonHardwareReload, ReloadHardware, Topics.COMMANDS);
+            this.eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemHardwareReload, ReloadHardware, Topics.COMMANDS);
 
-            this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonAddFrame, AddFrame);
+            this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonAddFrame, AddFrame, Topics.UI);
 
-            this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonRemoveFrame,RemoveFrame);
+            this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonRemoveFrame, RemoveFrame, Topics.COMMANDS);
 
-            this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonRefreshTasks, ReloadTasks);
+            this.eventBroker.RegisterToolStripBouttonClickEventSource(this.toolStripButtonRefreshTasks, ReloadTasks, Topics.COMMANDS);
 
         }
 
@@ -135,7 +139,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
             return this.id.HasValue ? new RequestNewProjectHardwareAction(this.id.Value) : null;
         }
 
-        private IList<ReloadProjectSupplyCommand> ReloadSupply()
+        private ReloadProjectSupplyListCommand ReloadSupply()
         {
             if (this.id.HasValue)
             {
@@ -167,16 +171,18 @@ namespace Chiffrage.Projects.Module.Views.Impl
                         MessageBox.Show(
                             "Êtes-vous sûr de vouloir recharger les valeurs du catalogue pour les fournitures: \n" +
                             builder.ToString(), "Recharger?", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
-                    var commands = new List<ReloadProjectSupplyCommand>();
+                    
                     if (result == DialogResult.OK)
                     {
+                        var commands = new List<ReloadProjectSupplyCommand>();
                         foreach (var item in selectedList)
                         {
                             commands.Add(new ReloadProjectSupplyCommand(this.id.Value, item.Id));
                         }
+                        return new ReloadProjectSupplyListCommand(commands);
                     }
 
-                    return commands;
+                    return null;
                 }
             }
 
@@ -314,7 +320,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
             return null;
         }
 
-        private IList<ReloadProjectHardwareCommand> ReloadHardware()
+        private ReloadProjectHardwareListCommand ReloadHardware()
         {
             if (this.id.HasValue)
             {
@@ -344,16 +350,18 @@ namespace Chiffrage.Projects.Module.Views.Impl
 
                     var result = MessageBox.Show("Êtes-vous sûr de vouloir recharger les valeurs du catalogue pour les matériels: \n" + builder.ToString(),
                                                  "Supprimer?", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
-                    var commands = new List<ReloadProjectHardwareCommand>();
+                    
                     if (result == DialogResult.OK)
                     {
+                        var commands = new List<ReloadProjectHardwareCommand>();
                         foreach (var item in selectedList)
                         {
                             commands.Add(new ReloadProjectHardwareCommand(this.id.Value, item.Id));
                         }
+                        return new ReloadProjectHardwareListCommand(commands);
                     }
 
-                    return commands;
+                    return null;
                 }
             }
 
@@ -414,20 +422,19 @@ namespace Chiffrage.Projects.Module.Views.Impl
         }
         #endregion
 
-        public void Save()
+        public ProjectViewModel GetProjectViewModel()
         {
-            this.InvokeIfRequired(() =>
+            return this.InvokeIfRequired(() =>
             {
                 if (!this.id.HasValue)
                 {
-                    return;
+                    return null;
                 }
-
 
                 this.errorProvider.Clear();
                 if (!this.Validate())
                 {
-                    return;
+                    return null;
                 }
 
                 this.commentUserControl.Validate();
@@ -466,19 +473,22 @@ namespace Chiffrage.Projects.Module.Views.Impl
                 }
                 if (error)
                 {
-                    return;
+                    return null;
                 }
 
-                var command = new UpdateProjectCommand(
-                    this.id.Value,
-                    this.textBoxProjectName.Text,
-                    this.commentUserControl.Rtf,
-                    this.textBoxReference.Text,
-                    this.dateTimePickerProjectBegin.Value,
-                    this.dateTimePickerProjectEnd.Value,
-                    projectTasks);
+                ProjectViewModel viewModel = new ProjectViewModel
+                                                 {
+                                                     Id = this.id.Value,
+                                                     Name = this.textBoxProjectName.Text,
+                                                     Comment = this.commentUserControl.Rtf,
+                                                     Reference = this.textBoxReference.Text,
+                                                     StartDate = this.dateTimePickerProjectBegin.Value,
+                                                     EndDate = this.dateTimePickerProjectEnd.Value,
+                                                     Tasks = new List<ProjectTask>(projectTasks),
+                                                     OtherBenefits = new List<OtherBenefit>(otherBenefits)
+                                                 };
 
-                this.eventBroker.Publish(command);
+                return viewModel;
             });
         }
 
@@ -492,7 +502,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
             var supply = this.projectSupplyViewModelBindingSource[e.RowIndex] as ProjectSupplyViewModel;
             if (supply != null)
             {
-                this.eventBroker.Publish(new RequestEditProjectSupplyAction(supply));
+                this.eventBroker.Publish(new RequestEditProjectSupplyAction(supply), Topics.UI);
             }
         }
 
@@ -501,7 +511,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
             var hardware = this.projectHardwareViewModelBindingSource[e.RowIndex] as ProjectHardwareViewModel;
             if (hardware != null)
             {
-                this.eventBroker.Publish(new RequestEditProjectHardwareAction(hardware));
+                this.eventBroker.Publish(new RequestEditProjectHardwareAction(hardware), Topics.UI);
             }
         }
 
@@ -535,8 +545,8 @@ namespace Chiffrage.Projects.Module.Views.Impl
                     this.dateTimePickerProjectEnd.Value = viewModel.EndDate;
                     this.dateTimePickerProjectEnd.Value = viewModel.EndDate;
 
-                    this.textBoxTotalDays.Text = string.Format("{0} h", viewModel.TotalDays.ToString(CultureInfo.InvariantCulture));
-                    this.textBoxTotalPrice.Text = string.Format("{0} €", viewModel.TotalPrice.ToString(CultureInfo.InvariantCulture));
+                    this.textBoxTotalDays.Text = string.Format(CultureInfo.InvariantCulture, "{0:0.##} h", viewModel.TotalDays);
+                    this.textBoxTotalPrice.Text = string.Format(CultureInfo.InvariantCulture, "{0:0.##} €", viewModel.TotalPrice);
                     
                     this.textBoxTotalModules.Text = viewModel.TotalModules.ToString(CultureInfo.InvariantCulture);
                     this.textBoxModulesNotInFrame.Text = viewModel.ModulesNotInFrame.ToString(CultureInfo.InvariantCulture);
@@ -545,6 +555,10 @@ namespace Chiffrage.Projects.Module.Views.Impl
                     if (viewModel.Comment == null || !(viewModel.Comment.StartsWith("{\\rtf") && viewModel.Comment.EndsWith("}")))
                         viewModel.Comment = "{\\rtf" + viewModel.Comment + "}";
                     this.commentUserControl.Rtf = viewModel.Comment;
+
+                    this.otherBenefits = new BindingList<OtherBenefit>(viewModel.OtherBenefits);
+                    this.otherBenefitBindingSource.DataSource = otherBenefits;
+                    this.otherBenefitBindingSource.ResetBindings(false);
                 }
 
 
@@ -640,13 +654,25 @@ namespace Chiffrage.Projects.Module.Views.Impl
                     this.tableLayoutPanelTasks.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100f));
                 }
 
+                this.RefreshCategories();
+                this.toolStripTextBoxHardwareFilter.Text = "";
+                this.toolStripTextBoxSupplyFilter.Text = "";
+
+                this.ApplyHardwareFilter();
+                this.ApplySupplyFilter();
+
                 this.tableLayoutPanelTasks.ResumeLayout(true);
             });
         }
 
         public void AddSupply(ProjectSupplyViewModel viewModel)
         {
-            this.InvokeIfRequired(() => supplies.Add(viewModel));
+            this.InvokeIfRequired(() =>
+                                      {
+                                          this.supplies.Add(viewModel);
+                                          this.RefreshCategories();
+                                          this.ApplySupplyFilter();
+                                      });
         }
 
         public void RemoveAllSupplies()
@@ -656,6 +682,8 @@ namespace Chiffrage.Projects.Module.Views.Impl
                 this.projectSupplyViewModelBindingSource.SuspendBinding();
                 this.supplies.Clear();
                 this.projectSupplyViewModelBindingSource.ResumeBinding();
+                this.RefreshCategories();
+                this.ApplySupplyFilter();
             });
         }
 
@@ -669,15 +697,19 @@ namespace Chiffrage.Projects.Module.Views.Impl
                     this.supplies.Add(item);
                 }
                 this.projectSupplyViewModelBindingSource.ResumeBinding();
+                this.RefreshCategories();
+                this.ApplySupplyFilter();
             });
         }
 
-        public void RemoveSupply(ProjectSupplyViewModel supply)
+        public void RemoveSupply(int supplyId)
         {
             this.InvokeIfRequired(() =>
             {
-                var item = this.supplies.Where(x => x.Id == supply.Id).First();
+                var item = this.supplies.Where(x => x.Id == supplyId).First();
                 this.supplies.Remove(item);
+                this.RefreshCategories();
+                this.ApplySupplyFilter();
             });
         }
         
@@ -693,6 +725,8 @@ namespace Chiffrage.Projects.Module.Views.Impl
                         this.supplies.Add(item);
                     }
                 }
+                this.RefreshCategories();
+                this.ApplySupplyFilter();
             });
         }
 
@@ -703,6 +737,8 @@ namespace Chiffrage.Projects.Module.Views.Impl
                 var s = this.supplies.Where(x => x.Id == supply.Id).First();
                 var index = this.supplies.IndexOf(s);
                 this.supplies[index] = supply;
+                this.RefreshCategories();
+                this.ApplySupplyFilter();
             });
         }
 
@@ -718,6 +754,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
                             this.hardwares.Add(item);
                         }
                     }
+                    this.ApplyHardwareFilter();
                 });
         }
         
@@ -726,15 +763,17 @@ namespace Chiffrage.Projects.Module.Views.Impl
             this.InvokeIfRequired(() =>
                 {
                     hardwares.Add(viewModel);
+                    this.ApplyHardwareFilter();
                 });
         }
 
-        public void RemoveHardware(ProjectHardwareViewModel hardware)
+        public void RemoveHardware(int hardwareId)
         {
             this.InvokeIfRequired(() =>
             {
-                var item = this.hardwares.Where(x => x.Id == hardware.Id).First();
+                var item = this.hardwares.Where(x => x.Id == hardwareId).First();
                 this.hardwares.Remove(item);
+                this.ApplyHardwareFilter();
             });
         }
 
@@ -745,6 +784,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
                 var h = this.hardwares.Where(x => x.Id == hardware.Id).First();
                 var index = this.hardwares.IndexOf(h);
                 this.hardwares[index] = hardware;
+                this.ApplyHardwareFilter();
             });
         }
 
@@ -782,11 +822,11 @@ namespace Chiffrage.Projects.Module.Views.Impl
             });
         }
 
-        public void RemoveFrame(ProjectFrameViewModel frame)
+        public void RemoveFrame(int frameId)
         {
             this.InvokeIfRequired(() =>
             {
-                var item = this.frames.Where(x => x.Id == frame.Id).First();
+                var item = this.frames.Where(x => x.Id == frameId).First();
                 this.frames.Remove(item);
             });
         }
@@ -821,12 +861,25 @@ namespace Chiffrage.Projects.Module.Views.Impl
             this.dataGridViewSummary.SetDoubleBuffered();
         }
 
+        private void RefreshCategories()
+        {
+            this.categories = this.supplies.Select(x => x.Category).Where(x => x != null).Distinct().ToList();
+            this.categories.Insert(0, "");
+            var selected = this.toolStripComboBoxCategories.SelectedItem as String;
+            this.toolStripComboBoxCategories.Items.Clear();
+            this.toolStripComboBoxCategories.Items.AddRange(this.categories.ToArray());
+            if (this.categories.Contains(selected))
+            {
+                this.toolStripComboBoxCategories.SelectedItem = selected;
+            }
+        }
+
         private void dataGridViewHardwareSupplies_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             var hardwareSupply = this.componentsBindingSource[e.RowIndex] as ProjectHardwareSupplyViewModel;
             if (hardwareSupply != null)
             {
-                this.eventBroker.Publish(new RequestEditProjectHardwareSupplyAction(hardwareSupply));
+                this.eventBroker.Publish(new RequestEditProjectHardwareSupplyAction(hardwareSupply), Topics.UI);
             }
         }
 
@@ -878,16 +931,28 @@ namespace Chiffrage.Projects.Module.Views.Impl
             });
         }
 
-        private void timerSupplyFilter_Tick(object sender, EventArgs e)
+        private void ApplySupplyFilter()
         {
             var searchRegex = new Regex(string.Format(".*{0}.*", Regex.Escape(this.toolStripTextBoxSupplyFilter.Text)), RegexOptions.IgnoreCase);
             var filtered = this.supplies.Where(x =>
             {
+                var selectedCategory =
+                    this.toolStripComboBoxCategories.SelectedItem as String;
+                if (!string.IsNullOrEmpty(selectedCategory) && (x.Category == null || !x.Category.Equals(selectedCategory)))
+                {
+                    return false;
+                }
+
                 return (x.Name != null && searchRegex.IsMatch(x.Name)) ||
                     (x.Reference != null && searchRegex.IsMatch(x.Reference));
             });
             this.projectSupplyViewModelBindingSource.DataSource = new SortableBindingList<ProjectSupplyViewModel>(filtered, this.supplies);
             this.projectSupplyViewModelBindingSource.ResetBindings(false);
+        }
+
+        private void timerSupplyFilter_Tick(object sender, EventArgs e)
+        {
+            this.ApplySupplyFilter();
             this.timerSupplyFilter.Enabled = false;
         }
 
@@ -903,7 +968,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
             this.timerHardwareFilter.Enabled = true;
         }
 
-        private void timerHardwareFilter_Tick(object sender, EventArgs e)
+        private void ApplyHardwareFilter()
         {
             var searchRegex = new Regex(string.Format(".*{0}.*", Regex.Escape(this.toolStripTextBoxHardwareFilter.Text)), RegexOptions.IgnoreCase);
             var filtered = this.hardwares.Where(x =>
@@ -912,6 +977,11 @@ namespace Chiffrage.Projects.Module.Views.Impl
             });
             this.projectHardwareViewModelBindingSource.DataSource = new ProjectHardwareList(filtered, this.hardwares);
             this.projectHardwareViewModelBindingSource.ResetBindings(false);
+        }
+
+        private void timerHardwareFilter_Tick(object sender, EventArgs e)
+        {
+            this.ApplyHardwareFilter();
             this.timerHardwareFilter.Enabled = false;
         }
     }

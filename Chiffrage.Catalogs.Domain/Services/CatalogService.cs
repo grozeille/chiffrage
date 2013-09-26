@@ -15,6 +15,7 @@ using OfficeOpenXml;
 
 namespace Chiffrage.Catalogs.Domain.Services
 {
+    [Topic(Topics.COMMANDS)]
     public class CatalogService : IService
     {
         private readonly IEventBroker eventBroker;
@@ -36,7 +37,7 @@ namespace Chiffrage.Catalogs.Domain.Services
 
             this.repository.Save(catalog);
 
-            this.eventBroker.Publish(new CatalogCreatedEvent(catalog));
+            this.eventBroker.Publish(new CatalogCreatedEvent(catalog.Id), Topics.EVENTS);
         }
 
         [Subscribe]
@@ -48,7 +49,7 @@ namespace Chiffrage.Catalogs.Domain.Services
 
             this.repository.Save(catalog);
 
-            this.eventBroker.Publish(new CatalogUpdatedEvent(catalog));
+            this.eventBroker.Publish(new CatalogUpdatedEvent(catalog.Id), Topics.EVENTS);
         }
 
         [Subscribe]
@@ -63,15 +64,18 @@ namespace Chiffrage.Catalogs.Domain.Services
             // supply name must be unique
             if (catalog.Supplies.Where(x => x.Name.Equals(eventObject.Name, System.StringComparison.OrdinalIgnoreCase)).Any())
             {
-                this.eventBroker.Publish(new SupplyMustBeUniqueErrorEvent(catalog.Id, supply));
+                this.eventBroker.Publish(new SupplyMustBeUniqueErrorEvent(catalog.Id, supply.Id), Topics.EVENTS);
             }
             else
             {
                 catalog.Supplies.Add(supply);
 
-                this.repository.Save(catalog);
+                var index = catalog.Supplies.IndexOf(supply);
 
-                this.eventBroker.Publish(new SupplyCreatedEvent(catalog.Id, supply));
+                this.repository.Save(catalog);
+                supply = catalog.Supplies[index];
+
+                this.eventBroker.Publish(new SupplyCreatedEvent(catalog.Id, supply.Id), Topics.EVENTS);
             }
         }
 
@@ -88,7 +92,7 @@ namespace Chiffrage.Catalogs.Domain.Services
 
             this.repository.Save(catalog);
 
-            this.eventBroker.Publish(new SupplyUpdatedEvent(catalog.Id, supply));
+            this.eventBroker.Publish(new SupplyUpdatedEvent(catalog.Id, supply.Id), Topics.EVENTS);
         }
 
         [Subscribe]
@@ -104,7 +108,7 @@ namespace Chiffrage.Catalogs.Domain.Services
 
                 this.repository.Save(catalog);
 
-                this.eventBroker.Publish(new SupplyDeletedEvent(catalog.Id, supply));
+                this.eventBroker.Publish(new SupplyDeletedEvent(catalog.Id, supply.Id), Topics.EVENTS);
             }
         }
 
@@ -120,15 +124,17 @@ namespace Chiffrage.Catalogs.Domain.Services
             // hardware name must be unique
             if (catalog.Hardwares.Where(x => x.Name.Equals(hardware.Name, System.StringComparison.OrdinalIgnoreCase)).Any())
             {
-                this.eventBroker.Publish(new HardwareMustBeUniqueErrorEvent(catalog.Id, hardware));
+                this.eventBroker.Publish(new HardwareMustBeUniqueErrorEvent(catalog.Id, hardware.Id), Topics.EVENTS);
             }
             else
             {
                 catalog.Hardwares.Add(hardware);
+                var index = catalog.Hardwares.IndexOf(hardware);
 
                 this.repository.Save(catalog);
+                hardware = catalog.Hardwares[index];
 
-                this.eventBroker.Publish(new HardwareCreatedEvent(catalog.Id, hardware));
+                this.eventBroker.Publish(new HardwareCreatedEvent(catalog.Id, hardware.Id), Topics.EVENTS);
             }
         }
 
@@ -145,7 +151,7 @@ namespace Chiffrage.Catalogs.Domain.Services
 
             this.repository.Save(catalog);
 
-            this.eventBroker.Publish(new HardwareUpdatedEvent(catalog.Id, hardware));
+            this.eventBroker.Publish(new HardwareUpdatedEvent(catalog.Id, hardware.Id), Topics.EVENTS);
         }
 
         [Subscribe]
@@ -161,7 +167,7 @@ namespace Chiffrage.Catalogs.Domain.Services
 
                 this.repository.Save(catalog);
 
-                this.eventBroker.Publish(new HardwareDeletedEvent(catalog.Id, hardware));
+                this.eventBroker.Publish(new HardwareDeletedEvent(catalog.Id, hardware.Id), Topics.EVENTS);
             }
         }
 
@@ -182,15 +188,17 @@ namespace Chiffrage.Catalogs.Domain.Services
             // supply name must be unique in hardaware components
             if (hardware.Components.Where(x => x.Id == supply.Id).Any())
             {
-                this.eventBroker.Publish(new HardwareSupplyMustBeUniqueErrorEvent(catalog.Id, hardware.Id, supply));
+                this.eventBroker.Publish(new HardwareSupplyMustBeUniqueErrorEvent(catalog.Id, hardware.Id, supply.Id), Topics.EVENTS);
             }
             else
             {
                 hardware.Components.Add(hardwareSupply);
+                var index = hardware.Components.IndexOf(hardwareSupply);
 
                 this.repository.Save(catalog);
+                hardwareSupply = hardware.Components[index];
 
-                this.eventBroker.Publish(new HardwareSupplyCreatedEvent(catalog.Id, hardware, hardwareSupply));
+                this.eventBroker.Publish(new HardwareSupplyCreatedEvent(catalog.Id, hardware.Id, hardwareSupply.Id), Topics.EVENTS);
             }
         }
 
@@ -205,7 +213,7 @@ namespace Chiffrage.Catalogs.Domain.Services
 
             this.repository.Save(catalog);
 
-            this.eventBroker.Publish(new HardwareSupplyDeletedEvent(catalog.Id, hardware, hardwareSupply));
+            this.eventBroker.Publish(new HardwareSupplyDeletedEvent(catalog.Id, hardware.Id, hardwareSupply.Id), Topics.EVENTS);
         }
 
         [Subscribe]
@@ -220,7 +228,7 @@ namespace Chiffrage.Catalogs.Domain.Services
 
             this.repository.Save(catalog);
 
-            this.eventBroker.Publish(new HardwareSupplyUpdatedEvent(catalog.Id, hardware, hardwareSupply));
+            this.eventBroker.Publish(new HardwareSupplyUpdatedEvent(catalog.Id, hardware.Id, hardwareSupply.Id), Topics.EVENTS);
         }
 
         [Subscribe]
@@ -358,12 +366,12 @@ namespace Chiffrage.Catalogs.Domain.Services
 
             foreach (var item in newSupplies)
             {
-                this.eventBroker.Publish(new SupplyCreatedEvent(catalog.Id, item));
+                this.eventBroker.Publish(new SupplyCreatedEvent(catalog.Id, item.Id), Topics.EVENTS);
             }
 
             foreach (var item in newHardwares)
             {
-                this.eventBroker.Publish(new HardwareCreatedEvent(catalog.Id, item));
+                this.eventBroker.Publish(new HardwareCreatedEvent(catalog.Id, item.Id), Topics.EVENTS);
             }
         }
 
@@ -429,7 +437,7 @@ namespace Chiffrage.Catalogs.Domain.Services
 
             this.repository.Save(cloneCatalog);
 
-            this.eventBroker.Publish(new CatalogCreatedEvent(cloneCatalog));
+            this.eventBroker.Publish(new CatalogCreatedEvent(cloneCatalog.Id), Topics.EVENTS);
         }
 
         [Subscribe]
@@ -439,7 +447,7 @@ namespace Chiffrage.Catalogs.Domain.Services
 
             this.repository.Delete(catalog);
 
-            this.eventBroker.Publish(new CatalogDeletedEvent(catalog.Id));
+            this.eventBroker.Publish(new CatalogDeletedEvent(catalog.Id), Topics.EVENTS);
         }
 
         private Supply FindOrCreateSupply(CsvLine line, IEnumerable<Supply> suppliesToFind, IList<Supply> suppliesToAdd)

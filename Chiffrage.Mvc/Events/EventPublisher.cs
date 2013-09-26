@@ -9,14 +9,17 @@ namespace Chiffrage.Mvc.Events
     {
         private IEventBroker eventBroker;
 
-        public EventPublisher(IEventBroker eventBroker)
+        private string topic;
+
+        public EventPublisher(IEventBroker eventBroker, string topic)
         {
             this.eventBroker = eventBroker;
+            this.topic = topic;
         }
 
         public void Publish(T message)
         {
-            this.eventBroker.Publish(message);
+            this.eventBroker.Publish(message, topic);
         }
     }
 }

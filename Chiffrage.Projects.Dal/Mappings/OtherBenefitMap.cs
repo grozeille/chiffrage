@@ -13,7 +13,7 @@ namespace Chiffrage.Projects.Dal.Mappings
                 y.Generator(Generators.Identity);
             });
             Property(x => x.Name);
-            Property(x => x.Days);
+            Property(x => x.Hours);
             Property(x => x.CostRate);
         }
     }

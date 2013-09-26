@@ -17,6 +17,7 @@ using Chiffrage.Catalogs.Domain.Events;
 
 namespace Chiffrage.Catalogs.Module.Controllers
 {
+    [Topic(Topics.UI)]
     public class TaskController : IController
     {
         private readonly ITaskRepository taskRepository;
@@ -33,15 +34,16 @@ namespace Chiffrage.Catalogs.Module.Controllers
             this.tasksView = tasksView;
         }
 
-        [Publish]
+        [Publish(Topic = Topics.COMMANDS)]
         public event Action<UpdateTaskCommand> OnTaskUpdateCommand;
 
-        [Publish]
+        [Publish(Topic = Topics.COMMANDS)]
         public event Action<UpdateTaskListCommand> OnTaskUpdateListCommand;
 
-        [Publish]
+        [Publish(Topic = Topics.COMMANDS)]
         public event Action<CreateNewTaskCommand> OnCreateNewTaskCommand;
 
+        #region actions
         [Subscribe]
         public void ProcessAction(TasksSelectedAction eventObject)
         {
@@ -66,29 +68,6 @@ namespace Chiffrage.Catalogs.Module.Controllers
             this.ProcessAction(new SaveAction());
             this.tasksView.DisplayTasks(null, null, null);
             this.tasksView.HideView();
-        }
-
-        private void DisplayTasks()
-        {
-            var tasks = this.taskRepository.FindAll();
-            var tasksViewModel = new List<TaskViewModel>();
-            foreach (var t in tasks)
-            {
-                tasksViewModel.Add(this.Convert(t));
-            }
-
-            var ordered = tasksViewModel.OrderBy(x => x.OrderId);
-            int cpt = 0;
-            foreach (var item in tasks)
-            {
-                item.OrderId = cpt;
-                cpt++;
-            }
-
-            this.tasksView.DisplayTasks(
-                tasksViewModel, 
-                new String[]{ ViewModelTypeDay, ViewModelTypeDayAndNight},
-                new String[]{ TaskCategoryConsts.STUDY, TaskCategoryConsts.WORK, TaskCategoryConsts.TEST});
         }
 
         [Subscribe]
@@ -124,23 +103,51 @@ namespace Chiffrage.Catalogs.Module.Controllers
 
             this.OnTaskUpdateListCommand(new UpdateTaskListCommand(commands));
         }
+        #endregion
 
-        [Subscribe]
+        #region events
+        [Subscribe(Topic = Topics.EVENTS)]
         public void ProcessAction(TaskCreatedEvent eventObject)
         {
-            this.tasksView.AddTask(this.Convert(eventObject.Task));
+            var task = this.taskRepository.FindById(eventObject.TaskId);
+            this.tasksView.AddTask(this.Convert(task));
         }
 
-        [Subscribe]
+        [Subscribe(Topic = Topics.EVENTS)]
         public void ProcessAction(TaskDeletedEvent eventObject)
         {
             this.tasksView.DeleteTask(eventObject.TaskId);
         }
 
-        [Subscribe]
+        [Subscribe(Topic = Topics.EVENTS)]
         public void ProcessAction(TaskUpdatedEvent eventObject)
         {
-            this.tasksView.UpdateTask(this.Convert(eventObject.Task));
+            var task = this.taskRepository.FindById(eventObject.TaskId);
+            this.tasksView.UpdateTask(this.Convert(task));
+        }
+        #endregion
+
+        private void DisplayTasks()
+        {
+            var tasks = this.taskRepository.FindAll();
+            var tasksViewModel = new List<TaskViewModel>();
+            foreach (var t in tasks)
+            {
+                tasksViewModel.Add(this.Convert(t));
+            }
+
+            var ordered = tasksViewModel.OrderBy(x => x.OrderId);
+            int cpt = 0;
+            foreach (var item in tasks)
+            {
+                item.OrderId = cpt;
+                cpt++;
+            }
+
+            this.tasksView.DisplayTasks(
+                tasksViewModel,
+                new String[] { ViewModelTypeDay, ViewModelTypeDayAndNight },
+                new String[] { TaskCategoryConsts.STUDY, TaskCategoryConsts.WORK, TaskCategoryConsts.TEST });
         }
 
         private TaskViewModel Convert(Task task)

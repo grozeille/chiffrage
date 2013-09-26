@@ -13,6 +13,7 @@ using Chiffrage.Catalogs.Domain;
 
 namespace Chiffrage.Projects.Domain.Services
 {
+    [Topic(Topics.COMMANDS)]
     public class ProjectService : IService
     {
         private readonly IEventBroker eventBroker;
@@ -43,7 +44,7 @@ namespace Chiffrage.Projects.Domain.Services
 
             this.dealRepository.Save(newDeal);
 
-            this.eventBroker.Publish(new DealCreatedEvent(newDeal));
+            this.eventBroker.Publish(new DealCreatedEvent(newDeal.Id), Topics.EVENTS);
         }
 
         [Subscribe]
@@ -57,7 +58,7 @@ namespace Chiffrage.Projects.Domain.Services
 
             this.dealRepository.Save(deal);
 
-            this.eventBroker.Publish(new DealUpdatedEvent(deal));
+            this.eventBroker.Publish(new DealUpdatedEvent(deal.Id), Topics.EVENTS);
         }
 
         [Subscribe]
@@ -71,7 +72,7 @@ namespace Chiffrage.Projects.Domain.Services
 
             this.projectRepository.Save(project);
 
-            this.eventBroker.Publish(new ProjectUpdatedEvent(project));
+            this.eventBroker.Publish(new ProjectUpdatedEvent(project.Id), Topics.EVENTS);
         }
 
         [Subscribe]
@@ -98,7 +99,7 @@ namespace Chiffrage.Projects.Domain.Services
             deal.Projects.Add(newProject);
             this.dealRepository.Save(deal);
 
-            this.eventBroker.Publish(new ProjectCreatedEvent(deal, newProject));
+            this.eventBroker.Publish(new ProjectCreatedEvent(deal.Id, newProject.Id), Topics.EVENTS);
         }
 
         [Subscribe]
@@ -111,9 +112,51 @@ namespace Chiffrage.Projects.Domain.Services
             var projectSupply = MapProjectSupply(supply, new ProjectSupply(), eventObject.Quantity, catalog);
             project.Supplies.Add(projectSupply);
 
+            var index = project.Supplies.IndexOf(projectSupply);
+            
             this.projectRepository.Save(project);
+            projectSupply = project.Supplies[index];
 
-            this.eventBroker.Publish(new ProjectSupplyCreatedEvent(project.Id, projectSupply));
+            this.eventBroker.Publish(new ProjectSupplyCreatedEvent(project.Id, projectSupply.Id), Topics.EVENTS);
+        }
+
+        [Subscribe]
+        public void ProcessAction(CreateNewProjectSupplyListCommand eventObject)
+        {
+            var projects = new List<Project>();
+            var supplies = new Dictionary<ProjectSupply, int>();
+            foreach (var groupByProject in eventObject.Commands.GroupBy(x => x.ProjectId))
+            {
+                var project = this.projectRepository.FindById(groupByProject.Key);
+                foreach(var groupByCatalog in groupByProject.GroupBy(x => x.CatalogId))
+                {
+                    var catalog = this.catalogRepository.FindById(groupByCatalog.Key);
+                    foreach (var item in groupByCatalog)
+                    {
+                        var supply = catalog.Supplies.Where(x => x.Id == item.SupplyId).First();
+
+                        var projectSupply = MapProjectSupply(supply, new ProjectSupply(), item.Quantity, catalog);
+                        project.Supplies.Add(projectSupply);
+
+                        projects.Add(project);
+                        supplies.Add(projectSupply, project.Id);
+                    }
+                }
+            }
+
+            foreach(var item in projects)
+            {
+                this.projectRepository.Save(item);
+            }
+
+            var commandList = new List<ProjectSupplyCreatedEvent>();
+            foreach(var item in supplies)
+            {
+                // TODO get the id of the supply
+                commandList.Add(new ProjectSupplyCreatedEvent(item.Value, item.Key.Id));
+            }
+
+            this.eventBroker.Publish(new ProjectSupplyListCreatedEvent(commandList), Topics.EVENTS);
         }
 
         private static ProjectSupply MapProjectSupply(Supply supply, ProjectSupply projectSupply, int quantity,
@@ -140,9 +183,49 @@ namespace Chiffrage.Projects.Domain.Services
 
             this.projectRepository.Save(project);
 
-            this.eventBroker.Publish(new ProjectSupplyDeletedEvent(project.Id, supply));
+            this.eventBroker.Publish(new ProjectSupplyDeletedEvent(project.Id, supply.Id), Topics.EVENTS);
         }
         
+        [Subscribe]
+        public void ProcessAction(CreateNewProjectHardwareListCommand eventObject)
+        {
+            var projects = new List<Project>();
+            var hardwares = new Dictionary<ProjectHardware, int>();
+            foreach (var groupByProject in eventObject.Commands.GroupBy(x => x.ProjectId))
+            {
+                var project = this.projectRepository.FindById(groupByProject.Key);
+                foreach(var groupByCatalog in groupByProject.GroupBy(x => x.CatalogId))
+                {
+                    var catalog = this.catalogRepository.FindById(groupByCatalog.Key);
+                    foreach(var item in groupByCatalog)
+                    {
+                        var hardware = catalog.Hardwares.Where(x => x.Id == item.HardwareId).First();
+                    
+                        var projectHardware = MapProjectHardware(project, hardware, new ProjectHardware(), catalog);
+
+                        project.Hardwares.Add(projectHardware);
+
+                        projects.Add(project);
+                        hardwares.Add(projectHardware, project.Id);
+                    }
+                }
+            }
+
+            foreach(var item in projects)
+            {
+                this.projectRepository.Save(item);
+            }
+
+            var commandList = new List<ProjectHardwareCreatedEvent>();
+            foreach(var item in hardwares)
+            {
+                // TODO: get the id of the new hardware
+                commandList.Add(new ProjectHardwareCreatedEvent(item.Value, item.Key.Id));
+            }
+
+            this.eventBroker.Publish(new ProjectHardwareListCreatedEvent(commandList), Topics.EVENTS);
+        }
+
         [Subscribe]
         public void ProcessAction(CreateNewProjectHardwareCommand eventObject)
         {
@@ -153,16 +236,19 @@ namespace Chiffrage.Projects.Domain.Services
             var projectHardware = MapProjectHardware(project, hardware, new ProjectHardware(),  catalog);
 
             project.Hardwares.Add(projectHardware);
+            int index = project.Hardwares.IndexOf(projectHardware);
 
             this.projectRepository.Save(project);
+            projectHardware = project.Hardwares[index];
 
-            this.eventBroker.Publish(new ProjectHardwareCreatedEvent(project.Id, projectHardware));
+            this.eventBroker.Publish(new ProjectHardwareCreatedEvent(project.Id, projectHardware.Id), Topics.EVENTS);
         }
 
         private ProjectHardware MapProjectHardware(Project project, Hardware hardware, ProjectHardware projectHardware, SupplierCatalog catalog)
         {
             Mapper.CreateMap<Supply, ProjectSupply>()
                 .ForMember(x => x.SupplyId, y => y.MapFrom(z => z.Id))
+                .ForMember(x => x.Price, y => y.MapFrom(z => z.CatalogPrice))
                 .ForMember(x => x.Id, y => y.Ignore());
             Mapper.CreateMap<HardwareSupply, ProjectHardwareSupply>()
                 .ForMember(x => x.HardwareSupplyId, y => y.MapFrom(z => z.Id))
@@ -236,7 +322,7 @@ namespace Chiffrage.Projects.Domain.Services
 
             this.projectRepository.Save(project);
 
-            this.eventBroker.Publish(new ProjectHardwareDeletedEvent(project.Id, hardware));
+            this.eventBroker.Publish(new ProjectHardwareDeletedEvent(project.Id, hardware.Id), Topics.EVENTS);
         }
 
         [Subscribe]
@@ -249,9 +335,13 @@ namespace Chiffrage.Projects.Domain.Services
 
             project.Frames.Add(projectFrame);
 
+            int index = project.Frames.IndexOf(projectFrame);
+
             this.projectRepository.Save(project);
 
-            this.eventBroker.Publish(new ProjectFrameCreatedEvent(project.Id, projectFrame));
+            projectFrame = project.Frames[index];
+
+            this.eventBroker.Publish(new ProjectFrameCreatedEvent(project.Id, projectFrame.Id), Topics.EVENTS);
         }
 
         [Subscribe]
@@ -264,7 +354,7 @@ namespace Chiffrage.Projects.Domain.Services
 
             this.projectRepository.Save(project);
 
-            this.eventBroker.Publish(new ProjectFrameDeletedEvent(project.Id, frame));
+            this.eventBroker.Publish(new ProjectFrameDeletedEvent(project.Id, frame.Id), Topics.EVENTS);
         }
 
         [Subscribe]
@@ -279,7 +369,7 @@ namespace Chiffrage.Projects.Domain.Services
 
             this.projectRepository.Save(project);
 
-            this.eventBroker.Publish(new ProjectSupplyUpdatedEvent(project.Id, projectSupply));
+            this.eventBroker.Publish(new ProjectSupplyUpdatedEvent(project.Id, projectSupply.Id), Topics.EVENTS);
         }
 
         [Subscribe]
@@ -294,7 +384,7 @@ namespace Chiffrage.Projects.Domain.Services
 
             this.projectRepository.Save(project);
 
-            this.eventBroker.Publish(new ProjectHardwareUpdatedEvent(project.Id, projectHardware));
+            this.eventBroker.Publish(new ProjectHardwareUpdatedEvent(project.Id, projectHardware.Id), Topics.EVENTS);
         }
 
         [Subscribe]
@@ -310,7 +400,7 @@ namespace Chiffrage.Projects.Domain.Services
 
             this.projectRepository.Save(project);
 
-            this.eventBroker.Publish(new ProjectHardwareSupplyUpdatedEvent(project.Id, projectHardware, projectHardwareSupply));
+            this.eventBroker.Publish(new ProjectHardwareSupplyUpdatedEvent(project.Id, projectHardware.Id, projectHardwareSupply.Id), Topics.EVENTS);
         }
 
         [Subscribe]
@@ -325,7 +415,7 @@ namespace Chiffrage.Projects.Domain.Services
 
             this.projectRepository.Save(project);
 
-            this.eventBroker.Publish(new ProjectHardwareUpdatedEvent(project.Id, projectHardware));
+            this.eventBroker.Publish(new ProjectHardwareUpdatedEvent(project.Id, projectHardware.Id), Topics.EVENTS);
         }
 
         [Subscribe]
@@ -340,7 +430,7 @@ namespace Chiffrage.Projects.Domain.Services
 
             this.projectRepository.Save(project);
 
-            this.eventBroker.Publish(new ProjectHardwareUpdatedEvent(project.Id, projectHardware));
+            this.eventBroker.Publish(new ProjectHardwareUpdatedEvent(project.Id, projectHardware.Id), Topics.EVENTS);
         }
 
         [Subscribe]
@@ -355,7 +445,7 @@ namespace Chiffrage.Projects.Domain.Services
 
             this.projectRepository.Save(project);
 
-            this.eventBroker.Publish(new ProjectHardwareUpdatedEvent(project.Id, projectHardware));
+            this.eventBroker.Publish(new ProjectHardwareUpdatedEvent(project.Id, projectHardware.Id), Topics.EVENTS);
         }
 
         [Subscribe]
@@ -384,7 +474,7 @@ namespace Chiffrage.Projects.Domain.Services
 
             this.dealRepository.Save(cloneDeal);
 
-            this.eventBroker.Publish(new DealCreatedEvent(cloneDeal));
+            this.eventBroker.Publish(new DealCreatedEvent(cloneDeal.Id), Topics.EVENTS);
         }
 
 
@@ -395,7 +485,7 @@ namespace Chiffrage.Projects.Domain.Services
 
             this.dealRepository.Delete(deal);
 
-            this.eventBroker.Publish(new DealDeletedEvent(deal.Id));
+            this.eventBroker.Publish(new DealDeletedEvent(deal.Id), Topics.EVENTS);
         }
 
 
@@ -411,9 +501,9 @@ namespace Chiffrage.Projects.Domain.Services
 
             this.dealRepository.Save(deal);
 
-            this.eventBroker.Publish(new DealUpdatedEvent(deal));
+            this.eventBroker.Publish(new DealUpdatedEvent(deal.Id), Topics.EVENTS);
 
-            this.eventBroker.Publish(new ProjectCreatedEvent(deal, cloneProject));
+            this.eventBroker.Publish(new ProjectCreatedEvent(deal.Id, cloneProject.Id), Topics.EVENTS);
         }
 
         private Project CloneProject(Project project)
@@ -517,7 +607,7 @@ namespace Chiffrage.Projects.Domain.Services
 
             this.projectRepository.Delete(project);
 
-            this.eventBroker.Publish(new ProjectDeletedEvent(deal.Id, project.Id));
+            this.eventBroker.Publish(new ProjectDeletedEvent(deal.Id, project.Id), Topics.EVENTS);
         }
 
         [Subscribe]
@@ -584,7 +674,7 @@ namespace Chiffrage.Projects.Domain.Services
             }
 
             this.projectRepository.Save(project);
-            this.eventBroker.Publish(new ProjectUpdatedEvent(project));
+            this.eventBroker.Publish(new ProjectUpdatedEvent(project.Id), Topics.EVENTS);
         }
 
         [Subscribe]
@@ -611,7 +701,54 @@ namespace Chiffrage.Projects.Domain.Services
 
             this.projectRepository.Save(project);
 
-            this.eventBroker.Publish(new ProjectSupplyUpdatedEvent(project.Id, supply));
+            this.eventBroker.Publish(new ProjectSupplyUpdatedEvent(project.Id, supply.Id), Topics.EVENTS);
+        }
+
+        [Subscribe]
+        public void ProcessAction(ReloadProjectSupplyListCommand eventObject)
+        {
+            var projects = new List<Project>();
+            var supplies = new Dictionary<ProjectSupply, int>();
+            foreach (var groupByProject in eventObject.Commands.GroupBy(x => x.ProjectId))
+            {
+                var project = this.projectRepository.FindById(groupByProject.Key);
+
+                foreach (var item in groupByProject)
+                {
+                    var supply = project.Supplies.Where(x => x.Id == item.ProjectSupplyId).First();
+
+                    var catalog = this.catalogRepository.FindById(supply.CatalogId);
+                    if (catalog == null)
+                    {
+                        // le catalogue n'existe plus
+                        return;
+                    }
+
+                    var catalogSupply = catalog.Supplies.Where(x => x.Id == supply.SupplyId).FirstOrDefault();
+                    if (catalogSupply == null)
+                    {
+                        // il n'existe plus
+                        return;
+                    }
+
+                    MapProjectSupply(catalogSupply, supply, supply.Quantity, catalog);
+
+                    supplies.Add(supply, project.Id);
+                }
+            }
+
+            foreach (var item in projects)
+            {
+                this.projectRepository.Save(item);
+            }
+
+            var commands = new List<ProjectSupplyUpdatedEvent>();
+            foreach (var item in supplies)
+            {
+                commands.Add(new ProjectSupplyUpdatedEvent(item.Value, item.Key.Id));
+            }
+
+            this.eventBroker.Publish(new ProjectSupplyListUpdatedEvent(commands), Topics.EVENTS);
         }
 
         [Subscribe]
@@ -638,7 +775,54 @@ namespace Chiffrage.Projects.Domain.Services
 
             this.projectRepository.Save(project);
 
-            this.eventBroker.Publish(new ProjectHardwareUpdatedEvent(project.Id, hardware));
+            this.eventBroker.Publish(new ProjectHardwareUpdatedEvent(project.Id, hardware.Id), Topics.EVENTS);
+        }
+
+        [Subscribe]
+        public void ProcessAction(ReloadProjectHardwareListCommand eventObject)
+        {
+            var projects = new List<Project>();
+            var hardwares = new Dictionary<ProjectHardware, int>();
+            foreach (var groupByProject in eventObject.Commands.GroupBy(x => x.ProjectId))
+            {
+                var project = this.projectRepository.FindById(groupByProject.Key);
+                
+                foreach(var item in groupByProject)
+                {
+                    var hardware = project.Hardwares.Where(x => x.Id == item.ProjectHardwareId).First();
+
+                    var catalog = this.catalogRepository.FindById(hardware.CatalogId);
+                    if (catalog == null)
+                    {
+                        // le catalogue n'existe plus
+                        return;
+                    }
+
+                    var catalogHardware = catalog.Hardwares.Where(x => x.Id == hardware.HardwareId).FirstOrDefault();
+                    if (catalogHardware == null)
+                    {
+                        // il n'existe plus
+                        return;
+                    }
+
+                    MapProjectHardware(project, catalogHardware, hardware, catalog);
+
+                    hardwares.Add(hardware, project.Id);
+                }
+            }
+
+            foreach (var item in projects)
+            {
+                this.projectRepository.Save(item);
+            }
+
+            var commandList = new List<ProjectHardwareUpdatedEvent>();
+            foreach (var item in hardwares)
+            {
+                commandList.Add(new ProjectHardwareUpdatedEvent(item.Value, item.Key.Id));
+            }
+
+            this.eventBroker.Publish(new ProjectHardwareListUpdatedEvent(commandList), Topics.EVENTS);
         }
     }
 }

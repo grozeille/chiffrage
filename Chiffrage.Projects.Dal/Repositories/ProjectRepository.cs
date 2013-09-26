@@ -25,32 +25,37 @@ namespace Chiffrage.Projects.Dal.Repositories
         public IList<Project> FindAll()
         {
             var session = SessionManager.OpenSessionIfRequired(this.sessionFactory);
-            //using (var session = this.sessionFactory.OpenSession())
-            {
-                return session.Query<Project>().ToList();
-            }
+            return session.Query<Project>().ToList();
         }
 
         public void Save(Project project)
         {
             var session = SessionManager.OpenSessionIfRequired(this.sessionFactory);
-            //using (var session = this.sessionFactory.OpenSession())
+            using (var transaction = session.BeginTransaction())
             {
-                using (var transaction = session.BeginTransaction())
+                var otherBenefits = new List<OtherBenefit>(project.OtherBenefits);
+                project.OtherBenefits.Clear();
+                foreach (var item in otherBenefits)
                 {
-                    session.SaveOrUpdate(project);
-                    session.Transaction.Commit();
+                    project.OtherBenefits.Add(session.Merge(item));
                 }
+
+                var tasks = new List<ProjectTask>(project.Tasks);
+                project.Tasks.Clear();
+                foreach (var item in tasks)
+                {
+                    project.Tasks.Add(session.Merge(item));
+                }
+
+                session.SaveOrUpdate(project);
+                session.Transaction.Commit();
             }
         }
 
         public Project FindById(int projectId)
         {
             var session = SessionManager.OpenSessionIfRequired(this.sessionFactory);
-            //using (var session = this.sessionFactory.OpenSession())
-            {
-                return session.Query<Project>().Where(x => x.Id == projectId).FirstOrDefault();
-            }
+            return session.Query<Project>().Where(x => x.Id == projectId).FirstOrDefault();
         }
 
         #endregion

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Windows.Forms;
 using Chiffrage.Projects.Domain;
 using Chiffrage.Projects.Module.ViewModel;
@@ -65,32 +66,34 @@ namespace Chiffrage.Projects.Module.Views.Impl
 
         #region IDealView Members
 
-        public void Save()
+        public DealViewModel GetDealViewModel()
         {
-            this.InvokeIfRequired(() =>
+            return this.InvokeIfRequired(() =>
             {
                 if(!dealId.HasValue)
                 {
-                    return;
+                    return null;
                 }
 
                 this.errorProvider.Clear();
                 if (!this.Validate())
                 {
-                    return;
+                    return null;
                 }
 
                 this.commentUserControl.Validate();
 
-                var command = new UpdateDealCommand(
-                    dealId.Value,
-                    this.textBoxDealName.Text,
-                    this.commentUserControl.Rtf,
-                    this.textBoxReference.Text,
-                    this.dateTimePickerDealBegin.Value,
-                    this.dateTimePickerDealEnd.Value);
+                var viewModel = new DealViewModel
+                                    {
+                                        Id = dealId.Value,
+                                        Name = this.textBoxDealName.Text,
+                                        Comment = this.commentUserControl.Rtf,
+                                        Reference = this.textBoxReference.Text,
+                                        StartDate = this.dateTimePickerDealBegin.Value,
+                                        EndDate = this.dateTimePickerDealEnd.Value
+                                    };
 
-                this.eventBroker.Publish(command);
+                return viewModel;
             });
         }
 
@@ -106,6 +109,9 @@ namespace Chiffrage.Projects.Module.Views.Impl
                     this.dateTimePickerDealBegin.Value = viewModel.StartDate;
                     this.dateTimePickerDealEnd.Value = viewModel.EndDate;
                     this.commentUserControl.Rtf = viewModel.Comment;
+
+                    this.textBoxTotalDays.Text = string.Format(CultureInfo.InvariantCulture, "{0:0.##} h", viewModel.TotalDays);
+                    this.textBoxTotalPrice.Text = string.Format(CultureInfo.InvariantCulture, "{0:0.##} €", viewModel.TotalPrice);
                 }
                 else
                 {
@@ -115,6 +121,9 @@ namespace Chiffrage.Projects.Module.Views.Impl
                     this.dateTimePickerDealBegin.Value = DateTime.Now;
                     this.dateTimePickerDealEnd.Value = DateTime.Now;
                     this.commentUserControl.Rtf = string.Empty;
+
+                    this.textBoxTotalDays.Text = string.Empty;
+                    this.textBoxTotalPrice.Text = string.Empty;
                 }
             });
         }
@@ -224,7 +233,7 @@ namespace Chiffrage.Projects.Module.Views.Impl
                     foreach (var item in projects)
                     {
                         var column = new DataGridViewTextBoxColumn();
-                        column.HeaderText = new String(new char[] { item.Name[0] }).ToUpper() + item.Name.Substring(1); ;
+                        column.HeaderText = new String(new char[] { item.Name[0] }).ToUpper() + item.Name.Substring(1);
                         column.Name = "project_" + item.Id;
                         column.Tag = item.Id;
                         column.ReadOnly = true;
@@ -234,6 +243,15 @@ namespace Chiffrage.Projects.Module.Views.Impl
                         this.dataGridViewItemSummary.Columns.Add(column);
                         projectColumns.Add(column);
                     }
+                    var columnTotal = new DataGridViewTextBoxColumn();
+                    columnTotal.HeaderText = "Total";
+                    columnTotal.Name = "project_total";
+                    columnTotal.ReadOnly = true;
+                    columnTotal.Visible = true;
+                    columnTotal.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;
+                    columnTotal.DataPropertyName = "TOTAL";
+                    this.dataGridViewItemSummary.Columns.Add(columnTotal);
+                    projectColumns.Add(columnTotal);
                 }
 
                 this.summaryItems.Projects = projects;
@@ -281,6 +299,11 @@ namespace Chiffrage.Projects.Module.Views.Impl
                 e.Graphics.TranslateTransform(0, -titleSize.Width);
                 e.Handled = true;
             }
+        }
+
+        private void DealUserControl_Load(object sender, EventArgs e)
+        {
+            this.dataGridViewItemSummary.SetDoubleBuffered();
         }
     }
 }
