@@ -10,6 +10,7 @@ using Chiffrage.Mvc.Events;
 using Chiffrage.Mvc.Services;
 using Newtonsoft.Json;
 using System.Threading;
+using System.Diagnostics;
 
 namespace Chiffrage.EventStore.Services
 {
@@ -40,20 +41,29 @@ namespace Chiffrage.EventStore.Services
             var thread = new Thread(Start);
             thread.Name = "EventStoreServicePolling";
             thread.IsBackground = true;
-            //thread.Start();
+            thread.Start();
+
+            thread = new Thread(Clean);
+            thread.Name = "EventStoreServiceCleaning";
+            thread.IsBackground = true;
+            thread.Start();
         }
 
         private void Start()
         {
-            int maxId = 0;
+            long maxId = 0;
 
             var typeCache = new Dictionary<string, Type>();
+
+            // start reading messages from the last one
+            var items = this.eventRepository.FindFromOtherSession(sessionId, maxId);
+            maxId = items.Count > 0 ? items.Last().Id : 0;
 
             while(true)
             {
                 Thread.Sleep(3*1000);
 
-                var items = this.eventRepository.FindFromOtherSession(sessionId, maxId);
+                items = this.eventRepository.FindFromOtherSession(sessionId, maxId);
                 if (items.Count > 0)
                 {
                     maxId = items.Last().Id;
@@ -85,7 +95,18 @@ namespace Chiffrage.EventStore.Services
             }
         }
 
-        //[Subscribe(Topic = Topics.EVENTS)]
+        private void Clean()
+        {
+            var rand = new Random(Process.GetCurrentProcess().Id);
+            while (true)
+            {
+                Thread.Sleep(60 * (5 + rand.Next(3)) * 1000);
+
+                eventRepository.CleanOldEvents(100);
+            }
+        }
+
+        [Subscribe(Topic = Topics.EVENTS)]
         public void ProcessAction(Object eventObject)
         {
             lock (mylock)

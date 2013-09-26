@@ -7,7 +7,7 @@ namespace Chiffrage.EventStore
 {
     public class EventObject
     {
-        public virtual int Id { get; set; }
+        public virtual long Id { get; set; }
 
         public virtual string MessageType { get; set; }
 

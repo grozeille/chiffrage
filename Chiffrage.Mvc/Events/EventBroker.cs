@@ -187,6 +187,7 @@ namespace Chiffrage.Mvc.Events
             if (this.dispatchingThread == null)
             {
                 this.dispatchingThread = new Thread(this.DispatchEvents);
+                this.dispatchingThread.Name = "EventBroker";
                 this.dispatchingThread.IsBackground = true;
                 this.dispatchingThread.Priority = ThreadPriority.Highest;
                 this.dispatchingThread.Start();

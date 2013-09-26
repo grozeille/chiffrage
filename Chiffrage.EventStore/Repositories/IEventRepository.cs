@@ -9,8 +9,8 @@ namespace Chiffrage.EventStore.Repositories
     {
         void Save(EventObject eventObject);
 
-        IList<EventObject> FindFromOtherSession(String sessionId, int fromId);
+        IList<EventObject> FindFromOtherSession(String sessionId, long fromId);
 
-        void CleanOldEvents(DateTime fromDate);
+        void CleanOldEvents(int maxToKeep);
     }
 }
