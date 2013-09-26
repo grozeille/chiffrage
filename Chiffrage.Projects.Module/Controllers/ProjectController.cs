@@ -199,17 +199,20 @@ namespace Chiffrage.Projects.Module.Controllers
         {
             var viewModel = this.projectView.GetProjectViewModel();
 
-            var command = new UpdateProjectCommand(
-                viewModel.Id,
-                viewModel.Name,
-                viewModel.Comment,
-                viewModel.Reference,
-                viewModel.StartDate,
-                viewModel.EndDate,
-                viewModel.Tasks,
-                viewModel.OtherBenefits);
+            if (viewModel != null)
+            {
+                var command = new UpdateProjectCommand(
+                    viewModel.Id,
+                    viewModel.Name,
+                    viewModel.Comment,
+                    viewModel.Reference,
+                    viewModel.StartDate,
+                    viewModel.EndDate,
+                    viewModel.Tasks,
+                    viewModel.OtherBenefits);
 
-            this.OnUpdateProjectCommand(command);
+                this.OnUpdateProjectCommand(command);
+            }
         }
 
         [Subscribe]
@@ -740,8 +743,8 @@ namespace Chiffrage.Projects.Module.Controllers
             int hash = 23;
             hash = hash * 31 + viewModel.Id.GetHashCode();
             hash = hash * 31 + viewModel.Name.GetHashCode();
-            hash = hash * 31 + viewModel.Reference.GetHashCode();
-            hash = hash * 31 + viewModel.Comment.GetHashCode();
+            hash = hash * 31 + (viewModel.Reference == null ? 0 : viewModel.Reference.GetHashCode());
+            hash = hash * 31 + (viewModel.Comment == null ? 0 : viewModel.Comment.GetHashCode());
             hash = hash * 31 + viewModel.StartDate.GetHashCode();
             hash = hash * 31 + viewModel.EndDate.GetHashCode();
 

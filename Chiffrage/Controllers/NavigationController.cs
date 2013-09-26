@@ -45,7 +45,7 @@ namespace Chiffrage.App.Controllers
             this.navigationView = navigationView;
         }
 
-        [Subscribe]
+        [Subscribe(Topic = Topics.UI)]
         public void ProcessAction(ApplicationStartAction eventObject)
         {
             var result = new NavigationItemViewModel();
@@ -98,7 +98,7 @@ namespace Chiffrage.App.Controllers
             this.navigationView.UpdateDeal(result);
         }
 
-        [Subscribe]
+        [Subscribe(Topic = Topics.EVENTS)]
         public void ProcessAction(DealCreatedEvent eventObject)
         {
             Mapper.CreateMap<Deal, DealItemViewModel>();

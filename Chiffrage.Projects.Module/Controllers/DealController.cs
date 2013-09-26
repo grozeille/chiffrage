@@ -103,15 +103,18 @@ namespace Chiffrage.Projects.Module.Controllers
         {
             var viewModel = this.dealView.GetDealViewModel();
 
-            var command = new UpdateDealCommand(
-                viewModel.Id,
-                viewModel.Name,
-                viewModel.Comment,
-                viewModel.Reference,
-                viewModel.StartDate,
-                viewModel.EndDate);
+            if (viewModel != null)
+            {
+                var command = new UpdateDealCommand(
+                    viewModel.Id,
+                    viewModel.Name,
+                    viewModel.Comment,
+                    viewModel.Reference,
+                    viewModel.StartDate,
+                    viewModel.EndDate);
 
-            this.OnUpdateDealCommand(command);
+                this.OnUpdateDealCommand(command);
+            }
         }
 
         [Subscribe]
@@ -214,8 +217,8 @@ namespace Chiffrage.Projects.Module.Controllers
             int hash = 23;
             hash = hash * 31 + viewModel.Id.GetHashCode();
             hash = hash * 31 + viewModel.Name.GetHashCode();
-            hash = hash * 31 + viewModel.Reference.GetHashCode();
-            hash = hash * 31 + viewModel.Comment.GetHashCode();
+            hash = hash * 31 + (viewModel.Reference == null ? 0 : viewModel.Reference.GetHashCode());
+            hash = hash * 31 + (viewModel.Comment == null ? 0 : viewModel.Comment.GetHashCode());
             hash = hash * 31 + viewModel.StartDate.GetHashCode();
             hash = hash * 31 + viewModel.EndDate.GetHashCode();
 
