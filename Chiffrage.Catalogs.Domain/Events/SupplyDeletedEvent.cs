@@ -7,20 +7,20 @@ using Chiffrage.Catalogs.Domain;
 
 namespace Chiffrage.Catalogs.Domain.Events
 {
-    public class SupplyDeletedEvent 
+    public class SupplyDeletedEvent : ICatalogEvent
     {
         private readonly int catalogId;
-        private readonly Supply supply;
+        private readonly int supplyId;
 
-        public SupplyDeletedEvent(int catalogId, Supply supply)
+        public SupplyDeletedEvent(int catalogId, int supplyId)
         {
             this.catalogId = catalogId;
-            this.supply = supply;
+            this.supplyId = supplyId;
         }
 
-        public Supply Supply
+        public int SupplyId
         {
-            get { return this.supply; }
+            get { return this.supplyId; }
         }
 
         public int CatalogId

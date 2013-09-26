@@ -422,20 +422,19 @@ namespace Chiffrage.Projects.Module.Views.Impl
         }
         #endregion
 
-        public void Save()
+        public ProjectViewModel GetProjectViewModel()
         {
-            this.InvokeIfRequired(() =>
+            return this.InvokeIfRequired(() =>
             {
                 if (!this.id.HasValue)
                 {
-                    return;
+                    return null;
                 }
-
 
                 this.errorProvider.Clear();
                 if (!this.Validate())
                 {
-                    return;
+                    return null;
                 }
 
                 this.commentUserControl.Validate();
@@ -474,20 +473,22 @@ namespace Chiffrage.Projects.Module.Views.Impl
                 }
                 if (error)
                 {
-                    return;
+                    return null;
                 }
 
-                var command = new UpdateProjectCommand(
-                    this.id.Value,
-                    this.textBoxProjectName.Text,
-                    this.commentUserControl.Rtf,
-                    this.textBoxReference.Text,
-                    this.dateTimePickerProjectBegin.Value,
-                    this.dateTimePickerProjectEnd.Value,
-                    projectTasks,
-                    otherBenefits);
+                ProjectViewModel viewModel = new ProjectViewModel
+                                                 {
+                                                     Id = this.id.Value,
+                                                     Name = this.textBoxProjectName.Text,
+                                                     Comment = this.commentUserControl.Rtf,
+                                                     Reference = this.textBoxReference.Text,
+                                                     StartDate = this.dateTimePickerProjectBegin.Value,
+                                                     EndDate = this.dateTimePickerProjectEnd.Value,
+                                                     Tasks = new List<ProjectTask>(projectTasks),
+                                                     OtherBenefits = new List<OtherBenefit>(otherBenefits)
+                                                 };
 
-                this.eventBroker.Publish(command, "topic://commands");
+                return viewModel;
             });
         }
 
@@ -701,11 +702,11 @@ namespace Chiffrage.Projects.Module.Views.Impl
             });
         }
 
-        public void RemoveSupply(ProjectSupplyViewModel supply)
+        public void RemoveSupply(int supplyId)
         {
             this.InvokeIfRequired(() =>
             {
-                var item = this.supplies.Where(x => x.Id == supply.Id).First();
+                var item = this.supplies.Where(x => x.Id == supplyId).First();
                 this.supplies.Remove(item);
                 this.RefreshCategories();
                 this.ApplySupplyFilter();
@@ -766,11 +767,11 @@ namespace Chiffrage.Projects.Module.Views.Impl
                 });
         }
 
-        public void RemoveHardware(ProjectHardwareViewModel hardware)
+        public void RemoveHardware(int hardwareId)
         {
             this.InvokeIfRequired(() =>
             {
-                var item = this.hardwares.Where(x => x.Id == hardware.Id).First();
+                var item = this.hardwares.Where(x => x.Id == hardwareId).First();
                 this.hardwares.Remove(item);
                 this.ApplyHardwareFilter();
             });
@@ -821,11 +822,11 @@ namespace Chiffrage.Projects.Module.Views.Impl
             });
         }
 
-        public void RemoveFrame(ProjectFrameViewModel frame)
+        public void RemoveFrame(int frameId)
         {
             this.InvokeIfRequired(() =>
             {
-                var item = this.frames.Where(x => x.Id == frame.Id).First();
+                var item = this.frames.Where(x => x.Id == frameId).First();
                 this.frames.Remove(item);
             });
         }

@@ -7,15 +7,25 @@ using Chiffrage.Catalogs.Domain;
 
 namespace Chiffrage.Catalogs.Domain.Events
 {
-    public class HardwareMustBeUniqueErrorEvent
+    public class HardwareMustBeUniqueErrorEvent : ICatalogEvent
     {
-        private int catalogId;
-        private Hardware hardware;
+        private readonly int catalogId;
+        private readonly int hardwareId;
 
-        public HardwareMustBeUniqueErrorEvent(int catalogId, Hardware hardware)
+        public HardwareMustBeUniqueErrorEvent(int catalogId, int hardwareId)
         {
             this.catalogId = catalogId;
-            this.hardware = hardware;
+            this.hardwareId = hardwareId;
+        }
+
+        public int HardwareId
+        {
+            get { return this.hardwareId; }
+        }
+
+        public int CatalogId
+        {
+            get { return this.catalogId; }
         }
     }
 }

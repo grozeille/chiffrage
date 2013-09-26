@@ -33,6 +33,20 @@ namespace Chiffrage.Projects.Dal.Repositories
             var session = SessionManager.OpenSessionIfRequired(this.sessionFactory);
             using (var transaction = session.BeginTransaction())
             {
+                var otherBenefits = new List<OtherBenefit>(project.OtherBenefits);
+                project.OtherBenefits.Clear();
+                foreach (var item in otherBenefits)
+                {
+                    project.OtherBenefits.Add(session.Merge(item));
+                }
+
+                var tasks = new List<ProjectTask>(project.Tasks);
+                project.Tasks.Clear();
+                foreach (var item in tasks)
+                {
+                    project.Tasks.Add(session.Merge(item));
+                }
+
                 session.SaveOrUpdate(project);
                 session.Transaction.Commit();
             }

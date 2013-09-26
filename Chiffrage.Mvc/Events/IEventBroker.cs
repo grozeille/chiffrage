@@ -4,6 +4,10 @@ namespace Chiffrage.Mvc.Events
 {
     public interface IEventBroker
     {
+        event Action<Object> OnBeforeSend;
+
+        event Action<Object> OnAfterSend;
+
         void Publish(object eventObject);
 
         void Publish(object eventObject, string topic);

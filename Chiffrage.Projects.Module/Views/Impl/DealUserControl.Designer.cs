@@ -465,6 +465,7 @@
             this.Controls.Add(this.tabControlDeal);
             this.Name = "DealUserControl";
             this.Size = new System.Drawing.Size(824, 469);
+            this.Load += new System.EventHandler(this.DealUserControl_Load);
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSourceDeal)).EndInit();
             this.panelMain.ResumeLayout(false);

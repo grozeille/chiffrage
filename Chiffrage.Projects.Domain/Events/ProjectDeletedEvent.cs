@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Chiffrage.Projects.Domain.Events
 {
-    public class ProjectDeletedEvent
+    public class ProjectDeletedEvent : IProjectEvent
     {
         private readonly int dealId;
 

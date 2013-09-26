@@ -39,7 +39,7 @@ namespace Chiffrage.Catalogs.Domain.Services
 
             this.repository.Save(task);
 
-            this.eventBroker.Publish(new TaskCreatedEvent(task), "topic://events");
+            this.eventBroker.Publish(new TaskCreatedEvent(task.Id), "topic://events");
         }
 
         [Subscribe]
@@ -53,7 +53,7 @@ namespace Chiffrage.Catalogs.Domain.Services
 
             this.repository.Save(task);
 
-            this.eventBroker.Publish(new TaskUpdatedEvent(task), "topic://events");
+            this.eventBroker.Publish(new TaskUpdatedEvent(task.Id), "topic://events");
         }
 
         [Subscribe]
@@ -74,7 +74,7 @@ namespace Chiffrage.Catalogs.Domain.Services
 
             foreach (var item in tasks)
             {
-                this.eventBroker.Publish(new TaskUpdatedEvent(item), "topic://events");
+                this.eventBroker.Publish(new TaskUpdatedEvent(item.Id), "topic://events");
             }
         }
 
@@ -100,7 +100,7 @@ namespace Chiffrage.Catalogs.Domain.Services
                 if (toSave)
                 {
                     this.catalogRepository.Save(catalog);
-                    this.eventBroker.Publish(new CatalogUpdatedEvent(catalog), "topic://events");
+                    this.eventBroker.Publish(new CatalogUpdatedEvent(catalog.Id), "topic://events");
                 }
             }
 
@@ -123,7 +123,7 @@ namespace Chiffrage.Catalogs.Domain.Services
 
             foreach (var item in tasksToNotifyUpdated)
             {
-                this.eventBroker.Publish(new TaskUpdatedEvent(item), "topic://events");
+                this.eventBroker.Publish(new TaskUpdatedEvent(item.Id), "topic://events");
             }
         }
     }

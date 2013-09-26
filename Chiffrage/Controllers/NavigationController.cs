@@ -18,7 +18,7 @@ using Chiffrage.Common.Module.Actions;
 
 namespace Chiffrage.App.Controllers
 {
-    [Topic("topic://UI")]
+    [Topic(Topics.UI)]
     public class NavigationController : IController
     {
         private readonly INavigationView navigationView;
@@ -29,15 +29,19 @@ namespace Chiffrage.App.Controllers
 
         private readonly IDealRepository dealRepository;
 
+        private readonly IProjectRepository projectRepository;
+
         public NavigationController(
             IEventBroker eventBroker,
             ICatalogRepository catalogRepository,
             IDealRepository dealRepository,
+            IProjectRepository projectRepository,
             INavigationView navigationView)
         {
             this.eventBroker = eventBroker;
             this.catalogRepository = catalogRepository;
             this.dealRepository = dealRepository;
+            this.projectRepository = projectRepository;
             this.navigationView = navigationView;
         }
 
@@ -70,22 +74,26 @@ namespace Chiffrage.App.Controllers
             this.navigationView.ShowView();
         }
 
-        [Subscribe(Topic = "topic://events")]
+        [Subscribe(Topic = Topics.EVENTS)]
         public void ProcessAction(CatalogUpdatedEvent eventObject)
         {
             Mapper.CreateMap<SupplierCatalog, CatalogItemViewModel>();
 
-            var result = Mapper.Map<SupplierCatalog, CatalogItemViewModel>(eventObject.Catalog);
+            var catalog = this.catalogRepository.FindById(eventObject.CatalogId);
+
+            var result = Mapper.Map<SupplierCatalog, CatalogItemViewModel>(catalog);
 
             this.navigationView.UpdateCatalog(result);
         }
 
-        [Subscribe(Topic = "topic://events")]
+        [Subscribe(Topic = Topics.EVENTS)]
         public void ProcessAction(DealUpdatedEvent eventObject)
         {
             Mapper.CreateMap<Deal, DealItemViewModel>();
 
-            var result = Mapper.Map<Deal, DealItemViewModel>(eventObject.NewDeal);
+            var deal = this.dealRepository.FindById(eventObject.DealId);
+
+            var result = Mapper.Map<Deal, DealItemViewModel>(deal);
 
             this.navigationView.UpdateDeal(result);
         }
@@ -95,58 +103,66 @@ namespace Chiffrage.App.Controllers
         {
             Mapper.CreateMap<Deal, DealItemViewModel>();
 
-            var result = Mapper.Map<Deal, DealItemViewModel>(eventObject.NewDeal);
+            var deal = this.dealRepository.FindById(eventObject.DealId);
+
+            var result = Mapper.Map<Deal, DealItemViewModel>(deal);
 
             this.navigationView.AddDeal(result);
             this.navigationView.SelectDeal(result.Id);
         }
 
-        [Subscribe(Topic = "topic://events")]
+        [Subscribe(Topic = Topics.EVENTS)]
         public void ProcessAction(DealDeletedEvent eventObject)
         {
             this.navigationView.RemoveDeal(eventObject.DealId);
         }
 
-        [Subscribe(Topic = "topic://events")]
+        [Subscribe(Topic = Topics.EVENTS)]
         public void ProcessAction(CatalogDeletedEvent eventObject)
         {
             this.navigationView.RemoveCatalog(eventObject.CatalogId);
         }
 
-        [Subscribe(Topic = "topic://events")]
+        [Subscribe(Topic = Topics.EVENTS)]
         public void ProcessAction(ProjectDeletedEvent eventObject)
         {
             this.navigationView.RemoveProject(eventObject.DealId, eventObject.ProjectId);
         }
 
-        [Subscribe(Topic = "topic://events")]
+        [Subscribe(Topic = Topics.EVENTS)]
         public void ProcessAction(CatalogCreatedEvent eventObject)
         {
             Mapper.CreateMap<SupplierCatalog, CatalogItemViewModel>();
 
-            var result = Mapper.Map<SupplierCatalog, CatalogItemViewModel>(eventObject.Catalog);
+            var catalog = this.catalogRepository.FindById(eventObject.CatalogId);
+
+            var result = Mapper.Map<SupplierCatalog, CatalogItemViewModel>(catalog);
 
             this.navigationView.AddCatalog(result);
             this.navigationView.SelectCatalog(result.Id);
         }
 
-        [Subscribe(Topic = "topic://events")]
+        [Subscribe(Topic = Topics.EVENTS)]
         public void ProcessAction(ProjectCreatedEvent eventObject)
         {
             Mapper.CreateMap<Project, ProjectItemViewModel>();
 
-            var result = Mapper.Map<Project, ProjectItemViewModel>(eventObject.NewProject);
+            var project = this.projectRepository.FindById(eventObject.ProjectId);
 
-            this.navigationView.AddProject(eventObject.ParentDeal.Id, result);
+            var result = Mapper.Map<Project, ProjectItemViewModel>(project);
+
+            this.navigationView.AddProject(eventObject.DealId, result);
             this.navigationView.SelectProject(result.Id);
         }
 
-        [Subscribe(Topic = "topic://events")]
+        [Subscribe(Topic = Topics.EVENTS)]
         public void ProcessAction(ProjectUpdatedEvent eventObject)
         {
             Mapper.CreateMap<Project, ProjectItemViewModel>();
 
-            var result = Mapper.Map<Project, ProjectItemViewModel>(eventObject.NewProject);
+            var project = this.projectRepository.FindById(eventObject.ProjectId);
+
+            var result = Mapper.Map<Project, ProjectItemViewModel>(project);
 
             this.navigationView.UpdateProject(result);
         }

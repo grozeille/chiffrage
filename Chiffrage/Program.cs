@@ -60,6 +60,8 @@ namespace Chiffrage.App
 
                 var container = builder.Build();
 
+                container.Resolve<CatalogSessionManagerService>();
+                container.Resolve<ProjectSessionManagerService>();
 
                 this.eventBroker = container.Resolve<IEventBroker>();
                 this.eventBroker.Start();
@@ -85,7 +87,7 @@ namespace Chiffrage.App
             }
         }
 
-        [Subscribe(Topic = "topic://UI")]
+        [Subscribe(Topic = Topics.UI)]
         public void ProcessAction(ApplicationEndAction eventObject)
         {
             this.eventBroker.Stop();

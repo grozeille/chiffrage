@@ -325,22 +325,22 @@ namespace Chiffrage.Catalogs.Module.Views.Impl
             });
         }
 
-        public void RemoveSupply(CatalogSupplyViewModel result)
+        public void RemoveSupply(int supplyId)
         {
             this.InvokeIfRequired(() =>
             {
-                var supply = this.supplies.Where(x => x.Id == result.Id).First();
+                var supply = this.supplies.Where(x => x.Id == supplyId).First();
                 this.supplies.Remove(supply);
                 this.RefreshCategories();
                 this.ApplySuppliesFilter();
             });
         }
 
-        public void RemoveHardware(CatalogHardwareViewModel result)
+        public void RemoveHardware(int hardwareId)
         {
             this.InvokeIfRequired(() =>
             {
-                var hardware = this.hardwares.Where(x => x.Id == result.Id).First();
+                var hardware = this.hardwares.Where(x => x.Id == hardwareId).First();
                 this.hardwares.Remove(hardware);
                 this.ApplyHardwareFilter();
             });

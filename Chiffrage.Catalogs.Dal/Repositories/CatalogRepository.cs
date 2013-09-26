@@ -27,6 +27,16 @@ namespace Chiffrage.Catalogs.Dal.Repositories
             var session = SessionManager.OpenSessionIfRequired(this.sessionFactory);
             using (var transaction = session.BeginTransaction())
             {
+                foreach(var hardware in catalog.Hardwares)
+                {
+                    var tasks = new List<HardwareTask>(hardware.Tasks);
+                    hardware.Tasks.Clear();
+                    foreach (var item in tasks)
+                    {
+                        hardware.Tasks.Add(session.Merge(item));
+                    }
+                }
+
                 session.SaveOrUpdate(catalog);
                 session.Transaction.Commit();
             }

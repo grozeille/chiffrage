@@ -18,6 +18,7 @@ namespace Chiffrage.EventStore.Mappings
             Property(x => x.MessageType);
             Property(x => x.MessageBody);
             Property(x => x.Time);
+            Property(x => x.SessionId);
         }
     }
 }

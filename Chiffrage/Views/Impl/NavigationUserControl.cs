@@ -27,8 +27,6 @@ namespace Chiffrage
         public NavigationUserControl(IEventBroker eventBroker)
             : this()
         {
-            this.treeView.SetDoubleBuffered();
-
             this.eventBroker = eventBroker;
             this.eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemCatalogNew, new RequestNewCatalogAction(), "topic://UI");
             this.eventBroker.RegisterToolStripMenuItemClickEventSource(this.toolStripMenuItemDealNew, new RequestNewDealAction(), "topic://UI");
@@ -422,6 +420,8 @@ namespace Chiffrage
         private void NavigationUserControl_Load(object sender, System.EventArgs e)
         {
             this.SetDoubleBuffered();
+
+            this.treeView.SetDoubleBuffered();
         }
 
         private void treeView_MouseDown(object sender, MouseEventArgs e)

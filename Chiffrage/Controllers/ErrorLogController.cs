@@ -12,7 +12,7 @@ using Chiffrage.Projects.Domain.Events;
 
 namespace Chiffrage.App.Controllers
 {
-    [Topic("topic://events")]
+    [Topic(Topics.EVENTS)]
     public class ErrorLogController : IController
     {
         private readonly IErrorLogView view;
@@ -61,52 +61,52 @@ namespace Chiffrage.App.Controllers
         [Subscribe]
         public void ProcessAction(CatalogUpdatedEvent eventObject)
         {
-            this.AppendInfoLog(string.Format("Catalog '{0}' updated successfully", eventObject.Catalog.SupplierName));
+            this.AppendInfoLog(string.Format("Catalog '{0}' updated successfully", eventObject.CatalogId));
         }
 
         [Subscribe]
         public void ProcessAction(DealUpdatedEvent eventObject)
         {
-            this.AppendInfoLog(string.Format("Deal '{0}' updated successfully", eventObject.NewDeal.Name));
+            this.AppendInfoLog(string.Format("Deal '{0}' updated successfully", eventObject.DealId));
         }
 
         [Subscribe]
         public void ProcessAction(DealCreatedEvent eventObject)
         {
-            this.AppendInfoLog(string.Format("Deal '{0}' created successfully", eventObject.NewDeal.Name));
+            this.AppendInfoLog(string.Format("Deal '{0}' created successfully", eventObject.DealId));
         }
 
         [Subscribe]
         public void ProcessAction(CatalogCreatedEvent eventObject)
         {
-            this.AppendInfoLog(string.Format("Catalog '{0}' created successfully", eventObject.Catalog.SupplierName));
+            this.AppendInfoLog(string.Format("Catalog '{0}' created successfully", eventObject.CatalogId));
         }
 
         [Subscribe]
         public void ProcessAction(SupplyCreatedEvent eventObject)
         {
-            this.AppendInfoLog(string.Format("Supply '{0}' added successfully", eventObject.Supply.Name));
+            this.AppendInfoLog(string.Format("Supply '{0}' added successfully", eventObject.SupplyId));
         }
 
         [Subscribe]
         public void ProcessAction(SupplyUpdatedEvent eventObject)
         {
-            this.AppendInfoLog(string.Format("Supply '{0}' updated successfully", eventObject.Supply.Name));
+            this.AppendInfoLog(string.Format("Supply '{0}' updated successfully", eventObject.SupplyId));
         }
 
         [Subscribe]
         public void ProcessAction(ProjectCreatedEvent eventObject)
         {
-            this.AppendInfoLog(string.Format("Project '{0}' created successfully", eventObject.NewProject.Name));
+            this.AppendInfoLog(string.Format("Project '{0}' created successfully", eventObject.ProjectId));
         }
 
         [Subscribe]
         public void ProcessAction(ProjectUpdatedEvent eventObject)
         {
-            this.AppendInfoLog(string.Format("Project '{0}' updated successfully", eventObject.NewProject.Name));
+            this.AppendInfoLog(string.Format("Project '{0}' updated successfully", eventObject.ProjectId));
         }
 
-        [Subscribe(Topic = "topic://events")]
+        [Subscribe(Topic = Topics.EVENTS)]
         public void ProcessAction(Object eventObject)
         {
             this.AppendInfoLog(string.Format("Message '{0}'", eventObject.ToString()));

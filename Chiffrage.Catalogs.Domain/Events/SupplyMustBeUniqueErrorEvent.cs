@@ -7,15 +7,25 @@ using Chiffrage.Catalogs.Domain;
 
 namespace Chiffrage.Catalogs.Domain.Events
 {
-    public class SupplyMustBeUniqueErrorEvent
+    public class SupplyMustBeUniqueErrorEvent : ICatalogEvent
     {
-        private int catalogId;
-        private Supply supply;
+        private readonly int catalogId;
+        private readonly int supplyId;
 
-        public SupplyMustBeUniqueErrorEvent(int catalogId, Supply supply)
+        public SupplyMustBeUniqueErrorEvent(int catalogId, int supplyId)
         {
             this.catalogId = catalogId;
-            this.supply = supply;
+            this.supplyId = supplyId;
+        }
+
+        public int SupplyId
+        {
+            get { return this.supplyId; }
+        }
+
+        public int CatalogId
+        {
+            get { return this.catalogId; }
         }
     }
 }

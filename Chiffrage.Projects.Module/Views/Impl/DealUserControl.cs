@@ -66,32 +66,34 @@ namespace Chiffrage.Projects.Module.Views.Impl
 
         #region IDealView Members
 
-        public void Save()
+        public DealViewModel GetDealViewModel()
         {
-            this.InvokeIfRequired(() =>
+            return this.InvokeIfRequired(() =>
             {
                 if(!dealId.HasValue)
                 {
-                    return;
+                    return null;
                 }
 
                 this.errorProvider.Clear();
                 if (!this.Validate())
                 {
-                    return;
+                    return null;
                 }
 
                 this.commentUserControl.Validate();
 
-                var command = new UpdateDealCommand(
-                    dealId.Value,
-                    this.textBoxDealName.Text,
-                    this.commentUserControl.Rtf,
-                    this.textBoxReference.Text,
-                    this.dateTimePickerDealBegin.Value,
-                    this.dateTimePickerDealEnd.Value);
+                var viewModel = new DealViewModel
+                                    {
+                                        Id = dealId.Value,
+                                        Name = this.textBoxDealName.Text,
+                                        Comment = this.commentUserControl.Rtf,
+                                        Reference = this.textBoxReference.Text,
+                                        StartDate = this.dateTimePickerDealBegin.Value,
+                                        EndDate = this.dateTimePickerDealEnd.Value
+                                    };
 
-                this.eventBroker.Publish(command, "topic://commands");
+                return viewModel;
             });
         }
 
@@ -297,6 +299,11 @@ namespace Chiffrage.Projects.Module.Views.Impl
                 e.Graphics.TranslateTransform(0, -titleSize.Width);
                 e.Handled = true;
             }
+        }
+
+        private void DealUserControl_Load(object sender, EventArgs e)
+        {
+            this.dataGridViewItemSummary.SetDoubleBuffered();
         }
     }
 }

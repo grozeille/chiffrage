@@ -18,7 +18,7 @@ using Chiffrage.Catalogs.Domain.Repositories;
 
 namespace Chiffrage.Projects.Module.Controllers
 {
-    [Topic("topic://UI")]
+    [Topic(Topics.UI)]
     public class DealController : IController
     {
         private static ILog logger = LogManager.GetLogger(typeof(DealController));
@@ -31,6 +31,11 @@ namespace Chiffrage.Projects.Module.Controllers
 
         private int? currentDealId;
 
+        private int? currentDealHashcode;
+
+        [Publish(Topic = Topics.COMMANDS)]
+        public event Action<UpdateDealCommand> OnUpdateDealCommand;
+
         public DealController(IDealRepository dealRepository, ITaskRepository taskRepository, IDealView dealView, INewDealView newDealView, ILoadingView loadingView)
         {
             this.dealView = dealView;
@@ -40,6 +45,7 @@ namespace Chiffrage.Projects.Module.Controllers
             this.dealRepository = dealRepository;
         }
 
+        #region Action
         [Subscribe]
         public void ProcessAction(ApplicationStartAction eventObject)
         {
@@ -54,7 +60,8 @@ namespace Chiffrage.Projects.Module.Controllers
 
             var deal = this.dealRepository.FindById(eventObject.Id);
             var dealViewModel = this.Map(deal);
-            
+            this.currentDealHashcode = this.ComputeHashcode(dealViewModel);
+
             Mapper.CreateMap<Project, DealProjectCalendarItemViewModel>()
                 .ForMember(x => x.ProjectId, y => y.MapFrom(z => z.Id));
 
@@ -74,32 +81,37 @@ namespace Chiffrage.Projects.Module.Controllers
         [Subscribe]
         public void ProcessAction(DealUnselectedAction eventObject)
         {
-            if (this.currentDealId.HasValue && currentDealId.Value == eventObject.Id)
+            if (!this.currentDealId.HasValue || currentDealId.Value != eventObject.Id)
+                return;
+
+            var viewModel = this.dealView.GetDealViewModel();
+
+            var viewModelHash = this.ComputeHashcode(viewModel);
+            if (viewModelHash != this.currentDealHashcode)
             {
                 this.ProcessAction(new SaveAction());
-
-                this.dealView.HideView();
-                this.dealView.SetDealViewModel(null);
-
-                this.currentDealId = null;
             }
+
+            this.dealView.HideView();
+            this.dealView.SetDealViewModel(null);
+
+            this.currentDealId = null;
         }
 
         [Subscribe]
         public void ProcessAction(SaveAction eventObject)
         {
-            this.dealView.Save();
-        }
+            var viewModel = this.dealView.GetDealViewModel();
 
-        [Subscribe(Topic = "topic://events")]
-        public void ProcessAction(DealUpdatedEvent eventObject)
-        {
-            if (this.currentDealId.HasValue && currentDealId.Value == eventObject.NewDeal.Id)
-            {
-                var result = this.Map(eventObject.NewDeal);
+            var command = new UpdateDealCommand(
+                viewModel.Id,
+                viewModel.Name,
+                viewModel.Comment,
+                viewModel.Reference,
+                viewModel.StartDate,
+                viewModel.EndDate);
 
-                this.dealView.SetDealViewModel(result);
-            }
+            this.OnUpdateDealCommand(command);
         }
 
         [Subscribe]
@@ -107,6 +119,21 @@ namespace Chiffrage.Projects.Module.Controllers
         {
             this.newDealView.ShowView();
         }
+        #endregion
+
+        #region events
+        [Subscribe(Topic = Topics.EVENTS)]
+        public void ProcessAction(DealUpdatedEvent eventObject)
+        {
+            if (CheckIfCurrentDeal(eventObject)) return;
+
+            var deal = this.dealRepository.FindById(eventObject.DealId);
+            var result = this.Map(deal);
+
+            this.dealView.SetDealViewModel(result);
+        }
+
+        #endregion
 
         private DealViewModel Map(Deal deal)
         {
@@ -133,13 +160,13 @@ namespace Chiffrage.Projects.Module.Controllers
             {
                 foreach (var item in project.Supplies)
                 {
-                    dealViewModel.TotalPrice += item.Quantity*item.Price;
+                    dealViewModel.TotalPrice += item.Quantity * item.Price;
                 }
 
                 foreach (var item in project.Hardwares)
                 {
                     // total price of components
-                    dealViewModel.TotalPrice += item.Components.Sum(x => x.Supply.Price*x.Quantity);
+                    dealViewModel.TotalPrice += item.Components.Sum(x => x.Supply.Price * x.Quantity);
 
                     foreach (var task in item.Tasks)
                     {
@@ -161,7 +188,7 @@ namespace Chiffrage.Projects.Module.Controllers
                                     throw new ArgumentOutOfRangeException();
                             }
                         }
-                        dealViewModel.TotalPrice += rate*task.Value;
+                        dealViewModel.TotalPrice += rate * task.Value;
                         dealViewModel.TotalDays += task.Value;
                     }
                 }
@@ -173,5 +200,26 @@ namespace Chiffrage.Projects.Module.Controllers
             return dealViewModel;
         }
 
+        private bool CheckIfCurrentDeal(IDealEvent eventObject)
+        {
+            if (!this.currentDealId.HasValue || currentDealId.Value != eventObject.DealId)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        private int ComputeHashcode(DealViewModel viewModel)
+        {
+            int hash = 23;
+            hash = hash * 31 + viewModel.Id.GetHashCode();
+            hash = hash * 31 + viewModel.Name.GetHashCode();
+            hash = hash * 31 + viewModel.Reference.GetHashCode();
+            hash = hash * 31 + viewModel.Comment.GetHashCode();
+            hash = hash * 31 + viewModel.StartDate.GetHashCode();
+            hash = hash * 31 + viewModel.EndDate.GetHashCode();
+
+            return hash;
+        }
     }
 }

@@ -14,7 +14,7 @@ namespace Chiffrage.Mvc.Events
     {
         private static ILog logger = LogManager.GetLogger(typeof(EventBroker));
 
-        public static readonly string DefaultTopic = "topic://default";
+        public const string DefaultTopic = Topics.DEFAULT;
 
         private readonly BlockingQueue<Message> eventQueue = new BlockingQueue<Message>(Int32.MaxValue);
 
@@ -22,9 +22,13 @@ namespace Chiffrage.Mvc.Events
 
         private readonly IList<EventSubscriptionItem> subscribers = new List<EventSubscriptionItem>();
 
-        private ReaderWriterLockSlim subscribersLock = new ReaderWriterLockSlim();
+        private readonly ReaderWriterLockSlim subscribersLock = new ReaderWriterLockSlim();
 
         public SynchronizationContext UISynchronizationContext { get; set; }
+
+        public event Action<Object> OnBeforeSend;
+
+        public event Action<Object> OnAfterSend;
 
         public object[] Subscribers
         {
@@ -62,7 +66,7 @@ namespace Chiffrage.Mvc.Events
             il.Emit(System.Reflection.Emit.OpCodes.Isinst, subscriberType);
             il.Emit(System.Reflection.Emit.OpCodes.Ldarg_1);
             il.Emit(System.Reflection.Emit.OpCodes.Isinst, methodInfo.GetParameters()[0].ParameterType);
-            il.Emit(System.Reflection.Emit.OpCodes.Callvirt, methodInfo);
+            il.Emit(System.Reflection.Emit.OpCodes.Callvirt, methodInfo); // TODO avoid
             il.Emit(System.Reflection.Emit.OpCodes.Nop);
             il.Emit(System.Reflection.Emit.OpCodes.Ret);
 
@@ -183,6 +187,7 @@ namespace Chiffrage.Mvc.Events
             if (this.dispatchingThread == null)
             {
                 this.dispatchingThread = new Thread(this.DispatchEvents);
+                this.dispatchingThread.Name = "EventBroker";
                 this.dispatchingThread.IsBackground = true;
                 this.dispatchingThread.Priority = ThreadPriority.Highest;
                 this.dispatchingThread.Start();
@@ -291,6 +296,10 @@ namespace Chiffrage.Mvc.Events
                 if (this.eventQueue.TryDequeue(out message))
                 {
                     subscribersLock.EnterReadLock();
+                    if (this.OnBeforeSend != null)
+                    {
+                        this.OnBeforeSend(message);
+                    }
                     foreach (var subscriber in this.subscribers)
                     {
                         if (subscriber.Topic.Equals(message.Topic) && subscriber.EventType.IsInstanceOfType(message.Body))
@@ -366,7 +375,10 @@ namespace Chiffrage.Mvc.Events
                             }
                         }
                     }
-
+                    if (this.OnAfterSend != null)
+                    {
+                        this.OnAfterSend(message);
+                    }
                     subscribersLock.ExitReadLock();
                 }
             } while (true);

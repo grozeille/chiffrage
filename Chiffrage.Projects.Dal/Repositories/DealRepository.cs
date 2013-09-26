@@ -26,22 +26,16 @@ namespace Chiffrage.Projects.Dal.Repositories
         {
 
             var session = SessionManager.OpenSessionIfRequired(this.sessionFactory);
-            //using (var session = this.sessionFactory.OpenSession())
-            {
-                return session.Query<Deal>().ToList();
-            }
+            return session.Query<Deal>().ToList();
         }
 
         public void Save(Deal deal)
         {
             var session = SessionManager.OpenSessionIfRequired(this.sessionFactory);
-            //using (var session = this.sessionFactory.OpenSession())
+            using (var transaction = session.BeginTransaction())
             {
-                using (var transaction = session.BeginTransaction())
-                {
-                    session.SaveOrUpdate(deal);
-                    session.Transaction.Commit();
-                }
+                session.SaveOrUpdate(deal);
+                session.Transaction.Commit();
             }
         }
 
@@ -49,10 +43,7 @@ namespace Chiffrage.Projects.Dal.Repositories
         {
             var session = SessionManager.OpenSessionIfRequired(this.sessionFactory);
 
-            //using (var session = this.sessionFactory.OpenSession())
-            {   
-                return session.Query<Deal>().Where(x => x.Id == dealId).FirstOrDefault();
-            }
+            return session.Query<Deal>().Where(x => x.Id == dealId).FirstOrDefault();
         }
 
         public void Delete(Deal deal)

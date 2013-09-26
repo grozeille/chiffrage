@@ -7,20 +7,20 @@ using Chiffrage.Mvc.Events;
 
 namespace Chiffrage.Catalogs.Domain.Events
 {
-    public class HardwareCreatedEvent
+    public class HardwareCreatedEvent : ICatalogEvent
     {
         private readonly int catalogId;
-        private readonly Hardware hardware;
+        private readonly int hardwareId;
 
-        public HardwareCreatedEvent(int catalogId, Hardware hardware)
+        public HardwareCreatedEvent(int catalogId, int hardwareId)
         {
             this.catalogId = catalogId;
-            this.hardware = hardware;
+            this.hardwareId = hardwareId;
         }
 
-        public Hardware Hardware
+        public int HardwareId
         {
-            get { return this.hardware; }
+            get { return this.hardwareId; }
         }
 
         public int CatalogId

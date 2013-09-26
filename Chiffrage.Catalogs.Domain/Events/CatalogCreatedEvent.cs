@@ -7,15 +7,15 @@ using Chiffrage.Mvc.Events;
 
 namespace Chiffrage.Catalogs.Domain.Events
 {
-    public class CatalogCreatedEvent
+    public class CatalogCreatedEvent : ICatalogEvent
     {
-        private readonly SupplierCatalog catalog;
+        private readonly int catalogId;
 
-        public CatalogCreatedEvent(SupplierCatalog catalog)
+        public CatalogCreatedEvent(int catalogId)
         {
-            this.catalog = catalog;
+            this.catalogId = catalogId;
         }
 
-        public SupplierCatalog Catalog { get { return this.catalog; } }
+        public int CatalogId { get { return this.catalogId; } }
     }
 }
