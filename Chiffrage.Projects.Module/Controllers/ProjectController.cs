@@ -57,13 +57,18 @@ namespace Chiffrage.Projects.Module.Controllers
         private int? projectIdClipboard = null;
 
         private int? currentProjectId = null;
+
+        private int? currentProjectHashcode = null;
         
         // no better way...
         private readonly System.Windows.Forms.RichTextBox rtBox = new System.Windows.Forms.RichTextBox();
 
         [Publish(Topic = Topics.COMMANDS)]
         public event Action<CloneProjectCommand> OnCloneProjectCommand;
-        
+
+        [Publish(Topic = Topics.COMMANDS)]
+        public event Action<UpdateProjectCommand> OnUpdateProjectCommand;
+
         public ProjectController(
             IProjectView projectView, 
             INewProjectView newProjectView, 
@@ -110,6 +115,8 @@ namespace Chiffrage.Projects.Module.Controllers
             var project = this.projectRepository.FindById(eventObject.Id);
 
             var viewModel = Map(project);
+
+            this.currentProjectHashcode = this.ComputeHashcode(viewModel);
 
             var supplies = new List<ProjectSupplyViewModel>();
             foreach (var item in project.Supplies)
@@ -167,8 +174,14 @@ namespace Chiffrage.Projects.Module.Controllers
         {
             if (!this.currentProjectId.HasValue || currentProjectId.Value != eventObject.Id)
                 return;
-            
-            this.ProcessAction(new SaveAction());
+
+            var viewModel = this.projectView.GetProjectViewModel();
+
+            var viewModelHash = this.ComputeHashcode(viewModel);
+            if (viewModelHash != this.currentProjectHashcode)
+            {
+                this.ProcessAction(new SaveAction());
+            }
 
             this.projectView.HideView();
 
@@ -184,7 +197,19 @@ namespace Chiffrage.Projects.Module.Controllers
         [Subscribe]
         public void ProcessAction(SaveAction eventObject)
         {
-            this.projectView.Save();
+            var viewModel = this.projectView.GetProjectViewModel();
+
+            var command = new UpdateProjectCommand(
+                viewModel.Id,
+                viewModel.Name,
+                viewModel.Comment,
+                viewModel.Reference,
+                viewModel.StartDate,
+                viewModel.EndDate,
+                viewModel.Tasks,
+                viewModel.OtherBenefits);
+
+            this.OnUpdateProjectCommand(command);
         }
 
         [Subscribe]
@@ -707,6 +732,43 @@ namespace Chiffrage.Projects.Module.Controllers
                 return true;
             }
             return false;
+        }
+
+
+        private int ComputeHashcode(ProjectViewModel viewModel)
+        {
+            int hash = 23;
+            hash = hash * 31 + viewModel.Id.GetHashCode();
+            hash = hash * 31 + viewModel.Name.GetHashCode();
+            hash = hash * 31 + viewModel.Reference.GetHashCode();
+            hash = hash * 31 + viewModel.Comment.GetHashCode();
+            hash = hash * 31 + viewModel.StartDate.GetHashCode();
+            hash = hash * 31 + viewModel.EndDate.GetHashCode();
+
+            foreach(var item in viewModel.Tasks.OrderBy(x => x.Id))
+            {
+                int tasksHash = 23;
+                tasksHash = tasksHash * 31 + item.Id.GetHashCode();
+                tasksHash = tasksHash * 31 + item.DayRate.GetHashCode();
+                tasksHash = tasksHash * 31 + item.NightRate.GetHashCode();
+                tasksHash = tasksHash * 31 + item.LongNightRate.GetHashCode();
+                tasksHash = tasksHash * 31 + item.ShortNightRate.GetHashCode();
+
+                hash = hash * 31 + tasksHash;
+            }
+
+            foreach (var item in viewModel.OtherBenefits.OrderBy(x => x.Id))
+            {
+                int otherBenefitsHash = 23;
+                otherBenefitsHash = otherBenefitsHash * 31 + item.Id.GetHashCode();
+                otherBenefitsHash = otherBenefitsHash * 31 + item.Name.GetHashCode();
+                otherBenefitsHash = otherBenefitsHash * 31 + item.Hours.GetHashCode();
+                otherBenefitsHash = otherBenefitsHash * 31 + item.CostRate.GetHashCode();
+
+                hash = hash * 31 + otherBenefitsHash;
+            }
+
+            return hash;
         }
     }
 }

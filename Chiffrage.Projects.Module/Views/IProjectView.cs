@@ -44,6 +44,6 @@ namespace Chiffrage.Projects.Module.Views
 
         void SetCostSummaryItems(IEnumerable<ProjectCostSummaryViewModel> summaryItems);
 
-        void Save();
+        ProjectViewModel GetProjectViewModel();
     }
 }

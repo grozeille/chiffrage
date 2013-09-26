@@ -31,6 +31,11 @@ namespace Chiffrage.Projects.Module.Controllers
 
         private int? currentDealId;
 
+        private int? currentDealHashcode;
+
+        [Publish(Topic = Topics.COMMANDS)]
+        public event Action<UpdateDealCommand> OnUpdateDealCommand;
+
         public DealController(IDealRepository dealRepository, ITaskRepository taskRepository, IDealView dealView, INewDealView newDealView, ILoadingView loadingView)
         {
             this.dealView = dealView;
@@ -55,7 +60,8 @@ namespace Chiffrage.Projects.Module.Controllers
 
             var deal = this.dealRepository.FindById(eventObject.Id);
             var dealViewModel = this.Map(deal);
-            
+            this.currentDealHashcode = this.ComputeHashcode(dealViewModel);
+
             Mapper.CreateMap<Project, DealProjectCalendarItemViewModel>()
                 .ForMember(x => x.ProjectId, y => y.MapFrom(z => z.Id));
 
@@ -75,21 +81,37 @@ namespace Chiffrage.Projects.Module.Controllers
         [Subscribe]
         public void ProcessAction(DealUnselectedAction eventObject)
         {
-            if (this.currentDealId.HasValue && currentDealId.Value == eventObject.Id)
+            if (!this.currentDealId.HasValue || currentDealId.Value != eventObject.Id)
+                return;
+
+            var viewModel = this.dealView.GetDealViewModel();
+
+            var viewModelHash = this.ComputeHashcode(viewModel);
+            if (viewModelHash != this.currentDealHashcode)
             {
                 this.ProcessAction(new SaveAction());
-
-                this.dealView.HideView();
-                this.dealView.SetDealViewModel(null);
-
-                this.currentDealId = null;
             }
+
+            this.dealView.HideView();
+            this.dealView.SetDealViewModel(null);
+
+            this.currentDealId = null;
         }
 
         [Subscribe]
         public void ProcessAction(SaveAction eventObject)
         {
-            this.dealView.Save();
+            var viewModel = this.dealView.GetDealViewModel();
+
+            var command = new UpdateDealCommand(
+                viewModel.Id,
+                viewModel.Name,
+                viewModel.Comment,
+                viewModel.Reference,
+                viewModel.StartDate,
+                viewModel.EndDate);
+
+            this.OnUpdateDealCommand(command);
         }
 
         [Subscribe]
@@ -185,6 +207,19 @@ namespace Chiffrage.Projects.Module.Controllers
                 return true;
             }
             return false;
+        }
+
+        private int ComputeHashcode(DealViewModel viewModel)
+        {
+            int hash = 23;
+            hash = hash * 31 + viewModel.Id.GetHashCode();
+            hash = hash * 31 + viewModel.Name.GetHashCode();
+            hash = hash * 31 + viewModel.Reference.GetHashCode();
+            hash = hash * 31 + viewModel.Comment.GetHashCode();
+            hash = hash * 31 + viewModel.StartDate.GetHashCode();
+            hash = hash * 31 + viewModel.EndDate.GetHashCode();
+
+            return hash;
         }
     }
 }
