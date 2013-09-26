@@ -7,26 +7,26 @@ using Chiffrage.Projects.Domain;
 
 namespace Chiffrage.Projects.Domain.Events
 {
-    public class ProjectCreatedEvent
+    public class ProjectCreatedEvent : IProjectEvent
     {
-        private readonly Project newProject;
+         private readonly int dealId;
 
-        private readonly Deal parentDeal;
+        private readonly int projectId;
 
-        public ProjectCreatedEvent(Deal parentDeal, Project newProject)
+        public ProjectCreatedEvent(int dealId, int projectId)
         {
-            this.newProject = newProject;
-            this.parentDeal = parentDeal;
+            this.dealId = dealId;
+            this.projectId = projectId;
         }
 
-        public Project NewProject
+        public int DealId
         {
-            get { return this.newProject; }
+            get { return this.dealId; }
         }
 
-        public Deal ParentDeal
+        public int ProjectId
         {
-            get { return this.parentDeal; }
+            get { return this.projectId; }
         }
     }
 }

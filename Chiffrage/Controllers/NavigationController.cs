@@ -29,15 +29,19 @@ namespace Chiffrage.App.Controllers
 
         private readonly IDealRepository dealRepository;
 
+        private readonly IProjectRepository projectRepository;
+
         public NavigationController(
             IEventBroker eventBroker,
             ICatalogRepository catalogRepository,
             IDealRepository dealRepository,
+            IProjectRepository projectRepository,
             INavigationView navigationView)
         {
             this.eventBroker = eventBroker;
             this.catalogRepository = catalogRepository;
             this.dealRepository = dealRepository;
+            this.projectRepository = projectRepository;
             this.navigationView = navigationView;
         }
 
@@ -87,7 +91,9 @@ namespace Chiffrage.App.Controllers
         {
             Mapper.CreateMap<Deal, DealItemViewModel>();
 
-            var result = Mapper.Map<Deal, DealItemViewModel>(eventObject.NewDeal);
+            var deal = this.dealRepository.FindById(eventObject.DealId);
+
+            var result = Mapper.Map<Deal, DealItemViewModel>(deal);
 
             this.navigationView.UpdateDeal(result);
         }
@@ -97,7 +103,9 @@ namespace Chiffrage.App.Controllers
         {
             Mapper.CreateMap<Deal, DealItemViewModel>();
 
-            var result = Mapper.Map<Deal, DealItemViewModel>(eventObject.NewDeal);
+            var deal = this.dealRepository.FindById(eventObject.DealId);
+
+            var result = Mapper.Map<Deal, DealItemViewModel>(deal);
 
             this.navigationView.AddDeal(result);
             this.navigationView.SelectDeal(result.Id);
@@ -139,9 +147,11 @@ namespace Chiffrage.App.Controllers
         {
             Mapper.CreateMap<Project, ProjectItemViewModel>();
 
-            var result = Mapper.Map<Project, ProjectItemViewModel>(eventObject.NewProject);
+            var project = this.projectRepository.FindById(eventObject.ProjectId);
 
-            this.navigationView.AddProject(eventObject.ParentDeal.Id, result);
+            var result = Mapper.Map<Project, ProjectItemViewModel>(project);
+
+            this.navigationView.AddProject(eventObject.DealId, result);
             this.navigationView.SelectProject(result.Id);
         }
 
@@ -150,7 +160,9 @@ namespace Chiffrage.App.Controllers
         {
             Mapper.CreateMap<Project, ProjectItemViewModel>();
 
-            var result = Mapper.Map<Project, ProjectItemViewModel>(eventObject.NewProject);
+            var project = this.projectRepository.FindById(eventObject.ProjectId);
+
+            var result = Mapper.Map<Project, ProjectItemViewModel>(project);
 
             this.navigationView.UpdateProject(result);
         }

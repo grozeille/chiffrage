@@ -390,8 +390,6 @@ namespace Chiffrage.Catalogs.Module.Controllers
             return result;
         }
 
-
-
         private bool CheckIfCurrentCatalog(ICatalogEvent eventObject)
         {
             if (!this.currentCatalogId.HasValue || currentCatalogId.Value != eventObject.CatalogId)

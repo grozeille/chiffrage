@@ -20,7 +20,7 @@ namespace Chiffrage.Projects.Dal.Mappings
 
             this.ManyToOne(x => x.Task, y =>
             {
-                //y.Lazy(LazyRelation.Proxy);
+                y.Lazy(LazyRelation.NoLazy);
                 y.Fetch(FetchKind.Join);
                 y.Cascade(Cascade.Merge);
             });

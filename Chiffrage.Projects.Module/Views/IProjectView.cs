@@ -26,13 +26,13 @@ namespace Chiffrage.Projects.Module.Views
 
         void RemoveAllSupplies();
 
-        void RemoveSupply(ProjectSupplyViewModel supply);
+        void RemoveSupply(int supplyId);
 
         void UpdateSupply(ProjectSupplyViewModel supply);
 
         void AddHardware(ProjectHardwareViewModel viewModel);
 
-        void RemoveHardware(ProjectHardwareViewModel hardware);
+        void RemoveHardware(int hardwareId);
 
         void UpdateHardware(ProjectHardwareViewModel hardware);
         
@@ -40,7 +40,7 @@ namespace Chiffrage.Projects.Module.Views
 
         void AddFrames(IEnumerable<ProjectFrameViewModel> frames);
 
-        void RemoveFrame(ProjectFrameViewModel frame);
+        void RemoveFrame(int frameId);
 
         void SetCostSummaryItems(IEnumerable<ProjectCostSummaryViewModel> summaryItems);
 

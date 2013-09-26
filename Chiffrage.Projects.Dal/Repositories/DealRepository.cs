@@ -34,7 +34,6 @@ namespace Chiffrage.Projects.Dal.Repositories
             var session = SessionManager.OpenSessionIfRequired(this.sessionFactory);
             using (var transaction = session.BeginTransaction())
             {
-                session.Merge(deal);
                 session.SaveOrUpdate(deal);
                 session.Transaction.Commit();
             }
@@ -52,7 +51,6 @@ namespace Chiffrage.Projects.Dal.Repositories
             var session = SessionManager.OpenSessionIfRequired(this.sessionFactory);
             using (var transaction = session.BeginTransaction())
             {
-                session.Merge(deal);
                 session.Delete(deal);
                 session.Transaction.Commit();
             }

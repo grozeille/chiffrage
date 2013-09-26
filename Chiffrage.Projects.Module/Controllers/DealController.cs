@@ -40,6 +40,7 @@ namespace Chiffrage.Projects.Module.Controllers
             this.dealRepository = dealRepository;
         }
 
+        #region Action
         [Subscribe]
         public void ProcessAction(ApplicationStartAction eventObject)
         {
@@ -91,22 +92,26 @@ namespace Chiffrage.Projects.Module.Controllers
             this.dealView.Save();
         }
 
-        [Subscribe(Topic = Topics.EVENTS)]
-        public void ProcessAction(DealUpdatedEvent eventObject)
-        {
-            if (this.currentDealId.HasValue && currentDealId.Value == eventObject.NewDeal.Id)
-            {
-                var result = this.Map(eventObject.NewDeal);
-
-                this.dealView.SetDealViewModel(result);
-            }
-        }
-
         [Subscribe]
         public void ProcessAction(RequestNewDealAction eventObject)
         {
             this.newDealView.ShowView();
         }
+        #endregion
+
+        #region events
+        [Subscribe(Topic = Topics.EVENTS)]
+        public void ProcessAction(DealUpdatedEvent eventObject)
+        {
+            if (CheckIfCurrentDeal(eventObject)) return;
+
+            var deal = this.dealRepository.FindById(eventObject.DealId);
+            var result = this.Map(deal);
+
+            this.dealView.SetDealViewModel(result);
+        }
+
+        #endregion
 
         private DealViewModel Map(Deal deal)
         {
@@ -133,13 +138,13 @@ namespace Chiffrage.Projects.Module.Controllers
             {
                 foreach (var item in project.Supplies)
                 {
-                    dealViewModel.TotalPrice += item.Quantity*item.Price;
+                    dealViewModel.TotalPrice += item.Quantity * item.Price;
                 }
 
                 foreach (var item in project.Hardwares)
                 {
                     // total price of components
-                    dealViewModel.TotalPrice += item.Components.Sum(x => x.Supply.Price*x.Quantity);
+                    dealViewModel.TotalPrice += item.Components.Sum(x => x.Supply.Price * x.Quantity);
 
                     foreach (var task in item.Tasks)
                     {
@@ -161,7 +166,7 @@ namespace Chiffrage.Projects.Module.Controllers
                                     throw new ArgumentOutOfRangeException();
                             }
                         }
-                        dealViewModel.TotalPrice += rate*task.Value;
+                        dealViewModel.TotalPrice += rate * task.Value;
                         dealViewModel.TotalDays += task.Value;
                     }
                 }
@@ -173,5 +178,13 @@ namespace Chiffrage.Projects.Module.Controllers
             return dealViewModel;
         }
 
+        private bool CheckIfCurrentDeal(IDealEvent eventObject)
+        {
+            if (!this.currentDealId.HasValue || currentDealId.Value != eventObject.DealId)
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }

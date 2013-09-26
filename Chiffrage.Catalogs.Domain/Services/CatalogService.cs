@@ -70,7 +70,10 @@ namespace Chiffrage.Catalogs.Domain.Services
             {
                 catalog.Supplies.Add(supply);
 
+                var index = catalog.Supplies.IndexOf(supply);
+
                 this.repository.Save(catalog);
+                supply = catalog.Supplies[index];
 
                 this.eventBroker.Publish(new SupplyCreatedEvent(catalog.Id, supply.Id), "topic://events");
             }
@@ -126,8 +129,10 @@ namespace Chiffrage.Catalogs.Domain.Services
             else
             {
                 catalog.Hardwares.Add(hardware);
+                var index = catalog.Hardwares.IndexOf(hardware);
 
                 this.repository.Save(catalog);
+                hardware = catalog.Hardwares[index];
 
                 this.eventBroker.Publish(new HardwareCreatedEvent(catalog.Id, hardware.Id), "topic://events");
             }
@@ -188,8 +193,10 @@ namespace Chiffrage.Catalogs.Domain.Services
             else
             {
                 hardware.Components.Add(hardwareSupply);
+                var index = hardware.Components.IndexOf(hardwareSupply);
 
                 this.repository.Save(catalog);
+                hardwareSupply = hardware.Components[index];
 
                 this.eventBroker.Publish(new HardwareSupplyCreatedEvent(catalog.Id, hardware.Id, hardwareSupply.Id), "topic://events");
             }

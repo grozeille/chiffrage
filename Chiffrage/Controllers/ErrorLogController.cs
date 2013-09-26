@@ -67,13 +67,13 @@ namespace Chiffrage.App.Controllers
         [Subscribe]
         public void ProcessAction(DealUpdatedEvent eventObject)
         {
-            this.AppendInfoLog(string.Format("Deal '{0}' updated successfully", eventObject.NewDeal.Name));
+            this.AppendInfoLog(string.Format("Deal '{0}' updated successfully", eventObject.DealId));
         }
 
         [Subscribe]
         public void ProcessAction(DealCreatedEvent eventObject)
         {
-            this.AppendInfoLog(string.Format("Deal '{0}' created successfully", eventObject.NewDeal.Name));
+            this.AppendInfoLog(string.Format("Deal '{0}' created successfully", eventObject.DealId));
         }
 
         [Subscribe]
@@ -97,13 +97,13 @@ namespace Chiffrage.App.Controllers
         [Subscribe]
         public void ProcessAction(ProjectCreatedEvent eventObject)
         {
-            this.AppendInfoLog(string.Format("Project '{0}' created successfully", eventObject.NewProject.Name));
+            this.AppendInfoLog(string.Format("Project '{0}' created successfully", eventObject.ProjectId));
         }
 
         [Subscribe]
         public void ProcessAction(ProjectUpdatedEvent eventObject)
         {
-            this.AppendInfoLog(string.Format("Project '{0}' updated successfully", eventObject.NewProject.Name));
+            this.AppendInfoLog(string.Format("Project '{0}' updated successfully", eventObject.ProjectId));
         }
 
         [Subscribe(Topic = Topics.EVENTS)]

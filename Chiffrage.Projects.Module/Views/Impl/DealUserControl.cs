@@ -298,5 +298,10 @@ namespace Chiffrage.Projects.Module.Views.Impl
                 e.Handled = true;
             }
         }
+
+        private void DealUserControl_Load(object sender, EventArgs e)
+        {
+            this.dataGridViewItemSummary.SetDoubleBuffered();
+        }
     }
 }

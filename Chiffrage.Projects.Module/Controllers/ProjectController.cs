@@ -94,6 +94,461 @@ namespace Chiffrage.Projects.Module.Controllers
             this.taskRepository = taskRepository;
         }
 
+        #region Actions
+        [Subscribe]
+        public void ProcessAction(ApplicationStartAction eventObject)
+        {
+            this.projectView.HideView();
+        }
+
+        [Subscribe]
+        public void ProcessAction(ProjectSelectedAction eventObject)
+        {
+            this.loadingView.Continuous = true;
+            this.loadingView.ShowView();
+
+            var project = this.projectRepository.FindById(eventObject.Id);
+
+            var viewModel = Map(project);
+
+            var supplies = new List<ProjectSupplyViewModel>();
+            foreach (var item in project.Supplies)
+            {
+                supplies.Add(Map(item, project.Id));
+            }
+
+            var hardwares = new List<ProjectHardwareViewModel>();
+            foreach (var item in project.Hardwares)
+            {
+                hardwares.Add(MapToHardwareViewModel(item, project.Id));
+            }
+
+            var frames = new List<ProjectFrameViewModel>();
+            foreach (var item in project.Frames)
+            {
+                frames.Add(Map(item, project.Id));
+            }
+
+            try
+            {
+                this.projectView.SetProjectViewModel(viewModel);
+                this.projectView.SetSupplies(supplies);
+                this.projectView.SetHardwares(hardwares);
+                this.projectView.SetFrames(frames);
+
+                this.RefreshSummary(project.Id);
+                this.RefreshCostSummary(project.Id);
+
+                this.loadingView.HideView();
+                this.projectView.ShowView();
+            }
+            catch(Exception ex)
+            {
+                logger.Warn("Error while loading the project",ex);
+
+                // a weird bug throw an exception the first time it loads a project, so try again
+                this.projectView.SetProjectViewModel(viewModel);
+                this.projectView.SetSupplies(supplies);
+                this.projectView.SetHardwares(hardwares);
+                this.projectView.SetFrames(frames);
+
+                this.RefreshSummary(project.Id);
+                this.RefreshCostSummary(project.Id);
+
+                this.loadingView.HideView();
+                this.projectView.ShowView();
+            }
+
+            this.currentProjectId = eventObject.Id;
+        }
+
+        [Subscribe]
+        public void ProcessAction(ProjectUnselectedAction eventObject)
+        {
+            if (!this.currentProjectId.HasValue || currentProjectId.Value != eventObject.Id)
+                return;
+            
+            this.ProcessAction(new SaveAction());
+
+            this.projectView.HideView();
+
+            this.projectView.SetProjectViewModel(null);
+            this.projectView.SetSupplies(null);
+            this.projectView.SetHardwares(null);
+            this.projectView.SetFrames(null);
+            this.projectView.SetSummaryItems(null);
+
+            this.currentProjectId = null;
+        }
+
+        [Subscribe]
+        public void ProcessAction(SaveAction eventObject)
+        {
+            this.projectView.Save();
+        }
+
+        [Subscribe]
+        public void ProcessAction(RequestNewProjectAction eventObject)
+        {
+            this.newProjectView.ParentDealId = eventObject.DealId;
+            this.newProjectView.ShowView();
+        }
+
+        [Subscribe]
+        public void ProcessAction(RequestNewProjectSupplyAction eventObject)
+        {
+            var catalogs = this.catalogRepository.FindAll();
+            List<CatalogSupplySelectionViewModel> suppliesViewModel = new List<CatalogSupplySelectionViewModel>();
+            Mapper.CreateMap<Supply, CatalogSupplySelectionViewModel>();
+
+            foreach(var catalog in catalogs)
+            {
+                var supplies = Mapper.Map<IList<Supply>, IList<CatalogSupplySelectionViewModel>>(catalog.Supplies);
+                foreach (var item in supplies)
+                {
+                    item.CatalogId = catalog.Id;
+                    item.CatalogName = catalog.SupplierName;
+                    item.Quantity = 1;
+                }
+                suppliesViewModel.AddRange(supplies);
+            }
+
+            suppliesViewModel.Sort((x, y) =>
+            {
+                int result = x.CatalogName.CompareTo(y.CatalogName);
+                if (result != 0)
+                {
+                    return result;
+                }
+
+                return x.Name.CompareTo(y.Name);
+            });
+
+            this.newProjectSupplyView.Supplies = suppliesViewModel;
+            this.newProjectSupplyView.ProjectId = eventObject.ProjectId;
+            this.newProjectSupplyView.ShowView();
+        }
+
+
+        [Subscribe]
+        public void ProcessAction(RequestEditProjectSupplyAction eventObject)
+        {
+            this.editProjectSupplyView.Supply = eventObject.Supply;
+            this.editProjectSupplyView.ShowView();
+        }
+
+        [Subscribe]
+        public void ProcessAction(RequestNewProjectHardwareAction eventObject)
+        {
+            var catalogs = this.catalogRepository.FindAll();
+            List<CatalogHardwareSelectionViewModel> hardwaresViewModel = new List<CatalogHardwareSelectionViewModel>();
+            Mapper.CreateMap<Hardware, CatalogHardwareSelectionViewModel>();
+            Mapper.CreateMap<HardwareSupply, CatalogHardwareSupplyViewModel>();
+
+            foreach (var catalog in catalogs)
+            {
+                var hardwares = Mapper.Map<IList<Hardware>, IList<CatalogHardwareSelectionViewModel>>(catalog.Hardwares);
+                foreach (var item in hardwares)
+                {
+                    item.CatalogId = catalog.Id;
+                    item.CatalogName = catalog.SupplierName;
+                    item.Quantity = 1;
+                }
+                hardwaresViewModel.AddRange(hardwares);
+            }
+
+            hardwaresViewModel.Sort((x, y) =>
+            {
+                int result = x.CatalogName.CompareTo(y.CatalogName);
+                if (result != 0)
+                {
+                    return result;
+                }
+
+                return x.Name.CompareTo(y.Name);
+            });
+
+            this.newProjectHardwareView.ProjectId = eventObject.ProjectId;
+            this.newProjectHardwareView.Hardwares = hardwaresViewModel;
+            this.newProjectHardwareView.ShowView();
+        }
+
+        [Subscribe]
+        public void ProcessAction(ProjectCopyAction eventObject)
+        {
+            this.projectIdClipboard = eventObject.Id;
+        }
+
+        [Subscribe]
+        public void ProcessAction(ProjectPasteAction eventObject)
+        {
+            if (this.projectIdClipboard.HasValue)
+            {
+                OnCloneProjectCommand(new CloneProjectCommand(eventObject.DealId, this.projectIdClipboard.Value));
+            }
+        }
+
+        [Subscribe]
+        public void ProcessAction(RequestEditProjectHardwareSupplyAction eventObject)
+        {
+            this.editProjectHardwareSupplyView.HardwareSupply = eventObject.HardwareSupply;
+            this.editProjectHardwareSupplyView.ShowView();
+        }
+
+        [Subscribe]
+        public void ProcessAction(RequestEditProjectHardwareAction eventObject)
+        {
+            Project project = this.projectRepository.FindById(eventObject.Hardware.ProjectId);
+            ProjectHardware hardware = project.Hardwares.Where(x => x.Id == eventObject.Hardware.Id).FirstOrDefault();
+
+            this.editProjectHardwareView.Hardware = eventObject.Hardware;
+            this.editProjectHardwareView.ProjectTasks = project.Tasks;
+            this.editProjectHardwareView.HardwareTask = hardware.Tasks;
+            this.editProjectHardwareView.ShowView();
+        }
+
+        [Subscribe]
+        public void ProcessAction(RequestNewProjectFrameAction eventObject)
+        {
+            this.newProjectFrameView.ProjectId = eventObject.ProjectId;
+            this.newProjectFrameView.ShowView();
+        }
+        #endregion
+
+        #region events
+        [Subscribe(Topic = Topics.EVENTS)]
+        public void ProcessAction(ProjectUpdatedEvent eventObject)
+        {
+            if (CheckIfCurrentProject(eventObject)) return;
+
+            this.RefreshProject(eventObject.ProjectId);
+            this.RefreshCostSummary(eventObject.ProjectId);
+        }
+
+        [Subscribe(Topic = Topics.EVENTS)]
+        public void ProcessAction(ProjectSupplyCreatedEvent eventObject)
+        {
+            if (CheckIfCurrentProject(eventObject)) return;
+
+            var project = this.projectRepository.FindById(eventObject.ProjectId);
+            var supply = project.Supplies.Where(x => x.Id == eventObject.ProjectSupplyId).FirstOrDefault();
+
+            var viewModel = Map(supply, eventObject.ProjectId);
+            this.projectView.AddSupply(viewModel);
+
+            this.RefreshSummary(eventObject.ProjectId);
+            this.RefreshCostSummary(eventObject.ProjectId);
+
+            this.RefreshProject(eventObject.ProjectId);
+        }
+
+        [Subscribe(Topic = Topics.EVENTS)]
+        public void ProcessAction(ProjectSupplyListCreatedEvent eventObject)
+        {
+            if (this.currentProjectId != null)
+            {
+                foreach (var item in eventObject.Commands.Where(x => x.ProjectId == this.currentProjectId))
+                {
+                    var project = this.projectRepository.FindById(item.ProjectId);
+                    var supply = project.Supplies.Where(x => x.Id == item.ProjectSupplyId).FirstOrDefault();
+                    var viewModel = Map(supply, item.ProjectId);
+                    this.projectView.AddSupply(viewModel);
+                }
+
+                this.RefreshSummary(this.currentProjectId.Value);
+                this.RefreshCostSummary(this.currentProjectId.Value);
+
+                this.RefreshProject(this.currentProjectId.Value);
+            }
+        }
+
+        [Subscribe(Topic = Topics.EVENTS)]
+        public void ProcessAction(ProjectSupplyUpdatedEvent eventObject)
+        {
+            if (CheckIfCurrentProject(eventObject)) return;
+
+            var project = this.projectRepository.FindById(eventObject.ProjectId);
+            var supply = project.Supplies.Where(x => x.Id == eventObject.ProjectSupplyId).FirstOrDefault();
+
+            var viewModel = Map(supply, eventObject.ProjectId);
+            this.projectView.UpdateSupply(viewModel);
+
+            this.RefreshProject(eventObject.ProjectId);
+            this.RefreshSummary(eventObject.ProjectId);
+            this.RefreshCostSummary(eventObject.ProjectId);
+        }
+
+        [Subscribe(Topic = Topics.EVENTS)]
+        public void ProcessAction(ProjectSupplyListUpdatedEvent eventObject)
+        {
+            if (this.currentProjectId != null)
+            {
+                foreach (var item in eventObject.Commands.Where(x => x.ProjectId == this.currentProjectId))
+                {
+                    var project = this.projectRepository.FindById(item.ProjectId);
+                    var supply = project.Supplies.Where(x => x.Id == item.ProjectSupplyId).FirstOrDefault();
+                    var viewModel = Map(supply, item.ProjectId);
+                    this.projectView.UpdateSupply(viewModel);
+                }
+
+                this.RefreshProject(this.currentProjectId.Value);
+                this.RefreshSummary(this.currentProjectId.Value);
+                this.RefreshCostSummary(this.currentProjectId.Value);
+            }
+        }
+
+        [Subscribe(Topic = Topics.EVENTS)]
+        public void ProcessAction(ProjectSupplyDeletedEvent eventObject)
+        {
+            if (CheckIfCurrentProject(eventObject)) return;
+
+            this.projectView.RemoveSupply(eventObject.ProjectSupplyId);
+
+            this.RefreshSummary(eventObject.ProjectId);
+            this.RefreshCostSummary(eventObject.ProjectId);
+
+            this.RefreshProject(eventObject.ProjectId);
+        }
+
+        [Subscribe(Topic = Topics.EVENTS)]
+        public void ProcessAction(ProjectHardwareCreatedEvent eventObject)
+        {
+            if (CheckIfCurrentProject(eventObject)) return;
+
+            var project = this.projectRepository.FindById(eventObject.ProjectId);
+            var hardware = project.Hardwares.Where(x => x.Id == eventObject.ProjectHardwareId).FirstOrDefault();
+
+            var viewModel = MapToHardwareViewModel(hardware, eventObject.ProjectId);
+            
+            this.projectView.AddHardware(viewModel);
+
+            this.RefreshSummary(eventObject.ProjectId);
+            this.RefreshCostSummary(eventObject.ProjectId);
+
+            this.RefreshProject(eventObject.ProjectId);
+        }
+
+        [Subscribe(Topic = Topics.EVENTS)]
+        public void ProcessAction(ProjectHardwareListCreatedEvent eventObject)
+        {
+            if (this.currentProjectId != null)
+            {
+
+                foreach (var item in eventObject.Commands.Where(x => x.ProjectId == this.currentProjectId))
+                {
+                    var project = this.projectRepository.FindById(item.ProjectId);
+                    var hardware = project.Hardwares.Where(x => x.Id == item.ProjectHardwareId).FirstOrDefault();
+                    var viewModel = MapToHardwareViewModel(hardware, item.ProjectId);
+
+                    this.projectView.AddHardware(viewModel);
+
+                }
+
+                this.RefreshSummary(this.currentProjectId.Value);
+                this.RefreshCostSummary(this.currentProjectId.Value);
+
+                this.RefreshProject(this.currentProjectId.Value);
+            }
+        }
+
+        [Subscribe(Topic = Topics.EVENTS)]
+        public void ProcessAction(ProjectHardwareUpdatedEvent eventObject)
+        {
+            if (CheckIfCurrentProject(eventObject)) return;
+
+            var project = this.projectRepository.FindById(eventObject.ProjectId);
+            var hardware = project.Hardwares.Where(x => x.Id == eventObject.ProjectHardwareId).FirstOrDefault();
+
+            var viewModel = MapToHardwareViewModel(hardware, eventObject.ProjectId);
+            this.projectView.UpdateHardware(viewModel);
+
+            this.RefreshProject(eventObject.ProjectId);
+            this.RefreshSummary(eventObject.ProjectId);
+            this.RefreshCostSummary(eventObject.ProjectId);
+        }
+
+        [Subscribe(Topic = Topics.EVENTS)]
+        public void ProcessAction(ProjectHardwareListUpdatedEvent eventObject)
+        {
+            if (this.currentProjectId != null)
+            {
+                foreach (var item in eventObject.Commands.Where(x => x.ProjectId == this.currentProjectId))
+                {
+                    var project = this.projectRepository.FindById(item.ProjectId);
+                    var hardware = project.Hardwares.Where(x => x.Id == item.ProjectHardwareId).FirstOrDefault();
+
+                    var viewModel = MapToHardwareViewModel(hardware, item.ProjectId);
+                    this.projectView.UpdateHardware(viewModel);
+                }
+
+                this.RefreshProject(this.currentProjectId.Value);
+                this.RefreshSummary(this.currentProjectId.Value);
+                this.RefreshCostSummary(this.currentProjectId.Value);
+            }
+        }
+
+        [Subscribe(Topic = Topics.EVENTS)]
+        public void ProcessAction(ProjectHardwareSupplyUpdatedEvent eventObject)
+        {
+            if (CheckIfCurrentProject(eventObject)) return;
+
+            var project = this.projectRepository.FindById(eventObject.ProjectId);
+            var hardware = project.Hardwares.Where(x => x.Id == eventObject.ProjectHardwareId).FirstOrDefault();
+
+            var viewModel = MapToHardwareViewModel(hardware, eventObject.ProjectId);
+            this.projectView.UpdateHardware(viewModel);
+
+            this.RefreshProject(eventObject.ProjectId);
+            this.RefreshSummary(eventObject.ProjectId);
+            this.RefreshCostSummary(eventObject.ProjectId);
+        }
+
+        [Subscribe(Topic = Topics.EVENTS)]
+        public void ProcessAction(ProjectHardwareDeletedEvent eventObject)
+        {
+            if (CheckIfCurrentProject(eventObject)) return;
+
+            this.projectView.RemoveHardware(eventObject.ProjectHardwareId);
+
+            this.RefreshSummary(eventObject.ProjectId);
+            this.RefreshCostSummary(eventObject.ProjectId);
+
+            this.RefreshProject(eventObject.ProjectId);
+        }
+
+        [Subscribe(Topic = Topics.EVENTS)]
+        public void ProcessAction(ProjectFrameCreatedEvent eventObject)
+        {
+            if (CheckIfCurrentProject(eventObject)) return;
+
+            this.RefreshProject(eventObject.ProjectId);
+
+            var project = this.projectRepository.FindById(eventObject.ProjectId);
+            var frame = project.Frames.Where(x => x.Id == eventObject.ProjectFrameId).FirstOrDefault();
+
+            var projectFrameViewModel = Map(frame, eventObject.ProjectId);
+            this.projectView.AddFrame(projectFrameViewModel);
+
+            this.RefreshSummary(eventObject.ProjectId);
+            this.RefreshCostSummary(eventObject.ProjectId);
+        }
+
+        [Subscribe(Topic = Topics.EVENTS)]
+        public void ProcessAction(ProjectFrameDeletedEvent eventObject)
+        {
+            if (CheckIfCurrentProject(eventObject)) return;
+
+            this.projectView.RemoveFrame(eventObject.ProjectFrameId);
+
+            this.RefreshProject(eventObject.ProjectId);
+
+            this.RefreshSummary(eventObject.ProjectId);
+            this.RefreshCostSummary(eventObject.ProjectId);
+        }
+        #endregion
+
+
+
 
         private ProjectHardwareViewModel MapToHardwareViewModel(ProjectHardware hardware, int projectId)
         {
@@ -212,12 +667,12 @@ namespace Chiffrage.Projects.Module.Controllers
                 }
             }
 
-            if(viewModel.OtherBenefits == null)
+            if (viewModel.OtherBenefits == null)
             {
                 viewModel.OtherBenefits = new List<OtherBenefit>();
             }
 
-            viewModel.TotalPrice += viewModel.OtherBenefits.Sum(x => x.Hours*x.CostRate);
+            viewModel.TotalPrice += viewModel.OtherBenefits.Sum(x => x.Hours * x.CostRate);
             viewModel.TotalDays += viewModel.OtherBenefits.Sum(x => x.Hours);
 
             return viewModel;
@@ -245,411 +700,13 @@ namespace Chiffrage.Projects.Module.Controllers
             this.projectView.SetCostSummaryItems(project.BuildProjectCostSummaryItems());
         }
 
-        [Subscribe]
-        public void ProcessAction(ApplicationStartAction eventObject)
+        private bool CheckIfCurrentProject(IProjectEvent eventObject)
         {
-            this.projectView.HideView();
-        }
-
-        [Subscribe]
-        public void ProcessAction(ProjectSelectedAction eventObject)
-        {
-            this.loadingView.Continuous = true;
-            this.loadingView.ShowView();
-
-            var project = this.projectRepository.FindById(eventObject.Id);
-
-            var viewModel = Map(project);
-
-            var supplies = new List<ProjectSupplyViewModel>();
-            foreach (var item in project.Supplies)
+            if (!this.currentProjectId.HasValue || currentProjectId.Value != eventObject.ProjectId)
             {
-                supplies.Add(Map(item, project.Id));
+                return true;
             }
-
-            var hardwares = new List<ProjectHardwareViewModel>();
-            foreach (var item in project.Hardwares)
-            {
-                hardwares.Add(MapToHardwareViewModel(item, project.Id));
-            }
-
-            var frames = new List<ProjectFrameViewModel>();
-            foreach (var item in project.Frames)
-            {
-                frames.Add(Map(item, project.Id));
-            }
-
-            try
-            {
-                this.projectView.SetProjectViewModel(viewModel);
-                this.projectView.SetSupplies(supplies);
-                this.projectView.SetHardwares(hardwares);
-                this.projectView.SetFrames(frames);
-
-                this.RefreshSummary(project.Id);
-                this.RefreshCostSummary(project.Id);
-
-                this.loadingView.HideView();
-                this.projectView.ShowView();
-            }
-            catch(Exception ex)
-            {
-                logger.Warn("Error while loading the project",ex);
-
-                // a weird bug throw an exception the first time it loads a project, so try again
-                this.projectView.SetProjectViewModel(viewModel);
-                this.projectView.SetSupplies(supplies);
-                this.projectView.SetHardwares(hardwares);
-                this.projectView.SetFrames(frames);
-
-                this.RefreshSummary(project.Id);
-                this.RefreshCostSummary(project.Id);
-
-                this.loadingView.HideView();
-                this.projectView.ShowView();
-            }
-
-            this.currentProjectId = eventObject.Id;
-        }
-
-        [Subscribe]
-        public void ProcessAction(ProjectUnselectedAction eventObject)
-        {
-            if (this.currentProjectId.HasValue && currentProjectId.Value == eventObject.Id)
-            {
-                this.ProcessAction(new SaveAction());
-
-                this.projectView.HideView();
-
-                this.projectView.SetProjectViewModel(null);
-                this.projectView.SetSupplies(null);
-                this.projectView.SetHardwares(null);
-                this.projectView.SetFrames(null);
-                this.projectView.SetSummaryItems(null);
-
-                this.currentProjectId = null;
-            }
-        }
-
-        [Subscribe(Topic = Topics.EVENTS)]
-        public void ProcessAction(ProjectUpdatedEvent eventObject)
-        {
-            if (this.currentProjectId.HasValue && this.currentProjectId.Value == eventObject.NewProject.Id)
-            {
-                this.RefreshProject(eventObject.NewProject.Id);
-                this.RefreshCostSummary(eventObject.NewProject.Id);
-            }
-        }
-
-        [Subscribe]
-        public void ProcessAction(SaveAction eventObject)
-        {
-            this.projectView.Save();
-        }
-
-        [Subscribe]
-        public void ProcessAction(RequestNewProjectAction eventObject)
-        {
-            this.newProjectView.ParentDealId = eventObject.DealId;
-            this.newProjectView.ShowView();
-        }
-
-        [Subscribe]
-        public void ProcessAction(RequestNewProjectSupplyAction eventObject)
-        {
-            var catalogs = this.catalogRepository.FindAll();
-            List<CatalogSupplySelectionViewModel> suppliesViewModel = new List<CatalogSupplySelectionViewModel>();
-            Mapper.CreateMap<Supply, CatalogSupplySelectionViewModel>();
-
-            foreach(var catalog in catalogs)
-            {
-                var supplies = Mapper.Map<IList<Supply>, IList<CatalogSupplySelectionViewModel>>(catalog.Supplies);
-                foreach (var item in supplies)
-                {
-                    item.CatalogId = catalog.Id;
-                    item.CatalogName = catalog.SupplierName;
-                    item.Quantity = 1;
-                }
-                suppliesViewModel.AddRange(supplies);
-            }
-
-            suppliesViewModel.Sort((x, y) =>
-            {
-                int result = x.CatalogName.CompareTo(y.CatalogName);
-                if (result != 0)
-                {
-                    return result;
-                }
-
-                return x.Name.CompareTo(y.Name);
-            });
-
-            this.newProjectSupplyView.Supplies = suppliesViewModel;
-            this.newProjectSupplyView.ProjectId = eventObject.ProjectId;
-            this.newProjectSupplyView.ShowView();
-        }
-
-        [Subscribe(Topic = Topics.EVENTS)]
-        public void ProcessAction(ProjectSupplyListCreatedEvent eventObject)
-        {
-            if (this.currentProjectId.HasValue)
-            {
-                foreach (var item in eventObject.Commands.Where(x => x.ProjectId == this.currentProjectId))
-                {
-                    var viewModel = Map(item.ProjectSupply, item.ProjectId);
-                    this.projectView.AddSupply(viewModel);
-
-                }
-
-                this.RefreshSummary(this.currentProjectId.Value);
-                this.RefreshCostSummary(this.currentProjectId.Value);
-
-                this.RefreshProject(this.currentProjectId.Value);
-            }
-        }
-
-        [Subscribe(Topic = Topics.EVENTS)]
-        public void ProcessAction(ProjectSupplyCreatedEvent eventObject)
-        {
-            var viewModel = Map(eventObject.ProjectSupply, eventObject.ProjectId);
-            this.projectView.AddSupply(viewModel);
-
-            this.RefreshSummary(eventObject.ProjectId);
-            this.RefreshCostSummary(eventObject.ProjectId);
-
-            this.RefreshProject(eventObject.ProjectId);
-        }
-
-        [Subscribe(Topic = Topics.EVENTS)]
-        public void ProcessAction(ProjectSupplyDeletedEvent eventObject)
-        {
-            var supply = Map(eventObject.ProjectSupply, eventObject.ProjectId);
-            this.projectView.RemoveSupply(supply);
-
-            this.RefreshSummary(eventObject.ProjectId);
-            this.RefreshCostSummary(eventObject.ProjectId);
-
-            this.RefreshProject(eventObject.ProjectId);
-        }
-
-        [Subscribe]
-        public void ProcessAction(RequestEditProjectSupplyAction eventObject)
-        {
-            this.editProjectSupplyView.Supply = eventObject.Supply;
-            this.editProjectSupplyView.ShowView();
-        }
-
-        [Subscribe]
-        public void ProcessAction(RequestNewProjectHardwareAction eventObject)
-        {
-            var catalogs = this.catalogRepository.FindAll();
-            List<CatalogHardwareSelectionViewModel> hardwaresViewModel = new List<CatalogHardwareSelectionViewModel>();
-            Mapper.CreateMap<Hardware, CatalogHardwareSelectionViewModel>();
-            Mapper.CreateMap<HardwareSupply, CatalogHardwareSupplyViewModel>();
-
-            foreach (var catalog in catalogs)
-            {
-                var hardwares = Mapper.Map<IList<Hardware>, IList<CatalogHardwareSelectionViewModel>>(catalog.Hardwares);
-                foreach (var item in hardwares)
-                {
-                    item.CatalogId = catalog.Id;
-                    item.CatalogName = catalog.SupplierName;
-                    item.Quantity = 1;
-                }
-                hardwaresViewModel.AddRange(hardwares);
-            }
-
-            hardwaresViewModel.Sort((x, y) =>
-            {
-                int result = x.CatalogName.CompareTo(y.CatalogName);
-                if (result != 0)
-                {
-                    return result;
-                }
-
-                return x.Name.CompareTo(y.Name);
-            });
-
-            this.newProjectHardwareView.ProjectId = eventObject.ProjectId;
-            this.newProjectHardwareView.Hardwares = hardwaresViewModel;
-            this.newProjectHardwareView.ShowView();
-        }
-
-        [Subscribe(Topic = Topics.EVENTS)]
-        public void ProcessAction(ProjectHardwareCreatedEvent eventObject)
-        {
-            var viewModel = MapToHardwareViewModel(eventObject.ProjectHardware, eventObject.ProjectId);
-            
-            this.projectView.AddHardware(viewModel);
-
-            this.RefreshSummary(eventObject.ProjectId);
-            this.RefreshCostSummary(eventObject.ProjectId);
-
-            this.RefreshProject(eventObject.ProjectId);
-        }
-
-        [Subscribe(Topic = Topics.EVENTS)]
-        public void ProcessAction(ProjectHardwareListCreatedEvent eventObject)
-        {
-            if (this.currentProjectId.HasValue)
-            {
-                foreach (var item in eventObject.Commands.Where(x => x.ProjectId == this.currentProjectId))
-                {
-                    var viewModel = MapToHardwareViewModel(item.ProjectHardware, item.ProjectId);
-
-                    this.projectView.AddHardware(viewModel);
-
-                }
-
-                this.RefreshSummary(this.currentProjectId.Value);
-                this.RefreshCostSummary(this.currentProjectId.Value);
-
-                this.RefreshProject(this.currentProjectId.Value);
-            }
-        }
-
-        [Subscribe(Topic = Topics.EVENTS)]
-        public void ProcessAction(ProjectHardwareDeletedEvent eventObject)
-        {
-            var hardware = MapToHardwareViewModel(eventObject.Hardware, eventObject.ProjectId);
-            this.projectView.RemoveHardware(hardware);
-
-            this.RefreshSummary(eventObject.ProjectId);
-            this.RefreshCostSummary(eventObject.ProjectId);
-
-            this.RefreshProject(eventObject.ProjectId);
-        }
-
-        [Subscribe]
-        public void ProcessAction(RequestEditProjectHardwareAction eventObject)
-        {
-            Project project = this.projectRepository.FindById(eventObject.Hardware.ProjectId);
-            ProjectHardware hardware = project.Hardwares.Where(x => x.Id == eventObject.Hardware.Id).FirstOrDefault();
-
-            this.editProjectHardwareView.Hardware = eventObject.Hardware;
-            this.editProjectHardwareView.ProjectTasks = project.Tasks;
-            this.editProjectHardwareView.HardwareTask = hardware.Tasks;
-            this.editProjectHardwareView.ShowView();
-        }
-
-        [Subscribe]
-        public void ProcessAction(RequestNewProjectFrameAction eventObject)
-        {
-            this.newProjectFrameView.ProjectId = eventObject.ProjectId;
-            this.newProjectFrameView.ShowView();            
-        }
-
-        [Subscribe(Topic = Topics.EVENTS)]
-        public void ProcessAction(ProjectFrameCreatedEvent eventObject)
-        {
-            this.RefreshProject(eventObject.ProjectId);
-            
-            var projectFrameViewModel = Map(eventObject.ProjectFrame, eventObject.ProjectId);
-            this.projectView.AddFrame(projectFrameViewModel);
-
-            this.RefreshSummary(eventObject.ProjectId);
-            this.RefreshCostSummary(eventObject.ProjectId);
-        }
-
-        [Subscribe(Topic = Topics.EVENTS)]
-        public void ProcessAction(ProjectFrameDeletedEvent eventObject)
-        {
-            var frame = Map(eventObject.Frame, eventObject.ProjectId);
-            this.projectView.RemoveFrame(frame);
-
-            this.RefreshProject(eventObject.ProjectId);
-
-            this.RefreshSummary(eventObject.ProjectId);
-            this.RefreshCostSummary(eventObject.ProjectId);
-        }
-
-        [Subscribe(Topic = Topics.EVENTS)]
-        public void ProcessAction(ProjectSupplyUpdatedEvent eventObject)
-        {
-            var viewModel = Map(eventObject.ProjectSupply, eventObject.ProjectId);
-            this.projectView.UpdateSupply(viewModel);
-
-            this.RefreshProject(eventObject.ProjectId);
-            this.RefreshSummary(eventObject.ProjectId);
-            this.RefreshCostSummary(eventObject.ProjectId);
-        }
-
-        [Subscribe(Topic = Topics.EVENTS)]
-        public void ProcessAction(ProjectSupplyListUpdatedEvent eventObject)
-        {
-            if (this.currentProjectId.HasValue)
-            {
-                foreach (var item in eventObject.Commands.Where(x => x.ProjectId == this.currentProjectId))
-                {
-                    var viewModel = Map(item.ProjectSupply, item.ProjectId);
-                    this.projectView.UpdateSupply(viewModel);
-                }
-
-                this.RefreshProject(this.currentProjectId.Value);
-                this.RefreshSummary(this.currentProjectId.Value);
-                this.RefreshCostSummary(this.currentProjectId.Value);
-            }
-        }
-
-        [Subscribe(Topic = Topics.EVENTS)]
-        public void ProcessAction(ProjectHardwareUpdatedEvent eventObject)
-        {
-            var viewModel = MapToHardwareViewModel(eventObject.ProjectHardware, eventObject.ProjectId);
-            this.projectView.UpdateHardware(viewModel);
-
-            this.RefreshProject(eventObject.ProjectId);
-            this.RefreshSummary(eventObject.ProjectId);
-            this.RefreshCostSummary(eventObject.ProjectId);
-        }
-
-        [Subscribe(Topic = Topics.EVENTS)]
-        public void ProcessAction(ProjectHardwareListUpdatedEvent eventObject)
-        {
-            if(this.currentProjectId.HasValue)
-            {
-                foreach (var item in eventObject.Commands.Where(x => x.ProjectId == this.currentProjectId))
-                {
-                    var viewModel = MapToHardwareViewModel(item.ProjectHardware, item.ProjectId);
-                    this.projectView.UpdateHardware(viewModel);
-                }
-
-                this.RefreshProject(this.currentProjectId.Value);
-                this.RefreshSummary(this.currentProjectId.Value);
-                this.RefreshCostSummary(this.currentProjectId.Value);
-            }
-        } 
-
-        [Subscribe]
-        public void ProcessAction(RequestEditProjectHardwareSupplyAction eventObject)
-        {
-            this.editProjectHardwareSupplyView.HardwareSupply = eventObject.HardwareSupply;
-            this.editProjectHardwareSupplyView.ShowView();
-        }
-
-        [Subscribe(Topic = Topics.EVENTS)]
-        public void ProcessAction(ProjectHardwareSupplyUpdatedEvent eventObject)
-        {
-            var viewModel = MapToHardwareViewModel(eventObject.ProjectHardware, eventObject.ProjectId);
-            this.projectView.UpdateHardware(viewModel);
-
-            this.RefreshProject(eventObject.ProjectId);
-            this.RefreshSummary(eventObject.ProjectId);
-            this.RefreshCostSummary(eventObject.ProjectId);
-        }
-
-        [Subscribe]
-        public void ProcessAction(ProjectCopyAction eventObject)
-        {
-            this.projectIdClipboard = eventObject.Id;
-        }
-
-        [Subscribe]
-        public void ProcessAction(ProjectPasteAction eventObject)
-        {
-            if (this.projectIdClipboard.HasValue)
-            {
-                OnCloneProjectCommand(new CloneProjectCommand(eventObject.DealId, this.projectIdClipboard.Value));
-            }
+            return false;
         }
     }
 }

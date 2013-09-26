@@ -85,6 +85,8 @@
     <Compile Include="Commands\UpdateProjectHardwareCommand.cs" />
     <Compile Include="Commands\UpdateProjectHardwareSupplyCommand.cs" />
     <Compile Include="Commands\UpdateProjectSupplyCommand.cs" />
+    <Compile Include="Events\IDealEvent.cs" />
+    <Compile Include="Events\IProjectEvent.cs" />
     <Compile Include="Events\ProjectSupplyListCreatedEvent.cs" />
     <Compile Include="Events\ProjectSupplyListUpdatedEvent.cs" />
     <Compile Include="Events\ProjectHardwareListUpdatedEvent.cs" />
