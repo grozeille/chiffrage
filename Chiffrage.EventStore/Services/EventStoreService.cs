@@ -22,7 +22,9 @@ namespace Chiffrage.EventStore.Services
 
         private readonly string sessionId;
 
-        private readonly object mylock = new object();
+        private readonly object blacklistLock = new object();
+
+        private readonly object repositoryLock = new object();
 
         private readonly IList<object> blacklist = new List<object>();
 
@@ -55,40 +57,48 @@ namespace Chiffrage.EventStore.Services
 
             var typeCache = new Dictionary<string, Type>();
 
+            IList<EventObject> items;
+
             // start reading messages from the last one
-            var items = this.eventRepository.FindFromOtherSession(sessionId, maxId);
-            maxId = items.Count > 0 ? items.Last().Id : 0;
+            lock (repositoryLock)
+            {
+                items = this.eventRepository.FindFromOtherSession(sessionId, maxId);
+                maxId = items.Count > 0 ? items.Last().Id : 0;
+            }
 
             while(true)
             {
                 Thread.Sleep(3*1000);
 
-                items = this.eventRepository.FindFromOtherSession(sessionId, maxId);
-                if (items.Count > 0)
+                lock (repositoryLock)
                 {
-                    maxId = items.Last().Id;
-                    lock (mylock)
+                    items = this.eventRepository.FindFromOtherSession(sessionId, maxId);
+                    if (items.Count > 0)
                     {
-                        foreach (var item in items)
+                        maxId = items.Last().Id;
+                        lock (blacklistLock)
                         {
-                            var memoryStream = new MemoryStream(item.MessageBody);
-                            var gzipStream = new GZipStream(memoryStream, CompressionMode.Decompress);
-                            var reader = new StreamReader(gzipStream);
-
-                            Type type = null;
-                            if(!typeCache.TryGetValue(item.MessageType, out type))
+                            foreach (var item in items)
                             {
-                                type = Type.GetType(item.MessageType);
-                                typeCache.Add(item.MessageType, type);
+                                var memoryStream = new MemoryStream(item.MessageBody);
+                                var gzipStream = new GZipStream(memoryStream, CompressionMode.Decompress);
+                                var reader = new StreamReader(gzipStream);
+
+                                Type type = null;
+                                if (!typeCache.TryGetValue(item.MessageType, out type))
+                                {
+                                    type = Type.GetType(item.MessageType);
+                                    typeCache.Add(item.MessageType, type);
+                                }
+
+                                //var json = reader.ReadToEnd();
+                                //var obj = serializer.Deserialize(new StringReader(json), type);
+                                var obj = serializer.Deserialize(reader, type);
+
+                                blacklist.Add(obj);
+
+                                OnEvent(obj);
                             }
-
-                            //var json = reader.ReadToEnd();
-                            //var obj = serializer.Deserialize(new StringReader(json), type);
-                            var obj = serializer.Deserialize(reader, type);
-
-                            blacklist.Add(obj);
-
-                            OnEvent(obj);
                         }
                     }
                 }
@@ -102,14 +112,17 @@ namespace Chiffrage.EventStore.Services
             {
                 Thread.Sleep(60 * (5 + rand.Next(3)) * 1000);
 
-                eventRepository.CleanOldEvents(100);
+                lock (repositoryLock)
+                {
+                    eventRepository.CleanOldEvents(100);   
+                }
             }
         }
 
         [Subscribe(Topic = Topics.EVENTS)]
         public void ProcessAction(Object eventObject)
         {
-            lock (mylock)
+            lock (blacklistLock)
             {
                 if(blacklist.Contains(eventObject))
                 {
