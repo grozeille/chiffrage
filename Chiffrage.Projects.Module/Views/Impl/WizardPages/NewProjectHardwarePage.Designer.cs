@@ -30,7 +30,6 @@ namespace Chiffrage.Projects.Module.Views.Impl.WizardPages
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NewProjectHardwarePage));
             this.dataGridView = new System.Windows.Forms.DataGridView();
@@ -42,17 +41,17 @@ namespace Chiffrage.Projects.Module.Views.Impl.WizardPages
             this.CatalogNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.categoryDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.catalogHardwareViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.catalogHardwareViewModelBindingSource = new System.Windows.Forms.BindingSource();
             this.textBoxSearch = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.comboBoxCatalogs = new System.Windows.Forms.ComboBox();
-            this.catalogViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.catalogViewModelBindingSource = new System.Windows.Forms.BindingSource();
             this.labelCatalog = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.labelInvisible = new System.Windows.Forms.Label();
             this.panelHeader = new System.Windows.Forms.Panel();
-            this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
-            this.timerFilter = new System.Windows.Forms.Timer(this.components);
+            this.errorProvider = new System.Windows.Forms.ErrorProvider();
+            this.timerFilter = new System.Windows.Forms.Timer();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.catalogHardwareViewModelBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.catalogViewModelBindingSource)).BeginInit();

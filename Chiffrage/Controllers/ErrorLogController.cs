@@ -22,7 +22,7 @@ namespace Chiffrage.App.Controllers
             this.view = view;
         }
 
-        [Subscribe(Topic = "topic://default")]
+        [Subscribe(Topic = Topics.DEFAULT)]
         public void ProcessAction(ErrorEvent eventObject)
         {   
             this.AppendLog(eventObject.Exception);  
@@ -50,6 +50,7 @@ namespace Chiffrage.App.Controllers
 
         private void AppendInfoLog(string message)
         {
+            return;
             this.view.AppendLog(new LogItemViewModel
             {
                 Date = DateTime.Now,
@@ -59,57 +60,123 @@ namespace Chiffrage.App.Controllers
         }
 
         [Subscribe]
-        public void ProcessAction(CatalogUpdatedEvent eventObject)
-        {
-            this.AppendInfoLog(string.Format("Catalog '{0}' updated successfully", eventObject.CatalogId));
-        }
-
-        [Subscribe]
         public void ProcessAction(DealUpdatedEvent eventObject)
         {
-            this.AppendInfoLog(string.Format("Deal '{0}' updated successfully", eventObject.DealId));
+            this.AppendInfoLog(string.Format("Affaire id:'{0}' mise à jour", eventObject.DealId));
         }
 
         [Subscribe]
         public void ProcessAction(DealCreatedEvent eventObject)
         {
-            this.AppendInfoLog(string.Format("Deal '{0}' created successfully", eventObject.DealId));
+            this.AppendInfoLog(string.Format("Affaire id:'{0}' créée", eventObject.DealId));
+        }
+
+        [Subscribe]
+        public void ProcessAction(DealDeletedEvent eventObject)
+        {
+            this.AppendInfoLog(string.Format("Affaire id:'{0}' supprimée", eventObject.DealId));
         }
 
         [Subscribe]
         public void ProcessAction(CatalogCreatedEvent eventObject)
         {
-            this.AppendInfoLog(string.Format("Catalog '{0}' created successfully", eventObject.CatalogId));
+            this.AppendInfoLog(string.Format("Catalogue id:'{0}' créé", eventObject.CatalogId));
+        }
+
+        [Subscribe]
+        public void ProcessAction(CatalogUpdatedEvent eventObject)
+        {
+            this.AppendInfoLog(string.Format("Catalogue id:'{0}' mis à jour", eventObject.CatalogId));
+        }
+
+        [Subscribe]
+        public void ProcessAction(CatalogDeletedEvent eventObject)
+        {
+            this.AppendInfoLog(string.Format("Catalogue id:'{0}' supprimé", eventObject.CatalogId));
         }
 
         [Subscribe]
         public void ProcessAction(SupplyCreatedEvent eventObject)
         {
-            this.AppendInfoLog(string.Format("Supply '{0}' added successfully", eventObject.SupplyId));
+            this.AppendInfoLog(string.Format("Fourniture id:'{0}' ajoutée", eventObject.SupplyId));
         }
 
         [Subscribe]
         public void ProcessAction(SupplyUpdatedEvent eventObject)
         {
-            this.AppendInfoLog(string.Format("Supply '{0}' updated successfully", eventObject.SupplyId));
+            this.AppendInfoLog(string.Format("Fourniture id:'{0}' mise à jour", eventObject.SupplyId));
+        }
+
+        [Subscribe]
+        public void ProcessAction(SupplyDeletedEvent eventObject)
+        {
+            this.AppendInfoLog(string.Format("Fourniture id:'{0}' supprimé", eventObject.SupplyId));
+        }
+
+        [Subscribe]
+        public void ProcessAction(HardwareCreatedEvent eventObject)
+        {
+            this.AppendInfoLog(string.Format("Matériel id:'{0}' ajouté", eventObject.HardwareId));
+        }
+
+        [Subscribe]
+        public void ProcessAction(HardwareUpdatedEvent eventObject)
+        {
+            this.AppendInfoLog(string.Format("Matériel id:'{0}' mis à jour", eventObject.HardwareId));
+        }
+
+        [Subscribe]
+        public void ProcessAction(HardwareDeletedEvent eventObject)
+        {
+            this.AppendInfoLog(string.Format("Matériel id:'{0}' supprimé", eventObject.HardwareId));
+        }
+
+        [Subscribe]
+        public void ProcessAction(HardwareSupplyCreatedEvent eventObject)
+        {
+            this.AppendInfoLog(string.Format("Composant id:{0} du matériel id:'{1}' ajouté", eventObject.ComponentId, eventObject.HardwareId));
+        }
+
+        [Subscribe]
+        public void ProcessAction(HardwareSupplyUpdatedEvent eventObject)
+        {
+            this.AppendInfoLog(string.Format("Composant id:{0} du matériel id:'{1}' mis à jour", eventObject.ComponentId, eventObject.HardwareId));
+        }
+
+        [Subscribe]
+        public void ProcessAction(HardwareSupplyDeletedEvent eventObject)
+        {
+            this.AppendInfoLog(string.Format("Composant id:{0} du matériel id:'{1}' supprimé", eventObject.ComponentId, eventObject.HardwareId));
         }
 
         [Subscribe]
         public void ProcessAction(ProjectCreatedEvent eventObject)
         {
-            this.AppendInfoLog(string.Format("Project '{0}' created successfully", eventObject.ProjectId));
+            this.AppendInfoLog(string.Format("Project id:'{0}' créé", eventObject.ProjectId));
         }
 
         [Subscribe]
         public void ProcessAction(ProjectUpdatedEvent eventObject)
         {
-            this.AppendInfoLog(string.Format("Project '{0}' updated successfully", eventObject.ProjectId));
+            this.AppendInfoLog(string.Format("Project id:'{0}' mis à jour", eventObject.ProjectId));
         }
 
-        [Subscribe(Topic = Topics.EVENTS)]
+        [Subscribe]
+        public void ProcessAction(HardwareMustBeUniqueErrorEvent eventObject)
+        {
+            this.AppendErrorLog(string.Format("Le nom du matériel doit être unique"));
+        }
+
+        [Subscribe]
+        public void ProcessAction(SupplyMustBeUniqueErrorEvent eventObject)
+        {
+            this.AppendErrorLog(string.Format("Le nom de la fourniture doit être unique"));
+        }
+
+        [Subscribe]
         public void ProcessAction(Object eventObject)
         {
-            this.AppendInfoLog(string.Format("Message '{0}'", eventObject.ToString()));
+            this.AppendInfoLog(eventObject.ToString());
         }
     }
 }

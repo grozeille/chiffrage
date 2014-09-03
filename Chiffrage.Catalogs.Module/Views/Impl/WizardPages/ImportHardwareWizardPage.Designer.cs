@@ -50,7 +50,7 @@
             this.textBoxPath.Location = new System.Drawing.Point(100, 14);
             this.textBoxPath.Name = "textBoxPath";
             this.textBoxPath.Size = new System.Drawing.Size(204, 20);
-            this.textBoxPath.TabIndex = 1;
+            this.textBoxPath.TabIndex = 0;
             // 
             // buttonChooseFile
             // 
@@ -58,7 +58,7 @@
             this.buttonChooseFile.Location = new System.Drawing.Point(310, 12);
             this.buttonChooseFile.Name = "buttonChooseFile";
             this.buttonChooseFile.Size = new System.Drawing.Size(26, 23);
-            this.buttonChooseFile.TabIndex = 2;
+            this.buttonChooseFile.TabIndex = 1;
             this.buttonChooseFile.Text = "...";
             this.buttonChooseFile.UseVisualStyleBackColor = true;
             this.buttonChooseFile.Click += new System.EventHandler(this.buttonChooseFile_Click);

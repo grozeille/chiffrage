@@ -41,7 +41,7 @@
             this.textBoxDealName.Location = new System.Drawing.Point(49, 6);
             this.textBoxDealName.Name = "textBoxDealName";
             this.textBoxDealName.Size = new System.Drawing.Size(200, 20);
-            this.textBoxDealName.TabIndex = 3;
+            this.textBoxDealName.TabIndex = 0;
             // 
             // labelDeal
             // 

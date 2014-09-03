@@ -71,6 +71,7 @@ namespace Chiffrage.Projects.Module.Controllers
             this.dealView.SetCalendarItems(calendarItems);
             this.dealView.SetSummaryItems(deal.BuildSummaryItems(), deal.Projects);
             this.dealView.SetProjectCostSummaryItems(deal.BuildDealProjectCostSummaryItems().ToList());
+            this.dealView.SetCostSummaryItems(deal.BuildProjectCostSummaryItems().ToList());
 
             this.loadingView.HideView();
             this.dealView.ShowView();

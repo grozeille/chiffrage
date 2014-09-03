@@ -29,10 +29,11 @@
         private void InitializeComponent()
         {
             this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.textBoxQuantity = new System.Windows.Forms.TextBox();
             this.labelSize = new System.Windows.Forms.Label();
             this.textBoxSize = new System.Windows.Forms.TextBox();
             this.labelCount = new System.Windows.Forms.Label();
-            this.textBoxQuantity = new System.Windows.Forms.TextBox();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.tableLayoutPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -64,6 +65,14 @@
             this.tableLayoutPanel.Size = new System.Drawing.Size(331, 125);
             this.tableLayoutPanel.TabIndex = 9;
             // 
+            // textBoxQuantity
+            // 
+            this.textBoxQuantity.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxQuantity.Location = new System.Drawing.Point(69, 39);
+            this.textBoxQuantity.Name = "textBoxQuantity";
+            this.textBoxQuantity.Size = new System.Drawing.Size(194, 20);
+            this.textBoxQuantity.TabIndex = 1;
+            // 
             // labelSize
             // 
             this.labelSize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
@@ -80,7 +89,7 @@
             this.textBoxSize.Location = new System.Drawing.Point(69, 13);
             this.textBoxSize.Name = "textBoxSize";
             this.textBoxSize.Size = new System.Drawing.Size(194, 20);
-            this.textBoxSize.TabIndex = 7;
+            this.textBoxSize.TabIndex = 0;
             // 
             // labelCount
             // 
@@ -92,14 +101,6 @@
             this.labelCount.TabIndex = 6;
             this.labelCount.Text = "Quantité:";
             // 
-            // textBoxQuantity
-            // 
-            this.textBoxQuantity.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxQuantity.Location = new System.Drawing.Point(69, 39);
-            this.textBoxQuantity.Name = "textBoxQuantity";
-            this.textBoxQuantity.Size = new System.Drawing.Size(194, 20);
-            this.textBoxQuantity.TabIndex = 7;
-            // 
             // ProjectFramePage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -107,6 +108,7 @@
             this.Controls.Add(this.tableLayoutPanel);
             this.Name = "ProjectFramePage";
             this.Size = new System.Drawing.Size(331, 125);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.tableLayoutPanel.ResumeLayout(false);
             this.tableLayoutPanel.PerformLayout();
             this.ResumeLayout(false);

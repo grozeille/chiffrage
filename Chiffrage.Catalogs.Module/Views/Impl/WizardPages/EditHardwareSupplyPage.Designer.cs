@@ -43,7 +43,7 @@
             this.textBoxQuantity.Location = new System.Drawing.Point(76, 4);
             this.textBoxQuantity.Name = "textBoxQuantity";
             this.textBoxQuantity.Size = new System.Drawing.Size(121, 20);
-            this.textBoxQuantity.TabIndex = 5;
+            this.textBoxQuantity.TabIndex = 0;
             this.textBoxQuantity.Text = "1";
             // 
             // labelQuantity
@@ -72,15 +72,16 @@
             // 
             // commentUserContrl
             // 
-            this.commentUserContrl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.commentUserContrl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.commentUserContrl.Location = new System.Drawing.Point(5, 50);
             this.commentUserContrl.Name = "commentUserContrl";
+            this.commentUserContrl.ReadOnly = false;
             this.commentUserContrl.Rtf = "{\\rtf1\\ansi\\ansicpg1252\\deff0\\deflang1036{\\fonttbl{\\f0\\fnil\\fcharset0 Microsoft S" +
-                "ans Serif;}}\r\n\\viewkind4\\uc1\\pard\\f0\\fs17 trertre\\par\r\ntreterert\\par\r\n}\r\n";
+    "ans Serif;}}\r\n\\viewkind4\\uc1\\pard\\f0\\fs17 trertre\\par\r\ntreterert\\par\r\n}\r\n";
             this.commentUserContrl.Size = new System.Drawing.Size(411, 206);
-            this.commentUserContrl.TabIndex = 6;
+            this.commentUserContrl.TabIndex = 1;
             // 
             // EditHardwareSupplyPage
             // 

@@ -91,7 +91,7 @@
             this.textBoxMilestone.Location = new System.Drawing.Point(129, 49);
             this.textBoxMilestone.Name = "textBoxMilestone";
             this.textBoxMilestone.Size = new System.Drawing.Size(194, 20);
-            this.textBoxMilestone.TabIndex = 16;
+            this.textBoxMilestone.TabIndex = 0;
             this.textBoxMilestone.Text = "0";
             // 
             // textBoxHardwareName

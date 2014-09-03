@@ -37,7 +37,7 @@
             this.textBoxSupplierName.Location = new System.Drawing.Point(121, 5);
             this.textBoxSupplierName.Name = "textBoxSupplierName";
             this.textBoxSupplierName.Size = new System.Drawing.Size(200, 20);
-            this.textBoxSupplierName.TabIndex = 3;
+            this.textBoxSupplierName.TabIndex = 0;
             // 
             // labelSupplierName
             // 

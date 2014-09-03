@@ -15,6 +15,8 @@ namespace Chiffrage.Projects.Module.Views
 
         void SetProjectCostSummaryItems(IEnumerable<DealProjectCostSummaryViewModel> costSummaryItems);
 
+        void SetCostSummaryItems(IEnumerable<ProjectCostSummaryViewModel> summaryItems);
+
         DealViewModel GetDealViewModel();
     }
 }

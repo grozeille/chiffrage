@@ -786,6 +786,7 @@ namespace Chiffrage.Projects.Domain.Services
             foreach (var groupByProject in eventObject.Commands.GroupBy(x => x.ProjectId))
             {
                 var project = this.projectRepository.FindById(groupByProject.Key);
+                var shouldSaveProject = false;
                 
                 foreach(var item in groupByProject)
                 {
@@ -808,6 +809,13 @@ namespace Chiffrage.Projects.Domain.Services
                     MapProjectHardware(project, catalogHardware, hardware, catalog);
 
                     hardwares.Add(hardware, project.Id);
+
+                    shouldSaveProject = true;
+                }
+
+                if (shouldSaveProject)
+                {
+                    projects.Add(project);
                 }
             }
 

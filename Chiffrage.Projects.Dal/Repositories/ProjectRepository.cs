@@ -47,6 +47,16 @@ namespace Chiffrage.Projects.Dal.Repositories
                     project.Tasks.Add(session.Merge(item));
                 }
 
+                foreach (var item in project.Hardwares) 
+                {
+                    var hardwareTasks = new List<ProjectHardwareTask>(item.Tasks);
+                    item.Tasks.Clear();
+                    foreach(var t in hardwareTasks)
+                    {
+                        item.Tasks.Add(session.Merge(t));
+                    }
+                }
+
                 session.SaveOrUpdate(project);
                 session.Transaction.Commit();
             }

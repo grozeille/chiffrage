@@ -44,7 +44,7 @@
             this.textBoxHardwareName.Location = new System.Drawing.Point(56, 3);
             this.textBoxHardwareName.Name = "textBoxHardwareName";
             this.textBoxHardwareName.Size = new System.Drawing.Size(194, 20);
-            this.textBoxHardwareName.TabIndex = 5;
+            this.textBoxHardwareName.TabIndex = 0;
             // 
             // labelHardware
             // 

@@ -271,7 +271,7 @@
             this.textBoxPrice.Location = new System.Drawing.Point(126, 169);
             this.textBoxPrice.Name = "textBoxPrice";
             this.textBoxPrice.Size = new System.Drawing.Size(194, 20);
-            this.textBoxPrice.TabIndex = 6;
+            this.textBoxPrice.TabIndex = 1;
             // 
             // textBoxReference
             // 

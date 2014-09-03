@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using Chiffrage.Mvc;
 using Chiffrage.Mvc.Events;
 using Chiffrage.Projects.Domain.Commands;
+using Chiffrage.Projects.Module.Properties;
 
 namespace Chiffrage.Projects.Module.Views.Impl
 {
@@ -27,6 +28,9 @@ namespace Chiffrage.Projects.Module.Views.Impl
         private IList<DataGridViewColumn> projectColumns = new List<DataGridViewColumn>();
 
         private readonly IEventBroker eventBroker;
+
+        private Font defaultFont = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Regular,
+                                            GraphicsUnit.Point, ((byte)(0)));
 
         public DealUserControl()
         {
@@ -304,6 +308,106 @@ namespace Chiffrage.Projects.Module.Views.Impl
         private void DealUserControl_Load(object sender, EventArgs e)
         {
             this.dataGridViewItemSummary.SetDoubleBuffered();
+
+            this.dataGridViewSummary.SetDoubleBuffered();
         }
+
+        public void SetCostSummaryItems(IEnumerable<ProjectCostSummaryViewModel> summaryItems)
+        {
+            this.InvokeIfRequired(() =>
+            {
+                this.dataGridViewSummary.Rows.Clear();
+                if (summaryItems != null)
+                {
+                    foreach (var item in summaryItems)
+                    {
+                        if (item.ProjectCostSummaryType == ProjectCostSummaryType.Simple)
+                        {
+                            this.BuildRow(item.Name, item.TotalTime, item.Rate, item.TotalCost);
+                        }
+                        else if (item.ProjectCostSummaryType == ProjectCostSummaryType.BigTotal)
+                        {
+                            this.BuildBigTotalRow(Resources.coins, item.Name, item.TotalTime, item.TotalCost);
+                        }
+                        else
+                        {
+                            if (item.ProjectCostSummaryType == ProjectCostSummaryType.TotalSupply)
+                            {
+                                this.BuildTotalRow(Resources.package, item.Name, null, item.TotalCost);
+                            }
+                            else if (item.ProjectCostSummaryType == ProjectCostSummaryType.TotalWork)
+                            {
+                                this.BuildTotalRow(Resources.wrench, item.Name, item.TotalTime, item.TotalCost);
+                            }
+                            else if (item.ProjectCostSummaryType == ProjectCostSummaryType.TotalStudy)
+                            {
+                                this.BuildTotalRow(Resources.map_edit, item.Name, item.TotalTime, item.TotalCost);
+                            }
+                            else if (item.ProjectCostSummaryType == ProjectCostSummaryType.TotalTests)
+                            {
+                                this.BuildTotalRow(Resources.rosette, item.Name, item.TotalTime, item.TotalCost);
+                            }
+                            else if (item.ProjectCostSummaryType == ProjectCostSummaryType.TotalOther)
+                            {
+                                this.BuildTotalRow(Resources.user_suit, item.Name, item.TotalTime, item.TotalCost);
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+
+        #region Summary
+
+        private void BuildBigTotalRow(Bitmap icon, string name, double? days, double cost)
+        {
+            int index = this.dataGridViewSummary.Rows.Add(
+                icon,
+                name,
+                string.Format("{0} h", days),
+                string.Format("{0} €", cost)
+                );
+            foreach (DataGridViewCell cell in this.dataGridViewSummary.Rows[index].Cells)
+            {
+                cell.Style.BackColor = SystemColors.ControlDarkDark;
+                cell.Style.Font = new Font(this.defaultFont, FontStyle.Bold);
+                cell.Style.ForeColor = SystemColors.Window;
+                cell.ReadOnly = true;
+            }
+        }
+
+        private void BuildTotalRow(Bitmap icon, string name, double? days, double cost)
+        {
+            int index = this.dataGridViewSummary.Rows.Add(
+                icon,
+                name,
+                days.HasValue ? string.Format("{0} h", days) : string.Empty,
+                string.Format("{0} €", cost)
+                );
+            foreach (DataGridViewCell cell in this.dataGridViewSummary.Rows[index].Cells)
+            {
+                cell.Style.BackColor = SystemColors.ControlLight;
+                cell.Style.Font = new Font(this.defaultFont, FontStyle.Bold);
+                cell.ReadOnly = true;
+            }
+        }
+
+        private void BuildRow(string name, double days, double rate, double cost)
+        {
+            int index = this.dataGridViewSummary.Rows.Add(
+                Resources.blank,
+                name,
+                string.Format("{0} h", days),
+                string.Format("{0} €", cost)
+                );
+            foreach (DataGridViewCell cell in this.dataGridViewSummary.Rows[index].Cells)
+            {
+                if (cell.ColumnIndex != 3)
+                    cell.ReadOnly = true;
+            }
+        }
+        #endregion
+
     }
 }

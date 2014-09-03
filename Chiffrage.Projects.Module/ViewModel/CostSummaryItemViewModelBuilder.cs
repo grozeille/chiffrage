@@ -157,5 +157,34 @@ namespace Chiffrage.Projects.Module.ViewModel
                 };
             }
         }
+
+        public static IEnumerable<ProjectCostSummaryViewModel> BuildProjectCostSummaryItems(this Deal deal)
+        {
+            var totalItems = new Dictionary<String, ProjectCostSummaryViewModel>();
+
+            foreach (var item in deal.Projects)
+            {
+                var summary = item.BuildProjectCostSummaryItems();
+
+                foreach(var s in summary)
+                {
+                    ProjectCostSummaryViewModel costSummary;
+                    if(!totalItems.TryGetValue(s.Name, out costSummary))
+                    {
+                        costSummary = s;
+                        // not possible to compute rate in this case
+                        costSummary.Rate = 0.0;
+                        totalItems.Add(s.Name, s);
+                    }
+                    else
+                    {
+                        costSummary.TotalCost += s.TotalCost;
+                        costSummary.TotalTime += s.TotalTime;
+                    }
+                }                
+            }
+
+            return totalItems.Values;
+        }
     }
 }
