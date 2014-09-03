@@ -280,11 +280,11 @@ namespace Chiffrage.Projects.Domain.Services
             foreach(var item in projectHardware.Tasks)
             {
                 HardwareTask hardwareTask;
-                if (hardwareTasksByOriginalId.TryGetValue(item.Task.Id, out hardwareTask))
+                if (hardwareTasksByOriginalId.TryGetValue(item.Task.TaskId, out hardwareTask))
                 {
                     item.CatalogValue = hardwareTask.Value;
                     item.Value = hardwareTask.Value;
-                    hardwareTasksByOriginalId.Remove(item.Task.Id);
+                    hardwareTasksByOriginalId.Remove(item.Task.TaskId);
                 }
             }
 
