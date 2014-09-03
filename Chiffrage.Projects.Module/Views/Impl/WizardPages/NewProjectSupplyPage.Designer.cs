@@ -97,7 +97,7 @@ namespace Chiffrage.Projects.Module.Views.Impl.WizardPages
             this.dataGridView.RowHeadersVisible = false;
             this.dataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGridView.Size = new System.Drawing.Size(467, 321);
-            this.dataGridView.TabIndex = 6;
+            this.dataGridView.TabIndex = 1;
             this.dataGridView.CurrentCellDirtyStateChanged += new System.EventHandler(this.dataGridView_CurrentCellDirtyStateChanged);
             // 
             // idDataGridViewTextBoxColumn
@@ -179,7 +179,7 @@ namespace Chiffrage.Projects.Module.Views.Impl.WizardPages
             this.textBoxSearch.Location = new System.Drawing.Point(70, 3);
             this.textBoxSearch.Name = "textBoxSearch";
             this.textBoxSearch.Size = new System.Drawing.Size(397, 20);
-            this.textBoxSearch.TabIndex = 3;
+            this.textBoxSearch.TabIndex = 0;
             this.textBoxSearch.TextChanged += new System.EventHandler(this.textBoxSearch_TextChanged);
             // 
             // label1
@@ -220,7 +220,7 @@ namespace Chiffrage.Projects.Module.Views.Impl.WizardPages
             this.comboBoxCatalogs.Location = new System.Drawing.Point(78, 6);
             this.comboBoxCatalogs.Name = "comboBoxCatalogs";
             this.comboBoxCatalogs.Size = new System.Drawing.Size(121, 21);
-            this.comboBoxCatalogs.TabIndex = 9;
+            this.comboBoxCatalogs.TabIndex = 2;
             this.comboBoxCatalogs.SelectedIndexChanged += new System.EventHandler(this.comboBoxCatalogs_SelectedIndexChanged);
             // 
             // catalogViewModelBindingSource

@@ -34,18 +34,6 @@ namespace Chiffrage.Catalogs.Module.Views.Impl.WizardPages
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NewHardwareSupplyPage));
             this.dataGridView = new System.Windows.Forms.DataGridView();
-            this.catalogSupplyViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.textBoxSearch = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.comboBoxCategory = new System.Windows.Forms.ComboBox();
-            this.labelCategory = new System.Windows.Forms.Label();
-            this.panelHeader = new System.Windows.Forms.Panel();
-            this.textBoxQuantity = new System.Windows.Forms.TextBox();
-            this.labelComponent = new System.Windows.Forms.Label();
-            this.labelQuantity = new System.Windows.Forms.Label();
-            this.panelFooter = new System.Windows.Forms.Panel();
-            this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
-            this.timerFilter = new System.Windows.Forms.Timer(this.components);
             this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.catalogIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -53,6 +41,18 @@ namespace Chiffrage.Catalogs.Module.Views.Impl.WizardPages
             this.categoryDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.catalogPriceDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.catalogSupplyViewModelBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.textBoxSearch = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.comboBoxCategory = new System.Windows.Forms.ComboBox();
+            this.labelCategory = new System.Windows.Forms.Label();
+            this.panelHeader = new System.Windows.Forms.Panel();
+            this.textBoxQuantity = new System.Windows.Forms.TextBox();
+            this.labelQuantity = new System.Windows.Forms.Label();
+            this.panelFooter = new System.Windows.Forms.Panel();
+            this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.timerFilter = new System.Windows.Forms.Timer(this.components);
+            this.labelInvisible = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.catalogSupplyViewModelBindingSource)).BeginInit();
             this.panelHeader.SuspendLayout();
@@ -85,118 +85,15 @@ namespace Chiffrage.Catalogs.Module.Views.Impl.WizardPages
             this.dataGridView.DataSource = this.catalogSupplyViewModelBindingSource;
             this.dataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView.GridColor = System.Drawing.SystemColors.ControlLight;
-            this.dataGridView.Location = new System.Drawing.Point(0, 60);
+            this.dataGridView.Location = new System.Drawing.Point(0, 26);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.ReadOnly = true;
             this.dataGridView.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
             this.dataGridView.RowHeadersVisible = false;
             this.dataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView.Size = new System.Drawing.Size(467, 292);
-            this.dataGridView.TabIndex = 6;
+            this.dataGridView.Size = new System.Drawing.Size(467, 326);
+            this.dataGridView.TabIndex = 1;
             this.dataGridView.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView_ColumnHeaderMouseClick);
-            // 
-            // catalogSupplyViewModelBindingSource
-            // 
-            this.catalogSupplyViewModelBindingSource.DataSource = typeof(Chiffrage.Catalogs.Module.ViewModel.CatalogSupplyViewModel);
-            // 
-            // textBoxSearch
-            // 
-            this.textBoxSearch.Location = new System.Drawing.Point(286, 7);
-            this.textBoxSearch.Name = "textBoxSearch";
-            this.textBoxSearch.Size = new System.Drawing.Size(121, 20);
-            this.textBoxSearch.TabIndex = 3;
-            this.textBoxSearch.TextChanged += new System.EventHandler(this.textBoxSearch_TextChanged);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(214, 10);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(66, 13);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Rechercher:";
-            // 
-            // comboBoxCategory
-            // 
-            this.comboBoxCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBoxCategory.FormattingEnabled = true;
-            this.comboBoxCategory.Items.AddRange(new object[] {
-            "Cable",
-            "Autre"});
-            this.comboBoxCategory.Location = new System.Drawing.Point(75, 7);
-            this.comboBoxCategory.Name = "comboBoxCategory";
-            this.comboBoxCategory.Size = new System.Drawing.Size(121, 21);
-            this.comboBoxCategory.TabIndex = 1;
-            this.comboBoxCategory.SelectedIndexChanged += new System.EventHandler(this.comboBoxCategory_SelectedIndexChanged);
-            // 
-            // labelCategory
-            // 
-            this.labelCategory.AutoSize = true;
-            this.labelCategory.Location = new System.Drawing.Point(3, 10);
-            this.labelCategory.Name = "labelCategory";
-            this.labelCategory.Size = new System.Drawing.Size(55, 13);
-            this.labelCategory.TabIndex = 0;
-            this.labelCategory.Text = "Categorie:";
-            // 
-            // panelHeader
-            // 
-            this.panelHeader.Controls.Add(this.textBoxQuantity);
-            this.panelHeader.Controls.Add(this.labelComponent);
-            this.panelHeader.Controls.Add(this.labelQuantity);
-            this.panelHeader.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelHeader.Location = new System.Drawing.Point(0, 0);
-            this.panelHeader.Name = "panelHeader";
-            this.panelHeader.Size = new System.Drawing.Size(467, 60);
-            this.panelHeader.TabIndex = 7;
-            // 
-            // textBoxQuantity
-            // 
-            this.textBoxQuantity.Location = new System.Drawing.Point(75, 8);
-            this.textBoxQuantity.Name = "textBoxQuantity";
-            this.textBoxQuantity.Size = new System.Drawing.Size(121, 20);
-            this.textBoxQuantity.TabIndex = 3;
-            this.textBoxQuantity.Text = "1";
-            // 
-            // labelComponent
-            // 
-            this.labelComponent.AutoSize = true;
-            this.labelComponent.Location = new System.Drawing.Point(3, 37);
-            this.labelComponent.Name = "labelComponent";
-            this.labelComponent.Size = new System.Drawing.Size(63, 13);
-            this.labelComponent.TabIndex = 4;
-            this.labelComponent.Text = "Composant:";
-            // 
-            // labelQuantity
-            // 
-            this.labelQuantity.AutoSize = true;
-            this.labelQuantity.Location = new System.Drawing.Point(3, 11);
-            this.labelQuantity.Name = "labelQuantity";
-            this.labelQuantity.Size = new System.Drawing.Size(50, 13);
-            this.labelQuantity.TabIndex = 0;
-            this.labelQuantity.Text = "Quantité:";
-            // 
-            // panelFooter
-            // 
-            this.panelFooter.Controls.Add(this.textBoxSearch);
-            this.panelFooter.Controls.Add(this.label1);
-            this.panelFooter.Controls.Add(this.labelCategory);
-            this.panelFooter.Controls.Add(this.comboBoxCategory);
-            this.panelFooter.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelFooter.Location = new System.Drawing.Point(0, 352);
-            this.panelFooter.Name = "panelFooter";
-            this.panelFooter.Size = new System.Drawing.Size(467, 33);
-            this.panelFooter.TabIndex = 8;
-            // 
-            // errorProvider
-            // 
-            this.errorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
-            this.errorProvider.ContainerControl = this;
-            this.errorProvider.Icon = ((System.Drawing.Icon)(resources.GetObject("errorProvider.Icon")));
-            // 
-            // timerFilter
-            // 
-            this.timerFilter.Interval = 500;
-            this.timerFilter.Tick += new System.EventHandler(this.timerFilter_Tick);
             // 
             // idDataGridViewTextBoxColumn
             // 
@@ -252,6 +149,109 @@ namespace Chiffrage.Catalogs.Module.Views.Impl.WizardPages
             this.catalogPriceDataGridViewTextBoxColumn.ReadOnly = true;
             this.catalogPriceDataGridViewTextBoxColumn.Visible = false;
             // 
+            // catalogSupplyViewModelBindingSource
+            // 
+            this.catalogSupplyViewModelBindingSource.DataSource = typeof(Chiffrage.Catalogs.Module.ViewModel.CatalogSupplyViewModel);
+            // 
+            // textBoxSearch
+            // 
+            this.textBoxSearch.Location = new System.Drawing.Point(69, 3);
+            this.textBoxSearch.Name = "textBoxSearch";
+            this.textBoxSearch.Size = new System.Drawing.Size(398, 20);
+            this.textBoxSearch.TabIndex = 0;
+            this.textBoxSearch.TextChanged += new System.EventHandler(this.textBoxSearch_TextChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(-3, 6);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(66, 13);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "Rechercher:";
+            // 
+            // comboBoxCategory
+            // 
+            this.comboBoxCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxCategory.FormattingEnabled = true;
+            this.comboBoxCategory.Items.AddRange(new object[] {
+            "Cable",
+            "Autre"});
+            this.comboBoxCategory.Location = new System.Drawing.Point(75, 7);
+            this.comboBoxCategory.Name = "comboBoxCategory";
+            this.comboBoxCategory.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxCategory.TabIndex = 2;
+            this.comboBoxCategory.SelectedIndexChanged += new System.EventHandler(this.comboBoxCategory_SelectedIndexChanged);
+            // 
+            // labelCategory
+            // 
+            this.labelCategory.AutoSize = true;
+            this.labelCategory.Location = new System.Drawing.Point(3, 10);
+            this.labelCategory.Name = "labelCategory";
+            this.labelCategory.Size = new System.Drawing.Size(55, 13);
+            this.labelCategory.TabIndex = 0;
+            this.labelCategory.Text = "Categorie:";
+            // 
+            // panelHeader
+            // 
+            this.panelHeader.Controls.Add(this.textBoxSearch);
+            this.panelHeader.Controls.Add(this.label1);
+            this.panelHeader.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelHeader.Location = new System.Drawing.Point(0, 0);
+            this.panelHeader.Name = "panelHeader";
+            this.panelHeader.Size = new System.Drawing.Size(467, 26);
+            this.panelHeader.TabIndex = 7;
+            // 
+            // textBoxQuantity
+            // 
+            this.textBoxQuantity.Location = new System.Drawing.Point(297, 7);
+            this.textBoxQuantity.Name = "textBoxQuantity";
+            this.textBoxQuantity.Size = new System.Drawing.Size(121, 20);
+            this.textBoxQuantity.TabIndex = 3;
+            this.textBoxQuantity.Text = "1";
+            // 
+            // labelQuantity
+            // 
+            this.labelQuantity.AutoSize = true;
+            this.labelQuantity.Location = new System.Drawing.Point(225, 10);
+            this.labelQuantity.Name = "labelQuantity";
+            this.labelQuantity.Size = new System.Drawing.Size(50, 13);
+            this.labelQuantity.TabIndex = 0;
+            this.labelQuantity.Text = "Quantité:";
+            // 
+            // panelFooter
+            // 
+            this.panelFooter.Controls.Add(this.labelInvisible);
+            this.panelFooter.Controls.Add(this.labelCategory);
+            this.panelFooter.Controls.Add(this.textBoxQuantity);
+            this.panelFooter.Controls.Add(this.comboBoxCategory);
+            this.panelFooter.Controls.Add(this.labelQuantity);
+            this.panelFooter.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panelFooter.Location = new System.Drawing.Point(0, 352);
+            this.panelFooter.Name = "panelFooter";
+            this.panelFooter.Size = new System.Drawing.Size(467, 33);
+            this.panelFooter.TabIndex = 8;
+            // 
+            // errorProvider
+            // 
+            this.errorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            this.errorProvider.ContainerControl = this;
+            this.errorProvider.Icon = ((System.Drawing.Icon)(resources.GetObject("errorProvider.Icon")));
+            // 
+            // timerFilter
+            // 
+            this.timerFilter.Interval = 500;
+            this.timerFilter.Tick += new System.EventHandler(this.timerFilter_Tick);
+            // 
+            // labelInvisible
+            // 
+            this.labelInvisible.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelInvisible.AutoSize = true;
+            this.labelInvisible.Location = new System.Drawing.Point(447, 10);
+            this.labelInvisible.Name = "labelInvisible";
+            this.labelInvisible.Size = new System.Drawing.Size(0, 13);
+            this.labelInvisible.TabIndex = 9;
+            // 
             // NewHardwareSupplyPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -287,7 +287,6 @@ namespace Chiffrage.Catalogs.Module.Views.Impl.WizardPages
         private System.Windows.Forms.Label labelQuantity;
         private System.Windows.Forms.ErrorProvider errorProvider;
         private System.Windows.Forms.Timer timerFilter;
-        private System.Windows.Forms.Label labelComponent;
         private System.Windows.Forms.DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn catalogIdDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
@@ -295,5 +294,6 @@ namespace Chiffrage.Catalogs.Module.Views.Impl.WizardPages
         private System.Windows.Forms.DataGridViewTextBoxColumn categoryDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private System.Windows.Forms.DataGridViewTextBoxColumn catalogPriceDataGridViewTextBoxColumn;
+        private System.Windows.Forms.Label labelInvisible;
     }
 }

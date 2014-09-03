@@ -28,8 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NewSupplyPage));
             this.textBoxName = new System.Windows.Forms.TextBox();
             this.labelName = new System.Windows.Forms.Label();
             this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
@@ -47,9 +45,8 @@
             this.textBoxPFC12 = new System.Windows.Forms.TextBox();
             this.textBoxCap = new System.Windows.Forms.TextBox();
             this.comboBoxCategory = new System.Windows.Forms.ComboBox();
-            
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.tableLayoutPanel.SuspendLayout();
-            
             this.SuspendLayout();
             // 
             // textBoxName
@@ -58,7 +55,7 @@
             this.textBoxName.Location = new System.Drawing.Point(126, 13);
             this.textBoxName.Name = "textBoxName";
             this.textBoxName.Size = new System.Drawing.Size(194, 20);
-            this.textBoxName.TabIndex = 7;
+            this.textBoxName.TabIndex = 0;
             // 
             // labelName
             // 
@@ -188,7 +185,7 @@
             this.textBoxReference.Location = new System.Drawing.Point(126, 39);
             this.textBoxReference.Name = "textBoxReference";
             this.textBoxReference.Size = new System.Drawing.Size(194, 20);
-            this.textBoxReference.TabIndex = 7;
+            this.textBoxReference.TabIndex = 1;
             // 
             // textBoxModuleSize
             // 
@@ -196,7 +193,7 @@
             this.textBoxModuleSize.Location = new System.Drawing.Point(126, 92);
             this.textBoxModuleSize.Name = "textBoxModuleSize";
             this.textBoxModuleSize.Size = new System.Drawing.Size(194, 20);
-            this.textBoxModuleSize.TabIndex = 7;
+            this.textBoxModuleSize.TabIndex = 3;
             this.textBoxModuleSize.Text = "0";
             // 
             // textBoxCatalogPrice
@@ -205,7 +202,7 @@
             this.textBoxCatalogPrice.Location = new System.Drawing.Point(126, 118);
             this.textBoxCatalogPrice.Name = "textBoxCatalogPrice";
             this.textBoxCatalogPrice.Size = new System.Drawing.Size(194, 20);
-            this.textBoxCatalogPrice.TabIndex = 7;
+            this.textBoxCatalogPrice.TabIndex = 4;
             this.textBoxCatalogPrice.Text = "0.0";
             // 
             // textBoxPFC0
@@ -214,7 +211,7 @@
             this.textBoxPFC0.Location = new System.Drawing.Point(126, 164);
             this.textBoxPFC0.Name = "textBoxPFC0";
             this.textBoxPFC0.Size = new System.Drawing.Size(194, 20);
-            this.textBoxPFC0.TabIndex = 7;
+            this.textBoxPFC0.TabIndex = 5;
             this.textBoxPFC0.Text = "0";
             // 
             // textBoxPFC12
@@ -223,7 +220,7 @@
             this.textBoxPFC12.Location = new System.Drawing.Point(126, 190);
             this.textBoxPFC12.Name = "textBoxPFC12";
             this.textBoxPFC12.Size = new System.Drawing.Size(194, 20);
-            this.textBoxPFC12.TabIndex = 7;
+            this.textBoxPFC12.TabIndex = 6;
             this.textBoxPFC12.Text = "0";
             // 
             // textBoxCap
@@ -242,7 +239,7 @@
             this.comboBoxCategory.Location = new System.Drawing.Point(126, 65);
             this.comboBoxCategory.Name = "comboBoxCategory";
             this.comboBoxCategory.Size = new System.Drawing.Size(194, 21);
-            this.comboBoxCategory.TabIndex = 8;
+            this.comboBoxCategory.TabIndex = 2;
             // 
             // NewSupplyPage
             // 
@@ -251,9 +248,9 @@
             this.Controls.Add(this.tableLayoutPanel);
             this.Name = "NewSupplyPage";
             this.Size = new System.Drawing.Size(353, 330);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.tableLayoutPanel.ResumeLayout(false);
             this.tableLayoutPanel.PerformLayout();
-            
             this.ResumeLayout(false);
 
         }
