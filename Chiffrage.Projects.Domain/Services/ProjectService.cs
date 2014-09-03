@@ -266,7 +266,7 @@ namespace Chiffrage.Projects.Domain.Services
             var hardwareTasksByOriginalId = new Dictionary<int, HardwareTask>();
             foreach (var item in hardware.Tasks)
             {
-                hardwareTasksByOriginalId.Add(item.Id, item);
+                hardwareTasksByOriginalId.Add(item.Task.Id, item);
             }
 
             Mapper.Map<Hardware, ProjectHardware>(hardware, projectHardware);
@@ -280,11 +280,11 @@ namespace Chiffrage.Projects.Domain.Services
             foreach(var item in projectHardware.Tasks)
             {
                 HardwareTask hardwareTask;
-                if (hardwareTasksByOriginalId.TryGetValue(item.HardwareTaskId, out hardwareTask))
+                if (hardwareTasksByOriginalId.TryGetValue(item.Task.Id, out hardwareTask))
                 {
                     item.CatalogValue = hardwareTask.Value;
                     item.Value = hardwareTask.Value;
-                    hardwareTasksByOriginalId.Remove(item.HardwareTaskId);
+                    hardwareTasksByOriginalId.Remove(item.Task.Id);
                 }
             }
 
