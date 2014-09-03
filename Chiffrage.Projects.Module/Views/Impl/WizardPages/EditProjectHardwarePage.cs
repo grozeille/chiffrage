@@ -103,7 +103,7 @@ namespace Chiffrage.Projects.Module.Views.Impl.WizardPages
                 this.tableLayoutPanel.Controls.Add(this.textBoxMilestone, 1, 2);
 
                 int cptRow = 4;
-                int size = 75;
+                int size = 100;
                 tasks.Clear();
 
                 foreach (var item in this.projectTasks.OrderBy(x => x.OrderId))
