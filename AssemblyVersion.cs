@@ -5,5 +5,5 @@
 [assembly: AssemblyCopyright("Copyright © Mathias Kluba 2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
-[assembly: AssemblyVersion("3.5.0.99")]
-[assembly: AssemblyFileVersion("3.5.0.99")]
+[assembly: AssemblyVersion("3.4.2.0")]
+[assembly: AssemblyFileVersion("3.4.2.0")]
